@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<license>
+	<account-name>EMEA Trial</account-name>
+	<owner>Crosig</owner>
+	<description>60 days non production virtual cluster key</description>
+	<product-name>DXP Non-Production</product-name>
+	<product-version>7.3</product-version>
+	<license-name>DXP Non-Production (Virtual Cluster)</license-name>
+	<license-type>virtual-cluster</license-type>
+	<license-version>6</license-version>
+	<start-date>Tuesday, January 4, 2022 12:00:00 AM GMT</start-date>
+	<expiration-date>Wednesday, January 4, 2023 12:00:00 AM GMT</expiration-date>
+	<max-cluster-nodes>6</max-cluster-nodes>
+	<instance-size>Sizing 1</instance-size>
+	<key>9e92f21ce1b30da96b0afe3670eaa0d04cf1b439d9fb62d843ad52f1303a313ead9e663068c7cb2576c3a3e357fd9f45520890a81cbde1ede9a38300ec8947385b5d50597d9456bc97c79ded5ff4e68c44fc61b49a28359bfdd687821d28c02fbe8a32ebcce1e2a228045c9aa82f374e9e1bf9a14e89798ad821e1adaf006dee64a7f743</key>
+</license>
