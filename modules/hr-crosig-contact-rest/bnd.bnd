@@ -1,0 +1,4 @@
+Bundle-Name: hr-crosig-contact-rest
+Bundle-SymbolicName: hr.crosig.contact.rest
+Bundle-Version: 1.0.0
+Liferay-Configuration-Path: /configuration
