@@ -20,91 +20,112 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * @author Guilherme Kfouri
+ */
 public abstract class BaseUpgradeProcess extends UpgradeProcess {
-    public BaseUpgradeProcess(
-            GroupLocalService groupLocalService, Portal portal, UserLocalService userLocalService,
-            RoleLocalService roleLocalService) {
-        _groupLocalService = groupLocalService;
-        _portal = portal;
-        _userLocalService = userLocalService;
-        _roleLocalService = roleLocalService;
-    }
 
-    protected Group addSite(
-            String name, String description, String friendlyURL, int type)
-            throws PortalException {
+	public BaseUpgradeProcess(
+		GroupLocalService groupLocalService, Portal portal,
+		UserLocalService userLocalService, RoleLocalService roleLocalService) {
 
-        long companyId = getDefaultCompanyId();
+		this.groupLocalService = groupLocalService;
+		this.portal = portal;
+		this.userLocalService = userLocalService;
+		this.roleLocalService = roleLocalService;
+	}
 
-        Group group = _groupLocalService.fetchFriendlyURLGroup(
-                companyId, friendlyURL);
+	protected Group addSite(
+			String name, String description, String friendlyURL, int type)
+		throws PortalException {
 
-        if (group != null) {
-            _log.info("Site already exists: " + name);
+		long companyId = getDefaultCompanyId();
 
-            return group;
-        }
+		Group group = groupLocalService.fetchFriendlyURLGroup(
+			companyId, friendlyURL);
 
-        long userId = getAdminUserId();
-        Map<Locale, String> nameMap = getMap(name);
-        Map<Locale, String> descriptionMap = getMap(description);
-        ServiceContext serviceContext = getDefaultServiceContext(companyId, userId);
+		if (group != null) {
+			log.info("Site already exists: " + name);
 
-        try {
-            group = _groupLocalService.addGroup(
-                    userId, GroupConstants.DEFAULT_PARENT_GROUP_ID, Group.class.getName(), userId,
-                    GroupConstants.DEFAULT_LIVE_GROUP_ID, nameMap, descriptionMap, type, true,
-                    GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, friendlyURL,
-                    true, false, true, serviceContext);
-        }
-        catch (PortalException pe) {
-            _log.error("Failed to create site: " + name, pe);
+			return group;
+		}
 
-            throw pe;
-        }
-        _log.info("Site created: " + name);
+		long userId = getAdminUserId();
+		Map<Locale, String> nameMap = getMap(name);
+		Map<Locale, String> descriptionMap = getMap(description);
+		ServiceContext serviceContext = getDefaultServiceContext(
+			companyId, userId);
 
-        return group;
-    }
+		try {
+			group = groupLocalService.addGroup(
+				userId, GroupConstants.DEFAULT_PARENT_GROUP_ID,
+				Group.class.getName(), userId,
+				GroupConstants.DEFAULT_LIVE_GROUP_ID, nameMap, descriptionMap,
+				type, true, GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION,
+				friendlyURL, true, false, true, serviceContext);
+		}
+		catch (PortalException portalException) {
+			log.error("Failed to create site: " + name, portalException);
 
-    protected long getDefaultCompanyId() {
-        return _portal.getDefaultCompanyId();
-    }
+			throw portalException;
+		}
 
-    protected long getAdminUserId() {
-        long companyId = getDefaultCompanyId();
-        try {
-            Role role = _roleLocalService.getRole(companyId, RoleConstants.ADMINISTRATOR);
-            List<User> users = _userLocalService.getRoleUsers(role.getRoleId());
-            return users.get(0).getUserId();
-        } catch (PortalException pe) {
-            _log.error("Failed to get admin user Id", pe);
-        }
-        return 0;
-    }
+		log.info("Site created: " + name);
 
-    protected Map<Locale, String> getMap(String name) {
-        Locale locale = Locale.getDefault();
+		return group;
+	}
 
-        Map<Locale, String> map = new HashMap<>();
-        map.put(locale, name);
-        return map;
-    }
+	protected long getAdminUserId() {
+		long companyId = getDefaultCompanyId();
 
-    protected ServiceContext getDefaultServiceContext(long companyId, long userId) {
-        ServiceContext serviceContext = new ServiceContext();
-        serviceContext.setCompanyId(companyId);
-        serviceContext.setUserId(userId);
-        return serviceContext;
-    }
+		try {
+			Role role = roleLocalService.getRole(
+				companyId, RoleConstants.ADMINISTRATOR);
 
-    protected static final Log _log = LogFactoryUtil.getLog(BaseUpgradeProcess.class);
+			List<User> users = userLocalService.getRoleUsers(role.getRoleId());
 
-    protected GroupLocalService _groupLocalService;
+			User adminUser = users.get(0);
 
-    protected Portal _portal;
+			return adminUser.getUserId();
+		}
+		catch (PortalException portalException) {
+			log.error("Failed to get admin user Id", portalException);
+		}
 
-    protected UserLocalService _userLocalService;
+		return 0;
+	}
 
-    protected RoleLocalService _roleLocalService;
+	protected long getDefaultCompanyId() {
+		return portal.getDefaultCompanyId();
+	}
+
+	protected ServiceContext getDefaultServiceContext(
+		long companyId, long userId) {
+
+		ServiceContext serviceContext = new ServiceContext();
+
+		serviceContext.setCompanyId(companyId);
+		serviceContext.setUserId(userId);
+
+		return serviceContext;
+	}
+
+	protected Map<Locale, String> getMap(String name) {
+		Locale locale = Locale.getDefault();
+
+		Map<Locale, String> map = new HashMap<>();
+
+		map.put(locale, name);
+
+		return map;
+	}
+
+	protected static final Log log = LogFactoryUtil.getLog(
+		BaseUpgradeProcess.class);
+
+	protected GroupLocalService groupLocalService;
+	protected Portal portal;
+	protected RoleLocalService roleLocalService;
+	protected UserLocalService userLocalService;
+
 }
