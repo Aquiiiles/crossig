@@ -56,19 +56,12 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 		ServiceContext serviceContext = getDefaultServiceContext(
 			companyId, userId);
 
-		try {
-			group = groupLocalService.addGroup(
-				userId, GroupConstants.DEFAULT_PARENT_GROUP_ID,
-				Group.class.getName(), userId,
-				GroupConstants.DEFAULT_LIVE_GROUP_ID, nameMap, descriptionMap,
-				type, true, GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION,
-				friendlyURL, true, false, true, serviceContext);
-		}
-		catch (PortalException portalException) {
-			log.error("Failed to create site: " + name, portalException);
-
-			throw portalException;
-		}
+		group = groupLocalService.addGroup(
+			userId, GroupConstants.DEFAULT_PARENT_GROUP_ID,
+			Group.class.getName(), userId,
+			GroupConstants.DEFAULT_LIVE_GROUP_ID, nameMap, descriptionMap,
+			type, true, GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION,
+			friendlyURL, true, false, true, serviceContext);
 
 		log.info("Site created: " + name);
 
