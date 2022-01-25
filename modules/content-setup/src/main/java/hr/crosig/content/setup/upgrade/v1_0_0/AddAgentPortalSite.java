@@ -51,7 +51,7 @@ public class AddAgentPortalSite extends BaseUpgradeProcess {
 			companyId);
 
 		portletPreferences.setValue(
-			"default.landing.page.path", ContentSetupConstants.HOME_URL);
+			"default.landing.page.path", ContentSetupConstants.LANDING_PAGE_URL);
 		portletPreferences.store();
 	}
 
