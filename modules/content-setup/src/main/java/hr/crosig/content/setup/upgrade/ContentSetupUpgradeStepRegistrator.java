@@ -4,6 +4,7 @@ import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.PrefsProps;
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
 
 import hr.crosig.content.setup.constants.ContentSetupConstants;
@@ -26,7 +27,7 @@ public class ContentSetupUpgradeStepRegistrator
 			ContentSetupConstants.SCHEMA_VERSION_1_0_0,
 			new AddAgentPortalSite(
 				_groupLocalService, _portal, _userLocalService,
-				_roleLocalService));
+				_roleLocalService, _prefsProps));
 	}
 
 	@Reference
@@ -34,6 +35,9 @@ public class ContentSetupUpgradeStepRegistrator
 
 	@Reference
 	private Portal _portal;
+
+	@Reference
+	private PrefsProps _prefsProps;
 
 	@Reference
 	private RoleLocalService _roleLocalService;
