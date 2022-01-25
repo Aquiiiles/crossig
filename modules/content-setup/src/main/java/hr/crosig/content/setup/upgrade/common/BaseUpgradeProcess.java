@@ -14,7 +14,6 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.kernel.util.Portal;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +21,14 @@ import java.util.Locale;
 import java.util.Map;
 
 public abstract class BaseUpgradeProcess extends UpgradeProcess {
+    public BaseUpgradeProcess(
+            GroupLocalService groupLocalService, Portal portal, UserLocalService userLocalService,
+            RoleLocalService roleLocalService) {
+        _groupLocalService = groupLocalService;
+        _portal = portal;
+        _userLocalService = userLocalService;
+        _roleLocalService = roleLocalService;
+    }
 
     protected Group addSite(
             String name, String description, String friendlyURL, int type)
@@ -41,12 +48,14 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
         long userId = getAdminUserId();
         Map<Locale, String> nameMap = getMap(name);
         Map<Locale, String> descriptionMap = getMap(description);
+        ServiceContext serviceContext = getDefaultServiceContext(companyId, userId);
 
         try {
             group = _groupLocalService.addGroup(
-                    userId, 0L, null, 0L, 0L, nameMap, descriptionMap, type, true,
+                    userId, GroupConstants.DEFAULT_PARENT_GROUP_ID, Group.class.getName(), userId,
+                    GroupConstants.DEFAULT_LIVE_GROUP_ID, nameMap, descriptionMap, type, true,
                     GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, friendlyURL,
-                    true, true, getDefaultServiceContext());
+                    true, false, true, serviceContext);
         }
         catch (PortalException pe) {
             _log.error("Failed to create site: " + name, pe);
@@ -58,11 +67,11 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
         return group;
     }
 
-    private long getDefaultCompanyId() {
+    protected long getDefaultCompanyId() {
         return _portal.getDefaultCompanyId();
     }
 
-    private long getAdminUserId() {
+    protected long getAdminUserId() {
         long companyId = getDefaultCompanyId();
         try {
             Role role = _roleLocalService.getRole(companyId, RoleConstants.ADMINISTRATOR);
@@ -74,27 +83,28 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
         return 0;
     }
 
-    private Map<Locale, String> getMap(String name) {
+    protected Map<Locale, String> getMap(String name) {
+        Locale locale = Locale.getDefault();
+
         Map<Locale, String> map = new HashMap<>();
-        map.put(Locale.ENGLISH, name);
+        map.put(locale, name);
         return map;
     }
 
-    private ServiceContext getDefaultServiceContext() {
-        return new ServiceContext();
+    protected ServiceContext getDefaultServiceContext(long companyId, long userId) {
+        ServiceContext serviceContext = new ServiceContext();
+        serviceContext.setCompanyId(companyId);
+        serviceContext.setUserId(userId);
+        return serviceContext;
     }
 
-    private static final Log _log = LogFactoryUtil.getLog(BaseUpgradeProcess.class);
+    protected static final Log _log = LogFactoryUtil.getLog(BaseUpgradeProcess.class);
 
-    @Reference
-    private GroupLocalService _groupLocalService;
+    protected GroupLocalService _groupLocalService;
 
-    @Reference
-    private UserLocalService _userLocalService;
+    protected Portal _portal;
 
-    @Reference
-    private RoleLocalService _roleLocalService;
+    protected UserLocalService _userLocalService;
 
-    @Reference
-    private Portal _portal;
+    protected RoleLocalService _roleLocalService;
 }
