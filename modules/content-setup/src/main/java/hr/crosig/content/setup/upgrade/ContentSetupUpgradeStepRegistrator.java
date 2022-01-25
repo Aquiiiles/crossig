@@ -1,5 +1,6 @@
 package hr.crosig.content.setup.upgrade;
 
+import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
@@ -27,8 +28,11 @@ public class ContentSetupUpgradeStepRegistrator
 			ContentSetupConstants.SCHEMA_VERSION_1_0_0,
 			new AddAgentPortalSite(
 				_groupLocalService, _portal, _userLocalService,
-				_roleLocalService, _prefsProps));
+				_roleLocalService, _prefsProps, _companyLocalService));
 	}
+
+	@Reference
+	private CompanyLocalService _companyLocalService;
 
 	@Reference
 	private GroupLocalService _groupLocalService;
