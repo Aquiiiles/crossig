@@ -1,13 +1,15 @@
 package hr.crosig.contact.rest.application;
 
-import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
+import hr.crosig.contact.rest.application.utils.ApiConstants;
+import hr.crosig.contact.rest.application.utils.HttpRequest;
+import hr.crosig.contact.rest.application.utils.WebserviceUtils;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -29,27 +31,27 @@ import java.util.Set;
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/contacts")
 public class ContactApplication extends Application {
-    private static final Log log = LogFactoryUtil.getLog(ContactApplication.class);
-
     public Set<Object> getSingletons() {
         return Collections.singleton(this);
     }
 
-    private Response handleError(Exception e) {
-        log.error(e);
+    @GET
+    @Path("/search")
+    public Response search(@QueryParam("q") String query,
+                           @QueryParam("city") String city,
+                           @QueryParam("address") String address,
+                           @QueryParam("phoneCountryCode") String phoneCountryCode,
+                           @QueryParam("phoneAreaCode") String phoneAreaCode,
+                           @QueryParam("phoneNumber") String phoneNumber,
+                           @QueryParam("email") String email) {
+        try {
+            String response = new HttpRequest().sendRequestWithResponse(ApiConstants.MOCK_CONTACTS_API_URL, null, ApiConstants.METHOD.GET);
 
-        return Response.status(
-                Response.Status.INTERNAL_SERVER_ERROR
-        ).entity(
-                e.getMessage()
-        ).build();
+            return WebserviceUtils.successResponse(response);
+        } catch (Exception e) {
+            return WebserviceUtils.errorResponse(e);
+        }
     }
 
-    private Response success(JSONObject entity) {
-        return Response.status(
-                Response.Status.OK
-        ).entity(
-                entity.toJSONString()
-        ).build();
-    }
+
 }
