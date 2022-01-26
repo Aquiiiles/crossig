@@ -1,15 +1,22 @@
 package hr.crosig.contact.rest.application;
 
-import hr.crosig.contact.rest.application.utils.ApiConstants;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.json.JsonReadFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import hr.crosig.contact.rest.application.dto.ContactDTO;
+import hr.crosig.contact.rest.application.utils.ContactApplicationConstants;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -51,9 +58,45 @@ public class ContactApplication extends Application {
 		try {
 			return getClient(
 			).target(
-				ApiConstants.MOCK_CONTACTS_API_URL
+				ContactApplicationConstants.MOCK_CONTACTS_API_URL
 			).request(
 			).get();
+		}
+		catch (Exception exception) {
+			return Response.serverError(
+			).build();
+		}
+	}
+
+	@POST
+	@Path("/")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response createContact(ContactDTO contactDTO) {
+		try {
+			String entityJson = createEntityJsonString(contactDTO);
+			return getClient(
+			).target(
+					"http://demo8853560.mockable.io/"
+			).request(
+			).post(Entity.json(entityJson));
+		}
+		catch (Exception exception) {
+			return Response.serverError(
+			).build();
+		}
+	}
+
+	@PUT
+	@Path("/")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateContact(ContactDTO contactDTO) {
+		try {
+			String entityJson = createEntityJsonString(contactDTO);
+			return getClient(
+			).target(
+					"http://demo8853560.mockable.io/"
+			).request(
+			).post(Entity.json(entityJson));
 		}
 		catch (Exception exception) {
 			return Response.serverError(
@@ -72,6 +115,20 @@ public class ContactApplication extends Application {
 		}
 
 		return _client;
+	}
+
+	protected String createEntityJsonString(Object entity) throws JsonProcessingException {
+		ObjectMapper mapper = configureMapper();
+		return mapper.writeValueAsString(entity);
+	}
+
+	protected ObjectMapper configureMapper() {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(
+				JsonReadFeature.ALLOW_UNESCAPED_CONTROL_CHARS.mappedFeature(),
+				true
+		);
+		return mapper;
 	}
 
 	private Client _client;
