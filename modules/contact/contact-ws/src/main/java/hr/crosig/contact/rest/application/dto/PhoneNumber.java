@@ -3,7 +3,7 @@ package hr.crosig.contact.rest.application.dto;
 public class PhoneNumber {
     private int countryCode;
     private int areaCode;
-    private int phoneNumber;
+    private String phoneNumber;
 
     public int getCountryCode() {
         return countryCode;
@@ -21,11 +21,11 @@ public class PhoneNumber {
         this.areaCode = areaCode;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }
