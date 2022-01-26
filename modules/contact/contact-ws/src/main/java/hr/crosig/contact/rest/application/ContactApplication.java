@@ -10,6 +10,7 @@ import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -68,14 +69,32 @@ public class ContactApplication extends Application {
 	}
 
 	@POST
-	@Path("/add/contact")
+	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createContact(ContactDTO contactDTO) {
 		try {
 			String entityJson = createEntityJsonString(contactDTO);
 			return getClient(
 			).target(
-					"http://demo8853560.mockable.io/add/contact/"
+					"http://demo8853560.mockable.io/"
+			).request(
+			).post(Entity.json(entityJson));
+		}
+		catch (Exception exception) {
+			return Response.serverError(
+			).build();
+		}
+	}
+
+	@PUT
+	@Path("/")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateContact(ContactDTO contactDTO) {
+		try {
+			String entityJson = createEntityJsonString(contactDTO);
+			return getClient(
+			).target(
+					"http://demo8853560.mockable.io/"
 			).request(
 			).post(Entity.json(entityJson));
 		}
