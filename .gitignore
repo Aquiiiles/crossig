@@ -50,3 +50,8 @@ Thumbs.db
 
 # Liferay
 /bundles/
+.gradle/
+
+# React module files
+liferay-npm-bundler-report.html
+.webpack/*
