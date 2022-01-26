@@ -1,10 +1,8 @@
 package hr.crosig.contact.rest.application;
 
 import hr.crosig.contact.rest.application.utils.ApiConstants;
-
-import java.util.Collections;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -15,16 +13,16 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
+import java.util.Collections;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author victor.catanante
  */
 @Component(
 	property = {
-		JaxrsWhiteboardConstants.JAX_RS_APPLICATION_BASE + "=/agent-portal-contact",
+		JaxrsWhiteboardConstants.JAX_RS_APPLICATION_BASE + "=/agent-portal/contact",
 		JaxrsWhiteboardConstants.JAX_RS_NAME + "=Contact.Rest",
 		JaxrsWhiteboardConstants.JAX_RS_MEDIA_TYPE + "=application/json",
 		"auth.verifier.guest.allowed=false",
