@@ -40,8 +40,9 @@ public class ContactApplication extends Application {
 	@Path("/search")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response search(
-		@QueryParam("q") String query, @QueryParam("city") String city,
-		@QueryParam("address") String address,
+		@QueryParam("nameOrOIB") String nameOrOIB,
+		@QueryParam("city") String city,
+		@QueryParam("streetAddress") String streetAddress,
 		@QueryParam("phoneCountryCode") String phoneCountryCode,
 		@QueryParam("phoneAreaCode") String phoneAreaCode,
 		@QueryParam("phoneNumber") String phoneNumber,
