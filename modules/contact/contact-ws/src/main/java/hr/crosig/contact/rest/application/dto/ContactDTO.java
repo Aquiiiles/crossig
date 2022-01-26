@@ -1,17 +1,22 @@
 package hr.crosig.contact.rest.application.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import hr.crosig.contact.rest.application.enums.ContactType;
+import hr.crosig.contact.rest.application.utils.ContactApplicationConstants;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class ContactDTO {
+public class ContactDTO implements Serializable {
     private ContactType contactType;
     private String firstName;
     private String lastName;
     private String companyName;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = ContactApplicationConstants.DATE_FORMAT)
     private Date dateOfBirth;
     private long oib;
+    private boolean foreignerStatus;
     private String country;
     private String city;
     private String postalCode;
@@ -23,7 +28,7 @@ public class ContactDTO {
     private String dispatchStreetAddress;
     private int dispatchHouseNumber;
     private List<String> emails;
-    private List<Long> phoneNumbers;
+    private List<PhoneNumber> phoneNumbers;
 
     public ContactType getContactType() {
         return contactType;
@@ -71,6 +76,14 @@ public class ContactDTO {
 
     public void setOib(long oib) {
         this.oib = oib;
+    }
+
+    public boolean isForeignerStatus() {
+        return foreignerStatus;
+    }
+
+    public void setForeignerStatus(boolean foreignerStatus) {
+        this.foreignerStatus = foreignerStatus;
     }
 
     public String getCountry() {
@@ -161,11 +174,11 @@ public class ContactDTO {
         this.emails = emails;
     }
 
-    public List<Long> getPhoneNumbers() {
+    public List<PhoneNumber> getPhoneNumbers() {
         return phoneNumbers;
     }
 
-    public void setPhoneNumbers(List<Long> phoneNumbers) {
+    public void setPhoneNumbers(List<PhoneNumber> phoneNumbers) {
         this.phoneNumbers = phoneNumbers;
     }
 }
