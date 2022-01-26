@@ -55,6 +55,23 @@ public class AddressApplication extends Application {
         }
     }
 
+    @GET
+    @Path("/{cityId}/streets")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getStreets(@PathParam("cityId") long cityId) {
+
+        try {
+            return getClient(
+            ).target(
+                    ApiConstants.MOCK_CITIES_STREET_API_URL
+            ).request(
+            ).get();
+        } catch (Exception exception) {
+            return Response.serverError(
+            ).build();
+        }
+    }
+
     protected Client getClient() {
         if (_client == null) {
             ClientBuilder clientBuilder = ClientBuilder.newBuilder();
