@@ -58,7 +58,7 @@ public class AddressApplication extends Application {
     @GET
     @Path("/{cityId}/streets")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getStreets(@PathParam("cityId") long cityId) {
+    public Response getStreetsByCity(@PathParam("cityId") long cityId) {
 
         try {
             return getClient(
