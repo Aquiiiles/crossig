@@ -8,7 +8,6 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.PrefsProps;
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
 
-import hr.crosig.content.setup.constants.ContentSetupConstants;
 import hr.crosig.content.setup.upgrade.v1_0_0.AddAgentPortalSite;
 
 import org.osgi.service.component.annotations.Component;
@@ -24,8 +23,7 @@ public class ContentSetupUpgradeStepRegistrator
 	@Override
 	public void register(Registry registry) {
 		registry.register(
-			ContentSetupConstants.SCHEMA_VERSION_0_0_0,
-			ContentSetupConstants.SCHEMA_VERSION_1_0_0,
+			"0.0.0", "1.0.0",
 			new AddAgentPortalSite(
 				_groupLocalService, _portal, _userLocalService,
 				_roleLocalService, _prefsProps, _companyLocalService));

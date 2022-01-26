@@ -17,8 +17,4 @@ public class ContentSetupConstants {
 
 	public static final String LANDING_PAGE_URL = "/group/agent-portal";
 
-	public static final String SCHEMA_VERSION_0_0_0 = "0.0.0";
-
-	public static final String SCHEMA_VERSION_1_0_0 = "1.0.0";
-
 }

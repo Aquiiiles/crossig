@@ -5,9 +5,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.GroupConstants;
-import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.model.role.RoleConstants;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -16,7 +14,6 @@ import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.kernel.util.Portal;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -50,7 +47,7 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 			return group;
 		}
 
-		long userId = getAdminUserId();
+		long userId = getAdminUserId(companyId);
 		Map<Locale, String> nameMap = getMap(name);
 		Map<Locale, String> descriptionMap = getMap(description);
 		ServiceContext serviceContext = getDefaultServiceContext(
@@ -58,34 +55,20 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 
 		group = groupLocalService.addGroup(
 			userId, GroupConstants.DEFAULT_PARENT_GROUP_ID,
-			Group.class.getName(), userId,
-			GroupConstants.DEFAULT_LIVE_GROUP_ID, nameMap, descriptionMap,
-			type, true, GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION,
-			friendlyURL, true, false, true, serviceContext);
+			Group.class.getName(), userId, GroupConstants.DEFAULT_LIVE_GROUP_ID,
+			nameMap, descriptionMap, type, true,
+			GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, friendlyURL, true,
+			false, true, serviceContext);
 
 		log.info("Site created: " + name);
 
 		return group;
 	}
 
-	protected long getAdminUserId() {
-		long companyId = getDefaultCompanyId();
+	protected long getAdminUserId(long companyId) throws PortalException {
+		User adminUser = userLocalService.getDefaultUser(companyId);
 
-		try {
-			Role role = roleLocalService.getRole(
-				companyId, RoleConstants.ADMINISTRATOR);
-
-			List<User> users = userLocalService.getRoleUsers(role.getRoleId());
-
-			User adminUser = users.get(0);
-
-			return adminUser.getUserId();
-		}
-		catch (PortalException portalException) {
-			log.error("Failed to get admin user Id", portalException);
-		}
-
-		return 0;
+		return adminUser.getUserId();
 	}
 
 	protected long getDefaultCompanyId() {
