@@ -38,7 +38,22 @@ public class AddressApplication extends Application {
         return Collections.singleton(this);
     }
 
-    
+    @GET
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCities() {
+
+        try {
+            return getClient(
+            ).target(
+                    ApiConstants.MOCK_CITIES_ALL_API_URL
+            ).request(
+            ).get();
+        } catch (Exception exception) {
+            return Response.serverError(
+            ).build();
+        }
+    }
 
     protected Client getClient() {
         if (_client == null) {
