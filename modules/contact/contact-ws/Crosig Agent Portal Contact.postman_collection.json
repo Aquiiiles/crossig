@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "1ca6eb94-dc68-45d9-ad2a-82480f83bb60",
+		"name": "Crosig Agent Portal Contact",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Search Contact",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localURL}}/search?nameOrOIB&city&streetAddress&phoneCountryCode&phoneAreaCode&phoneNumber&email",
+					"host": [
+						"{{localURL}}"
+					],
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "nameOrOIB",
+							"value": null
+						},
+						{
+							"key": "city",
+							"value": null
+						},
+						{
+							"key": "streetAddress",
+							"value": null
+						},
+						{
+							"key": "phoneCountryCode",
+							"value": null
+						},
+						{
+							"key": "phoneAreaCode",
+							"value": null
+						},
+						{
+							"key": "phoneNumber",
+							"value": null
+						},
+						{
+							"key": "email",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Contact",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"contactType\": 1,\n    \"firstName\": \"John\",\n    \"lastName\": \"Silberman\",\n    \"dateOfBirth\": \"022-01-25\",\n    \"oib\": 123456789,\n    \"foreignerStatus\": true,\n    \"country\": \"Croatia\",\n    \"city\": \"Dubrovnik\",\n    \"postalCode\": \"20000\",\n    \"streetAddress\": \"Ul. Svetog Dominika\",\n    \"houseNumber\": \"67\",\n    \"dispatchCountry\": \"Croatia\",\n    \"dispatchCity\": \"Dubrovnik\",\n    \"dispatchPostalCode\": \"20000\",\n    \"dispatchStreetAddress\": \"Ul. Svetog Dominika\",\n    \"dispatchHouseNumber\": \"67\",\n    \"emails\": [\n        \"a@gmail.com\",\n        \"b@gmail.com\"\n    ],\n    \"phoneNumbers\": [\n        {\n            \"countryCode\": 385,\n            \"areaCode\": 91,\n            \"phoneNumber\": \"6457900\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localURL}}",
+					"host": [
+						"{{localURL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Contact",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"contactType\": 1,\n    \"firstName\": \"John\",\n    \"lastName\": \"Silberman\",\n    \"dateOfBirth\": \"022-01-25\",\n    \"oib\": 123456789,\n    \"foreignerStatus\": true,\n    \"country\": \"Croatia\",\n    \"city\": \"Dubrovnik\",\n    \"postalCode\": \"20000\",\n    \"streetAddress\": \"Ul. Svetog Dominika\",\n    \"houseNumber\": \"67\",\n    \"dispatchCountry\": \"Croatia\",\n    \"dispatchCity\": \"Dubrovnik\",\n    \"dispatchPostalCode\": \"20000\",\n    \"dispatchStreetAddress\": \"Ul. Svetog Dominika\",\n    \"dispatchHouseNumber\": \"67\",\n    \"emails\": [\n        \"a@gmail.com\",\n        \"b@gmail.com\"\n    ],\n    \"phoneNumbers\": [\n        {\n            \"countryCode\": 385,\n            \"areaCode\": 91,\n            \"phoneNumber\": \"6457900\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localURL}}",
+					"host": [
+						"{{localURL}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "test",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "test@liferay.com",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "localURL",
+			"value": "http://localhost:8080/o/agent-portal/"
+		}
+	]
+}
