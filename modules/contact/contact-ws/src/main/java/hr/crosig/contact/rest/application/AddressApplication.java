@@ -25,8 +25,8 @@ import java.util.concurrent.TimeUnit;
                 JaxrsWhiteboardConstants.JAX_RS_APPLICATION_BASE + "=/agent-portal/city",
                 JaxrsWhiteboardConstants.JAX_RS_NAME + "=City.Rest",
                 JaxrsWhiteboardConstants.JAX_RS_MEDIA_TYPE + "=application/json",
-                "auth.verifier.guest.allowed=true",
-                "liferay.access.control.disable=true"
+                "auth.verifier.guest.allowed=false",
+                "liferay.access.control.disable=false"
         },
         service = Application.class
 )
