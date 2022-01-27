@@ -7,7 +7,6 @@ import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.PrefsProps;
 
 import hr.crosig.content.setup.constants.ContentSetupConstants;
@@ -22,11 +21,13 @@ import javax.portlet.PortletPreferences;
 public class AddAgentPortalSite extends BaseUpgradeProcess {
 
 	public AddAgentPortalSite(
-		GroupLocalService groupLocalService, Portal portal,
-		UserLocalService userLocalService, RoleLocalService roleLocalService,
-		PrefsProps prefsProps, CompanyLocalService companyLocalService) {
+		GroupLocalService groupLocalService, UserLocalService userLocalService,
+		RoleLocalService roleLocalService, PrefsProps prefsProps,
+		CompanyLocalService companyLocalService) {
 
-		super(groupLocalService, portal, userLocalService, roleLocalService);
+		super(
+			groupLocalService, companyLocalService, userLocalService,
+			roleLocalService);
 
 		this.prefsProps = prefsProps;
 		this.companyLocalService = companyLocalService;
