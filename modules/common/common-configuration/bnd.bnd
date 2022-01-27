@@ -1,0 +1,4 @@
+Bundle-Name: common-configuration
+Bundle-SymbolicName: common.configuration
+Bundle-Version: 1.0.0
+Export-Package: common.configuration.api
