@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1ca6eb94-dc68-45d9-ad2a-82480f83bb60",
+		"_postman_id": "da202f12-3822-42fc-8a76-892dbda98f10",
 		"name": "Crosig Agent Portal Contact",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,9 +11,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{localURL}}/search?nameOrOIB&city&streetAddress&phoneCountryCode&phoneAreaCode&phoneNumber&email",
+					"raw": "{{localURL}}contact/search?nameOrOIB&city&streetAddress&phoneCountryCode&phoneAreaCode&phoneNumber&email",
 					"host": [
-						"{{localURL}}"
+						"{{localURL}}contact"
 					],
 					"path": [
 						"search"
@@ -99,6 +99,46 @@
 					"raw": "{{localURL}}",
 					"host": [
 						"{{localURL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Cities",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localURL}}city/",
+					"host": [
+						"{{localURL}}city"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Streets by City",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localURL}}city/?cityId=1",
+					"host": [
+						"{{localURL}}city"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "cityId",
+							"value": "1"
+						}
 					]
 				}
 			},

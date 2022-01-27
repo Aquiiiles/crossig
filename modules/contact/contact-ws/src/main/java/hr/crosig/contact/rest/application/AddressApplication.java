@@ -1,6 +1,7 @@
 package hr.crosig.contact.rest.application;
 
-import hr.crosig.contact.rest.application.utils.ApiConstants;
+import hr.crosig.contact.rest.application.utils.AddressApplicationConstants;
+import hr.crosig.contact.rest.application.utils.ApplicationUtilities;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
@@ -8,14 +9,11 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collections;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author marcelo.mazurky
@@ -32,8 +30,6 @@ import java.util.concurrent.TimeUnit;
 )
 public class AddressApplication extends Application {
 
-    private Client _client;
-
     public Set<Object> getSingletons() {
         return Collections.singleton(this);
     }
@@ -44,9 +40,9 @@ public class AddressApplication extends Application {
     public Response getCities() {
 
         try {
-            return getClient(
+            return ApplicationUtilities.getDefaultHttpClient(
             ).target(
-                    ApiConstants.MOCK_CITIES_ALL_API_URL
+                    AddressApplicationConstants.MOCK_CITIES_ALL_API_URL
             ).request(
             ).get();
         } catch (Exception exception) {
@@ -61,28 +57,15 @@ public class AddressApplication extends Application {
     public Response getStreetsByCity(@PathParam("cityId") long cityId) {
 
         try {
-            return getClient(
+            return ApplicationUtilities.getDefaultHttpClient(
             ).target(
-                    ApiConstants.MOCK_CITIES_STREET_API_URL
+                    AddressApplicationConstants.MOCK_CITIES_STREET_API_URL
             ).request(
             ).get();
         } catch (Exception exception) {
             return Response.serverError(
             ).build();
         }
-    }
-
-    protected Client getClient() {
-        if (_client == null) {
-            ClientBuilder clientBuilder = ClientBuilder.newBuilder();
-
-            clientBuilder.connectTimeout(10, TimeUnit.SECONDS);
-            clientBuilder.readTimeout(60, TimeUnit.SECONDS);
-
-            _client = clientBuilder.build();
-        }
-
-        return _client;
     }
 
 }
