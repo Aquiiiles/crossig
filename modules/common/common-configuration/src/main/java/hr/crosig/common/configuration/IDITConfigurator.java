@@ -33,10 +33,8 @@ public class IDITConfigurator {
 		return String.valueOf(hostURL.get(_iditConfiguration.hostURL()));
 	}
 
-	public IDITAuthenticationType getIDITAuthenticationType() {
-		String authenticationType = _iditConfiguration.authenticationType();
-
-		return IDITAuthenticationType.valueOf(authenticationType);
+	public AuthType getIDITAuthenticationType() {
+		return AuthType.valueOf(_iditConfiguration.authenticationType());
 	}
 
 	public String getOAuthClientID(Map<String, Object> oAuthClientID) {
