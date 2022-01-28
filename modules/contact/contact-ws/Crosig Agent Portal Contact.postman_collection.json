@@ -143,6 +143,23 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Get Area Codes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localURL}}phone/area-code",
+					"host": [
+						"{{localURL}}phone"
+					],
+					"path": [
+						"area-code"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
