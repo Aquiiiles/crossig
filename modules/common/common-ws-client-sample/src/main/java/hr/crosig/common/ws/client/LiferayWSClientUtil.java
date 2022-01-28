@@ -1,6 +1,6 @@
 package hr.crosig.common.ws.client;
 
-import hr.crosig.common.ws.exception.ServiceInvokeException;
+import hr.crosig.common.ws.exception.ServiceInvocationException;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
@@ -16,7 +16,7 @@ public class LiferayWSClientUtil {
 	}
 
 	public static String invokeGetUserByEmail(String emailAddress)
-		throws ServiceInvokeException {
+		throws ServiceInvocationException {
 
 		LiferayWSClient liferayWSClient = getService();
 

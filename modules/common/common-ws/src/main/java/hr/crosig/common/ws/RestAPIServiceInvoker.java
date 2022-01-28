@@ -1,6 +1,6 @@
 package hr.crosig.common.ws;
 
-import hr.crosig.common.ws.exception.ServiceInvokeException;
+import hr.crosig.common.ws.exception.ServiceInvocationException;
 import hr.crosig.common.ws.response.ServiceResponse;
 
 /**
@@ -9,10 +9,14 @@ import hr.crosig.common.ws.response.ServiceResponse;
 public interface RestAPIServiceInvoker {
 
 	public ServiceResponse get(ServiceProvider provider, String path)
-		throws ServiceInvokeException;
+		throws ServiceInvocationException;
 
 	public ServiceResponse post(
 			ServiceProvider provider, String path, String payload)
-		throws ServiceInvokeException;
+		throws ServiceInvocationException;
+
+	public ServiceResponse put(
+			ServiceProvider provider, String path, String payload)
+		throws ServiceInvocationException;
 
 }

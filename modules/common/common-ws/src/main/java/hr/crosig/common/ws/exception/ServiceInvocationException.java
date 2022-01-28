@@ -5,13 +5,13 @@ import com.liferay.portal.kernel.exception.PortalException;
 /**
  * @author Leonardo Miyagi
  */
-public class ServiceInvokeException extends PortalException {
+public class ServiceInvocationException extends PortalException {
 
-	public ServiceInvokeException(String msg) {
+	public ServiceInvocationException(String msg) {
 		super(msg);
 	}
 
-	public ServiceInvokeException(String msg, Throwable throwable) {
+	public ServiceInvocationException(String msg, Throwable throwable) {
 		super(msg, throwable);
 	}
 

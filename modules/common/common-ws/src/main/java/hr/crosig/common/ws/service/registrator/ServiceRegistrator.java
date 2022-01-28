@@ -2,7 +2,7 @@ package hr.crosig.common.ws.service.registrator;
 
 import hr.crosig.common.ws.ServiceConnectionProvider;
 import hr.crosig.common.ws.ServiceProvider;
-import hr.crosig.common.ws.exception.ServiceInvokeException;
+import hr.crosig.common.ws.exception.ServiceInvocationException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,10 +28,10 @@ public class ServiceRegistrator {
 
 	public ServiceConnectionProvider getConnectionProvider(
 			ServiceProvider serviceProvider)
-		throws ServiceInvokeException {
+		throws ServiceInvocationException {
 
 		if (!_connectionProviders.containsKey(serviceProvider)) {
-			throw new ServiceInvokeException(
+			throw new ServiceInvocationException(
 				"No provider found for " + serviceProvider.name());
 		}
 

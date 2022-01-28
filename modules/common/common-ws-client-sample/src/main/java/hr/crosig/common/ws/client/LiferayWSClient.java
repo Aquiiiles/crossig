@@ -5,7 +5,7 @@ import com.liferay.portal.kernel.util.StringBundler;
 
 import hr.crosig.common.ws.RestAPIServiceInvoker;
 import hr.crosig.common.ws.ServiceProvider;
-import hr.crosig.common.ws.exception.ServiceInvokeException;
+import hr.crosig.common.ws.exception.ServiceInvocationException;
 import hr.crosig.common.ws.response.ServiceResponse;
 
 import org.osgi.service.component.annotations.Component;
@@ -18,7 +18,7 @@ import org.osgi.service.component.annotations.Reference;
 public class LiferayWSClient {
 
 	public String getUserByEmail(String emailAddress)
-		throws ServiceInvokeException {
+		throws ServiceInvocationException {
 
 		long defaultCompanyId = PortalUtil.getDefaultCompanyId();
 
