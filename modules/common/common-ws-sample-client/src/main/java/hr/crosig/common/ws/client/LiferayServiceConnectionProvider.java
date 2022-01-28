@@ -2,9 +2,10 @@ package hr.crosig.common.ws.client;
 
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 
+import hr.crosig.common.configuration.LiferayConnectionConfiguration;
+import hr.crosig.common.configuration.OAuthGrantType;
 import hr.crosig.common.ws.ServiceConnectionProvider;
 import hr.crosig.common.ws.ServiceProvider;
-import hr.crosig.common.ws.oauth.OAuthGrantType;
 
 import java.util.Map;
 
@@ -59,7 +60,7 @@ public class LiferayServiceConnectionProvider
 
 	@Override
 	public String getOauth2TokenURL() {
-		return "http://localhost:8080/o/oauth2/token";
+		return _configuration.getOauth2TokenURL();
 	}
 
 	@Override
