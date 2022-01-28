@@ -1,0 +1,8 @@
+Bundle-Name: Crosig Common WS
+Bundle-SymbolicName: hr.crosig.common.ws
+Bundle-Version: 1.0.0
+Export-Package:\
+	hr.crosig.common.ws,\
+	hr.crosig.common.ws.exception,\
+	hr.crosig.common.ws.oauth,\
+	hr.crosig.common.ws.response\
