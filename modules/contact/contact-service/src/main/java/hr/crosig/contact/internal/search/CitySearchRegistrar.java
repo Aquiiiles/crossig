@@ -1,0 +1,37 @@
+package hr.crosig.contact.internal.search;
+
+import com.liferay.portal.search.spi.model.registrar.ModelSearchRegistrarHelper;
+import hr.crosig.contact.constants.CityConstants;
+import hr.crosig.contact.model.City;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceRegistration;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
+import org.osgi.service.component.annotations.Reference;
+
+/**
+ * @author guilherme.kfouri
+ */
+@Component(immediate = true)
+public class CitySearchRegistrar {
+
+    @Activate
+    protected void activate(BundleContext bundleContext) {
+        _serviceRegistration = modelSearchRegistrarHelper.register(
+                City.class, bundleContext,
+                modelSearchDefinition -> modelSearchDefinition.setDefaultSelectedFieldNames(
+                        CityConstants.FIELD_CITY_ID, CityConstants.FIELD_CITY_NAME));
+    }
+
+    @Deactivate
+    protected void deactivate() {
+        _serviceRegistration.unregister();
+    }
+
+    @Reference
+    protected ModelSearchRegistrarHelper modelSearchRegistrarHelper;
+
+    private ServiceRegistration<?> _serviceRegistration;
+
+}
