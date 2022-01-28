@@ -54,9 +54,8 @@ Thumbs.db
 
 # Liferay
 /bundles/
-.gradle/
+.gradle
 **/.gradle/
-/.gradle/
 
 # React module files
 liferay-npm-bundler-report.html
