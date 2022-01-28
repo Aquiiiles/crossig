@@ -15,17 +15,33 @@
 package hr.crosig.contact.service.impl;
 
 import com.liferay.portal.aop.AopService;
-
+import com.liferay.portal.kernel.search.Indexable;
+import com.liferay.portal.kernel.search.IndexableType;
+import hr.crosig.contact.constants.CityConstants;
+import hr.crosig.contact.model.City;
 import hr.crosig.contact.service.base.CityLocalServiceBaseImpl;
-
 import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Brian Wing Shun Chan
  */
 @Component(
-	property = "model.class.name=hr.crosig.contact.model.City",
+	property = "model.class.name=" + CityConstants.MODEL_CLASS_NAME,
 	service = AopService.class
 )
 public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
+
+	@Indexable(type = IndexableType.REINDEX)
+	public City addCity(City city) {
+		return city;
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	public City updateCity(City city) {
+		return city;
+	}
+
+	@Indexable(type = IndexableType.DELETE)
+	public void deleteCity(City city) {
+	}
 }
