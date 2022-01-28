@@ -8,9 +8,10 @@ import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.Validator;
 
+import hr.crosig.common.configuration.OAuthGrantType;
 import hr.crosig.common.ws.ServiceConnectionProvider;
 import hr.crosig.common.ws.ServiceProvider;
-import hr.crosig.common.ws.exception.ServiceInvokeException;
+import hr.crosig.common.ws.exception.ServiceInvocationException;
 
 import java.io.IOException;
 
@@ -34,7 +35,7 @@ public class OAuthTokenProvider {
 	}
 
 	public OAuthToken getToken(ServiceConnectionProvider connectionProvider)
-		throws ServiceInvokeException {
+		throws ServiceInvocationException {
 
 		if (_tokens.containsKey(connectionProvider.getProvider())) {
 			OAuthToken oAuthToken = _tokens.get(
@@ -48,17 +49,8 @@ public class OAuthTokenProvider {
 		return _getToken(connectionProvider);
 	}
 
-	private OAuthToken _getToken(ServiceConnectionProvider connectionProvider)
-		throws ServiceInvokeException {
-
-		if (!OAuthGrantType.CLIENT_CREDENTIALS.equals(
-				connectionProvider.getOAuth2GrantType())) {
-
-			throw new ServiceInvokeException(
-				"OAuth token flow not implemented for " +
-					connectionProvider.getOAuth2GrantType(
-					).name());
-		}
+	private Http.Options _buildOptions(
+		ServiceConnectionProvider connectionProvider) {
 
 		Http.Options options = new Http.Options();
 
@@ -77,13 +69,38 @@ public class OAuthTokenProvider {
 		options.setLocation(
 			connectionProvider.getOauth2TokenURL() + tokenParameters);
 
+		return options;
+	}
+
+	private Date _getExpirationTime() {
+		Calendar calendar = Calendar.getInstance();
+
+		calendar.add(Calendar.SECOND, _TOKEN_EXPIRATION_IN_SECONDS);
+
+		return calendar.getTime();
+	}
+
+	private OAuthToken _getToken(ServiceConnectionProvider connectionProvider)
+		throws ServiceInvocationException {
+
+		if (!OAuthGrantType.CLIENT_CREDENTIALS.equals(
+				connectionProvider.getOAuth2GrantType())) {
+
+			throw new ServiceInvocationException(
+				"OAuth token flow not implemented for " +
+					connectionProvider.getOAuth2GrantType(
+					).name());
+		}
+
+		Http.Options options = _buildOptions(connectionProvider);
+
 		try {
 			String responseContent = HttpUtil.URLtoString(options);
 
 			Http.Response response = options.getResponse();
 
 			if (response.getResponseCode() != 200) {
-				throw new ServiceInvokeException(
+				throw new ServiceInvocationException(
 					"Could not get an oauth token");
 			}
 
@@ -93,24 +110,19 @@ public class OAuthTokenProvider {
 			String token = jsonObject.getString("access_token");
 
 			if (Validator.isNull(token)) {
-				throw new ServiceInvokeException(
-					"Could not get an oauth token");
+				throw new ServiceInvocationException(
+					"Could not get an oauth token. Response " +
+						responseContent);
 			}
 
-			Calendar calendar = Calendar.getInstance();
-
-			calendar.add(Calendar.SECOND, _TOKEN_EXPIRATION_IN_SECONDS);
-
-			Date tokenExpirationTime = calendar.getTime();
-
-			OAuthToken oAuthToken = new OAuthToken(token, tokenExpirationTime);
+			OAuthToken oAuthToken = new OAuthToken(token, _getExpirationTime());
 
 			_tokens.put(connectionProvider.getProvider(), oAuthToken);
 
 			return oAuthToken;
 		}
 		catch (IOException | JSONException exception) {
-			throw new ServiceInvokeException(
+			throw new ServiceInvocationException(
 				"Could not get an Oauth token", exception);
 		}
 	}

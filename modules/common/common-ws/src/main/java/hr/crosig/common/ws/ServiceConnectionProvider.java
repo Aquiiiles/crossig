@@ -1,6 +1,6 @@
 package hr.crosig.common.ws;
 
-import hr.crosig.common.ws.oauth.OAuthGrantType;
+import hr.crosig.common.configuration.OAuthGrantType;
 
 /**
  * @author Leonardo Miyagi

@@ -1,4 +1,4 @@
-package hr.crosig.common.ws.oauth;
+package hr.crosig.common.configuration;
 
 /**
  * @author Leonardo Miyagi

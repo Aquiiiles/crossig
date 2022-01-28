@@ -1,4 +1,4 @@
-package hr.crosig.common.ws.client;
+package hr.crosig.common.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
@@ -15,7 +15,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 public interface LiferayConnectionConfiguration {
 
 	public static String LIFERAY_CONNECTION =
-		"hr.crosig.common.ws.client.LiferayConnectionConfiguration";
+		"hr.crosig.common.configuration.LiferayConnectionConfiguration";
 
 	@Meta.AD(
 		deflt = "dGVzdEBsaWZlcmF5LmNvbTp0ZXN0", description = "",
@@ -24,7 +24,7 @@ public interface LiferayConnectionConfiguration {
 	public String getAccessToken();
 
 	@Meta.AD(
-		deflt = "OAuth", description = "", name = "Auth Type", required = false
+		deflt = "Basic", description = "", name = "Auth Type", required = false
 	)
 	public String getAuthType();
 
@@ -45,5 +45,11 @@ public interface LiferayConnectionConfiguration {
 		name = "OAuth Client Secret", required = false
 	)
 	public String getOAuthClientSecret();
+
+	@Meta.AD(
+			deflt = "/o/oauth2/token", description = "",
+			name = "OAuth Token URL", required = false
+	)
+	public String getOauth2TokenURL();
 
 }

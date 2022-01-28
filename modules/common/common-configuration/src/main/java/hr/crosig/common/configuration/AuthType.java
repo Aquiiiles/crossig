@@ -1,11 +1,11 @@
-package hr.crosig.common.ws;
+package hr.crosig.common.configuration;
 
 /**
  * @author Leonardo Miyagi
  */
 public enum AuthType {
 
-	BASIC("Basic"), OAUTH("OAuth");
+	BASIC("Basic"), GUEST("Guest"), OAUTH("OAuth");
 
 	AuthType(String type) {
 		_type = type;
