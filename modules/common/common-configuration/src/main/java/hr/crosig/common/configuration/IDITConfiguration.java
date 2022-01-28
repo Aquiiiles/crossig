@@ -18,7 +18,7 @@ public interface IDITConfiguration {
 	public static final String IDIT_CONFIGURATION_ID =
 		"hr.crosig.common.configuration.IDITConfiguration";
 
-	@Meta.AD(deflt = "")
+	@Meta.AD(deflt = "",required = true)
 	public String hostURL();
 
 	@Meta.AD(deflt = "", required = false)
