@@ -27,12 +27,24 @@ public interface IDITConfiguration {
 	@Meta.AD(deflt = "", required = false)
 	public String oAuth2ClientID();
 
+	@Meta.AD(
+		deflt = "", description = "",
+		name = "OAuth Token URL", required = false
+	)
+	public String getOauth2TokenURL();
+
+	@Meta.AD(
+		deflt = "", description = "",
+		name = "OAuth Grant Type", required = false
+	)
+	public String getOAuth2GrantType();
+
 	@Meta.AD(deflt = "", required = false)
 	public String accessToken();
 
 	@Meta.AD(
-		deflt = "BASIC", name = "authentication-type",
-		optionLabels = {"Basic", "OAuth2"}, optionValues = {"BASIC", "OAUTH2"},
+		deflt = "Basic", name = "authentication-type",
+		optionLabels = {"Basic", "OAuth2"}, optionValues = {"Basic", "OAuth2"},
 		required = false
 	)
 	public String authenticationType();

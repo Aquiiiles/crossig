@@ -1,0 +1,31 @@
+package hr.crosig.common.ws.idit.client;
+
+import hr.crosig.common.ws.RestAPIServiceInvoker;
+import hr.crosig.common.ws.ServiceProvider;
+import hr.crosig.common.ws.exception.ServiceInvocationException;
+import hr.crosig.common.ws.response.ServiceResponse;
+
+import java.util.Map;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
+/**
+ * @author Leonardo Miyagi
+ */
+@Component(immediate = true, service = IDITWSClient.class)
+public class IDITWSClient {
+
+	public String searchContact(Map<String, String> parameters)
+		throws ServiceInvocationException {
+
+		ServiceResponse serviceResponse = _restAPIServiceInvoker.get(
+			ServiceProvider.IDIT, "/search");
+
+		return serviceResponse.getContent();
+	}
+
+	@Reference
+	private RestAPIServiceInvoker _restAPIServiceInvoker;
+
+}

@@ -5,6 +5,6 @@ package hr.crosig.common.ws;
  */
 public enum ServiceProvider {
 
-	LIFERAY
+	IDIT, LIFERAY
 
 }
