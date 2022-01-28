@@ -213,7 +213,7 @@
 						"contact",
 						"mobilePhone"
 					],
-					"raw": "{{localURL}}/contact/phone/verification"
+					"raw": "{{localURL}}contact/phone/verification"
 				}
 			},
 			"response": []
