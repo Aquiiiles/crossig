@@ -1,5 +1,5 @@
-Bundle-Name: Crosig Agent Portal Resource Languages
-Bundle-SymbolicName: hr.crosig.resource.language
+Bundle-Name: Crosig Agent Portal Resource Bundle
+Bundle-SymbolicName: hr.crosig.resource.bundle
 Bundle-Version: 1.0.0
 Provide-Capability:\
 	liferay.language.resources;\

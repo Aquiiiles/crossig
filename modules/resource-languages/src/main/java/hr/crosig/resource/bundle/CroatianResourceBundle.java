@@ -1,4 +1,4 @@
-package hr.crosig.resource.language;
+package hr.crosig.resource.bundle;
 
 import com.liferay.portal.kernel.language.UTF8Control;
 import org.osgi.service.component.annotations.Component;
@@ -13,9 +13,9 @@ import java.util.ResourceBundle;
 @Component(
         immediate = true,
         property = {
-                "language.id=hr"
+                "language.id=hr_HR"
         },
-        service = CroatianResourceBundle.class
+        service = ResourceBundle.class
 )
 
 public class CroatianResourceBundle extends ResourceBundle {
@@ -33,7 +33,7 @@ public class CroatianResourceBundle extends ResourceBundle {
 
     private final ResourceBundle _resourceBundle =
             ResourceBundle.getBundle(
-                    "content.Language", UTF8Control.INSTANCE);
+                    "content.Language_hr", UTF8Control.INSTANCE);
 
 
 }
