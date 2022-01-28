@@ -23,6 +23,9 @@ dist/
 target/
 dist/
 
+# Gradle
+.gradle
+
 # JetBrains IDE
 .idea/
 
@@ -55,3 +58,9 @@ Thumbs.db
 # React module files
 liferay-npm-bundler-report.html
 .webpack/*
+
+
+# Liferay theme
+liferay-theme.json
+.web_bundle_build
+.yo-rc.json

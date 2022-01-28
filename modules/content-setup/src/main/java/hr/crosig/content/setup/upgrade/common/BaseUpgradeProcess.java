@@ -11,6 +11,7 @@ import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Portal;
 
 import java.util.HashMap;
@@ -87,7 +88,7 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 	}
 
 	protected Map<Locale, String> getMap(String name) {
-		Locale locale = Locale.getDefault();
+		Locale locale = LocaleUtil.getDefault();
 
 		Map<Locale, String> map = new HashMap<>();
 
