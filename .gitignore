@@ -42,6 +42,7 @@ Thumbs.db
 *.app
 *.exe
 *.war
+*.bin
 
 # Large media files
 *.mp4
@@ -53,7 +54,8 @@ Thumbs.db
 
 # Liferay
 /bundles/
-.gradle/
+.gradle
+**/.gradle/
 
 # React module files
 liferay-npm-bundler-report.html
@@ -64,3 +66,4 @@ liferay-npm-bundler-report.html
 liferay-theme.json
 .web_bundle_build
 .yo-rc.json
+
