@@ -5,12 +5,13 @@ import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.Validator;
 
-import hr.crosig.common.ws.AuthType;
+import hr.crosig.common.configuration.AuthType;
 import hr.crosig.common.ws.RestAPIServiceInvoker;
 import hr.crosig.common.ws.ServiceConnectionProvider;
 import hr.crosig.common.ws.ServiceProvider;
-import hr.crosig.common.ws.exception.ServiceInvokeException;
+import hr.crosig.common.ws.exception.ServiceInvocationException;
 import hr.crosig.common.ws.oauth.OAuthToken;
 import hr.crosig.common.ws.oauth.OAuthTokenProvider;
 import hr.crosig.common.ws.response.ServiceResponse;
@@ -29,9 +30,11 @@ public class RestAPIServiceInvokerImpl implements RestAPIServiceInvoker {
 
 	@Override
 	public ServiceResponse get(ServiceProvider provider, String path)
-		throws ServiceInvokeException {
+		throws ServiceInvocationException {
 
-		Http.Options options = _setupServiceCall(provider, path, null, false);
+		Http.Options options = _setupServiceCall(provider, path, null);
+
+		options.setPost(false);
 
 		return _invokeService(options);
 	}
@@ -39,15 +42,29 @@ public class RestAPIServiceInvokerImpl implements RestAPIServiceInvoker {
 	@Override
 	public ServiceResponse post(
 			ServiceProvider provider, String path, String payload)
-		throws ServiceInvokeException {
+		throws ServiceInvocationException {
 
-		Http.Options options = _setupServiceCall(provider, path, payload, true);
+		Http.Options options = _setupServiceCall(provider, path, payload);
+
+		options.setPost(true);
+
+		return _invokeService(options);
+	}
+
+	@Override
+	public ServiceResponse put(
+			ServiceProvider provider, String path, String payload)
+		throws ServiceInvocationException {
+
+		Http.Options options = _setupServiceCall(provider, path, payload);
+
+		options.setPut(true);
 
 		return _invokeService(options);
 	}
 
 	private ServiceResponse _invokeService(Http.Options options)
-		throws ServiceInvokeException {
+		throws ServiceInvocationException {
 
 		try {
 			String responseContent = HttpUtil.URLtoString(options);
@@ -58,7 +75,7 @@ public class RestAPIServiceInvokerImpl implements RestAPIServiceInvoker {
 				response.getResponseCode(), responseContent);
 		}
 		catch (IOException ioException) {
-			throw new ServiceInvokeException(
+			throw new ServiceInvocationException(
 				"Error calling service " + options.getLocation(), ioException);
 		}
 	}
@@ -76,7 +93,7 @@ public class RestAPIServiceInvokerImpl implements RestAPIServiceInvoker {
 
 	private void _setHeaders(
 			Http.Options options, ServiceConnectionProvider provider)
-		throws ServiceInvokeException {
+		throws ServiceInvocationException {
 
 		options.addHeader("Accept", "*/*");
 		options.addHeader(
@@ -104,21 +121,19 @@ public class RestAPIServiceInvokerImpl implements RestAPIServiceInvoker {
 	}
 
 	private Http.Options _setupServiceCall(
-			ServiceProvider provider, String path, String payload, boolean post)
-		throws ServiceInvokeException {
+			ServiceProvider provider, String path, String payload)
+		throws ServiceInvocationException {
 
 		ServiceConnectionProvider connectionProvider =
 			_serviceRegistrator.getConnectionProvider(provider);
 
 		Http.Options options = new Http.Options();
 
-		options.setPost(post);
-
 		_setHeaders(options, connectionProvider);
 
 		_setEndpoint(options, path, connectionProvider);
 
-		if (post) {
+		if (Validator.isNotNull(payload)) {
 			options.setBody(
 				payload, ContentTypes.APPLICATION_JSON, StringPool.UTF8);
 		}
