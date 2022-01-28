@@ -4,7 +4,6 @@ import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.PrefsProps;
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
 
@@ -25,8 +24,8 @@ public class ContentSetupUpgradeStepRegistrator
 		registry.register(
 			"0.0.0", "1.0.0",
 			new AddAgentPortalSite(
-				_groupLocalService, _portal, _userLocalService,
-				_roleLocalService, _prefsProps, _companyLocalService));
+				_groupLocalService, _userLocalService, _roleLocalService,
+				_prefsProps, _companyLocalService));
 	}
 
 	@Reference
@@ -34,9 +33,6 @@ public class ContentSetupUpgradeStepRegistrator
 
 	@Reference
 	private GroupLocalService _groupLocalService;
-
-	@Reference
-	private Portal _portal;
 
 	@Reference
 	private PrefsProps _prefsProps;
