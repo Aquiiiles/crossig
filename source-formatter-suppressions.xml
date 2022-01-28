@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<suppressions>
+    <checkstyle>
+        <suppress checks="ChainingCheck" files=".*"/>
+        <suppress checks="MissingModifierCheck" files=".*"/>
+        <suppress checks="PlusStatementCheck" files=".*"/>
+        <suppress checks="ValidatorIsNullCheck" files=".*"/>
+    </checkstyle>
+    <source-check>
+        <suppress checks="CopyrightCheck" files=".*"/>
+    </source-check>
+</suppressions>

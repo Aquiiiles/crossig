@@ -1,3 +1,5 @@
 Bundle-Name: Crosig Agent Portal Common Configuration
 Bundle-SymbolicName: hr.crosig.common.configuration
 Bundle-Version: 1.0.0
+Export-Package: \
+    hr.crosig.common.configuration\
