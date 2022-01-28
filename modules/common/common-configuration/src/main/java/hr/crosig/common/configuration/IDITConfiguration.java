@@ -18,7 +18,7 @@ public interface IDITConfiguration {
 	public static final String IDIT_CONFIGURATION_ID =
 		"hr.crosig.common.configuration.IDITConfiguration";
 
-	@Meta.AD(deflt = "",required = true)
+	@Meta.AD(deflt = "https://demo3197060.mockable.io/",required = true)
 	public String hostURL();
 
 	@Meta.AD(deflt = "", required = false)
