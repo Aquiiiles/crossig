@@ -103,7 +103,11 @@ public class OAuthTokenProvider {
 
 			Date tokenExpirationTime = calendar.getTime();
 
-			return new OAuthToken(token, tokenExpirationTime);
+			OAuthToken oAuthToken = new OAuthToken(token, tokenExpirationTime);
+
+			_tokens.put(connectionProvider.getProvider(), oAuthToken);
+
+			return oAuthToken;
 		}
 		catch (IOException | JSONException exception) {
 			throw new ServiceInvokeException(
