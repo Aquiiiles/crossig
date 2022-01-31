@@ -92,7 +92,7 @@ public class ContactApplication extends Application {
 			).target(
 					"http://demo8853560.mockable.io/"
 			).request(
-			).post(Entity.json(entityJson));
+			).put(Entity.json(entityJson));
 		}
 		catch (Exception exception) {
 			return Response.serverError(
