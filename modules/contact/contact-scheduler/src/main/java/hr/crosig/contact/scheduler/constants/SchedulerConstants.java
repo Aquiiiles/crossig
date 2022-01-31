@@ -3,7 +3,7 @@ package hr.crosig.contact.scheduler.constants;
 /**
  * @author victor.catanante
  */
-public abstract class SchedulerConstants {
+public class SchedulerConstants {
 
     public static final String SCHEDULER_ENABLED = "Scheduler is enabled with cronExpression %s.";
     
