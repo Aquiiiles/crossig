@@ -200,7 +200,7 @@
 							"language": "json"
 						}
 					},
-					"raw": "[\n  {\n    \"countryCode\":385,\n    \"areaCode\":20,\n    \"phoneNumber\":\"6457900\"\n  }\n]"
+					"raw": "[\n    {\n        \"ifsId\": 1,\n        \"countryCode\": \"385\",\n        \"phoneNumber\": \"6457900\",\n        \"phoneNumberTypeId\": 1,\n        \"phoneNumberTypeExternalCode\": \"1\",\n        \"brand\": \"some brand\",\n        \"username\": \"some username\"\n    }\n]"
 				},
 				"header": [
 				],
