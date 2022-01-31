@@ -13,8 +13,16 @@ public class ContentSetupConstants {
 
 	public static final String AGENT_PORTAL_SITE_NAME = "Agent Portal";
 
+	public static final String AGENT_USER_GROUP = "Agent";
+
 	public static final String HOME_URL = "/web/agent-portal";
 
 	public static final String LANDING_PAGE_URL = "/group/agent-portal";
+
+	public static final String MANAGER_USER_GROUP = "Manager";
+
+	public static final String REGIONAL_MANAGER_USER_GROUP = "Regional Manager";
+
+	public static final String SALES_MANAGER_USER_GROUP = "Sales Manager";
 
 }

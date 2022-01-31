@@ -3,15 +3,8 @@ package hr.crosig.content.setup.upgrade.common;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.Company;
-import com.liferay.portal.kernel.model.Group;
-import com.liferay.portal.kernel.model.GroupConstants;
-import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.service.CompanyLocalService;
-import com.liferay.portal.kernel.service.GroupLocalService;
-import com.liferay.portal.kernel.service.RoleLocalService;
-import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.model.*;
+import com.liferay.portal.kernel.service.*;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
@@ -25,6 +18,17 @@ import java.util.Map;
  * @author Guilherme Kfouri
  */
 public abstract class BaseUpgradeProcess extends UpgradeProcess {
+
+	public BaseUpgradeProcess(
+		CompanyLocalService companyLocalService,
+		GroupLocalService groupLocalService, UserLocalService userLocalService,
+		UserGroupLocalService userGroupLocalService) {
+
+		this.companyLocalService = companyLocalService;
+		this.groupLocalService = groupLocalService;
+		this.userLocalService = userLocalService;
+		this.userGroupLocalService = userGroupLocalService;
+	}
 
 	public BaseUpgradeProcess(
 		GroupLocalService groupLocalService,
@@ -41,10 +45,10 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 			String name, String description, String friendlyURL, int type)
 		throws PortalException {
 
-		long companyId = getDefaultCompanyId();
+		_companyId = getDefaultCompanyId();
 
 		Group group = groupLocalService.fetchFriendlyURLGroup(
-			companyId, friendlyURL);
+			_companyId, friendlyURL);
 
 		if (group != null) {
 			log.info("Site already exists: " + name);
@@ -52,22 +56,49 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 			return group;
 		}
 
-		long userId = getAdminUserId(companyId);
+		_userId = getAdminUserId(_companyId);
 		Map<Locale, String> nameMap = getMap(name);
 		Map<Locale, String> descriptionMap = getMap(description);
 		ServiceContext serviceContext = getDefaultServiceContext(
-			companyId, userId);
+			_companyId, _userId);
 
 		group = groupLocalService.addGroup(
-			userId, GroupConstants.DEFAULT_PARENT_GROUP_ID,
-			Group.class.getName(), userId, GroupConstants.DEFAULT_LIVE_GROUP_ID,
-			nameMap, descriptionMap, type, true,
-			GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, friendlyURL, true,
-			false, true, serviceContext);
+			_userId, GroupConstants.DEFAULT_PARENT_GROUP_ID,
+			Group.class.getName(), _userId,
+			GroupConstants.DEFAULT_LIVE_GROUP_ID, nameMap, descriptionMap, type,
+			true, GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, friendlyURL,
+			true, false, true, serviceContext);
 
 		log.info("Site created: " + name);
 
 		return group;
+	}
+
+	protected UserGroup addUserGroup(String name, String description)
+		throws PortalException {
+
+		_companyId = getDefaultCompanyId();
+
+		UserGroup userGroup = userGroupLocalService.fetchUserGroup(
+			_companyId, name);
+
+		if (userGroup != null) {
+			log.info("User Group already exists: " + name);
+
+			return userGroup;
+		}
+
+		_userId = getAdminUserId(_companyId);
+
+		ServiceContext serviceContext = getDefaultServiceContext(
+			_companyId, _userId);
+
+		userGroup = userGroupLocalService.addUserGroup(
+			_userId, _companyId, name, description, serviceContext);
+
+		log.info("User Group created: " + name);
+
+		return userGroup;
 	}
 
 	protected long getAdminUserId(long companyId) throws PortalException {
@@ -111,6 +142,10 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 	protected CompanyLocalService companyLocalService;
 	protected GroupLocalService groupLocalService;
 	protected RoleLocalService roleLocalService;
+	protected UserGroupLocalService userGroupLocalService;
 	protected UserLocalService userLocalService;
+
+	private Long _companyId;
+	private Long _userId;
 
 }
