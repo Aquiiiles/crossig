@@ -4,6 +4,9 @@ package hr.crosig.contact.scheduler.service.base;
  * @author victor.catanante
  */
 public interface ClearCacheService {
-    void clearIndexCache(String index);
-    void clearAllIndicesCache();
+
+	void _clearIndexCache(String index);
+
+	void _clearAllIndicesCache();
+
 }

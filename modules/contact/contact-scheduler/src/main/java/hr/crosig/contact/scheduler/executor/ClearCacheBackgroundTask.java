@@ -5,7 +5,9 @@ import com.liferay.portal.kernel.backgroundtask.BackgroundTaskExecutor;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTaskResult;
 import com.liferay.portal.kernel.backgroundtask.BaseBackgroundTaskExecutor;
 import com.liferay.portal.kernel.backgroundtask.display.BackgroundTaskDisplay;
+
 import hr.crosig.contact.scheduler.service.base.ClearCacheService;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -13,33 +15,39 @@ import org.osgi.service.component.annotations.Reference;
  * @author victor.catanante
  */
 @Component(
-    immediate = true,
-    property = "background.task.executor.class.name=hr.crosig.contact.scheduler.executor.ClearCacheBackgroundTask",
-    service = ClearCacheBackgroundTask.class
+	immediate = true,
+	property = "background.task.executor.class.name=hr.crosig.contact.scheduler.executor.ClearCacheBackgroundTask",
+	service = ClearCacheBackgroundTask.class
 )
 public class ClearCacheBackgroundTask extends BaseBackgroundTaskExecutor {
 
-    @Override
-    public BackgroundTaskExecutor clone() {
-        return new ClearCacheBackgroundTask();
-    }
+	@Override
+	public BackgroundTaskExecutor clone() {
+		return new ClearCacheBackgroundTask();
+	}
 
-    @Override
-    public BackgroundTaskResult execute(BackgroundTask backgroundTask) throws Exception {
-        _clearCacheService.clearAllIndicesCache();
-        return BackgroundTaskResult.SUCCESS;
-    }
+	@Override
+	public BackgroundTaskResult execute(BackgroundTask backgroundTask)
+		throws Exception {
 
-    @Override
-    public BackgroundTaskDisplay getBackgroundTaskDisplay(BackgroundTask backgroundTask) {
-        return null;
-    }
+		_clearCacheService.clearAllIndicesCache();
 
-    @Override
-    public boolean isSerial() {
-        return true;
-    }
+		return BackgroundTaskResult.SUCCESS;
+	}
 
-    @Reference(unbind = "-")
-    private ClearCacheService _clearCacheService;
+	@Override
+	public BackgroundTaskDisplay getBackgroundTaskDisplay(
+		BackgroundTask backgroundTask) {
+
+		return null;
+	}
+
+	@Override
+	public boolean isSerial() {
+		return true;
+	}
+
+	@Reference(unbind = "-")
+	private ClearCacheService _clearCacheService;
+
 }
