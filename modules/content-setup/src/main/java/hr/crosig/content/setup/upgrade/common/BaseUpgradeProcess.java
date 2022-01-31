@@ -33,12 +33,11 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 	public BaseUpgradeProcess(
 		GroupLocalService groupLocalService,
 		CompanyLocalService companyLocalService,
-		UserLocalService userLocalService, RoleLocalService roleLocalService) {
+		UserLocalService userLocalService) {
 
 		this.groupLocalService = groupLocalService;
 		this.companyLocalService = companyLocalService;
 		this.userLocalService = userLocalService;
-		this.roleLocalService = roleLocalService;
 	}
 
 	protected Group addSite(
@@ -141,7 +140,6 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 
 	protected CompanyLocalService companyLocalService;
 	protected GroupLocalService groupLocalService;
-	protected RoleLocalService roleLocalService;
 	protected UserGroupLocalService userGroupLocalService;
 	protected UserLocalService userLocalService;
 

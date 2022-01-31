@@ -22,7 +22,7 @@ public class ContentSetupUpgradeStepRegistrator
 		registry.register(
 			"0.0.0", "1.0.0",
 			new AddAgentPortalSite(
-				_groupLocalService, _userLocalService, _roleLocalService,
+				_groupLocalService, _userLocalService,
 				_prefsProps, _companyLocalService));
 
 		registry.register(
@@ -40,9 +40,6 @@ public class ContentSetupUpgradeStepRegistrator
 
 	@Reference
 	private PrefsProps _prefsProps;
-
-	@Reference
-	private RoleLocalService _roleLocalService;
 
 	@Reference
 	private UserGroupLocalService _userGroupLocalService;
