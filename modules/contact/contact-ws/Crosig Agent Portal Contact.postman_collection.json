@@ -160,6 +160,63 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Mail Validation",
+			"request": {
+				"body": {
+					"mode": "raw",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					},
+					"raw": "[\n  {\n    \"ifsId\":1,\n    \"email\":\"test@crosig.hr\",\n    \"emailTypeId\":1,\n    \"emailTypeExternalCode\":1,\n    \"brand\":1,\n    \"userName\":\"user\"\n  }\n]"
+				},
+				"header": [
+				],
+				"method": "POST",
+				"url": {
+					"host": [
+						"{{localURL}}"
+					],
+					"path": [
+						"contact",
+						"email"
+					],
+					"raw": "{{localURL}}contact/email/verification"
+				}
+			},
+			"response": [
+			]
+		},
+		{
+			"name": "Phone Validation",
+			"request": {
+				"body": {
+					"mode": "raw",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					},
+					"raw": "[\n    {\n        \"ifsId\": 1,\n        \"countryCode\": \"385\",\n        \"phoneNumber\": \"6457900\",\n        \"phoneNumberTypeId\": 1,\n        \"phoneNumberTypeExternalCode\": \"1\",\n        \"brand\": \"some brand\",\n        \"username\": \"some username\"\n    }\n]"
+				},
+				"header": [
+				],
+				"method": "POST",
+				"url": {
+					"host": [
+						"{{localURL}}"
+					],
+					"path": [
+						"contact",
+						"mobilePhone"
+					],
+					"raw": "{{localURL}}contact/phone/verification"
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {

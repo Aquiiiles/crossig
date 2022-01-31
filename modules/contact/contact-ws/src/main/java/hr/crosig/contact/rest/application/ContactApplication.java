@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hr.crosig.contact.rest.application.dto.ContactDTO;
+import hr.crosig.contact.rest.application.dto.EmailDTO;
+import hr.crosig.contact.rest.application.dto.PhoneNumberDTO;
 import hr.crosig.contact.rest.application.utils.ApplicationUtilities;
 import hr.crosig.contact.rest.application.utils.ContactApplicationConstants;
 import org.osgi.service.component.annotations.Component;
@@ -15,6 +17,7 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -88,6 +91,42 @@ public class ContactApplication extends Application {
 			return ApplicationUtilities.getDefaultHttpClient(
 			).target(
 					"http://demo8853560.mockable.io/"
+			).request(
+			).put(Entity.json(entityJson));
+		}
+		catch (Exception exception) {
+			return Response.serverError(
+			).build();
+		}
+	}
+
+	@POST
+	@Path("/email/verification")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response validateEmail(List<EmailDTO> emails) {
+		try {
+			String entityJson = createEntityJsonString(emails);
+			return ApplicationUtilities.getDefaultHttpClient(
+			).target(
+				ContactApplicationConstants.MOCK_CONTACTS_EMAIL_VERIFICATION
+			).request(
+			).post(Entity.json(entityJson));
+		}
+		catch (Exception exception) {
+			return Response.serverError(
+			).build();
+		}
+	}
+
+	@POST
+	@Path("/phone/verification")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response validatePhoneNumber(List<PhoneNumberDTO> phoneNumberDTOS) {
+		try {
+			String entityJson = createEntityJsonString(phoneNumberDTOS);
+			return ApplicationUtilities.getDefaultHttpClient(
+			).target(
+				ContactApplicationConstants.MOCK_CONTACTS_PHONE_VERIFICATION
 			).request(
 			).post(Entity.json(entityJson));
 		}

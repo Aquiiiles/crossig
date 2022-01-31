@@ -28,7 +28,7 @@ public class ContactDTO implements Serializable {
     private String dispatchStreetAddress;
     private int dispatchHouseNumber;
     private List<String> emails;
-    private List<PhoneNumber> phoneNumbers;
+    private List<PhoneNumberDTO> phoneNumbers;
 
     public ContactType getContactType() {
         return contactType;
@@ -174,11 +174,11 @@ public class ContactDTO implements Serializable {
         this.emails = emails;
     }
 
-    public List<PhoneNumber> getPhoneNumbers() {
+    public List<PhoneNumberDTO> getPhoneNumbers() {
         return phoneNumbers;
     }
 
-    public void setPhoneNumbers(List<PhoneNumber> phoneNumbers) {
+    public void setPhoneNumbers(List<PhoneNumberDTO> phoneNumbers) {
         this.phoneNumbers = phoneNumbers;
     }
 }
