@@ -2,9 +2,10 @@ Bundle-Name: Crosig Agent Portal Contact API
 Bundle-SymbolicName: hr.crosig.contact.api
 Bundle-Version: 1.0.0
 Export-Package:\
+	hr.crosig.contact.constants,\
 	hr.crosig.contact.exception,\
 	hr.crosig.contact.model,\
 	hr.crosig.contact.service,\
-	hr.crosig.contact.service.persistence
+    hr.crosig.contact.service.persistence
 -check: EXPORTS
 -includeresource: META-INF/service.xml=../contact-service/service.xml

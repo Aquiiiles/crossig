@@ -20,6 +20,6 @@ public class CityModelDocumentContributor
     @Override
     public void contribute(Document document, City entry) {
         document.addNumber(CityConstants.FIELD_CITY_ID, entry.getCityId());
-        document.addText(CityConstants.FIELD_CITY_NAME, entry.getCityName());
+        document.addKeyword(CityConstants.FIELD_CITY_NAME, entry.getName());
     }
 }

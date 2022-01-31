@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.util.PortalUtil;
 
 import hr.crosig.contact.service.StreetLocalService;
 import hr.crosig.contact.service.StreetLocalServiceUtil;
+import hr.crosig.contact.service.persistence.CityPersistence;
 
 import java.lang.reflect.Field;
 
@@ -123,6 +124,9 @@ public abstract class StreetLocalServiceBaseImpl
 			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
+
+	@Reference
+	protected CityPersistence cityPersistence;
 
 	protected StreetLocalService streetLocalService;
 

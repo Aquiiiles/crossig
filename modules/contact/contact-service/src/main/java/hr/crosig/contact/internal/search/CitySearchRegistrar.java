@@ -1,5 +1,7 @@
 package hr.crosig.contact.internal.search;
 
+import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.search.spi.model.index.contributor.ModelIndexerWriterContributor;
 import com.liferay.portal.search.spi.model.registrar.ModelSearchRegistrarHelper;
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.model.City;
@@ -18,16 +20,29 @@ public class CitySearchRegistrar {
 
     @Activate
     protected void activate(BundleContext bundleContext) {
+
         _serviceRegistration = modelSearchRegistrarHelper.register(
                 City.class, bundleContext,
-                modelSearchDefinition -> modelSearchDefinition.setDefaultSelectedFieldNames(
-                        CityConstants.FIELD_CITY_ID, CityConstants.FIELD_CITY_NAME));
+                modelSearchDefinition -> {
+                    modelSearchDefinition.setDefaultSelectedFieldNames(
+                            Field.COMPANY_ID, Field.ENTRY_CLASS_NAME,
+                            CityConstants.FIELD_CITY_NAME, Field.ENTRY_CLASS_PK);
+
+                    modelSearchDefinition.setModelIndexWriteContributor(
+                            modelIndexWriterContributor);
+                });
     }
 
     @Deactivate
     protected void deactivate() {
         _serviceRegistration.unregister();
     }
+
+    @Reference(
+            target = "(indexer.class.name=" + CityConstants.MODEL_CLASS_NAME + ")"
+    )
+    protected ModelIndexerWriterContributor<City>
+            modelIndexWriterContributor;
 
     @Reference
     protected ModelSearchRegistrarHelper modelSearchRegistrarHelper;
