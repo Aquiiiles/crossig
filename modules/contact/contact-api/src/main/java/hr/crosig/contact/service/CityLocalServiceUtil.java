@@ -24,6 +24,7 @@ import hr.crosig.contact.model.City;
 import java.io.Serializable;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the local service utility for City. This utility wraps
@@ -44,6 +45,9 @@ public class CityLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>hr.crosig.contact.service.impl.CityLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static void addCities(Map<Long, String> citiesNames) {
+		getService().addCities(citiesNames);
+	}
 
 	/**
 	 * Adds the city to the database. Also notifies the appropriate model listeners.
@@ -57,6 +61,10 @@ public class CityLocalServiceUtil {
 	 */
 	public static City addCity(City city) {
 		return getService().addCity(city);
+	}
+
+	public static void addCity(long cityId, String cityName) {
+		getService().addCity(cityId, cityName);
 	}
 
 	/**
@@ -220,7 +228,8 @@ public class CityLocalServiceUtil {
 	}
 
 	public static List<String> getCitiesNamesByName(
-		String cityName, int start, int end) {
+			String cityName, int start, int end)
+		throws Exception {
 
 		return getService().getCitiesNamesByName(cityName, start, end);
 	}

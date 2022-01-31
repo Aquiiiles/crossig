@@ -30,6 +30,11 @@ public class CityLocalServiceWrapper
 		_cityLocalService = cityLocalService;
 	}
 
+	@Override
+	public void addCities(java.util.Map<Long, String> citiesNames) {
+		_cityLocalService.addCities(citiesNames);
+	}
+
 	/**
 	 * Adds the city to the database. Also notifies the appropriate model listeners.
 	 *
@@ -45,6 +50,11 @@ public class CityLocalServiceWrapper
 		hr.crosig.contact.model.City city) {
 
 		return _cityLocalService.addCity(city);
+	}
+
+	@Override
+	public void addCity(long cityId, String cityName) {
+		_cityLocalService.addCity(cityId, cityName);
 	}
 
 	/**
@@ -235,7 +245,8 @@ public class CityLocalServiceWrapper
 
 	@Override
 	public java.util.List<String> getCitiesNamesByName(
-		String cityName, int start, int end) {
+			String cityName, int start, int end)
+		throws Exception {
 
 		return _cityLocalService.getCitiesNamesByName(cityName, start, end);
 	}

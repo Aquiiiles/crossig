@@ -26,19 +26,24 @@ import com.liferay.portal.search.query.BooleanQuery;
 import com.liferay.portal.search.query.MatchPhrasePrefixQuery;
 import com.liferay.portal.search.query.MatchQuery;
 import com.liferay.portal.search.query.Queries;
+import com.liferay.portal.search.query.Query;
 import com.liferay.portal.search.searcher.SearchRequest;
 import com.liferay.portal.search.searcher.SearchRequestBuilder;
 import com.liferay.portal.search.searcher.SearchRequestBuilderFactory;
 import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.searcher.Searcher;
+
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.model.City;
 import hr.crosig.contact.service.base.CityLocalServiceBaseImpl;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Guilherme Kfouri
@@ -49,71 +54,116 @@ import java.util.List;
 )
 public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 
-	@Override
+	public void addCities(Map<Long, String> citiesNames) {
+		Set<Long> citiesIds = citiesNames.keySet();
+
+		citiesIds.forEach(
+			cityId -> {
+				String cityName = citiesNames.get(cityId);
+
+				addCity(cityId, cityName);
+			});
+	}
+
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public City addCity(City city) {
 		return city;
 	}
 
-	@Override
-	@Indexable(type = IndexableType.REINDEX)
-	public City updateCity(City city) {
-		return city;
+	public void addCity(long cityId, String cityName) {
+		City city = cityLocalService.createCity(cityId);
+
+		city.setName(cityName);
+
+		addCity(city);
 	}
 
-	@Override
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public City deleteCity(City city) {
 		return city;
 	}
 
-	public List<String> getCitiesNamesByName(String cityName, int start, int end) {
+	public List<String> getCitiesNamesByName(
+			String cityName, int start, int end)
+		throws Exception {
 
-		MatchQuery entryClassQuery = queries.match(Field.ENTRY_CLASS_NAME, CityConstants.MODEL_CLASS_NAME);
-		MatchPhrasePrefixQuery nameQuery = queries.matchPhrasePrefix(CityConstants.FIELD_CITY_NAME, cityName);
+		validateCityName(cityName);
+
+		MatchQuery entryClassQuery = queries.match(
+			Field.ENTRY_CLASS_NAME, CityConstants.MODEL_CLASS_NAME);
+		MatchPhrasePrefixQuery nameQuery = queries.matchPhrasePrefix(
+			CityConstants.FIELD_CITY_NAME, cityName);
 
 		BooleanQuery booleanQuery = queries.booleanQuery();
+
 		booleanQuery.addMustQueryClauses(entryClassQuery, nameQuery);
 
-		SearchRequest searchRequest = createSearchRequest(booleanQuery, start, end);
+		SearchRequest searchRequest = createSearchRequest(
+			booleanQuery, start, end);
 
 		List<SearchHit> searchHitsList = getSearchHits(searchRequest);
 
 		return getCitiesNames(searchHitsList);
 	}
 
-	private SearchRequest createSearchRequest(BooleanQuery booleanQuery, int start, int end) {
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public City updateCity(City city) {
+		return city;
+	}
+
+	protected SearchRequest createSearchRequest(
+		Query query, int start, int end) {
+
 		long defaultCompanyId = PortalUtil.getDefaultCompanyId();
 
 		SearchRequestBuilder searchRequestBuilder =
-				searchRequestBuilderFactory.builder();
+			searchRequestBuilderFactory.builder();
+
 		searchRequestBuilder.emptySearchEnabled(true);
 		searchRequestBuilder.withSearchContext(
-				searchContext -> {
-					searchContext.setCompanyId(defaultCompanyId);
-					searchContext.setEntryClassNames(new String[] {CityConstants.MODEL_CLASS_NAME});
-					searchContext.setStart(start);
-					searchContext.setEnd(end);
-				});
+			searchContext -> {
+				searchContext.setCompanyId(defaultCompanyId);
+				searchContext.setEnd(end);
+				searchContext.setEntryClassNames(
+					new String[] {CityConstants.MODEL_CLASS_NAME});
+				searchContext.setStart(start);
+			});
 
-		return searchRequestBuilder.query(booleanQuery).build();
+		return searchRequestBuilder.query(
+			query
+		).build();
 	}
 
-	private List<SearchHit> getSearchHits(SearchRequest searchRequest) {
+	protected List<String> getCitiesNames(List<SearchHit> searchHitsList) {
+		List<String> citiesNames = new ArrayList<>();
+
+		searchHitsList.forEach(
+			searchHit -> {
+				Document doc = searchHit.getDocument();
+
+				String name = doc.getString(CityConstants.FIELD_CITY_NAME);
+
+				citiesNames.add(name);
+			});
+
+		return citiesNames;
+	}
+
+	protected List<SearchHit> getSearchHits(SearchRequest searchRequest) {
 		SearchResponse searchResponse = searcher.search(searchRequest);
+
 		SearchHits searchHits = searchResponse.getSearchHits();
+
 		return searchHits.getSearchHits();
 	}
 
-	private List<String> getCitiesNames(List<SearchHit> searchHitsList) {
-		List<String> citiesNames = new ArrayList<>();
-		searchHitsList.forEach(
-				searchHit -> {
-					Document doc = searchHit.getDocument();
-					String name = doc.getString(CityConstants.FIELD_CITY_NAME);
-					citiesNames.add(name);
-				});
-		return citiesNames;
+	protected void validateCityName(String cityName) throws Exception {
+		if (cityName.length() < 3)
+
+			throw new Exception();
 	}
 
 	@Reference
