@@ -12,10 +12,11 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.module.framework.ModuleServiceLifecycle;
 import com.liferay.portal.kernel.scheduler.*;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.util.PortalUtil;
 import hr.crosig.contact.scheduler.configuration.CacheConfiguration;
 import hr.crosig.contact.scheduler.executor.ClearCacheBackgroundTask;
 import hr.crosig.contact.scheduler.util.SchedulerLogUtil;
-import hr.crosig.contact.scheduler.util.UserUtil;
 import org.osgi.service.component.annotations.*;
 
 import java.util.Date;
@@ -36,7 +37,7 @@ public class CacheScheduler implements MessageListener {
         SchedulerLogUtil.logListenerActionTriggered(getClass());
 
         try {
-            User adminUser = UserUtil.getAdminUser();
+            User adminUser = getAdminUser();
 
             BackgroundTaskLocalServiceUtil.addBackgroundTask(
                     adminUser.getUserId(), adminUser.getGroupId(), StringPool.BLANK, ClearCacheBackgroundTask.class.getName(), new HashMap<>(), new ServiceContext());
@@ -74,13 +75,26 @@ public class CacheScheduler implements MessageListener {
         SchedulerLogUtil.logListenerDisabled(getClass());
     }
 
+    private User getAdminUser() {
+        final Long companyId = PortalUtil.getDefaultCompanyId();
+
+        try {
+            Long defaultUserId = _userLocalService.getDefaultUserId(companyId);
+            return _userLocalService.getUser(defaultUserId);
+        } catch (PortalException exception) {
+            exception.printStackTrace();
+        }
+
+        return null;
+    }
+
     private static volatile CacheConfiguration _cacheConfiguration;
+
+    @Reference(unbind = "-")
+    private UserLocalService _userLocalService;
 
     @Reference(target = ModuleServiceLifecycle.PORTAL_INITIALIZED, unbind = "-")
     private volatile ModuleServiceLifecycle _moduleServiceLifecycle;
-
-    @Reference(unbind = "-")
-    private volatile ClearCacheBackgroundTask _clearCacheBackgroundTask;
 
     @Reference(unbind = "-")
     private volatile SchedulerEngineHelper _schedulerEngineHelper;
