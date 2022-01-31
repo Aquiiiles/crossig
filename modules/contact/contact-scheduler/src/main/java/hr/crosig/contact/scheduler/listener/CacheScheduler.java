@@ -36,6 +36,7 @@ public class CacheScheduler implements MessageListener {
         SchedulerLogUtil.logListenerActionTriggered(getClass());
 
         try {
+            // TODO check with Davy which userId and groupId should be used.
             User currentUser = UserServiceUtil.getCurrentUser();
 
             BackgroundTaskLocalServiceUtil.addBackgroundTask(
