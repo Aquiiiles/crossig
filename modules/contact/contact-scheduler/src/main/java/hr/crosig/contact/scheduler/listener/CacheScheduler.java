@@ -70,8 +70,6 @@ public class CacheScheduler implements MessageListener {
             _schedulerEngineHelper.register(this, schedulerEntry, DestinationNames.SCHEDULER_DISPATCH);
 
             _log.info(String.format(SchedulerConstants.SCHEDULER_ENABLED, cronExpression));
-        } else {
-            deactivate();
         }
     }
 
