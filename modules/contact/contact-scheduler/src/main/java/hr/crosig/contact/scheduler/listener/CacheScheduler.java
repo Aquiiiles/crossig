@@ -12,10 +12,10 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.module.framework.ModuleServiceLifecycle;
 import com.liferay.portal.kernel.scheduler.*;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.UserServiceUtil;
 import hr.crosig.contact.scheduler.configuration.CacheConfiguration;
 import hr.crosig.contact.scheduler.executor.ClearCacheBackgroundTask;
 import hr.crosig.contact.scheduler.util.SchedulerLogUtil;
+import hr.crosig.contact.scheduler.util.UserUtil;
 import org.osgi.service.component.annotations.*;
 
 import java.util.Date;
@@ -36,11 +36,10 @@ public class CacheScheduler implements MessageListener {
         SchedulerLogUtil.logListenerActionTriggered(getClass());
 
         try {
-            // TODO check with Davy which userId and groupId should be used.
-            User currentUser = UserServiceUtil.getCurrentUser();
+            User adminUser = UserUtil.getAdminUser();
 
             BackgroundTaskLocalServiceUtil.addBackgroundTask(
-                    currentUser.getUserId(), currentUser.getGroupId(), StringPool.BLANK, ClearCacheBackgroundTask.class.getName(), new HashMap<>(), new ServiceContext());
+                    adminUser.getUserId(), adminUser.getGroupId(), StringPool.BLANK, ClearCacheBackgroundTask.class.getName(), new HashMap<>(), new ServiceContext());
         } catch (PortalException portalException) {
             SchedulerLogUtil.logListenerActionFailed(getClass(), portalException);
         }
