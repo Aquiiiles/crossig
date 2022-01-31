@@ -32,18 +32,18 @@ import com.liferay.portal.search.searcher.SearchRequestBuilder;
 import com.liferay.portal.search.searcher.SearchRequestBuilderFactory;
 import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.searcher.Searcher;
-
 import hr.crosig.contact.constants.CityConstants;
+import hr.crosig.contact.constants.CityMessages;
+import hr.crosig.contact.exception.CityException;
 import hr.crosig.contact.model.City;
 import hr.crosig.contact.service.base.CityLocalServiceBaseImpl;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Guilherme Kfouri
@@ -160,10 +160,10 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		return searchHits.getSearchHits();
 	}
 
-	protected void validateCityName(String cityName) throws Exception {
+	protected void validateCityName(String cityName) throws CityException {
 		if (cityName.length() < 3)
 
-			throw new Exception();
+			throw new CityException(CityMessages.NAME_LENGTH_ERROR);
 	}
 
 	@Reference
