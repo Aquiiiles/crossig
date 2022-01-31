@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.PortalUtil;
 import hr.crosig.contact.scheduler.configuration.CacheConfiguration;
+import hr.crosig.contact.scheduler.constants.SchedulerConstants;
 import hr.crosig.contact.scheduler.executor.ClearCacheBackgroundTask;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -40,18 +41,18 @@ public class CacheScheduler implements MessageListener {
 
     @Override
     public void receive(Message message) throws MessageListenerException {
-        _log.info(_listenerClassName + " triggered.");
+        _log.info(SchedulerConstants.SCHEDULER_TRIGGERED);
 
         try {
             User adminUser = getAdminUser();
 
             BackgroundTaskLocalServiceUtil.addBackgroundTask(
                     adminUser.getUserId(), adminUser.getGroupId(), StringPool.BLANK, ClearCacheBackgroundTask.class.getName(), new HashMap<>(), new ServiceContext());
-        } catch (PortalException portalException) {
-            _log.error(_listenerClassName + " failed when triggered. StackTrace: ", portalException);
+        } catch (PortalException exception) {
+            _log.error(SchedulerConstants.SCHEDULER_FAILED_WHEN_TRIGGERED, exception);
         }
 
-        _log.info(_listenerClassName+ " trigger finished successfully.");
+        _log.info(SchedulerConstants.SCHEDULER_SUCCESSFULLY_TRIGGERED);
     }
 
     @Activate
@@ -69,7 +70,7 @@ public class CacheScheduler implements MessageListener {
 
             _schedulerEngineHelper.register(this, schedulerEntry, DestinationNames.SCHEDULER_DISPATCH);
 
-            _log.info(_listenerClassName + " is enabled with cronExpression " + cronExpression + ".");
+            _log.info(String.format(SchedulerConstants.SCHEDULER_ENABLED, cronExpression));
         } else {
             deactivate();
         }
@@ -78,7 +79,7 @@ public class CacheScheduler implements MessageListener {
     @Deactivate
     protected void deactivate() {
         _schedulerEngineHelper.unregister(this);
-        _log.info(_listenerClassName + " is disabled.");
+        _log.info(SchedulerConstants.SCHEDULER_DISABLED);
     }
 
     private User getAdminUser() {
@@ -88,8 +89,7 @@ public class CacheScheduler implements MessageListener {
             Long defaultUserId = _userLocalService.getDefaultUserId(companyId);
             return _userLocalService.getUser(defaultUserId);
         } catch (PortalException exception) {
-            _log.error(_listenerClassName + " failed when triggered. StackTrace: ");
-            exception.printStackTrace();
+            _log.error(SchedulerConstants.SCHEDULER_FAILED_WHEN_TRIGGERED, exception);
         }
 
         return null;
