@@ -4,20 +4,29 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.background.task.service.BackgroundTaskLocalServiceUtil;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.DestinationNames;
 import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.messaging.MessageListener;
 import com.liferay.portal.kernel.messaging.MessageListenerException;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.module.framework.ModuleServiceLifecycle;
-import com.liferay.portal.kernel.scheduler.*;
+import com.liferay.portal.kernel.scheduler.SchedulerEngineHelper;
+import com.liferay.portal.kernel.scheduler.SchedulerEntry;
+import com.liferay.portal.kernel.scheduler.SchedulerEntryImpl;
+import com.liferay.portal.kernel.scheduler.Trigger;
+import com.liferay.portal.kernel.scheduler.TriggerFactory;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.PortalUtil;
 import hr.crosig.contact.scheduler.configuration.CacheConfiguration;
 import hr.crosig.contact.scheduler.executor.ClearCacheBackgroundTask;
-import hr.crosig.contact.scheduler.util.SchedulerLogUtil;
-import org.osgi.service.component.annotations.*;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
+import org.osgi.service.component.annotations.Modified;
+import org.osgi.service.component.annotations.Reference;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -26,15 +35,12 @@ import java.util.Map;
 /**
  * @author victor.catanante
  */
-@Component(
-    configurationPid = "hr.crosig.contact.scheduler.configuration.CacheConfiguration",
-    immediate = true
-)
+@Component(configurationPid = CacheConfiguration.OCD_ID, immediate = true)
 public class CacheScheduler implements MessageListener {
 
     @Override
     public void receive(Message message) throws MessageListenerException {
-        SchedulerLogUtil.logListenerActionTriggered(getClass());
+        _log.info(_listenerClassName + " triggered.");
 
         try {
             User adminUser = getAdminUser();
@@ -42,10 +48,11 @@ public class CacheScheduler implements MessageListener {
             BackgroundTaskLocalServiceUtil.addBackgroundTask(
                     adminUser.getUserId(), adminUser.getGroupId(), StringPool.BLANK, ClearCacheBackgroundTask.class.getName(), new HashMap<>(), new ServiceContext());
         } catch (PortalException portalException) {
-            SchedulerLogUtil.logListenerActionFailed(getClass(), portalException);
+            _log.error(_listenerClassName + " failed when triggered. StackTrace: ");
+            portalException.printStackTrace();
         }
 
-        SchedulerLogUtil.logListenerActionSucceeded(getClass());
+        _log.info(_listenerClassName+ " trigger finished successfully.");
     }
 
     @Activate
@@ -54,16 +61,16 @@ public class CacheScheduler implements MessageListener {
         _cacheConfiguration = ConfigurableUtil.createConfigurable(CacheConfiguration.class, properties);
 
         if (_cacheConfiguration.enable()) {
-            String listenerClass = getClass().getName();
+            String cronExpression = _cacheConfiguration.cronExpression();
 
             Trigger jobTrigger = _triggerFactory.createTrigger(
-                    listenerClass, listenerClass, new Date(), null, _cacheConfiguration.cronExpression());
+                    _listenerClassName, _listenerClassName, new Date(), null, cronExpression);
 
-            SchedulerEntry schedulerEntry = new SchedulerEntryImpl(getClass().getName(), jobTrigger);
+            SchedulerEntry schedulerEntry = new SchedulerEntryImpl(_listenerClassName, jobTrigger);
 
             _schedulerEngineHelper.register(this, schedulerEntry, DestinationNames.SCHEDULER_DISPATCH);
 
-            SchedulerLogUtil.logListenerInitialized(getClass(), _cacheConfiguration.cronExpression());
+            _log.info(_listenerClassName + " is enabled with cronExpression " + cronExpression + ".");
         } else {
             deactivate();
         }
@@ -72,7 +79,7 @@ public class CacheScheduler implements MessageListener {
     @Deactivate
     protected void deactivate() {
         _schedulerEngineHelper.unregister(this);
-        SchedulerLogUtil.logListenerDisabled(getClass());
+        _log.info(_listenerClassName + " is disabled.");
     }
 
     private User getAdminUser() {
@@ -82,6 +89,7 @@ public class CacheScheduler implements MessageListener {
             Long defaultUserId = _userLocalService.getDefaultUserId(companyId);
             return _userLocalService.getUser(defaultUserId);
         } catch (PortalException exception) {
+            _log.error(_listenerClassName + " failed when triggered. StackTrace: ");
             exception.printStackTrace();
         }
 
@@ -89,6 +97,8 @@ public class CacheScheduler implements MessageListener {
     }
 
     private static volatile CacheConfiguration _cacheConfiguration;
+
+    private static final String _listenerClassName = CacheScheduler.class.getName();
 
     @Reference(unbind = "-")
     private UserLocalService _userLocalService;
@@ -101,4 +111,6 @@ public class CacheScheduler implements MessageListener {
 
     @Reference(unbind = "-")
     private volatile TriggerFactory _triggerFactory;
+
+    private static final Log _log = LogFactoryUtil.getLog(CacheScheduler.class);
 }
