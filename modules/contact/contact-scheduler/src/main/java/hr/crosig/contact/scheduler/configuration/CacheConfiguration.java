@@ -2,7 +2,7 @@ package hr.crosig.contact.scheduler.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
-@Meta.OCD(id = "hr.crosig.contact.scheduler.configuration.CacheConfiguration")
+@Meta.OCD(id = CacheConfiguration.OCD_ID)
 public interface CacheConfiguration {
 
     public static final String OCD_ID = "hr.crosig.contact.scheduler.configuration.CacheConfiguration";
