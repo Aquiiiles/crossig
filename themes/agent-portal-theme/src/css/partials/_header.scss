@@ -1,0 +1,14 @@
+#banner {
+    padding: 1.875rem 2rem;
+    background-color: #FFF;
+
+    & h4 {
+        margin-bottom: 0;
+    }
+}
+
+#heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
