@@ -48,8 +48,7 @@ public class CacheScheduler implements MessageListener {
             BackgroundTaskLocalServiceUtil.addBackgroundTask(
                     adminUser.getUserId(), adminUser.getGroupId(), StringPool.BLANK, ClearCacheBackgroundTask.class.getName(), new HashMap<>(), new ServiceContext());
         } catch (PortalException portalException) {
-            _log.error(_listenerClassName + " failed when triggered. StackTrace: ");
-            portalException.printStackTrace();
+            _log.error(_listenerClassName + " failed when triggered. StackTrace: ", portalException);
         }
 
         _log.info(_listenerClassName+ " trigger finished successfully.");
