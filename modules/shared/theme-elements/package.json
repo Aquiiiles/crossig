@@ -48,7 +48,7 @@
     "liferay-npm-bundler-preset-create-react-app": "^2.28.3"
   },
   "portlet": {
-    "com.liferay.portlet.display-category": "category.sample",
+    "com.liferay.portlet.display-category": "category.agent-portal",
     "javax.portlet.name": "themeelements",
     "javax.portlet.security-role-ref": "power-user,user",
     "javax.portlet.resource-bundle": "content.Language",
