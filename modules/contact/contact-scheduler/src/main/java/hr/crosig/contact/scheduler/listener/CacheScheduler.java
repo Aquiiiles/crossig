@@ -48,11 +48,10 @@ public class CacheScheduler implements MessageListener {
 
             BackgroundTaskLocalServiceUtil.addBackgroundTask(
                     adminUser.getUserId(), adminUser.getGroupId(), StringPool.BLANK, ClearCacheBackgroundTask.class.getName(), new HashMap<>(), new ServiceContext());
+            _log.info(SchedulerConstants.SCHEDULER_SUCCESSFULLY_TRIGGERED);
         } catch (PortalException exception) {
             _log.error(SchedulerConstants.SCHEDULER_FAILED_WHEN_TRIGGERED, exception);
         }
-
-        _log.info(SchedulerConstants.SCHEDULER_SUCCESSFULLY_TRIGGERED);
     }
 
     @Activate
