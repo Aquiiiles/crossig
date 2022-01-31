@@ -4,6 +4,9 @@ import aQute.bnd.annotation.metatype.Meta;
 
 @Meta.OCD(id = "hr.crosig.contact.scheduler.configuration.CacheConfiguration")
 public interface CacheConfiguration {
+
+    public static final String OCD_ID = "hr.crosig.contact.scheduler.configuration.CacheConfiguration";
+
     @Meta.AD(deflt = "true", required=false, name="Enable Scheduler")
     Boolean enable();
 
