@@ -5,6 +5,6 @@ package hr.crosig.common.cache.management.constants;
  */
 public class CacheManagementPanelCategoryKeys {
 
-    public static final String CONTROL_PANEL_CATEGORY = "CacheManagement";
+	public static final String CONTROL_PANEL_CATEGORY = "CacheManagement";
 
 }

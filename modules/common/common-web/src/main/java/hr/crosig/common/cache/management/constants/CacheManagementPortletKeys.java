@@ -5,6 +5,7 @@ package hr.crosig.common.cache.management.constants;
  */
 public class CacheManagementPortletKeys {
 
-    public static final String CACHE_MANAGEMENT_PORTLET = "hr_crosig_common_cache_management_portlet_CacheManagementPortlet";
+	public static final String CACHE_MANAGEMENT_PORTLET =
+		"hr_crosig_common_cache_management_portlet_CacheManagementPortlet";
 
 }

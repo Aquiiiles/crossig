@@ -16,6 +16,7 @@
 		<div class="col-md-2">
 			<aui:form action="${clearSingleCacheURL}" method="post" name="clearCitiesCacheFm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "clearCitiesCache('" + renderResponse.getNamespace() + "clearCitiesCacheFm');" %>'>
 				<aui:input name="cacheName" type="hidden" value="city" />
+
 				<button class="btn btn-primary gsdc-btn-action" type="submit">
 					<span class="gsdc-btn-text"><liferay-ui:message key="clear-cities-cache" /></span>
 				</button>
@@ -25,13 +26,13 @@
 		<div class="col-md-2">
 			<aui:form action="${clearSingleCacheURL}" method="post" name="clearStreetsCacheFm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "clearStreetsCache('" + renderResponse.getNamespace() + "clearStreetsCacheFm');" %>'>
 				<aui:input name="cacheName" type="hidden" value="street" />
+
 				<button class="btn btn-primary gsdc-btn-action" type="submit">
 					<span class="gsdc-btn-text"><liferay-ui:message key="clear-streets-cache" /></span>
 				</button>
 			</aui:form>
 		</div>
 	</div>
-
 </div>
 
 <aui:script>
@@ -44,7 +45,7 @@
 	}
 
 	function <portlet:namespace />clearCitiesCache(formName) {
-    	var form = document.getElementById(formName);
+		var form = document.getElementById(formName);
 
 		if (confirm('<%= UnicodeLanguageUtil.get(request, "are-you-sure-you-want-to-clear-cities-cache") %>')) {
 			submitForm(form);
