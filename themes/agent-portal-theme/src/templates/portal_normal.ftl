@@ -20,7 +20,7 @@
 
 <@liferay.control_menu />
 
-<div class="container-fluid cap" id="wrapper">
+<div class="cap container-fluid" id="wrapper">
 	<#include "${full_templates_path}/header.ftl" />
 
 	<section id="content">
@@ -51,6 +51,7 @@
 <@liferay_util["include"] page=bottom_include />
 
 <!-- inject:js -->
+
 <!-- endinject -->
 
 </body>
