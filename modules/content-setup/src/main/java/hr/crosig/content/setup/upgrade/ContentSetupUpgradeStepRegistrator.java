@@ -26,7 +26,7 @@ public class ContentSetupUpgradeStepRegistrator
 				_prefsProps, _companyLocalService));
 
 		registry.register(
-			"0.0.0", "1.0.0",
+			"1.0.0", "1.0.1",
 			new AddUserGroup(
 				_companyLocalService, _groupLocalService, _userLocalService,
 				_userGroupLocalService));

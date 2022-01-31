@@ -44,10 +44,10 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 			String name, String description, String friendlyURL, int type)
 		throws PortalException {
 
-		_companyId = getDefaultCompanyId();
+		long companyId = getDefaultCompanyId();
 
 		Group group = groupLocalService.fetchFriendlyURLGroup(
-			_companyId, friendlyURL);
+				companyId, friendlyURL);
 
 		if (group != null) {
 			log.info("Site already exists: " + name);
@@ -55,15 +55,15 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 			return group;
 		}
 
-		_userId = getAdminUserId(_companyId);
+		long userId = getAdminUserId(companyId);
 		Map<Locale, String> nameMap = getMap(name);
 		Map<Locale, String> descriptionMap = getMap(description);
 		ServiceContext serviceContext = getDefaultServiceContext(
-			_companyId, _userId);
+				companyId, userId);
 
 		group = groupLocalService.addGroup(
-			_userId, GroupConstants.DEFAULT_PARENT_GROUP_ID,
-			Group.class.getName(), _userId,
+			userId, GroupConstants.DEFAULT_PARENT_GROUP_ID,
+			Group.class.getName(), userId,
 			GroupConstants.DEFAULT_LIVE_GROUP_ID, nameMap, descriptionMap, type,
 			true, GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, friendlyURL,
 			true, false, true, serviceContext);
@@ -76,10 +76,10 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 	protected UserGroup addUserGroup(String name, String description)
 		throws PortalException {
 
-		_companyId = getDefaultCompanyId();
+		long companyId = getDefaultCompanyId();
 
 		UserGroup userGroup = userGroupLocalService.fetchUserGroup(
-			_companyId, name);
+				companyId, name);
 
 		if (userGroup != null) {
 			log.info("User Group already exists: " + name);
@@ -87,13 +87,13 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 			return userGroup;
 		}
 
-		_userId = getAdminUserId(_companyId);
+		long userId = getAdminUserId(companyId);
 
 		ServiceContext serviceContext = getDefaultServiceContext(
-			_companyId, _userId);
+				companyId, userId);
 
 		userGroup = userGroupLocalService.addUserGroup(
-			_userId, _companyId, name, description, serviceContext);
+			userId, companyId, name, description, serviceContext);
 
 		log.info("User Group created: " + name);
 
@@ -142,8 +142,5 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 	protected GroupLocalService groupLocalService;
 	protected UserGroupLocalService userGroupLocalService;
 	protected UserLocalService userLocalService;
-
-	private Long _companyId;
-	private Long _userId;
 
 }
