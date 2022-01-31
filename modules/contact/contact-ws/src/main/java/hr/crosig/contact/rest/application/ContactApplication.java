@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hr.crosig.contact.rest.application.dto.ContactDTO;
 import hr.crosig.contact.rest.application.dto.EmailDTO;
-import hr.crosig.contact.rest.application.dto.PhoneNumber;
+import hr.crosig.contact.rest.application.dto.PhoneNumberDTO;
 import hr.crosig.contact.rest.application.utils.ApplicationUtilities;
 import hr.crosig.contact.rest.application.utils.ContactApplicationConstants;
 import org.osgi.service.component.annotations.Component;
@@ -121,9 +121,9 @@ public class ContactApplication extends Application {
 	@POST
 	@Path("/phone/verification")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response validatePhoneNumber(List<PhoneNumber> phoneNumbers) {
+	public Response validatePhoneNumber(List<PhoneNumberDTO> phoneNumberDTOS) {
 		try {
-			String entityJson = createEntityJsonString(phoneNumbers);
+			String entityJson = createEntityJsonString(phoneNumberDTOS);
 			return ApplicationUtilities.getDefaultHttpClient(
 			).target(
 				ContactApplicationConstants.MOCK_CONTACTS_PHONE_VERIFICATION
