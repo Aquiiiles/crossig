@@ -5,6 +5,14 @@
     & h4 {
         margin-bottom: 0;
     }
+
+    &.page-editor__disabled-area {
+        padding-right: 40px !important;
+    }
+
+    &.page-editor__disabled-area.collapsed {
+        padding-right: 322px !important;
+    }
 }
 
 #heading {
