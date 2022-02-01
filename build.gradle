@@ -1,1 +1,13 @@
 // Check GETTING_STARTED.markdown for information regarding usage.
+
+allprojects {
+   plugins.withId("com.liferay.node") {
+      afterEvaluate {
+         node.download = true
+         // Order is important; versions BEFORE invoking node.nodeUrl
+         node.nodeVersion = "14.18.1"
+         node.npmVersion = "6.14.11"
+         node.nodeUrl = node.nodeUrl.replace("http:", "https:")
+      }
+   }
+}
