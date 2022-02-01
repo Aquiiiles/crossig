@@ -20,6 +20,9 @@
 		<!-- Other fields -->
 
 		<column name="name" type="String" />
+		<column name="zipCode" type="String" />
+		<column name="boxNumber" type="String" />
+		<column name="postName" type="String" />
 
 		<!-- Order -->
 

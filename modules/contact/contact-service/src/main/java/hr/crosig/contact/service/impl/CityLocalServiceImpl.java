@@ -32,21 +32,19 @@ import com.liferay.portal.search.searcher.SearchRequestBuilder;
 import com.liferay.portal.search.searcher.SearchRequestBuilderFactory;
 import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.searcher.Searcher;
-
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.CityMessages;
 import hr.crosig.contact.exception.CityException;
 import hr.crosig.contact.model.City;
 import hr.crosig.contact.service.base.CityLocalServiceBaseImpl;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Guilherme Kfouri
@@ -199,7 +197,7 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 	protected void validateSearchCityName(String cityName)
 		throws CityException {
 
-		if (cityName.length() < 3)
+		if (cityName.length() < CityConstants.CITY_NAME_MINIMUM_LENGTH)
 
 			throw new CityException(CityMessages.INSUFICIENT_NAME_LENGTH);
 	}

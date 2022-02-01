@@ -61,7 +61,7 @@ public class CityCacheModel implements CacheModel<City>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(15);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{cityId=");
 		sb.append(cityId);
@@ -77,6 +77,12 @@ public class CityCacheModel implements CacheModel<City>, Externalizable {
 		sb.append(modifiedDate);
 		sb.append(", name=");
 		sb.append(name);
+		sb.append(", zipCode=");
+		sb.append(zipCode);
+		sb.append(", boxNumber=");
+		sb.append(boxNumber);
+		sb.append(", postName=");
+		sb.append(postName);
 		sb.append("}");
 
 		return sb.toString();
@@ -118,6 +124,27 @@ public class CityCacheModel implements CacheModel<City>, Externalizable {
 			cityImpl.setName(name);
 		}
 
+		if (zipCode == null) {
+			cityImpl.setZipCode("");
+		}
+		else {
+			cityImpl.setZipCode(zipCode);
+		}
+
+		if (boxNumber == null) {
+			cityImpl.setBoxNumber("");
+		}
+		else {
+			cityImpl.setBoxNumber(boxNumber);
+		}
+
+		if (postName == null) {
+			cityImpl.setPostName("");
+		}
+		else {
+			cityImpl.setPostName(postName);
+		}
+
 		cityImpl.resetOriginalValues();
 
 		return cityImpl;
@@ -134,6 +161,9 @@ public class CityCacheModel implements CacheModel<City>, Externalizable {
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		name = objectInput.readUTF();
+		zipCode = objectInput.readUTF();
+		boxNumber = objectInput.readUTF();
+		postName = objectInput.readUTF();
 	}
 
 	@Override
@@ -160,6 +190,27 @@ public class CityCacheModel implements CacheModel<City>, Externalizable {
 		else {
 			objectOutput.writeUTF(name);
 		}
+
+		if (zipCode == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(zipCode);
+		}
+
+		if (boxNumber == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(boxNumber);
+		}
+
+		if (postName == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(postName);
+		}
 	}
 
 	public long cityId;
@@ -169,5 +220,8 @@ public class CityCacheModel implements CacheModel<City>, Externalizable {
 	public long createDate;
 	public long modifiedDate;
 	public String name;
+	public String zipCode;
+	public String boxNumber;
+	public String postName;
 
 }

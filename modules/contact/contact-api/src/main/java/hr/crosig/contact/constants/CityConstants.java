@@ -5,6 +5,8 @@ package hr.crosig.contact.constants;
  */
 public class CityConstants {
 
+	public static final int CITY_NAME_MINIMUM_LENGTH = 3;
+
 	public static final String FIELD_CITY_ID = "cityId";
 
 	public static final String FIELD_CITY_NAME = "cityName";

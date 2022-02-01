@@ -183,4 +183,49 @@ public interface CityModel extends AuditedModel, BaseModel<City>, ShardedModel {
 	 */
 	public void setName(String name);
 
+	/**
+	 * Returns the zip code of this city.
+	 *
+	 * @return the zip code of this city
+	 */
+	@AutoEscape
+	public String getZipCode();
+
+	/**
+	 * Sets the zip code of this city.
+	 *
+	 * @param zipCode the zip code of this city
+	 */
+	public void setZipCode(String zipCode);
+
+	/**
+	 * Returns the box number of this city.
+	 *
+	 * @return the box number of this city
+	 */
+	@AutoEscape
+	public String getBoxNumber();
+
+	/**
+	 * Sets the box number of this city.
+	 *
+	 * @param boxNumber the box number of this city
+	 */
+	public void setBoxNumber(String boxNumber);
+
+	/**
+	 * Returns the post name of this city.
+	 *
+	 * @return the post name of this city
+	 */
+	@AutoEscape
+	public String getPostName();
+
+	/**
+	 * Sets the post name of this city.
+	 *
+	 * @param postName the post name of this city
+	 */
+	public void setPostName(String postName);
+
 }

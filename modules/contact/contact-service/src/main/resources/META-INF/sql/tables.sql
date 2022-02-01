@@ -5,7 +5,10 @@ create table AP_Contact_City (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	name VARCHAR(75) null
+	name VARCHAR(75) null,
+	zipCode VARCHAR(75) null,
+	boxNumber VARCHAR(75) null,
+	postName VARCHAR(75) null
 );
 
 create table AP_Contact_Street (

@@ -72,7 +72,8 @@ public class CityModelImpl extends BaseModelImpl<City> implements CityModel {
 		{"cityId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"name", Types.VARCHAR}
+		{"name", Types.VARCHAR}, {"zipCode", Types.VARCHAR},
+		{"boxNumber", Types.VARCHAR}, {"postName", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -86,10 +87,13 @@ public class CityModelImpl extends BaseModelImpl<City> implements CityModel {
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("zipCode", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("boxNumber", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("postName", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table AP_Contact_City (cityId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null)";
+		"create table AP_Contact_City (cityId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,zipCode VARCHAR(75) null,boxNumber VARCHAR(75) null,postName VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table AP_Contact_City";
 
@@ -263,6 +267,15 @@ public class CityModelImpl extends BaseModelImpl<City> implements CityModel {
 		attributeGetterFunctions.put("name", City::getName);
 		attributeSetterBiConsumers.put(
 			"name", (BiConsumer<City, String>)City::setName);
+		attributeGetterFunctions.put("zipCode", City::getZipCode);
+		attributeSetterBiConsumers.put(
+			"zipCode", (BiConsumer<City, String>)City::setZipCode);
+		attributeGetterFunctions.put("boxNumber", City::getBoxNumber);
+		attributeSetterBiConsumers.put(
+			"boxNumber", (BiConsumer<City, String>)City::setBoxNumber);
+		attributeGetterFunctions.put("postName", City::getPostName);
+		attributeSetterBiConsumers.put(
+			"postName", (BiConsumer<City, String>)City::setPostName);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -409,6 +422,63 @@ public class CityModelImpl extends BaseModelImpl<City> implements CityModel {
 		return getColumnOriginalValue("name");
 	}
 
+	@Override
+	public String getZipCode() {
+		if (_zipCode == null) {
+			return "";
+		}
+		else {
+			return _zipCode;
+		}
+	}
+
+	@Override
+	public void setZipCode(String zipCode) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_zipCode = zipCode;
+	}
+
+	@Override
+	public String getBoxNumber() {
+		if (_boxNumber == null) {
+			return "";
+		}
+		else {
+			return _boxNumber;
+		}
+	}
+
+	@Override
+	public void setBoxNumber(String boxNumber) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_boxNumber = boxNumber;
+	}
+
+	@Override
+	public String getPostName() {
+		if (_postName == null) {
+			return "";
+		}
+		else {
+			return _postName;
+		}
+	}
+
+	@Override
+	public void setPostName(String postName) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_postName = postName;
+	}
+
 	public long getColumnBitmask() {
 		if (_columnBitmask > 0) {
 			return _columnBitmask;
@@ -472,6 +542,9 @@ public class CityModelImpl extends BaseModelImpl<City> implements CityModel {
 		cityImpl.setCreateDate(getCreateDate());
 		cityImpl.setModifiedDate(getModifiedDate());
 		cityImpl.setName(getName());
+		cityImpl.setZipCode(getZipCode());
+		cityImpl.setBoxNumber(getBoxNumber());
+		cityImpl.setPostName(getPostName());
 
 		cityImpl.resetOriginalValues();
 
@@ -589,6 +662,30 @@ public class CityModelImpl extends BaseModelImpl<City> implements CityModel {
 			cityCacheModel.name = null;
 		}
 
+		cityCacheModel.zipCode = getZipCode();
+
+		String zipCode = cityCacheModel.zipCode;
+
+		if ((zipCode != null) && (zipCode.length() == 0)) {
+			cityCacheModel.zipCode = null;
+		}
+
+		cityCacheModel.boxNumber = getBoxNumber();
+
+		String boxNumber = cityCacheModel.boxNumber;
+
+		if ((boxNumber != null) && (boxNumber.length() == 0)) {
+			cityCacheModel.boxNumber = null;
+		}
+
+		cityCacheModel.postName = getPostName();
+
+		String postName = cityCacheModel.postName;
+
+		if ((postName != null) && (postName.length() == 0)) {
+			cityCacheModel.postName = null;
+		}
+
 		return cityCacheModel;
 	}
 
@@ -685,6 +782,9 @@ public class CityModelImpl extends BaseModelImpl<City> implements CityModel {
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
 	private String _name;
+	private String _zipCode;
+	private String _boxNumber;
+	private String _postName;
 
 	public <T> T getColumnValue(String columnName) {
 		Function<City, Object> function = _attributeGetterFunctions.get(
@@ -720,6 +820,9 @@ public class CityModelImpl extends BaseModelImpl<City> implements CityModel {
 		_columnOriginalValues.put("createDate", _createDate);
 		_columnOriginalValues.put("modifiedDate", _modifiedDate);
 		_columnOriginalValues.put("name", _name);
+		_columnOriginalValues.put("zipCode", _zipCode);
+		_columnOriginalValues.put("boxNumber", _boxNumber);
+		_columnOriginalValues.put("postName", _postName);
 	}
 
 	private transient Map<String, Object> _columnOriginalValues;
@@ -746,6 +849,12 @@ public class CityModelImpl extends BaseModelImpl<City> implements CityModel {
 		columnBitmasks.put("modifiedDate", 32L);
 
 		columnBitmasks.put("name", 64L);
+
+		columnBitmasks.put("zipCode", 128L);
+
+		columnBitmasks.put("boxNumber", 256L);
+
+		columnBitmasks.put("postName", 512L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

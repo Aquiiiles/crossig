@@ -48,6 +48,9 @@ public class CityWrapper
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("name", getName());
+		attributes.put("zipCode", getZipCode());
+		attributes.put("boxNumber", getBoxNumber());
+		attributes.put("postName", getPostName());
 
 		return attributes;
 	}
@@ -95,6 +98,34 @@ public class CityWrapper
 		if (name != null) {
 			setName(name);
 		}
+
+		String zipCode = (String)attributes.get("zipCode");
+
+		if (zipCode != null) {
+			setZipCode(zipCode);
+		}
+
+		String boxNumber = (String)attributes.get("boxNumber");
+
+		if (boxNumber != null) {
+			setBoxNumber(boxNumber);
+		}
+
+		String postName = (String)attributes.get("postName");
+
+		if (postName != null) {
+			setPostName(postName);
+		}
+	}
+
+	/**
+	 * Returns the box number of this city.
+	 *
+	 * @return the box number of this city
+	 */
+	@Override
+	public String getBoxNumber() {
+		return model.getBoxNumber();
 	}
 
 	/**
@@ -148,6 +179,16 @@ public class CityWrapper
 	}
 
 	/**
+	 * Returns the post name of this city.
+	 *
+	 * @return the post name of this city
+	 */
+	@Override
+	public String getPostName() {
+		return model.getPostName();
+	}
+
+	/**
 	 * Returns the primary key of this city.
 	 *
 	 * @return the primary key of this city
@@ -187,9 +228,29 @@ public class CityWrapper
 		return model.getUserUuid();
 	}
 
+	/**
+	 * Returns the zip code of this city.
+	 *
+	 * @return the zip code of this city
+	 */
+	@Override
+	public String getZipCode() {
+		return model.getZipCode();
+	}
+
 	@Override
 	public void persist() {
 		model.persist();
+	}
+
+	/**
+	 * Sets the box number of this city.
+	 *
+	 * @param boxNumber the box number of this city
+	 */
+	@Override
+	public void setBoxNumber(String boxNumber) {
+		model.setBoxNumber(boxNumber);
 	}
 
 	/**
@@ -243,6 +304,16 @@ public class CityWrapper
 	}
 
 	/**
+	 * Sets the post name of this city.
+	 *
+	 * @param postName the post name of this city
+	 */
+	@Override
+	public void setPostName(String postName) {
+		model.setPostName(postName);
+	}
+
+	/**
 	 * Sets the primary key of this city.
 	 *
 	 * @param primaryKey the primary key of this city
@@ -280,6 +351,16 @@ public class CityWrapper
 	@Override
 	public void setUserUuid(String userUuid) {
 		model.setUserUuid(userUuid);
+	}
+
+	/**
+	 * Sets the zip code of this city.
+	 *
+	 * @param zipCode the zip code of this city
+	 */
+	@Override
+	public void setZipCode(String zipCode) {
+		model.setZipCode(zipCode);
 	}
 
 	@Override

@@ -40,6 +40,9 @@ public class CitySoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setName(model.getName());
+		soapModel.setZipCode(model.getZipCode());
+		soapModel.setBoxNumber(model.getBoxNumber());
+		soapModel.setPostName(model.getPostName());
 
 		return soapModel;
 	}
@@ -148,6 +151,30 @@ public class CitySoap implements Serializable {
 		_name = name;
 	}
 
+	public String getZipCode() {
+		return _zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		_zipCode = zipCode;
+	}
+
+	public String getBoxNumber() {
+		return _boxNumber;
+	}
+
+	public void setBoxNumber(String boxNumber) {
+		_boxNumber = boxNumber;
+	}
+
+	public String getPostName() {
+		return _postName;
+	}
+
+	public void setPostName(String postName) {
+		_postName = postName;
+	}
+
 	private long _cityId;
 	private long _companyId;
 	private long _userId;
@@ -155,5 +182,8 @@ public class CitySoap implements Serializable {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private String _name;
+	private String _zipCode;
+	private String _boxNumber;
+	private String _postName;
 
 }

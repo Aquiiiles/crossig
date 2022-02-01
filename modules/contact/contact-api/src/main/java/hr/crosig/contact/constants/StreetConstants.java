@@ -5,6 +5,8 @@ package hr.crosig.contact.constants;
  */
 public class StreetConstants {
 
+	public static final int STREET_NAME_MINIMUM_LENGTH = 3;
+
 	public static final String FIELD_STREET_ID = "streetId";
 
 	public static final String FIELD_STREET_NAME = "streetName";
