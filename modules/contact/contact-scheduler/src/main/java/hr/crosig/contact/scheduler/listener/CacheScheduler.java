@@ -9,9 +9,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.DestinationNames;
 import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.messaging.MessageListener;
-import com.liferay.portal.kernel.messaging.MessageListenerException;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.module.framework.ModuleServiceLifecycle;
 import com.liferay.portal.kernel.scheduler.SchedulerEngineHelper;
 import com.liferay.portal.kernel.scheduler.SchedulerEntry;
 import com.liferay.portal.kernel.scheduler.SchedulerEntryImpl;
@@ -42,7 +40,7 @@ import org.osgi.service.component.annotations.Reference;
 public class CacheScheduler implements MessageListener {
 
 	@Override
-	public void receive(Message message) throws MessageListenerException {
+	public void receive(Message message) {
 		_log.info(SchedulerConstants.SCHEDULER_TRIGGERED);
 
 		try {
@@ -70,13 +68,14 @@ public class CacheScheduler implements MessageListener {
 
 		if (_cacheConfiguration._enable()) {
 			String cronExpression = _cacheConfiguration._cronExpression();
+			String className = CacheScheduler.class.getName();
 
 			Trigger jobTrigger = _triggerFactory.createTrigger(
-				_listenerClassName, _listenerClassName, new Date(), null,
+				className, className, new Date(), null,
 				cronExpression);
 
 			SchedulerEntry schedulerEntry = new SchedulerEntryImpl(
-				_listenerClassName, jobTrigger);
+				className, jobTrigger);
 
 			_schedulerEngineHelper.register(
 				this, schedulerEntry, DestinationNames.SCHEDULER_DISPATCH);
@@ -112,9 +111,6 @@ public class CacheScheduler implements MessageListener {
 	private static final Log _log = LogFactoryUtil.getLog(CacheScheduler.class);
 
 	private static volatile CacheConfiguration _cacheConfiguration;
-
-	@Reference(target = ModuleServiceLifecycle.PORTAL_INITIALIZED, unbind = "-")
-	private volatile ModuleServiceLifecycle _moduleServiceLifecycle;
 
 	@Reference(unbind = "-")
 	private volatile SchedulerEngineHelper _schedulerEngineHelper;
