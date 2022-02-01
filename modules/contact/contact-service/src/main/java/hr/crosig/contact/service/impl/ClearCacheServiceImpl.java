@@ -26,8 +26,11 @@ public class ClearCacheServiceImpl implements ClearCacheService {
 
 	@Override
 	public void clearIndexCache(String index) {
-		_cityLocalService.deleteAllCities();
-		_streetLocalService.deleteAllStreets();
+		if (index.equalsIgnoreCase(IndexType.CITY.getName()))
+			_cityLocalService.deleteAllCities();
+
+		else if (index.equalsIgnoreCase(IndexType.STREET.getName()))
+			_streetLocalService.deleteAllStreets();
 	}
 
 	@Reference

@@ -82,6 +82,12 @@ public interface StreetLocalService
 	public Street addStreet(Street street);
 
 	/**
+	 * @throws PortalException
+	 */
+	public PersistedModel createPersistedModel(Serializable primaryKeyObj)
+		throws PortalException;
+
+	/**
 	 * Creates a new street with the primary key. Does not add the street to the database.
 	 *
 	 * @param streetId the primary key for the new street

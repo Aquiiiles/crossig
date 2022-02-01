@@ -72,6 +72,16 @@ public class StreetLocalServiceUtil {
 	}
 
 	/**
+	 * @throws PortalException
+	 */
+	public static PersistedModel createPersistedModel(
+			Serializable primaryKeyObj)
+		throws PortalException {
+
+		return getService().createPersistedModel(primaryKeyObj);
+	}
+
+	/**
 	 * Creates a new street with the primary key. Does not add the street to the database.
 	 *
 	 * @param streetId the primary key for the new street

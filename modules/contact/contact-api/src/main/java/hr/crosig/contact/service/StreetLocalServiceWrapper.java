@@ -64,6 +64,17 @@ public class StreetLocalServiceWrapper
 	}
 
 	/**
+	 * @throws PortalException
+	 */
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel createPersistedModel(
+			java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _streetLocalService.createPersistedModel(primaryKeyObj);
+	}
+
+	/**
 	 * Creates a new street with the primary key. Does not add the street to the database.
 	 *
 	 * @param streetId the primary key for the new street

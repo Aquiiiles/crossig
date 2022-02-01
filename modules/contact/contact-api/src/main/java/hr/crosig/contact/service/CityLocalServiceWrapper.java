@@ -75,6 +75,17 @@ public class CityLocalServiceWrapper
 		return _cityLocalService.createCity(cityId);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel createPersistedModel(
+			java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cityLocalService.createPersistedModel(primaryKeyObj);
+	}
+
 	@Override
 	public void deleteAllCities() {
 		_cityLocalService.deleteAllCities();

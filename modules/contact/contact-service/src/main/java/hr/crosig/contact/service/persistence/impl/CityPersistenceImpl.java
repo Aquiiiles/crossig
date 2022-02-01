@@ -16,6 +16,7 @@ package hr.crosig.contact.service.persistence.impl;
 
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.configuration.Configuration;
+import com.liferay.portal.kernel.dao.orm.ArgumentsResolver;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -26,11 +27,13 @@ import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.SessionFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
@@ -52,13 +55,17 @@ import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.sql.DataSource;
 
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
@@ -235,11 +242,6 @@ public class CityPersistenceImpl
 				}
 			}
 			catch (Exception exception) {
-				if (useFinderCache) {
-					finderCache.removeResult(
-						_finderPathFetchByName, finderArgs);
-				}
-
 				throw processException(exception);
 			}
 			finally {
@@ -320,8 +322,6 @@ public class CityPersistenceImpl
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
 			catch (Exception exception) {
-				finderCache.removeResult(finderPath, finderArgs);
-
 				throw processException(exception);
 			}
 			finally {
@@ -351,13 +351,10 @@ public class CityPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(City city) {
-		entityCache.putResult(
-			entityCacheEnabled, CityImpl.class, city.getPrimaryKey(), city);
+		entityCache.putResult(CityImpl.class, city.getPrimaryKey(), city);
 
 		finderCache.putResult(
 			_finderPathFetchByName, new Object[] {city.getName()}, city);
-
-		city.resetOriginalValues();
 	}
 
 	private int _valueObjectFinderCacheListThreshold;
@@ -377,14 +374,10 @@ public class CityPersistenceImpl
 		}
 
 		for (City city : cities) {
-			if (entityCache.getResult(
-					entityCacheEnabled, CityImpl.class, city.getPrimaryKey()) ==
-						null) {
+			if (entityCache.getResult(CityImpl.class, city.getPrimaryKey()) ==
+					null) {
 
 				cacheResult(city);
-			}
-			else {
-				city.resetOriginalValues();
 			}
 		}
 	}
@@ -414,36 +407,24 @@ public class CityPersistenceImpl
 	 */
 	@Override
 	public void clearCache(City city) {
-		entityCache.removeResult(
-			entityCacheEnabled, CityImpl.class, city.getPrimaryKey());
-
-		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-
-		clearUniqueFindersCache((CityModelImpl)city, true);
+		entityCache.removeResult(CityImpl.class, city);
 	}
 
 	@Override
 	public void clearCache(List<City> cities) {
-		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-
 		for (City city : cities) {
-			entityCache.removeResult(
-				entityCacheEnabled, CityImpl.class, city.getPrimaryKey());
-
-			clearUniqueFindersCache((CityModelImpl)city, true);
+			entityCache.removeResult(CityImpl.class, city);
 		}
 	}
 
+	@Override
 	public void clearCache(Set<Serializable> primaryKeys) {
 		finderCache.clearCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
 		for (Serializable primaryKey : primaryKeys) {
-			entityCache.removeResult(
-				entityCacheEnabled, CityImpl.class, primaryKey);
+			entityCache.removeResult(CityImpl.class, primaryKey);
 		}
 	}
 
@@ -454,26 +435,6 @@ public class CityPersistenceImpl
 			_finderPathCountByName, args, Long.valueOf(1), false);
 		finderCache.putResult(
 			_finderPathFetchByName, args, cityModelImpl, false);
-	}
-
-	protected void clearUniqueFindersCache(
-		CityModelImpl cityModelImpl, boolean clearCurrent) {
-
-		if (clearCurrent) {
-			Object[] args = new Object[] {cityModelImpl.getName()};
-
-			finderCache.removeResult(_finderPathCountByName, args);
-			finderCache.removeResult(_finderPathFetchByName, args);
-		}
-
-		if ((cityModelImpl.getColumnBitmask() &
-			 _finderPathFetchByName.getColumnBitmask()) != 0) {
-
-			Object[] args = new Object[] {cityModelImpl.getOriginalName()};
-
-			finderCache.removeResult(_finderPathCountByName, args);
-			finderCache.removeResult(_finderPathFetchByName, args);
-		}
 	}
 
 	/**
@@ -626,8 +587,6 @@ public class CityPersistenceImpl
 
 			if (isNew) {
 				session.save(city);
-
-				city.setNew(false);
 			}
 			else {
 				city = (City)session.merge(city);
@@ -640,23 +599,13 @@ public class CityPersistenceImpl
 			closeSession(session);
 		}
 
-		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		entityCache.putResult(CityImpl.class, cityModelImpl, false, true);
 
-		if (!_columnBitmaskEnabled) {
-			finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-		}
-		else if (isNew) {
-			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
-			finderCache.removeResult(
-				_finderPathWithoutPaginationFindAll, FINDER_ARGS_EMPTY);
-		}
-
-		entityCache.putResult(
-			entityCacheEnabled, CityImpl.class, city.getPrimaryKey(), city,
-			false);
-
-		clearUniqueFindersCache(cityModelImpl, false);
 		cacheUniqueFindersCache(cityModelImpl);
+
+		if (isNew) {
+			city.setNew(false);
+		}
 
 		city.resetOriginalValues();
 
@@ -835,10 +784,6 @@ public class CityPersistenceImpl
 				}
 			}
 			catch (Exception exception) {
-				if (useFinderCache) {
-					finderCache.removeResult(finderPath, finderArgs);
-				}
-
 				throw processException(exception);
 			}
 			finally {
@@ -884,9 +829,6 @@ public class CityPersistenceImpl
 					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
 			}
 			catch (Exception exception) {
-				finderCache.removeResult(
-					_finderPathCountAll, FINDER_ARGS_EMPTY);
-
 				throw processException(exception);
 			}
 			finally {
@@ -921,37 +863,37 @@ public class CityPersistenceImpl
 	 * Initializes the city persistence.
 	 */
 	@Activate
-	public void activate() {
-		CityModelImpl.setEntityCacheEnabled(entityCacheEnabled);
-		CityModelImpl.setFinderCacheEnabled(finderCacheEnabled);
+	public void activate(BundleContext bundleContext) {
+		_bundleContext = bundleContext;
+
+		_argumentsResolverServiceRegistration = _bundleContext.registerService(
+			ArgumentsResolver.class, new CityModelArgumentsResolver(),
+			MapUtil.singletonDictionary(
+				"model.class.name", City.class.getName()));
 
 		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
 			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
 
-		_finderPathWithPaginationFindAll = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, CityImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
+		_finderPathWithPaginationFindAll = _createFinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0],
+			new String[0], true);
 
-		_finderPathWithoutPaginationFindAll = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, CityImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll",
-			new String[0]);
+		_finderPathWithoutPaginationFindAll = _createFinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll", new String[0],
+			new String[0], true);
 
-		_finderPathCountAll = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, Long.class,
+		_finderPathCountAll = _createFinderPath(
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
-			new String[0]);
+			new String[0], new String[0], false);
 
-		_finderPathFetchByName = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, CityImpl.class,
+		_finderPathFetchByName = _createFinderPath(
 			FINDER_CLASS_NAME_ENTITY, "fetchByName",
-			new String[] {String.class.getName()},
-			CityModelImpl.NAME_COLUMN_BITMASK);
+			new String[] {String.class.getName()}, new String[] {"name"}, true);
 
-		_finderPathCountByName = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, Long.class,
+		_finderPathCountByName = _createFinderPath(
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByName",
-			new String[] {String.class.getName()});
+			new String[] {String.class.getName()}, new String[] {"name"},
+			false);
 
 		_setCityUtilPersistence(this);
 	}
@@ -962,9 +904,13 @@ public class CityPersistenceImpl
 
 		entityCache.removeCache(CityImpl.class.getName());
 
-		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
-		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+		_argumentsResolverServiceRegistration.unregister();
+
+		for (ServiceRegistration<FinderPath> serviceRegistration :
+				_serviceRegistrations) {
+
+			serviceRegistration.unregister();
+		}
 	}
 
 	private void _setCityUtilPersistence(CityPersistence cityPersistence) {
@@ -986,12 +932,6 @@ public class CityPersistenceImpl
 		unbind = "-"
 	)
 	public void setConfiguration(Configuration configuration) {
-		super.setConfiguration(configuration);
-
-		_columnBitmaskEnabled = GetterUtil.getBoolean(
-			configuration.get(
-				"value.object.column.bitmask.enabled.hr.crosig.contact.model.City"),
-			true);
 	}
 
 	@Override
@@ -1012,7 +952,7 @@ public class CityPersistenceImpl
 		super.setSessionFactory(sessionFactory);
 	}
 
-	private boolean _columnBitmaskEnabled;
+	private BundleContext _bundleContext;
 
 	@Reference
 	protected EntityCache entityCache;
@@ -1041,5 +981,119 @@ public class CityPersistenceImpl
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CityPersistenceImpl.class);
+
+	private FinderPath _createFinderPath(
+		String cacheName, String methodName, String[] params,
+		String[] columnNames, boolean baseModelResult) {
+
+		FinderPath finderPath = new FinderPath(
+			cacheName, methodName, params, columnNames, baseModelResult);
+
+		if (!cacheName.equals(FINDER_CLASS_NAME_LIST_WITH_PAGINATION)) {
+			_serviceRegistrations.add(
+				_bundleContext.registerService(
+					FinderPath.class, finderPath,
+					MapUtil.singletonDictionary("cache.name", cacheName)));
+		}
+
+		return finderPath;
+	}
+
+	private Set<ServiceRegistration<FinderPath>> _serviceRegistrations =
+		new HashSet<>();
+	private ServiceRegistration<ArgumentsResolver>
+		_argumentsResolverServiceRegistration;
+
+	private static class CityModelArgumentsResolver
+		implements ArgumentsResolver {
+
+		@Override
+		public Object[] getArguments(
+			FinderPath finderPath, BaseModel<?> baseModel, boolean checkColumn,
+			boolean original) {
+
+			String[] columnNames = finderPath.getColumnNames();
+
+			if ((columnNames == null) || (columnNames.length == 0)) {
+				if (baseModel.isNew()) {
+					return new Object[0];
+				}
+
+				return null;
+			}
+
+			CityModelImpl cityModelImpl = (CityModelImpl)baseModel;
+
+			long columnBitmask = cityModelImpl.getColumnBitmask();
+
+			if (!checkColumn || (columnBitmask == 0)) {
+				return _getValue(cityModelImpl, columnNames, original);
+			}
+
+			Long finderPathColumnBitmask = _finderPathColumnBitmasksCache.get(
+				finderPath);
+
+			if (finderPathColumnBitmask == null) {
+				finderPathColumnBitmask = 0L;
+
+				for (String columnName : columnNames) {
+					finderPathColumnBitmask |= cityModelImpl.getColumnBitmask(
+						columnName);
+				}
+
+				if (finderPath.isBaseModelResult() &&
+					(CityPersistenceImpl.
+						FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION ==
+							finderPath.getCacheName())) {
+
+					finderPathColumnBitmask |= _ORDER_BY_COLUMNS_BITMASK;
+				}
+
+				_finderPathColumnBitmasksCache.put(
+					finderPath, finderPathColumnBitmask);
+			}
+
+			if ((columnBitmask & finderPathColumnBitmask) != 0) {
+				return _getValue(cityModelImpl, columnNames, original);
+			}
+
+			return null;
+		}
+
+		private static Object[] _getValue(
+			CityModelImpl cityModelImpl, String[] columnNames,
+			boolean original) {
+
+			Object[] arguments = new Object[columnNames.length];
+
+			for (int i = 0; i < arguments.length; i++) {
+				String columnName = columnNames[i];
+
+				if (original) {
+					arguments[i] = cityModelImpl.getColumnOriginalValue(
+						columnName);
+				}
+				else {
+					arguments[i] = cityModelImpl.getColumnValue(columnName);
+				}
+			}
+
+			return arguments;
+		}
+
+		private static final Map<FinderPath, Long>
+			_finderPathColumnBitmasksCache = new ConcurrentHashMap<>();
+
+		private static final long _ORDER_BY_COLUMNS_BITMASK;
+
+		static {
+			long orderByColumnsBitmask = 0;
+
+			orderByColumnsBitmask |= CityModelImpl.getColumnBitmask("name");
+
+			_ORDER_BY_COLUMNS_BITMASK = orderByColumnsBitmask;
+		}
+
+	}
 
 }

@@ -83,6 +83,16 @@ public class CityLocalServiceUtil {
 		return getService().createCity(cityId);
 	}
 
+	/**
+	 * @throws PortalException
+	 */
+	public static PersistedModel createPersistedModel(
+			Serializable primaryKeyObj)
+		throws PortalException {
+
+		return getService().createPersistedModel(primaryKeyObj);
+	}
+
 	public static void deleteAllCities() {
 		getService().deleteAllCities();
 	}

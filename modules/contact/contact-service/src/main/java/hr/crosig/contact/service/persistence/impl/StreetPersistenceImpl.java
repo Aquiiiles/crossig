@@ -16,6 +16,7 @@ package hr.crosig.contact.service.persistence.impl;
 
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.configuration.Configuration;
+import com.liferay.portal.kernel.dao.orm.ArgumentsResolver;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -26,11 +27,13 @@ import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.SessionFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
@@ -52,13 +55,17 @@ import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.sql.DataSource;
 
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
@@ -235,11 +242,6 @@ public class StreetPersistenceImpl
 				}
 			}
 			catch (Exception exception) {
-				if (useFinderCache) {
-					finderCache.removeResult(
-						_finderPathFetchByName, finderArgs);
-				}
-
 				throw processException(exception);
 			}
 			finally {
@@ -320,8 +322,6 @@ public class StreetPersistenceImpl
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
 			catch (Exception exception) {
-				finderCache.removeResult(finderPath, finderArgs);
-
 				throw processException(exception);
 			}
 			finally {
@@ -488,10 +488,6 @@ public class StreetPersistenceImpl
 				}
 			}
 			catch (Exception exception) {
-				if (useFinderCache) {
-					finderCache.removeResult(finderPath, finderArgs);
-				}
-
 				throw processException(exception);
 			}
 			finally {
@@ -815,8 +811,6 @@ public class StreetPersistenceImpl
 				finderCache.putResult(finderPath, finderArgs, count);
 			}
 			catch (Exception exception) {
-				finderCache.removeResult(finderPath, finderArgs);
-
 				throw processException(exception);
 			}
 			finally {
@@ -844,14 +838,10 @@ public class StreetPersistenceImpl
 	 */
 	@Override
 	public void cacheResult(Street street) {
-		entityCache.putResult(
-			entityCacheEnabled, StreetImpl.class, street.getPrimaryKey(),
-			street);
+		entityCache.putResult(StreetImpl.class, street.getPrimaryKey(), street);
 
 		finderCache.putResult(
 			_finderPathFetchByName, new Object[] {street.getName()}, street);
-
-		street.resetOriginalValues();
 	}
 
 	private int _valueObjectFinderCacheListThreshold;
@@ -872,13 +862,9 @@ public class StreetPersistenceImpl
 
 		for (Street street : streets) {
 			if (entityCache.getResult(
-					entityCacheEnabled, StreetImpl.class,
-					street.getPrimaryKey()) == null) {
+					StreetImpl.class, street.getPrimaryKey()) == null) {
 
 				cacheResult(street);
-			}
-			else {
-				street.resetOriginalValues();
 			}
 		}
 	}
@@ -908,36 +894,24 @@ public class StreetPersistenceImpl
 	 */
 	@Override
 	public void clearCache(Street street) {
-		entityCache.removeResult(
-			entityCacheEnabled, StreetImpl.class, street.getPrimaryKey());
-
-		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-
-		clearUniqueFindersCache((StreetModelImpl)street, true);
+		entityCache.removeResult(StreetImpl.class, street);
 	}
 
 	@Override
 	public void clearCache(List<Street> streets) {
-		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-
 		for (Street street : streets) {
-			entityCache.removeResult(
-				entityCacheEnabled, StreetImpl.class, street.getPrimaryKey());
-
-			clearUniqueFindersCache((StreetModelImpl)street, true);
+			entityCache.removeResult(StreetImpl.class, street);
 		}
 	}
 
+	@Override
 	public void clearCache(Set<Serializable> primaryKeys) {
 		finderCache.clearCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
 		for (Serializable primaryKey : primaryKeys) {
-			entityCache.removeResult(
-				entityCacheEnabled, StreetImpl.class, primaryKey);
+			entityCache.removeResult(StreetImpl.class, primaryKey);
 		}
 	}
 
@@ -948,26 +922,6 @@ public class StreetPersistenceImpl
 			_finderPathCountByName, args, Long.valueOf(1), false);
 		finderCache.putResult(
 			_finderPathFetchByName, args, streetModelImpl, false);
-	}
-
-	protected void clearUniqueFindersCache(
-		StreetModelImpl streetModelImpl, boolean clearCurrent) {
-
-		if (clearCurrent) {
-			Object[] args = new Object[] {streetModelImpl.getName()};
-
-			finderCache.removeResult(_finderPathCountByName, args);
-			finderCache.removeResult(_finderPathFetchByName, args);
-		}
-
-		if ((streetModelImpl.getColumnBitmask() &
-			 _finderPathFetchByName.getColumnBitmask()) != 0) {
-
-			Object[] args = new Object[] {streetModelImpl.getOriginalName()};
-
-			finderCache.removeResult(_finderPathCountByName, args);
-			finderCache.removeResult(_finderPathFetchByName, args);
-		}
 	}
 
 	/**
@@ -1120,8 +1074,6 @@ public class StreetPersistenceImpl
 
 			if (isNew) {
 				session.save(street);
-
-				street.setNew(false);
 			}
 			else {
 				street = (Street)session.merge(street);
@@ -1134,49 +1086,13 @@ public class StreetPersistenceImpl
 			closeSession(session);
 		}
 
-		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		entityCache.putResult(StreetImpl.class, streetModelImpl, false, true);
 
-		if (!_columnBitmaskEnabled) {
-			finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-		}
-		else if (isNew) {
-			Object[] args = new Object[] {streetModelImpl.getCityId()};
-
-			finderCache.removeResult(_finderPathCountByCityId, args);
-			finderCache.removeResult(
-				_finderPathWithoutPaginationFindByCityId, args);
-
-			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
-			finderCache.removeResult(
-				_finderPathWithoutPaginationFindAll, FINDER_ARGS_EMPTY);
-		}
-		else {
-			if ((streetModelImpl.getColumnBitmask() &
-				 _finderPathWithoutPaginationFindByCityId.getColumnBitmask()) !=
-					 0) {
-
-				Object[] args = new Object[] {
-					streetModelImpl.getOriginalCityId()
-				};
-
-				finderCache.removeResult(_finderPathCountByCityId, args);
-				finderCache.removeResult(
-					_finderPathWithoutPaginationFindByCityId, args);
-
-				args = new Object[] {streetModelImpl.getCityId()};
-
-				finderCache.removeResult(_finderPathCountByCityId, args);
-				finderCache.removeResult(
-					_finderPathWithoutPaginationFindByCityId, args);
-			}
-		}
-
-		entityCache.putResult(
-			entityCacheEnabled, StreetImpl.class, street.getPrimaryKey(),
-			street, false);
-
-		clearUniqueFindersCache(streetModelImpl, false);
 		cacheUniqueFindersCache(streetModelImpl);
+
+		if (isNew) {
+			street.setNew(false);
+		}
 
 		street.resetOriginalValues();
 
@@ -1355,10 +1271,6 @@ public class StreetPersistenceImpl
 				}
 			}
 			catch (Exception exception) {
-				if (useFinderCache) {
-					finderCache.removeResult(finderPath, finderArgs);
-				}
-
 				throw processException(exception);
 			}
 			finally {
@@ -1404,9 +1316,6 @@ public class StreetPersistenceImpl
 					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
 			}
 			catch (Exception exception) {
-				finderCache.removeResult(
-					_finderPathCountAll, FINDER_ARGS_EMPTY);
-
 				throw processException(exception);
 			}
 			finally {
@@ -1441,57 +1350,54 @@ public class StreetPersistenceImpl
 	 * Initializes the street persistence.
 	 */
 	@Activate
-	public void activate() {
-		StreetModelImpl.setEntityCacheEnabled(entityCacheEnabled);
-		StreetModelImpl.setFinderCacheEnabled(finderCacheEnabled);
+	public void activate(BundleContext bundleContext) {
+		_bundleContext = bundleContext;
+
+		_argumentsResolverServiceRegistration = _bundleContext.registerService(
+			ArgumentsResolver.class, new StreetModelArgumentsResolver(),
+			MapUtil.singletonDictionary(
+				"model.class.name", Street.class.getName()));
 
 		_valueObjectFinderCacheListThreshold = GetterUtil.getInteger(
 			PropsUtil.get(PropsKeys.VALUE_OBJECT_FINDER_CACHE_LIST_THRESHOLD));
 
-		_finderPathWithPaginationFindAll = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, StreetImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
+		_finderPathWithPaginationFindAll = _createFinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0],
+			new String[0], true);
 
-		_finderPathWithoutPaginationFindAll = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, StreetImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll",
-			new String[0]);
+		_finderPathWithoutPaginationFindAll = _createFinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll", new String[0],
+			new String[0], true);
 
-		_finderPathCountAll = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, Long.class,
+		_finderPathCountAll = _createFinderPath(
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
-			new String[0]);
+			new String[0], new String[0], false);
 
-		_finderPathFetchByName = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, StreetImpl.class,
+		_finderPathFetchByName = _createFinderPath(
 			FINDER_CLASS_NAME_ENTITY, "fetchByName",
-			new String[] {String.class.getName()},
-			StreetModelImpl.NAME_COLUMN_BITMASK);
+			new String[] {String.class.getName()}, new String[] {"name"}, true);
 
-		_finderPathCountByName = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, Long.class,
+		_finderPathCountByName = _createFinderPath(
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByName",
-			new String[] {String.class.getName()});
+			new String[] {String.class.getName()}, new String[] {"name"},
+			false);
 
-		_finderPathWithPaginationFindByCityId = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, StreetImpl.class,
+		_finderPathWithPaginationFindByCityId = _createFinderPath(
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCityId",
 			new String[] {
 				Long.class.getName(), Integer.class.getName(),
 				Integer.class.getName(), OrderByComparator.class.getName()
-			});
+			},
+			new String[] {"cityId"}, true);
 
-		_finderPathWithoutPaginationFindByCityId = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, StreetImpl.class,
+		_finderPathWithoutPaginationFindByCityId = _createFinderPath(
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCityId",
-			new String[] {Long.class.getName()},
-			StreetModelImpl.CITYID_COLUMN_BITMASK |
-			StreetModelImpl.NAME_COLUMN_BITMASK);
+			new String[] {Long.class.getName()}, new String[] {"cityId"}, true);
 
-		_finderPathCountByCityId = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, Long.class,
+		_finderPathCountByCityId = _createFinderPath(
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCityId",
-			new String[] {Long.class.getName()});
+			new String[] {Long.class.getName()}, new String[] {"cityId"},
+			false);
 
 		_setStreetUtilPersistence(this);
 	}
@@ -1502,9 +1408,13 @@ public class StreetPersistenceImpl
 
 		entityCache.removeCache(StreetImpl.class.getName());
 
-		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
-		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+		_argumentsResolverServiceRegistration.unregister();
+
+		for (ServiceRegistration<FinderPath> serviceRegistration :
+				_serviceRegistrations) {
+
+			serviceRegistration.unregister();
+		}
 	}
 
 	private void _setStreetUtilPersistence(
@@ -1528,12 +1438,6 @@ public class StreetPersistenceImpl
 		unbind = "-"
 	)
 	public void setConfiguration(Configuration configuration) {
-		super.setConfiguration(configuration);
-
-		_columnBitmaskEnabled = GetterUtil.getBoolean(
-			configuration.get(
-				"value.object.column.bitmask.enabled.hr.crosig.contact.model.Street"),
-			true);
 	}
 
 	@Override
@@ -1554,7 +1458,7 @@ public class StreetPersistenceImpl
 		super.setSessionFactory(sessionFactory);
 	}
 
-	private boolean _columnBitmaskEnabled;
+	private BundleContext _bundleContext;
 
 	@Reference
 	protected EntityCache entityCache;
@@ -1584,5 +1488,119 @@ public class StreetPersistenceImpl
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		StreetPersistenceImpl.class);
+
+	private FinderPath _createFinderPath(
+		String cacheName, String methodName, String[] params,
+		String[] columnNames, boolean baseModelResult) {
+
+		FinderPath finderPath = new FinderPath(
+			cacheName, methodName, params, columnNames, baseModelResult);
+
+		if (!cacheName.equals(FINDER_CLASS_NAME_LIST_WITH_PAGINATION)) {
+			_serviceRegistrations.add(
+				_bundleContext.registerService(
+					FinderPath.class, finderPath,
+					MapUtil.singletonDictionary("cache.name", cacheName)));
+		}
+
+		return finderPath;
+	}
+
+	private Set<ServiceRegistration<FinderPath>> _serviceRegistrations =
+		new HashSet<>();
+	private ServiceRegistration<ArgumentsResolver>
+		_argumentsResolverServiceRegistration;
+
+	private static class StreetModelArgumentsResolver
+		implements ArgumentsResolver {
+
+		@Override
+		public Object[] getArguments(
+			FinderPath finderPath, BaseModel<?> baseModel, boolean checkColumn,
+			boolean original) {
+
+			String[] columnNames = finderPath.getColumnNames();
+
+			if ((columnNames == null) || (columnNames.length == 0)) {
+				if (baseModel.isNew()) {
+					return new Object[0];
+				}
+
+				return null;
+			}
+
+			StreetModelImpl streetModelImpl = (StreetModelImpl)baseModel;
+
+			long columnBitmask = streetModelImpl.getColumnBitmask();
+
+			if (!checkColumn || (columnBitmask == 0)) {
+				return _getValue(streetModelImpl, columnNames, original);
+			}
+
+			Long finderPathColumnBitmask = _finderPathColumnBitmasksCache.get(
+				finderPath);
+
+			if (finderPathColumnBitmask == null) {
+				finderPathColumnBitmask = 0L;
+
+				for (String columnName : columnNames) {
+					finderPathColumnBitmask |= streetModelImpl.getColumnBitmask(
+						columnName);
+				}
+
+				if (finderPath.isBaseModelResult() &&
+					(StreetPersistenceImpl.
+						FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION ==
+							finderPath.getCacheName())) {
+
+					finderPathColumnBitmask |= _ORDER_BY_COLUMNS_BITMASK;
+				}
+
+				_finderPathColumnBitmasksCache.put(
+					finderPath, finderPathColumnBitmask);
+			}
+
+			if ((columnBitmask & finderPathColumnBitmask) != 0) {
+				return _getValue(streetModelImpl, columnNames, original);
+			}
+
+			return null;
+		}
+
+		private static Object[] _getValue(
+			StreetModelImpl streetModelImpl, String[] columnNames,
+			boolean original) {
+
+			Object[] arguments = new Object[columnNames.length];
+
+			for (int i = 0; i < arguments.length; i++) {
+				String columnName = columnNames[i];
+
+				if (original) {
+					arguments[i] = streetModelImpl.getColumnOriginalValue(
+						columnName);
+				}
+				else {
+					arguments[i] = streetModelImpl.getColumnValue(columnName);
+				}
+			}
+
+			return arguments;
+		}
+
+		private static final Map<FinderPath, Long>
+			_finderPathColumnBitmasksCache = new ConcurrentHashMap<>();
+
+		private static final long _ORDER_BY_COLUMNS_BITMASK;
+
+		static {
+			long orderByColumnsBitmask = 0;
+
+			orderByColumnsBitmask |= StreetModelImpl.getColumnBitmask("name");
+
+			_ORDER_BY_COLUMNS_BITMASK = orderByColumnsBitmask;
+		}
+
+	}
 
 }

@@ -91,6 +91,12 @@ public interface CityLocalService
 	@Transactional(enabled = false)
 	public City createCity(long cityId);
 
+	/**
+	 * @throws PortalException
+	 */
+	public PersistedModel createPersistedModel(Serializable primaryKeyObj)
+		throws PortalException;
+
 	public void deleteAllCities();
 
 	/**
