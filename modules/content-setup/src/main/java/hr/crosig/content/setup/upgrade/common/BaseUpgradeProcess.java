@@ -7,10 +7,11 @@ import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.UserGroup;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.GroupLocalService;
-import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserGroupLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.kernel.util.LocaleUtil;
@@ -27,14 +28,24 @@ import java.util.Map;
 public abstract class BaseUpgradeProcess extends UpgradeProcess {
 
 	public BaseUpgradeProcess(
+			CompanyLocalService companyLocalService,
+			GroupLocalService groupLocalService, UserLocalService userLocalService,
+			UserGroupLocalService userGroupLocalService) {
+
+		this.companyLocalService = companyLocalService;
+		this.groupLocalService = groupLocalService;
+		this.userLocalService = userLocalService;
+		this.userGroupLocalService = userGroupLocalService;
+	}
+
+	public BaseUpgradeProcess(
 		GroupLocalService groupLocalService,
 		CompanyLocalService companyLocalService,
-		UserLocalService userLocalService, RoleLocalService roleLocalService) {
+		UserLocalService userLocalService) {
 
 		this.groupLocalService = groupLocalService;
 		this.companyLocalService = companyLocalService;
 		this.userLocalService = userLocalService;
-		this.roleLocalService = roleLocalService;
 	}
 
 	protected Group addSite(
@@ -44,7 +55,7 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 		long companyId = getDefaultCompanyId();
 
 		Group group = groupLocalService.fetchFriendlyURLGroup(
-			companyId, friendlyURL);
+				companyId, friendlyURL);
 
 		if (group != null) {
 			log.info("Site already exists: " + name);
@@ -56,18 +67,45 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 		Map<Locale, String> nameMap = getMap(name);
 		Map<Locale, String> descriptionMap = getMap(description);
 		ServiceContext serviceContext = getDefaultServiceContext(
-			companyId, userId);
+				companyId, userId);
 
 		group = groupLocalService.addGroup(
 			userId, GroupConstants.DEFAULT_PARENT_GROUP_ID,
-			Group.class.getName(), userId, GroupConstants.DEFAULT_LIVE_GROUP_ID,
-			nameMap, descriptionMap, type, true,
-			GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, friendlyURL, true,
-			false, true, serviceContext);
+			Group.class.getName(), userId,
+			GroupConstants.DEFAULT_LIVE_GROUP_ID, nameMap, descriptionMap, type,
+			true, GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, friendlyURL,
+			true, false, true, serviceContext);
 
 		log.info("Site created: " + name);
 
 		return group;
+	}
+
+	protected UserGroup addUserGroup(String name, String description)
+		throws PortalException {
+
+		long companyId = getDefaultCompanyId();
+
+		UserGroup userGroup = userGroupLocalService.fetchUserGroup(
+				companyId, name);
+
+		if (userGroup != null) {
+			log.info("User Group already exists: " + name);
+
+			return userGroup;
+		}
+
+		long userId = getAdminUserId(companyId);
+
+		ServiceContext serviceContext = getDefaultServiceContext(
+				companyId, userId);
+
+		userGroup = userGroupLocalService.addUserGroup(
+			userId, companyId, name, description, serviceContext);
+
+		log.info("User Group created: " + name);
+
+		return userGroup;
 	}
 
 	protected long getAdminUserId(long companyId) throws PortalException {
@@ -110,7 +148,7 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 
 	protected CompanyLocalService companyLocalService;
 	protected GroupLocalService groupLocalService;
-	protected RoleLocalService roleLocalService;
+	protected UserGroupLocalService userGroupLocalService;
 	protected UserLocalService userLocalService;
 
 }
