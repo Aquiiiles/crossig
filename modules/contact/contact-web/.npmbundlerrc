@@ -1,12 +1,11 @@
 {
+	"preset": "liferay-npm-bundler-preset-create-react-app",
 	"create-jar": {
-		"output-dir": "dist",
-		"features": {
+       "output-dir": "dist",
+	    "features": {
 			"js-extender": true,
-			"web-context": "/contact-search",
-			"localization": "features/localization/Language",
-			"configuration": "features/configuration.json"
-		}
-	},
-	"dump-report": true
+			"web-context": "/contact-web",
+			"localization": "features/localization/Language"
+   		}
+   }
 }

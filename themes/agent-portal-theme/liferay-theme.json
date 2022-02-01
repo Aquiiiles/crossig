@@ -1,0 +1,9 @@
+{
+  "LiferayTheme": {
+    "appServerPath": "/home/matheus/Development/crosig/ap/bundles/tomcat-9.0.43",
+    "deployPath": "/home/matheus/Development/crosig/ap/bundles/deploy",
+    "deployed": true,
+    "deploymentStrategy": "LocalAppServer",
+    "url": "http://localhost:8080"
+  }
+}

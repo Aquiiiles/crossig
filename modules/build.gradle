@@ -1,0 +1,9 @@
+subprojects {
+    project.pluginManager.withPlugin("com.liferay.node") {
+        if (project.tasks.findByName('packageRunDeployLiferay')) {
+            deploy {
+                dependsOn packageRunDeployLiferay
+            }
+        }
+    }
+}
