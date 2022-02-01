@@ -2,10 +2,11 @@ package hr.crosig.contact.gogo.command;
 
 import hr.crosig.contact.model.City;
 import hr.crosig.contact.service.CityLocalService;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.Arrays;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Guilherme Kfouri
@@ -19,6 +20,7 @@ public class DeleteCityCommand {
 	public void deleteCity(long cityId, String cityName) {
 		try {
 			City city = _cityLocalService.createCity(cityId);
+
 			city.setName(cityName);
 
 			_cityLocalService.deleteCity(city);

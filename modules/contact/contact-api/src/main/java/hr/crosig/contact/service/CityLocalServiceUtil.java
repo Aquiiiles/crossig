@@ -45,8 +45,8 @@ public class CityLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>hr.crosig.contact.service.impl.CityLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static void addCities(Map<Long, String> citiesNames) {
-		getService().addCities(citiesNames);
+	public static void addCities(Map<Long, String> cities) {
+		getService().addCities(cities);
 	}
 
 	/**
@@ -63,8 +63,10 @@ public class CityLocalServiceUtil {
 		return getService().addCity(city);
 	}
 
-	public static void addCity(long cityId, String cityName) {
-		getService().addCity(cityId, cityName);
+	public static City addCity(long cityId, String cityName)
+		throws hr.crosig.contact.exception.CityException {
+
+		return getService().addCity(cityId, cityName);
 	}
 
 	/**
@@ -75,6 +77,10 @@ public class CityLocalServiceUtil {
 	 */
 	public static City createCity(long cityId) {
 		return getService().createCity(cityId);
+	}
+
+	public static void deleteAllCities() {
+		getService().deleteAllCities();
 	}
 
 	/**
@@ -282,6 +288,10 @@ public class CityLocalServiceUtil {
 	 */
 	public static City updateCity(City city) {
 		return getService().updateCity(city);
+	}
+
+	public static void updateOrCreateCities(Map<Long, String> cities) {
+		getService().updateOrCreateCities(cities);
 	}
 
 	public static CityLocalService getService() {

@@ -6,6 +6,6 @@ Export-Package:\
 	hr.crosig.contact.exception,\
 	hr.crosig.contact.model,\
 	hr.crosig.contact.service,\
-    hr.crosig.contact.service.persistence
+	hr.crosig.contact.service.persistence
 -check: EXPORTS
 -includeresource: META-INF/service.xml=../contact-service/service.xml

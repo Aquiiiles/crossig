@@ -31,8 +31,8 @@ public class CityLocalServiceWrapper
 	}
 
 	@Override
-	public void addCities(java.util.Map<Long, String> citiesNames) {
-		_cityLocalService.addCities(citiesNames);
+	public void addCities(java.util.Map<Long, String> cities) {
+		_cityLocalService.addCities(cities);
 	}
 
 	/**
@@ -53,8 +53,10 @@ public class CityLocalServiceWrapper
 	}
 
 	@Override
-	public void addCity(long cityId, String cityName) {
-		_cityLocalService.addCity(cityId, cityName);
+	public hr.crosig.contact.model.City addCity(long cityId, String cityName)
+		throws hr.crosig.contact.exception.CityException {
+
+		return _cityLocalService.addCity(cityId, cityName);
 	}
 
 	/**
@@ -66,6 +68,11 @@ public class CityLocalServiceWrapper
 	@Override
 	public hr.crosig.contact.model.City createCity(long cityId) {
 		return _cityLocalService.createCity(cityId);
+	}
+
+	@Override
+	public void deleteAllCities() {
+		_cityLocalService.deleteAllCities();
 	}
 
 	/**
@@ -308,6 +315,11 @@ public class CityLocalServiceWrapper
 		hr.crosig.contact.model.City city) {
 
 		return _cityLocalService.updateCity(city);
+	}
+
+	@Override
+	public void updateOrCreateCities(java.util.Map<Long, String> cities) {
+		_cityLocalService.updateOrCreateCities(cities);
 	}
 
 	@Override

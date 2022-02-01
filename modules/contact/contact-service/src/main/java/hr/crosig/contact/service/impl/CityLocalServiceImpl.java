@@ -15,9 +15,10 @@
 package hr.crosig.contact.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.kernel.search.Indexable;
-import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.search.document.Document;
 import com.liferay.portal.search.hits.SearchHit;
@@ -43,6 +44,7 @@ import org.osgi.service.component.annotations.Reference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -54,42 +56,42 @@ import java.util.Set;
 )
 public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 
-	public void addCities(Map<Long, String> citiesNames) {
-		Set<Long> citiesIds = citiesNames.keySet();
+	public void addCities(Map<Long, String> cities) {
+		Set<Long> citiesIds = cities.keySet();
 
 		citiesIds.forEach(
 			cityId -> {
-				String cityName = citiesNames.get(cityId);
+				String cityName = cities.get(cityId);
 
-				addCity(cityId, cityName);
+				try {
+					addCity(cityId, cityName);
+				}
+				catch (CityException cityException) {
+					_log.error(
+						CityMessages.CITY_WITH_THIS_ID_ALREADY_EXISTS + cityId);
+				}
 			});
 	}
 
-	@Indexable(type = IndexableType.REINDEX)
-	@Override
-	public City addCity(City city) {
-		return city;
+	public City addCity(long cityId, String cityName) throws CityException {
+		validateCity(cityId);
+
+		City city = createCity(cityId, cityName);
+
+		return addCity(city);
 	}
 
-	public void addCity(long cityId, String cityName) {
-		City city = cityLocalService.createCity(cityId);
+	public void deleteAllCities() {
+		List<City> cities = cityLocalService.getCities(-1, -1);
 
-		city.setName(cityName);
-
-		addCity(city);
-	}
-
-	@Indexable(type = IndexableType.DELETE)
-	@Override
-	public City deleteCity(City city) {
-		return city;
+		cities.forEach(city -> cityLocalService.deleteCity(city));
 	}
 
 	public List<String> getCitiesNamesByName(
 			String cityName, int start, int end)
 		throws Exception {
 
-		validateCityName(cityName);
+		validateSearchCityName(cityName);
 
 		MatchQuery entryClassQuery = queries.match(
 			Field.ENTRY_CLASS_NAME, CityConstants.MODEL_CLASS_NAME);
@@ -108,9 +110,33 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		return getCitiesNames(searchHitsList);
 	}
 
-	@Indexable(type = IndexableType.REINDEX)
-	@Override
-	public City updateCity(City city) {
+	public void updateOrCreateCities(Map<Long, String> cities) {
+		Set<Long> citiesIds = cities.keySet();
+
+		citiesIds.forEach(
+			cityId -> {
+				City city = cityLocalService.fetchCity(cityId);
+				String cityName = cities.get(cityId);
+
+				if (Objects.isNull(city)) {
+					city = createCity(cityId, cityName);
+
+					addCity(city);
+				}
+				else {
+					city.setName(cityName);
+
+					cityLocalService.updateCity(city);
+				}
+			});
+	}
+
+	protected City createCity(long cityId, String cityName) {
+		City city = cityLocalService.createCity(cityId);
+
+		city.setName(cityName);
+		city.setCompanyId(PortalUtil.getDefaultCompanyId());
+
 		return city;
 	}
 
@@ -160,10 +186,22 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		return searchHits.getSearchHits();
 	}
 
-	protected void validateCityName(String cityName) throws CityException {
+	protected void validateCity(long cityId) throws CityException {
+		try {
+			cityLocalService.getCity(cityId);
+		}
+		catch (PortalException portalException) {
+			throw new CityException(
+				CityMessages.CITY_WITH_THIS_ID_ALREADY_EXISTS + cityId);
+		}
+	}
+
+	protected void validateSearchCityName(String cityName)
+		throws CityException {
+
 		if (cityName.length() < 3)
 
-			throw new CityException(CityMessages.NAME_LENGTH_ERROR);
+			throw new CityException(CityMessages.INSUFICIENT_NAME_LENGTH);
 	}
 
 	@Reference
@@ -174,5 +212,8 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 
 	@Reference
 	protected SearchRequestBuilderFactory searchRequestBuilderFactory;
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CityLocalServiceImpl.class);
 
 }
