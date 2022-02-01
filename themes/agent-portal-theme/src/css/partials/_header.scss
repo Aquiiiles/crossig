@@ -1,0 +1,22 @@
+#banner {
+    padding: 1.875rem 2rem;
+    background-color: #FFF;
+
+    & h4 {
+        margin-bottom: 0;
+    }
+
+    &.page-editor__disabled-area {
+        padding-right: 40px !important;
+    }
+
+    &.page-editor__disabled-area.collapsed {
+        padding-right: 322px !important;
+    }
+}
+
+#heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
