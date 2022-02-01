@@ -14,9 +14,9 @@ import hr.crosig.content.setup.upgrade.common.BaseUpgradeProcess;
  *
  * @author david.martini
  */
-public class AddUserGroup extends BaseUpgradeProcess {
+public class CreateAgentPortalUserGroups extends BaseUpgradeProcess {
 
-    public AddUserGroup(
+    public CreateAgentPortalUserGroups(
             CompanyLocalService companyLocalService,
             GroupLocalService groupLocalService, UserLocalService userLocalService,
             UserGroupLocalService userGroupLocalService) {

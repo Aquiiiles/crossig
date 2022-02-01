@@ -3,8 +3,16 @@ package hr.crosig.content.setup.upgrade.common;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.*;
-import com.liferay.portal.kernel.service.*;
+import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.GroupConstants;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.UserGroup;
+import com.liferay.portal.kernel.service.CompanyLocalService;
+import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserGroupLocalService;
+import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
@@ -20,9 +28,9 @@ import java.util.Map;
 public abstract class BaseUpgradeProcess extends UpgradeProcess {
 
 	public BaseUpgradeProcess(
-		CompanyLocalService companyLocalService,
-		GroupLocalService groupLocalService, UserLocalService userLocalService,
-		UserGroupLocalService userGroupLocalService) {
+			CompanyLocalService companyLocalService,
+			GroupLocalService groupLocalService, UserLocalService userLocalService,
+			UserGroupLocalService userGroupLocalService) {
 
 		this.companyLocalService = companyLocalService;
 		this.groupLocalService = groupLocalService;
