@@ -10,7 +10,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import hr.crosig.common.cache.management.constants.CacheManagementCommandNames;
 import hr.crosig.common.cache.management.constants.CacheManagementPortletKeys;
 import hr.crosig.common.cache.management.constants.ClearCacheMVCActionConstants;
-import hr.crosig.contact.scheduler.service.base.ClearCacheService;
+import hr.crosig.contact.service.ClearCacheService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 

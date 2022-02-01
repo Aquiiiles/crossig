@@ -1,7 +1,7 @@
-package hr.crosig.contact.scheduler.service.impl;
+package hr.crosig.contact.service.impl;
 
 import hr.crosig.contact.scheduler.enums.IndexType;
-import hr.crosig.contact.scheduler.service.base.ClearCacheService;
+import hr.crosig.contact.service.ClearCacheService;
 
 import java.util.Arrays;
 

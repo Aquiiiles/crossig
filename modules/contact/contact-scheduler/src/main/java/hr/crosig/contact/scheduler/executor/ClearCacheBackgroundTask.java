@@ -6,7 +6,7 @@ import com.liferay.portal.kernel.backgroundtask.BackgroundTaskResult;
 import com.liferay.portal.kernel.backgroundtask.BaseBackgroundTaskExecutor;
 import com.liferay.portal.kernel.backgroundtask.display.BackgroundTaskDisplay;
 
-import hr.crosig.contact.scheduler.service.base.ClearCacheService;
+import hr.crosig.contact.service.ClearCacheService;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -27,9 +27,7 @@ public class ClearCacheBackgroundTask extends BaseBackgroundTaskExecutor {
 	}
 
 	@Override
-	public BackgroundTaskResult execute(BackgroundTask backgroundTask)
-		throws Exception {
-
+	public BackgroundTaskResult execute(BackgroundTask backgroundTask) {
 		_clearCacheService.clearAllIndicesCache();
 
 		return BackgroundTaskResult.SUCCESS;

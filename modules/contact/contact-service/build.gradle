@@ -1,6 +1,7 @@
 dependencies {
 	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
 	compileOnly project(":modules:contact:contact-api")
+	compileOnly project(":modules:contact:contact-scheduler")
 }
 
 buildService {
