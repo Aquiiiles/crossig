@@ -33,10 +33,7 @@ public class CacheManagementPanelCategory extends BasePanelCategory {
 
 	@Override
 	public String getLabel(Locale locale) {
-		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
-			"content.Language", locale, getClass());
-
-		return LanguageUtil.get(resourceBundle, "category.agent.portal");
+		return LanguageUtil.get(locale, CacheManagementPanelCategoryKeys.CONTROL_PANEL_CATEGORY);
 	}
 
 }
