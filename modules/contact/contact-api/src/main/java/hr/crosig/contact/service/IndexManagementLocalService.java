@@ -3,7 +3,7 @@ package hr.crosig.contact.service;
 /**
  * @author victor.catanante
  */
-public interface ClearCacheService {
+public interface IndexManagementLocalService {
 
 	public void clearAllIndicesCache();
 

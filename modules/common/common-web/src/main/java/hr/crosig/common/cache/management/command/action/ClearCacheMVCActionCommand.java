@@ -10,7 +10,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import hr.crosig.common.cache.management.constants.CacheManagementCommandNames;
 import hr.crosig.common.cache.management.constants.CacheManagementPortletKeys;
 import hr.crosig.common.cache.management.constants.ClearCacheMVCActionConstants;
-import hr.crosig.contact.service.ClearCacheService;
+import hr.crosig.contact.service.IndexManagementLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -41,10 +41,10 @@ public class ClearCacheMVCActionCommand extends BaseMVCActionCommand {
 
 			if (ClearCacheMVCActionConstants.CLEAR_CACHE_ALL.equals(cacheName)) {
 				// clears all the cache
-				_clearCacheService.clearAllIndicesCache();
+				_indexManagementLocalService.clearAllIndicesCache();
 			} else {
 				// clears a single cache
-				_clearCacheService.clearIndexCache(cacheName);
+				_indexManagementLocalService.clearIndexCache(cacheName);
 			}
 		}
 		catch (Exception exception) {
@@ -55,7 +55,7 @@ public class ClearCacheMVCActionCommand extends BaseMVCActionCommand {
 	}
 
 	@Reference
-	private ClearCacheService _clearCacheService;
+	private IndexManagementLocalService _indexManagementLocalService;
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		ClearCacheMVCActionCommand.class);

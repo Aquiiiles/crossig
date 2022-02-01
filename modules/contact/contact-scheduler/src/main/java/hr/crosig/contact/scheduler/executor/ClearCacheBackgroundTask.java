@@ -6,7 +6,7 @@ import com.liferay.portal.kernel.backgroundtask.BackgroundTaskResult;
 import com.liferay.portal.kernel.backgroundtask.BaseBackgroundTaskExecutor;
 import com.liferay.portal.kernel.backgroundtask.display.BackgroundTaskDisplay;
 
-import hr.crosig.contact.service.ClearCacheService;
+import hr.crosig.contact.service.IndexManagementLocalService;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -28,7 +28,7 @@ public class ClearCacheBackgroundTask extends BaseBackgroundTaskExecutor {
 
 	@Override
 	public BackgroundTaskResult execute(BackgroundTask backgroundTask) {
-		_clearCacheService.clearAllIndicesCache();
+		_indexManagementLocalService.clearAllIndicesCache();
 
 		return BackgroundTaskResult.SUCCESS;
 	}
@@ -46,6 +46,6 @@ public class ClearCacheBackgroundTask extends BaseBackgroundTaskExecutor {
 	}
 
 	@Reference(unbind = "-")
-	private ClearCacheService _clearCacheService;
+	private IndexManagementLocalService _indexManagementLocalService;
 
 }
