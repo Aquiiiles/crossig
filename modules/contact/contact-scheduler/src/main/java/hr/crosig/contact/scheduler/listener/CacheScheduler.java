@@ -42,7 +42,7 @@ import org.osgi.service.component.annotations.Reference;
 public class CacheScheduler implements MessageListener {
 
 	@Override
-	public void receive(Message message) throws MessageListenerException {
+	public void receive(Message message) {
 		_log.info(SchedulerConstants.SCHEDULER_TRIGGERED);
 
 		try {
