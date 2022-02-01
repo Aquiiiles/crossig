@@ -114,9 +114,6 @@ public class CacheScheduler implements MessageListener {
 
 	private static volatile CacheConfiguration _cacheConfiguration;
 
-	@Reference(target = ModuleServiceLifecycle.PORTAL_INITIALIZED, unbind = "-")
-	private volatile ModuleServiceLifecycle _moduleServiceLifecycle;
-
 	@Reference(unbind = "-")
 	private volatile SchedulerEngineHelper _schedulerEngineHelper;
 
