@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import SearchField from "./containers/SearchField";
 import { Content, Wrapper } from "./styles";
 import Stepper from "./containers/Stepper";
+import {CONTACT_SEARCH_SUBTITLE, CONTACT_SEARCH_TITLE} from "../../constants/languageKeys";
 
 const ContactSearch: React.FC = () => {
   return (
@@ -9,10 +10,9 @@ const ContactSearch: React.FC = () => {
       <Stepper />
 
       <Content>
-        <h1>Contact Lookup</h1>
+        <h1>{CONTACT_SEARCH_TITLE}</h1>
         <p style={{marginBottom:'1.875rem'}}>
-          Ut enim ad minim veniam quis nostrud exercitation laboris nisi ut
-          aliquip ex ea commodo consequat
+            {CONTACT_SEARCH_SUBTITLE}
         </p>
         <SearchField />
       </Content>
