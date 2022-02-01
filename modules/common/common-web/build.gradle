@@ -1,5 +1,5 @@
 dependencies {
-	compile project(":modules:contact:contact-scheduler")
+	compileOnly project(":modules:contact:contact-scheduler")
 
 	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
 
