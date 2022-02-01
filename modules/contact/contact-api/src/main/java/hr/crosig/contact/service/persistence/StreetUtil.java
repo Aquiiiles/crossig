@@ -178,8 +178,8 @@ public class StreetUtil {
 	 * @param cityId the city ID
 	 * @return the matching streets
 	 */
-	public static List<Street> findByCity(long cityId) {
-		return getPersistence().findByCity(cityId);
+	public static List<Street> findByCityId(long cityId) {
+		return getPersistence().findByCityId(cityId);
 	}
 
 	/**
@@ -194,8 +194,8 @@ public class StreetUtil {
 	 * @param end the upper bound of the range of streets (not inclusive)
 	 * @return the range of matching streets
 	 */
-	public static List<Street> findByCity(long cityId, int start, int end) {
-		return getPersistence().findByCity(cityId, start, end);
+	public static List<Street> findByCityId(long cityId, int start, int end) {
+		return getPersistence().findByCityId(cityId, start, end);
 	}
 
 	/**
@@ -211,11 +211,11 @@ public class StreetUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching streets
 	 */
-	public static List<Street> findByCity(
+	public static List<Street> findByCityId(
 		long cityId, int start, int end,
 		OrderByComparator<Street> orderByComparator) {
 
-		return getPersistence().findByCity(
+		return getPersistence().findByCityId(
 			cityId, start, end, orderByComparator);
 	}
 
@@ -233,11 +233,11 @@ public class StreetUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching streets
 	 */
-	public static List<Street> findByCity(
+	public static List<Street> findByCityId(
 		long cityId, int start, int end,
 		OrderByComparator<Street> orderByComparator, boolean useFinderCache) {
 
-		return getPersistence().findByCity(
+		return getPersistence().findByCityId(
 			cityId, start, end, orderByComparator, useFinderCache);
 	}
 
@@ -249,11 +249,11 @@ public class StreetUtil {
 	 * @return the first matching street
 	 * @throws NoSuchStreetException if a matching street could not be found
 	 */
-	public static Street findByCity_First(
+	public static Street findByCityId_First(
 			long cityId, OrderByComparator<Street> orderByComparator)
 		throws hr.crosig.contact.exception.NoSuchStreetException {
 
-		return getPersistence().findByCity_First(cityId, orderByComparator);
+		return getPersistence().findByCityId_First(cityId, orderByComparator);
 	}
 
 	/**
@@ -263,10 +263,10 @@ public class StreetUtil {
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching street, or <code>null</code> if a matching street could not be found
 	 */
-	public static Street fetchByCity_First(
+	public static Street fetchByCityId_First(
 		long cityId, OrderByComparator<Street> orderByComparator) {
 
-		return getPersistence().fetchByCity_First(cityId, orderByComparator);
+		return getPersistence().fetchByCityId_First(cityId, orderByComparator);
 	}
 
 	/**
@@ -277,11 +277,11 @@ public class StreetUtil {
 	 * @return the last matching street
 	 * @throws NoSuchStreetException if a matching street could not be found
 	 */
-	public static Street findByCity_Last(
+	public static Street findByCityId_Last(
 			long cityId, OrderByComparator<Street> orderByComparator)
 		throws hr.crosig.contact.exception.NoSuchStreetException {
 
-		return getPersistence().findByCity_Last(cityId, orderByComparator);
+		return getPersistence().findByCityId_Last(cityId, orderByComparator);
 	}
 
 	/**
@@ -291,10 +291,10 @@ public class StreetUtil {
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching street, or <code>null</code> if a matching street could not be found
 	 */
-	public static Street fetchByCity_Last(
+	public static Street fetchByCityId_Last(
 		long cityId, OrderByComparator<Street> orderByComparator) {
 
-		return getPersistence().fetchByCity_Last(cityId, orderByComparator);
+		return getPersistence().fetchByCityId_Last(cityId, orderByComparator);
 	}
 
 	/**
@@ -306,12 +306,12 @@ public class StreetUtil {
 	 * @return the previous, current, and next street
 	 * @throws NoSuchStreetException if a street with the primary key could not be found
 	 */
-	public static Street[] findByCity_PrevAndNext(
+	public static Street[] findByCityId_PrevAndNext(
 			long streetId, long cityId,
 			OrderByComparator<Street> orderByComparator)
 		throws hr.crosig.contact.exception.NoSuchStreetException {
 
-		return getPersistence().findByCity_PrevAndNext(
+		return getPersistence().findByCityId_PrevAndNext(
 			streetId, cityId, orderByComparator);
 	}
 
@@ -320,8 +320,8 @@ public class StreetUtil {
 	 *
 	 * @param cityId the city ID
 	 */
-	public static void removeByCity(long cityId) {
-		getPersistence().removeByCity(cityId);
+	public static void removeByCityId(long cityId) {
+		getPersistence().removeByCityId(cityId);
 	}
 
 	/**
@@ -330,8 +330,8 @@ public class StreetUtil {
 	 * @param cityId the city ID
 	 * @return the number of matching streets
 	 */
-	public static int countByCity(long cityId) {
-		return getPersistence().countByCity(cityId);
+	public static int countByCityId(long cityId) {
+		return getPersistence().countByCityId(cityId);
 	}
 
 	/**

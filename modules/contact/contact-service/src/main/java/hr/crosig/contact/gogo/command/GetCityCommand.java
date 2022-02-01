@@ -1,10 +1,11 @@
 package hr.crosig.contact.gogo.command;
 
 import hr.crosig.contact.service.CityLocalService;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.Arrays;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Guilherme Kfouri

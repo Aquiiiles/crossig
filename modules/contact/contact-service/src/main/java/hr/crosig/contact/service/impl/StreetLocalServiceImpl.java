@@ -76,11 +76,7 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 
 		Street street = createStreet(streetId, streetName, cityId);
 
-		return addStreet(street);
-	}
-
-	public void addStreets(List<Street> streets) {
-		streets.forEach(this::addStreet);
+		return streetLocalService.updateStreet(street);
 	}
 
 	public void deleteAllStreets() {
@@ -184,7 +180,7 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 	protected void validateStreet(long streetId) throws StreetException {
 		Street street = streetLocalService.fetchStreet(streetId);
 
-		if (Objects.isNull(street))
+		if (!Objects.isNull(street))
 
 			throw new StreetException(
 				StreetMessages.STREET_WITH_THIS_ID_ALREADY_EXISTS + streetId);

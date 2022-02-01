@@ -57,11 +57,11 @@
 			<order-column name="name" />
 		</order>
 
-		<finder name="Name" return-type="City">
+		<finder name="Name" return-type="Street">
 			<finder-column name="name" />
 		</finder>
 
-		<finder name="City" return-type="Collection">
+		<finder name="CityId" return-type="Collection">
 			<finder-column name="cityId" />
 		</finder>
 	</entity>

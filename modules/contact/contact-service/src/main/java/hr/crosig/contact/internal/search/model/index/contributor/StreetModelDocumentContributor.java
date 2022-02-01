@@ -24,7 +24,7 @@ public class StreetModelDocumentContributor
 	public void contribute(Document document, Street entry) {
 		document.addNumber(
 			StreetConstants.FIELD_STREET_ID, entry.getStreetId());
-		document.addNumber(CityConstants.FIELD_CITY_ID, entry.getStreetId());
+		document.addNumber(CityConstants.FIELD_CITY_ID, entry.getCityId());
 		document.addKeyword(StreetConstants.FIELD_STREET_NAME, entry.getName());
 	}
 

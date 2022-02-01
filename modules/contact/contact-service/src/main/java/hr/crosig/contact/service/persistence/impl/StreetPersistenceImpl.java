@@ -337,9 +337,9 @@ public class StreetPersistenceImpl
 	private static final String _FINDER_COLUMN_NAME_NAME_3 =
 		"(street.name IS NULL OR street.name = '')";
 
-	private FinderPath _finderPathWithPaginationFindByCity;
-	private FinderPath _finderPathWithoutPaginationFindByCity;
-	private FinderPath _finderPathCountByCity;
+	private FinderPath _finderPathWithPaginationFindByCityId;
+	private FinderPath _finderPathWithoutPaginationFindByCityId;
+	private FinderPath _finderPathCountByCityId;
 
 	/**
 	 * Returns all the streets where cityId = &#63;.
@@ -348,8 +348,8 @@ public class StreetPersistenceImpl
 	 * @return the matching streets
 	 */
 	@Override
-	public List<Street> findByCity(long cityId) {
-		return findByCity(cityId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	public List<Street> findByCityId(long cityId) {
+		return findByCityId(cityId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
@@ -365,8 +365,8 @@ public class StreetPersistenceImpl
 	 * @return the range of matching streets
 	 */
 	@Override
-	public List<Street> findByCity(long cityId, int start, int end) {
-		return findByCity(cityId, start, end, null);
+	public List<Street> findByCityId(long cityId, int start, int end) {
+		return findByCityId(cityId, start, end, null);
 	}
 
 	/**
@@ -383,11 +383,11 @@ public class StreetPersistenceImpl
 	 * @return the ordered range of matching streets
 	 */
 	@Override
-	public List<Street> findByCity(
+	public List<Street> findByCityId(
 		long cityId, int start, int end,
 		OrderByComparator<Street> orderByComparator) {
 
-		return findByCity(cityId, start, end, orderByComparator, true);
+		return findByCityId(cityId, start, end, orderByComparator, true);
 	}
 
 	/**
@@ -405,7 +405,7 @@ public class StreetPersistenceImpl
 	 * @return the ordered range of matching streets
 	 */
 	@Override
-	public List<Street> findByCity(
+	public List<Street> findByCityId(
 		long cityId, int start, int end,
 		OrderByComparator<Street> orderByComparator, boolean useFinderCache) {
 
@@ -416,12 +416,12 @@ public class StreetPersistenceImpl
 			(orderByComparator == null)) {
 
 			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByCity;
+				finderPath = _finderPathWithoutPaginationFindByCityId;
 				finderArgs = new Object[] {cityId};
 			}
 		}
 		else if (useFinderCache) {
-			finderPath = _finderPathWithPaginationFindByCity;
+			finderPath = _finderPathWithPaginationFindByCityId;
 			finderArgs = new Object[] {cityId, start, end, orderByComparator};
 		}
 
@@ -455,7 +455,7 @@ public class StreetPersistenceImpl
 
 			sb.append(_SQL_SELECT_STREET_WHERE);
 
-			sb.append(_FINDER_COLUMN_CITY_CITYID_2);
+			sb.append(_FINDER_COLUMN_CITYID_CITYID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
@@ -511,11 +511,11 @@ public class StreetPersistenceImpl
 	 * @throws NoSuchStreetException if a matching street could not be found
 	 */
 	@Override
-	public Street findByCity_First(
+	public Street findByCityId_First(
 			long cityId, OrderByComparator<Street> orderByComparator)
 		throws NoSuchStreetException {
 
-		Street street = fetchByCity_First(cityId, orderByComparator);
+		Street street = fetchByCityId_First(cityId, orderByComparator);
 
 		if (street != null) {
 			return street;
@@ -541,10 +541,10 @@ public class StreetPersistenceImpl
 	 * @return the first matching street, or <code>null</code> if a matching street could not be found
 	 */
 	@Override
-	public Street fetchByCity_First(
+	public Street fetchByCityId_First(
 		long cityId, OrderByComparator<Street> orderByComparator) {
 
-		List<Street> list = findByCity(cityId, 0, 1, orderByComparator);
+		List<Street> list = findByCityId(cityId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -562,11 +562,11 @@ public class StreetPersistenceImpl
 	 * @throws NoSuchStreetException if a matching street could not be found
 	 */
 	@Override
-	public Street findByCity_Last(
+	public Street findByCityId_Last(
 			long cityId, OrderByComparator<Street> orderByComparator)
 		throws NoSuchStreetException {
 
-		Street street = fetchByCity_Last(cityId, orderByComparator);
+		Street street = fetchByCityId_Last(cityId, orderByComparator);
 
 		if (street != null) {
 			return street;
@@ -592,16 +592,16 @@ public class StreetPersistenceImpl
 	 * @return the last matching street, or <code>null</code> if a matching street could not be found
 	 */
 	@Override
-	public Street fetchByCity_Last(
+	public Street fetchByCityId_Last(
 		long cityId, OrderByComparator<Street> orderByComparator) {
 
-		int count = countByCity(cityId);
+		int count = countByCityId(cityId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<Street> list = findByCity(
+		List<Street> list = findByCityId(
 			cityId, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -621,7 +621,7 @@ public class StreetPersistenceImpl
 	 * @throws NoSuchStreetException if a street with the primary key could not be found
 	 */
 	@Override
-	public Street[] findByCity_PrevAndNext(
+	public Street[] findByCityId_PrevAndNext(
 			long streetId, long cityId,
 			OrderByComparator<Street> orderByComparator)
 		throws NoSuchStreetException {
@@ -635,12 +635,12 @@ public class StreetPersistenceImpl
 
 			Street[] array = new StreetImpl[3];
 
-			array[0] = getByCity_PrevAndNext(
+			array[0] = getByCityId_PrevAndNext(
 				session, street, cityId, orderByComparator, true);
 
 			array[1] = street;
 
-			array[2] = getByCity_PrevAndNext(
+			array[2] = getByCityId_PrevAndNext(
 				session, street, cityId, orderByComparator, false);
 
 			return array;
@@ -653,7 +653,7 @@ public class StreetPersistenceImpl
 		}
 	}
 
-	protected Street getByCity_PrevAndNext(
+	protected Street getByCityId_PrevAndNext(
 		Session session, Street street, long cityId,
 		OrderByComparator<Street> orderByComparator, boolean previous) {
 
@@ -670,7 +670,7 @@ public class StreetPersistenceImpl
 
 		sb.append(_SQL_SELECT_STREET_WHERE);
 
-		sb.append(_FINDER_COLUMN_CITY_CITYID_2);
+		sb.append(_FINDER_COLUMN_CITYID_CITYID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
@@ -767,9 +767,9 @@ public class StreetPersistenceImpl
 	 * @param cityId the city ID
 	 */
 	@Override
-	public void removeByCity(long cityId) {
+	public void removeByCityId(long cityId) {
 		for (Street street :
-				findByCity(
+				findByCityId(
 					cityId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
 
 			remove(street);
@@ -783,8 +783,8 @@ public class StreetPersistenceImpl
 	 * @return the number of matching streets
 	 */
 	@Override
-	public int countByCity(long cityId) {
-		FinderPath finderPath = _finderPathCountByCity;
+	public int countByCityId(long cityId) {
+		FinderPath finderPath = _finderPathCountByCityId;
 
 		Object[] finderArgs = new Object[] {cityId};
 
@@ -795,7 +795,7 @@ public class StreetPersistenceImpl
 
 			sb.append(_SQL_COUNT_STREET_WHERE);
 
-			sb.append(_FINDER_COLUMN_CITY_CITYID_2);
+			sb.append(_FINDER_COLUMN_CITYID_CITYID_2);
 
 			String sql = sb.toString();
 
@@ -827,7 +827,7 @@ public class StreetPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_CITY_CITYID_2 =
+	private static final String _FINDER_COLUMN_CITYID_CITYID_2 =
 		"street.cityId = ?";
 
 	public StreetPersistenceImpl() {
@@ -1142,9 +1142,9 @@ public class StreetPersistenceImpl
 		else if (isNew) {
 			Object[] args = new Object[] {streetModelImpl.getCityId()};
 
-			finderCache.removeResult(_finderPathCountByCity, args);
+			finderCache.removeResult(_finderPathCountByCityId, args);
 			finderCache.removeResult(
-				_finderPathWithoutPaginationFindByCity, args);
+				_finderPathWithoutPaginationFindByCityId, args);
 
 			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
 			finderCache.removeResult(
@@ -1152,22 +1152,22 @@ public class StreetPersistenceImpl
 		}
 		else {
 			if ((streetModelImpl.getColumnBitmask() &
-				 _finderPathWithoutPaginationFindByCity.getColumnBitmask()) !=
+				 _finderPathWithoutPaginationFindByCityId.getColumnBitmask()) !=
 					 0) {
 
 				Object[] args = new Object[] {
 					streetModelImpl.getOriginalCityId()
 				};
 
-				finderCache.removeResult(_finderPathCountByCity, args);
+				finderCache.removeResult(_finderPathCountByCityId, args);
 				finderCache.removeResult(
-					_finderPathWithoutPaginationFindByCity, args);
+					_finderPathWithoutPaginationFindByCityId, args);
 
 				args = new Object[] {streetModelImpl.getCityId()};
 
-				finderCache.removeResult(_finderPathCountByCity, args);
+				finderCache.removeResult(_finderPathCountByCityId, args);
 				finderCache.removeResult(
-					_finderPathWithoutPaginationFindByCity, args);
+					_finderPathWithoutPaginationFindByCityId, args);
 			}
 		}
 
@@ -1473,24 +1473,24 @@ public class StreetPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByName",
 			new String[] {String.class.getName()});
 
-		_finderPathWithPaginationFindByCity = new FinderPath(
+		_finderPathWithPaginationFindByCityId = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, StreetImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCity",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCityId",
 			new String[] {
 				Long.class.getName(), Integer.class.getName(),
 				Integer.class.getName(), OrderByComparator.class.getName()
 			});
 
-		_finderPathWithoutPaginationFindByCity = new FinderPath(
+		_finderPathWithoutPaginationFindByCityId = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, StreetImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCity",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCityId",
 			new String[] {Long.class.getName()},
 			StreetModelImpl.CITYID_COLUMN_BITMASK |
 			StreetModelImpl.NAME_COLUMN_BITMASK);
 
-		_finderPathCountByCity = new FinderPath(
+		_finderPathCountByCityId = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCity",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCityId",
 			new String[] {Long.class.getName()});
 
 		_setStreetUtilPersistence(this);

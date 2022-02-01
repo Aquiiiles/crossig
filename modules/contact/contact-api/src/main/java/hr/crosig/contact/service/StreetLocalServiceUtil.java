@@ -71,10 +71,6 @@ public class StreetLocalServiceUtil {
 		return getService().addStreet(street);
 	}
 
-	public static void addStreets(List<Street> streets) {
-		getService().addStreets(streets);
-	}
-
 	/**
 	 * Creates a new street with the primary key. Does not add the street to the database.
 	 *

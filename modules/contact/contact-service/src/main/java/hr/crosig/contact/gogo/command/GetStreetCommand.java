@@ -1,24 +1,26 @@
 package hr.crosig.contact.gogo.command;
 
-import hr.crosig.contact.service.CityLocalService;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
+import hr.crosig.contact.service.StreetLocalService;
 
 import java.util.Arrays;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Guilherme Kfouri
  */
 @Component(
-	property = {"osgi.command.function=getCity", "osgi.command.scope=blade"},
+	property = {"osgi.command.function=getStreet", "osgi.command.scope=blade"},
 	service = Object.class
 )
 public class GetStreetCommand {
 
-	public void getCity(String cityName) {
+	public void getStreet(String streetName, long cityId) {
 		try {
 			System.out.println(
-				_cityLocalService.searchCitiesNamesByName(cityName, -1, -1));
+				_streetLocalService.searchStreetsNamesByNameAndCityId(
+					streetName, cityId, -1, -1));
 		}
 		catch (Exception exception) {
 			System.out.println(exception.getMessage());
@@ -27,6 +29,6 @@ public class GetStreetCommand {
 	}
 
 	@Reference
-	private CityLocalService _cityLocalService;
+	private StreetLocalService _streetLocalService;
 
 }

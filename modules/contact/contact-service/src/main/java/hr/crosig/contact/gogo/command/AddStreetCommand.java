@@ -1,10 +1,11 @@
 package hr.crosig.contact.gogo.command;
 
 import hr.crosig.contact.service.StreetLocalService;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.Arrays;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Guilherme Kfouri
@@ -20,7 +21,8 @@ public class AddStreetCommand {
 			_streetLocalService.addStreet(streetId, streetName, cityId);
 
 			System.out.println(
-				"Added Street: " + streetName + ", with id: " + streetId + " and cityId: " + cityId);
+				"Added Street: " + streetName + ", with id: " + streetId +
+					" and cityId: " + cityId);
 		}
 		catch (Exception exception) {
 			System.out.println(exception.getMessage());

@@ -2,16 +2,19 @@ package hr.crosig.contact.gogo.command;
 
 import hr.crosig.contact.model.City;
 import hr.crosig.contact.service.CityLocalService;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.Arrays;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Guilherme Kfouri
  */
 @Component(
-	property = {"osgi.command.function=deleteCity", "osgi.command.scope=blade"},
+	property = {
+		"osgi.command.function=deleteStreet", "osgi.command.scope=blade"
+	},
 	service = Object.class
 )
 public class DeleteStreetCommand {

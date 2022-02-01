@@ -89,7 +89,7 @@ public interface StreetPersistence extends BasePersistence<Street> {
 	 * @param cityId the city ID
 	 * @return the matching streets
 	 */
-	public java.util.List<Street> findByCity(long cityId);
+	public java.util.List<Street> findByCityId(long cityId);
 
 	/**
 	 * Returns a range of all the streets where cityId = &#63;.
@@ -103,7 +103,7 @@ public interface StreetPersistence extends BasePersistence<Street> {
 	 * @param end the upper bound of the range of streets (not inclusive)
 	 * @return the range of matching streets
 	 */
-	public java.util.List<Street> findByCity(long cityId, int start, int end);
+	public java.util.List<Street> findByCityId(long cityId, int start, int end);
 
 	/**
 	 * Returns an ordered range of all the streets where cityId = &#63;.
@@ -118,7 +118,7 @@ public interface StreetPersistence extends BasePersistence<Street> {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching streets
 	 */
-	public java.util.List<Street> findByCity(
+	public java.util.List<Street> findByCityId(
 		long cityId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Street>
 			orderByComparator);
@@ -137,7 +137,7 @@ public interface StreetPersistence extends BasePersistence<Street> {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching streets
 	 */
-	public java.util.List<Street> findByCity(
+	public java.util.List<Street> findByCityId(
 		long cityId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Street>
 			orderByComparator,
@@ -151,7 +151,7 @@ public interface StreetPersistence extends BasePersistence<Street> {
 	 * @return the first matching street
 	 * @throws NoSuchStreetException if a matching street could not be found
 	 */
-	public Street findByCity_First(
+	public Street findByCityId_First(
 			long cityId,
 			com.liferay.portal.kernel.util.OrderByComparator<Street>
 				orderByComparator)
@@ -164,7 +164,7 @@ public interface StreetPersistence extends BasePersistence<Street> {
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching street, or <code>null</code> if a matching street could not be found
 	 */
-	public Street fetchByCity_First(
+	public Street fetchByCityId_First(
 		long cityId,
 		com.liferay.portal.kernel.util.OrderByComparator<Street>
 			orderByComparator);
@@ -177,7 +177,7 @@ public interface StreetPersistence extends BasePersistence<Street> {
 	 * @return the last matching street
 	 * @throws NoSuchStreetException if a matching street could not be found
 	 */
-	public Street findByCity_Last(
+	public Street findByCityId_Last(
 			long cityId,
 			com.liferay.portal.kernel.util.OrderByComparator<Street>
 				orderByComparator)
@@ -190,7 +190,7 @@ public interface StreetPersistence extends BasePersistence<Street> {
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching street, or <code>null</code> if a matching street could not be found
 	 */
-	public Street fetchByCity_Last(
+	public Street fetchByCityId_Last(
 		long cityId,
 		com.liferay.portal.kernel.util.OrderByComparator<Street>
 			orderByComparator);
@@ -204,7 +204,7 @@ public interface StreetPersistence extends BasePersistence<Street> {
 	 * @return the previous, current, and next street
 	 * @throws NoSuchStreetException if a street with the primary key could not be found
 	 */
-	public Street[] findByCity_PrevAndNext(
+	public Street[] findByCityId_PrevAndNext(
 			long streetId, long cityId,
 			com.liferay.portal.kernel.util.OrderByComparator<Street>
 				orderByComparator)
@@ -215,7 +215,7 @@ public interface StreetPersistence extends BasePersistence<Street> {
 	 *
 	 * @param cityId the city ID
 	 */
-	public void removeByCity(long cityId);
+	public void removeByCityId(long cityId);
 
 	/**
 	 * Returns the number of streets where cityId = &#63;.
@@ -223,7 +223,7 @@ public interface StreetPersistence extends BasePersistence<Street> {
 	 * @param cityId the city ID
 	 * @return the number of matching streets
 	 */
-	public int countByCity(long cityId);
+	public int countByCityId(long cityId);
 
 	/**
 	 * Caches the street in the entity cache if it is enabled.

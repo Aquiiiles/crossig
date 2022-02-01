@@ -81,8 +81,6 @@ public interface StreetLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public Street addStreet(Street street);
 
-	public void addStreets(List<Street> streets);
-
 	/**
 	 * Creates a new street with the primary key. Does not add the street to the database.
 	 *

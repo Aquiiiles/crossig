@@ -32,19 +32,21 @@ import com.liferay.portal.search.searcher.SearchRequestBuilder;
 import com.liferay.portal.search.searcher.SearchRequestBuilderFactory;
 import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.searcher.Searcher;
+
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.CityMessages;
 import hr.crosig.contact.exception.CityException;
 import hr.crosig.contact.model.City;
 import hr.crosig.contact.service.base.CityLocalServiceBaseImpl;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Guilherme Kfouri
@@ -77,7 +79,7 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 
 		City city = createCity(cityId, cityName);
 
-		return addCity(city);
+		return cityLocalService.updateCity(city);
 	}
 
 	public void addOrUpdateCities(Map<Long, String> cities) {
@@ -188,7 +190,7 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 	protected void validateCity(long cityId) throws CityException {
 		City city = cityLocalService.fetchCity(cityId);
 
-		if (Objects.isNull(city))
+		if (!Objects.isNull(city))
 
 			throw new CityException(
 				CityMessages.CITY_WITH_THIS_ID_ALREADY_EXISTS + cityId);

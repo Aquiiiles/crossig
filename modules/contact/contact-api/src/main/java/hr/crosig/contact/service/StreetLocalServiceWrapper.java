@@ -63,13 +63,6 @@ public class StreetLocalServiceWrapper
 		return _streetLocalService.addStreet(street);
 	}
 
-	@Override
-	public void addStreets(
-		java.util.List<hr.crosig.contact.model.Street> streets) {
-
-		_streetLocalService.addStreets(streets);
-	}
-
 	/**
 	 * Creates a new street with the primary key. Does not add the street to the database.
 	 *
