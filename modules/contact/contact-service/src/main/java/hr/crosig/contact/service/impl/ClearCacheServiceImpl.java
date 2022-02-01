@@ -1,11 +1,13 @@
 package hr.crosig.contact.service.impl;
 
 import hr.crosig.contact.scheduler.enums.IndexType;
+import hr.crosig.contact.service.CityLocalService;
 import hr.crosig.contact.service.ClearCacheService;
+import hr.crosig.contact.service.StreetLocalService;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import java.util.Arrays;
-
-import org.osgi.service.component.annotations.Component;
 
 /**
  * @author victor.catanante
@@ -24,9 +26,14 @@ public class ClearCacheServiceImpl implements ClearCacheService {
 
 	@Override
 	public void clearIndexCache(String index) {
-
-		// TODO call Kfouri's clear index cache service method.
-
+		_cityLocalService.deleteAllCities();
+		_streetLocalService.deleteAllStreets();
 	}
+
+	@Reference
+	private CityLocalService _cityLocalService;
+
+	@Reference
+	private StreetLocalService _streetLocalService;
 
 }

@@ -5,7 +5,7 @@ package hr.crosig.contact.scheduler.enums;
  */
 public enum IndexType {
 
-	CITY("city"), STREET("street");
+	CITY_STREET("cityAndStreet");
 
 	public String getName() {
 		return _name;
