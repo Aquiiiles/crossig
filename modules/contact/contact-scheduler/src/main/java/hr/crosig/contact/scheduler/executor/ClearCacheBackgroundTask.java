@@ -30,7 +30,7 @@ public class ClearCacheBackgroundTask extends BaseBackgroundTaskExecutor {
 	public BackgroundTaskResult execute(BackgroundTask backgroundTask)
 		throws Exception {
 
-		_clearCacheService._clearAllIndicesCache();
+		_clearCacheService.clearAllIndicesCache();
 
 		return BackgroundTaskResult.SUCCESS;
 	}

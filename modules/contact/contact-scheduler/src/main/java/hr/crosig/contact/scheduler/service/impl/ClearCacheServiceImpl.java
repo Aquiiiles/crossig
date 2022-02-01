@@ -14,16 +14,16 @@ import org.osgi.service.component.annotations.Component;
 public class ClearCacheServiceImpl implements ClearCacheService {
 
 	@Override
-	public void _clearAllIndicesCache() {
+	public void clearAllIndicesCache() {
 		Arrays.stream(
 			IndexType.values()
 		).forEach(
-			indexType -> _clearIndexCache(indexType.getName())
+			indexType -> clearIndexCache(indexType.getName())
 		);
 	}
 
 	@Override
-	public void _clearIndexCache(String index) {
+	public void clearIndexCache(String index) {
 
 		// TODO call Kfouri's clear index cache service method.
 
