@@ -71,8 +71,7 @@ public class CacheScheduler implements MessageListener {
 			String className = CacheScheduler.class.getName();
 
 			Trigger jobTrigger = _triggerFactory.createTrigger(
-				className, className, new Date(), null,
-				cronExpression);
+				className, className, new Date(), null, cronExpression);
 
 			SchedulerEntry schedulerEntry = new SchedulerEntryImpl(
 				className, jobTrigger);

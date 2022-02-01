@@ -4,67 +4,70 @@ import java.io.Serializable;
 
 public class PhoneNumberDTO implements Serializable {
 
-    private Long ifsId;
-    private String countryCode;
-    private String phoneNumber;
-    private Long phoneNumberTypeId;
-    private String phoneNumberTypeExternalCode;
-    private String brand;
-    private String username;
+	public String getBrand() {
+		return brand;
+	}
 
-    public Long getIfsId() {
-        return ifsId;
-    }
+	public String getCountryCode() {
+		return countryCode;
+	}
 
-    public void setIfsId(Long ifsId) {
-        this.ifsId = ifsId;
-    }
+	public Long getIfsId() {
+		return ifsId;
+	}
 
-    public String getCountryCode() {
-        return countryCode;
-    }
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
+	public String getPhoneNumberTypeExternalCode() {
+		return phoneNumberTypeExternalCode;
+	}
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+	public Long getPhoneNumberTypeId() {
+		return phoneNumberTypeId;
+	}
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public Long getPhoneNumberTypeId() {
-        return phoneNumberTypeId;
-    }
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
 
-    public void setPhoneNumberTypeId(Long phoneNumberTypeId) {
-        this.phoneNumberTypeId = phoneNumberTypeId;
-    }
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
 
-    public String getPhoneNumberTypeExternalCode() {
-        return phoneNumberTypeExternalCode;
-    }
+	public void setIfsId(Long ifsId) {
+		this.ifsId = ifsId;
+	}
 
-    public void setPhoneNumberTypeExternalCode(String phoneNumberTypeExternalCode) {
-        this.phoneNumberTypeExternalCode = phoneNumberTypeExternalCode;
-    }
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
-    public String getBrand() {
-        return brand;
-    }
+	public void setPhoneNumberTypeExternalCode(
+		String phoneNumberTypeExternalCode) {
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
+		this.phoneNumberTypeExternalCode = phoneNumberTypeExternalCode;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public void setPhoneNumberTypeId(Long phoneNumberTypeId) {
+		this.phoneNumberTypeId = phoneNumberTypeId;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	private String brand;
+	private String countryCode;
+	private Long ifsId;
+	private String phoneNumber;
+	private String phoneNumberTypeExternalCode;
+	private Long phoneNumberTypeId;
+	private String username;
+
 }

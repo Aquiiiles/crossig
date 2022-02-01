@@ -4,60 +4,61 @@ import java.io.Serializable;
 
 public class EmailDTO implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	public String getBrand() {
+		return brand;
+	}
 
-    private Long ifsId;
-    private String email;
-    private Long emailTypeId;
-    private String emailTypeExternalCode;
-    private String brand;
-    private String userName;
+	public String getEmail() {
+		return email;
+	}
 
-    public Long getIfsId() {
-        return ifsId;
-    }
+	public String getEmailTypeExternalCode() {
+		return emailTypeExternalCode;
+	}
 
-    public void setIfsId(Long ifsId) {
-        this.ifsId = ifsId;
-    }
+	public Long getEmailTypeId() {
+		return emailTypeId;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public Long getIfsId() {
+		return ifsId;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getUserName() {
+		return userName;
+	}
 
-    public Long getEmailTypeId() {
-        return emailTypeId;
-    }
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
 
-    public void setEmailTypeId(Long emailTypeId) {
-        this.emailTypeId = emailTypeId;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getEmailTypeExternalCode() {
-        return emailTypeExternalCode;
-    }
+	public void setEmailTypeExternalCode(String emailTypeExternalCode) {
+		this.emailTypeExternalCode = emailTypeExternalCode;
+	}
 
-    public void setEmailTypeExternalCode(String emailTypeExternalCode) {
-        this.emailTypeExternalCode = emailTypeExternalCode;
-    }
+	public void setEmailTypeId(Long emailTypeId) {
+		this.emailTypeId = emailTypeId;
+	}
 
-    public String getBrand() {
-        return brand;
-    }
+	public void setIfsId(Long ifsId) {
+		this.ifsId = ifsId;
+	}
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-    public String getUserName() {
-        return userName;
-    }
+	private static final long serialVersionUID = 1L;
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	private String brand;
+	private String email;
+	private String emailTypeExternalCode;
+	private Long emailTypeId;
+	private Long ifsId;
+	private String userName;
+
 }
