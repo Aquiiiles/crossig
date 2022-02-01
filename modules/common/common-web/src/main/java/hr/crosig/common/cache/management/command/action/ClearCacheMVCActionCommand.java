@@ -41,10 +41,10 @@ public class ClearCacheMVCActionCommand extends BaseMVCActionCommand {
 
 			if (ClearCacheMVCActionConstants.CLEAR_CACHE_ALL.equals(cacheName)) {
 				// clears all the cache
-				_clearCacheService._clearAllIndicesCache();
+				_clearCacheService.clearAllIndicesCache();
 			} else {
 				// clears a single cache
-				_clearCacheService._clearIndexCache(cacheName);
+				_clearCacheService.clearIndexCache(cacheName);
 			}
 		}
 		catch (Exception exception) {
