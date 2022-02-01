@@ -117,6 +117,62 @@ public class CityUtil {
 	}
 
 	/**
+	 * Returns the city where name = &#63; or throws a <code>NoSuchCityException</code> if it could not be found.
+	 *
+	 * @param name the name
+	 * @return the matching city
+	 * @throws NoSuchCityException if a matching city could not be found
+	 */
+	public static City findByName(String name)
+		throws hr.crosig.contact.exception.NoSuchCityException {
+
+		return getPersistence().findByName(name);
+	}
+
+	/**
+	 * Returns the city where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param name the name
+	 * @return the matching city, or <code>null</code> if a matching city could not be found
+	 */
+	public static City fetchByName(String name) {
+		return getPersistence().fetchByName(name);
+	}
+
+	/**
+	 * Returns the city where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param name the name
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching city, or <code>null</code> if a matching city could not be found
+	 */
+	public static City fetchByName(String name, boolean useFinderCache) {
+		return getPersistence().fetchByName(name, useFinderCache);
+	}
+
+	/**
+	 * Removes the city where name = &#63; from the database.
+	 *
+	 * @param name the name
+	 * @return the city that was removed
+	 */
+	public static City removeByName(String name)
+		throws hr.crosig.contact.exception.NoSuchCityException {
+
+		return getPersistence().removeByName(name);
+	}
+
+	/**
+	 * Returns the number of cities where name = &#63;.
+	 *
+	 * @param name the name
+	 * @return the number of matching cities
+	 */
+	public static int countByName(String name) {
+		return getPersistence().countByName(name);
+	}
+
+	/**
 	 * Caches the city in the entity cache if it is enabled.
 	 *
 	 * @param city the city

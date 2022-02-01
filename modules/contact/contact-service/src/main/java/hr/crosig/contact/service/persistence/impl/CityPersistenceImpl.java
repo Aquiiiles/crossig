@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
 import com.liferay.portal.kernel.dao.orm.Query;
+import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.SessionFactory;
@@ -34,6 +35,7 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 
 import hr.crosig.contact.exception.NoSuchCityException;
 import hr.crosig.contact.model.City;
@@ -48,9 +50,11 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.sql.DataSource;
@@ -91,6 +95,247 @@ public class CityPersistenceImpl
 	private FinderPath _finderPathWithPaginationFindAll;
 	private FinderPath _finderPathWithoutPaginationFindAll;
 	private FinderPath _finderPathCountAll;
+	private FinderPath _finderPathFetchByName;
+	private FinderPath _finderPathCountByName;
+
+	/**
+	 * Returns the city where name = &#63; or throws a <code>NoSuchCityException</code> if it could not be found.
+	 *
+	 * @param name the name
+	 * @return the matching city
+	 * @throws NoSuchCityException if a matching city could not be found
+	 */
+	@Override
+	public City findByName(String name) throws NoSuchCityException {
+		City city = fetchByName(name);
+
+		if (city == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("name=");
+			sb.append(name);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchCityException(sb.toString());
+		}
+
+		return city;
+	}
+
+	/**
+	 * Returns the city where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param name the name
+	 * @return the matching city, or <code>null</code> if a matching city could not be found
+	 */
+	@Override
+	public City fetchByName(String name) {
+		return fetchByName(name, true);
+	}
+
+	/**
+	 * Returns the city where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param name the name
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching city, or <code>null</code> if a matching city could not be found
+	 */
+	@Override
+	public City fetchByName(String name, boolean useFinderCache) {
+		name = Objects.toString(name, "");
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {name};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByName, finderArgs, this);
+		}
+
+		if (result instanceof City) {
+			City city = (City)result;
+
+			if (!Objects.equals(name, city.getName())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_CITY_WHERE);
+
+			boolean bindName = false;
+
+			if (name.isEmpty()) {
+				sb.append(_FINDER_COLUMN_NAME_NAME_3);
+			}
+			else {
+				bindName = true;
+
+				sb.append(_FINDER_COLUMN_NAME_NAME_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindName) {
+					queryPos.add(name);
+				}
+
+				List<City> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByName, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {name};
+							}
+
+							_log.warn(
+								"CityPersistenceImpl.fetchByName(String, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					City city = list.get(0);
+
+					result = city;
+
+					cacheResult(city);
+				}
+			}
+			catch (Exception exception) {
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathFetchByName, finderArgs);
+				}
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (City)result;
+		}
+	}
+
+	/**
+	 * Removes the city where name = &#63; from the database.
+	 *
+	 * @param name the name
+	 * @return the city that was removed
+	 */
+	@Override
+	public City removeByName(String name) throws NoSuchCityException {
+		City city = findByName(name);
+
+		return remove(city);
+	}
+
+	/**
+	 * Returns the number of cities where name = &#63;.
+	 *
+	 * @param name the name
+	 * @return the number of matching cities
+	 */
+	@Override
+	public int countByName(String name) {
+		name = Objects.toString(name, "");
+
+		FinderPath finderPath = _finderPathCountByName;
+
+		Object[] finderArgs = new Object[] {name};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_CITY_WHERE);
+
+			boolean bindName = false;
+
+			if (name.isEmpty()) {
+				sb.append(_FINDER_COLUMN_NAME_NAME_3);
+			}
+			else {
+				bindName = true;
+
+				sb.append(_FINDER_COLUMN_NAME_NAME_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindName) {
+					queryPos.add(name);
+				}
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_NAME_NAME_2 = "city.name = ?";
+
+	private static final String _FINDER_COLUMN_NAME_NAME_3 =
+		"(city.name IS NULL OR city.name = '')";
 
 	public CityPersistenceImpl() {
 		setModelClass(City.class);
@@ -108,6 +353,9 @@ public class CityPersistenceImpl
 	public void cacheResult(City city) {
 		entityCache.putResult(
 			entityCacheEnabled, CityImpl.class, city.getPrimaryKey(), city);
+
+		finderCache.putResult(
+			_finderPathFetchByName, new Object[] {city.getName()}, city);
 
 		city.resetOriginalValues();
 	}
@@ -171,6 +419,8 @@ public class CityPersistenceImpl
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		clearUniqueFindersCache((CityModelImpl)city, true);
 	}
 
 	@Override
@@ -181,6 +431,8 @@ public class CityPersistenceImpl
 		for (City city : cities) {
 			entityCache.removeResult(
 				entityCacheEnabled, CityImpl.class, city.getPrimaryKey());
+
+			clearUniqueFindersCache((CityModelImpl)city, true);
 		}
 	}
 
@@ -192,6 +444,35 @@ public class CityPersistenceImpl
 		for (Serializable primaryKey : primaryKeys) {
 			entityCache.removeResult(
 				entityCacheEnabled, CityImpl.class, primaryKey);
+		}
+	}
+
+	protected void cacheUniqueFindersCache(CityModelImpl cityModelImpl) {
+		Object[] args = new Object[] {cityModelImpl.getName()};
+
+		finderCache.putResult(
+			_finderPathCountByName, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByName, args, cityModelImpl, false);
+	}
+
+	protected void clearUniqueFindersCache(
+		CityModelImpl cityModelImpl, boolean clearCurrent) {
+
+		if (clearCurrent) {
+			Object[] args = new Object[] {cityModelImpl.getName()};
+
+			finderCache.removeResult(_finderPathCountByName, args);
+			finderCache.removeResult(_finderPathFetchByName, args);
+		}
+
+		if ((cityModelImpl.getColumnBitmask() &
+			 _finderPathFetchByName.getColumnBitmask()) != 0) {
+
+			Object[] args = new Object[] {cityModelImpl.getOriginalName()};
+
+			finderCache.removeResult(_finderPathCountByName, args);
+			finderCache.removeResult(_finderPathFetchByName, args);
 		}
 	}
 
@@ -361,7 +642,10 @@ public class CityPersistenceImpl
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 
-		if (isNew) {
+		if (!_columnBitmaskEnabled) {
+			finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+		}
+		else if (isNew) {
 			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
 			finderCache.removeResult(
 				_finderPathWithoutPaginationFindAll, FINDER_ARGS_EMPTY);
@@ -370,6 +654,9 @@ public class CityPersistenceImpl
 		entityCache.putResult(
 			entityCacheEnabled, CityImpl.class, city.getPrimaryKey(), city,
 			false);
+
+		clearUniqueFindersCache(cityModelImpl, false);
+		cacheUniqueFindersCache(cityModelImpl);
 
 		city.resetOriginalValues();
 
@@ -655,6 +942,17 @@ public class CityPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
 			new String[0]);
 
+		_finderPathFetchByName = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, CityImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByName",
+			new String[] {String.class.getName()},
+			CityModelImpl.NAME_COLUMN_BITMASK);
+
+		_finderPathCountByName = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByName",
+			new String[] {String.class.getName()});
+
 		_setCityUtilPersistence(this);
 	}
 
@@ -724,13 +1022,22 @@ public class CityPersistenceImpl
 
 	private static final String _SQL_SELECT_CITY = "SELECT city FROM City city";
 
+	private static final String _SQL_SELECT_CITY_WHERE =
+		"SELECT city FROM City city WHERE ";
+
 	private static final String _SQL_COUNT_CITY =
 		"SELECT COUNT(city) FROM City city";
+
+	private static final String _SQL_COUNT_CITY_WHERE =
+		"SELECT COUNT(city) FROM City city WHERE ";
 
 	private static final String _ORDER_BY_ENTITY_ALIAS = "city.";
 
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY =
 		"No City exists with the primary key ";
+
+	private static final String _NO_SUCH_ENTITY_WITH_KEY =
+		"No City exists with the key {";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CityPersistenceImpl.class);

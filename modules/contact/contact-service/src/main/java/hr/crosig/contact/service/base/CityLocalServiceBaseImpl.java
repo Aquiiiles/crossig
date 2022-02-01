@@ -42,6 +42,7 @@ import hr.crosig.contact.model.City;
 import hr.crosig.contact.service.CityLocalService;
 import hr.crosig.contact.service.CityLocalServiceUtil;
 import hr.crosig.contact.service.persistence.CityPersistence;
+import hr.crosig.contact.service.persistence.StreetPersistence;
 
 import java.io.Serializable;
 
@@ -428,6 +429,9 @@ public abstract class CityLocalServiceBaseImpl
 
 	@Reference
 	protected CityPersistence cityPersistence;
+
+	@Reference
+	protected StreetPersistence streetPersistence;
 
 	@Reference
 	protected com.liferay.counter.kernel.service.CounterLocalService
