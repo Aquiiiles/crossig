@@ -70,13 +70,14 @@ public class CacheScheduler implements MessageListener {
 
 		if (_cacheConfiguration._enable()) {
 			String cronExpression = _cacheConfiguration._cronExpression();
+			String className = CacheScheduler.class.getName();
 
 			Trigger jobTrigger = _triggerFactory.createTrigger(
-				_listenerClassName, _listenerClassName, new Date(), null,
+				className, className, new Date(), null,
 				cronExpression);
 
 			SchedulerEntry schedulerEntry = new SchedulerEntryImpl(
-				_listenerClassName, jobTrigger);
+				className, jobTrigger);
 
 			_schedulerEngineHelper.register(
 				this, schedulerEntry, DestinationNames.SCHEDULER_DISPATCH);
