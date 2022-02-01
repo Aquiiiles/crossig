@@ -69,6 +69,10 @@ public class CityLocalServiceUtil {
 		return getService().addCity(cityId, cityName);
 	}
 
+	public static void addOrUpdateCities(Map<Long, String> cities) {
+		getService().addOrUpdateCities(cities);
+	}
+
 	/**
 	 * Creates a new city with the primary key. Does not add the city to the database.
 	 *
@@ -233,13 +237,6 @@ public class CityLocalServiceUtil {
 		return getService().getCitiesCount();
 	}
 
-	public static List<String> getCitiesNamesByName(
-			String cityName, int start, int end)
-		throws Exception {
-
-		return getService().getCitiesNamesByName(cityName, start, end);
-	}
-
 	/**
 	 * Returns the city with the primary key.
 	 *
@@ -276,6 +273,13 @@ public class CityLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+	public static List<String> searchCitiesNamesByName(
+			String cityName, int start, int end)
+		throws Exception {
+
+		return getService().searchCitiesNamesByName(cityName, start, end);
+	}
+
 	/**
 	 * Updates the city in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -288,10 +292,6 @@ public class CityLocalServiceUtil {
 	 */
 	public static City updateCity(City city) {
 		return getService().updateCity(city);
-	}
-
-	public static void updateOrCreateCities(Map<Long, String> cities) {
-		getService().updateOrCreateCities(cities);
 	}
 
 	public static CityLocalService getService() {

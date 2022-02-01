@@ -9,6 +9,6 @@ public class CityMessages {
 		"There is already a city with the cityId: ";
 
 	public static final String INSUFICIENT_NAME_LENGTH =
-		"City name length must be higher than 2";
+		"City name length must be higher than 2 to search";
 
 }

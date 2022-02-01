@@ -15,7 +15,6 @@
 package hr.crosig.contact.service.impl;
 
 import com.liferay.portal.aop.AopService;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Field;
@@ -81,13 +80,34 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		return addCity(city);
 	}
 
+	public void addOrUpdateCities(Map<Long, String> cities) {
+		Set<Long> citiesIds = cities.keySet();
+
+		citiesIds.forEach(
+			cityId -> {
+				City city = cityLocalService.fetchCity(cityId);
+				String cityName = cities.get(cityId);
+
+				if (Objects.isNull(city)) {
+					city = createCity(cityId, cityName);
+
+					addCity(city);
+				}
+				else {
+					city.setName(cityName);
+
+					cityLocalService.updateCity(city);
+				}
+			});
+	}
+
 	public void deleteAllCities() {
 		List<City> cities = cityLocalService.getCities(-1, -1);
 
 		cities.forEach(city -> cityLocalService.deleteCity(city));
 	}
 
-	public List<String> getCitiesNamesByName(
+	public List<String> searchCitiesNamesByName(
 			String cityName, int start, int end)
 		throws Exception {
 
@@ -108,27 +128,6 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		List<SearchHit> searchHitsList = getSearchHits(searchRequest);
 
 		return getCitiesNames(searchHitsList);
-	}
-
-	public void updateOrCreateCities(Map<Long, String> cities) {
-		Set<Long> citiesIds = cities.keySet();
-
-		citiesIds.forEach(
-			cityId -> {
-				City city = cityLocalService.fetchCity(cityId);
-				String cityName = cities.get(cityId);
-
-				if (Objects.isNull(city)) {
-					city = createCity(cityId, cityName);
-
-					addCity(city);
-				}
-				else {
-					city.setName(cityName);
-
-					cityLocalService.updateCity(city);
-				}
-			});
 	}
 
 	protected City createCity(long cityId, String cityName) {
@@ -187,13 +186,12 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 	}
 
 	protected void validateCity(long cityId) throws CityException {
-		try {
-			cityLocalService.getCity(cityId);
-		}
-		catch (PortalException portalException) {
+		City city = cityLocalService.fetchCity(cityId);
+
+		if (Objects.isNull(city))
+
 			throw new CityException(
 				CityMessages.CITY_WITH_THIS_ID_ALREADY_EXISTS + cityId);
-		}
 	}
 
 	protected void validateSearchCityName(String cityName)

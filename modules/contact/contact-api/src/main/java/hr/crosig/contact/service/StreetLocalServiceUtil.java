@@ -44,6 +44,18 @@ public class StreetLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>hr.crosig.contact.service.impl.StreetLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static Street addOrUpdateStreet(
+		long streetId, String streetName, long cityId) {
+
+		return getService().addOrUpdateStreet(streetId, streetName, cityId);
+	}
+
+	public static Street addStreet(
+			long streetId, String streetName, long cityId)
+		throws hr.crosig.contact.exception.StreetException {
+
+		return getService().addStreet(streetId, streetName, cityId);
+	}
 
 	/**
 	 * Adds the street to the database. Also notifies the appropriate model listeners.
@@ -59,6 +71,10 @@ public class StreetLocalServiceUtil {
 		return getService().addStreet(street);
 	}
 
+	public static void addStreets(List<Street> streets) {
+		getService().addStreets(streets);
+	}
+
 	/**
 	 * Creates a new street with the primary key. Does not add the street to the database.
 	 *
@@ -67,6 +83,10 @@ public class StreetLocalServiceUtil {
 	 */
 	public static Street createStreet(long streetId) {
 		return getService().createStreet(streetId);
+	}
+
+	public static void deleteAllStreets() {
+		getService().deleteAllStreets();
 	}
 
 	/**
@@ -253,6 +273,14 @@ public class StreetLocalServiceUtil {
 	 */
 	public static int getStreetsCount() {
 		return getService().getStreetsCount();
+	}
+
+	public static List<String> searchStreetsNamesByNameAndCityId(
+			String streetName, long cityId, int start, int end)
+		throws Exception {
+
+		return getService().searchStreetsNamesByNameAndCityId(
+			streetName, cityId, start, end);
 	}
 
 	/**

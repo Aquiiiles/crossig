@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import hr.crosig.contact.exception.StreetException;
 import hr.crosig.contact.model.Street;
 
 import java.io.Serializable;
@@ -61,6 +62,11 @@ public interface StreetLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>hr.crosig.contact.service.impl.StreetLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the street local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link StreetLocalServiceUtil} if injection and service tracking are not available.
 	 */
+	public Street addOrUpdateStreet(
+		long streetId, String streetName, long cityId);
+
+	public Street addStreet(long streetId, String streetName, long cityId)
+		throws StreetException;
 
 	/**
 	 * Adds the street to the database. Also notifies the appropriate model listeners.
@@ -75,6 +81,8 @@ public interface StreetLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public Street addStreet(Street street);
 
+	public void addStreets(List<Street> streets);
+
 	/**
 	 * Creates a new street with the primary key. Does not add the street to the database.
 	 *
@@ -83,6 +91,8 @@ public interface StreetLocalService
 	 */
 	@Transactional(enabled = false)
 	public Street createStreet(long streetId);
+
+	public void deleteAllStreets();
 
 	/**
 	 * @throws PortalException
@@ -239,6 +249,11 @@ public interface StreetLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getStreetsCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<String> searchStreetsNamesByNameAndCityId(
+			String streetName, long cityId, int start, int end)
+		throws Exception;
 
 	/**
 	 * Updates the street in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

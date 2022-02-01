@@ -59,6 +59,11 @@ public class CityLocalServiceWrapper
 		return _cityLocalService.addCity(cityId, cityName);
 	}
 
+	@Override
+	public void addOrUpdateCities(java.util.Map<Long, String> cities) {
+		_cityLocalService.addOrUpdateCities(cities);
+	}
+
 	/**
 	 * Creates a new city with the primary key. Does not add the city to the database.
 	 *
@@ -250,14 +255,6 @@ public class CityLocalServiceWrapper
 		return _cityLocalService.getCitiesCount();
 	}
 
-	@Override
-	public java.util.List<String> getCitiesNamesByName(
-			String cityName, int start, int end)
-		throws Exception {
-
-		return _cityLocalService.getCitiesNamesByName(cityName, start, end);
-	}
-
 	/**
 	 * Returns the city with the primary key.
 	 *
@@ -300,6 +297,14 @@ public class CityLocalServiceWrapper
 		return _cityLocalService.getPersistedModel(primaryKeyObj);
 	}
 
+	@Override
+	public java.util.List<String> searchCitiesNamesByName(
+			String cityName, int start, int end)
+		throws Exception {
+
+		return _cityLocalService.searchCitiesNamesByName(cityName, start, end);
+	}
+
 	/**
 	 * Updates the city in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -315,11 +320,6 @@ public class CityLocalServiceWrapper
 		hr.crosig.contact.model.City city) {
 
 		return _cityLocalService.updateCity(city);
-	}
-
-	@Override
-	public void updateOrCreateCities(java.util.Map<Long, String> cities) {
-		_cityLocalService.updateOrCreateCities(cities);
 	}
 
 	@Override

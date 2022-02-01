@@ -1,11 +1,10 @@
 package hr.crosig.contact.gogo.command;
 
 import hr.crosig.contact.service.CityLocalService;
-
-import java.util.Arrays;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+
+import java.util.Arrays;
 
 /**
  * @author Guilherme Kfouri
@@ -19,7 +18,7 @@ public class GetCityCommand {
 	public void getCity(String cityName) {
 		try {
 			System.out.println(
-				_cityLocalService.getCitiesNamesByName(cityName, -1, -1));
+				_cityLocalService.searchCitiesNamesByName(cityName, -1, -1));
 		}
 		catch (Exception exception) {
 			System.out.println(exception.getMessage());

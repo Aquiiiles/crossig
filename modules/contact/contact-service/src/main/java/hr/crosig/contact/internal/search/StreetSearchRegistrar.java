@@ -3,9 +3,11 @@ package hr.crosig.contact.internal.search;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.search.spi.model.index.contributor.ModelIndexerWriterContributor;
 import com.liferay.portal.search.spi.model.registrar.ModelSearchRegistrarHelper;
+
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.StreetConstants;
 import hr.crosig.contact.model.Street;
+
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.component.annotations.Activate;
@@ -26,7 +28,8 @@ public class StreetSearchRegistrar {
 			modelSearchDefinition -> {
 				modelSearchDefinition.setDefaultSelectedFieldNames(
 					Field.COMPANY_ID, Field.ENTRY_CLASS_NAME,
-					StreetConstants.FIELD_STREET_NAME, Field.ENTRY_CLASS_PK, CityConstants.FIELD_CITY_ID);
+					StreetConstants.FIELD_STREET_NAME, Field.ENTRY_CLASS_PK,
+					CityConstants.FIELD_CITY_ID);
 
 				modelSearchDefinition.setModelIndexWriteContributor(
 					modelIndexWriterContributor);

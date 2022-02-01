@@ -30,6 +30,22 @@ public class StreetLocalServiceWrapper
 		_streetLocalService = streetLocalService;
 	}
 
+	@Override
+	public hr.crosig.contact.model.Street addOrUpdateStreet(
+		long streetId, String streetName, long cityId) {
+
+		return _streetLocalService.addOrUpdateStreet(
+			streetId, streetName, cityId);
+	}
+
+	@Override
+	public hr.crosig.contact.model.Street addStreet(
+			long streetId, String streetName, long cityId)
+		throws hr.crosig.contact.exception.StreetException {
+
+		return _streetLocalService.addStreet(streetId, streetName, cityId);
+	}
+
 	/**
 	 * Adds the street to the database. Also notifies the appropriate model listeners.
 	 *
@@ -47,6 +63,13 @@ public class StreetLocalServiceWrapper
 		return _streetLocalService.addStreet(street);
 	}
 
+	@Override
+	public void addStreets(
+		java.util.List<hr.crosig.contact.model.Street> streets) {
+
+		_streetLocalService.addStreets(streets);
+	}
+
 	/**
 	 * Creates a new street with the primary key. Does not add the street to the database.
 	 *
@@ -56,6 +79,11 @@ public class StreetLocalServiceWrapper
 	@Override
 	public hr.crosig.contact.model.Street createStreet(long streetId) {
 		return _streetLocalService.createStreet(streetId);
+	}
+
+	@Override
+	public void deleteAllStreets() {
+		_streetLocalService.deleteAllStreets();
 	}
 
 	/**
@@ -273,6 +301,15 @@ public class StreetLocalServiceWrapper
 	@Override
 	public int getStreetsCount() {
 		return _streetLocalService.getStreetsCount();
+	}
+
+	@Override
+	public java.util.List<String> searchStreetsNamesByNameAndCityId(
+			String streetName, long cityId, int start, int end)
+		throws Exception {
+
+		return _streetLocalService.searchStreetsNamesByNameAndCityId(
+			streetName, cityId, start, end);
 	}
 
 	/**

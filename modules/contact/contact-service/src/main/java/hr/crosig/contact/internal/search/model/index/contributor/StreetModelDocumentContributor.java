@@ -2,9 +2,11 @@ package hr.crosig.contact.internal.search.model.index.contributor;
 
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.search.spi.model.index.contributor.ModelDocumentContributor;
+
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.StreetConstants;
 import hr.crosig.contact.model.Street;
+
 import org.osgi.service.component.annotations.Component;
 
 /**
@@ -20,7 +22,8 @@ public class StreetModelDocumentContributor
 
 	@Override
 	public void contribute(Document document, Street entry) {
-		document.addNumber(StreetConstants.FIELD_STREET_ID, entry.getStreetId());
+		document.addNumber(
+			StreetConstants.FIELD_STREET_ID, entry.getStreetId());
 		document.addNumber(CityConstants.FIELD_CITY_ID, entry.getStreetId());
 		document.addKeyword(StreetConstants.FIELD_STREET_NAME, entry.getName());
 	}

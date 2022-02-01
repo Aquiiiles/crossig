@@ -80,6 +80,8 @@ public interface CityLocalService
 
 	public City addCity(long cityId, String cityName) throws CityException;
 
+	public void addOrUpdateCities(Map<Long, String> cities);
+
 	/**
 	 * Creates a new city with the primary key. Does not add the city to the database.
 	 *
@@ -219,11 +221,6 @@ public interface CityLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCitiesCount();
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<String> getCitiesNamesByName(
-			String cityName, int start, int end)
-		throws Exception;
-
 	/**
 	 * Returns the city with the primary key.
 	 *
@@ -252,6 +249,11 @@ public interface CityLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<String> searchCitiesNamesByName(
+			String cityName, int start, int end)
+		throws Exception;
+
 	/**
 	 * Updates the city in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -264,7 +266,5 @@ public interface CityLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public City updateCity(City city);
-
-	public void updateOrCreateCities(Map<Long, String> cities);
 
 }

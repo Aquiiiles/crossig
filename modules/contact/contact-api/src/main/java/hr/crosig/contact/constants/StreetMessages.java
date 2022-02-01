@@ -5,10 +5,10 @@ package hr.crosig.contact.constants;
  */
 public class StreetMessages {
 
-	public static final String CITY_WITH_THIS_ID_ALREADY_EXISTS =
-		"There is already a city with the cityId: ";
+	public static final String STREET_WITH_THIS_ID_ALREADY_EXISTS =
+		"There is already a street with the streetId: ";
 
 	public static final String INSUFICIENT_NAME_LENGTH =
-		"City name length must be higher than 2";
+		"Street name length must be higher than 2 to search";
 
 }
