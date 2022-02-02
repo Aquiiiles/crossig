@@ -37,7 +37,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author victor.catanante
  */
 @Component(configurationPid = CacheConfiguration.OCD_ID, immediate = true)
-public class CacheScheduler implements MessageListener {
+public class IndexManagementScheduler implements MessageListener {
 
 	@Override
 	public void receive(Message message) {
@@ -68,7 +68,7 @@ public class CacheScheduler implements MessageListener {
 
 		if (_cacheConfiguration._enable()) {
 			String cronExpression = _cacheConfiguration._cronExpression();
-			String className = CacheScheduler.class.getName();
+			String className = IndexManagementScheduler.class.getName();
 
 			Trigger jobTrigger = _triggerFactory.createTrigger(
 				className, className, new Date(), null, cronExpression);
@@ -107,7 +107,7 @@ public class CacheScheduler implements MessageListener {
 		return null;
 	}
 
-	private static final Log _log = LogFactoryUtil.getLog(CacheScheduler.class);
+	private static final Log _log = LogFactoryUtil.getLog(IndexManagementScheduler.class);
 
 	private static volatile CacheConfiguration _cacheConfiguration;
 
