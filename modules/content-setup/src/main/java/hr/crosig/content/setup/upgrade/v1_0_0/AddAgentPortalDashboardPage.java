@@ -1,6 +1,8 @@
 package hr.crosig.content.setup.upgrade.v1_0_0;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutConstants;
 import com.liferay.portal.kernel.model.LayoutTypePortlet;
@@ -76,7 +78,7 @@ public class AddAgentPortalDashboardPage extends AdminUpgradeProcess {
         try {
             layoutTypePortlet.addPortletId(userId, ContentSetupConstants.CONTACT_PORTLET_NAME, ContentSetupConstants.COLUMN_1, -1);
         } catch (Exception e) {
-            System.out.println(e);
+			_log.error(e);
         }
     }
 
@@ -92,6 +94,8 @@ public class AddAgentPortalDashboardPage extends AdminUpgradeProcess {
     protected Long userId;
     protected Long companyId;
     protected Long groupId;
+
+	private static final Log _log = LogFactoryUtil.getLog(AddAgentPortalDashboardPage.class);
 
 	private final String _description = "Dashboard";
 	private final Boolean _isHidden = Boolean.FALSE;
