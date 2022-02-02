@@ -92,6 +92,10 @@
         text-decoration: none;
         opacity: 0.5;
 
+        & span {
+            white-space: nowrap;
+        }
+
         &:hover {
             text-decoration: none;
             color: #FFF;
