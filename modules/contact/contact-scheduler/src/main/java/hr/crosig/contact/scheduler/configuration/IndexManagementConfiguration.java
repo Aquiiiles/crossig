@@ -5,11 +5,11 @@ import aQute.bnd.annotation.metatype.Meta;
 /**
  * @author victor.catanante
  */
-@Meta.OCD(id = CacheConfiguration.OCD_ID)
-public interface CacheConfiguration {
+@Meta.OCD(id = IndexManagementConfiguration.OCD_ID)
+public interface IndexManagementConfiguration {
 
 	public static final String OCD_ID =
-		"hr.crosig.contact.scheduler.configuration.CacheConfiguration";
+		"hr.crosig.contact.scheduler.configuration.IndexManagementConfiguration";
 
 	@Meta.AD(deflt = "true", name = "Enable Scheduler", required = false)
 	Boolean _enable();

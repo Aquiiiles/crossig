@@ -19,7 +19,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.PortalUtil;
 
-import hr.crosig.contact.scheduler.configuration.CacheConfiguration;
+import hr.crosig.contact.scheduler.configuration.IndexManagementConfiguration;
 import hr.crosig.contact.scheduler.constants.SchedulerConstants;
 import hr.crosig.contact.scheduler.executor.ClearCacheBackgroundTask;
 
@@ -36,7 +36,7 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author victor.catanante
  */
-@Component(configurationPid = CacheConfiguration.OCD_ID, immediate = true)
+@Component(configurationPid = IndexManagementConfiguration.OCD_ID, immediate = true)
 public class IndexManagementScheduler implements MessageListener {
 
 	@Override
@@ -63,11 +63,11 @@ public class IndexManagementScheduler implements MessageListener {
 	@Activate
 	@Modified
 	protected void activate(Map<String, Object> properties) {
-		_cacheConfiguration = ConfigurableUtil.createConfigurable(
-			CacheConfiguration.class, properties);
+		_indexManagementConfiguration = ConfigurableUtil.createConfigurable(
+			IndexManagementConfiguration.class, properties);
 
-		if (_cacheConfiguration._enable()) {
-			String cronExpression = _cacheConfiguration._cronExpression();
+		if (_indexManagementConfiguration._enable()) {
+			String cronExpression = _indexManagementConfiguration._cronExpression();
 			String className = IndexManagementScheduler.class.getName();
 
 			Trigger jobTrigger = _triggerFactory.createTrigger(
@@ -109,7 +109,7 @@ public class IndexManagementScheduler implements MessageListener {
 
 	private static final Log _log = LogFactoryUtil.getLog(IndexManagementScheduler.class);
 
-	private static volatile CacheConfiguration _cacheConfiguration;
+	private static volatile IndexManagementConfiguration _indexManagementConfiguration;
 
 	@Reference(unbind = "-")
 	private volatile SchedulerEngineHelper _schedulerEngineHelper;
