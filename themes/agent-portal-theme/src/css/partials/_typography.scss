@@ -29,22 +29,27 @@
         font-family: Crosig-Bold;
     }
 
-    h7 {
+    .h7 {
         font-size: 1.5rem;
         font-family: CrosigSans-Bold;
     }
 
-    h8 {
+    .h8 {
         font-size: 1.25rem;
         font-family: Crosig-Bold;
     }
 
-    h9 {
+    .h9 {
         font-size: 1.25rem;
         font-family: CrosigSans-Bold;
     }
 
-    h10 .button {
+    .h10 {
+        font-size: 1rem;
+        font-family: CrosigSans-Bold;
+    }
+
+    button {
         font-size: 1rem;
         font-family: CrosigSans-Bold;
     }
@@ -64,7 +69,12 @@
         font-family: Crosig-Light;
     }
 
-    .body-small .body-label {
+    .body-small {
+        font-size: 1rem;
+        font-family: Crosig-Light;
+    }
+
+    .body-label {
         font-size: 1rem;
         font-family: Crosig-Light;
     }
