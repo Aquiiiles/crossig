@@ -109,16 +109,16 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 
 	public List<String> searchCitiesNamesByName(
 			String cityName, int start, int end)
-		throws Exception {
+		throws CityException {
 
 		validateSearchCityName(cityName);
 
-		MatchQuery entryClassQuery = queries.match(
+		MatchQuery entryClassQuery = _queries.match(
 			Field.ENTRY_CLASS_NAME, CityConstants.MODEL_CLASS_NAME);
-		MatchPhrasePrefixQuery nameQuery = queries.matchPhrasePrefix(
+		MatchPhrasePrefixQuery nameQuery = _queries.matchPhrasePrefix(
 			CityConstants.FIELD_CITY_NAME, cityName);
 
-		BooleanQuery booleanQuery = queries.booleanQuery();
+		BooleanQuery booleanQuery = _queries.booleanQuery();
 
 		booleanQuery.addMustQueryClauses(entryClassQuery, nameQuery);
 
@@ -145,7 +145,7 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		long defaultCompanyId = PortalUtil.getDefaultCompanyId();
 
 		SearchRequestBuilder searchRequestBuilder =
-			searchRequestBuilderFactory.builder();
+			_searchRequestBuilderFactory.builder();
 
 		searchRequestBuilder.emptySearchEnabled(true);
 		searchRequestBuilder.withSearchContext(
@@ -178,7 +178,7 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 	}
 
 	protected List<SearchHit> getSearchHits(SearchRequest searchRequest) {
-		SearchResponse searchResponse = searcher.search(searchRequest);
+		SearchResponse searchResponse = _searcher.search(searchRequest);
 
 		SearchHits searchHits = searchResponse.getSearchHits();
 
@@ -202,16 +202,16 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 			throw new CityException(CityMessages.INSUFICIENT_NAME_LENGTH);
 	}
 
-	@Reference
-	protected Queries queries;
-
-	@Reference
-	protected Searcher searcher;
-
-	@Reference
-	protected SearchRequestBuilderFactory searchRequestBuilderFactory;
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		CityLocalServiceImpl.class);
+
+	@Reference
+	private Queries _queries;
+
+	@Reference
+	private Searcher _searcher;
+
+	@Reference
+	private SearchRequestBuilderFactory _searchRequestBuilderFactory;
 
 }
