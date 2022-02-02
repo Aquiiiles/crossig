@@ -30,6 +30,7 @@ import com.liferay.portal.search.searcher.SearchRequestBuilder;
 import com.liferay.portal.search.searcher.SearchRequestBuilderFactory;
 import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.searcher.Searcher;
+
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.StreetConstants;
 import hr.crosig.contact.constants.StreetMessages;
@@ -37,12 +38,13 @@ import hr.crosig.contact.dto.StreetDTO;
 import hr.crosig.contact.exception.StreetException;
 import hr.crosig.contact.model.Street;
 import hr.crosig.contact.service.base.StreetLocalServiceBaseImpl;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Guilherme Kfouri
@@ -57,6 +59,8 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 		streets.forEach(
 			streetDTO -> {
 				Street street = createStreet(streetDTO);
+
+				street.setNew(!streetExists(streetDTO.getStreetId()));
 
 				streetLocalService.updateStreet(street);
 			});
@@ -129,8 +133,8 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 		Street street = streetLocalService.createStreet(
 			streetDTO.getStreetId());
 
-		street.setName(street.getName());
-		street.setCityId(street.getCityId());
+		street.setName(streetDTO.getStreetName());
+		street.setCityId(streetDTO.getCityId());
 		street.setCompanyId(PortalUtil.getDefaultCompanyId());
 
 		return street;
@@ -159,6 +163,12 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 		return streetsNames;
 	}
 
+	protected boolean streetExists(long streetId) {
+		Street street = streetLocalService.fetchStreet(streetId);
+
+		return !Objects.isNull(street);
+	}
+
 	protected void validateSearchStreetName(String streetName)
 		throws StreetException {
 
@@ -168,9 +178,7 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 	}
 
 	protected void validateStreet(long streetId) throws StreetException {
-		Street street = streetLocalService.fetchStreet(streetId);
-
-		if (!Objects.isNull(street))
+		if (streetExists(streetId))
 
 			throw new StreetException(
 				StreetMessages.STREET_WITH_THIS_ID_ALREADY_EXISTS + streetId);

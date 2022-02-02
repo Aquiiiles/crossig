@@ -39,53 +39,60 @@ public class IndexManagementLocalServiceImpl
 
 	@Override
 	public void clearIndexCache(String index) {
-		if (index.equalsIgnoreCase(IndexType.CITY.getName()))
+		if (index.equalsIgnoreCase(IndexType.CITY.getName())) {
 			_cityLocalService.deleteAllCities();
-		else if (index.equalsIgnoreCase(IndexType.STREET.getName()))
+
+			_log.info("Cleared all cities");
+		}
+		else if (index.equalsIgnoreCase(IndexType.STREET.getName())) {
 			_streetLocalService.deleteAllStreets();
+
+			_log.info("Cleared all streets");
+		}
 	}
 
 	@Override
 	public void populateAllIndices() {
 		List<CityDTO> cities = populateCities();
+
 		populateStreets(cities);
 	}
 
 	protected List<CityDTO> populateCities() {
+
 		// TODO String response = _iditwsClient.getCities();
+
 		String response = CityAndStreetMockDTO.iditwsGetCitiesResponse;
+
 		List<CityDTO> cities = _parseIDITCityResponse(response);
+
 		_cityLocalService.addOrUpdateCities(cities);
+
+		_log.info("Added " + cities.size() + " cities");
+
 		return cities;
 	}
 
-	private List<StreetDTO> _parseIDITStreetResponse(String response) {
-		Function<JSONObject, StreetDTO> mapper = this::_parseStreetDTO;
-		return _parseIDITResponse(response, mapper);
-	}
+	protected void populateStreets(List<CityDTO> cities) {
+		cities.forEach(
+			city -> {
+				//			String response = _iditwsClient.getStreetsByCity(cityDTO.getCityId());
 
-	private List<CityDTO> _parseIDITCityResponse(String response) {
-		Function<JSONObject, CityDTO> mapper = this::_parseCityDTO;
-		return _parseIDITResponse(response, mapper);
-	}
+				String response = CityAndStreetMockDTO.iditwsGetStreetsByCity;
 
-	private <T> List<T> _parseIDITResponse(String response, Function<JSONObject, T> mapper) {
-		List<T> objects = new ArrayList<>();
-		try {
-			JSONArray jsonArray = JSONFactoryUtil.createJSONArray(response);
-			for (int i = 0; i < jsonArray.length(); i++) {
-				objects.add(mapper.apply(jsonArray.getJSONObject(i)));
-			}
-		} catch (JSONException e) {
-			log.error(e);
-		}
+				List<StreetDTO> streets = _parseIDITStreetResponse(
+					response, city.getCityId());
 
-		return objects;
+				_streetLocalService.addOrUpdateStreets(streets);
+
+				_log.info("Added " + streets.size() + " streets");
+			});
 	}
 
 	private CityDTO _parseCityDTO(JSONObject jsonObject) {
 		CityDTO cityDTO = new CityDTO();
-		cityDTO.setCityId(jsonObject.getLong("cityId"));
+
+		cityDTO.setCityId(jsonObject.getLong("id"));
 		cityDTO.setZipCode(jsonObject.getString("zipCode"));
 		cityDTO.setBoxNumber(jsonObject.getString("boxNumber"));
 		cityDTO.setCityName(jsonObject.getString("cityName"));
@@ -94,31 +101,52 @@ public class IndexManagementLocalServiceImpl
 		return cityDTO;
 	}
 
-	private StreetDTO _parseStreetDTO(JSONObject jsonObject) {
+	private List<CityDTO> _parseIDITCityResponse(String response) {
+		Function<JSONObject, CityDTO> mapper = this::_parseCityDTO;
+
+		return _parseIDITResponse(response, mapper);
+	}
+
+	private <T> List<T> _parseIDITResponse(
+		String response, Function<JSONObject, T> mapper) {
+
+		List<T> objects = new ArrayList<>();
+
+		try {
+			JSONArray jsonArray = JSONFactoryUtil.createJSONArray(response);
+
+			for (int i = 0; i < jsonArray.length(); i++) {
+				objects.add(mapper.apply(jsonArray.getJSONObject(i)));
+			}
+		}
+		catch (JSONException jsonException) {
+			_log.error(jsonException);
+		}
+
+		return objects;
+	}
+
+	private List<StreetDTO> _parseIDITStreetResponse(
+		String response, long cityId) {
+
+		Function<JSONObject, StreetDTO> mapper = streetJSON -> _parseStreetDTO(
+			streetJSON, cityId);
+
+		return _parseIDITResponse(response, mapper);
+	}
+
+	private StreetDTO _parseStreetDTO(JSONObject jsonObject, long cityId) {
 		StreetDTO streetDTO = new StreetDTO();
-		streetDTO.setStreetId(jsonObject.getLong("streetId"));
-		streetDTO.setStreetName(jsonObject.getString("streetName"));
-		streetDTO.setCityId(jsonObject.getLong("cityId"));
+
+		streetDTO.setStreetId(jsonObject.getLong("id"));
+		streetDTO.setStreetName(jsonObject.getString("desc"));
+		streetDTO.setCityId(cityId);
 
 		return streetDTO;
 	}
 
-	protected void populateStreets(List<CityDTO> cities) {
-		// TODO real version
-		//		cities.forEach(cityDTO ->
-		//			String response = _iditwsClient.getStreetsByCity(cityDTO.getCityId());
-		//			List<StreetDTO> streets = _parseIDITStreetResponse(response);
-		//			_streetLocalService.addOrUpdateStreets(streets);
-		//		);
-
-		_mockPopulateStreets();
-	}
-
-	private void _mockPopulateStreets() {
-		String response = CityAndStreetMockDTO.iditwsGetStreetsByCity;
-		List<StreetDTO> streets = _parseIDITStreetResponse(response);
-		_streetLocalService.addOrUpdateStreets(streets);
-	}
+	private static final Log _log = LogFactoryUtil.getLog(
+		IndexManagementLocalServiceImpl.class);
 
 	@Reference
 	private CityLocalService _cityLocalService;
@@ -126,5 +154,4 @@ public class IndexManagementLocalServiceImpl
 	@Reference
 	private StreetLocalService _streetLocalService;
 
-	protected static final Log log = LogFactoryUtil.getLog(IndexManagementLocalServiceImpl.class);
 }

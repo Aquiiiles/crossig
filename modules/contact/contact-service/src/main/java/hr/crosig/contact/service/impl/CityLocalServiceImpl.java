@@ -67,6 +67,8 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 			cityDTO -> {
 				City city = createCity(cityDTO);
 
+				city.setNew(!cityExists(cityDTO.getCityId()));
+
 				cityLocalService.updateCity(city);
 			});
 	}
@@ -98,6 +100,12 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		List<SearchHit> searchHitsList = getSearchHits(searchRequest);
 
 		return getCitiesNames(searchHitsList);
+	}
+
+	protected boolean cityExists(long cityId) {
+		City city = cityLocalService.fetchCity(cityId);
+
+		return !Objects.isNull(city);
 	}
 
 	protected City createCity(CityDTO cityDTO) {
@@ -159,9 +167,7 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 	}
 
 	protected void validateCity(long cityId) throws CityException {
-		City city = cityLocalService.fetchCity(cityId);
-
-		if (!Objects.isNull(city))
+		if (cityExists(cityId))
 
 			throw new CityException(
 				CityMessages.CITY_WITH_THIS_ID_ALREADY_EXISTS + cityId);
