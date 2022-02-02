@@ -7,7 +7,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 /**
  * @author Leonardo Miyagi
  */
-@ExtendedObjectClassDefinition(category = "Agent Portal")
+@ExtendedObjectClassDefinition(category = "agent-portal")
 @Meta.OCD(
 	id = LiferayConnectionConfiguration.LIFERAY_CONNECTION,
 	localization = "content/Language", name = "Liferay Connection"
