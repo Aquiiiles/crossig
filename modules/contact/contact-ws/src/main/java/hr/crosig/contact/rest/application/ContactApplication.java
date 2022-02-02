@@ -3,25 +3,27 @@ package hr.crosig.contact.rest.application;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import hr.crosig.contact.rest.application.dto.ContactDTO;
-import hr.crosig.contact.rest.application.dto.EmailDTO;
-import hr.crosig.contact.rest.application.dto.PhoneNumberDTO;
+import hr.crosig.contact.dto.ContactDTO;
+import hr.crosig.contact.dto.EmailDTO;
+import hr.crosig.contact.dto.PhoneNumberDTO;
 import hr.crosig.contact.rest.application.utils.ApplicationUtilities;
 import hr.crosig.contact.rest.application.utils.ContactApplicationConstants;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author victor.catanante

@@ -1,4 +1,4 @@
-package hr.crosig.contact.rest.application.dto;
+package hr.crosig.contact.dto;
 
 import java.io.Serializable;
 

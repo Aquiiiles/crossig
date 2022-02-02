@@ -1,12 +1,10 @@
-package hr.crosig.contact.rest.application.dto;
+package hr.crosig.contact.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
-import hr.crosig.contact.rest.application.enums.ContactType;
-import hr.crosig.contact.rest.application.utils.ContactApplicationConstants;
+import hr.crosig.contact.constants.ContactConstants;
+import hr.crosig.contact.enums.ContactType;
 
 import java.io.Serializable;
-
 import java.util.Date;
 import java.util.List;
 
@@ -170,7 +168,7 @@ public class ContactDTO implements Serializable {
 	private String country;
 
 	@JsonFormat(
-		pattern = ContactApplicationConstants.DATE_FORMAT,
+		pattern = ContactConstants.DATE_FORMAT,
 		shape = JsonFormat.Shape.STRING
 	)
 	private Date dateOfBirth;

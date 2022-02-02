@@ -1,4 +1,4 @@
-package hr.crosig.contact.rest.application.enums;
+package hr.crosig.contact.enums;
 
 public enum ContactType {
 
