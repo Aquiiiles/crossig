@@ -17,35 +17,40 @@ import com.liferay.portal.kernel.util.PortalUtil;
  */
 public abstract class AdminUpgradeProcess extends UpgradeProcess {
 
-    @Override
-    protected void doUpgrade() throws Exception {
-        PermissionChecker originalPermissionChecker = PermissionThreadLocal.getPermissionChecker();
-        String originalName = PrincipalThreadLocal.getName();
+	@Override
+	protected void doUpgrade() throws Exception {
+		PermissionChecker originalPermissionChecker =
+			PermissionThreadLocal.getPermissionChecker();
+		String originalName = PrincipalThreadLocal.getName();
 
-        try {
-            long companyId = PortalUtil.getDefaultCompanyId();
+		try {
+			long companyId = PortalUtil.getDefaultCompanyId();
 
-            Role adminRole = RoleLocalServiceUtil.getRole(companyId, RoleConstants.ADMINISTRATOR);
+			Role adminRole = RoleLocalServiceUtil.getRole(
+				companyId, RoleConstants.ADMINISTRATOR);
 
-            User adminUser = UserLocalServiceUtil.getRoleUsers(
-                    adminRole.getRoleId()
-            ).get(
-                    0
-            );
+			User adminUser = UserLocalServiceUtil.getRoleUsers(
+				adminRole.getRoleId()
+			).get(
+				0
+			);
 
-            PrincipalThreadLocal.setName(adminUser.getUserId());
+			PrincipalThreadLocal.setName(adminUser.getUserId());
 
-            PermissionChecker adminPermissionChecker = PermissionCheckerFactoryUtil.create(adminUser);
+			PermissionChecker adminPermissionChecker =
+				PermissionCheckerFactoryUtil.create(adminUser);
 
-            PermissionThreadLocal.setPermissionChecker(adminPermissionChecker);
+			PermissionThreadLocal.setPermissionChecker(adminPermissionChecker);
 
-            doUpgradeAsAdmin();
-        }
-        finally {
-            PrincipalThreadLocal.setName(originalName);
-            PermissionThreadLocal.setPermissionChecker(originalPermissionChecker);
-        }
-    }
+			doUpgradeAsAdmin();
+		}
+		finally {
+			PrincipalThreadLocal.setName(originalName);
+			PermissionThreadLocal.setPermissionChecker(
+				originalPermissionChecker);
+		}
+	}
 
-    protected abstract void doUpgradeAsAdmin() throws Exception;
+	protected abstract void doUpgradeAsAdmin() throws Exception;
+
 }

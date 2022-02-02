@@ -25,13 +25,13 @@ public class ContentSetupUpgradeStepRegistrator
 	public void register(Registry registry) {
 		registry.register(
 			"0.0.0", "1.0.0",
-				new AddAgentPortalSite(
-				_groupLocalService, _userLocalService,
-				_prefsProps, _companyLocalService),
-				new CreateAgentPortalUserGroups(
-						_companyLocalService, _groupLocalService, _userLocalService,
-						_userGroupLocalService),
-				new AddAgentPortalDashboardPage(_groupLocalService));
+			new AddAgentPortalSite(
+				_groupLocalService, _userLocalService, _prefsProps,
+				_companyLocalService),
+			new CreateAgentPortalUserGroups(
+				_companyLocalService, _groupLocalService, _userLocalService,
+				_userGroupLocalService),
+			new AddAgentPortalDashboardPage(_groupLocalService));
 	}
 
 	@Reference
