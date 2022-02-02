@@ -56,7 +56,7 @@
   },
   "portlet": {
     "com.liferay.portlet.display-category": "category.agent-portal",
-    "javax.portlet.name": "contactweb",
+    "javax.portlet.name": "proposalweb",
     "javax.portlet.security-role-ref": "power-user,user",
     "javax.portlet.resource-bundle": "content.Language",
     "com.liferay.portlet.instanceable": true
