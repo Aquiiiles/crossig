@@ -33,6 +33,7 @@ import com.liferay.portal.search.searcher.Searcher;
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.StreetConstants;
 import hr.crosig.contact.constants.StreetMessages;
+import hr.crosig.contact.dto.StreetDTO;
 import hr.crosig.contact.exception.StreetException;
 import hr.crosig.contact.model.Street;
 import hr.crosig.contact.service.base.StreetLocalServiceBaseImpl;
@@ -44,7 +45,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Guilherme Kfouri
  */
 @Component(
 	property = "model.class.name=" + StreetConstants.MODEL_CLASS_NAME,
@@ -52,29 +53,22 @@ import java.util.Objects;
 )
 public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 
-	public Street addOrUpdateStreet(
-		long streetId, String streetName, long cityId) {
+	public void addOrUpdateStreets(List<StreetDTO> streets) {
 
-		Street street = streetLocalService.fetchStreet(streetId);
-
-		if (Objects.isNull(street)) {
-			street = createStreet(streetId, streetName, cityId);
-
-			return addStreet(street);
-		}
-
-		street.setName(streetName);
-		street.setCityId(cityId);
-
-		return streetLocalService.updateStreet(street);
+		streets.forEach(streetDTO -> {
+			Street street = createStreet(streetDTO);
+			streetLocalService.updateStreet(street);
+		});
 	}
 
-	public Street addStreet(long streetId, String streetName, long cityId)
+	public Street addStreet(StreetDTO streetDTO)
 		throws StreetException {
+
+		long streetId = streetDTO.getStreetId();
 
 		validateStreet(streetId);
 
-		Street street = createStreet(streetId, streetName, cityId);
+		Street street = createStreet(streetDTO);
 
 		return streetLocalService.updateStreet(street);
 	}
@@ -134,13 +128,14 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 		).build();
 	}
 
-	protected Street createStreet(
-		long streetId, String streetName, long cityId) {
+	protected Street createStreet(StreetDTO streetDTO) {
+
+		long streetId = streetDTO.getStreetId();
 
 		Street street = streetLocalService.createStreet(streetId);
 
-		street.setName(streetName);
-		street.setCityId(cityId);
+		street.setName(street.getName());
+		street.setCityId(street.getCityId());
 		street.setCompanyId(PortalUtil.getDefaultCompanyId());
 
 		return street;

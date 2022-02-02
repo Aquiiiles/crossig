@@ -31,19 +31,10 @@ public class StreetLocalServiceWrapper
 	}
 
 	@Override
-	public hr.crosig.contact.model.Street addOrUpdateStreet(
-		long streetId, String streetName, long cityId) {
+	public void addOrUpdateStreets(
+		java.util.List<hr.crosig.contact.dto.StreetDTO> streets) {
 
-		return _streetLocalService.addOrUpdateStreet(
-			streetId, streetName, cityId);
-	}
-
-	@Override
-	public hr.crosig.contact.model.Street addStreet(
-			long streetId, String streetName, long cityId)
-		throws hr.crosig.contact.exception.StreetException {
-
-		return _streetLocalService.addStreet(streetId, streetName, cityId);
+		_streetLocalService.addOrUpdateStreets(streets);
 	}
 
 	/**
@@ -61,6 +52,14 @@ public class StreetLocalServiceWrapper
 		hr.crosig.contact.model.Street street) {
 
 		return _streetLocalService.addStreet(street);
+	}
+
+	@Override
+	public hr.crosig.contact.model.Street addStreet(
+			hr.crosig.contact.dto.StreetDTO streetDTO)
+		throws hr.crosig.contact.exception.StreetException {
+
+		return _streetLocalService.addStreet(streetDTO);
 	}
 
 	/**

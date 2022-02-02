@@ -15,8 +15,6 @@
 package hr.crosig.contact.service.impl;
 
 import com.liferay.portal.aop.AopService;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.search.document.Document;
@@ -34,6 +32,7 @@ import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.searcher.Searcher;
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.CityMessages;
+import hr.crosig.contact.dto.CityDTO;
 import hr.crosig.contact.exception.CityException;
 import hr.crosig.contact.model.City;
 import hr.crosig.contact.service.base.CityLocalServiceBaseImpl;
@@ -42,9 +41,7 @@ import org.osgi.service.component.annotations.Reference;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * @author Guilherme Kfouri
@@ -55,49 +52,21 @@ import java.util.Set;
 )
 public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 
-	public void addCities(Map<Long, String> cities) {
-		Set<Long> citiesIds = cities.keySet();
+	public City addCity(CityDTO cityDTO) throws CityException {
+		long cityId = cityDTO.getCityId();
 
-		citiesIds.forEach(
-			cityId -> {
-				String cityName = cities.get(cityId);
-
-				try {
-					addCity(cityId, cityName);
-				}
-				catch (CityException cityException) {
-					_log.error(
-						CityMessages.CITY_WITH_THIS_ID_ALREADY_EXISTS + cityId);
-				}
-			});
-	}
-
-	public City addCity(long cityId, String cityName) throws CityException {
 		validateCity(cityId);
 
-		City city = createCity(cityId, cityName);
+		City city = createCity(cityDTO);
 
 		return cityLocalService.updateCity(city);
 	}
 
-	public void addOrUpdateCities(Map<Long, String> cities) {
-		Set<Long> citiesIds = cities.keySet();
-
-		citiesIds.forEach(
-			cityId -> {
-				City city = cityLocalService.fetchCity(cityId);
-				String cityName = cities.get(cityId);
-
-				if (Objects.isNull(city)) {
-					city = createCity(cityId, cityName);
-
-					addCity(city);
-				}
-				else {
-					city.setName(cityName);
-
-					cityLocalService.updateCity(city);
-				}
+	public void addOrUpdateCities(List<CityDTO> cities) {
+		cities.forEach(
+			cityDTO -> {
+				City city = createCity(cityDTO);
+				cityLocalService.updateCity(city);
 			});
 	}
 
@@ -130,10 +99,15 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		return getCitiesNames(searchHitsList);
 	}
 
-	protected City createCity(long cityId, String cityName) {
+	protected City createCity(CityDTO cityDTO) {
+		long cityId = cityDTO.getCityId();
+
 		City city = cityLocalService.createCity(cityId);
 
-		city.setName(cityName);
+		city.setName(cityDTO.getCityName());
+		city.setZipCode(cityDTO.getZipCode());
+		city.setBoxNumber(cityDTO.getBoxNumber());
+		city.setPostName(cityDTO.getPostName());
 		city.setCompanyId(PortalUtil.getDefaultCompanyId());
 
 		return city;
@@ -201,9 +175,6 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 
 			throw new CityException(CityMessages.INSUFICIENT_NAME_LENGTH);
 	}
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		CityLocalServiceImpl.class);
 
 	@Reference
 	private Queries _queries;

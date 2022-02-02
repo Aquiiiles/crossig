@@ -44,17 +44,10 @@ public class StreetLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>hr.crosig.contact.service.impl.StreetLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static Street addOrUpdateStreet(
-		long streetId, String streetName, long cityId) {
+	public static void addOrUpdateStreets(
+		List<hr.crosig.contact.dto.StreetDTO> streets) {
 
-		return getService().addOrUpdateStreet(streetId, streetName, cityId);
-	}
-
-	public static Street addStreet(
-			long streetId, String streetName, long cityId)
-		throws hr.crosig.contact.exception.StreetException {
-
-		return getService().addStreet(streetId, streetName, cityId);
+		getService().addOrUpdateStreets(streets);
 	}
 
 	/**
@@ -69,6 +62,12 @@ public class StreetLocalServiceUtil {
 	 */
 	public static Street addStreet(Street street) {
 		return getService().addStreet(street);
+	}
+
+	public static Street addStreet(hr.crosig.contact.dto.StreetDTO streetDTO)
+		throws hr.crosig.contact.exception.StreetException {
+
+		return getService().addStreet(streetDTO);
 	}
 
 	/**

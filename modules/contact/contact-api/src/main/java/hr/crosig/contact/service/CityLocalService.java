@@ -30,13 +30,13 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import hr.crosig.contact.dto.CityDTO;
 import hr.crosig.contact.exception.CityException;
 import hr.crosig.contact.model.City;
 
 import java.io.Serializable;
 
 import java.util.List;
-import java.util.Map;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -63,7 +63,6 @@ public interface CityLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>hr.crosig.contact.service.impl.CityLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the city local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CityLocalServiceUtil} if injection and service tracking are not available.
 	 */
-	public void addCities(Map<Long, String> cities);
 
 	/**
 	 * Adds the city to the database. Also notifies the appropriate model listeners.
@@ -78,9 +77,9 @@ public interface CityLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public City addCity(City city);
 
-	public City addCity(long cityId, String cityName) throws CityException;
+	public City addCity(CityDTO cityDTO) throws CityException;
 
-	public void addOrUpdateCities(Map<Long, String> cities);
+	public void addOrUpdateCities(List<CityDTO> cities);
 
 	/**
 	 * Creates a new city with the primary key. Does not add the city to the database.
@@ -258,7 +257,7 @@ public interface CityLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<String> searchCitiesNamesByName(
 			String cityName, int start, int end)
-		throws Exception;
+		throws CityException;
 
 	/**
 	 * Updates the city in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

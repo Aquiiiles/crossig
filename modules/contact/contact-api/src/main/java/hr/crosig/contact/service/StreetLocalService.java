@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import hr.crosig.contact.dto.StreetDTO;
 import hr.crosig.contact.exception.StreetException;
 import hr.crosig.contact.model.Street;
 
@@ -62,11 +63,7 @@ public interface StreetLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>hr.crosig.contact.service.impl.StreetLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the street local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link StreetLocalServiceUtil} if injection and service tracking are not available.
 	 */
-	public Street addOrUpdateStreet(
-		long streetId, String streetName, long cityId);
-
-	public Street addStreet(long streetId, String streetName, long cityId)
-		throws StreetException;
+	public void addOrUpdateStreets(List<StreetDTO> streets);
 
 	/**
 	 * Adds the street to the database. Also notifies the appropriate model listeners.
@@ -80,6 +77,8 @@ public interface StreetLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public Street addStreet(Street street);
+
+	public Street addStreet(StreetDTO streetDTO) throws StreetException;
 
 	/**
 	 * @throws PortalException
