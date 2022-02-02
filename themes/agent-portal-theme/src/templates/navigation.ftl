@@ -1,9 +1,9 @@
-<nav class="${nav_css_class} expansion-trigger" id="navigation" role="navigation">
+<nav class="${nav_css_class}" id="navigation" role="navigation">
 	<div class="crosig-logo">
 		<img alt="Crosig Logo" height="40" src="${images_folder}/icons/crosigWhite.svg" width="40" />
 	</div>
 
-	<ul aria-label="<@liferay.language key="site-pages" />" class="nav-link-list" id="link-list-left" role="menubar">
+	<ul aria-label="<@liferay.language key="site-pages" />" class="nav-link-list" role="menubar">
 		<#list nav_items as nav_item>
 			<#assign
 				nav_item_attr_has_popup = ""
@@ -32,19 +32,5 @@
 		<img alt="Notifications" height="24" src="${images_folder}/icons/notification.svg" width="24" />
 
 		<img alt="" class="user-image-round" height="40" src="${user.getPortraitURL(theme_display)}" width="40">
-	</div>
-
-	<div class="expanded-nav">
-		<div class="crosig-logo">
-			<img alt="CROATIA OSIGURANGE" height="40" src="${images_folder}/icons/crosigWhiteFull.svg" width="143" />
-		</div>
-
-		<ul aria-label="<@liferay.language key="site-pages" />" class="nav-link-list" id="link-list-right" role="menubar"></ul>
-
-		<div class="user-controls">
-			<div></div>
-
-			<p class="body-small">${user_name}</p>
-		</div>
 	</div>
 </nav>
