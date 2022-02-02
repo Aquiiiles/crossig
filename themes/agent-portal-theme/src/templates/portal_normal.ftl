@@ -47,6 +47,7 @@
 <@liferay_util["include"] page=bottom_include />
 
 <!-- inject:js -->
+
 <!-- endinject -->
 
 </body>
