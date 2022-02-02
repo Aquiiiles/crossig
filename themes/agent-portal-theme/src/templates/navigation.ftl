@@ -27,7 +27,7 @@
 	</ul>
 	<div class="user-controls">
 		<img src="${images_folder}/icons/notification.svg" alt="Notifications" width="24" height="24"/>
-		<img class="user-image-round" src="" alt="" width="40" height="40">
+		<img class="user-image-round" src="${user.getPortraitURL(theme_display)}" alt="" width="40" height="40">
 	</div>
 	<div class="expanded-nav">
 		<div class="crosig-logo">
