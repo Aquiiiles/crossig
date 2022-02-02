@@ -21,7 +21,7 @@ import com.liferay.portal.kernel.util.PortalUtil;
 
 import hr.crosig.contact.scheduler.configuration.IndexManagementConfiguration;
 import hr.crosig.contact.scheduler.constants.SchedulerConstants;
-import hr.crosig.contact.scheduler.executor.ClearCacheBackgroundTask;
+import hr.crosig.contact.scheduler.executor.IndexManagementBackgroundTask;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -48,7 +48,7 @@ public class IndexManagementScheduler implements MessageListener {
 
 			BackgroundTaskLocalServiceUtil.addBackgroundTask(
 				adminUser.getUserId(), adminUser.getGroupId(), StringPool.BLANK,
-				ClearCacheBackgroundTask.class.getName(), new HashMap<>(),
+				IndexManagementBackgroundTask.class.getName(), new HashMap<>(),
 				new ServiceContext());
 
 			_log.info(SchedulerConstants.SCHEDULER_SUCCESSFULLY_TRIGGERED);

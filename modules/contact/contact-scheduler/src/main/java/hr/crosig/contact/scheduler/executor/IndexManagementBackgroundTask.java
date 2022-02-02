@@ -16,14 +16,14 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "background.task.executor.class.name=hr.crosig.contact.scheduler.executor.ClearCacheBackgroundTask",
-	service = ClearCacheBackgroundTask.class
+	property = "background.task.executor.class.name=" + IndexManagementBackgroundTask.EXECUTOR_CLASS_NAME,
+	service = IndexManagementBackgroundTask.class
 )
-public class ClearCacheBackgroundTask extends BaseBackgroundTaskExecutor {
+public class IndexManagementBackgroundTask extends BaseBackgroundTaskExecutor {
 
 	@Override
 	public BackgroundTaskExecutor clone() {
-		return new ClearCacheBackgroundTask();
+		return new IndexManagementBackgroundTask();
 	}
 
 	@Override
@@ -48,4 +48,5 @@ public class ClearCacheBackgroundTask extends BaseBackgroundTaskExecutor {
 	@Reference(unbind = "-")
 	private IndexManagementLocalService _indexManagementLocalService;
 
+	protected static final String EXECUTOR_CLASS_NAME = "hr.crosig.contact.scheduler.executor.IndexManagementBackgroundTask";
 }
