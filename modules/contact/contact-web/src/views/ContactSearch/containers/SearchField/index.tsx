@@ -8,6 +8,7 @@ import SearchFilters from "./components/molecules/SearchFilters";
 import ArrowButton from "./components/atoms/ArrowButton";
 import SearchButton from "./components/atoms/SearchButton";
 import {Wrapper} from "./styles";
+import {CONTACT_SEARCH_FIELD_NAME_OR_OIB} from "../../../../constants/languageKeys";
 
 const SearchField: React.FC = () => {
   const [name, setName] = useState("");
@@ -40,7 +41,7 @@ const SearchField: React.FC = () => {
   return (
     <Wrapper>
       <ClayForm.Group>
-        <label htmlFor="basicInputText">Name or OIB</label>
+        <label htmlFor="basicInputText">{CONTACT_SEARCH_FIELD_NAME_OR_OIB}</label>
         <ClayInput
           id="basicInputText"
           type="text"
