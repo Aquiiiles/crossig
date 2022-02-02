@@ -9,4 +9,6 @@ public interface IndexManagementLocalService {
 
 	public void clearIndexCache(String index);
 
+	public void populateAllIndices();
+
 }

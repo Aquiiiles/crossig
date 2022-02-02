@@ -1,6 +1,7 @@
 dependencies {
 	compile group: "com.liferay.portal", name: "release.dxp.api"
 	compile project(":modules:common:common-ws")
+	compile project(":modules:common:common-ws-idit-client")
 	compile project(":modules:contact:contact-api")
 	compile project(":modules:contact:contact-scheduler")
 
