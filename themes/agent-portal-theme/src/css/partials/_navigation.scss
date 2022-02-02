@@ -13,14 +13,23 @@
 }
 
 #navigation {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 160px 1fr 144px;
-    justify-items: center;
-    position: relative;
+    display: flex;
     height: 100%;
     background-color: #112D82;
     padding-right: 0; // ignore padding set by liferay's page-editor__disabled-area class
+
+    &:hover {
+        & .navigation-expansion {
+            max-width: calc(240px - 64px);
+        }
+    }
+}
+
+.navigation-aside {
+    display: grid;
+    grid-template-columns: 64px;
+    grid-template-rows: 160px 1fr 144px;
+    justify-items: center;
 
     & .crosig-logo {
         padding: 1rem 0.75rem;
@@ -29,6 +38,37 @@
     & .user-image-round {
         background-color: #000;
         border-radius: 50%;
+    }
+}
+
+.navigation-expansion {
+    width: calc(240px - 64px);
+    max-width: 0;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 160px 1fr 144px;
+    justify-items: start;
+    overflow: hidden;
+    transition: max-width 400ms ease-out;
+
+    & .crosig-logo {
+        padding: 1rem 0.75rem 1rem 0;
+        clip-path: inset(0 0 0 40px);
+        transform: translateX(-48px);
+    }
+
+    & .nav-link-list li {
+        justify-content: start;
+    }
+
+    & .nav-link-list li.selected {
+        &:before {
+            width: 0;
+        }
+    }
+
+    & .user-controls {
+        padding-left: 0;
     }
 }
 
