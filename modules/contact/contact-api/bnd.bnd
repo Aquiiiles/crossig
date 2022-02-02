@@ -3,7 +3,7 @@ Bundle-SymbolicName: hr.crosig.contact.api
 Bundle-Version: 1.0.0
 Export-Package:\
 	hr.crosig.contact.constants,\
-    hr.crosig.contact.dto,\
+	hr.crosig.contact.dto,\
 	hr.crosig.contact.enums,\
 	hr.crosig.contact.exception,\
 	hr.crosig.contact.model,\

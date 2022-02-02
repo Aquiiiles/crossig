@@ -5,32 +5,32 @@ package hr.crosig.contact.dto;
  */
 public class StreetDTO {
 
-    private long streetId;
-    private String streetName;
-    private long cityId;
+	public long getCityId() {
+		return _cityId;
+	}
 
-    public long getStreetId() {
-        return streetId;
-    }
+	public long getStreetId() {
+		return _streetId;
+	}
 
-    public void setStreetId(long streetId) {
-        this.streetId = streetId;
-    }
+	public String getStreetName() {
+		return _streetName;
+	}
 
-    public String getStreetName() {
-        return streetName;
-    }
+	public void setCityId(long cityId) {
+		_cityId = cityId;
+	}
 
-    public void setStreetName(String streetName) {
-        this.streetName = streetName;
-    }
+	public void setStreetId(long streetId) {
+		_streetId = streetId;
+	}
 
-    public long getCityId() {
-        return cityId;
-    }
+	public void setStreetName(String streetName) {
+		_streetName = streetName;
+	}
 
-    public void setCityId(long cityId) {
-        this.cityId = cityId;
-    }
+	private long _cityId;
+	private long _streetId;
+	private String _streetName;
 
 }

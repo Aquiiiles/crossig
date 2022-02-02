@@ -36,7 +36,9 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author victor.catanante
  */
-@Component(configurationPid = IndexManagementConfiguration.OCD_ID, immediate = true)
+@Component(
+	configurationPid = IndexManagementConfiguration.OCD_ID, immediate = true
+)
 public class IndexManagementScheduler implements MessageListener {
 
 	@Override
@@ -67,7 +69,8 @@ public class IndexManagementScheduler implements MessageListener {
 			IndexManagementConfiguration.class, properties);
 
 		if (_indexManagementConfiguration._enable()) {
-			String cronExpression = _indexManagementConfiguration._cronExpression();
+			String cronExpression =
+				_indexManagementConfiguration._cronExpression();
 			String className = IndexManagementScheduler.class.getName();
 
 			Trigger jobTrigger = _triggerFactory.createTrigger(
@@ -107,9 +110,11 @@ public class IndexManagementScheduler implements MessageListener {
 		return null;
 	}
 
-	private static final Log _log = LogFactoryUtil.getLog(IndexManagementScheduler.class);
+	private static final Log _log = LogFactoryUtil.getLog(
+		IndexManagementScheduler.class);
 
-	private static volatile IndexManagementConfiguration _indexManagementConfiguration;
+	private static volatile IndexManagementConfiguration
+		_indexManagementConfiguration;
 
 	@Reference(unbind = "-")
 	private volatile SchedulerEngineHelper _schedulerEngineHelper;

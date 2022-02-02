@@ -45,8 +45,10 @@ public class IndexManagementBackgroundTask extends BaseBackgroundTaskExecutor {
 		return true;
 	}
 
+	protected static final String EXECUTOR_CLASS_NAME =
+		"hr.crosig.contact.scheduler.executor.IndexManagementBackgroundTask";
+
 	@Reference(unbind = "-")
 	private IndexManagementLocalService _indexManagementLocalService;
 
-	protected static final String EXECUTOR_CLASS_NAME = "hr.crosig.contact.scheduler.executor.IndexManagementBackgroundTask";
 }

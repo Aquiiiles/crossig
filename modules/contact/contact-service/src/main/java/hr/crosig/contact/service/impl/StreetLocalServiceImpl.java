@@ -54,19 +54,16 @@ import java.util.Objects;
 public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 
 	public void addOrUpdateStreets(List<StreetDTO> streets) {
+		streets.forEach(
+			streetDTO -> {
+				Street street = createStreet(streetDTO);
 
-		streets.forEach(streetDTO -> {
-			Street street = createStreet(streetDTO);
-			streetLocalService.updateStreet(street);
-		});
+				streetLocalService.updateStreet(street);
+			});
 	}
 
-	public Street addStreet(StreetDTO streetDTO)
-		throws StreetException {
-
-		long streetId = streetDTO.getStreetId();
-
-		validateStreet(streetId);
+	public Street addStreet(StreetDTO streetDTO) throws StreetException {
+		validateStreet(streetDTO.getStreetId());
 
 		Street street = createStreet(streetDTO);
 
@@ -129,10 +126,8 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 	}
 
 	protected Street createStreet(StreetDTO streetDTO) {
-
-		long streetId = streetDTO.getStreetId();
-
-		Street street = streetLocalService.createStreet(streetId);
+		Street street = streetLocalService.createStreet(
+			streetDTO.getStreetId());
 
 		street.setName(street.getName());
 		street.setCityId(street.getCityId());

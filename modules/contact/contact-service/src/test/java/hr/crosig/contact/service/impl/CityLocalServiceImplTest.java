@@ -15,25 +15,29 @@ import com.liferay.portal.search.searcher.SearchRequestBuilder;
 import com.liferay.portal.search.searcher.SearchRequestBuilderFactory;
 import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.searcher.Searcher;
+
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.CityMessages;
 import hr.crosig.contact.exception.CityException;
+
+import java.util.Collections;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+
 import org.mockito.Mock;
 import org.mockito.Mockito;
+
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
-
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @author Guilherme Kfouri

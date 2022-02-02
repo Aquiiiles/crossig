@@ -2,72 +2,75 @@ package hr.crosig.contact.dto;
 
 import java.io.Serializable;
 
+/**
+ * @author Guilherme Kfouri
+ */
 public class PhoneNumberDTO implements Serializable {
 
 	public String getBrand() {
-		return brand;
+		return _brand;
 	}
 
 	public String getCountryCode() {
-		return countryCode;
+		return _countryCode;
 	}
 
 	public Long getIfsId() {
-		return ifsId;
+		return _ifsId;
 	}
 
 	public String getPhoneNumber() {
-		return phoneNumber;
+		return _phoneNumber;
 	}
 
 	public String getPhoneNumberTypeExternalCode() {
-		return phoneNumberTypeExternalCode;
+		return _phoneNumberTypeExternalCode;
 	}
 
 	public Long getPhoneNumberTypeId() {
-		return phoneNumberTypeId;
+		return _phoneNumberTypeId;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return _userName;
 	}
 
 	public void setBrand(String brand) {
-		this.brand = brand;
+		_brand = brand;
 	}
 
 	public void setCountryCode(String countryCode) {
-		this.countryCode = countryCode;
+		_countryCode = countryCode;
 	}
 
 	public void setIfsId(Long ifsId) {
-		this.ifsId = ifsId;
+		_ifsId = ifsId;
 	}
 
 	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+		_phoneNumber = phoneNumber;
 	}
 
 	public void setPhoneNumberTypeExternalCode(
 		String phoneNumberTypeExternalCode) {
 
-		this.phoneNumberTypeExternalCode = phoneNumberTypeExternalCode;
+		_phoneNumberTypeExternalCode = phoneNumberTypeExternalCode;
 	}
 
 	public void setPhoneNumberTypeId(Long phoneNumberTypeId) {
-		this.phoneNumberTypeId = phoneNumberTypeId;
+		_phoneNumberTypeId = phoneNumberTypeId;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		_userName = userName;
 	}
 
-	private String brand;
-	private String countryCode;
-	private Long ifsId;
-	private String phoneNumber;
-	private String phoneNumberTypeExternalCode;
-	private Long phoneNumberTypeId;
-	private String username;
+	private String _brand;
+	private String _countryCode;
+	private Long _ifsId;
+	private String _phoneNumber;
+	private String _phoneNumberTypeExternalCode;
+	private Long _phoneNumberTypeId;
+	private String _userName;
 
 }

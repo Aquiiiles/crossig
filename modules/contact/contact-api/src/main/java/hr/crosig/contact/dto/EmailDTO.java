@@ -2,63 +2,66 @@ package hr.crosig.contact.dto;
 
 import java.io.Serializable;
 
+/**
+ * @author Guilherme Kfouri
+ */
 public class EmailDTO implements Serializable {
 
 	public String getBrand() {
-		return brand;
+		return _brand;
 	}
 
 	public String getEmail() {
-		return email;
+		return _email;
 	}
 
 	public String getEmailTypeExternalCode() {
-		return emailTypeExternalCode;
+		return _emailTypeExternalCode;
 	}
 
 	public Long getEmailTypeId() {
-		return emailTypeId;
+		return _emailTypeId;
 	}
 
 	public Long getIfsId() {
-		return ifsId;
+		return _ifsId;
 	}
 
 	public String getUserName() {
-		return userName;
+		return _userName;
 	}
 
 	public void setBrand(String brand) {
-		this.brand = brand;
+		_brand = brand;
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		_email = email;
 	}
 
 	public void setEmailTypeExternalCode(String emailTypeExternalCode) {
-		this.emailTypeExternalCode = emailTypeExternalCode;
+		_emailTypeExternalCode = emailTypeExternalCode;
 	}
 
 	public void setEmailTypeId(Long emailTypeId) {
-		this.emailTypeId = emailTypeId;
+		_emailTypeId = emailTypeId;
 	}
 
 	public void setIfsId(Long ifsId) {
-		this.ifsId = ifsId;
+		_ifsId = ifsId;
 	}
 
 	public void setUserName(String userName) {
-		this.userName = userName;
+		_userName = userName;
 	}
 
 	private static final long serialVersionUID = 1L;
 
-	private String brand;
-	private String email;
-	private String emailTypeExternalCode;
-	private Long emailTypeId;
-	private Long ifsId;
-	private String userName;
+	private String _brand;
+	private String _email;
+	private String _emailTypeExternalCode;
+	private Long _emailTypeId;
+	private Long _ifsId;
+	private String _userName;
 
 }

@@ -5,50 +5,50 @@ package hr.crosig.contact.dto;
  */
 public class CityDTO {
 
-    private long cityId;
-    private String zipCode;
-    private String boxNumber;
-    private String cityName;
-    private String postName;
+	public String getBoxNumber() {
+		return _boxNumber;
+	}
 
-    public long getCityId() {
-        return cityId;
-    }
+	public long getCityId() {
+		return _cityId;
+	}
 
-    public void setCityId(long cityId) {
-        this.cityId = cityId;
-    }
+	public String getCityName() {
+		return _cityName;
+	}
 
-    public String getZipCode() {
-        return zipCode;
-    }
+	public String getPostName() {
+		return _postName;
+	}
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
+	public String getZipCode() {
+		return _zipCode;
+	}
 
-    public String getBoxNumber() {
-        return boxNumber;
-    }
+	public void setBoxNumber(String boxNumber) {
+		_boxNumber = boxNumber;
+	}
 
-    public void setBoxNumber(String boxNumber) {
-        this.boxNumber = boxNumber;
-    }
+	public void setCityId(long cityId) {
+		_cityId = cityId;
+	}
 
-    public String getCityName() {
-        return cityName;
-    }
+	public void setCityName(String cityName) {
+		_cityName = cityName;
+	}
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
-    }
+	public void setPostName(String postName) {
+		_postName = postName;
+	}
 
-    public String getPostName() {
-        return postName;
-    }
+	public void setZipCode(String zipCode) {
+		_zipCode = zipCode;
+	}
 
-    public void setPostName(String postName) {
-        this.postName = postName;
-    }
+	private String _boxNumber;
+	private long _cityId;
+	private String _cityName;
+	private String _postName;
+	private String _zipCode;
 
 }

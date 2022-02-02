@@ -1,191 +1,195 @@
 package hr.crosig.contact.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import hr.crosig.contact.constants.ContactConstants;
 import hr.crosig.contact.enums.ContactType;
 
 import java.io.Serializable;
+
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Guilherme Kfouri
+ */
 public class ContactDTO implements Serializable {
 
 	public String getCity() {
-		return city;
+		return _city;
 	}
 
 	public String getCompanyName() {
-		return companyName;
+		return _companyName;
 	}
 
 	public ContactType getContactType() {
-		return contactType;
+		return _contactType;
 	}
 
 	public String getCountry() {
-		return country;
+		return _country;
 	}
 
 	public Date getDateOfBirth() {
-		return dateOfBirth;
+		return _dateOfBirth;
 	}
 
 	public String getDispatchCity() {
-		return dispatchCity;
+		return _dispatchCity;
 	}
 
 	public String getDispatchCountry() {
-		return dispatchCountry;
+		return _dispatchCountry;
 	}
 
 	public int getDispatchHouseNumber() {
-		return dispatchHouseNumber;
+		return _dispatchHouseNumber;
 	}
 
 	public String getDispatchPostalCode() {
-		return dispatchPostalCode;
+		return _dispatchPostalCode;
 	}
 
 	public String getDispatchStreetAddress() {
-		return dispatchStreetAddress;
+		return _dispatchStreetAddress;
 	}
 
 	public List<String> getEmails() {
-		return emails;
+		return _emails;
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return _firstName;
 	}
 
 	public int getHouseNumber() {
-		return houseNumber;
+		return _houseNumber;
 	}
 
 	public String getLastName() {
-		return lastName;
+		return _lastName;
 	}
 
 	public long getOib() {
-		return oib;
+		return _oib;
 	}
 
 	public List<PhoneNumberDTO> getPhoneNumbers() {
-		return phoneNumbers;
+		return _phoneNumbers;
 	}
 
 	public String getPostalCode() {
-		return postalCode;
+		return _postalCode;
 	}
 
 	public String getStreetAddress() {
-		return streetAddress;
+		return _streetAddress;
 	}
 
 	public boolean isForeignerStatus() {
-		return foreignerStatus;
+		return _foreignerStatus;
 	}
 
 	public void setCity(String city) {
-		this.city = city;
+		_city = city;
 	}
 
 	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
+		_companyName = companyName;
 	}
 
 	public void setContactType(ContactType contactType) {
-		this.contactType = contactType;
+		_contactType = contactType;
 	}
 
 	public void setCountry(String country) {
-		this.country = country;
+		_country = country;
 	}
 
 	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
+		_dateOfBirth = dateOfBirth;
 	}
 
 	public void setDispatchCity(String dispatchCity) {
-		this.dispatchCity = dispatchCity;
+		_dispatchCity = dispatchCity;
 	}
 
 	public void setDispatchCountry(String dispatchCountry) {
-		this.dispatchCountry = dispatchCountry;
+		_dispatchCountry = dispatchCountry;
 	}
 
 	public void setDispatchHouseNumber(int dispatchHouseNumber) {
-		this.dispatchHouseNumber = dispatchHouseNumber;
+		_dispatchHouseNumber = dispatchHouseNumber;
 	}
 
 	public void setDispatchPostalCode(String dispatchPostalCode) {
-		this.dispatchPostalCode = dispatchPostalCode;
+		_dispatchPostalCode = dispatchPostalCode;
 	}
 
 	public void setDispatchStreetAddress(String dispatchStreetAddress) {
-		this.dispatchStreetAddress = dispatchStreetAddress;
+		_dispatchStreetAddress = dispatchStreetAddress;
 	}
 
 	public void setEmails(List<String> emails) {
-		this.emails = emails;
+		_emails = emails;
 	}
 
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		_firstName = firstName;
 	}
 
 	public void setForeignerStatus(boolean foreignerStatus) {
-		this.foreignerStatus = foreignerStatus;
+		_foreignerStatus = foreignerStatus;
 	}
 
 	public void setHouseNumber(int houseNumber) {
-		this.houseNumber = houseNumber;
+		_houseNumber = houseNumber;
 	}
 
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		_lastName = lastName;
 	}
 
 	public void setOib(long oib) {
-		this.oib = oib;
+		_oib = oib;
 	}
 
 	public void setPhoneNumbers(List<PhoneNumberDTO> phoneNumbers) {
-		this.phoneNumbers = phoneNumbers;
+		_phoneNumbers = phoneNumbers;
 	}
 
 	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
+		_postalCode = postalCode;
 	}
 
 	public void setStreetAddress(String streetAddress) {
-		this.streetAddress = streetAddress;
+		_streetAddress = streetAddress;
 	}
 
-	private String city;
-	private String companyName;
-	private ContactType contactType;
-	private String country;
+	private String _city;
+	private String _companyName;
+	private ContactType _contactType;
+	private String _country;
 
 	@JsonFormat(
-		pattern = ContactConstants.DATE_FORMAT,
-		shape = JsonFormat.Shape.STRING
+		pattern = ContactConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
 	)
-	private Date dateOfBirth;
+	private Date _dateOfBirth;
 
-	private String dispatchCity;
-	private String dispatchCountry;
-	private int dispatchHouseNumber;
-	private String dispatchPostalCode;
-	private String dispatchStreetAddress;
-	private List<String> emails;
-	private String firstName;
-	private boolean foreignerStatus;
-	private int houseNumber;
-	private String lastName;
-	private long oib;
-	private List<PhoneNumberDTO> phoneNumbers;
-	private String postalCode;
-	private String streetAddress;
+	private String _dispatchCity;
+	private String _dispatchCountry;
+	private int _dispatchHouseNumber;
+	private String _dispatchPostalCode;
+	private String _dispatchStreetAddress;
+	private List<String> _emails;
+	private String _firstName;
+	private boolean _foreignerStatus;
+	private int _houseNumber;
+	private String _lastName;
+	private long _oib;
+	private List<PhoneNumberDTO> _phoneNumbers;
+	private String _postalCode;
+	private String _streetAddress;
 
 }

@@ -30,18 +30,20 @@ import com.liferay.portal.search.searcher.SearchRequestBuilder;
 import com.liferay.portal.search.searcher.SearchRequestBuilderFactory;
 import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.searcher.Searcher;
+
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.CityMessages;
 import hr.crosig.contact.dto.CityDTO;
 import hr.crosig.contact.exception.CityException;
 import hr.crosig.contact.model.City;
 import hr.crosig.contact.service.base.CityLocalServiceBaseImpl;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Guilherme Kfouri
@@ -53,9 +55,7 @@ import java.util.Objects;
 public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 
 	public City addCity(CityDTO cityDTO) throws CityException {
-		long cityId = cityDTO.getCityId();
-
-		validateCity(cityId);
+		validateCity(cityDTO.getCityId());
 
 		City city = createCity(cityDTO);
 
@@ -66,6 +66,7 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		cities.forEach(
 			cityDTO -> {
 				City city = createCity(cityDTO);
+
 				cityLocalService.updateCity(city);
 			});
 	}
@@ -100,9 +101,7 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 	}
 
 	protected City createCity(CityDTO cityDTO) {
-		long cityId = cityDTO.getCityId();
-
-		City city = cityLocalService.createCity(cityId);
+		City city = cityLocalService.createCity(cityDTO.getCityId());
 
 		city.setName(cityDTO.getCityName());
 		city.setZipCode(cityDTO.getZipCode());

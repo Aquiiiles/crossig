@@ -15,25 +15,29 @@ import com.liferay.portal.search.searcher.SearchRequestBuilder;
 import com.liferay.portal.search.searcher.SearchRequestBuilderFactory;
 import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.searcher.Searcher;
+
 import hr.crosig.contact.constants.StreetConstants;
 import hr.crosig.contact.constants.StreetMessages;
 import hr.crosig.contact.exception.StreetException;
+
+import java.util.Collections;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+
 import org.mockito.Mock;
 import org.mockito.Mockito;
+
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
-
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @author Guilherme Kfouri
@@ -50,7 +54,8 @@ public class StreetLocalServiceImplTest {
 		expectedException.expect(StreetException.class);
 		expectedException.expectMessage(StreetMessages.INSUFICIENT_NAME_LENGTH);
 
-		_streetLocalServiceImpl.searchStreetsNamesByNameAndCityId("s", _cityId, -1, -1);
+		_streetLocalServiceImpl.searchStreetsNamesByNameAndCityId(
+			"s", _cityId, -1, -1);
 	}
 
 	@Test
@@ -58,7 +63,8 @@ public class StreetLocalServiceImplTest {
 		expectedException.expect(StreetException.class);
 		expectedException.expectMessage(StreetMessages.INSUFICIENT_NAME_LENGTH);
 
-		_streetLocalServiceImpl.searchStreetsNamesByNameAndCityId("st", _cityId, -1, -1);
+		_streetLocalServiceImpl.searchStreetsNamesByNameAndCityId(
+			"st", _cityId, -1, -1);
 	}
 
 	@Test
@@ -67,8 +73,9 @@ public class StreetLocalServiceImplTest {
 
 		_mockSearchers(query);
 
-		List<String> streetNames = _streetLocalServiceImpl.searchStreetsNamesByNameAndCityId(
-			"str", _cityId, -1, -1);
+		List<String> streetNames =
+			_streetLocalServiceImpl.searchStreetsNamesByNameAndCityId(
+				"str", _cityId, -1, -1);
 
 		Assert.assertEquals(1, streetNames.size());
 		Assert.assertEquals("streetName", streetNames.get(0));
@@ -79,7 +86,8 @@ public class StreetLocalServiceImplTest {
 		expectedException.expect(StreetException.class);
 		expectedException.expectMessage(StreetMessages.INSUFICIENT_NAME_LENGTH);
 
-		_streetLocalServiceImpl.searchStreetsNamesByNameAndCityId("", _cityId, -1, -1);
+		_streetLocalServiceImpl.searchStreetsNamesByNameAndCityId(
+			"", _cityId, -1, -1);
 	}
 
 	@Before
@@ -92,7 +100,8 @@ public class StreetLocalServiceImplTest {
 	public ExpectedException expectedException = ExpectedException.none();
 
 	private void _injectMocks() {
-		Whitebox.setInternalState(_streetLocalServiceImpl, "_queries", _queries);
+		Whitebox.setInternalState(
+			_streetLocalServiceImpl, "_queries", _queries);
 		Whitebox.setInternalState(
 			_streetLocalServiceImpl, "_searcher", _searcher);
 		Whitebox.setInternalState(
@@ -113,7 +122,8 @@ public class StreetLocalServiceImplTest {
 			matchQuery
 		);
 		Mockito.when(
-			_queries.matchPhrasePrefix(StreetConstants.FIELD_STREET_NAME, _streetName)
+			_queries.matchPhrasePrefix(
+				StreetConstants.FIELD_STREET_NAME, _streetName)
 		).thenReturn(
 			matchPhrasePrefixQuery
 		);
@@ -188,9 +198,6 @@ public class StreetLocalServiceImplTest {
 		PowerMockito.mockStatic(PortalUtil.class);
 	}
 
-	private final StreetLocalServiceImpl _streetLocalServiceImpl =
-		new StreetLocalServiceImpl();
-	private final String _streetName = "streetName";
 	private final long _cityId = 1;
 
 	@Mock
@@ -201,5 +208,9 @@ public class StreetLocalServiceImplTest {
 
 	@Mock
 	private SearchRequestBuilderFactory _searchRequestBuilderFactory;
+
+	private final StreetLocalServiceImpl _streetLocalServiceImpl =
+		new StreetLocalServiceImpl();
+	private final String _streetName = "streetName";
 
 }
