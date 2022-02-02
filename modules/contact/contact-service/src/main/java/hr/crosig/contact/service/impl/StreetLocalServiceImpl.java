@@ -30,20 +30,18 @@ import com.liferay.portal.search.searcher.SearchRequestBuilder;
 import com.liferay.portal.search.searcher.SearchRequestBuilderFactory;
 import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.searcher.Searcher;
-
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.StreetConstants;
 import hr.crosig.contact.constants.StreetMessages;
 import hr.crosig.contact.exception.StreetException;
 import hr.crosig.contact.model.Street;
 import hr.crosig.contact.service.base.StreetLocalServiceBaseImpl;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Brian Wing Shun Chan
@@ -93,14 +91,14 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 
 		validateSearchStreetName(streetName);
 
-		MatchQuery entryClassQuery = queries.match(
+		MatchQuery entryClassQuery = _queries.match(
 			Field.ENTRY_CLASS_NAME, StreetConstants.MODEL_CLASS_NAME);
-		MatchPhrasePrefixQuery nameQuery = queries.matchPhrasePrefix(
+		MatchPhrasePrefixQuery nameQuery = _queries.matchPhrasePrefix(
 			StreetConstants.FIELD_STREET_NAME, streetName);
-		MatchQuery cityIdQuery = queries.match(
+		MatchQuery cityIdQuery = _queries.match(
 			CityConstants.FIELD_CITY_ID, cityId);
 
-		BooleanQuery booleanQuery = queries.booleanQuery();
+		BooleanQuery booleanQuery = _queries.booleanQuery();
 
 		booleanQuery.addMustQueryClauses(
 			entryClassQuery, nameQuery, cityIdQuery);
@@ -119,7 +117,7 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 		long defaultCompanyId = PortalUtil.getDefaultCompanyId();
 
 		SearchRequestBuilder searchRequestBuilder =
-			searchRequestBuilderFactory.builder();
+			_searchRequestBuilderFactory.builder();
 
 		searchRequestBuilder.emptySearchEnabled(true);
 		searchRequestBuilder.withSearchContext(
@@ -149,7 +147,7 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 	}
 
 	protected List<SearchHit> getSearchHits(SearchRequest searchRequest) {
-		SearchResponse searchResponse = searcher.search(searchRequest);
+		SearchResponse searchResponse = _searcher.search(searchRequest);
 
 		SearchHits searchHits = searchResponse.getSearchHits();
 
@@ -189,12 +187,12 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 	}
 
 	@Reference
-	protected Queries queries;
+	private Queries _queries;
 
 	@Reference
-	protected Searcher searcher;
+	private Searcher _searcher;
 
 	@Reference
-	protected SearchRequestBuilderFactory searchRequestBuilderFactory;
+	private SearchRequestBuilderFactory _searchRequestBuilderFactory;
 
 }
