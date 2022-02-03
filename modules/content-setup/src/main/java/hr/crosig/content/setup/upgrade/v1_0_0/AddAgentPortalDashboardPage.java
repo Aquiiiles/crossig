@@ -18,10 +18,17 @@ import hr.crosig.content.setup.upgrade.common.BaseUpgradeProcess;
  */
 public class AddAgentPortalDashboardPage extends BaseUpgradeProcess {
 
-	public AddAgentPortalDashboardPage(GroupLocalService groupLocalService, UserLocalService userLocalService, LayoutLocalService layoutLocalService, RoleLocalService roleLocalService) {
-		super(groupLocalService, userLocalService, layoutLocalService, roleLocalService);
-		this._groupLocalService = groupLocalService;
-		this._userLocalService = userLocalService;
+	public AddAgentPortalDashboardPage(
+		GroupLocalService groupLocalService, UserLocalService userLocalService,
+		LayoutLocalService layoutLocalService,
+		RoleLocalService roleLocalService) {
+
+		super(
+			groupLocalService, userLocalService, layoutLocalService,
+			roleLocalService);
+
+		_groupLocalService = groupLocalService;
+		_userLocalService = userLocalService;
 	}
 
 	@Override
@@ -31,18 +38,22 @@ public class AddAgentPortalDashboardPage extends BaseUpgradeProcess {
 
 			initializeCommonIdentifiers();
 
-			Layout layout = addPage(userId, groupId, PRIVATE_PAGE, PARENT_LAYOUT_ID, PAGE_NAME,
-					PAGE_NAME, DESCRIPTION, LayoutConstants.TYPE_PORTLET, HIDDEN,
-					ContentSetupConstants.DASHBOARD_FRIENDLY_URL, new ServiceContext());
+			Layout layout = addPage(
+				userId, groupId, PRIVATE_PAGE, PARENT_LAYOUT_ID, PAGE_NAME,
+				PAGE_NAME, DESCRIPTION, LayoutConstants.TYPE_PORTLET, HIDDEN,
+				ContentSetupConstants.DASHBOARD_FRIENDLY_URL,
+				new ServiceContext());
 
-			setPageLayoutTemplateId(layout, userId, ContentSetupConstants.LAYOUT_1_COLUMN);
+			setPageLayoutTemplateId(
+				layout, userId, ContentSetupConstants.LAYOUT_1_COLUMN);
 
 			updatePage(layout);
 
-			addPortletToPage(layout, userId, ContentSetupConstants.CONTACT_PORTLET_NAME, ContentSetupConstants.COLUMN_1, PORTLET_COLUMN_POS) ;
+			addPortletToPage(
+				layout, userId, ContentSetupConstants.CONTACT_PORTLET_NAME,
+				ContentSetupConstants.COLUMN_1, PORTLET_COLUMN_POS);
 
 			updatePage(layout);
-
 		}
 		finally {
 			teardownAdminUpgrade();
@@ -61,10 +72,25 @@ public class AddAgentPortalDashboardPage extends BaseUpgradeProcess {
 		this.userId = userId;
 	}
 
+	protected static final String DESCRIPTION = "Dashboard";
+
+	protected static final Boolean HIDDEN = Boolean.FALSE;
+
+	protected static final String PAGE_NAME = "Dashboard";
+
+	protected static final Long PARENT_LAYOUT_ID = 0L;
+
+	protected static final Integer PORTLET_COLUMN_POS = -1;
+
+	protected static final Boolean PRIVATE_PAGE = Boolean.TRUE;
+
+	protected Long companyId;
+	protected Long groupId;
+	protected Long userId;
 
 	private Long _getAdminUserId(Long companyId) throws PortalException {
 		return _userLocalService.getUser(
-				_userLocalService.getDefaultUserId(companyId)
+			_userLocalService.getDefaultUserId(companyId)
 		).getUserId();
 	}
 
@@ -74,18 +100,7 @@ public class AddAgentPortalDashboardPage extends BaseUpgradeProcess {
 		).getGroupId();
 	}
 
-	protected Long companyId;
-	protected Long groupId;
-	protected Long userId;
-
 	private GroupLocalService _groupLocalService;
 	private UserLocalService _userLocalService;
-
-	private static final String DESCRIPTION = "Dashboard";
-	private static final Integer PORTLET_COLUMN_POS = -1;
-	private static final Boolean HIDDEN = Boolean.FALSE;
-	private static final String PAGE_NAME = "Dashboard";
-	private static final Long PARENT_LAYOUT_ID = 0L;
-	private static final Boolean PRIVATE_PAGE = Boolean.TRUE;
 
 }

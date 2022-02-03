@@ -33,7 +33,9 @@ public class ContentSetupUpgradeStepRegistrator
 			new CreateAgentPortalUserGroups(
 				_companyLocalService, _groupLocalService, _userLocalService,
 				_userGroupLocalService),
-			new AddAgentPortalDashboardPage(_groupLocalService, _userLocalService, _layoutLocalService, _roleLocalService));
+			new AddAgentPortalDashboardPage(
+				_groupLocalService, _userLocalService, _layoutLocalService,
+				_roleLocalService));
 	}
 
 	@Reference
@@ -46,10 +48,10 @@ public class ContentSetupUpgradeStepRegistrator
 	private LayoutLocalService _layoutLocalService;
 
 	@Reference
-	private RoleLocalService _roleLocalService;
+	private PrefsProps _prefsProps;
 
 	@Reference
-	private PrefsProps _prefsProps;
+	private RoleLocalService _roleLocalService;
 
 	@Reference
 	private UserGroupLocalService _userGroupLocalService;
