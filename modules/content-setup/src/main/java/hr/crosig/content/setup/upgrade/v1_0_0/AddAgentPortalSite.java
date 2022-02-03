@@ -5,7 +5,6 @@ import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.GroupLocalService;
-import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.PrefsProps;
 
@@ -20,49 +19,49 @@ import javax.portlet.PortletPreferences;
  */
 public class AddAgentPortalSite extends BaseUpgradeProcess {
 
-    public AddAgentPortalSite(
-            GroupLocalService groupLocalService, UserLocalService userLocalService,
-            PrefsProps prefsProps, CompanyLocalService companyLocalService) {
+	public AddAgentPortalSite(
+		GroupLocalService groupLocalService, UserLocalService userLocalService,
+		PrefsProps prefsProps, CompanyLocalService companyLocalService) {
 
-        super(groupLocalService, companyLocalService, userLocalService);
+		super(groupLocalService, companyLocalService, userLocalService);
 
-        this.prefsProps = prefsProps;
-        this.companyLocalService = companyLocalService;
-    }
+		this.prefsProps = prefsProps;
+		this.companyLocalService = companyLocalService;
+	}
 
-    @Override
-    protected void doUpgrade() throws Exception {
-        Group agentPortalGroup = addSite(
-                ContentSetupConstants.AGENT_PORTAL_SITE_NAME,
-                ContentSetupConstants.AGENT_PORTAL_SITE_DESCRIPTION,
-                ContentSetupConstants.AGENT_PORTAL_FRIENDLY_URL,
-                GroupConstants.TYPE_SITE_OPEN);
+	@Override
+	protected void doUpgrade() throws Exception {
+		Group agentPortalGroup = addSite(
+			ContentSetupConstants.AGENT_PORTAL_SITE_NAME,
+			ContentSetupConstants.AGENT_PORTAL_SITE_DESCRIPTION,
+			ContentSetupConstants.AGENT_PORTAL_FRIENDLY_URL,
+			GroupConstants.TYPE_SITE_OPEN);
 
-        long companyId = agentPortalGroup.getCompanyId();
+		long companyId = agentPortalGroup.getCompanyId();
 
-        setDefaultLandingPagePath(companyId);
-        setHomeURL(companyId);
-    }
+		setDefaultLandingPagePath(companyId);
+		setHomeURL(companyId);
+	}
 
-    protected void setDefaultLandingPagePath(long companyId) throws Exception {
-        PortletPreferences portletPreferences = prefsProps.getPreferences(
-                companyId);
+	protected void setDefaultLandingPagePath(long companyId) throws Exception {
+		PortletPreferences portletPreferences = prefsProps.getPreferences(
+			companyId);
 
-        portletPreferences.setValue(
-                "default.landing.page.path",
-                ContentSetupConstants.LANDING_PAGE_URL);
-        portletPreferences.store();
-    }
+		portletPreferences.setValue(
+			"default.landing.page.path",
+			ContentSetupConstants.LANDING_PAGE_URL);
+		portletPreferences.store();
+	}
 
-    protected void setHomeURL(long companyId) throws Exception {
-        Company company = companyLocalService.getCompany(companyId);
+	protected void setHomeURL(long companyId) throws Exception {
+		Company company = companyLocalService.getCompany(companyId);
 
-        company.setHomeURL(ContentSetupConstants.HOME_URL);
+		company.setHomeURL(ContentSetupConstants.HOME_URL);
 
-        companyLocalService.updateCompany(company);
-    }
+		companyLocalService.updateCompany(company);
+	}
 
-    protected CompanyLocalService companyLocalService;
-    protected PrefsProps prefsProps;
+	protected CompanyLocalService companyLocalService;
+	protected PrefsProps prefsProps;
 
 }

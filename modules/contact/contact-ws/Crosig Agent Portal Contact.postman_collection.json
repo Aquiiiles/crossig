@@ -1,4 +1,39 @@
 {
+	"auth": {
+		"basic": [
+			{
+				"key": "password",
+				"type": "string",
+				"value": "test"
+			},
+			{
+				"key": "username",
+				"type": "string",
+				"value": "test@liferay.com"
+			}
+		],
+		"type": "basic"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"exec": [
+					""
+				],
+				"type": "text/javascript"
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"exec": [
+					""
+				],
+				"type": "text/javascript"
+			}
+		}
+	],
 	"info": {
 		"_postman_id": "da202f12-3822-42fc-8a76-892dbda98f10",
 		"name": "Crosig Agent Portal Contact",
@@ -8,10 +43,10 @@
 		{
 			"name": "Search Contact",
 			"request": {
+				"header": [
+				],
 				"method": "GET",
-				"header": [],
 				"url": {
-					"raw": "{{localURL}}contact/search?nameOrOIB&city&streetAddress&phoneCountryCode&phoneAreaCode&phoneNumber&email",
 					"host": [
 						"{{localURL}}contact"
 					],
@@ -47,87 +82,94 @@
 							"key": "email",
 							"value": null
 						}
-					]
+					],
+					"raw": "{{localURL}}contact/search?nameOrOIB&city&streetAddress&phoneCountryCode&phoneAreaCode&phoneNumber&email"
 				}
 			},
-			"response": []
+			"response": [
+			]
 		},
 		{
 			"name": "Create Contact",
 			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"contactType\": 1,\n    \"firstName\": \"John\",\n    \"lastName\": \"Silberman\",\n    \"dateOfBirth\": \"022-01-25\",\n    \"oib\": 123456789,\n    \"foreignerStatus\": true,\n    \"country\": \"Croatia\",\n    \"city\": \"Dubrovnik\",\n    \"postalCode\": \"20000\",\n    \"streetAddress\": \"Ul. Svetog Dominika\",\n    \"houseNumber\": \"67\",\n    \"dispatchCountry\": \"Croatia\",\n    \"dispatchCity\": \"Dubrovnik\",\n    \"dispatchPostalCode\": \"20000\",\n    \"dispatchStreetAddress\": \"Ul. Svetog Dominika\",\n    \"dispatchHouseNumber\": \"67\",\n    \"emails\": [\n        \"a@gmail.com\",\n        \"b@gmail.com\"\n    ],\n    \"phoneNumbers\": [\n        {\n            \"countryCode\": 385,\n            \"areaCode\": 91,\n            \"phoneNumber\": \"6457900\"\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
-					}
+					},
+					"raw": "{\n    \"contactType\": 1,\n    \"firstName\": \"John\",\n    \"lastName\": \"Silberman\",\n    \"dateOfBirth\": \"022-01-25\",\n    \"oib\": 123456789,\n    \"foreignerStatus\": true,\n    \"country\": \"Croatia\",\n    \"city\": \"Dubrovnik\",\n    \"postalCode\": \"20000\",\n    \"streetAddress\": \"Ul. Svetog Dominika\",\n    \"houseNumber\": \"67\",\n    \"dispatchCountry\": \"Croatia\",\n    \"dispatchCity\": \"Dubrovnik\",\n    \"dispatchPostalCode\": \"20000\",\n    \"dispatchStreetAddress\": \"Ul. Svetog Dominika\",\n    \"dispatchHouseNumber\": \"67\",\n    \"emails\": [\n        \"a@gmail.com\",\n        \"b@gmail.com\"\n    ],\n    \"phoneNumbers\": [\n        {\n            \"countryCode\": 385,\n            \"areaCode\": 91,\n            \"phoneNumber\": \"6457900\"\n        }\n    ]\n}"
 				},
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"method": "POST",
 				"url": {
-					"raw": "{{localURL}}contact",
 					"host": [
 						"{{localURL}}contact"
-					]
+					],
+					"raw": "{{localURL}}contact"
 				}
 			},
-			"response": []
+			"response": [
+			]
 		},
 		{
 			"name": "Update Contact",
 			"request": {
-				"method": "PUT",
-				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"contactType\": 1,\n    \"firstName\": \"John\",\n    \"lastName\": \"Silberman\",\n    \"dateOfBirth\": \"022-01-25\",\n    \"oib\": 123456789,\n    \"foreignerStatus\": true,\n    \"country\": \"Croatia\",\n    \"city\": \"Dubrovnik\",\n    \"postalCode\": \"20000\",\n    \"streetAddress\": \"Ul. Svetog Dominika\",\n    \"houseNumber\": \"67\",\n    \"dispatchCountry\": \"Croatia\",\n    \"dispatchCity\": \"Dubrovnik\",\n    \"dispatchPostalCode\": \"20000\",\n    \"dispatchStreetAddress\": \"Ul. Svetog Dominika\",\n    \"dispatchHouseNumber\": \"67\",\n    \"emails\": [\n        \"a@gmail.com\",\n        \"b@gmail.com\"\n    ],\n    \"phoneNumbers\": [\n        {\n            \"countryCode\": 385,\n            \"areaCode\": 91,\n            \"phoneNumber\": \"6457900\"\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
-					}
+					},
+					"raw": "{\n    \"contactType\": 1,\n    \"firstName\": \"John\",\n    \"lastName\": \"Silberman\",\n    \"dateOfBirth\": \"022-01-25\",\n    \"oib\": 123456789,\n    \"foreignerStatus\": true,\n    \"country\": \"Croatia\",\n    \"city\": \"Dubrovnik\",\n    \"postalCode\": \"20000\",\n    \"streetAddress\": \"Ul. Svetog Dominika\",\n    \"houseNumber\": \"67\",\n    \"dispatchCountry\": \"Croatia\",\n    \"dispatchCity\": \"Dubrovnik\",\n    \"dispatchPostalCode\": \"20000\",\n    \"dispatchStreetAddress\": \"Ul. Svetog Dominika\",\n    \"dispatchHouseNumber\": \"67\",\n    \"emails\": [\n        \"a@gmail.com\",\n        \"b@gmail.com\"\n    ],\n    \"phoneNumbers\": [\n        {\n            \"countryCode\": 385,\n            \"areaCode\": 91,\n            \"phoneNumber\": \"6457900\"\n        }\n    ]\n}"
 				},
+				"header": [
+				],
+				"method": "PUT",
 				"url": {
-					"raw": "{{localURL}}contact",
 					"host": [
 						"{{localURL}}contact"
-					]
+					],
+					"raw": "{{localURL}}contact"
 				}
 			},
-			"response": []
+			"response": [
+			]
 		},
 		{
 			"name": "Get Cities",
 			"request": {
+				"header": [
+				],
 				"method": "GET",
-				"header": [],
 				"url": {
-					"raw": "{{localURL}}city/",
 					"host": [
 						"{{localURL}}city"
 					],
 					"path": [
 						""
-					]
+					],
+					"raw": "{{localURL}}city/"
 				}
 			},
-			"response": []
+			"response": [
+			]
 		},
 		{
 			"name": "Get Streets by City",
 			"request": {
+				"header": [
+				],
 				"method": "GET",
-				"header": [],
 				"url": {
-					"raw": "{{localURL}}city/?cityId=1",
 					"host": [
 						"{{localURL}}city"
 					],
@@ -139,27 +181,31 @@
 							"key": "cityId",
 							"value": "1"
 						}
-					]
+					],
+					"raw": "{{localURL}}city/?cityId=1"
 				}
 			},
-			"response": []
+			"response": [
+			]
 		},
 		{
 			"name": "Get Area Codes",
 			"request": {
+				"header": [
+				],
 				"method": "GET",
-				"header": [],
 				"url": {
-					"raw": "{{localURL}}phone/area-code",
 					"host": [
 						"{{localURL}}phone"
 					],
 					"path": [
 						"area-code"
-					]
+					],
+					"raw": "{{localURL}}phone/area-code"
 				}
 			},
-			"response": []
+			"response": [
+			]
 		},
 		{
 			"name": "Mail Validation",
@@ -216,42 +262,8 @@
 					"raw": "{{localURL}}contact/phone/verification"
 				}
 			},
-			"response": []
-		}
-	],
-	"auth": {
-		"type": "basic",
-		"basic": [
-			{
-				"key": "password",
-				"value": "test",
-				"type": "string"
-			},
-			{
-				"key": "username",
-				"value": "test@liferay.com",
-				"type": "string"
-			}
-		]
-	},
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
+			"response": [
+			]
 		}
 	],
 	"variable": [

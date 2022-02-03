@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.3.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_3_0.dtd">
+
+<service-builder dependency-injector="ds" package-path="hr.crosig.contact">
+	<namespace>AP_Contact</namespace>
+	<entity local-service="true" name="City" remote-service="false" uuid="false">
+
+		<!-- PK fields -->
+
+		<column name="cityId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="name" type="String" />
+		<column name="zipCode" type="String" />
+		<column name="boxNumber" type="String" />
+		<column name="postName" type="String" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="name" />
+		</order>
+
+		<finder name="Name" return-type="City">
+			<finder-column name="name" />
+		</finder>
+
+	</entity>
+	<entity local-service="true" name="Street" remote-service="false" uuid="false">
+
+		<!-- PK fields -->
+
+		<column name="streetId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="name" type="String" />
+		<column name="cityId" type="long" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="name" />
+		</order>
+
+		<finder name="Name" return-type="Street">
+			<finder-column name="name" />
+		</finder>
+
+		<finder name="CityId" return-type="Collection">
+			<finder-column name="cityId" />
+		</finder>
+	</entity>
+</service-builder>

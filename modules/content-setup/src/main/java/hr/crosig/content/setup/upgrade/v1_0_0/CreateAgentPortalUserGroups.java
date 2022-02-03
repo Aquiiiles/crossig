@@ -16,23 +16,26 @@ import hr.crosig.content.setup.upgrade.common.BaseUpgradeProcess;
  */
 public class CreateAgentPortalUserGroups extends BaseUpgradeProcess {
 
-    public CreateAgentPortalUserGroups(
-            CompanyLocalService companyLocalService,
-            GroupLocalService groupLocalService, UserLocalService userLocalService,
-            UserGroupLocalService userGroupLocalService) {
+	public CreateAgentPortalUserGroups(
+		CompanyLocalService companyLocalService,
+		GroupLocalService groupLocalService, UserLocalService userLocalService,
+		UserGroupLocalService userGroupLocalService) {
 
-        super(
-                companyLocalService, groupLocalService, userLocalService,
-                userGroupLocalService);
-    }
+		super(
+			companyLocalService, groupLocalService, userLocalService,
+			userGroupLocalService);
+	}
 
-    @Override
-    protected void doUpgrade() throws Exception {
-
-        addUserGroup(ContentSetupConstants.AGENT_USER_GROUP, StringPool.BLANK);
-        addUserGroup(ContentSetupConstants.MANAGER_USER_GROUP, StringPool.BLANK);
-        addUserGroup(ContentSetupConstants.SALES_MANAGER_USER_GROUP, StringPool.BLANK);
-        addUserGroup(ContentSetupConstants.REGIONAL_MANAGER_USER_GROUP, StringPool.BLANK);
-    }
+	@Override
+	protected void doUpgrade() throws Exception {
+		addUserGroup(ContentSetupConstants.AGENT_USER_GROUP, StringPool.BLANK);
+		addUserGroup(
+			ContentSetupConstants.MANAGER_USER_GROUP, StringPool.BLANK);
+		addUserGroup(
+			ContentSetupConstants.SALES_MANAGER_USER_GROUP, StringPool.BLANK);
+		addUserGroup(
+			ContentSetupConstants.REGIONAL_MANAGER_USER_GROUP,
+			StringPool.BLANK);
+	}
 
 }
