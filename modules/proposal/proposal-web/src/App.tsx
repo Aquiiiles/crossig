@@ -1,12 +1,22 @@
-import React from 'react';
-import './App.css';
-import ContactSearch from './views/ContactSearch';
+import React from "react";
+import "./App.css";
+import ContactSearch from "./views/ContactSearch";
+import NewContact from "./views/NewContact";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
-const App: React.FC = () =>{
- 
+const App: React.FC = () => {
   return (
-    <ContactSearch />
+    <Router>
+      <Switch>
+        <Route path="/new_contact">
+          <NewContact />
+        </Route>
+        <Route path="/">
+          <ContactSearch />
+        </Route>
+      </Switch>
+    </Router>
   );
-}
+};
 
 export default App;
