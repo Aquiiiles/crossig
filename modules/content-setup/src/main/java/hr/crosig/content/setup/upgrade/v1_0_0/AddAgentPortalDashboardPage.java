@@ -1,60 +1,52 @@
 package hr.crosig.content.setup.upgrade.v1_0_0;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutConstants;
-import com.liferay.portal.kernel.model.LayoutTypePortlet;
 import com.liferay.portal.kernel.service.GroupLocalService;
-import com.liferay.portal.kernel.service.LayoutLocalServiceUtil;
+import com.liferay.portal.kernel.service.LayoutLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.PortalUtil;
 
 import hr.crosig.content.setup.constants.ContentSetupConstants;
-import hr.crosig.content.setup.upgrade.common.AdminUpgradeProcess;
+import hr.crosig.content.setup.upgrade.common.BaseUpgradeProcess;
 
 /**
  * @author victor.catanante
  */
-public class AddAgentPortalDashboardPage extends AdminUpgradeProcess {
+public class AddAgentPortalDashboardPage extends BaseUpgradeProcess {
 
-	public AddAgentPortalDashboardPage(GroupLocalService groupLocalService) {
-		_groupLocalService = groupLocalService;
-	}
-
-	protected void addContactSearchPortlet(Layout layout) {
-		LayoutTypePortlet layoutTypePortlet =
-			(LayoutTypePortlet)layout.getLayoutType();
-
-		try {
-			layoutTypePortlet.addPortletId(
-				userId, ContentSetupConstants.CONTACT_PORTLET_NAME,
-				ContentSetupConstants.COLUMN_1, -1);
-		}
-		catch (Exception exception) {
-			_log.error(exception);
-		}
-	}
-
-	protected Layout createDashboardPage() throws PortalException {
-		return LayoutLocalServiceUtil.addLayout(
-			userId, groupId, _privatePage, _parentLayoutId, _pageName,
-			_pageName, _description, LayoutConstants.TYPE_PORTLET, _hidden,
-			ContentSetupConstants.DASHBOARD_FRIENDLY_URL, new ServiceContext());
+	public AddAgentPortalDashboardPage(GroupLocalService groupLocalService, UserLocalService userLocalService, LayoutLocalService layoutLocalService, RoleLocalService roleLocalService) {
+		super(groupLocalService, userLocalService, layoutLocalService, roleLocalService);
+		this._groupLocalService = groupLocalService;
+		this._userLocalService = userLocalService;
 	}
 
 	@Override
-	protected void doUpgradeAsAdmin() throws Exception {
-		initializeCommonIdentifiers();
+	protected void doUpgrade() throws Exception {
+		try {
+			setupAdminUpgrade();
 
-		Layout layout = createDashboardPage();
+			initializeCommonIdentifiers();
 
-		setLandingPageLayoutTemplateId(layout);
-		updateDashBoardPage(layout);
-		addContactSearchPortlet(layout);
-		updateDashBoardPage(layout);
+			Layout layout = addPage(userId, groupId, PRIVATE_PAGE, PARENT_LAYOUT_ID, PAGE_NAME,
+					PAGE_NAME, DESCRIPTION, LayoutConstants.TYPE_PORTLET, HIDDEN,
+					ContentSetupConstants.DASHBOARD_FRIENDLY_URL, new ServiceContext());
+
+			setPageLayoutTemplateId(layout, userId, ContentSetupConstants.LAYOUT_1_COLUMN);
+
+			updatePage(layout);
+
+			addPortletToPage(layout, userId, ContentSetupConstants.CONTACT_PORTLET_NAME, ContentSetupConstants.COLUMN_1, PORTLET_COLUMN_POS) ;
+
+			updatePage(layout);
+
+		}
+		finally {
+			teardownAdminUpgrade();
+		}
 	}
 
 	protected void initializeCommonIdentifiers() throws PortalException {
@@ -69,27 +61,10 @@ public class AddAgentPortalDashboardPage extends AdminUpgradeProcess {
 		this.userId = userId;
 	}
 
-	protected void setLandingPageLayoutTemplateId(Layout layout) {
-		LayoutTypePortlet layoutTypePortlet =
-			(LayoutTypePortlet)layout.getLayoutType();
-
-		layoutTypePortlet.setLayoutTemplateId(
-			userId, ContentSetupConstants.LAYOUT_1_COLUMN);
-	}
-
-	protected void updateDashBoardPage(Layout layout) throws PortalException {
-		LayoutLocalServiceUtil.updateLayout(
-			layout.getGroupId(), layout.isPrivateLayout(), layout.getLayoutId(),
-			layout.getTypeSettings());
-	}
-
-	protected Long companyId;
-	protected Long groupId;
-	protected Long userId;
 
 	private Long _getAdminUserId(Long companyId) throws PortalException {
-		return UserLocalServiceUtil.getUser(
-			UserLocalServiceUtil.getDefaultUserId(companyId)
+		return _userLocalService.getUser(
+				_userLocalService.getDefaultUserId(companyId)
 		).getUserId();
 	}
 
@@ -99,14 +74,18 @@ public class AddAgentPortalDashboardPage extends AdminUpgradeProcess {
 		).getGroupId();
 	}
 
-	private static final Log _log = LogFactoryUtil.getLog(
-		AddAgentPortalDashboardPage.class);
+	protected Long companyId;
+	protected Long groupId;
+	protected Long userId;
 
-	private final String _description = "Dashboard";
 	private GroupLocalService _groupLocalService;
-	private final Boolean _hidden = Boolean.FALSE;
-	private final String _pageName = "Dashboard";
-	private final Long _parentLayoutId = 0L;
-	private final Boolean _privatePage = Boolean.TRUE;
+	private UserLocalService _userLocalService;
+
+	private static final String DESCRIPTION = "Dashboard";
+	private static final Integer PORTLET_COLUMN_POS = -1;
+	private static final Boolean HIDDEN = Boolean.FALSE;
+	private static final String PAGE_NAME = "Dashboard";
+	private static final Long PARENT_LAYOUT_ID = 0L;
+	private static final Boolean PRIVATE_PAGE = Boolean.TRUE;
 
 }
