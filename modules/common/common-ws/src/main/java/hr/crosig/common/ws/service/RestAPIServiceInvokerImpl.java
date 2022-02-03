@@ -11,11 +11,11 @@ import hr.crosig.common.configuration.AuthType;
 import hr.crosig.common.ws.RestAPIServiceInvoker;
 import hr.crosig.common.ws.ServiceConnectionProvider;
 import hr.crosig.common.ws.ServiceProvider;
+import hr.crosig.common.ws.ServiceRegistrator;
 import hr.crosig.common.ws.exception.ServiceInvocationException;
 import hr.crosig.common.ws.oauth.OAuthToken;
 import hr.crosig.common.ws.oauth.OAuthTokenProvider;
 import hr.crosig.common.ws.response.ServiceResponse;
-import hr.crosig.common.ws.service.registrator.ServiceRegistrator;
 
 import java.io.IOException;
 

@@ -11,9 +11,11 @@ import hr.crosig.common.ws.ServiceProvider;
 
 import java.util.Map;
 
+import hr.crosig.common.ws.ServiceRegistrator;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author david.martini
@@ -29,6 +31,8 @@ public class IDITConfigurator implements ServiceConnectionProvider {
 	public void activate(Map<String, Object> properties) {
 		_iditConfiguration = ConfigurableUtil.createConfigurable(
 			IDITConfiguration.class, properties);
+
+		_serviceRegistrator.addService(this);
 	}
 
 	@Override
@@ -79,5 +83,8 @@ public class IDITConfigurator implements ServiceConnectionProvider {
 	}
 
 	private volatile IDITConfiguration _iditConfiguration;
+
+	@Reference
+	private ServiceRegistrator _serviceRegistrator;
 
 }
