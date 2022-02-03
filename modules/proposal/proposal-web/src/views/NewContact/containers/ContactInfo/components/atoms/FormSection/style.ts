@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.section`
-  padding-left: 2rem;
-  padding-right: 1rem;
+  padding: 1rem 1rem 1rem 2rem;
 `;
