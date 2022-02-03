@@ -10,7 +10,7 @@ import com.liferay.portal.kernel.util.Validator;
 
 import hr.crosig.common.configuration.OAuthGrantType;
 import hr.crosig.common.ws.ServiceConnectionProvider;
-import hr.crosig.common.ws.ServiceProvider;
+import hr.crosig.common.ws.ServiceProviderType;
 import hr.crosig.common.ws.exception.ServiceInvocationException;
 
 import java.io.IOException;
@@ -129,6 +129,6 @@ public class OAuthTokenProvider {
 
 	private static final int _TOKEN_EXPIRATION_IN_SECONDS = 600;
 
-	private Map<ServiceProvider, OAuthToken> _tokens;
+	private Map<ServiceProviderType, OAuthToken> _tokens;
 
 }

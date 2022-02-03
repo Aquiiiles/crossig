@@ -4,7 +4,7 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 
 import hr.crosig.common.ws.RestAPIServiceInvoker;
-import hr.crosig.common.ws.ServiceProvider;
+import hr.crosig.common.ws.ServiceProviderType;
 import hr.crosig.common.ws.exception.ServiceInvocationException;
 import hr.crosig.common.ws.response.ServiceResponse;
 
@@ -33,7 +33,7 @@ public class LiferayWSClient {
 		String servicePath = sb.toString();
 
 		ServiceResponse serviceResponse = _restAPIServiceInvoker.get(
-			ServiceProvider.LIFERAY, servicePath);
+			ServiceProviderType.LIFERAY, servicePath);
 
 		return serviceResponse.getContent();
 	}

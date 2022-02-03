@@ -22,7 +22,7 @@ public interface ServiceConnectionProvider {
 
 	public String getOauth2TokenURL();
 
-	public ServiceProvider getProvider();
+	public ServiceProviderType getProvider();
 
 	public ServiceSource getSource();
 

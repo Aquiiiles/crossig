@@ -3,7 +3,7 @@ package hr.crosig.common.ws.service.registrator;
 import com.liferay.osgi.service.tracker.collections.list.ServiceTrackerList;
 import com.liferay.osgi.service.tracker.collections.list.ServiceTrackerListFactory;
 import hr.crosig.common.ws.ServiceConnectionProvider;
-import hr.crosig.common.ws.ServiceProvider;
+import hr.crosig.common.ws.ServiceProviderType;
 import hr.crosig.common.ws.exception.ServiceInvocationException;
 
 import java.util.HashMap;
@@ -35,7 +35,7 @@ public class ServiceRegistratorImpl implements hr.crosig.common.ws.ServiceRegist
 
 	@Override
 	public ServiceConnectionProvider getConnectionProvider(
-			ServiceProvider serviceProvider)
+			ServiceProviderType serviceProvider)
 		throws ServiceInvocationException {
 
 		if (!_connectionProviders.containsKey(serviceProvider)) {
@@ -54,7 +54,7 @@ public class ServiceRegistratorImpl implements hr.crosig.common.ws.ServiceRegist
 
 	private BundleContext _bundleContext;
 
-	private Map<ServiceProvider, ServiceConnectionProvider>
+	private Map<ServiceProviderType, ServiceConnectionProvider>
 		_connectionProviders;
 
 }

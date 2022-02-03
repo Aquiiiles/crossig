@@ -42,7 +42,7 @@ public interface IDITConfiguration {
 
 	@Meta.AD(
 		deflt = "Basic", name = "authentication-type",
-		optionLabels = {"Basic", "OAuth2"}, optionValues = {"Basic", "OAuth2"},
+		optionLabels = {"Basic", "OAuth2"}, optionValues = {"BASIC", "OAUTH"},
 		required = false
 	)
 	public String authenticationType();

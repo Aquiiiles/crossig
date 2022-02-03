@@ -6,7 +6,7 @@ import hr.crosig.common.configuration.LiferayConnectionConfiguration;
 import hr.crosig.common.configuration.OAuthGrantType;
 import hr.crosig.common.configuration.ServiceSource;
 import hr.crosig.common.ws.ServiceConnectionProvider;
-import hr.crosig.common.ws.ServiceProvider;
+import hr.crosig.common.ws.ServiceProviderType;
 
 import java.util.Map;
 
@@ -70,8 +70,8 @@ public class LiferayServiceConnectionProvider
 	}
 
 	@Override
-	public ServiceProvider getProvider() {
-		return ServiceProvider.LIFERAY;
+	public ServiceProviderType getProvider() {
+		return ServiceProviderType.LIFERAY;
 	}
 
 	@Override

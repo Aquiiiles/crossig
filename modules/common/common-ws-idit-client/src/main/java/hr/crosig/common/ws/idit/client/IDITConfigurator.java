@@ -7,7 +7,7 @@ import hr.crosig.common.configuration.IDITConfiguration;
 import hr.crosig.common.configuration.OAuthGrantType;
 import hr.crosig.common.configuration.ServiceSource;
 import hr.crosig.common.ws.ServiceConnectionProvider;
-import hr.crosig.common.ws.ServiceProvider;
+import hr.crosig.common.ws.ServiceProviderType;
 
 import java.util.Map;
 
@@ -73,8 +73,8 @@ public class IDITConfigurator implements ServiceConnectionProvider {
 	}
 
 	@Override
-	public ServiceProvider getProvider() {
-		return ServiceProvider.IDIT;
+	public ServiceProviderType getProvider() {
+		return ServiceProviderType.IDIT;
 	}
 
 	@Override
