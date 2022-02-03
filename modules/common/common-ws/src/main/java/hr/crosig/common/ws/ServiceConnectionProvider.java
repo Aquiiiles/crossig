@@ -1,6 +1,7 @@
 package hr.crosig.common.ws;
 
 import hr.crosig.common.configuration.OAuthGrantType;
+import hr.crosig.common.configuration.ServiceSource;
 
 /**
  * @author Leonardo Miyagi
@@ -22,5 +23,7 @@ public interface ServiceConnectionProvider {
 	public String getOauth2TokenURL();
 
 	public ServiceProvider getProvider();
+
+	public ServiceSource getSource();
 
 }

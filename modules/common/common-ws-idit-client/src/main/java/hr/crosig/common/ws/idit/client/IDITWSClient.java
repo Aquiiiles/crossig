@@ -1,6 +1,7 @@
 package hr.crosig.common.ws.idit.client;
 
 import hr.crosig.common.ws.RestAPIServiceInvoker;
+import hr.crosig.common.ws.RestAPIServiceInvokerFactory;
 import hr.crosig.common.ws.ServiceProvider;
 import hr.crosig.common.ws.exception.ServiceInvocationException;
 import hr.crosig.common.ws.response.ServiceResponse;
@@ -18,21 +19,29 @@ public class IDITWSClient {
 	public String searchContact(Map<String, String> parameters)
 		throws ServiceInvocationException {
 
-		ServiceResponse serviceResponse = _restAPIServiceInvoker.get(
-			ServiceProvider.IDIT, "/search");
+		RestAPIServiceInvoker invoker = _restAPIServiceInvokerFactory.getInvoker(ServiceProvider.IDIT);
+
+		ServiceResponse serviceResponse = invoker.get(
+			ServiceProvider.IDIT, "/contact");
 
 		return serviceResponse.getContent();
 	}
 
 	public String getCities() throws ServiceInvocationException {
-		ServiceResponse serviceResponse = _restAPIServiceInvoker.get(
+
+		RestAPIServiceInvoker invoker = _restAPIServiceInvokerFactory.getInvoker(ServiceProvider.IDIT);
+
+		ServiceResponse serviceResponse = invoker.get(
 				ServiceProvider.IDIT, "/cities");
 
 		return serviceResponse.getContent();
 	}
 
 	public String getStreetsByCityId(long cityId) throws ServiceInvocationException {
-		ServiceResponse serviceResponse = _restAPIServiceInvoker.get(
+
+		RestAPIServiceInvoker invoker = _restAPIServiceInvokerFactory.getInvoker(ServiceProvider.IDIT);
+
+		ServiceResponse serviceResponse = invoker.get(
 				ServiceProvider.IDIT, "/streets");
 
 
@@ -41,6 +50,6 @@ public class IDITWSClient {
 	}
 
 	@Reference
-	private RestAPIServiceInvoker _restAPIServiceInvoker;
+	private RestAPIServiceInvokerFactory _restAPIServiceInvokerFactory;
 
 }

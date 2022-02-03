@@ -11,14 +11,13 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 @Meta.OCD(
 	id = IDITConfiguration.IDIT_CONFIGURATION_ID,
 	localization = "content/Language.properties", name = "IDIT"
-
 )
 public interface IDITConfiguration {
 
 	public static final String IDIT_CONFIGURATION_ID =
 		"hr.crosig.common.configuration.IDITConfiguration";
 
-	@Meta.AD(deflt = "https://demo3197060.mockable.io/",required = true)
+	@Meta.AD(deflt = "https://demo3197060.mockable.io/")
 	public String hostURL();
 
 	@Meta.AD(deflt = "", required = false)
@@ -28,14 +27,13 @@ public interface IDITConfiguration {
 	public String oAuth2ClientID();
 
 	@Meta.AD(
-		deflt = "", description = "",
-		name = "OAuth Token URL", required = false
+		deflt = "", description = "", name = "OAuth Token URL", required = false
 	)
 	public String getOauth2TokenURL();
 
 	@Meta.AD(
-		deflt = "", description = "",
-		name = "OAuth Grant Type", required = false
+		deflt = "", description = "", name = "OAuth Grant Type",
+		required = false
 	)
 	public String getOAuth2GrantType();
 
@@ -48,5 +46,12 @@ public interface IDITConfiguration {
 		required = false
 	)
 	public String authenticationType();
+
+	@Meta.AD(
+		deflt = "EXTERNAL", name = "service-source",
+		optionLabels = {"EXTERNAL", "MOCK"},
+		optionValues = {"EXTERNAL", "MOCK"}, required = false
+	)
+	public String getSource();
 
 }
