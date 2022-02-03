@@ -40,19 +40,19 @@ public class ContactApplication extends Application {
 		return Collections.singleton(this);
 	}
 
-    @POST
-    @Path("/")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response createContact(ContactDTO contactDTO) {
-        try {
-            String entityJson = ApplicationUtilities.createEntityJsonString(contactDTO);
-            ServiceResponse serviceResponse = _iditwsClient.createContact(entityJson);
+	@POST
+	@Path("/")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response createContact(ContactDTO contactDTO) {
+		try {
+			String entityJson = ApplicationUtilities.createEntityJsonString(contactDTO);
+			ServiceResponse serviceResponse = _iditwsClient.createContact(entityJson);
 
-            return ApplicationUtilities.handleServiceResponse(serviceResponse);
-        } catch (Exception exception) {
-            return ApplicationUtilities.handleErrorResponse(exception);
-        }
-    }
+			return ApplicationUtilities.handleServiceResponse(serviceResponse);
+		} catch (Exception exception) {
+			return ApplicationUtilities.handleErrorResponse(exception);
+		}
+	}
 
     @PUT
     @Path("/")
