@@ -2,9 +2,9 @@ package hr.crosig.contact.rest.application;
 
 import hr.crosig.common.ws.idit.client.IDITWSClient;
 import hr.crosig.common.ws.response.ServiceResponse;
-import hr.crosig.contact.rest.application.dto.ContactDTO;
-import hr.crosig.contact.rest.application.dto.EmailDTO;
-import hr.crosig.contact.rest.application.dto.PhoneNumberDTO;
+import hr.crosig.contact.dto.ContactDTO;
+import hr.crosig.contact.dto.EmailDTO;
+import hr.crosig.contact.dto.PhoneNumberDTO;
 import hr.crosig.contact.rest.application.utils.ApplicationUtilities;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -53,20 +53,6 @@ public class ContactApplication extends Application {
 			return ApplicationUtilities.handleErrorResponse(exception);
 		}
 	}
-
-    @POST
-    @Path("/")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response createContact(ContactDTO contactDTO) {
-        try {
-            String entityJson = ApplicationUtilities.createEntityJsonString(contactDTO);
-            ServiceResponse serviceResponse = _iditwsClient.createContact(entityJson);
-
-            return ApplicationUtilities.handleServiceResponse(serviceResponse);
-        } catch (Exception exception) {
-            return ApplicationUtilities.handleErrorResponse(exception);
-        }
-    }
 
     @PUT
     @Path("/")
