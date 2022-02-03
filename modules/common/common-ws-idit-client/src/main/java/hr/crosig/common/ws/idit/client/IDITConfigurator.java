@@ -39,7 +39,7 @@ public class IDITConfigurator implements ServiceConnectionProvider {
 	@Override
 	public String getAuthType() {
 		return AuthType.valueOf(
-			_iditConfiguration.authenticationType()
+			_iditConfiguration.authenticationType().toUpperCase()
 		).getType();
 	}
 
