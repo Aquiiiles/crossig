@@ -5,6 +5,7 @@
   "dependencies": {
     "@clayui/button": "^3.40.0",
     "@clayui/css": "^3.44.2",
+    "@clayui/date-picker": "^3.45.0",
     "@clayui/drop-down": "^3.43.0",
     "@clayui/form": "^3.42.0",
     "@clayui/icon": "^3.40.0",
