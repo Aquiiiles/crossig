@@ -4,11 +4,10 @@ import hr.crosig.common.ws.RestAPIServiceInvoker;
 import hr.crosig.common.ws.ServiceProvider;
 import hr.crosig.common.ws.exception.ServiceInvocationException;
 import hr.crosig.common.ws.response.ServiceResponse;
-
-import java.util.Map;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+
+import java.util.Map;
 
 /**
  * @author Leonardo Miyagi
@@ -21,6 +20,22 @@ public class IDITWSClient {
 
 		ServiceResponse serviceResponse = _restAPIServiceInvoker.get(
 			ServiceProvider.IDIT, "/search");
+
+		return serviceResponse.getContent();
+	}
+
+	public String getCities() throws ServiceInvocationException {
+		ServiceResponse serviceResponse = _restAPIServiceInvoker.get(
+				ServiceProvider.IDIT, "/cities");
+
+		return serviceResponse.getContent();
+	}
+
+	public String getStreetsByCityId(long cityId) throws ServiceInvocationException {
+		ServiceResponse serviceResponse = _restAPIServiceInvoker.get(
+				ServiceProvider.IDIT, "/streets");
+
+
 
 		return serviceResponse.getContent();
 	}

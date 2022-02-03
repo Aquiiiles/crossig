@@ -1,6 +1,5 @@
 package hr.crosig.common.cache.management.command.action;
 
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
@@ -32,18 +31,15 @@ public class ClearCacheMVCActionCommand extends BaseMVCActionCommand {
 
 	@Override
 	protected void doProcessAction(
-			ActionRequest actionRequest, ActionResponse actionResponse)
-		throws PortalException {
+			ActionRequest actionRequest, ActionResponse actionResponse) {
 
 		try {
-			// gets the cacheName's value
 			String cacheName = ParamUtil.getString(actionRequest, "cacheName");
 
 			if (ClearCacheMVCActionConstants.CLEAR_CACHE_ALL.equals(cacheName)) {
-				// clears all the cache
 				_indexManagementLocalService.clearAllIndicesCache();
+				_indexManagementLocalService.populateAllIndices();
 			} else {
-				// clears a single cache
 				_indexManagementLocalService.clearIndexCache(cacheName);
 			}
 		}

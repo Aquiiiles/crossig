@@ -6,9 +6,13 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import hr.crosig.contact.dto.CityAndStreetMockDTO;
+import hr.crosig.common.ws.exception.ServiceInvocationException;
+import hr.crosig.common.ws.idit.client.IDITWSClient;
+import hr.crosig.contact.constants.CityConstants;
+import hr.crosig.contact.constants.StreetConstants;
 import hr.crosig.contact.dto.CityDTO;
 import hr.crosig.contact.dto.StreetDTO;
+import hr.crosig.contact.exception.CityException;
 import hr.crosig.contact.scheduler.enums.IndexType;
 import hr.crosig.contact.service.CityLocalService;
 import hr.crosig.contact.service.IndexManagementLocalService;
@@ -53,50 +57,60 @@ public class IndexManagementLocalServiceImpl
 
 	@Override
 	public void populateAllIndices() {
+		try {
+			_cityLocalService.searchCitiesNamesByName("a", -1, -1);
+		} catch (CityException cityException) {
+			_log.error(cityException.getMessage());
+		}
 		List<CityDTO> cities = populateCities();
 
 		populateStreets(cities);
 	}
 
 	protected List<CityDTO> populateCities() {
+		try {
+			String response = _iditwsClient.getCities();
+			List<CityDTO> cities = _parseIDITCityResponse(response);
 
-		// TODO String response = _iditwsClient.getCities();
+			_cityLocalService.addOrUpdateCities(cities);
 
-		String response = CityAndStreetMockDTO.iditwsGetCitiesResponse;
+			_log.info("Added " + cities.size() + " cities");
 
-		List<CityDTO> cities = _parseIDITCityResponse(response);
-
-		_cityLocalService.addOrUpdateCities(cities);
-
-		_log.info("Added " + cities.size() + " cities");
-
-		return cities;
+			return cities;
+		} catch (ServiceInvocationException e) {
+			e.printStackTrace();
+			_log.error("Error trying to get cities");
+			return null;
+		}
 	}
 
 	protected void populateStreets(List<CityDTO> cities) {
 		cities.forEach(
 			city -> {
-				//			String response = _iditwsClient.getStreetsByCity(cityDTO.getCityId());
+				try {
+					String response = _iditwsClient.getStreetsByCityId(city.getCityId());
 
-				String response = CityAndStreetMockDTO.iditwsGetStreetsByCity;
+					List<StreetDTO> streets = _parseIDITStreetResponse(
+							response, city.getCityId());
 
-				List<StreetDTO> streets = _parseIDITStreetResponse(
-					response, city.getCityId());
+					_streetLocalService.addOrUpdateStreets(streets);
 
-				_streetLocalService.addOrUpdateStreets(streets);
-
-				_log.info("Added " + streets.size() + " streets");
+					_log.info("Added " + streets.size() + " streets");
+				} catch (ServiceInvocationException e) {
+					e.printStackTrace();
+					_log.error("Error trying to get streets from cityId: " + city.getCityId());
+				}
 			});
 	}
 
 	private CityDTO _parseCityDTO(JSONObject jsonObject) {
 		CityDTO cityDTO = new CityDTO();
 
-		cityDTO.setCityId(jsonObject.getLong("id"));
-		cityDTO.setZipCode(jsonObject.getString("zipCode"));
-		cityDTO.setBoxNumber(jsonObject.getString("boxNumber"));
-		cityDTO.setCityName(jsonObject.getString("cityName"));
-		cityDTO.setPostName(jsonObject.getString("postName"));
+		cityDTO.setCityId(jsonObject.getLong(CityConstants.JSON_KEY_FOR_CITY_ID));
+		cityDTO.setZipCode(jsonObject.getString(CityConstants.JSON_KEY_FOR_ZIP_CODE));
+		cityDTO.setBoxNumber(jsonObject.getString(CityConstants.JSON_KEY_FOR_BOX_NUMBER));
+		cityDTO.setCityName(jsonObject.getString(CityConstants.JSON_KEY_FOR_CITY_NAME));
+		cityDTO.setPostName(jsonObject.getString(CityConstants.JSON_KEY_FOR_POST_NAME));
 
 		return cityDTO;
 	}
@@ -138,8 +152,8 @@ public class IndexManagementLocalServiceImpl
 	private StreetDTO _parseStreetDTO(JSONObject jsonObject, long cityId) {
 		StreetDTO streetDTO = new StreetDTO();
 
-		streetDTO.setStreetId(jsonObject.getLong("id"));
-		streetDTO.setStreetName(jsonObject.getString("desc"));
+		streetDTO.setStreetId(jsonObject.getLong(StreetConstants.JSON_KEY_FOR_STREET_ID));
+		streetDTO.setStreetName(jsonObject.getString(StreetConstants.JSON_KEY_FOR_STREET_NAME));
 		streetDTO.setCityId(cityId);
 
 		return streetDTO;
@@ -150,6 +164,9 @@ public class IndexManagementLocalServiceImpl
 
 	@Reference
 	private CityLocalService _cityLocalService;
+
+	@Reference
+	private IDITWSClient _iditwsClient;
 
 	@Reference
 	private StreetLocalService _streetLocalService;
