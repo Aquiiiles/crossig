@@ -9,8 +9,11 @@ import hr.crosig.common.ws.ServiceProvider;
 
 import java.util.Map;
 
+import hr.crosig.common.ws.ServiceRegistrator;
+import hr.crosig.common.ws.service.registrator.ServiceRegistratorImpl;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Leonardo Miyagi
@@ -26,6 +29,8 @@ public class LiferayServiceConnectionProvider
 	public void activate(Map<Object, Object> properties) {
 		_configuration = ConfigurableUtil.createConfigurable(
 			LiferayConnectionConfiguration.class, properties);
+
+		_serviceRegistrator.addService(this);
 	}
 
 	@Override
@@ -69,5 +74,8 @@ public class LiferayServiceConnectionProvider
 	}
 
 	private volatile LiferayConnectionConfiguration _configuration;
+
+	@Reference
+	private ServiceRegistrator _serviceRegistrator;
 
 }

@@ -5,14 +5,18 @@ import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import hr.crosig.common.configuration.AuthType;
 import hr.crosig.common.configuration.IDITConfiguration;
 import hr.crosig.common.configuration.OAuthGrantType;
+import hr.crosig.common.configuration.ServiceSource;
 import hr.crosig.common.ws.ServiceConnectionProvider;
 import hr.crosig.common.ws.ServiceProvider;
 
 import java.util.Map;
 
+import hr.crosig.common.ws.ServiceRegistrator;
+import hr.crosig.common.ws.service.registrator.ServiceRegistratorImpl;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author david.martini
@@ -28,6 +32,8 @@ public class IDITConfigurator implements ServiceConnectionProvider {
 	public void activate(Map<String, Object> properties) {
 		_iditConfiguration = ConfigurableUtil.createConfigurable(
 			IDITConfiguration.class, properties);
+
+		_serviceRegistrator.addService(this);
 	}
 
 	@Override
@@ -38,7 +44,7 @@ public class IDITConfigurator implements ServiceConnectionProvider {
 	@Override
 	public String getAuthType() {
 		return AuthType.valueOf(
-			_iditConfiguration.authenticationType()
+			_iditConfiguration.authenticationType().toUpperCase()
 		).getType();
 	}
 
@@ -71,6 +77,14 @@ public class IDITConfigurator implements ServiceConnectionProvider {
 	public ServiceProvider getProvider() {
 		return ServiceProvider.IDIT;
 	}
+
+	@Override
+	public ServiceSource getSource() {
+		return ServiceSource.valueOf(_iditConfiguration.getSource().toUpperCase());
+	}
+
+	@Reference
+	private ServiceRegistrator _serviceRegistrator;
 
 	private volatile IDITConfiguration _iditConfiguration;
 
