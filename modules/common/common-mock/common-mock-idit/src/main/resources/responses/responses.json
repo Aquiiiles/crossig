@@ -1,0 +1,14 @@
+[
+	{
+		"content": {
+			"a": "bla"
+		},
+		"path": "/search"
+	},
+	{
+		"content": {
+			"a": "blabla"
+		},
+		"path": "/search?1"
+	}
+]

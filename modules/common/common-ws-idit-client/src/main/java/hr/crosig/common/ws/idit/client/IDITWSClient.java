@@ -1,6 +1,7 @@
 package hr.crosig.common.ws.idit.client;
 
 import hr.crosig.common.ws.RestAPIServiceInvoker;
+import hr.crosig.common.ws.RestAPIServiceInvokerFactory;
 import hr.crosig.common.ws.ServiceProvider;
 import hr.crosig.common.ws.exception.ServiceInvocationException;
 import hr.crosig.common.ws.response.ServiceResponse;
@@ -18,7 +19,9 @@ public class IDITWSClient {
 	public String searchContact(Map<String, String> parameters)
 		throws ServiceInvocationException {
 
-		ServiceResponse serviceResponse = _restAPIServiceInvoker.get(
+		RestAPIServiceInvoker invoker = _restAPIServiceInvokerFactory.getInvoker(ServiceProvider.IDIT);
+
+		ServiceResponse serviceResponse = invoker.get(
 			ServiceProvider.IDIT, "/search");
 
 		return serviceResponse.getContent();
@@ -41,6 +44,6 @@ public class IDITWSClient {
 	}
 
 	@Reference
-	private RestAPIServiceInvoker _restAPIServiceInvoker;
+	private RestAPIServiceInvokerFactory _restAPIServiceInvokerFactory;
 
 }
