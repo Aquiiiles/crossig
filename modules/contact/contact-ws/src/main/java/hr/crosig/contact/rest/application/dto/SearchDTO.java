@@ -1,11 +1,9 @@
 package hr.crosig.contact.rest.application.dto;
 
-import java.time.LocalDateTime;
-
 /**
  * @author marcelo.mazurky
  */
-public class ContactSearchDTO {
+public class SearchDTO {
     private Integer telephoneCountryCode;
     private String fileName;
     private Integer updateVersion;
@@ -30,17 +28,17 @@ public class ContactSearchDTO {
     private String shortName;
     private Integer lob;
     private Integer certificateType;
-    private LocalDateTime fromDateDoc;
+    private String fromDateDoc;
     private String pob;
     private Integer certificateStatus;
-    private LocalDateTime statementDateTo;
+    private String statementDateTo;
     private Integer iditMessageId;
     private Integer showDeletedCertificate;
-    private LocalDateTime receiptDateFrom;
+    private String receiptDateFrom;
     private Integer identifierType;
-    private LocalDateTime toDateDoc;
+    private String toDateDoc;
     private Integer claimAssetIdentifierType;
-    private LocalDateTime dateReceived;
+    private String dateReceived;
     private Integer currency;
     private String telphoneNumber;
     private String assetIdentifierValue;
@@ -49,14 +47,14 @@ public class ContactSearchDTO {
     private Integer product;
     private Integer formNumberFrom;
     private String transactionReferenceNumber;
-    private LocalDateTime policyValidAt;
-    private LocalDateTime dateOfBirth;
+    private String policyValidAt;
+    private String dateOfBirth;
     private Integer policyHeaderId;
     private Integer brandCompanyId;
     private Integer certificateNumber;
     private String searchCriteriaValue;
     private Integer secondaryStatus;
-    private LocalDateTime receiptDateTo;
+    private String receiptDateTo;
     private Integer statProductId;
     private Integer serviceType;
     private Integer showDeletedForms;
@@ -69,7 +67,7 @@ public class ContactSearchDTO {
     private String bankAccount;
     private String ibanNumber;
     private String amountType;
-    private LocalDateTime certificateFromDate;
+    private String certificateFromDate;
     private String contactLabel;
     private Integer accountType;
     private String assetHouseNumber;
@@ -78,17 +76,17 @@ public class ContactSearchDTO {
     private String assetDescription;
     private Integer finderKey;
     private Integer policyContactRole;
-    private LocalDateTime fromDate;
+    private String fromDate;
     private String firstName;
     private String bankAccountId;
     private String name;
     private Integer formNumberTo;
-    private LocalDateTime statCoverFrom;
+    private String statCoverFrom;
     private String searchCriteria;
-    private LocalDateTime certificateToDate;
+    private String certificateToDate;
     private String policyContactRoleFirstName;
     private Integer policyStatus;
-    private LocalDateTime statCoverTo;
+    private String statCoverTo;
     private Integer countryId;
     private String assetZip;
     private String claimAssetIdentifierValue;
@@ -101,16 +99,16 @@ public class ContactSearchDTO {
     private String telephonePrefix;
     private Integer displayCancelledPolicyGraceDays;
     private String receiptNumber;
-    private LocalDateTime statementDateFrom;
+    private String statementDateFrom;
     private Integer claimActiveOnly;
     private String amount;
     private Integer displayEndedPolicyGraceDays;
     private Integer claimHandlerUserId;
-    private LocalDateTime toDate;
+    private String toDate;
     private String correspondenceName;
     private Integer legalForm;
     private String assetCityName;
-    private LocalDateTime claimDate;
+    private String claimDate;
     private Integer masterPolicyOnly;
     private Integer formSeries;
     private String middleName;
@@ -311,11 +309,11 @@ public class ContactSearchDTO {
         this.certificateType = certificateType;
     }
 
-    public LocalDateTime getFromDateDoc() {
+    public String getFromDateDoc() {
         return fromDateDoc;
     }
 
-    public void setFromDateDoc(LocalDateTime fromDateDoc) {
+    public void setFromDateDoc(String fromDateDoc) {
         this.fromDateDoc = fromDateDoc;
     }
 
@@ -335,11 +333,11 @@ public class ContactSearchDTO {
         this.certificateStatus = certificateStatus;
     }
 
-    public LocalDateTime getStatementDateTo() {
+    public String getStatementDateTo() {
         return statementDateTo;
     }
 
-    public void setStatementDateTo(LocalDateTime statementDateTo) {
+    public void setStatementDateTo(String statementDateTo) {
         this.statementDateTo = statementDateTo;
     }
 
@@ -359,11 +357,11 @@ public class ContactSearchDTO {
         this.showDeletedCertificate = showDeletedCertificate;
     }
 
-    public LocalDateTime getReceiptDateFrom() {
+    public String getReceiptDateFrom() {
         return receiptDateFrom;
     }
 
-    public void setReceiptDateFrom(LocalDateTime receiptDateFrom) {
+    public void setReceiptDateFrom(String receiptDateFrom) {
         this.receiptDateFrom = receiptDateFrom;
     }
 
@@ -375,11 +373,11 @@ public class ContactSearchDTO {
         this.identifierType = identifierType;
     }
 
-    public LocalDateTime getToDateDoc() {
+    public String getToDateDoc() {
         return toDateDoc;
     }
 
-    public void setToDateDoc(LocalDateTime toDateDoc) {
+    public void setToDateDoc(String toDateDoc) {
         this.toDateDoc = toDateDoc;
     }
 
@@ -391,11 +389,11 @@ public class ContactSearchDTO {
         this.claimAssetIdentifierType = claimAssetIdentifierType;
     }
 
-    public LocalDateTime getDateReceived() {
+    public String getDateReceived() {
         return dateReceived;
     }
 
-    public void setDateReceived(LocalDateTime dateReceived) {
+    public void setDateReceived(String dateReceived) {
         this.dateReceived = dateReceived;
     }
 
@@ -463,19 +461,19 @@ public class ContactSearchDTO {
         this.transactionReferenceNumber = transactionReferenceNumber;
     }
 
-    public LocalDateTime getPolicyValidAt() {
+    public String getPolicyValidAt() {
         return policyValidAt;
     }
 
-    public void setPolicyValidAt(LocalDateTime policyValidAt) {
+    public void setPolicyValidAt(String policyValidAt) {
         this.policyValidAt = policyValidAt;
     }
 
-    public LocalDateTime getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDateTime dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -519,11 +517,11 @@ public class ContactSearchDTO {
         this.secondaryStatus = secondaryStatus;
     }
 
-    public LocalDateTime getReceiptDateTo() {
+    public String getReceiptDateTo() {
         return receiptDateTo;
     }
 
-    public void setReceiptDateTo(LocalDateTime receiptDateTo) {
+    public void setReceiptDateTo(String receiptDateTo) {
         this.receiptDateTo = receiptDateTo;
     }
 
@@ -623,11 +621,11 @@ public class ContactSearchDTO {
         this.amountType = amountType;
     }
 
-    public LocalDateTime getCertificateFromDate() {
+    public String getCertificateFromDate() {
         return certificateFromDate;
     }
 
-    public void setCertificateFromDate(LocalDateTime certificateFromDate) {
+    public void setCertificateFromDate(String certificateFromDate) {
         this.certificateFromDate = certificateFromDate;
     }
 
@@ -695,11 +693,11 @@ public class ContactSearchDTO {
         this.policyContactRole = policyContactRole;
     }
 
-    public LocalDateTime getFromDate() {
+    public String getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(LocalDateTime fromDate) {
+    public void setFromDate(String fromDate) {
         this.fromDate = fromDate;
     }
 
@@ -735,11 +733,11 @@ public class ContactSearchDTO {
         this.formNumberTo = formNumberTo;
     }
 
-    public LocalDateTime getStatCoverFrom() {
+    public String getStatCoverFrom() {
         return statCoverFrom;
     }
 
-    public void setStatCoverFrom(LocalDateTime statCoverFrom) {
+    public void setStatCoverFrom(String statCoverFrom) {
         this.statCoverFrom = statCoverFrom;
     }
 
@@ -751,11 +749,11 @@ public class ContactSearchDTO {
         this.searchCriteria = searchCriteria;
     }
 
-    public LocalDateTime getCertificateToDate() {
+    public String getCertificateToDate() {
         return certificateToDate;
     }
 
-    public void setCertificateToDate(LocalDateTime certificateToDate) {
+    public void setCertificateToDate(String certificateToDate) {
         this.certificateToDate = certificateToDate;
     }
 
@@ -775,11 +773,11 @@ public class ContactSearchDTO {
         this.policyStatus = policyStatus;
     }
 
-    public LocalDateTime getStatCoverTo() {
+    public String getStatCoverTo() {
         return statCoverTo;
     }
 
-    public void setStatCoverTo(LocalDateTime statCoverTo) {
+    public void setStatCoverTo(String statCoverTo) {
         this.statCoverTo = statCoverTo;
     }
 
@@ -879,11 +877,11 @@ public class ContactSearchDTO {
         this.receiptNumber = receiptNumber;
     }
 
-    public LocalDateTime getStatementDateFrom() {
+    public String getStatementDateFrom() {
         return statementDateFrom;
     }
 
-    public void setStatementDateFrom(LocalDateTime statementDateFrom) {
+    public void setStatementDateFrom(String statementDateFrom) {
         this.statementDateFrom = statementDateFrom;
     }
 
@@ -919,11 +917,11 @@ public class ContactSearchDTO {
         this.claimHandlerUserId = claimHandlerUserId;
     }
 
-    public LocalDateTime getToDate() {
+    public String getToDate() {
         return toDate;
     }
 
-    public void setToDate(LocalDateTime toDate) {
+    public void setToDate(String toDate) {
         this.toDate = toDate;
     }
 
@@ -951,11 +949,11 @@ public class ContactSearchDTO {
         this.assetCityName = assetCityName;
     }
 
-    public LocalDateTime getClaimDate() {
+    public String getClaimDate() {
         return claimDate;
     }
 
-    public void setClaimDate(LocalDateTime claimDate) {
+    public void setClaimDate(String claimDate) {
         this.claimDate = claimDate;
     }
 

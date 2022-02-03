@@ -3,7 +3,6 @@ package hr.crosig.contact.rest.application;
 import hr.crosig.common.ws.idit.client.IDITWSClient;
 import hr.crosig.common.ws.response.ServiceResponse;
 import hr.crosig.contact.rest.application.dto.ContactDTO;
-import hr.crosig.contact.rest.application.dto.ContactSearchDTO;
 import hr.crosig.contact.rest.application.dto.EmailDTO;
 import hr.crosig.contact.rest.application.dto.PhoneNumberDTO;
 import hr.crosig.contact.rest.application.utils.ApplicationUtilities;
@@ -18,7 +17,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -55,23 +53,6 @@ public class ContactApplication extends Application {
 			return ApplicationUtilities.handleErrorResponse(exception);
 		}
 	}
-
-    @POST
-    @Path("/search")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response searchContact(ContactSearchDTO contactSearchDTO) {
-
-        try {
-            List contactSearchDTOList = Arrays.asList(contactSearchDTO);
-
-            String entityJson = ApplicationUtilities.createEntityJsonString(contactSearchDTOList);
-            ServiceResponse serviceResponse = _iditwsClient.searchContact(entityJson);
-
-            return ApplicationUtilities.handleServiceResponse(serviceResponse);
-        } catch (Exception exception) {
-            return ApplicationUtilities.handleErrorResponse(exception);
-        }
-    }
 
     @POST
     @Path("/")

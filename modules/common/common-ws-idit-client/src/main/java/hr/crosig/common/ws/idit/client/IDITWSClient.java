@@ -46,7 +46,7 @@ public class IDITWSClient {
 		return serviceResponse;
 	}
 
-	public ServiceResponse searchContact(String jsonRequest)
+	public ServiceResponse search(String jsonRequest)
 			throws ServiceInvocationException {
 
 		RestAPIServiceInvoker invoker = _restAPIServiceInvokerFactory.getInvoker(ServiceProviderType.IDIT);

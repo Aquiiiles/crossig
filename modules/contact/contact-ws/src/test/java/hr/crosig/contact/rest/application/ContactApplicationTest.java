@@ -17,7 +17,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
 import javax.ws.rs.core.Response;
-import java.util.Arrays;
 
 /**
  * @author marcelo.mazurky
@@ -40,9 +39,6 @@ public class ContactApplicationTest {
     private void _mockApiSuccess() throws ServiceInvocationException, JsonProcessingException {
         ServiceResponse serviceResponseSuccess = new ServiceResponse(TestConstants.API_SUCCESS_STATUS_CODE, TestConstants.API_SUCCESS_STATUS_CONTENT);
 
-        String validSearchContactRequest = ApplicationUtilities.createEntityJsonString(Arrays.asList(TestConstants.VALID_SEARCH_CONTACT_REQUEST));
-        Mockito.when(_iditwsClient.searchContact(validSearchContactRequest)).thenReturn(serviceResponseSuccess);
-
         String validContactRequest = ApplicationUtilities.createEntityJsonString(TestConstants.VALID_CONTACT_REQUEST);
         Mockito.when(_iditwsClient.createContact(validContactRequest)).thenReturn(serviceResponseSuccess);
         Mockito.when(_iditwsClient.updateContact(validContactRequest)).thenReturn(serviceResponseSuccess);
@@ -56,9 +52,6 @@ public class ContactApplicationTest {
     private void _mockApiError() throws ServiceInvocationException, JsonProcessingException {
         ServiceResponse serviceResponseError = new ServiceResponse(TestConstants.API_ERROR_STATUS_CODE, TestConstants.API_ERROR_STATUS_CONTENT);
 
-        String validSearchContactRequest = ApplicationUtilities.createEntityJsonString(Arrays.asList(TestConstants.VALID_SEARCH_CONTACT_REQUEST));
-        Mockito.when(_iditwsClient.searchContact(validSearchContactRequest)).thenReturn(serviceResponseError);
-
         String validContactRequest = ApplicationUtilities.createEntityJsonString(TestConstants.VALID_CONTACT_REQUEST);
         Mockito.when(_iditwsClient.createContact(validContactRequest)).thenReturn(serviceResponseError);
         Mockito.when(_iditwsClient.updateContact(validContactRequest)).thenReturn(serviceResponseError);
@@ -70,9 +63,6 @@ public class ContactApplicationTest {
         Mockito.when(_iditwsClient.validatePhone(validPhoneNumberRequest)).thenReturn(serviceResponseError);
     }
     private void _mockApiException() throws ServiceInvocationException, JsonProcessingException {
-        String validSearchContactRequest = ApplicationUtilities.createEntityJsonString(Arrays.asList(TestConstants.VALID_SEARCH_CONTACT_REQUEST));
-        Mockito.when(_iditwsClient.searchContact(validSearchContactRequest)).thenThrow(TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
-
         String validContactRequest = ApplicationUtilities.createEntityJsonString(TestConstants.VALID_CONTACT_REQUEST);
         Mockito.when(_iditwsClient.createContact(validContactRequest)).thenThrow(TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
         Mockito.when(_iditwsClient.updateContact(validContactRequest)).thenThrow(TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
@@ -84,38 +74,6 @@ public class ContactApplicationTest {
         Mockito.when(_iditwsClient.validatePhone(validPhoneNumberRequest)).thenThrow(TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
     }
 
-    @Test
-    public void searchContact_ApiSuccess() throws ServiceInvocationException, JsonProcessingException {
-        _mockApiSuccess();
-
-        Response response = _contactApplication.searchContact(TestConstants.VALID_SEARCH_CONTACT_REQUEST);
-        Response expectedResponse = ApplicationUtilities.handleSuccessResponse(TestConstants.API_SUCCESS_STATUS_CONTENT);
-
-        Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
-        Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
-    }
-
-    @Test
-    public void searchContact_ApiError() throws ServiceInvocationException, JsonProcessingException {
-        _mockApiError();
-
-        Response response = _contactApplication.searchContact(TestConstants.VALID_SEARCH_CONTACT_REQUEST);
-        Response expectedResponse = ApplicationUtilities.handleErrorResponse(TestConstants.API_ERROR_STATUS_CODE, TestConstants.API_ERROR_STATUS_CONTENT);
-
-        Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
-        Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
-    }
-
-    @Test
-    public void searchContact_ApiException() throws ServiceInvocationException, JsonProcessingException {
-        _mockApiException();
-
-        Response response = _contactApplication.searchContact(TestConstants.VALID_SEARCH_CONTACT_REQUEST);
-        Response expectedResponse = ApplicationUtilities.handleErrorResponse(TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
-
-        Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
-        Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
-    }
     @Test
     public void createContact_ApiSuccess() throws ServiceInvocationException, JsonProcessingException {
         _mockApiSuccess();

@@ -2,15 +2,13 @@ package hr.crosig.contact.rest.application.utils;
 
 import hr.crosig.common.ws.exception.ServiceInvocationException;
 import hr.crosig.contact.rest.application.dto.ContactDTO;
-import hr.crosig.contact.rest.application.dto.ContactSearchDTO;
+import hr.crosig.contact.rest.application.dto.SearchDTO;
 import hr.crosig.contact.rest.application.dto.EmailDTO;
 import hr.crosig.contact.rest.application.dto.PhoneNumberDTO;
 
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author marcelo.mazurky
@@ -26,7 +24,7 @@ public class TestConstants {
 
     // valid request values
     public static final long VALID_CITY_ID = 50;
-    public static final ContactSearchDTO VALID_SEARCH_CONTACT_REQUEST = new ContactSearchDTO();
+    public static final SearchDTO VALID_SEARCH_REQUEST = new SearchDTO();
     public static final ContactDTO VALID_CONTACT_REQUEST =  new ContactDTO();
     public static final List<EmailDTO> VALID_EMAIL_REQUEST = new ArrayList<>();
     public static final List<PhoneNumberDTO> VALID_PHONE_NUMBER_REQUEST = new ArrayList<>();
