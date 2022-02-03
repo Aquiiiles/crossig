@@ -55,7 +55,7 @@ public class ApplicationUtilities {
      * @param response
      * @return
      */
-    private static Response handleSuccessResponse(String response) {
+    public static Response handleSuccessResponse(String response) {
         return Response.status(
                 Response.Status.OK
         ).entity(
@@ -84,7 +84,7 @@ public class ApplicationUtilities {
      * @param response
      * @return
      */
-    private static Response handleErrorResponse(int statusCode, String response) {
+    public static Response handleErrorResponse(int statusCode, String response) {
         return Response.status(
                 statusCode
         ).entity(
