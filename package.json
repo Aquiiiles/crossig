@@ -2,7 +2,9 @@
     "private": true,
     "workspaces": {
         "packages": [
-            "modules/contact/contact-web"
+            "modules/contact/contact-web",
+            "modules/common/theme-elements",
+            "themes/agent-portal-theme"
         ]
     }
 }
