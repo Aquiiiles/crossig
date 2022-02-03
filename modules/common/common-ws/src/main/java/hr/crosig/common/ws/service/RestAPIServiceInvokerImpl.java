@@ -25,7 +25,7 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Leonardo Miyagi
  */
-@Component(immediate = true, service = RestAPIServiceInvoker.class)
+@Component(immediate = true, property = "source=EXTERNAL", service = RestAPIServiceInvoker.class)
 public class RestAPIServiceInvokerImpl implements RestAPIServiceInvoker {
 
 	@Override

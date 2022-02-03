@@ -47,8 +47,8 @@ public interface LiferayConnectionConfiguration {
 	public String getOAuthClientSecret();
 
 	@Meta.AD(
-			deflt = "/o/oauth2/token", description = "",
-			name = "OAuth Token URL", required = false
+		deflt = "/o/oauth2/token", description = "", name = "OAuth Token URL",
+		required = false
 	)
 	public String getOauth2TokenURL();
 
