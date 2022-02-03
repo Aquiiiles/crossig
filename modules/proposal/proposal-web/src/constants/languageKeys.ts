@@ -29,3 +29,17 @@ export const CREATE_NEW_CONTACT = {
         SUBSIDIARY_NUMBER: Liferay.Language.get('create-new-contact-field-subsidiary-number'),
     },
 }
+
+export const CREATE_NEW_CONTACT_TITLE= Liferay.Language.get('create-new-contact-title');
+export const CREATE_NEW_CONTACT_SUBTITLE= Liferay.Language.get('create-new-contact-subtitle');
+export const CREATE_NEW_CONTACT_BASIC_INFO_TITLE= Liferay.Language.get('create-new-contact-basic-info-title');
+export const CREATE_NEW_CONTACT_ADDRESS_TITLE=  Liferay.Language.get('create-new-contact-address-title');
+export const CREATE_NEW_CONTACT_ID_ADDRES=  Liferay.Language.get('create-new-contact-address-title');
+export const CREATE_NEW_CONTACT_REGISTERED_OFFICE_ADDRESS=  Liferay.Language.get('create-new-contact-address-title');
+export const CREATE_NEW_CONTACT_DISPATCH_ADDRESS=  Liferay.Language.get('create-new-contact-address-title');
+export const CREATE_NEW_CONTACT_FIELD_COUNTRY=  Liferay.Language.get('create-new-contact-address-title');
+export const CREATE_NEW_CONTACT_FIELD_CITY=  Liferay.Language.get('create-new-contact-address-title');
+export const CREATE_NEW_CONTACT_FIELD_POSTAL_CODE=  Liferay.Language.get('create-new-contact-address-title');
+export const CREATE_NEW_CONTACT_FIELD_STREET_ADDRESS=  Liferay.Language.get('create-new-contact-address-title');
+export const CREATE_NEW_CONTACT_FIELD_HOUSE_NUMBER=  Liferay.Language.get('create-new-contact-address-title');
+export const CREATE_NEW_CONTACT_FIELD_DISPATCH_ADDRESS=  Liferay.Language.get('create-new-contact-address-title');
