@@ -22,7 +22,7 @@ public class IDITWSClient {
 		RestAPIServiceInvoker invoker = _restAPIServiceInvokerFactory.getInvoker(ServiceProvider.IDIT);
 
 		ServiceResponse serviceResponse = invoker.get(
-			ServiceProvider.IDIT, "/search");
+			ServiceProvider.IDIT, "/contact");
 
 		return serviceResponse.getContent();
 	}
