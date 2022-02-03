@@ -28,14 +28,20 @@ public class IDITWSClient {
 	}
 
 	public String getCities() throws ServiceInvocationException {
-		ServiceResponse serviceResponse = _restAPIServiceInvoker.get(
+
+		RestAPIServiceInvoker invoker = _restAPIServiceInvokerFactory.getInvoker(ServiceProvider.IDIT);
+
+		ServiceResponse serviceResponse = invoker.get(
 				ServiceProvider.IDIT, "/cities");
 
 		return serviceResponse.getContent();
 	}
 
 	public String getStreetsByCityId(long cityId) throws ServiceInvocationException {
-		ServiceResponse serviceResponse = _restAPIServiceInvoker.get(
+
+		RestAPIServiceInvoker invoker = _restAPIServiceInvokerFactory.getInvoker(ServiceProvider.IDIT);
+
+		ServiceResponse serviceResponse = invoker.get(
 				ServiceProvider.IDIT, "/streets");
 
 
