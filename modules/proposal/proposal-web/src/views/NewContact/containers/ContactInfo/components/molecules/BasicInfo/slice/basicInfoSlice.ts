@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
   contactType: "1",
@@ -13,19 +13,19 @@ const basicInfoSlice = createSlice({
   name: "basicInfo",
   initialState,
   reducers: {
-    setType(state, action) {
-      state.type = action.payload;
+    setType(state, action: PayloadAction<string>) {
+      state.contactType = action.payload;
     },
-    setFirstName(state, action) {
+    setFirstName(state, action: PayloadAction<string>) {
       state.firstName = action.payload;
     },
-    setLastName(state, action) {
+    setLastName(state, action: PayloadAction<string>) {
       state.lastName = action.payload;
     },
-    setDateOfBirth(state, action) {
+    setDateOfBirth(state, action: PayloadAction<string>) {
       state.dateOfBirth = action.payload;
     },
-    setOIB(state, action) {
+    setOIB(state, action: PayloadAction<string>) {
       state.oib = action.payload;
     },
     toggleForeignerStatus(state) {
@@ -34,6 +34,6 @@ const basicInfoSlice = createSlice({
   },
 });
 
-export const actionsBag = basicInfoSlice.actions;
+export const actions = basicInfoSlice.actions;
 
 export default basicInfoSlice.reducer;
