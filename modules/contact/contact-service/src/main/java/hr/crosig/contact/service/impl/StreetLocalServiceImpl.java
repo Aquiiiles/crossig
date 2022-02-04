@@ -16,6 +16,9 @@ package hr.crosig.contact.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistry;
+import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.search.document.Document;
 import com.liferay.portal.search.hits.SearchHit;
@@ -42,6 +45,7 @@ import hr.crosig.contact.service.base.StreetLocalServiceBaseImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import hr.crosig.contact.util.BulkHelper;
 import org.osgi.service.component.annotations.Component;
@@ -78,6 +82,19 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 
 	public void deleteAllStreets() {
 		BulkHelper.bulkDeleteAll(streetPersistence.getCurrentSession(), StreetModelImpl.TABLE_NAME);
+		reindex();
+	}
+
+	private void reindex() {
+		Indexer<Street> indexer = _indexerRegistry.getIndexer(Street.class.getName());
+
+		if (Objects.nonNull(indexer)) {
+			try {
+				indexer.reindex(new String[] {String.valueOf(PortalUtil.getDefaultCompanyId())});
+			} catch (SearchException e) {
+				throw new IllegalStateException(e);
+			}
+		}
 	}
 
 	public List<String> searchStreetsNamesByNameAndCityId(
@@ -190,6 +207,9 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 
 	@Reference
 	private Searcher _searcher;
+
+	@Reference
+	private IndexerRegistry _indexerRegistry;
 
 	@Reference
 	private SearchRequestBuilderFactory _searchRequestBuilderFactory;

@@ -16,6 +16,9 @@ package hr.crosig.contact.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistry;
+import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.search.document.Document;
 import com.liferay.portal.search.hits.SearchHit;
@@ -77,6 +80,19 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 
 	public void deleteAllCities() {
 		BulkHelper.bulkDeleteAll(cityPersistence.getCurrentSession(), CityModelImpl.TABLE_NAME);
+		reindex();
+	}
+
+	private void reindex() {
+		Indexer<City> indexer = _indexerRegistry.getIndexer(City.class.getName());
+
+		if (Objects.nonNull(indexer)) {
+			try {
+				indexer.reindex(new String[] {String.valueOf(PortalUtil.getDefaultCompanyId())});
+			} catch (SearchException e) {
+				throw new IllegalStateException(e);
+			}
+		}
 	}
 
 	public List<String> searchCitiesNamesByName(
@@ -186,6 +202,9 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 
 	@Reference
 	private Searcher _searcher;
+
+	@Reference
+	private IndexerRegistry _indexerRegistry;
 
 	@Reference
 	private SearchRequestBuilderFactory _searchRequestBuilderFactory;
