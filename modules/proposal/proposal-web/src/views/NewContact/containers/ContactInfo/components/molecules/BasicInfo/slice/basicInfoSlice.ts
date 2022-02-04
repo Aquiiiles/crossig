@@ -28,7 +28,9 @@ const basicInfoSlice = createSlice({
       state.dateOfBirth = action.payload;
     },
     setOIB(state, action: PayloadAction<string>) {
-      state.oib = action.payload;
+      if (!isNaN(Number(action.payload)) && action.payload.length <= 11) {
+        state.oib = action.payload;
+      }
     },
     toggleForeignerStatus(state) {
       state.foreignerStatus = !state.foreignerStatus;
