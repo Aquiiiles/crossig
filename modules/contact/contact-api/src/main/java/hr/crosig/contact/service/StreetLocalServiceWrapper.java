@@ -136,6 +136,11 @@ public class StreetLocalServiceWrapper
 	}
 
 	@Override
+	public void deleteStreetsByCityId(long cityId) {
+		_streetLocalService.deleteStreetsByCityId(cityId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _streetLocalService.dynamicQuery();
 	}

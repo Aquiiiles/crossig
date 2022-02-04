@@ -132,6 +132,8 @@ public interface StreetLocalService
 	@Indexable(type = IndexableType.DELETE)
 	public Street deleteStreet(Street street);
 
+	public void deleteStreetsByCityId(long cityId);
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DynamicQuery dynamicQuery();
 

@@ -33,7 +33,6 @@ import com.liferay.portal.search.searcher.SearchRequestBuilder;
 import com.liferay.portal.search.searcher.SearchRequestBuilderFactory;
 import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.searcher.Searcher;
-
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.StreetConstants;
 import hr.crosig.contact.constants.StreetMessages;
@@ -43,13 +42,12 @@ import hr.crosig.contact.model.Street;
 import hr.crosig.contact.model.impl.StreetModelImpl;
 import hr.crosig.contact.service.base.StreetLocalServiceBaseImpl;
 import hr.crosig.contact.util.BulkHelper;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Guilherme Kfouri
@@ -80,6 +78,11 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 	public void deleteAllStreets() {
 		BulkHelper.bulkDeleteAll(
 			streetPersistence.getCurrentSession(), StreetModelImpl.TABLE_NAME);
+		reindex();
+	}
+
+	public void deleteStreetsByCityId(long cityId) {
+		streetPersistence.removeByCityId(cityId);
 		reindex();
 	}
 

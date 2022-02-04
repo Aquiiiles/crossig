@@ -134,6 +134,10 @@ public class StreetLocalServiceUtil {
 		return getService().deleteStreet(street);
 	}
 
+	public static void deleteStreetsByCityId(long cityId) {
+		getService().deleteStreetsByCityId(cityId);
+	}
+
 	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
