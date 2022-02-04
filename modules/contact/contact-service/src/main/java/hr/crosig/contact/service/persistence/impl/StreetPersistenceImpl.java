@@ -824,6 +824,580 @@ public class StreetPersistenceImpl
 	private static final String _FINDER_COLUMN_CITYID_CITYID_2 =
 		"street.cityId = ?";
 
+	private FinderPath _finderPathWithPaginationFindByCityId_Name;
+	private FinderPath _finderPathWithoutPaginationFindByCityId_Name;
+	private FinderPath _finderPathCountByCityId_Name;
+
+	/**
+	 * Returns all the streets where cityId = &#63; and name = &#63;.
+	 *
+	 * @param cityId the city ID
+	 * @param name the name
+	 * @return the matching streets
+	 */
+	@Override
+	public List<Street> findByCityId_Name(long cityId, String name) {
+		return findByCityId_Name(
+			cityId, name, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the streets where cityId = &#63; and name = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>StreetModelImpl</code>.
+	 * </p>
+	 *
+	 * @param cityId the city ID
+	 * @param name the name
+	 * @param start the lower bound of the range of streets
+	 * @param end the upper bound of the range of streets (not inclusive)
+	 * @return the range of matching streets
+	 */
+	@Override
+	public List<Street> findByCityId_Name(
+		long cityId, String name, int start, int end) {
+
+		return findByCityId_Name(cityId, name, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the streets where cityId = &#63; and name = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>StreetModelImpl</code>.
+	 * </p>
+	 *
+	 * @param cityId the city ID
+	 * @param name the name
+	 * @param start the lower bound of the range of streets
+	 * @param end the upper bound of the range of streets (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching streets
+	 */
+	@Override
+	public List<Street> findByCityId_Name(
+		long cityId, String name, int start, int end,
+		OrderByComparator<Street> orderByComparator) {
+
+		return findByCityId_Name(
+			cityId, name, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the streets where cityId = &#63; and name = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>StreetModelImpl</code>.
+	 * </p>
+	 *
+	 * @param cityId the city ID
+	 * @param name the name
+	 * @param start the lower bound of the range of streets
+	 * @param end the upper bound of the range of streets (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching streets
+	 */
+	@Override
+	public List<Street> findByCityId_Name(
+		long cityId, String name, int start, int end,
+		OrderByComparator<Street> orderByComparator, boolean useFinderCache) {
+
+		name = Objects.toString(name, "");
+
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByCityId_Name;
+				finderArgs = new Object[] {cityId, name};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByCityId_Name;
+			finderArgs = new Object[] {
+				cityId, name, start, end, orderByComparator
+			};
+		}
+
+		List<Street> list = null;
+
+		if (useFinderCache) {
+			list = (List<Street>)finderCache.getResult(
+				finderPath, finderArgs, this);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (Street street : list) {
+					if ((cityId != street.getCityId()) ||
+						!name.equals(street.getName())) {
+
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler sb = null;
+
+			if (orderByComparator != null) {
+				sb = new StringBundler(
+					4 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				sb = new StringBundler(4);
+			}
+
+			sb.append(_SQL_SELECT_STREET_WHERE);
+
+			sb.append(_FINDER_COLUMN_CITYID_NAME_CITYID_2);
+
+			boolean bindName = false;
+
+			if (name.isEmpty()) {
+				sb.append(_FINDER_COLUMN_CITYID_NAME_NAME_3);
+			}
+			else {
+				bindName = true;
+
+				sb.append(_FINDER_COLUMN_CITYID_NAME_NAME_2);
+			}
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				sb.append(StreetModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(cityId);
+
+				if (bindName) {
+					queryPos.add(name);
+				}
+
+				list = (List<Street>)QueryUtil.list(
+					query, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first street in the ordered set where cityId = &#63; and name = &#63;.
+	 *
+	 * @param cityId the city ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching street
+	 * @throws NoSuchStreetException if a matching street could not be found
+	 */
+	@Override
+	public Street findByCityId_Name_First(
+			long cityId, String name,
+			OrderByComparator<Street> orderByComparator)
+		throws NoSuchStreetException {
+
+		Street street = fetchByCityId_Name_First(
+			cityId, name, orderByComparator);
+
+		if (street != null) {
+			return street;
+		}
+
+		StringBundler sb = new StringBundler(6);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("cityId=");
+		sb.append(cityId);
+
+		sb.append(", name=");
+		sb.append(name);
+
+		sb.append("}");
+
+		throw new NoSuchStreetException(sb.toString());
+	}
+
+	/**
+	 * Returns the first street in the ordered set where cityId = &#63; and name = &#63;.
+	 *
+	 * @param cityId the city ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching street, or <code>null</code> if a matching street could not be found
+	 */
+	@Override
+	public Street fetchByCityId_Name_First(
+		long cityId, String name, OrderByComparator<Street> orderByComparator) {
+
+		List<Street> list = findByCityId_Name(
+			cityId, name, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last street in the ordered set where cityId = &#63; and name = &#63;.
+	 *
+	 * @param cityId the city ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching street
+	 * @throws NoSuchStreetException if a matching street could not be found
+	 */
+	@Override
+	public Street findByCityId_Name_Last(
+			long cityId, String name,
+			OrderByComparator<Street> orderByComparator)
+		throws NoSuchStreetException {
+
+		Street street = fetchByCityId_Name_Last(
+			cityId, name, orderByComparator);
+
+		if (street != null) {
+			return street;
+		}
+
+		StringBundler sb = new StringBundler(6);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("cityId=");
+		sb.append(cityId);
+
+		sb.append(", name=");
+		sb.append(name);
+
+		sb.append("}");
+
+		throw new NoSuchStreetException(sb.toString());
+	}
+
+	/**
+	 * Returns the last street in the ordered set where cityId = &#63; and name = &#63;.
+	 *
+	 * @param cityId the city ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching street, or <code>null</code> if a matching street could not be found
+	 */
+	@Override
+	public Street fetchByCityId_Name_Last(
+		long cityId, String name, OrderByComparator<Street> orderByComparator) {
+
+		int count = countByCityId_Name(cityId, name);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<Street> list = findByCityId_Name(
+			cityId, name, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the streets before and after the current street in the ordered set where cityId = &#63; and name = &#63;.
+	 *
+	 * @param streetId the primary key of the current street
+	 * @param cityId the city ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next street
+	 * @throws NoSuchStreetException if a street with the primary key could not be found
+	 */
+	@Override
+	public Street[] findByCityId_Name_PrevAndNext(
+			long streetId, long cityId, String name,
+			OrderByComparator<Street> orderByComparator)
+		throws NoSuchStreetException {
+
+		name = Objects.toString(name, "");
+
+		Street street = findByPrimaryKey(streetId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			Street[] array = new StreetImpl[3];
+
+			array[0] = getByCityId_Name_PrevAndNext(
+				session, street, cityId, name, orderByComparator, true);
+
+			array[1] = street;
+
+			array[2] = getByCityId_Name_PrevAndNext(
+				session, street, cityId, name, orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected Street getByCityId_Name_PrevAndNext(
+		Session session, Street street, long cityId, String name,
+		OrderByComparator<Street> orderByComparator, boolean previous) {
+
+		StringBundler sb = null;
+
+		if (orderByComparator != null) {
+			sb = new StringBundler(
+				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			sb = new StringBundler(4);
+		}
+
+		sb.append(_SQL_SELECT_STREET_WHERE);
+
+		sb.append(_FINDER_COLUMN_CITYID_NAME_CITYID_2);
+
+		boolean bindName = false;
+
+		if (name.isEmpty()) {
+			sb.append(_FINDER_COLUMN_CITYID_NAME_NAME_3);
+		}
+		else {
+			bindName = true;
+
+			sb.append(_FINDER_COLUMN_CITYID_NAME_NAME_2);
+		}
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				sb.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			sb.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC);
+					}
+					else {
+						sb.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			sb.append(StreetModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = sb.toString();
+
+		Query query = session.createQuery(sql);
+
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+
+		QueryPos queryPos = QueryPos.getInstance(query);
+
+		queryPos.add(cityId);
+
+		if (bindName) {
+			queryPos.add(name);
+		}
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(street)) {
+
+				queryPos.add(orderByConditionValue);
+			}
+		}
+
+		List<Street> list = query.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the streets where cityId = &#63; and name = &#63; from the database.
+	 *
+	 * @param cityId the city ID
+	 * @param name the name
+	 */
+	@Override
+	public void removeByCityId_Name(long cityId, String name) {
+		for (Street street :
+				findByCityId_Name(
+					cityId, name, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+
+			remove(street);
+		}
+	}
+
+	/**
+	 * Returns the number of streets where cityId = &#63; and name = &#63;.
+	 *
+	 * @param cityId the city ID
+	 * @param name the name
+	 * @return the number of matching streets
+	 */
+	@Override
+	public int countByCityId_Name(long cityId, String name) {
+		name = Objects.toString(name, "");
+
+		FinderPath finderPath = _finderPathCountByCityId_Name;
+
+		Object[] finderArgs = new Object[] {cityId, name};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_COUNT_STREET_WHERE);
+
+			sb.append(_FINDER_COLUMN_CITYID_NAME_CITYID_2);
+
+			boolean bindName = false;
+
+			if (name.isEmpty()) {
+				sb.append(_FINDER_COLUMN_CITYID_NAME_NAME_3);
+			}
+			else {
+				bindName = true;
+
+				sb.append(_FINDER_COLUMN_CITYID_NAME_NAME_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(cityId);
+
+				if (bindName) {
+					queryPos.add(name);
+				}
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_CITYID_NAME_CITYID_2 =
+		"street.cityId = ? AND ";
+
+	private static final String _FINDER_COLUMN_CITYID_NAME_NAME_2 =
+		"street.name = ?";
+
+	private static final String _FINDER_COLUMN_CITYID_NAME_NAME_3 =
+		"(street.name IS NULL OR street.name = '')";
+
 	public StreetPersistenceImpl() {
 		setModelClass(Street.class);
 
@@ -1398,6 +1972,25 @@ public class StreetPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCityId",
 			new String[] {Long.class.getName()}, new String[] {"cityId"},
 			false);
+
+		_finderPathWithPaginationFindByCityId_Name = _createFinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCityId_Name",
+			new String[] {
+				Long.class.getName(), String.class.getName(),
+				Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			},
+			new String[] {"cityId", "name"}, true);
+
+		_finderPathWithoutPaginationFindByCityId_Name = _createFinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCityId_Name",
+			new String[] {Long.class.getName(), String.class.getName()},
+			new String[] {"cityId", "name"}, true);
+
+		_finderPathCountByCityId_Name = _createFinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCityId_Name",
+			new String[] {Long.class.getName(), String.class.getName()},
+			new String[] {"cityId", "name"}, false);
 
 		_setStreetUtilPersistence(this);
 	}

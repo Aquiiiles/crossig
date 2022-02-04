@@ -170,6 +170,20 @@ public interface StreetModel
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
+	 * Returns the external ID of this street.
+	 *
+	 * @return the external ID of this street
+	 */
+	public long getExternalId();
+
+	/**
+	 * Sets the external ID of this street.
+	 *
+	 * @param externalId the external ID of this street
+	 */
+	public void setExternalId(long externalId);
+
+	/**
 	 * Returns the name of this street.
 	 *
 	 * @return the name of this street

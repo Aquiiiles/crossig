@@ -74,7 +74,8 @@ public class StreetModelImpl
 		{"streetId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"name", Types.VARCHAR}, {"cityId", Types.BIGINT}
+		{"externalId", Types.BIGINT}, {"name", Types.VARCHAR},
+		{"cityId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -87,12 +88,13 @@ public class StreetModelImpl
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("externalId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("cityId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table AP_Contact_Street (streetId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,cityId LONG)";
+		"create table AP_Contact_Street (streetId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,externalId LONG,name VARCHAR(75) null,cityId LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table AP_Contact_Street";
 
@@ -270,6 +272,9 @@ public class StreetModelImpl
 		attributeGetterFunctions.put("modifiedDate", Street::getModifiedDate);
 		attributeSetterBiConsumers.put(
 			"modifiedDate", (BiConsumer<Street, Date>)Street::setModifiedDate);
+		attributeGetterFunctions.put("externalId", Street::getExternalId);
+		attributeSetterBiConsumers.put(
+			"externalId", (BiConsumer<Street, Long>)Street::setExternalId);
 		attributeGetterFunctions.put("name", Street::getName);
 		attributeSetterBiConsumers.put(
 			"name", (BiConsumer<Street, String>)Street::setName);
@@ -395,6 +400,20 @@ public class StreetModelImpl
 	}
 
 	@Override
+	public long getExternalId() {
+		return _externalId;
+	}
+
+	@Override
+	public void setExternalId(long externalId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_externalId = externalId;
+	}
+
+	@Override
 	public String getName() {
 		if (_name == null) {
 			return "";
@@ -507,6 +526,7 @@ public class StreetModelImpl
 		streetImpl.setUserName(getUserName());
 		streetImpl.setCreateDate(getCreateDate());
 		streetImpl.setModifiedDate(getModifiedDate());
+		streetImpl.setExternalId(getExternalId());
 		streetImpl.setName(getName());
 		streetImpl.setCityId(getCityId());
 
@@ -618,6 +638,8 @@ public class StreetModelImpl
 			streetCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
+		streetCacheModel.externalId = getExternalId();
+
 		streetCacheModel.name = getName();
 
 		String name = streetCacheModel.name;
@@ -723,6 +745,7 @@ public class StreetModelImpl
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
+	private long _externalId;
 	private String _name;
 	private long _cityId;
 
@@ -759,6 +782,7 @@ public class StreetModelImpl
 		_columnOriginalValues.put("userName", _userName);
 		_columnOriginalValues.put("createDate", _createDate);
 		_columnOriginalValues.put("modifiedDate", _modifiedDate);
+		_columnOriginalValues.put("externalId", _externalId);
 		_columnOriginalValues.put("name", _name);
 		_columnOriginalValues.put("cityId", _cityId);
 	}
@@ -786,9 +810,11 @@ public class StreetModelImpl
 
 		columnBitmasks.put("modifiedDate", 32L);
 
-		columnBitmasks.put("name", 64L);
+		columnBitmasks.put("externalId", 64L);
 
-		columnBitmasks.put("cityId", 128L);
+		columnBitmasks.put("name", 128L);
+
+		columnBitmasks.put("cityId", 256L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

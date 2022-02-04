@@ -61,7 +61,7 @@ public class StreetCacheModel implements CacheModel<Street>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{streetId=");
 		sb.append(streetId);
@@ -75,6 +75,8 @@ public class StreetCacheModel implements CacheModel<Street>, Externalizable {
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+		sb.append(", externalId=");
+		sb.append(externalId);
 		sb.append(", name=");
 		sb.append(name);
 		sb.append(", cityId=");
@@ -113,6 +115,8 @@ public class StreetCacheModel implements CacheModel<Street>, Externalizable {
 			streetImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
+		streetImpl.setExternalId(externalId);
+
 		if (name == null) {
 			streetImpl.setName("");
 		}
@@ -137,6 +141,8 @@ public class StreetCacheModel implements CacheModel<Street>, Externalizable {
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
+
+		externalId = objectInput.readLong();
 		name = objectInput.readUTF();
 
 		cityId = objectInput.readLong();
@@ -160,6 +166,8 @@ public class StreetCacheModel implements CacheModel<Street>, Externalizable {
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
+		objectOutput.writeLong(externalId);
+
 		if (name == null) {
 			objectOutput.writeUTF("");
 		}
@@ -176,6 +184,7 @@ public class StreetCacheModel implements CacheModel<Street>, Externalizable {
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
+	public long externalId;
 	public String name;
 	public long cityId;
 

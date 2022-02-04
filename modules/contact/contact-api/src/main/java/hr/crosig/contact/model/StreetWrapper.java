@@ -47,6 +47,7 @@ public class StreetWrapper
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("externalId", getExternalId());
 		attributes.put("name", getName());
 		attributes.put("cityId", getCityId());
 
@@ -91,6 +92,12 @@ public class StreetWrapper
 			setModifiedDate(modifiedDate);
 		}
 
+		Long externalId = (Long)attributes.get("externalId");
+
+		if (externalId != null) {
+			setExternalId(externalId);
+		}
+
 		String name = (String)attributes.get("name");
 
 		if (name != null) {
@@ -132,6 +139,16 @@ public class StreetWrapper
 	@Override
 	public Date getCreateDate() {
 		return model.getCreateDate();
+	}
+
+	/**
+	 * Returns the external ID of this street.
+	 *
+	 * @return the external ID of this street
+	 */
+	@Override
+	public long getExternalId() {
+		return model.getExternalId();
 	}
 
 	/**
@@ -237,6 +254,16 @@ public class StreetWrapper
 	@Override
 	public void setCreateDate(Date createDate) {
 		model.setCreateDate(createDate);
+	}
+
+	/**
+	 * Sets the external ID of this street.
+	 *
+	 * @param externalId the external ID of this street
+	 */
+	@Override
+	public void setExternalId(long externalId) {
+		model.setExternalId(externalId);
 	}
 
 	/**

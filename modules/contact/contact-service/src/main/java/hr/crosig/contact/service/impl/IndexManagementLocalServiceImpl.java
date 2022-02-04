@@ -57,11 +57,6 @@ public class IndexManagementLocalServiceImpl
 
 	@Override
 	public void populateAllIndices() {
-		try {
-			_cityLocalService.searchCitiesNamesByName("a", -1, -1);
-		} catch (CityException cityException) {
-			_log.error(cityException.getMessage());
-		}
 		List<CityDTO> cities = populateCities();
 
 		populateStreets(cities);
@@ -78,8 +73,7 @@ public class IndexManagementLocalServiceImpl
 
 			return cities;
 		} catch (ServiceInvocationException e) {
-			e.printStackTrace();
-			_log.error("Error trying to get cities");
+			_log.error("Error trying to get cities", e);
 			return null;
 		}
 	}
@@ -97,8 +91,7 @@ public class IndexManagementLocalServiceImpl
 
 					_log.info("Added " + streets.size() + " streets");
 				} catch (ServiceInvocationException e) {
-					e.printStackTrace();
-					_log.error("Error trying to get streets from cityId: " + city.getCityId());
+					_log.error("Error trying to get streets from cityId: " + city.getCityId(), e);
 				}
 			});
 	}
