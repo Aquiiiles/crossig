@@ -10,7 +10,7 @@ import com.liferay.portal.kernel.util.Validator;
 import hr.crosig.common.configuration.AuthType;
 import hr.crosig.common.ws.RestAPIServiceInvoker;
 import hr.crosig.common.ws.ServiceConnectionProvider;
-import hr.crosig.common.ws.ServiceProvider;
+import hr.crosig.common.ws.ServiceProviderType;
 import hr.crosig.common.ws.ServiceRegistrator;
 import hr.crosig.common.ws.exception.ServiceInvocationException;
 import hr.crosig.common.ws.oauth.OAuthToken;
@@ -29,7 +29,7 @@ import org.osgi.service.component.annotations.Reference;
 public class RestAPIServiceInvokerImpl implements RestAPIServiceInvoker {
 
 	@Override
-	public ServiceResponse get(ServiceProvider provider, String path)
+	public ServiceResponse get(ServiceProviderType provider, String path)
 		throws ServiceInvocationException {
 
 		Http.Options options = _setupServiceCall(provider, path, null);
@@ -41,7 +41,7 @@ public class RestAPIServiceInvokerImpl implements RestAPIServiceInvoker {
 
 	@Override
 	public ServiceResponse post(
-			ServiceProvider provider, String path, String payload)
+			ServiceProviderType provider, String path, String payload)
 		throws ServiceInvocationException {
 
 		Http.Options options = _setupServiceCall(provider, path, payload);
@@ -53,7 +53,7 @@ public class RestAPIServiceInvokerImpl implements RestAPIServiceInvoker {
 
 	@Override
 	public ServiceResponse put(
-			ServiceProvider provider, String path, String payload)
+			ServiceProviderType provider, String path, String payload)
 		throws ServiceInvocationException {
 
 		Http.Options options = _setupServiceCall(provider, path, payload);
@@ -121,7 +121,7 @@ public class RestAPIServiceInvokerImpl implements RestAPIServiceInvoker {
 	}
 
 	private Http.Options _setupServiceCall(
-			ServiceProvider provider, String path, String payload)
+			ServiceProviderType provider, String path, String payload)
 		throws ServiceInvocationException {
 
 		ServiceConnectionProvider connectionProvider =

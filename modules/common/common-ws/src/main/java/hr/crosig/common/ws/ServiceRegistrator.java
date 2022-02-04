@@ -8,7 +8,7 @@ import hr.crosig.common.ws.exception.ServiceInvocationException;
 public interface ServiceRegistrator {
 
     public ServiceConnectionProvider getConnectionProvider(
-            ServiceProvider serviceProvider)
+            ServiceProviderType serviceProvider)
             throws ServiceInvocationException;
 
     public void addService(ServiceConnectionProvider connectionProvider);

@@ -8,15 +8,15 @@ import hr.crosig.common.ws.response.ServiceResponse;
  */
 public interface RestAPIServiceInvoker {
 
-	public ServiceResponse get(ServiceProvider provider, String path)
+	public ServiceResponse get(ServiceProviderType provider, String path)
 		throws ServiceInvocationException;
 
 	public ServiceResponse post(
-			ServiceProvider provider, String path, String payload)
+            ServiceProviderType provider, String path, String payload)
 		throws ServiceInvocationException;
 
 	public ServiceResponse put(
-			ServiceProvider provider, String path, String payload)
+            ServiceProviderType provider, String path, String payload)
 		throws ServiceInvocationException;
 
 }

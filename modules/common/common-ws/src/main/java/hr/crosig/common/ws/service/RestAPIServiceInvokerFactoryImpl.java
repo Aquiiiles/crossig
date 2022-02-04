@@ -4,11 +4,8 @@ import com.liferay.osgi.util.ServiceTrackerFactory;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.util.StringBundler;
 import hr.crosig.common.configuration.ServiceSource;
-import hr.crosig.common.ws.RestAPIServiceInvoker;
-import hr.crosig.common.ws.RestAPIServiceInvokerFactory;
-import hr.crosig.common.ws.ServiceConnectionProvider;
-import hr.crosig.common.ws.ServiceProvider;
-import hr.crosig.common.ws.ServiceRegistrator;
+import hr.crosig.common.ws.*;
+import hr.crosig.common.ws.ServiceProviderType;
 import hr.crosig.common.ws.exception.ServiceInvocationException;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.component.annotations.Activate;
@@ -30,7 +27,7 @@ public class RestAPIServiceInvokerFactoryImpl implements RestAPIServiceInvokerFa
     }
 
     @Override
-    public RestAPIServiceInvoker getInvoker(ServiceProvider serviceProvider) throws ServiceInvocationException {
+    public RestAPIServiceInvoker getInvoker(ServiceProviderType serviceProvider) throws ServiceInvocationException {
 
         ServiceConnectionProvider connectionProvider = _serviceRegistrator.getConnectionProvider(serviceProvider);
 

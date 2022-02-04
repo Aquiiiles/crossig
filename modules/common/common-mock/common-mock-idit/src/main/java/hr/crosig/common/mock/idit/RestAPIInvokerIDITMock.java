@@ -5,7 +5,7 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 
 import hr.crosig.common.ws.RestAPIServiceInvoker;
-import hr.crosig.common.ws.ServiceProvider;
+import hr.crosig.common.ws.ServiceProviderType;
 import hr.crosig.common.ws.exception.ServiceInvocationException;
 import hr.crosig.common.ws.response.ServiceResponse;
 
@@ -25,7 +25,7 @@ import org.osgi.service.component.annotations.Component;
 public class RestAPIInvokerIDITMock implements RestAPIServiceInvoker {
 
 	@Override
-	public ServiceResponse get(ServiceProvider provider, String path)
+	public ServiceResponse get(ServiceProviderType provider, String path)
 		throws ServiceInvocationException {
 
 		try {
@@ -39,7 +39,7 @@ public class RestAPIInvokerIDITMock implements RestAPIServiceInvoker {
 
 	@Override
 	public ServiceResponse post(
-			ServiceProvider provider, String path, String payload)
+			ServiceProviderType provider, String path, String payload)
 		throws ServiceInvocationException {
 
 		return null;
@@ -47,7 +47,7 @@ public class RestAPIInvokerIDITMock implements RestAPIServiceInvoker {
 
 	@Override
 	public ServiceResponse put(
-			ServiceProvider provider, String path, String payload)
+			ServiceProviderType provider, String path, String payload)
 		throws ServiceInvocationException {
 
 		return null;
