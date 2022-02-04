@@ -3,13 +3,19 @@ import { Row, FormSection } from "../../atoms";
 import { CREATE_NEW_CONTACT } from "../../../../../../../constants/languageKeys";
 import ClayForm, { ClayInput, ClayCheckbox, ClaySelect } from "@clayui/form";
 import ClayDatePicker from "@clayui/date-picker";
-import { actionsBag } from "./slice/basicInfoSlice";
+import { actions } from "./slice/basicInfoSlice";
 import { useContactDispatch, useContactSelector } from "../../../contactStore";
 
 const BasicInfo: React.FC = () => {
   const dispatch = useContactDispatch();
-  const { type, firstName, lastName, dateOfBirth, oib, foreignerStatus } =
-    useContactSelector(state => state.basicInfo);
+  const {
+    contactType,
+    firstName,
+    lastName,
+    dateOfBirth,
+    oib,
+    foreignerStatus,
+  } = useContactSelector(state => state.basicInfo);
   const {
     setType,
     setFirstName,
@@ -17,17 +23,24 @@ const BasicInfo: React.FC = () => {
     setDateOfBirth,
     setOIB,
     toggleForeignerStatus,
-  } = actionsBag;
+  } = actions;
 
   return (
     <FormSection title={CREATE_NEW_CONTACT.BASIC_INFO_TITLE}>
       <div>
         <ClaySelect
+          value={contactType}
           onChange={({ target: { value } }) => dispatch(setType(value))}
         >
-          <option>Individual</option>
-          <option>Self-Employed</option>
-          <option>Legal Entity</option>
+          <option value={1}>
+            {CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.INDIVIDUAL}
+          </option>
+          <option value={2}>
+            {CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.SELF_EMPLOYED}
+          </option>
+          <option value={3}>
+            {CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.LEGAL_ENTITY}
+          </option>
         </ClaySelect>
       </div>
       <Row>
@@ -61,7 +74,8 @@ const BasicInfo: React.FC = () => {
           </label>
           <ClayDatePicker
             id="dateOfBirthInput"
-            placeholder=""
+            placeholder="dd/mm/yyyy"
+            dateFormat="dd/MM/yyyy"
             value={dateOfBirth}
             onValueChange={value => dispatch(setDateOfBirth(value))}
           />

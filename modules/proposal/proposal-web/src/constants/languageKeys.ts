@@ -15,6 +15,11 @@ export const CREATE_NEW_CONTACT = {
     SUBTITLE: Liferay.Language.get('create-new-contact-subtitle'),
     BASIC_INFO_TITLE: Liferay.Language.get('create-new-contact-basic-info-title'),
     FIELD: {
+        CONTACT_TYPE: {
+            INDIVIDUAL: Liferay.Language.get('create-new-contact-field-contact-type-individual'),
+            SELF_EMPLOYED: Liferay.Language.get('create-new-contact-field-contact-type-self-employed'),
+            LEGAL_ENTITY: Liferay.Language.get('create-new-contact-field-contact-type-legal-entity'),
+        },
         FIRST_NAME: Liferay.Language.get('create-new-contact-field-first-name'),
         LAST_NAME: Liferay.Language.get('create-new-contact-field-last-name'),
         BIRTH_DATE: Liferay.Language.get('create-new-contact-field-birth-date'),
