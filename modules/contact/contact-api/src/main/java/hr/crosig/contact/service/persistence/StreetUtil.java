@@ -335,6 +335,187 @@ public class StreetUtil {
 	}
 
 	/**
+	 * Returns all the streets where cityId = &#63; and name = &#63;.
+	 *
+	 * @param cityId the city ID
+	 * @param name the name
+	 * @return the matching streets
+	 */
+	public static List<Street> findByCityId_Name(long cityId, String name) {
+		return getPersistence().findByCityId_Name(cityId, name);
+	}
+
+	/**
+	 * Returns a range of all the streets where cityId = &#63; and name = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>StreetModelImpl</code>.
+	 * </p>
+	 *
+	 * @param cityId the city ID
+	 * @param name the name
+	 * @param start the lower bound of the range of streets
+	 * @param end the upper bound of the range of streets (not inclusive)
+	 * @return the range of matching streets
+	 */
+	public static List<Street> findByCityId_Name(
+		long cityId, String name, int start, int end) {
+
+		return getPersistence().findByCityId_Name(cityId, name, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the streets where cityId = &#63; and name = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>StreetModelImpl</code>.
+	 * </p>
+	 *
+	 * @param cityId the city ID
+	 * @param name the name
+	 * @param start the lower bound of the range of streets
+	 * @param end the upper bound of the range of streets (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching streets
+	 */
+	public static List<Street> findByCityId_Name(
+		long cityId, String name, int start, int end,
+		OrderByComparator<Street> orderByComparator) {
+
+		return getPersistence().findByCityId_Name(
+			cityId, name, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the streets where cityId = &#63; and name = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>StreetModelImpl</code>.
+	 * </p>
+	 *
+	 * @param cityId the city ID
+	 * @param name the name
+	 * @param start the lower bound of the range of streets
+	 * @param end the upper bound of the range of streets (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching streets
+	 */
+	public static List<Street> findByCityId_Name(
+		long cityId, String name, int start, int end,
+		OrderByComparator<Street> orderByComparator, boolean useFinderCache) {
+
+		return getPersistence().findByCityId_Name(
+			cityId, name, start, end, orderByComparator, useFinderCache);
+	}
+
+	/**
+	 * Returns the first street in the ordered set where cityId = &#63; and name = &#63;.
+	 *
+	 * @param cityId the city ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching street
+	 * @throws NoSuchStreetException if a matching street could not be found
+	 */
+	public static Street findByCityId_Name_First(
+			long cityId, String name,
+			OrderByComparator<Street> orderByComparator)
+		throws hr.crosig.contact.exception.NoSuchStreetException {
+
+		return getPersistence().findByCityId_Name_First(
+			cityId, name, orderByComparator);
+	}
+
+	/**
+	 * Returns the first street in the ordered set where cityId = &#63; and name = &#63;.
+	 *
+	 * @param cityId the city ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching street, or <code>null</code> if a matching street could not be found
+	 */
+	public static Street fetchByCityId_Name_First(
+		long cityId, String name, OrderByComparator<Street> orderByComparator) {
+
+		return getPersistence().fetchByCityId_Name_First(
+			cityId, name, orderByComparator);
+	}
+
+	/**
+	 * Returns the last street in the ordered set where cityId = &#63; and name = &#63;.
+	 *
+	 * @param cityId the city ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching street
+	 * @throws NoSuchStreetException if a matching street could not be found
+	 */
+	public static Street findByCityId_Name_Last(
+			long cityId, String name,
+			OrderByComparator<Street> orderByComparator)
+		throws hr.crosig.contact.exception.NoSuchStreetException {
+
+		return getPersistence().findByCityId_Name_Last(
+			cityId, name, orderByComparator);
+	}
+
+	/**
+	 * Returns the last street in the ordered set where cityId = &#63; and name = &#63;.
+	 *
+	 * @param cityId the city ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching street, or <code>null</code> if a matching street could not be found
+	 */
+	public static Street fetchByCityId_Name_Last(
+		long cityId, String name, OrderByComparator<Street> orderByComparator) {
+
+		return getPersistence().fetchByCityId_Name_Last(
+			cityId, name, orderByComparator);
+	}
+
+	/**
+	 * Returns the streets before and after the current street in the ordered set where cityId = &#63; and name = &#63;.
+	 *
+	 * @param streetId the primary key of the current street
+	 * @param cityId the city ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next street
+	 * @throws NoSuchStreetException if a street with the primary key could not be found
+	 */
+	public static Street[] findByCityId_Name_PrevAndNext(
+			long streetId, long cityId, String name,
+			OrderByComparator<Street> orderByComparator)
+		throws hr.crosig.contact.exception.NoSuchStreetException {
+
+		return getPersistence().findByCityId_Name_PrevAndNext(
+			streetId, cityId, name, orderByComparator);
+	}
+
+	/**
+	 * Removes all the streets where cityId = &#63; and name = &#63; from the database.
+	 *
+	 * @param cityId the city ID
+	 * @param name the name
+	 */
+	public static void removeByCityId_Name(long cityId, String name) {
+		getPersistence().removeByCityId_Name(cityId, name);
+	}
+
+	/**
+	 * Returns the number of streets where cityId = &#63; and name = &#63;.
+	 *
+	 * @param cityId the city ID
+	 * @param name the name
+	 * @return the number of matching streets
+	 */
+	public static int countByCityId_Name(long cityId, String name) {
+		return getPersistence().countByCityId_Name(cityId, name);
+	}
+
+	/**
 	 * Caches the street in the entity cache if it is enabled.
 	 *
 	 * @param street the street

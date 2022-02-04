@@ -39,6 +39,7 @@ public class StreetSoap implements Serializable {
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
+		soapModel.setExternalId(model.getExternalId());
 		soapModel.setName(model.getName());
 		soapModel.setCityId(model.getCityId());
 
@@ -141,6 +142,14 @@ public class StreetSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
+	public long getExternalId() {
+		return _externalId;
+	}
+
+	public void setExternalId(long externalId) {
+		_externalId = externalId;
+	}
+
 	public String getName() {
 		return _name;
 	}
@@ -163,6 +172,7 @@ public class StreetSoap implements Serializable {
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
+	private long _externalId;
 	private String _name;
 	private long _cityId;
 

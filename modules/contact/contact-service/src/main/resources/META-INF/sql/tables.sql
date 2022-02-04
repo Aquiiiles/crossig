@@ -18,6 +18,7 @@ create table AP_Contact_Street (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
+	externalId LONG,
 	name VARCHAR(75) null,
 	cityId LONG
 );
