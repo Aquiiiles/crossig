@@ -57,11 +57,6 @@ public class IndexManagementLocalServiceImpl
 
 	@Override
 	public void populateAllIndices() {
-		try {
-			_cityLocalService.searchCitiesNamesByName("a", -1, -1);
-		} catch (CityException cityException) {
-			_log.error(cityException.getMessage());
-		}
 		List<CityDTO> cities = populateCities();
 
 		populateStreets(cities);
