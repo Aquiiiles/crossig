@@ -62,17 +62,18 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 	public City addCity(CityDTO cityDTO) throws CityException {
 		validateCity(cityDTO.getCityId());
 
-		City city = createCity(cityDTO);
+		City city = createCity(cityDTO, PortalUtil.getDefaultCompanyId());
 
 		return cityLocalService.updateCity(city);
 	}
 
 	public void addOrUpdateCities(List<CityDTO> cities) {
+		long companyId = PortalUtil.getDefaultCompanyId();
 		cities.forEach(
 			cityDTO -> {
-				City city = createCity(cityDTO);
+				City city = createCity(cityDTO, companyId);
 
-				city.setNew(!cityExists(cityDTO.getCityId()));
+				city.setNew(true);
 
 				cityLocalService.updateCity(city);
 			});
@@ -124,14 +125,14 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		return !Objects.isNull(city);
 	}
 
-	protected City createCity(CityDTO cityDTO) {
+	protected City createCity(CityDTO cityDTO, long companyId) {
 		City city = cityLocalService.createCity(cityDTO.getCityId());
 
 		city.setName(cityDTO.getCityName());
 		city.setZipCode(cityDTO.getZipCode());
 		city.setBoxNumber(cityDTO.getBoxNumber());
 		city.setPostName(cityDTO.getPostName());
-		city.setCompanyId(PortalUtil.getDefaultCompanyId());
+		city.setCompanyId(companyId);
 
 		return city;
 	}
