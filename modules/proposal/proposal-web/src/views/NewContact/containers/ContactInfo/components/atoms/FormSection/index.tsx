@@ -3,14 +3,14 @@ import { FormGrid, SectionTitle } from "..";
 import { Wrapper } from "./style";
 
 interface props {
-  title: string;
+  title?: string;
   children: React.ReactNode;
 }
 
 const FormSection: React.FC<props> = ({ title, children }: props) => {
   return (
     <Wrapper>
-      <SectionTitle title={title} />
+      {title != null ? <SectionTitle title={title} /> : null}
       <FormGrid>{children}</FormGrid>
     </Wrapper>
   );
