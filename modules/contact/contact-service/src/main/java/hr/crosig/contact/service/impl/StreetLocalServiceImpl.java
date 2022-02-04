@@ -58,9 +58,10 @@ import org.osgi.service.component.annotations.Reference;
 public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 
 	public void addOrUpdateStreets(List<StreetDTO> streets) {
+		long companyId = PortalUtil.getDefaultCompanyId();
 		streets.forEach(
 			streetDTO -> {
-				Street street = createStreet(streetDTO);
+				Street street = createStreet(streetDTO, companyId);
 
 				street.setNew(!streetExists(streetDTO.getStreetId()));
 
@@ -71,7 +72,7 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 	public Street addStreet(StreetDTO streetDTO) throws StreetException {
 		validateStreet(streetDTO.getStreetId());
 
-		Street street = createStreet(streetDTO);
+		Street street = createStreet(streetDTO, PortalUtil.getDefaultCompanyId());
 
 		return streetLocalService.updateStreet(street);
 	}
@@ -129,13 +130,13 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 		).build();
 	}
 
-	protected Street createStreet(StreetDTO streetDTO) {
+	protected Street createStreet(StreetDTO streetDTO, long companyId) {
 		Street street = streetLocalService.createStreet(
-			streetDTO.getStreetId());
+				counterLocalService.increment(Street.class.getName()));
 
 		street.setName(streetDTO.getStreetName());
 		street.setCityId(streetDTO.getCityId());
-		street.setCompanyId(PortalUtil.getDefaultCompanyId());
+		street.setCompanyId(companyId);
 
 		return street;
 	}
