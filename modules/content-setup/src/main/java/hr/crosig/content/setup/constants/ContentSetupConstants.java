@@ -17,7 +17,7 @@ public class ContentSetupConstants {
 
 	public static final String COLUMN_1 = "column-1";
 
-	public static final String CONTACT_PORTLET_NAME = "contactweb";
+	public static final String CONTACT_PORTLET_NAME = "proposalweb";
 
 	public static final String DASHBOARD_FRIENDLY_URL = "/dashboard";
 
