@@ -6,25 +6,21 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-
 import hr.crosig.common.ws.exception.ServiceInvocationException;
 import hr.crosig.common.ws.idit.client.IDITWSClient;
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.StreetConstants;
 import hr.crosig.contact.dto.CityDTO;
 import hr.crosig.contact.dto.StreetDTO;
-import hr.crosig.contact.scheduler.enums.IndexType;
 import hr.crosig.contact.service.CityLocalService;
 import hr.crosig.contact.service.IndexManagementLocalService;
 import hr.crosig.contact.service.StreetLocalService;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Function;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
 
 /**
  * @author victor.catanante
@@ -35,25 +31,16 @@ public class IndexManagementLocalServiceImpl
 
 	@Override
 	public void clearAllIndicesCache() {
-		Arrays.stream(
-			IndexType.values()
-		).forEach(
-			indexType -> clearIndexCache(indexType.getName())
-		);
+		_cityLocalService.deleteAllCities();
+
+		_streetLocalService.deleteAllStreets();
+
+		_log.info("Cleared all cities and streets");
 	}
 
 	@Override
-	public void clearIndexCache(String index) {
-		if (index.equalsIgnoreCase(IndexType.CITY.getName())) {
-			_cityLocalService.deleteAllCities();
-
-			_log.info("Cleared all cities");
-		}
-		else if (index.equalsIgnoreCase(IndexType.STREET.getName())) {
-			_streetLocalService.deleteAllStreets();
-
-			_log.info("Cleared all streets");
-		}
+	public void clearCityByName(String cityName) {
+		_cityLocalService.deleteCityByName(cityName);
 	}
 
 	@Override

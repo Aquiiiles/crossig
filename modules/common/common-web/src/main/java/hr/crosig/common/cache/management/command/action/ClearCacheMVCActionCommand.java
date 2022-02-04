@@ -39,8 +39,10 @@ public class ClearCacheMVCActionCommand extends BaseMVCActionCommand {
 			if (ClearCacheMVCActionConstants.CLEAR_CACHE_ALL.equals(cacheName)) {
 				_indexManagementLocalService.clearAllIndicesCache();
 				_indexManagementLocalService.populateAllIndices();
-			} else {
-				_indexManagementLocalService.clearIndexCache(cacheName);
+			} else if (ClearCacheMVCActionConstants.CLEAR_CACHE_CITY.equals(cacheName)){
+				String cityName = ParamUtil.getString(actionRequest, "cityName");
+
+				_indexManagementLocalService.clearCityByName(cityName);
 			}
 		}
 		catch (Exception exception) {
