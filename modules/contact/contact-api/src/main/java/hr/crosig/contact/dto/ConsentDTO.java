@@ -1,46 +1,45 @@
 package hr.crosig.contact.dto;
 
-import java.time.LocalDateTime;
-
 /**
  * @author david.martini
  */
 public class ConsentDTO {
 
-    private String endDate;
-    private ConsentTypeDTO consentType;
-    private String startDate;
-    private String remarks;
+	public ConsentTypeDTO getConsentType() {
+		return consentType;
+	}
 
-    public String getEndDate() {
-        return endDate;
-    }
+	public String getEndDate() {
+		return endDate;
+	}
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
+	public String getRemarks() {
+		return remarks;
+	}
 
-    public ConsentTypeDTO getConsentType() {
-        return consentType;
-    }
+	public String getStartDate() {
+		return startDate;
+	}
 
-    public void setConsentType(ConsentTypeDTO consentType) {
-        this.consentType = consentType;
-    }
+	public void setConsentType(ConsentTypeDTO consentType) {
+		this.consentType = consentType;
+	}
 
-    public String getStartDate() {
-        return startDate;
-    }
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 
-    public String getRemarks() {
-        return remarks;
-    }
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
+	private ConsentTypeDTO consentType;
+	private String endDate;
+	private String remarks;
+	private String startDate;
+
 }

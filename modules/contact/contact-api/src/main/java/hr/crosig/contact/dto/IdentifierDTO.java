@@ -7,60 +7,60 @@ import java.time.LocalDateTime;
  */
 public class IdentifierDTO {
 
-    private CountryDTO country;
-    private String serialNumber;
-    private IdTypeDTO idType;
-    private String idValue;
+	public CountryDTO getCountry() {
+		return country;
+	}
 
-    //verificar se é localDateTIme ou String.
-    private LocalDateTime issueDate;
-    private String issuePlace;
+	public IdTypeDTO getIdType() {
+		return idType;
+	}
 
-    public CountryDTO getCountry() {
-        return country;
-    }
+	public String getIdValue() {
+		return idValue;
+	}
 
-    public void setCountry(CountryDTO country) {
-        this.country = country;
-    }
+	public LocalDateTime getIssueDate() {
+		return issueDate;
+	}
 
-    public String getSerialNumber() {
-        return serialNumber;
-    }
+	//verificar se é localDateTIme ou String.
+	public String getIssuePlace() {
+		return issuePlace;
+	}
 
-    public void setSerialNumber(String serialNumber) {
-        this.serialNumber = serialNumber;
-    }
+	public String getSerialNumber() {
+		return serialNumber;
+	}
 
-    public IdTypeDTO getIdType() {
-        return idType;
-    }
+	public void setCountry(CountryDTO country) {
+		this.country = country;
+	}
 
-    public void setIdType(IdTypeDTO idType) {
-        this.idType = idType;
-    }
+	public void setIdType(IdTypeDTO idType) {
+		this.idType = idType;
+	}
 
-    public String getIdValue() {
-        return idValue;
-    }
+	public void setIdValue(String idValue) {
+		this.idValue = idValue;
+	}
 
-    public void setIdValue(String idValue) {
-        this.idValue = idValue;
-    }
+	public void setIssueDate(LocalDateTime issueDate) {
+		this.issueDate = issueDate;
+	}
 
-    public LocalDateTime getIssueDate() {
-        return issueDate;
-    }
+	public void setIssuePlace(String issuePlace) {
+		this.issuePlace = issuePlace;
+	}
 
-    public void setIssueDate(LocalDateTime issueDate) {
-        this.issueDate = issueDate;
-    }
+	public void setSerialNumber(String serialNumber) {
+		this.serialNumber = serialNumber;
+	}
 
-    public String getIssuePlace() {
-        return issuePlace;
-    }
+	private CountryDTO country;
+	private IdTypeDTO idType;
+	private String idValue;
+	private LocalDateTime issueDate;
+	private String issuePlace;
+	private String serialNumber;
 
-    public void setIssuePlace(String issuePlace) {
-        this.issuePlace = issuePlace;
-    }
 }

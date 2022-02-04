@@ -1,6 +1,5 @@
 package hr.crosig.contact.dto;
 
-
 import javax.validation.constraints.Size;
 
 /**
@@ -8,32 +7,36 @@ import javax.validation.constraints.Size;
  */
 public class SubscriptionDTO {
 
-    private SubscriptionTypeDTO subscriptionType;
-    @Size(min = 1,max = 100)
-    private String brandCompanyCode;
-    private SubscriptionStatusDTO subscriptionStatus;
+	public String getBrandCompanyCode() {
+		return brandCompanyCode;
+	}
 
-    public SubscriptionTypeDTO getSubscriptionType() {
-        return subscriptionType;
-    }
+	public SubscriptionStatusDTO getSubscriptionStatus() {
+		return subscriptionStatus;
+	}
 
-    public void setSubscriptionType(SubscriptionTypeDTO subscriptionType) {
-        this.subscriptionType = subscriptionType;
-    }
+	public SubscriptionTypeDTO getSubscriptionType() {
+		return subscriptionType;
+	}
 
-    public String getBrandCompanyCode() {
-        return brandCompanyCode;
-    }
+	public void setBrandCompanyCode(String brandCompanyCode) {
+		this.brandCompanyCode = brandCompanyCode;
+	}
 
-    public void setBrandCompanyCode(String brandCompanyCode) {
-        this.brandCompanyCode = brandCompanyCode;
-    }
+	public void setSubscriptionStatus(
+		SubscriptionStatusDTO subscriptionStatus) {
 
-    public SubscriptionStatusDTO getSubscriptionStatus() {
-        return subscriptionStatus;
-    }
+		this.subscriptionStatus = subscriptionStatus;
+	}
 
-    public void setSubscriptionStatus(SubscriptionStatusDTO subscriptionStatus) {
-        this.subscriptionStatus = subscriptionStatus;
-    }
+	public void setSubscriptionType(SubscriptionTypeDTO subscriptionType) {
+		this.subscriptionType = subscriptionType;
+	}
+
+	@Size(max = 100, min = 1)
+	private String brandCompanyCode;
+
+	private SubscriptionStatusDTO subscriptionStatus;
+	private SubscriptionTypeDTO subscriptionType;
+
 }

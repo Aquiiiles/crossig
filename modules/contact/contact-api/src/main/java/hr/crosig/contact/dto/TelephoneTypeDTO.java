@@ -4,31 +4,33 @@ package hr.crosig.contact.dto;
  * @author david.martini
  */
 public class TelephoneTypeDTO {
-    private String extCode;
-    private Integer id;
-    private String desc;
 
-    public String getExtCode() {
-        return extCode;
-    }
+	public String getDesc() {
+		return desc;
+	}
 
-    public void setExtCode(String extCode) {
-        this.extCode = extCode;
-    }
+	public String getExtCode() {
+		return extCode;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
 
-    public String getDesc() {
-        return desc;
-    }
+	public void setExtCode(String extCode) {
+		this.extCode = extCode;
+	}
 
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	private String desc;
+	private String extCode;
+	private Integer id;
+
 }

@@ -7,32 +7,34 @@ import javax.validation.constraints.Pattern;
  */
 public class EmailDTO {
 
-    private EmailTypeDTO emailType;
-    private boolean isPreferredDeliveryAddress;
-    @Pattern(regexp = "/^[a-z0-9.]+@[a-z0-9]+.[a-z]+.([a-z]+)?$/i")
-    private String email;
+	public String getEmail() {
+		return email;
+	}
 
-    public EmailTypeDTO getEmailType() {
-        return emailType;
-    }
+	public EmailTypeDTO getEmailType() {
+		return emailType;
+	}
 
-    public void setEmailType(EmailTypeDTO emailType) {
-        this.emailType = emailType;
-    }
+	public boolean isPreferredDeliveryAddress() {
+		return isPreferredDeliveryAddress;
+	}
 
-    public boolean isPreferredDeliveryAddress() {
-        return isPreferredDeliveryAddress;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setPreferredDeliveryAddress(boolean preferredDeliveryAddress) {
-        isPreferredDeliveryAddress = preferredDeliveryAddress;
-    }
+	public void setEmailType(EmailTypeDTO emailType) {
+		this.emailType = emailType;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setPreferredDeliveryAddress(boolean preferredDeliveryAddress) {
+		isPreferredDeliveryAddress = preferredDeliveryAddress;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	@Pattern(regexp = "/^[a-z0-9.]+@[a-z0-9]+.[a-z]+.([a-z]+)?$/i")
+	private String email;
+
+	private EmailTypeDTO emailType;
+	private boolean isPreferredDeliveryAddress;
+
 }

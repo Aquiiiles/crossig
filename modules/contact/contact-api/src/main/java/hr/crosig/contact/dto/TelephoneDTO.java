@@ -2,62 +2,67 @@ package hr.crosig.contact.dto;
 
 import javax.validation.constraints.Pattern;
 
+/**
+ * @author david.martini
+ */
 public class TelephoneDTO {
 
+	public CountryDialCodeDTO getCountryDialCodeDTO() {
+		return countryDialCodeDTO;
+	}
 
-    @Pattern(regexp = "/^[+][(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s./0-9]$")
-    private String telephoneNumber;
-    private String telephoneExtension;
-    private TelephoneTypeDTO telephoneTypeDTO;
-    private String telephonePrefix;
-    private CountryDialCodeDTO countryDialCodeDTO;
-    private boolean isPreferredDeliveryAddress;
+	public String getTelephoneExtension() {
+		return telephoneExtension;
+	}
 
-    public String getTelephoneNumber() {
-        return telephoneNumber;
-    }
+	public String getTelephoneNumber() {
+		return telephoneNumber;
+	}
 
-    public void setTelephoneNumber(String telephoneNumber) {
-        this.telephoneNumber = telephoneNumber;
-    }
+	public String getTelephonePrefix() {
+		return telephonePrefix;
+	}
 
-    public String getTelephoneExtension() {
-        return telephoneExtension;
-    }
+	public TelephoneTypeDTO getTelephoneTypeDTO() {
+		return telephoneTypeDTO;
+	}
 
-    public void setTelephoneExtension(String telephoneExtension) {
-        this.telephoneExtension = telephoneExtension;
-    }
+	public boolean isPreferredDeliveryAddress() {
+		return isPreferredDeliveryAddress;
+	}
 
-    public TelephoneTypeDTO getTelephoneTypeDTO() {
-        return telephoneTypeDTO;
-    }
+	public void setCountryDialCodeDTO(CountryDialCodeDTO countryDialCodeDTO) {
+		this.countryDialCodeDTO = countryDialCodeDTO;
+	}
 
-    public void setTelephoneTypeDTO(TelephoneTypeDTO telephoneTypeDTO) {
-        this.telephoneTypeDTO = telephoneTypeDTO;
-    }
+	public void setPreferredDeliveryAddress(boolean preferredDeliveryAddress) {
+		isPreferredDeliveryAddress = preferredDeliveryAddress;
+	}
 
-    public String getTelephonePrefix() {
-        return telephonePrefix;
-    }
+	public void setTelephoneExtension(String telephoneExtension) {
+		this.telephoneExtension = telephoneExtension;
+	}
 
-    public void setTelephonePrefix(String telephonePrefix) {
-        this.telephonePrefix = telephonePrefix;
-    }
+	public void setTelephoneNumber(String telephoneNumber) {
+		this.telephoneNumber = telephoneNumber;
+	}
 
-    public CountryDialCodeDTO getCountryDialCodeDTO() {
-        return countryDialCodeDTO;
-    }
+	public void setTelephonePrefix(String telephonePrefix) {
+		this.telephonePrefix = telephonePrefix;
+	}
 
-    public void setCountryDialCodeDTO(CountryDialCodeDTO countryDialCodeDTO) {
-        this.countryDialCodeDTO = countryDialCodeDTO;
-    }
+	public void setTelephoneTypeDTO(TelephoneTypeDTO telephoneTypeDTO) {
+		this.telephoneTypeDTO = telephoneTypeDTO;
+	}
 
-    public boolean isPreferredDeliveryAddress() {
-        return isPreferredDeliveryAddress;
-    }
+	private CountryDialCodeDTO countryDialCodeDTO;
+	private boolean isPreferredDeliveryAddress;
+	private String telephoneExtension;
 
-    public void setPreferredDeliveryAddress(boolean preferredDeliveryAddress) {
-        isPreferredDeliveryAddress = preferredDeliveryAddress;
-    }
+	@Pattern(regexp = "/^[+][(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s./0-9]$")
+	private String telephoneNumber;
+
+	private String telephonePrefix;
+	private TelephoneTypeDTO telephoneTypeDTO;
+
 }

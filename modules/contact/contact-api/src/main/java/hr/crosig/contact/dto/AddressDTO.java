@@ -6,149 +6,153 @@ import javax.validation.constraints.Size;
  * @author david.martini
  */
 public class AddressDTO {
-    private String zipCode;
-    private ContactDTO country;
-    private String pob;
-    private String districtName;
-    private String apartmentNr;
-    private AddressTypeDTO addressType;
-    private String regionName;
-    private String entranceNr;
-    private String blockNr;
-    private String buildingName;
-    private String streetName;
-    @Size(min = 1,max = 100)
-    private String cityName;
-    private String provinceName;
-    private String houseNr;
-    private boolean isPreferredDeliveryAddress;
-    private String countyName;
 
-    public String getZipCode() {
-        return zipCode;
-    }
+	public AddressTypeDTO getAddressType() {
+		return addressType;
+	}
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
+	public String getApartmentNr() {
+		return apartmentNr;
+	}
 
-    public ContactDTO getCountry() {
-        return country;
-    }
+	public String getBlockNr() {
+		return blockNr;
+	}
 
-    public void setCountry(ContactDTO country) {
-        this.country = country;
-    }
+	public String getBuildingName() {
+		return buildingName;
+	}
 
-    public String getPob() {
-        return pob;
-    }
+	public String getCityName() {
+		return cityName;
+	}
 
-    public void setPob(String pob) {
-        this.pob = pob;
-    }
+	public ContactDTO getCountry() {
+		return country;
+	}
 
-    public String getDistrictName() {
-        return districtName;
-    }
+	public String getCountyName() {
+		return countyName;
+	}
 
-    public void setDistrictName(String districtName) {
-        this.districtName = districtName;
-    }
+	public String getDistrictName() {
+		return districtName;
+	}
 
-    public String getApartmentNr() {
-        return apartmentNr;
-    }
+	public String getEntranceNr() {
+		return entranceNr;
+	}
 
-    public void setApartmentNr(String apartmentNr) {
-        this.apartmentNr = apartmentNr;
-    }
+	public String getHouseNr() {
+		return houseNr;
+	}
 
-    public AddressTypeDTO getAddressType() {
-        return addressType;
-    }
+	public String getPob() {
+		return pob;
+	}
 
-    public void setAddressType(AddressTypeDTO addressType) {
-        this.addressType = addressType;
-    }
+	public String getProvinceName() {
+		return provinceName;
+	}
 
-    public String getRegionName() {
-        return regionName;
-    }
+	public String getRegionName() {
+		return regionName;
+	}
 
-    public void setRegionName(String regionName) {
-        this.regionName = regionName;
-    }
+	public String getStreetName() {
+		return streetName;
+	}
 
-    public String getEntranceNr() {
-        return entranceNr;
-    }
+	public String getZipCode() {
+		return zipCode;
+	}
 
-    public void setEntranceNr(String entranceNr) {
-        this.entranceNr = entranceNr;
-    }
+	public boolean isPreferredDeliveryAddress() {
+		return isPreferredDeliveryAddress;
+	}
 
-    public String getBlockNr() {
-        return blockNr;
-    }
+	public void setAddressType(AddressTypeDTO addressType) {
+		this.addressType = addressType;
+	}
 
-    public void setBlockNr(String blockNr) {
-        this.blockNr = blockNr;
-    }
+	public void setApartmentNr(String apartmentNr) {
+		this.apartmentNr = apartmentNr;
+	}
 
-    public String getBuildingName() {
-        return buildingName;
-    }
+	public void setBlockNr(String blockNr) {
+		this.blockNr = blockNr;
+	}
 
-    public void setBuildingName(String buildingName) {
-        this.buildingName = buildingName;
-    }
+	public void setBuildingName(String buildingName) {
+		this.buildingName = buildingName;
+	}
 
-    public String getStreetName() {
-        return streetName;
-    }
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
 
-    public void setStreetName(String streetName) {
-        this.streetName = streetName;
-    }
+	public void setCountry(ContactDTO country) {
+		this.country = country;
+	}
 
-    public String getCityName() {
-        return cityName;
-    }
+	public void setCountyName(String countyName) {
+		this.countyName = countyName;
+	}
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
-    }
+	public void setDistrictName(String districtName) {
+		this.districtName = districtName;
+	}
 
-    public String getProvinceName() {
-        return provinceName;
-    }
+	public void setEntranceNr(String entranceNr) {
+		this.entranceNr = entranceNr;
+	}
 
-    public void setProvinceName(String provinceName) {
-        this.provinceName = provinceName;
-    }
+	public void setHouseNr(String houseNr) {
+		this.houseNr = houseNr;
+	}
 
-    public String getHouseNr() {
-        return houseNr;
-    }
+	public void setPob(String pob) {
+		this.pob = pob;
+	}
 
-    public void setHouseNr(String houseNr) {
-        this.houseNr = houseNr;
-    }
+	public void setPreferredDeliveryAddress(boolean preferredDeliveryAddress) {
+		isPreferredDeliveryAddress = preferredDeliveryAddress;
+	}
 
-    public boolean isPreferredDeliveryAddress() {
-        return isPreferredDeliveryAddress;
-    }
+	public void setProvinceName(String provinceName) {
+		this.provinceName = provinceName;
+	}
 
-    public void setPreferredDeliveryAddress(boolean preferredDeliveryAddress) {
-        isPreferredDeliveryAddress = preferredDeliveryAddress;
-    }
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
+	}
 
-    public String getCountyName() {
-        return countyName;
-    }
+	public void setStreetName(String streetName) {
+		this.streetName = streetName;
+	}
 
-    public void setCountyName(String countyName) {
-        this.countyName = countyName;
-    }
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	private AddressTypeDTO addressType;
+	private String apartmentNr;
+	private String blockNr;
+	private String buildingName;
+
+	@Size(max = 100, min = 1)
+	private String cityName;
+
+	private ContactDTO country;
+	private String countyName;
+	private String districtName;
+	private String entranceNr;
+	private String houseNr;
+	private boolean isPreferredDeliveryAddress;
+	private String pob;
+	private String provinceName;
+	private String regionName;
+	private String streetName;
+	private String zipCode;
+
 }
