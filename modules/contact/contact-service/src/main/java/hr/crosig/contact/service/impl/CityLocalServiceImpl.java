@@ -36,12 +36,14 @@ import hr.crosig.contact.constants.CityMessages;
 import hr.crosig.contact.dto.CityDTO;
 import hr.crosig.contact.exception.CityException;
 import hr.crosig.contact.model.City;
+import hr.crosig.contact.model.impl.CityModelImpl;
 import hr.crosig.contact.service.base.CityLocalServiceBaseImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import hr.crosig.contact.util.BulkHelper;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -74,9 +76,7 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 	}
 
 	public void deleteAllCities() {
-		List<City> cities = cityLocalService.getCities(-1, -1);
-
-		cities.forEach(city -> cityLocalService.deleteCity(city));
+		BulkHelper.bulkDeleteAll(cityPersistence.getCurrentSession(), CityModelImpl.TABLE_NAME);
 	}
 
 	public List<String> searchCitiesNamesByName(

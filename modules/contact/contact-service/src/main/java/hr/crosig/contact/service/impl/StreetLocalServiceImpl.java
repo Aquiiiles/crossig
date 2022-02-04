@@ -37,12 +37,14 @@ import hr.crosig.contact.constants.StreetMessages;
 import hr.crosig.contact.dto.StreetDTO;
 import hr.crosig.contact.exception.StreetException;
 import hr.crosig.contact.model.Street;
+import hr.crosig.contact.model.impl.StreetModelImpl;
 import hr.crosig.contact.service.base.StreetLocalServiceBaseImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import hr.crosig.contact.util.BulkHelper;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -75,9 +77,7 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 	}
 
 	public void deleteAllStreets() {
-		List<Street> streets = streetLocalService.getStreets(-1, -1);
-
-		streets.forEach(street -> streetLocalService.deleteStreet(street));
+		BulkHelper.bulkDeleteAll(streetPersistence.getCurrentSession(), StreetModelImpl.TABLE_NAME);
 	}
 
 	public List<String> searchStreetsNamesByNameAndCityId(
