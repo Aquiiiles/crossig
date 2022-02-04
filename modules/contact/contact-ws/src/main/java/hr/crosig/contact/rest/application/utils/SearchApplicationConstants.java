@@ -5,5 +5,7 @@ package hr.crosig.contact.rest.application.utils;
  */
 public class SearchApplicationConstants {
 
-    public static final String MOCK_SEARCH_API_URL = "https://demo3197060.mockable.io/api/search";
+	public static final String MOCK_SEARCH_API_URL =
+		"https://demo3197060.mockable.io/api/search";
+
 }

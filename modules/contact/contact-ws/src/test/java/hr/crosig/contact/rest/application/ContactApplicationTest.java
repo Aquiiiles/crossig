@@ -1,212 +1,356 @@
 package hr.crosig.contact.rest.application;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+
 import hr.crosig.common.ws.exception.ServiceInvocationException;
 import hr.crosig.common.ws.idit.client.IDITWSClient;
 import hr.crosig.common.ws.response.ServiceResponse;
 import hr.crosig.contact.rest.application.utils.ApplicationUtilities;
 import hr.crosig.contact.rest.application.utils.TestConstants;
+
+import javax.ws.rs.core.Response;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.mockito.Mock;
 import org.mockito.Mockito;
+
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
-
-import javax.ws.rs.core.Response;
 
 /**
  * @author marcelo.mazurky
  */
 @PrepareForTest(
-        fullyQualifiedNames = "hr/crosig/contact/rest/application/ContactApplication"
+	fullyQualifiedNames = "hr/crosig/contact/rest/application/ContactApplication"
 )
 @RunWith(PowerMockRunner.class)
 public class ContactApplicationTest {
 
-    @Before
-    public void setUp() {
-        _injectMocks();
-    }
+	@Test
+	public void createContact_ApiError()
+		throws JsonProcessingException, ServiceInvocationException {
 
-    private void _injectMocks() {
-        Whitebox.setInternalState(_contactApplication, "_iditwsClient", _iditwsClient);
-    }
+		_mockApiError();
 
-    private void _mockApiSuccess() throws ServiceInvocationException, JsonProcessingException {
-        ServiceResponse serviceResponseSuccess = new ServiceResponse(TestConstants.API_SUCCESS_STATUS_CODE, TestConstants.API_SUCCESS_STATUS_CONTENT);
+		Response response = _contactApplication.createContact(
+			TestConstants.VALID_CONTACT_REQUEST);
+		Response expectedResponse = ApplicationUtilities.handleErrorResponse(
+			TestConstants.API_ERROR_STATUS_CODE,
+			TestConstants.API_ERROR_STATUS_CONTENT);
 
-        String validContactRequest = ApplicationUtilities.createEntityJsonString(TestConstants.VALID_CONTACT_REQUEST);
-        Mockito.when(_iditwsClient.createContact(validContactRequest)).thenReturn(serviceResponseSuccess);
-        Mockito.when(_iditwsClient.updateContact(validContactRequest)).thenReturn(serviceResponseSuccess);
+		Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
+		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
+	}
 
-        String validEmailRequest = ApplicationUtilities.createEntityJsonString(TestConstants.VALID_EMAIL_REQUEST);
-        Mockito.when(_iditwsClient.validateEmail(validEmailRequest)).thenReturn(serviceResponseSuccess);
+	@Test
+	public void createContact_ApiException()
+		throws JsonProcessingException, ServiceInvocationException {
 
-        String validPhoneNumberRequest = ApplicationUtilities.createEntityJsonString(TestConstants.VALID_PHONE_NUMBER_REQUEST);
-        Mockito.when(_iditwsClient.validatePhone(validPhoneNumberRequest)).thenReturn(serviceResponseSuccess);
-    }
-    private void _mockApiError() throws ServiceInvocationException, JsonProcessingException {
-        ServiceResponse serviceResponseError = new ServiceResponse(TestConstants.API_ERROR_STATUS_CODE, TestConstants.API_ERROR_STATUS_CONTENT);
+		_mockApiException();
 
-        String validContactRequest = ApplicationUtilities.createEntityJsonString(TestConstants.VALID_CONTACT_REQUEST);
-        Mockito.when(_iditwsClient.createContact(validContactRequest)).thenReturn(serviceResponseError);
-        Mockito.when(_iditwsClient.updateContact(validContactRequest)).thenReturn(serviceResponseError);
+		Response response = _contactApplication.createContact(
+			TestConstants.VALID_CONTACT_REQUEST);
+		Response expectedResponse = ApplicationUtilities.handleErrorResponse(
+			TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
 
-        String validEmailRequest = ApplicationUtilities.createEntityJsonString(TestConstants.VALID_EMAIL_REQUEST);
-        Mockito.when(_iditwsClient.validateEmail(validEmailRequest)).thenReturn(serviceResponseError);
+		Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
+		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
+	}
 
-        String validPhoneNumberRequest = ApplicationUtilities.createEntityJsonString(TestConstants.VALID_PHONE_NUMBER_REQUEST);
-        Mockito.when(_iditwsClient.validatePhone(validPhoneNumberRequest)).thenReturn(serviceResponseError);
-    }
-    private void _mockApiException() throws ServiceInvocationException, JsonProcessingException {
-        String validContactRequest = ApplicationUtilities.createEntityJsonString(TestConstants.VALID_CONTACT_REQUEST);
-        Mockito.when(_iditwsClient.createContact(validContactRequest)).thenThrow(TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
-        Mockito.when(_iditwsClient.updateContact(validContactRequest)).thenThrow(TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
+	@Test
+	public void createContact_ApiSuccess()
+		throws JsonProcessingException, ServiceInvocationException {
 
-        String validEmailRequest = ApplicationUtilities.createEntityJsonString(TestConstants.VALID_EMAIL_REQUEST);
-        Mockito.when(_iditwsClient.validateEmail(validEmailRequest)).thenThrow(TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
+		_mockApiSuccess();
 
-        String validPhoneNumberRequest = ApplicationUtilities.createEntityJsonString(TestConstants.VALID_PHONE_NUMBER_REQUEST);
-        Mockito.when(_iditwsClient.validatePhone(validPhoneNumberRequest)).thenThrow(TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
-    }
+		Response response = _contactApplication.createContact(
+			TestConstants.VALID_CONTACT_REQUEST);
+		Response expectedResponse = ApplicationUtilities.handleSuccessResponse(
+			TestConstants.API_SUCCESS_STATUS_CONTENT);
 
-    @Test
-    public void createContact_ApiSuccess() throws ServiceInvocationException, JsonProcessingException {
-        _mockApiSuccess();
+		Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
+		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
+	}
 
-        Response response = _contactApplication.createContact(TestConstants.VALID_CONTACT_REQUEST);
-        Response expectedResponse = ApplicationUtilities.handleSuccessResponse(TestConstants.API_SUCCESS_STATUS_CONTENT);
+	@Before
+	public void setUp() {
+		_injectMocks();
+	}
 
-        Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
-        Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
-    }
+	@Test
+	public void updateContact_ApiError()
+		throws JsonProcessingException, ServiceInvocationException {
 
-    @Test
-    public void createContact_ApiError() throws ServiceInvocationException, JsonProcessingException {
-        _mockApiError();
+		_mockApiError();
 
-        Response response = _contactApplication.createContact(TestConstants.VALID_CONTACT_REQUEST);
-        Response expectedResponse = ApplicationUtilities.handleErrorResponse(TestConstants.API_ERROR_STATUS_CODE, TestConstants.API_ERROR_STATUS_CONTENT);
+		Response response = _contactApplication.updateContact(
+			TestConstants.VALID_CONTACT_REQUEST);
+		Response expectedResponse = ApplicationUtilities.handleErrorResponse(
+			TestConstants.API_ERROR_STATUS_CODE,
+			TestConstants.API_ERROR_STATUS_CONTENT);
 
-        Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
-        Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
-    }
+		Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
+		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
+	}
 
-    @Test
-    public void createContact_ApiException() throws ServiceInvocationException, JsonProcessingException {
-        _mockApiException();
+	@Test
+	public void updateContact_ApiException()
+		throws JsonProcessingException, ServiceInvocationException {
 
-        Response response = _contactApplication.createContact(TestConstants.VALID_CONTACT_REQUEST);
-        Response expectedResponse = ApplicationUtilities.handleErrorResponse(TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
+		_mockApiException();
 
-        Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
-        Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
-    }
+		Response response = _contactApplication.updateContact(
+			TestConstants.VALID_CONTACT_REQUEST);
+		Response expectedResponse = ApplicationUtilities.handleErrorResponse(
+			TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
 
-    @Test
-    public void updateContact_ApiSuccess() throws ServiceInvocationException, JsonProcessingException {
-        _mockApiSuccess();
+		Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
+		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
+	}
 
-        Response response = _contactApplication.updateContact(TestConstants.VALID_CONTACT_REQUEST);
-        Response expectedResponse = ApplicationUtilities.handleSuccessResponse(TestConstants.API_SUCCESS_STATUS_CONTENT);
+	@Test
+	public void updateContact_ApiSuccess()
+		throws JsonProcessingException, ServiceInvocationException {
 
-        Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
-        Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
-    }
+		_mockApiSuccess();
 
-    @Test
-    public void updateContact_ApiError() throws ServiceInvocationException, JsonProcessingException {
-        _mockApiError();
+		Response response = _contactApplication.updateContact(
+			TestConstants.VALID_CONTACT_REQUEST);
+		Response expectedResponse = ApplicationUtilities.handleSuccessResponse(
+			TestConstants.API_SUCCESS_STATUS_CONTENT);
 
-        Response response = _contactApplication.updateContact(TestConstants.VALID_CONTACT_REQUEST);
-        Response expectedResponse = ApplicationUtilities.handleErrorResponse(TestConstants.API_ERROR_STATUS_CODE, TestConstants.API_ERROR_STATUS_CONTENT);
+		Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
+		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
+	}
 
-        Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
-        Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
-    }
+	@Test
+	public void validateEmail_ApiError()
+		throws JsonProcessingException, ServiceInvocationException {
 
-    @Test
-    public void updateContact_ApiException() throws ServiceInvocationException, JsonProcessingException {
-        _mockApiException();
+		_mockApiError();
 
-        Response response = _contactApplication.updateContact(TestConstants.VALID_CONTACT_REQUEST);
-        Response expectedResponse = ApplicationUtilities.handleErrorResponse(TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
+		Response response = _contactApplication.validateEmail(
+			TestConstants.VALID_EMAIL_REQUEST);
+		Response expectedResponse = ApplicationUtilities.handleErrorResponse(
+			TestConstants.API_ERROR_STATUS_CODE,
+			TestConstants.API_ERROR_STATUS_CONTENT);
 
-        Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
-        Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
-    }
+		Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
+		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
+	}
 
-    @Test
-    public void validateEmail_ApiSuccess() throws ServiceInvocationException, JsonProcessingException {
-        _mockApiSuccess();
+	@Test
+	public void validateEmail_ApiException()
+		throws JsonProcessingException, ServiceInvocationException {
 
-        Response response = _contactApplication.validateEmail(TestConstants.VALID_EMAIL_REQUEST);
-        Response expectedResponse = ApplicationUtilities.handleSuccessResponse(TestConstants.API_SUCCESS_STATUS_CONTENT);
+		_mockApiException();
 
-        Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
-        Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
-    }
+		Response response = _contactApplication.validateEmail(
+			TestConstants.VALID_EMAIL_REQUEST);
+		Response expectedResponse = ApplicationUtilities.handleErrorResponse(
+			TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
 
-    @Test
-    public void validateEmail_ApiError() throws ServiceInvocationException, JsonProcessingException {
-        _mockApiError();
+		Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
+		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
+	}
 
-        Response response = _contactApplication.validateEmail(TestConstants.VALID_EMAIL_REQUEST);
-        Response expectedResponse = ApplicationUtilities.handleErrorResponse(TestConstants.API_ERROR_STATUS_CODE, TestConstants.API_ERROR_STATUS_CONTENT);
+	@Test
+	public void validateEmail_ApiSuccess()
+		throws JsonProcessingException, ServiceInvocationException {
 
-        Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
-        Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
-    }
+		_mockApiSuccess();
 
-    @Test
-    public void validateEmail_ApiException() throws ServiceInvocationException, JsonProcessingException {
-        _mockApiException();
+		Response response = _contactApplication.validateEmail(
+			TestConstants.VALID_EMAIL_REQUEST);
+		Response expectedResponse = ApplicationUtilities.handleSuccessResponse(
+			TestConstants.API_SUCCESS_STATUS_CONTENT);
 
-        Response response = _contactApplication.validateEmail(TestConstants.VALID_EMAIL_REQUEST);
-        Response expectedResponse = ApplicationUtilities.handleErrorResponse(TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
+		Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
+		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
+	}
 
-        Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
-        Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
-    }
+	@Test
+	public void validatePhoneNumber_ApiError()
+		throws JsonProcessingException, ServiceInvocationException {
 
-    @Test
-    public void validatePhoneNumber_ApiSuccess() throws ServiceInvocationException, JsonProcessingException {
-        _mockApiSuccess();
+		_mockApiError();
 
-        Response response = _contactApplication.validatePhoneNumber(TestConstants.VALID_PHONE_NUMBER_REQUEST);
-        Response expectedResponse = ApplicationUtilities.handleSuccessResponse(TestConstants.API_SUCCESS_STATUS_CONTENT);
+		Response response = _contactApplication.validatePhoneNumber(
+			TestConstants.VALID_PHONE_NUMBER_REQUEST);
+		Response expectedResponse = ApplicationUtilities.handleErrorResponse(
+			TestConstants.API_ERROR_STATUS_CODE,
+			TestConstants.API_ERROR_STATUS_CONTENT);
 
-        Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
-        Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
-    }
+		Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
+		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
+	}
 
-    @Test
-    public void validatePhoneNumber_ApiError() throws ServiceInvocationException, JsonProcessingException {
-        _mockApiError();
+	@Test
+	public void validatePhoneNumber_ApiException()
+		throws JsonProcessingException, ServiceInvocationException {
 
-        Response response = _contactApplication.validatePhoneNumber(TestConstants.VALID_PHONE_NUMBER_REQUEST);
-        Response expectedResponse = ApplicationUtilities.handleErrorResponse(TestConstants.API_ERROR_STATUS_CODE, TestConstants.API_ERROR_STATUS_CONTENT);
+		_mockApiException();
 
-        Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
-        Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
-    }
+		Response response = _contactApplication.validatePhoneNumber(
+			TestConstants.VALID_PHONE_NUMBER_REQUEST);
+		Response expectedResponse = ApplicationUtilities.handleErrorResponse(
+			TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
 
-    @Test
-    public void validatePhoneNumber_ApiException() throws ServiceInvocationException, JsonProcessingException {
-        _mockApiException();
+		Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
+		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
+	}
 
-        Response response = _contactApplication.validatePhoneNumber(TestConstants.VALID_PHONE_NUMBER_REQUEST);
-        Response expectedResponse = ApplicationUtilities.handleErrorResponse(TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
+	@Test
+	public void validatePhoneNumber_ApiSuccess()
+		throws JsonProcessingException, ServiceInvocationException {
 
-        Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
-        Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
-    }
+		_mockApiSuccess();
 
-    private final ContactApplication _contactApplication = new ContactApplication();
-    @Mock
-    private IDITWSClient _iditwsClient;
+		Response response = _contactApplication.validatePhoneNumber(
+			TestConstants.VALID_PHONE_NUMBER_REQUEST);
+		Response expectedResponse = ApplicationUtilities.handleSuccessResponse(
+			TestConstants.API_SUCCESS_STATUS_CONTENT);
+
+		Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
+		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
+	}
+
+	private void _injectMocks() {
+		Whitebox.setInternalState(
+			_contactApplication, "_iditwsClient", _iditwsClient);
+	}
+
+	private void _mockApiError()
+		throws JsonProcessingException, ServiceInvocationException {
+
+		ServiceResponse serviceResponseError = new ServiceResponse(
+			TestConstants.API_ERROR_STATUS_CODE,
+			TestConstants.API_ERROR_STATUS_CONTENT);
+
+		String validContactRequest =
+			ApplicationUtilities.createEntityJsonString(
+				TestConstants.VALID_CONTACT_REQUEST);
+
+		Mockito.when(
+			_iditwsClient.createContact(validContactRequest)
+		).thenReturn(
+			serviceResponseError
+		);
+		Mockito.when(
+			_iditwsClient.updateContact(validContactRequest)
+		).thenReturn(
+			serviceResponseError
+		);
+
+		String validEmailRequest = ApplicationUtilities.createEntityJsonString(
+			TestConstants.VALID_EMAIL_REQUEST);
+
+		Mockito.when(
+			_iditwsClient.validateEmail(validEmailRequest)
+		).thenReturn(
+			serviceResponseError
+		);
+
+		String validPhoneNumberRequest =
+			ApplicationUtilities.createEntityJsonString(
+				TestConstants.VALID_PHONE_NUMBER_REQUEST);
+
+		Mockito.when(
+			_iditwsClient.validatePhone(validPhoneNumberRequest)
+		).thenReturn(
+			serviceResponseError
+		);
+	}
+
+	private void _mockApiException()
+		throws JsonProcessingException, ServiceInvocationException {
+
+		String validContactRequest =
+			ApplicationUtilities.createEntityJsonString(
+				TestConstants.VALID_CONTACT_REQUEST);
+
+		Mockito.when(
+			_iditwsClient.createContact(validContactRequest)
+		).thenThrow(
+			TestConstants.API_SERVICE_INVOCATION_EXCEPTION
+		);
+		Mockito.when(
+			_iditwsClient.updateContact(validContactRequest)
+		).thenThrow(
+			TestConstants.API_SERVICE_INVOCATION_EXCEPTION
+		);
+
+		String validEmailRequest = ApplicationUtilities.createEntityJsonString(
+			TestConstants.VALID_EMAIL_REQUEST);
+
+		Mockito.when(
+			_iditwsClient.validateEmail(validEmailRequest)
+		).thenThrow(
+			TestConstants.API_SERVICE_INVOCATION_EXCEPTION
+		);
+
+		String validPhoneNumberRequest =
+			ApplicationUtilities.createEntityJsonString(
+				TestConstants.VALID_PHONE_NUMBER_REQUEST);
+
+		Mockito.when(
+			_iditwsClient.validatePhone(validPhoneNumberRequest)
+		).thenThrow(
+			TestConstants.API_SERVICE_INVOCATION_EXCEPTION
+		);
+	}
+
+	private void _mockApiSuccess()
+		throws JsonProcessingException, ServiceInvocationException {
+
+		ServiceResponse serviceResponseSuccess = new ServiceResponse(
+			TestConstants.API_SUCCESS_STATUS_CODE,
+			TestConstants.API_SUCCESS_STATUS_CONTENT);
+
+		String validContactRequest =
+			ApplicationUtilities.createEntityJsonString(
+				TestConstants.VALID_CONTACT_REQUEST);
+
+		Mockito.when(
+			_iditwsClient.createContact(validContactRequest)
+		).thenReturn(
+			serviceResponseSuccess
+		);
+		Mockito.when(
+			_iditwsClient.updateContact(validContactRequest)
+		).thenReturn(
+			serviceResponseSuccess
+		);
+
+		String validEmailRequest = ApplicationUtilities.createEntityJsonString(
+			TestConstants.VALID_EMAIL_REQUEST);
+
+		Mockito.when(
+			_iditwsClient.validateEmail(validEmailRequest)
+		).thenReturn(
+			serviceResponseSuccess
+		);
+
+		String validPhoneNumberRequest =
+			ApplicationUtilities.createEntityJsonString(
+				TestConstants.VALID_PHONE_NUMBER_REQUEST);
+
+		Mockito.when(
+			_iditwsClient.validatePhone(validPhoneNumberRequest)
+		).thenReturn(
+			serviceResponseSuccess
+		);
+	}
+
+	private final ContactApplication _contactApplication =
+		new ContactApplication();
+
+	@Mock
+	private IDITWSClient _iditwsClient;
+
 }
