@@ -2,7 +2,7 @@ package hr.crosig.contact.rest.application;
 
 import hr.crosig.common.ws.idit.client.IDITWSClient;
 import hr.crosig.common.ws.response.ServiceResponse;
-import hr.crosig.contact.rest.application.dto.SearchDTO;
+import hr.crosig.contact.dto.SearchDTO;
 import hr.crosig.contact.rest.application.utils.ApplicationUtilities;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;

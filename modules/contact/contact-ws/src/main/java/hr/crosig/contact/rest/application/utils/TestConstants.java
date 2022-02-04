@@ -4,7 +4,7 @@ import hr.crosig.common.ws.exception.ServiceInvocationException;
 import hr.crosig.contact.dto.ContactDTO;
 import hr.crosig.contact.dto.EmailDTO;
 import hr.crosig.contact.dto.PhoneNumberDTO;
-import hr.crosig.contact.rest.application.dto.SearchDTO;
+import hr.crosig.contact.dto.SearchDTO;
 
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
