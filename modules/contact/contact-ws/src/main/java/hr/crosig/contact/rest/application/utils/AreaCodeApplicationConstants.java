@@ -6,6 +6,6 @@ package hr.crosig.contact.rest.application.utils;
 public class AreaCodeApplicationConstants {
 
 	public static final String MOCK_PHONES_AREA_CODE_API_URL =
-		"https://demo3197060.mockable.io/phones-mock/area-code";
+		"https://demo3197060.mockable.io/api/area-code";
 
 }

@@ -1,29 +1,27 @@
 package hr.crosig.contact.rest.application;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.json.JsonReadFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import hr.crosig.common.ws.idit.client.IDITWSClient;
+import hr.crosig.common.ws.response.ServiceResponse;
 import hr.crosig.contact.dto.ContactDTO;
 import hr.crosig.contact.dto.EmailDTO;
 import hr.crosig.contact.dto.PhoneNumberDTO;
 import hr.crosig.contact.rest.application.utils.ApplicationUtilities;
-import hr.crosig.contact.rest.application.utils.ContactApplicationConstants;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
-import javax.ws.rs.GET;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
 /**
  * @author victor.catanante
@@ -45,19 +43,16 @@ public class ContactApplication extends Application {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createContact(ContactDTO contactDTO) {
 		try {
-			String entityJson = createEntityJsonString(contactDTO);
+			String entityJSON = ApplicationUtilities.createEntityJsonString(
+				contactDTO);
 
-			return ApplicationUtilities.getDefaultHttpClient(
-			).target(
-				"http://demo8853560.mockable.io/"
-			).request(
-			).post(
-				Entity.json(entityJson)
-			);
+			ServiceResponse serviceResponse = _iditwsClient.createContact(
+				entityJSON);
+
+			return ApplicationUtilities.handleServiceResponse(serviceResponse);
 		}
 		catch (Exception exception) {
-			return Response.serverError(
-			).build();
+			return ApplicationUtilities.handleErrorResponse(exception);
 		}
 	}
 
@@ -65,49 +60,21 @@ public class ContactApplication extends Application {
 		return Collections.singleton(this);
 	}
 
-	@GET
-	@Path("/search")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response search(
-		@QueryParam("nameOrOIB") String nameOrOIB,
-		@QueryParam("city") String city,
-		@QueryParam("streetAddress") String streetAddress,
-		@QueryParam("phoneCountryCode") String phoneCountryCode,
-		@QueryParam("phoneAreaCode") String phoneAreaCode,
-		@QueryParam("phoneNumber") String phoneNumber,
-		@QueryParam("email") String email) {
-
-		try {
-			return ApplicationUtilities.getDefaultHttpClient(
-			).target(
-				ContactApplicationConstants.MOCK_CONTACTS_API_URL
-			).request(
-			).get();
-		}
-		catch (Exception exception) {
-			return Response.serverError(
-			).build();
-		}
-	}
-
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	@PUT
 	public Response updateContact(ContactDTO contactDTO) {
 		try {
-			String entityJson = createEntityJsonString(contactDTO);
+			String entityJSON = ApplicationUtilities.createEntityJsonString(
+				contactDTO);
 
-			return ApplicationUtilities.getDefaultHttpClient(
-			).target(
-				"http://demo8853560.mockable.io/"
-			).request(
-			).put(
-				Entity.json(entityJson)
-			);
+			ServiceResponse serviceResponse = _iditwsClient.updateContact(
+				entityJSON);
+
+			return ApplicationUtilities.handleServiceResponse(serviceResponse);
 		}
 		catch (Exception exception) {
-			return Response.serverError(
-			).build();
+			return ApplicationUtilities.handleErrorResponse(exception);
 		}
 	}
 
@@ -116,19 +83,16 @@ public class ContactApplication extends Application {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response validateEmail(List<EmailDTO> emails) {
 		try {
-			String entityJson = createEntityJsonString(emails);
+			String entityJSON = ApplicationUtilities.createEntityJsonString(
+				emails);
 
-			return ApplicationUtilities.getDefaultHttpClient(
-			).target(
-				ContactApplicationConstants.MOCK_CONTACTS_EMAIL_VERIFICATION
-			).request(
-			).post(
-				Entity.json(entityJson)
-			);
+			ServiceResponse serviceResponse = _iditwsClient.validateEmail(
+				entityJSON);
+
+			return ApplicationUtilities.handleServiceResponse(serviceResponse);
 		}
 		catch (Exception exception) {
-			return Response.serverError(
-			).build();
+			return ApplicationUtilities.handleErrorResponse(exception);
 		}
 	}
 
@@ -137,38 +101,20 @@ public class ContactApplication extends Application {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response validatePhoneNumber(List<PhoneNumberDTO> phoneNumberDTOS) {
 		try {
-			String entityJson = createEntityJsonString(phoneNumberDTOS);
+			String entityJSON = ApplicationUtilities.createEntityJsonString(
+				phoneNumberDTOS);
 
-			return ApplicationUtilities.getDefaultHttpClient(
-			).target(
-				ContactApplicationConstants.MOCK_CONTACTS_PHONE_VERIFICATION
-			).request(
-			).post(
-				Entity.json(entityJson)
-			);
+			ServiceResponse serviceResponse = _iditwsClient.validatePhone(
+				entityJSON);
+
+			return ApplicationUtilities.handleServiceResponse(serviceResponse);
 		}
 		catch (Exception exception) {
-			return Response.serverError(
-			).build();
+			return ApplicationUtilities.handleErrorResponse(exception);
 		}
 	}
 
-	protected ObjectMapper configureMapper() {
-		ObjectMapper mapper = new ObjectMapper();
-
-		mapper.configure(
-			JsonReadFeature.ALLOW_UNESCAPED_CONTROL_CHARS.mappedFeature(),
-			true);
-
-		return mapper;
-	}
-
-	protected String createEntityJsonString(Object entity)
-		throws JsonProcessingException {
-
-		ObjectMapper mapper = configureMapper();
-
-		return mapper.writeValueAsString(entity);
-	}
+	@Reference
+	private IDITWSClient _iditwsClient;
 
 }

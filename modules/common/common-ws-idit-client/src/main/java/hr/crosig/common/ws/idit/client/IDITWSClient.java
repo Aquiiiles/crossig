@@ -8,7 +8,8 @@ import hr.crosig.common.ws.response.ServiceResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import java.util.Map;
+import javax.ws.rs.HEAD;
+
 
 /**
  * @author Leonardo Miyagi
@@ -16,37 +17,90 @@ import java.util.Map;
 @Component(immediate = true, service = IDITWSClient.class)
 public class IDITWSClient {
 
-	public String searchContact(Map<String, String> parameters)
-		throws ServiceInvocationException {
+	public ServiceResponse getAreaCodes()
+			throws ServiceInvocationException {
 
 		RestAPIServiceInvoker invoker = _restAPIServiceInvokerFactory.getInvoker(ServiceProviderType.IDIT);
 
 		ServiceResponse serviceResponse = invoker.get(
-			ServiceProviderType.IDIT, "/contact");
+				ServiceProviderType.IDIT, "/area-code");
 
-		return serviceResponse.getContent();
+		return serviceResponse;
 	}
 
-	public String getCities() throws ServiceInvocationException {
+	public ServiceResponse getCities() throws ServiceInvocationException {
 
 		RestAPIServiceInvoker invoker = _restAPIServiceInvokerFactory.getInvoker(ServiceProviderType.IDIT);
 
 		ServiceResponse serviceResponse = invoker.get(
 				ServiceProviderType.IDIT, "/cities");
 
-		return serviceResponse.getContent();
+		return serviceResponse;
 	}
 
-	public String getStreetsByCityId(long cityId) throws ServiceInvocationException {
+	public ServiceResponse getStreetsByCityId(long cityId) throws ServiceInvocationException {
 
 		RestAPIServiceInvoker invoker = _restAPIServiceInvokerFactory.getInvoker(ServiceProviderType.IDIT);
 
 		ServiceResponse serviceResponse = invoker.get(
 				ServiceProviderType.IDIT, "/streets");
 
+		return serviceResponse;
+	}
 
+	public ServiceResponse search(String jsonRequest)
+			throws ServiceInvocationException {
 
-		return serviceResponse.getContent();
+		RestAPIServiceInvoker invoker = _restAPIServiceInvokerFactory.getInvoker(ServiceProviderType.IDIT);
+
+		ServiceResponse serviceResponse = invoker.post(
+				ServiceProviderType.IDIT, "/search", jsonRequest);
+
+		return serviceResponse;
+	}
+
+	public ServiceResponse createContact(String jsonRequest)
+			throws ServiceInvocationException {
+
+		RestAPIServiceInvoker invoker = _restAPIServiceInvokerFactory.getInvoker(ServiceProviderType.IDIT);
+
+		ServiceResponse serviceResponse = invoker.post(
+				ServiceProviderType.IDIT, "/contact", jsonRequest);
+
+		return serviceResponse;
+	}
+
+	public ServiceResponse updateContact(String jsonRequest)
+			throws ServiceInvocationException {
+
+		RestAPIServiceInvoker invoker = _restAPIServiceInvokerFactory.getInvoker(ServiceProviderType.IDIT);
+
+		ServiceResponse serviceResponse = invoker.put(
+				ServiceProviderType.IDIT, "/contact", jsonRequest);
+
+		return serviceResponse;
+	}
+
+	public ServiceResponse validateEmail(String jsonRequest)
+			throws ServiceInvocationException {
+
+		RestAPIServiceInvoker invoker = _restAPIServiceInvokerFactory.getInvoker(ServiceProviderType.IDIT);
+
+		ServiceResponse serviceResponse = invoker.post(
+				ServiceProviderType.IDIT, "/customer/v3/ifs/confirm/email", jsonRequest);
+
+		return serviceResponse;
+	}
+
+	public ServiceResponse validatePhone(String jsonRequest)
+			throws ServiceInvocationException {
+
+		RestAPIServiceInvoker invoker = _restAPIServiceInvokerFactory.getInvoker(ServiceProviderType.IDIT);
+
+		ServiceResponse serviceResponse = invoker.post(
+				ServiceProviderType.IDIT, "/customer/v3/ifs/confirm/mobilePhones", jsonRequest);
+
+		return serviceResponse;
 	}
 
 	@Reference

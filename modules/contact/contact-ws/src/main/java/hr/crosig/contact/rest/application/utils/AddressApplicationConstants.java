@@ -6,9 +6,9 @@ package hr.crosig.contact.rest.application.utils;
 public class AddressApplicationConstants {
 
 	public static final String MOCK_CITIES_ALL_API_URL =
-		"https://demo3197060.mockable.io/cities-mock/all";
+		"https://demo3197060.mockable.io/api/city";
 
 	public static final String MOCK_CITIES_STREET_API_URL =
-		"https://demo3197060.mockable.io/cities-mock/streets";
+		"https://demo3197060.mockable.io/api/city/1/streets";
 
 }

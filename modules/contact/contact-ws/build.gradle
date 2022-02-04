@@ -1,6 +1,24 @@
 dependencies {
-	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
-	compileOnly group: "org.osgi", name: "org.osgi.service.jaxrs"
-
+	compile group: "com.liferay.portal", name: "release.dxp.api"
+	compile group: "javax.ws.rs", name: "javax.ws.rs-api"
+	compile group: "org.osgi", name: "org.osgi.service.component.annotations"
+	compile group: "org.osgi", name: "org.osgi.service.jaxrs"
+	compile project(":modules:common:common-ws")
+	compile project(":modules:common:common-ws-idit-client")
 	compile project(":modules:contact:contact-api")
+
+	compileInclude group: "com.google.code.gson", name: "gson", version: "2.8.9"
+
+	testCompile group: "com.liferay.portal", name: "release.dxp.api"
+	testCompile group: "junit", name: "junit"
+	testCompile group: "org.assertj", name: "assertj-core", version: "3.19.0"
+	testCompile group: "org.glassfish.jersey.core", name: "jersey-common"
+	testCompile group: "org.mockito", name: "mockito-core", version: "3.8.0"
+	testCompile group: "org.powermock", name: "powermock-api-mockito2", version: "2.0.9"
+	testCompile group: "org.powermock", name: "powermock-module-junit4", version: "2.0.9"
+	testCompile project(":modules:common:common-ws")
+	testCompile project(":modules:common:common-ws-idit-client")
+	testCompile project(":modules:contact:contact-api")
+
+	testImplementation group: "com.google.code.gson", name: "gson", version: "2.8.9"
 }

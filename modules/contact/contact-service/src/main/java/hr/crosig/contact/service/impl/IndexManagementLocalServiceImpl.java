@@ -64,7 +64,7 @@ public class IndexManagementLocalServiceImpl
 
 	protected List<CityDTO> populateCities() {
 		try {
-			String response = _iditwsClient.getCities();
+			String response = _iditwsClient.getCities().getContent();
 			List<CityDTO> cities = _parseIDITCityResponse(response);
 
 			_cityLocalService.addOrUpdateCities(cities);
@@ -82,7 +82,7 @@ public class IndexManagementLocalServiceImpl
 		cities.forEach(
 			city -> {
 				try {
-					String response = _iditwsClient.getStreetsByCityId(city.getCityId());
+					String response = _iditwsClient.getStreetsByCityId(city.getCityId()).getContent();
 
 					List<StreetDTO> streets = _parseIDITStreetResponse(
 							response, city.getCityId());
