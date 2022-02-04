@@ -1,18 +1,38 @@
 .cap {
+    .input-label {
+        font-size: 1rem;
+        line-height: 1.5rem;
+        color: #1A1A1A; // export
+        opacity: 0.8;
+    }
+
+    .form-description-text {
+        font-family: CrosigSans-Regular;
+        font-size: 0.8125rem;
+        color: #79838C;
+    }
+    
+    .form-mandatory-field {
+        font-family: CrosigSans-Regular;
+        font-size: 0.8125rem;
+        opacity: 0.8;
+        color: #FF0000; // export
+    }
+
     input[type=text] {
         height: 3.4375rem;
-        border-radius: 12px;
-        padding: 12px 16px;
-        width: 320px;
+        border-radius: 0.75rem;
+        padding: 0.75rem 1rem;
         border: 0.13rem solid #EDEEEF; // export
-        background: #FFFFFF;
+        background: #FFFFFF; // export
+        color: #005CD0;; // export
         justify-content: center;
         display: flex;
         flex-direction: row;
         margin: 0.25rem 0rem;
 
         &.error {
-            border-color: #FF0000; // export to variables
+            border-color: #FF0000; // export
         }
 
         &:hover {
@@ -21,14 +41,163 @@
 
         &.disabled {
             background: #F2F3F4; //
+            color: #79838C;
         }
 
         &:active {
-            border-color: #2172FF; // export to variables
+            border-color: #2172FF; // export
         }
 
         &.filled {
             color: #005CD0; // export
         }
     }
+
+    .form-select-box {
+        border: 2px solid #EDEEEF;
+        color: #79838C; // export
+        border-radius: 0.75rem;
+
+    }
+
+    .toggle.label .checkbox-label .radio.label {
+        font-family: CrosigSans-Regular;
+        font-size: 0.875rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: #898593; // export
+
+        &.vetical-label {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            transform: rotate(-90deg);
+        }
+    }
+
+    .form-toggle {
+        .toggle-switch-check:empty ~ .toggle-switch-bar:after,
+        .toggle-switch-check:checked ~ .toggle-switch-bar:after {
+            height: 1.5rem;
+            width: 1.5rem;
+        }
+
+        border-radius: 0.625rem;
+
+        &.checked {
+            background: #005CD0; // export
+
+            &.hover {
+                background: #1A5CCC;
+            }
+
+            &.active {
+                background: #2172FF;
+            }
+
+            &.disabled {
+                background: #93BBFF;
+            }
+
+        }
+        
+        &.unchecked {
+            background: #D4D9DE;
+
+            &.hover {
+                background: #94A0AB;
+            }
+
+            &.active {
+                background: #ABB5BF;
+            }
+
+            &.disabled {
+                background: #DEDFE0;
+            }
+
+        }
+    }
+
+    .form-radio {
+        height: 2.125rem;
+        width: 2.125rem;
+        border-radius: 1rem;
+
+        &.checked {
+            background: #2172FF;
+            &.hover{
+                background: #1A5CCC;
+            }
+
+            &.active{
+                background: #2172FF;
+            }
+
+            &.disabled{
+                background: #DEDFE0;
+            }
+        }
+
+        &.unchecked {
+            background: #FFFFFF;
+            border: 1px solid #EDEEEF;
+            &.hover{
+                background: #FFFFFF;
+                border: 1px solid #DEDFE0;
+            }
+
+            &.active{
+                background: #FFFFFF;
+                border: 1px solid #2172FF;
+            }
+
+            &.disabled{
+                background: #F2F3F4;
+            }
+        }
+
+    }
+
+    .form-checkbox {
+        height: 2.125rem;
+        width: 2.125rem;
+        border-radius: 0.4375rem;
+
+        &.checked {
+            background: #2172FF;
+
+            &.hover{
+                background: #1A5CCC;
+            }
+
+            &.active{
+                background: #2172FF;
+            }
+
+            &.disabled{
+                background: #D4D9DE;
+            }
+        }
+
+        &.unchecked {
+            background: #FFFFFF;
+            border: 2px solid #EDEEEF;
+            &.hover{
+                background: #FFFFFF;
+                border: 2px solid #DEDFE0;
+            }
+
+            &.active{
+                background: #FFFFFF;
+                border: 2px solid #2172FF;
+            }
+
+            &.disabled{
+                background: #F2F3F4;
+            }
+        }
+
+    }
+
 }

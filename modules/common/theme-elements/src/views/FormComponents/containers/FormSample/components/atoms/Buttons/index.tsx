@@ -8,7 +8,7 @@ interface props {
   onClick: () => void;
 }
 
-const LargeButton: React.FC<props> = ({  onClick }: props) => {
+const Buttons: React.FC<props> = ({  onClick }: props) => {
   return (
     <Button displayType={null} onClick={onClick} >
       <ClayIcon symbol="angle-down" spritemap={spritemap} />
@@ -16,4 +16,4 @@ const LargeButton: React.FC<props> = ({  onClick }: props) => {
   );
 };
 
-export default LargeButton;
+export default Buttons;

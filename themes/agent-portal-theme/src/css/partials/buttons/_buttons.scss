@@ -1,64 +1,126 @@
 .cap {
-    .large-button {
-        align-items: center;
-        border-radius: 0.625rem;
-        display: flex;
-        flex-direction: row;
-        font-size: 1rem;
-        height: 3.25rem;
-        justify-content: center;
-        padding: 0.875rem 1.125rem 0.875rem 1.125rem;
-
-        &.icon-only {
-            border-radius: 0.5rem;
-            height: 3.5rem;
-            width: 3.5rem;
-        }
-
-        &.disabled {
-            background: #D4D9DE;
-        }
-    }
-
-    .medium-button {
-        align-items: center;
-        border-radius: 0.4375rem;
-        display: flex;
-        flex-direction: row;
-        font-size: 0.8125rem;
-        height: 2.625rem;
-        justify-content: center;
-        padding: 0.75rem 1rem 0.75rem 1rem;
-
-        &.icon-only {
-            border-radius: 0.5rem;
-            height: 3rem;
-            width: 3rem;
-        }
-
-        &.disabled {
-            background: #D4D9DE;
-        }
-    }
-
-    .small-button {
-        align-items: center;
-        border-radius: 0.25rem;
-        display: flex;
-        flex-direction: row;
-        font-size: 0.6875;
-        height: 1.875rem;
-        justify-content: center;
-        padding: 0.5rem 0.75rem 0.5rem 0.75rem;
+    .cap-button {
+        &.large-button {
+            align-items: center;
+            border-radius: 0.625rem;
+            display: flex;
+            flex-direction: row;
+            font-size: 1rem;
+            height: 3.25rem;
+            justify-content: center;
+            padding: 0.875rem 1.125rem 0.875rem 1.125rem;
     
-        &.icon-only {
-            border-radius: 0.4375rem;
-            height: 2.25rem;
-            width: 2.25rem;
+            &.icon-only {
+                border-radius: 0.5rem;
+                height: 3.5rem;
+                width: 3.5rem;
+            }
+    
+            &.disabled {
+                background: #D4D9DE;
+            }
         }
+    
+        &.medium-button {
+            align-items: center;
+            border-radius: 0.4375rem;
+            display: flex;
+            flex-direction: row;
+            font-size: 0.8125rem;
+            height: 2.625rem;
+            justify-content: center;
+            padding: 0.75rem 1rem 0.75rem 1rem;
+    
+            &.icon-only {
+                border-radius: 0.5rem;
+                height: 3rem;
+                width: 3rem;
+            }
+    
+            &.disabled {
+                background: #D4D9DE;
+            }
+        }
+    
+        &.small-button {
+            align-items: center;
+            border-radius: 0.25rem;
+            display: flex;
+            flex-direction: row;
+            font-size: 0.6875;
+            height: 1.875rem;
+            justify-content: center;
+            padding: 0.5rem 0.75rem 0.5rem 0.75rem;
         
+            &.icon-only {
+                border-radius: 0.4375rem;
+                height: 2.25rem;
+                width: 2.25rem;
+            }
+            
+            &.disabled {
+                background: #D4D9DE;
+            }
+        }
+    
+        &.hover &.focus {
+            background: #1A5CCC; // colorHover
+    
+            &.solid {
+                background: #1A5CCC;
+            }
+            
+            &.ghost {
+                border: 2px solid #1A5CCC;
+                background: #1A5CCC;
+                color: #1A5CCC;
+            }
+            
+            &.borderless {
+                border: 0;
+                background: #1A5CCC;
+                color: #1A5CCC;
+            }
+        }
+    
+        &.pressed {
+            background: #2172FF;; // colorHover
+    
+            &.solid {
+                background: #2172FF;;
+            }
+            
+            &.ghost {
+                border: 2px solid #2172FF;;
+                background: #2172FF;;
+                color: #2172FF;;
+            }
+            
+            &.borderless {
+                border: 0;
+                background: #2172FF;;
+                color: #2172FF;;
+            }
+        }
+    
         &.disabled {
-            background: #D4D9DE;
+            background: #D4D9DE; // colorHover
+    
+            &.solid {
+                background: #D4D9DE;
+            }
+            
+            &.ghost {
+                border: 2px solid #D4D9DE;
+                background: #D4D9DE;
+                color: #D4D9DE; 
+            }
+            
+            &.borderless {
+                border: 0;
+                background: #D4D9DE;
+                color: #D4D9DE;
+            }
         }
     }
 }
