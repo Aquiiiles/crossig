@@ -17,7 +17,7 @@ public class IDITWSClientUtil {
     }
 
     public static String search() throws ServiceInvocationException {
-        return getService().searchContact(new HashMap<>());
+        return getService().search("").getContent();
     }
 
     private static ServiceTracker<IDITWSClient, IDITWSClient>

@@ -38,16 +38,16 @@ public class AddressApplicationTest {
     private void _mockApiSuccess() throws ServiceInvocationException {
         ServiceResponse serviceResponseSuccess = new ServiceResponse(TestConstants.API_SUCCESS_STATUS_CODE, TestConstants.API_SUCCESS_STATUS_CONTENT);
         Mockito.when(_iditwsClient.getCities()).thenReturn(serviceResponseSuccess);
-        Mockito.when(_iditwsClient.getStreetsByCity(TestConstants.VALID_CITY_ID)).thenReturn(serviceResponseSuccess);
+        Mockito.when(_iditwsClient.getStreetsByCityId(TestConstants.VALID_CITY_ID)).thenReturn(serviceResponseSuccess);
     }
     private void _mockApiError() throws ServiceInvocationException {
         ServiceResponse serviceResponseError = new ServiceResponse(TestConstants.API_ERROR_STATUS_CODE, TestConstants.API_ERROR_STATUS_CONTENT);
         Mockito.when(_iditwsClient.getCities()).thenReturn(serviceResponseError);
-        Mockito.when(_iditwsClient.getStreetsByCity(TestConstants.VALID_CITY_ID)).thenReturn(serviceResponseError);
+        Mockito.when(_iditwsClient.getStreetsByCityId(TestConstants.VALID_CITY_ID)).thenReturn(serviceResponseError);
     }
     private void _mockApiException() throws ServiceInvocationException {
         Mockito.when(_iditwsClient.getCities()).thenThrow(TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
-        Mockito.when(_iditwsClient.getStreetsByCity(TestConstants.VALID_CITY_ID)).thenThrow(TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
+        Mockito.when(_iditwsClient.getStreetsByCityId(TestConstants.VALID_CITY_ID)).thenThrow(TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
     }
 
     @Test
