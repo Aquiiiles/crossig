@@ -1,67 +1,40 @@
 package hr.crosig.contact.dto;
 
-import java.io.Serializable;
+import javax.validation.constraints.Pattern;
 
 /**
- * @author Guilherme Kfouri
+ * @author david.martini
  */
-public class EmailDTO implements Serializable {
-
-	public String getBrand() {
-		return _brand;
-	}
+public class EmailDTO {
 
 	public String getEmail() {
-		return _email;
+		return email;
 	}
 
-	public String getEmailTypeExternalCode() {
-		return _emailTypeExternalCode;
+	public EmailTypeDTO getEmailType() {
+		return emailType;
 	}
 
-	public Long getEmailTypeId() {
-		return _emailTypeId;
-	}
-
-	public Long getIfsId() {
-		return _ifsId;
-	}
-
-	public String getUserName() {
-		return _userName;
-	}
-
-	public void setBrand(String brand) {
-		_brand = brand;
+	public boolean isPreferredDeliveryAddress() {
+		return isPreferredDeliveryAddress;
 	}
 
 	public void setEmail(String email) {
-		_email = email;
+		this.email = email;
 	}
 
-	public void setEmailTypeExternalCode(String emailTypeExternalCode) {
-		_emailTypeExternalCode = emailTypeExternalCode;
+	public void setEmailType(EmailTypeDTO emailType) {
+		this.emailType = emailType;
 	}
 
-	public void setEmailTypeId(Long emailTypeId) {
-		_emailTypeId = emailTypeId;
+	public void setPreferredDeliveryAddress(boolean preferredDeliveryAddress) {
+		isPreferredDeliveryAddress = preferredDeliveryAddress;
 	}
 
-	public void setIfsId(Long ifsId) {
-		_ifsId = ifsId;
-	}
+	@Pattern(regexp = "/^[a-z0-9.]+@[a-z0-9]+.[a-z]+.([a-z]+)?$/i")
+	private String email;
 
-	public void setUserName(String userName) {
-		_userName = userName;
-	}
-
-	private static final long serialVersionUID = 1L;
-
-	private String _brand;
-	private String _email;
-	private String _emailTypeExternalCode;
-	private Long _emailTypeId;
-	private Long _ifsId;
-	private String _userName;
+	private EmailTypeDTO emailType;
+	private boolean isPreferredDeliveryAddress;
 
 }

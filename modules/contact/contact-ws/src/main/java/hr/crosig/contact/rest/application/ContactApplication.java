@@ -4,12 +4,11 @@ import hr.crosig.common.ws.idit.client.IDITWSClient;
 import hr.crosig.common.ws.response.ServiceResponse;
 import hr.crosig.contact.dto.ContactDTO;
 import hr.crosig.contact.dto.EmailDTO;
-import hr.crosig.contact.dto.PhoneNumberDTO;
+import hr.crosig.contact.dto.TelephoneDTO;
 import hr.crosig.contact.rest.application.utils.ApplicationUtilities;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -18,10 +17,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author victor.catanante
@@ -99,10 +97,10 @@ public class ContactApplication extends Application {
 	@Path("/phone/verification")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response validatePhoneNumber(List<PhoneNumberDTO> phoneNumberDTOS) {
+	public Response validatePhoneNumber(List<TelephoneDTO> telephoneDTOS) {
 		try {
 			String entityJSON = ApplicationUtilities.createEntityJsonString(
-				phoneNumberDTOS);
+					telephoneDTOS);
 
 			ServiceResponse serviceResponse = _iditwsClient.validatePhone(
 				entityJSON);
