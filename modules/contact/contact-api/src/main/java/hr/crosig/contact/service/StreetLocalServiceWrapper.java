@@ -30,13 +30,6 @@ public class StreetLocalServiceWrapper
 		_streetLocalService = streetLocalService;
 	}
 
-	@Override
-	public void addOrUpdateStreets(
-		java.util.List<hr.crosig.contact.dto.StreetDTO> streets) {
-
-		_streetLocalService.addOrUpdateStreets(streets);
-	}
-
 	/**
 	 * Adds the street to the database. Also notifies the appropriate model listeners.
 	 *
@@ -60,6 +53,13 @@ public class StreetLocalServiceWrapper
 		throws hr.crosig.contact.exception.StreetException {
 
 		return _streetLocalService.addStreet(streetDTO);
+	}
+
+	@Override
+	public void addStreets(
+		java.util.List<hr.crosig.contact.dto.StreetDTO> streets) {
+
+		_streetLocalService.addStreets(streets);
 	}
 
 	/**

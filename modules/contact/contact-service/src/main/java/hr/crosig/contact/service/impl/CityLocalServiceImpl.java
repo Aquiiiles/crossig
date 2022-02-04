@@ -33,7 +33,6 @@ import com.liferay.portal.search.searcher.SearchRequestBuilder;
 import com.liferay.portal.search.searcher.SearchRequestBuilderFactory;
 import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.searcher.Searcher;
-
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.CityMessages;
 import hr.crosig.contact.dto.CityDTO;
@@ -41,14 +40,13 @@ import hr.crosig.contact.exception.CityException;
 import hr.crosig.contact.model.City;
 import hr.crosig.contact.model.impl.CityModelImpl;
 import hr.crosig.contact.service.base.CityLocalServiceBaseImpl;
+import hr.crosig.contact.util.BulkHelper;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import hr.crosig.contact.util.BulkHelper;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Guilherme Kfouri
@@ -59,41 +57,44 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 
+	public void addCities(List<CityDTO> cities) {
+		long companyId = PortalUtil.getDefaultCompanyId();
+
+		cities.forEach(
+			cityDTO -> cityLocalService.updateCity(
+				createCity(cityDTO, companyId)));
+	}
+
 	public City addCity(CityDTO cityDTO) throws CityException {
-		validateCity(cityDTO.getCityId());
+		validateCity(cityDTO.getCityId(), cityDTO.getCityName());
 
 		City city = createCity(cityDTO, PortalUtil.getDefaultCompanyId());
 
 		return cityLocalService.updateCity(city);
 	}
 
-	public void addOrUpdateCities(List<CityDTO> cities) {
-		long companyId = PortalUtil.getDefaultCompanyId();
-		cities.forEach(
-			cityDTO -> {
-				City city = createCity(cityDTO, companyId);
-
-				city.setNew(true);
-
-				cityLocalService.updateCity(city);
-			});
-	}
-
 	public void deleteAllCities() {
-		BulkHelper.bulkDeleteAll(cityPersistence.getCurrentSession(), CityModelImpl.TABLE_NAME);
+		BulkHelper.bulkDeleteAll(
+			cityPersistence.getCurrentSession(), CityModelImpl.TABLE_NAME);
 		reindex();
 	}
 
-	private void reindex() {
-		Indexer<City> indexer = _indexerRegistry.getIndexer(City.class.getName());
+	public City deleteCityByExternalId(long externalId) {
+		City city = cityPersistence.fetchByPrimaryKey(externalId);
 
-		if (Objects.nonNull(indexer)) {
-			try {
-				indexer.reindex(new String[] {String.valueOf(PortalUtil.getDefaultCompanyId())});
-			} catch (SearchException e) {
-				throw new IllegalStateException(e);
-			}
-		}
+		if (!Objects.isNull(city))
+			cityLocalService.deleteCity(city);
+
+		return city;
+	}
+
+	public City deleteCityByName(String cityName) {
+		City city = cityPersistence.fetchByName(cityName);
+
+		if (!Objects.isNull(city))
+			cityLocalService.deleteCity(city);
+
+		return city;
 	}
 
 	public List<String> searchCitiesNamesByName(
@@ -120,14 +121,22 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 	}
 
 	protected boolean cityExists(long cityId) {
-		City city = cityLocalService.fetchCity(cityId);
+		City city = cityPersistence.fetchByPrimaryKey(cityId);
+
+		return !Objects.isNull(city);
+	}
+
+	protected boolean cityExists(String cityName) {
+		City city = cityPersistence.fetchByName(cityName);
 
 		return !Objects.isNull(city);
 	}
 
 	protected City createCity(CityDTO cityDTO, long companyId) {
-		City city = cityLocalService.createCity(cityDTO.getCityId());
+		City city = cityLocalService.createCity(
+			counterLocalService.increment(City.class.getName()));
 
+		city.setExternalId(cityDTO.getCityId());
 		city.setName(cityDTO.getCityName());
 		city.setZipCode(cityDTO.getZipCode());
 		city.setBoxNumber(cityDTO.getBoxNumber());
@@ -183,11 +192,18 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		return searchHits.getSearchHits();
 	}
 
-	protected void validateCity(long cityId) throws CityException {
+	protected void validateCity(long cityId, String cityName)
+		throws CityException {
+
 		if (cityExists(cityId))
 
 			throw new CityException(
 				CityMessages.CITY_WITH_THIS_ID_ALREADY_EXISTS + cityId);
+
+		if (cityExists(cityName))
+
+			throw new CityException(
+				CityMessages.CITY_WITH_THIS_NAME_ALREADY_EXISTS + cityName);
 	}
 
 	protected void validateSearchCityName(String cityName)
@@ -198,14 +214,31 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 			throw new CityException(CityMessages.INSUFICIENT_NAME_LENGTH);
 	}
 
+	private void reindex() {
+		Indexer<City> indexer = _indexerRegistry.getIndexer(
+			City.class.getName());
+
+		if (Objects.nonNull(indexer)) {
+			try {
+				indexer.reindex(
+					new String[] {
+						String.valueOf(PortalUtil.getDefaultCompanyId())
+					});
+			}
+			catch (SearchException e) {
+				throw new IllegalStateException(e);
+			}
+		}
+	}
+
+	@Reference
+	private IndexerRegistry _indexerRegistry;
+
 	@Reference
 	private Queries _queries;
 
 	@Reference
 	private Searcher _searcher;
-
-	@Reference
-	private IndexerRegistry _indexerRegistry;
 
 	@Reference
 	private SearchRequestBuilderFactory _searchRequestBuilderFactory;

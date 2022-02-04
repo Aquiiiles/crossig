@@ -52,7 +52,8 @@ public class StreetLocalServiceImplTest {
 	@Test
 	public void searchStreets_With1Letter() throws Exception {
 		expectedException.expect(StreetException.class);
-		expectedException.expectMessage(StreetMessages.INSUFFICIENT_NAME_LENGTH);
+		expectedException.expectMessage(
+			StreetMessages.INSUFFICIENT_NAME_LENGTH);
 
 		_streetLocalServiceImpl.searchStreetsNamesByNameAndCityId(
 			"s", _cityId, -1, -1);
@@ -61,7 +62,8 @@ public class StreetLocalServiceImplTest {
 	@Test
 	public void searchStreets_With2Letters() throws Exception {
 		expectedException.expect(StreetException.class);
-		expectedException.expectMessage(StreetMessages.INSUFFICIENT_NAME_LENGTH);
+		expectedException.expectMessage(
+			StreetMessages.INSUFFICIENT_NAME_LENGTH);
 
 		_streetLocalServiceImpl.searchStreetsNamesByNameAndCityId(
 			"st", _cityId, -1, -1);
@@ -84,7 +86,8 @@ public class StreetLocalServiceImplTest {
 	@Test
 	public void searchStreets_WithEmptyName() throws Exception {
 		expectedException.expect(StreetException.class);
-		expectedException.expectMessage(StreetMessages.INSUFFICIENT_NAME_LENGTH);
+		expectedException.expectMessage(
+			StreetMessages.INSUFFICIENT_NAME_LENGTH);
 
 		_streetLocalServiceImpl.searchStreetsNamesByNameAndCityId(
 			"", _cityId, -1, -1);
