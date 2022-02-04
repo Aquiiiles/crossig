@@ -7,6 +7,8 @@ const initialState = {
   dateOfBirth: "",
   oib: "",
   foreignerStatus: false,
+  companyName: "",
+  subsidiaryNumber: "",
 };
 
 const basicInfoSlice = createSlice({
@@ -30,6 +32,12 @@ const basicInfoSlice = createSlice({
     },
     toggleForeignerStatus(state) {
       state.foreignerStatus = !state.foreignerStatus;
+    },
+    setCompanyName(state, action: PayloadAction<string>) {
+      state.companyName = action.payload;
+    },
+    setSubsidiaryNumber(state, action: PayloadAction<string>) {
+      state.subsidiaryNumber = action.payload;
     },
   },
 });

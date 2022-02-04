@@ -24,6 +24,8 @@ export const CREATE_NEW_CONTACT = {
         LAST_NAME: Liferay.Language.get('create-new-contact-field-last-name'),
         BIRTH_DATE: Liferay.Language.get('create-new-contact-field-birth-date'),
         OIB: Liferay.Language.get('create-new-contact-field-oib'),
-        FOREIGNER_STATUS: Liferay.Language.get('create-new-contact-field-foreigner-status')
-    }
+        FOREIGNER_STATUS: Liferay.Language.get('create-new-contact-field-foreigner-status'),
+        COMPANY_NAME: Liferay.Language.get('create-new-contact-field-company-name'),
+        SUBSIDIARY_NUMBER: Liferay.Language.get('create-new-contact-field-subsidiary-number'),
+    },
 }

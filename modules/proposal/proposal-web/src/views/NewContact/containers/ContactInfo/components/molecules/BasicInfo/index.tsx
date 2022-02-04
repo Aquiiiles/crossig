@@ -15,6 +15,8 @@ const BasicInfo: React.FC = () => {
     dateOfBirth,
     oib,
     foreignerStatus,
+    companyName,
+    subsidiaryNumber,
   } = useContactSelector(state => state.basicInfo);
   const {
     setType,
@@ -23,12 +25,17 @@ const BasicInfo: React.FC = () => {
     setDateOfBirth,
     setOIB,
     toggleForeignerStatus,
+    setCompanyName,
+    setSubsidiaryNumber,
   } = actions;
+
+  const showIndividualFields = contactType === "1";
 
   return (
     <FormSection title={CREATE_NEW_CONTACT.BASIC_INFO_TITLE}>
       <div>
         <ClaySelect
+          required
           value={contactType}
           onChange={({ target: { value } }) => dispatch(setType(value))}
         >
@@ -43,46 +50,73 @@ const BasicInfo: React.FC = () => {
           </option>
         </ClaySelect>
       </div>
-      <Row>
-        <ClayForm.Group>
-          <label htmlFor="firstNameInput">
-            {CREATE_NEW_CONTACT.FIELD.FIRST_NAME}
-          </label>
-          <ClayInput
-            id="firstNameInput"
-            type="text"
-            onChange={({ target: { value } }) => dispatch(setFirstName(value))}
-            value={firstName}
-          />
-        </ClayForm.Group>
-        <ClayForm.Group>
-          <label htmlFor="lastNameInput">
-            {CREATE_NEW_CONTACT.FIELD.LAST_NAME}
-          </label>
-          <ClayInput
-            id="lastNameInput"
-            type="text"
-            onChange={({ target: { value } }) => dispatch(setLastName(value))}
-            value={lastName}
-          />
-        </ClayForm.Group>
-      </Row>
-      <Row>
-        <ClayForm.Group>
-          <label htmlFor="dateOfBirthInput">
-            {CREATE_NEW_CONTACT.FIELD.BIRTH_DATE}
-          </label>
-          <ClayDatePicker
-            id="dateOfBirthInput"
-            placeholder="dd/mm/yyyy"
-            dateFormat="dd/MM/yyyy"
-            value={dateOfBirth}
-            onValueChange={value => dispatch(setDateOfBirth(value))}
-          />
-        </ClayForm.Group>
+      {showIndividualFields ? (
+        <Row>
+          <ClayForm.Group>
+            <label htmlFor="firstNameInput">
+              {CREATE_NEW_CONTACT.FIELD.FIRST_NAME}
+            </label>
+            <ClayInput
+              required={showIndividualFields}
+              id="firstNameInput"
+              type="text"
+              onChange={({ target: { value } }) =>
+                dispatch(setFirstName(value))
+              }
+              value={firstName}
+            />
+          </ClayForm.Group>
+          <ClayForm.Group>
+            <label htmlFor="lastNameInput">
+              {CREATE_NEW_CONTACT.FIELD.LAST_NAME}
+            </label>
+            <ClayInput
+              required={showIndividualFields}
+              id="lastNameInput"
+              type="text"
+              onChange={({ target: { value } }) => dispatch(setLastName(value))}
+              value={lastName}
+            />
+          </ClayForm.Group>
+        </Row>
+      ) : (
+        <Row>
+          <ClayForm.Group>
+            <label htmlFor="companyName">
+              {CREATE_NEW_CONTACT.FIELD.COMPANY_NAME}
+            </label>
+            <ClayInput
+              required={!showIndividualFields}
+              id="companyName"
+              type="text"
+              onChange={({ target: { value } }) =>
+                dispatch(setCompanyName(value))
+              }
+              value={companyName}
+            />
+          </ClayForm.Group>
+        </Row>
+      )}
+      <Row half={!showIndividualFields}>
+        {showIndividualFields ? (
+          <ClayForm.Group>
+            <label htmlFor="dateOfBirthInput">
+              {CREATE_NEW_CONTACT.FIELD.BIRTH_DATE}
+            </label>
+            <ClayDatePicker
+              aria-required={showIndividualFields}
+              id="dateOfBirthInput"
+              placeholder="dd/mm/yyyy"
+              dateFormat="dd/MM/yyyy"
+              value={dateOfBirth}
+              onValueChange={value => dispatch(setDateOfBirth(value))}
+            />
+          </ClayForm.Group>
+        ) : null}
         <ClayForm.Group>
           <label htmlFor="oibInput">{CREATE_NEW_CONTACT.FIELD.OIB}</label>
           <ClayInput
+            required={foreignerStatus ? false : true}
             id="oibInput"
             type="text"
             onChange={({ target: { value } }) => dispatch(setOIB(value))}
@@ -90,6 +124,22 @@ const BasicInfo: React.FC = () => {
           />
         </ClayForm.Group>
       </Row>
+      {!showIndividualFields ? (
+        <Row half>
+          <ClayForm.Group>
+            <label htmlFor="subsidiaryNumber">
+              {CREATE_NEW_CONTACT.FIELD.SUBSIDIARY_NUMBER}
+            </label>
+            <ClayInput
+              disabled
+              required={!showIndividualFields}
+              id="subsidiaryNumber"
+              type="text"
+              value={subsidiaryNumber}
+            />
+          </ClayForm.Group>
+        </Row>
+      ) : null}
       <Row>
         <ClayCheckbox
           aria-label={CREATE_NEW_CONTACT.FIELD.FOREIGNER_STATUS}
