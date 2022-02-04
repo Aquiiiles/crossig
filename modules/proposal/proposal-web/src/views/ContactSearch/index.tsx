@@ -3,8 +3,19 @@ import SearchField from "./containers/SearchField";
 import { Content, Wrapper } from "./styles";
 import Stepper from "./containers/Stepper";
 import {CONTACT_SEARCH_SUBTITLE, CONTACT_SEARCH_TITLE} from "../../constants/languageKeys";
+import {useFetchData} from "../../shared/hooks/useFetchData";
+import { SEARCH_CONTACTS_URL } from "./constants/contacts";
 
 const ContactSearch: React.FC = () => {
+
+  const { state, fetchData } =
+    useFetchData();
+
+    useEffect(() => {
+      fetchData(SEARCH_CONTACTS_URL, {})
+        .then()
+        .catch((_e) => {});
+    }, [fetchData]);
   return (
     <Wrapper>
       <Stepper />
