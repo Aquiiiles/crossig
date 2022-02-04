@@ -41,8 +41,8 @@ public class IndexManagementLocalServiceImpl
 
 	@Override
 	public void clearCityByName(String cityName) {
-		City city = _cityLocalService.deleteCityByName(cityName);
-		_streetLocalService.deleteStreetsByCityId(city.getCityId());
+		List<City> cities = _cityLocalService.deleteCitiesByName(cityName);
+		cities.forEach(city -> _streetLocalService.deleteStreetsByCityId(city.getCityId()));
 	}
 
 	@Override

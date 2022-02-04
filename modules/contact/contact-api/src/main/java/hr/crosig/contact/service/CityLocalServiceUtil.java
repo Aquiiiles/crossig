@@ -92,6 +92,10 @@ public class CityLocalServiceUtil {
 		getService().deleteAllCities();
 	}
 
+	public static List<City> deleteCitiesByName(String cityName) {
+		return getService().deleteCitiesByName(cityName);
+	}
+
 	/**
 	 * Deletes the city from the database. Also notifies the appropriate model listeners.
 	 *
@@ -123,10 +127,6 @@ public class CityLocalServiceUtil {
 
 	public static City deleteCityByExternalId(long externalId) {
 		return getService().deleteCityByExternalId(externalId);
-	}
-
-	public static City deleteCityByName(String cityName) {
-		return getService().deleteCityByName(cityName);
 	}
 
 	/**

@@ -97,6 +97,8 @@ public interface CityLocalService
 
 	public void deleteAllCities();
 
+	public List<City> deleteCitiesByName(String cityName);
+
 	/**
 	 * Deletes the city from the database. Also notifies the appropriate model listeners.
 	 *
@@ -125,8 +127,6 @@ public interface CityLocalService
 	public City deleteCity(long cityId) throws PortalException;
 
 	public City deleteCityByExternalId(long externalId);
-
-	public City deleteCityByName(String cityName);
 
 	/**
 	 * @throws PortalException

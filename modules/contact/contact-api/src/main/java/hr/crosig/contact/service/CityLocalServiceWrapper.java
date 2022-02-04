@@ -89,6 +89,13 @@ public class CityLocalServiceWrapper
 		_cityLocalService.deleteAllCities();
 	}
 
+	@Override
+	public java.util.List<hr.crosig.contact.model.City> deleteCitiesByName(
+		String cityName) {
+
+		return _cityLocalService.deleteCitiesByName(cityName);
+	}
+
 	/**
 	 * Deletes the city from the database. Also notifies the appropriate model listeners.
 	 *
@@ -129,11 +136,6 @@ public class CityLocalServiceWrapper
 		long externalId) {
 
 		return _cityLocalService.deleteCityByExternalId(externalId);
-	}
-
-	@Override
-	public hr.crosig.contact.model.City deleteCityByName(String cityName) {
-		return _cityLocalService.deleteCityByName(cityName);
 	}
 
 	/**

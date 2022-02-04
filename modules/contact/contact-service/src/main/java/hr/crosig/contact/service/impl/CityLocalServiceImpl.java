@@ -88,13 +88,12 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		return city;
 	}
 
-	public City deleteCityByName(String cityName) {
-		City city = cityPersistence.fetchByName(cityName);
+	public List<City> deleteCitiesByName(String cityName) {
+		List<City> cities = cityPersistence.findByName(cityName);
 
-		if (!Objects.isNull(city))
-			cityLocalService.deleteCity(city);
+		cities.forEach(city -> cityLocalService.deleteCity(city));
 
-		return city;
+		return cities;
 	}
 
 	public List<String> searchCitiesNamesByName(
@@ -127,7 +126,7 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 	}
 
 	protected boolean cityExists(String cityName) {
-		City city = cityPersistence.fetchByName(cityName);
+		City city = cityPersistence.fetchByName_First(cityName, null);
 
 		return !Objects.isNull(city);
 	}
