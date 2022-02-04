@@ -6,15 +6,26 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.GroupConstants;
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.LayoutTypePortlet;
+import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.UserGroup;
+import com.liferay.portal.kernel.model.role.RoleConstants;
+import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.service.LayoutLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserGroupLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 
@@ -46,6 +57,44 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 		this.groupLocalService = groupLocalService;
 		this.companyLocalService = companyLocalService;
 		this.userLocalService = userLocalService;
+	}
+
+	public BaseUpgradeProcess(
+		GroupLocalService groupLocalService, UserLocalService userLocalService,
+		LayoutLocalService layoutLocalService,
+		RoleLocalService roleLocalService) {
+
+		this.groupLocalService = groupLocalService;
+		this.userLocalService = userLocalService;
+		this.layoutLocalService = layoutLocalService;
+		this.roleLocalService = roleLocalService;
+	}
+
+	protected Layout addPage(
+			Long userId, Long groupId, Boolean privatePage, Long parentLayoutId,
+			String pageName, String title, String description, String type,
+			Boolean hidden, String friendlyUrl, ServiceContext serviceContext)
+		throws PortalException {
+
+		return layoutLocalService.addLayout(
+			userId, groupId, privatePage, parentLayoutId, pageName, title,
+			description, type, hidden, friendlyUrl, serviceContext);
+	}
+
+	protected void addPortletToPage(
+		Layout layout, Long userId, String portletId, String columnId,
+		Integer columnPos) {
+
+		LayoutTypePortlet layoutTypePortlet =
+			(LayoutTypePortlet)layout.getLayoutType();
+
+		try {
+			layoutTypePortlet.addPortletId(
+				userId, portletId, columnId, columnPos);
+		}
+		catch (Exception exception) {
+			log.error(exception);
+		}
 	}
 
 	protected Group addSite(
@@ -143,11 +192,62 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 		return map;
 	}
 
+	protected void setPageLayoutTemplateId(
+		Layout layout, Long userId, String newLayoutTemplateId) {
+
+		LayoutTypePortlet layoutTypePortlet =
+			(LayoutTypePortlet)layout.getLayoutType();
+
+		layoutTypePortlet.setLayoutTemplateId(userId, newLayoutTemplateId);
+	}
+
+	protected void setupAdminUpgrade() throws PortalException {
+		PermissionChecker originalPermissionChecker =
+			PermissionThreadLocal.getPermissionChecker();
+		String originalName = PrincipalThreadLocal.getName();
+
+		this.originalPermissionChecker = originalPermissionChecker;
+		this.originalName = originalName;
+
+		long companyId = PortalUtil.getDefaultCompanyId();
+
+		Role adminRole = roleLocalService.getRole(
+			companyId, RoleConstants.ADMINISTRATOR);
+
+		User adminUser = userLocalService.getRoleUsers(
+			adminRole.getRoleId()
+		).get(
+			0
+		);
+
+		PrincipalThreadLocal.setName(adminUser.getUserId());
+
+		PermissionChecker adminPermissionChecker =
+			PermissionCheckerFactoryUtil.create(adminUser);
+
+		PermissionThreadLocal.setPermissionChecker(adminPermissionChecker);
+	}
+
+	protected void teardownAdminUpgrade() {
+		PrincipalThreadLocal.setName(originalName);
+		PermissionThreadLocal.setPermissionChecker(originalPermissionChecker);
+	}
+
+	protected void updatePage(Layout layout) throws PortalException {
+		layoutLocalService.updateLayout(
+			layout.getGroupId(), layout.isPrivateLayout(), layout.getLayoutId(),
+			layout.getTypeSettings());
+	}
+
 	protected static final Log log = LogFactoryUtil.getLog(
 		BaseUpgradeProcess.class);
 
 	protected CompanyLocalService companyLocalService;
 	protected GroupLocalService groupLocalService;
+	protected LayoutLocalService layoutLocalService;
+	protected String originalName;
+	protected PermissionChecker originalPermissionChecker;
+	protected RoleLocalService roleLocalService;
 	protected UserGroupLocalService userGroupLocalService;
 	protected UserLocalService userLocalService;
 

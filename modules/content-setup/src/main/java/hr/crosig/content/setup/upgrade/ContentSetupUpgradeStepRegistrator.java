@@ -2,11 +2,14 @@ package hr.crosig.content.setup.upgrade;
 
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.service.LayoutLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.UserGroupLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.PrefsProps;
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
 
+import hr.crosig.content.setup.upgrade.v1_0_0.AddAgentPortalDashboardPage;
 import hr.crosig.content.setup.upgrade.v1_0_0.AddAgentPortalSite;
 import hr.crosig.content.setup.upgrade.v1_0_0.CreateAgentPortalUserGroups;
 
@@ -29,7 +32,10 @@ public class ContentSetupUpgradeStepRegistrator
 				_companyLocalService),
 			new CreateAgentPortalUserGroups(
 				_companyLocalService, _groupLocalService, _userLocalService,
-				_userGroupLocalService));
+				_userGroupLocalService),
+			new AddAgentPortalDashboardPage(
+				_groupLocalService, _userLocalService, _layoutLocalService,
+				_roleLocalService));
 	}
 
 	@Reference
@@ -39,7 +45,13 @@ public class ContentSetupUpgradeStepRegistrator
 	private GroupLocalService _groupLocalService;
 
 	@Reference
+	private LayoutLocalService _layoutLocalService;
+
+	@Reference
 	private PrefsProps _prefsProps;
+
+	@Reference
+	private RoleLocalService _roleLocalService;
 
 	@Reference
 	private UserGroupLocalService _userGroupLocalService;
