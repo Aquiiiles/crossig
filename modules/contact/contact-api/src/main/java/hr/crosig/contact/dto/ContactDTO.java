@@ -1,195 +1,178 @@
 package hr.crosig.contact.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import hr.crosig.contact.constants.ContactConstants;
-import hr.crosig.contact.enums.ContactType;
-
-import java.io.Serializable;
-
-import java.util.Date;
 import java.util.List;
 
-/**
- * @author Guilherme Kfouri
- */
-public class ContactDTO implements Serializable {
+public class ContactDTO {
 
-	public String getCity() {
-		return _city;
-	}
+    private List<AddressDTO> addressList;
+    private List<SubscriptionDTO> subscriptionList;
+    private GenderDTO gender;
+    private List<TelephoneDTO> telephoneList;
+    private LanguageDTO language;
+    private ChannelTypeDTO channelType;
+    private PreferredDeliveryTypeDTO preferredDeliveryType;
+    private TitleDTO title;
+    private List<EmailDTO> emailList;
+    private ProfessionDTO profession;
+    private EntityTypeDTO entityType;
+    private List<IdentifierDTO> identifierList;
+    private String dateOfBirth;
+    private String firstName;
+    private NationalityDTO nationality;
+    private String name;
+    private List<ConsentDTO> consentList;
+    private String middleName;
+    private FamilyStatusDTO familyStatus;
 
-	public String getCompanyName() {
-		return _companyName;
-	}
+    public List<AddressDTO> getAddressList() {
+        return addressList;
+    }
 
-	public ContactType getContactType() {
-		return _contactType;
-	}
+    public void setAddressList(List<AddressDTO> addressList) {
+        this.addressList = addressList;
+    }
 
-	public String getCountry() {
-		return _country;
-	}
+    public List<SubscriptionDTO> getSubscriptionList() {
+        return subscriptionList;
+    }
 
-	public Date getDateOfBirth() {
-		return _dateOfBirth;
-	}
+    public void setSubscriptionList(List<SubscriptionDTO> subscriptionList) {
+        this.subscriptionList = subscriptionList;
+    }
 
-	public String getDispatchCity() {
-		return _dispatchCity;
-	}
+    public GenderDTO getGender() {
+        return gender;
+    }
 
-	public String getDispatchCountry() {
-		return _dispatchCountry;
-	}
+    public void setGender(GenderDTO gender) {
+        this.gender = gender;
+    }
 
-	public int getDispatchHouseNumber() {
-		return _dispatchHouseNumber;
-	}
+    public List<TelephoneDTO> getTelephoneList() {
+        return telephoneList;
+    }
 
-	public String getDispatchPostalCode() {
-		return _dispatchPostalCode;
-	}
+    public void setTelephoneList(List<TelephoneDTO> telephoneList) {
+        this.telephoneList = telephoneList;
+    }
 
-	public String getDispatchStreetAddress() {
-		return _dispatchStreetAddress;
-	}
+    public LanguageDTO getLanguage() {
+        return language;
+    }
 
-	public List<String> getEmails() {
-		return _emails;
-	}
+    public void setLanguage(LanguageDTO language) {
+        this.language = language;
+    }
 
-	public String getFirstName() {
-		return _firstName;
-	}
+    public ChannelTypeDTO getChannelType() {
+        return channelType;
+    }
 
-	public int getHouseNumber() {
-		return _houseNumber;
-	}
+    public void setChannelType(ChannelTypeDTO channelType) {
+        this.channelType = channelType;
+    }
 
-	public String getLastName() {
-		return _lastName;
-	}
+    public PreferredDeliveryTypeDTO getPreferredDeliveryType() {
+        return preferredDeliveryType;
+    }
 
-	public long getOib() {
-		return _oib;
-	}
+    public void setPreferredDeliveryType(PreferredDeliveryTypeDTO preferredDeliveryType) {
+        this.preferredDeliveryType = preferredDeliveryType;
+    }
 
-	public List<PhoneNumberDTO> getPhoneNumbers() {
-		return _phoneNumbers;
-	}
+    public TitleDTO getTitle() {
+        return title;
+    }
 
-	public String getPostalCode() {
-		return _postalCode;
-	}
+    public void setTitle(TitleDTO title) {
+        this.title = title;
+    }
 
-	public String getStreetAddress() {
-		return _streetAddress;
-	}
+    public List<EmailDTO> getEmailList() {
+        return emailList;
+    }
 
-	public boolean isForeignerStatus() {
-		return _foreignerStatus;
-	}
+    public void setEmailList(List<EmailDTO> emailList) {
+        this.emailList = emailList;
+    }
 
-	public void setCity(String city) {
-		_city = city;
-	}
+    public ProfessionDTO getProfession() {
+        return profession;
+    }
 
-	public void setCompanyName(String companyName) {
-		_companyName = companyName;
-	}
+    public void setProfession(ProfessionDTO profession) {
+        this.profession = profession;
+    }
 
-	public void setContactType(ContactType contactType) {
-		_contactType = contactType;
-	}
+    public EntityTypeDTO getEntityType() {
+        return entityType;
+    }
 
-	public void setCountry(String country) {
-		_country = country;
-	}
+    public void setEntityType(EntityTypeDTO entityType) {
+        this.entityType = entityType;
+    }
 
-	public void setDateOfBirth(Date dateOfBirth) {
-		_dateOfBirth = dateOfBirth;
-	}
+    public List<IdentifierDTO> getIdentifierList() {
+        return identifierList;
+    }
 
-	public void setDispatchCity(String dispatchCity) {
-		_dispatchCity = dispatchCity;
-	}
+    public void setIdentifierList(List<IdentifierDTO> identifierList) {
+        this.identifierList = identifierList;
+    }
 
-	public void setDispatchCountry(String dispatchCountry) {
-		_dispatchCountry = dispatchCountry;
-	}
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
 
-	public void setDispatchHouseNumber(int dispatchHouseNumber) {
-		_dispatchHouseNumber = dispatchHouseNumber;
-	}
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
 
-	public void setDispatchPostalCode(String dispatchPostalCode) {
-		_dispatchPostalCode = dispatchPostalCode;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setDispatchStreetAddress(String dispatchStreetAddress) {
-		_dispatchStreetAddress = dispatchStreetAddress;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setEmails(List<String> emails) {
-		_emails = emails;
-	}
+    public NationalityDTO getNationality() {
+        return nationality;
+    }
 
-	public void setFirstName(String firstName) {
-		_firstName = firstName;
-	}
+    public void setNationality(NationalityDTO nationality) {
+        this.nationality = nationality;
+    }
 
-	public void setForeignerStatus(boolean foreignerStatus) {
-		_foreignerStatus = foreignerStatus;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setHouseNumber(int houseNumber) {
-		_houseNumber = houseNumber;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setLastName(String lastName) {
-		_lastName = lastName;
-	}
+    public List<ConsentDTO> getConsentList() {
+        return consentList;
+    }
 
-	public void setOib(long oib) {
-		_oib = oib;
-	}
+    public void setConsentList(List<ConsentDTO> consentList) {
+        this.consentList = consentList;
+    }
 
-	public void setPhoneNumbers(List<PhoneNumberDTO> phoneNumbers) {
-		_phoneNumbers = phoneNumbers;
-	}
+    public String getMiddleName() {
+        return middleName;
+    }
 
-	public void setPostalCode(String postalCode) {
-		_postalCode = postalCode;
-	}
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
 
-	public void setStreetAddress(String streetAddress) {
-		_streetAddress = streetAddress;
-	}
+    public FamilyStatusDTO getFamilyStatus() {
+        return familyStatus;
+    }
 
-	private String _city;
-	private String _companyName;
-	private ContactType _contactType;
-	private String _country;
-
-	@JsonFormat(
-		pattern = ContactConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
-	)
-	private Date _dateOfBirth;
-
-	private String _dispatchCity;
-	private String _dispatchCountry;
-	private int _dispatchHouseNumber;
-	private String _dispatchPostalCode;
-	private String _dispatchStreetAddress;
-	private List<String> _emails;
-	private String _firstName;
-	private boolean _foreignerStatus;
-	private int _houseNumber;
-	private String _lastName;
-	private long _oib;
-	private List<PhoneNumberDTO> _phoneNumbers;
-	private String _postalCode;
-	private String _streetAddress;
-
+    public void setFamilyStatus(FamilyStatusDTO familyStatus) {
+        this.familyStatus = familyStatus;
+    }
 }

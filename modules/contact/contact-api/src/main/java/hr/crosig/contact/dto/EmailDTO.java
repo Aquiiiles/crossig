@@ -1,67 +1,38 @@
 package hr.crosig.contact.dto;
 
-import java.io.Serializable;
+import javax.validation.constraints.Pattern;
 
 /**
- * @author Guilherme Kfouri
+ * @author david.martini
  */
-public class EmailDTO implements Serializable {
+public class EmailDTO {
 
-	public String getBrand() {
-		return _brand;
-	}
+    private EmailTypeDTO emailType;
+    private boolean isPreferredDeliveryAddress;
+    @Pattern(regexp = "/^[a-z0-9.]+@[a-z0-9]+.[a-z]+.([a-z]+)?$/i")
+    private String email;
 
-	public String getEmail() {
-		return _email;
-	}
+    public EmailTypeDTO getEmailType() {
+        return emailType;
+    }
 
-	public String getEmailTypeExternalCode() {
-		return _emailTypeExternalCode;
-	}
+    public void setEmailType(EmailTypeDTO emailType) {
+        this.emailType = emailType;
+    }
 
-	public Long getEmailTypeId() {
-		return _emailTypeId;
-	}
+    public boolean isPreferredDeliveryAddress() {
+        return isPreferredDeliveryAddress;
+    }
 
-	public Long getIfsId() {
-		return _ifsId;
-	}
+    public void setPreferredDeliveryAddress(boolean preferredDeliveryAddress) {
+        isPreferredDeliveryAddress = preferredDeliveryAddress;
+    }
 
-	public String getUserName() {
-		return _userName;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setBrand(String brand) {
-		_brand = brand;
-	}
-
-	public void setEmail(String email) {
-		_email = email;
-	}
-
-	public void setEmailTypeExternalCode(String emailTypeExternalCode) {
-		_emailTypeExternalCode = emailTypeExternalCode;
-	}
-
-	public void setEmailTypeId(Long emailTypeId) {
-		_emailTypeId = emailTypeId;
-	}
-
-	public void setIfsId(Long ifsId) {
-		_ifsId = ifsId;
-	}
-
-	public void setUserName(String userName) {
-		_userName = userName;
-	}
-
-	private static final long serialVersionUID = 1L;
-
-	private String _brand;
-	private String _email;
-	private String _emailTypeExternalCode;
-	private Long _emailTypeId;
-	private Long _ifsId;
-	private String _userName;
-
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
