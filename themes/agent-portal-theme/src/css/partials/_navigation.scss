@@ -1,0 +1,145 @@
+#wrapper {
+    display: grid;
+    grid-template-columns: auto 1fr;
+
+    & > #navigation {
+        grid-column-start: 1;
+        grid-row: 1 / 4;
+    }
+
+    & > * {
+        grid-column-start: 2;
+    }
+}
+
+#navigation {
+    display: flex;
+    height: 100%;
+    background-color: #112D82;
+    padding-right: 0; // ignore padding set by liferay's page-editor__disabled-area class
+
+    &:hover {
+        & .navigation-expansion {
+            max-width: calc(240px - 64px);
+        }
+    }
+}
+
+.navigation-aside {
+    display: grid;
+    grid-template-columns: 64px;
+    grid-template-rows: 160px 1fr 144px;
+    justify-items: center;
+
+    & .crosig-logo {
+        padding: 1rem 0.75rem;
+    }
+
+    & .user-image-round {
+        background-color: #000;
+        border-radius: 50%;
+    }
+}
+
+.navigation-expansion {
+    width: calc(240px - 64px);
+    max-width: 0;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 160px 1fr 144px;
+    justify-items: start;
+    overflow: hidden;
+    transition: max-width 400ms ease-out;
+
+    & .crosig-logo {
+        padding: 1rem 0.75rem 1rem 0;
+        clip-path: inset(0 0 0 40px);
+        transform: translateX(-48px);
+    }
+
+    & .nav-link-list li {
+        justify-content: start;
+    }
+
+    & .nav-link-list li.selected {
+        &:before {
+            width: 0;
+        }
+    }
+
+    & .user-controls {
+        padding-left: 0;
+    }
+}
+
+.nav-link-list {
+    display: grid;
+    grid-auto-rows: min-content;
+    gap: 0.75rem;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    & li {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .nav-item-link {
+        color: #FFF;
+        text-decoration: none;
+        opacity: 0.5;
+
+        & span {
+            white-space: nowrap;
+        }
+
+        &:hover {
+            text-decoration: none;
+            color: #FFF;
+        }
+    }
+
+    li.selected {
+        & .nav-item-link {
+            opacity: 1;
+        }
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 4px;
+            background-color: #FFF;
+        }
+    }
+}
+
+.nav-icon {
+    opacity: 0.5;
+
+    li.selected & {
+        opacity: 1;
+    }
+}
+
+.user-controls {
+    padding: 1.5rem 0.75rem;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    gap: 1rem;
+    grid-template-columns: auto;
+    grid-template-rows: repeat(2, 1fr);
+
+    & p {
+        color: #FFF;
+        margin: 0;
+        white-space: nowrap;
+    }
+}
