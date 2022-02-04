@@ -51,6 +51,7 @@
 
 		<!-- Other fields -->
 
+		<column name="externalId" type="long" />
 		<column name="name" type="String" />
 		<column name="cityId" type="long" />
 
@@ -66,6 +67,10 @@
 
 		<finder name="CityId" return-type="Collection">
 			<finder-column name="cityId" />
+		</finder>
+		<finder name="CityId_Name" return-type="Collection">
+			<finder-column name="cityId" />
+			<finder-column name="name" />
 		</finder>
 	</entity>
 </service-builder>

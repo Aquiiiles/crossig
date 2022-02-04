@@ -42,7 +42,6 @@ import hr.crosig.contact.service.base.StreetLocalServiceBaseImpl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import hr.crosig.contact.util.BulkHelper;
 import org.osgi.service.component.annotations.Component;
@@ -62,15 +61,15 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 		streets.forEach(
 			streetDTO -> {
 				Street street = createStreet(streetDTO, companyId);
-
-				street.setNew(!streetExists(streetDTO.getStreetId()));
+				// should always be new
+				street.setNew(true);
 
 				streetLocalService.updateStreet(street);
 			});
 	}
 
 	public Street addStreet(StreetDTO streetDTO) throws StreetException {
-		validateStreet(streetDTO.getStreetId());
+		validateStreet(streetDTO.getCityId(), streetDTO.getStreetName());
 
 		Street street = createStreet(streetDTO, PortalUtil.getDefaultCompanyId());
 
@@ -134,6 +133,7 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 		Street street = streetLocalService.createStreet(
 				counterLocalService.increment(Street.class.getName()));
 
+		street.setExternalId(streetDTO.getStreetId());
 		street.setName(streetDTO.getStreetName());
 		street.setCityId(streetDTO.getCityId());
 		street.setCompanyId(companyId);
@@ -164,10 +164,10 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 		return streetsNames;
 	}
 
-	protected boolean streetExists(long streetId) {
-		Street street = streetLocalService.fetchStreet(streetId);
+	protected boolean streetExists(long cityId, String name) {
+		List<Street> streets = streetPersistence.findByCityId_Name(cityId, name);
 
-		return !Objects.isNull(street);
+		return !streets.isEmpty();
 	}
 
 	protected void validateSearchStreetName(String streetName)
@@ -175,14 +175,14 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 
 		if (streetName.length() < StreetConstants.STREET_NAME_MINIMUM_LENGTH)
 
-			throw new StreetException(StreetMessages.INSUFICIENT_NAME_LENGTH);
+			throw new StreetException(StreetMessages.INSUFFICIENT_NAME_LENGTH);
 	}
 
-	protected void validateStreet(long streetId) throws StreetException {
-		if (streetExists(streetId))
+	protected void validateStreet(long cityId, String name) throws StreetException {
+		if (streetExists(cityId, name))
 
 			throw new StreetException(
-				StreetMessages.STREET_WITH_THIS_ID_ALREADY_EXISTS + streetId);
+				StreetMessages.STREET_WITH_THIS_ID_ALREADY_EXISTS + name);
 	}
 
 	@Reference
