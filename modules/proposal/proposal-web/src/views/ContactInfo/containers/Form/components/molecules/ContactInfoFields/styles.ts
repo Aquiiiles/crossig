@@ -6,3 +6,13 @@ export const Wrapper = styled.div`
     margin-top: 1rem;
   }
 `;
+
+export const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  .form-group {
+    width: 31%;
+  }
+`;
