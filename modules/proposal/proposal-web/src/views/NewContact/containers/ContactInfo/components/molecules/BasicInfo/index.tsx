@@ -1,7 +1,11 @@
 import React from "react";
 import { Row, FormSection } from "../../atoms";
 import { CREATE_NEW_CONTACT } from "../../../../../../../constants/languageKeys";
-import ClayForm, { ClayInput, ClayCheckbox, ClaySelect } from "@clayui/form";
+import ClayForm, {
+  ClayInput,
+  ClayCheckbox,
+  ClaySelectWithOption,
+} from "@clayui/form";
 import ClayDatePicker from "@clayui/date-picker";
 import { actions } from "./slice/basicInfoSlice";
 import { useContactDispatch, useContactSelector } from "../../../contactStore";
@@ -29,26 +33,31 @@ const BasicInfo: React.FC = () => {
     setSubsidiaryNumber,
   } = actions;
 
+  const contactTypeOptions = [
+    {
+      label: CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.INDIVIDUAL,
+      value: "1",
+    },
+    {
+      label: CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.SELF_EMPLOYED,
+      value: "2",
+    },
+    {
+      label: CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.LEGAL_ENTITY,
+      value: "3",
+    },
+  ];
   const showIndividualFields = contactType === "1";
 
   return (
     <FormSection title={CREATE_NEW_CONTACT.BASIC_INFO_TITLE}>
       <div>
-        <ClaySelect
+        <ClaySelectWithOption
           required
           value={contactType}
           onChange={({ target: { value } }) => dispatch(setType(value))}
-        >
-          <option value={1}>
-            {CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.INDIVIDUAL}
-          </option>
-          <option value={2}>
-            {CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.SELF_EMPLOYED}
-          </option>
-          <option value={3}>
-            {CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.LEGAL_ENTITY}
-          </option>
-        </ClaySelect>
+          options={contactTypeOptions}
+        ></ClaySelectWithOption>
       </div>
       {showIndividualFields ? (
         <Row>
