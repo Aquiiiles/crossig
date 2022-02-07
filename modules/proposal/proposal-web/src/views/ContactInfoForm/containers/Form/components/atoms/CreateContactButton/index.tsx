@@ -1,5 +1,4 @@
 import React, { MouseEventHandler } from "react";
-
 import { Button } from "./styles";
 
 interface props {
