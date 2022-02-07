@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useHistory } from "react-router-dom";
 import ClayForm from "@clayui/form";
-import FormSection from "../../../../../../../shared/atoms/FormSection";
-import SubtitledLabel from "../../atoms/SubtitledLabel";
-
+import CreateContactButton from "../../atoms/CreateContactButton";
 import EmailInputList from "../../atoms/EmailInputList";
+import FormSection from "../../../../../../../shared/atoms/FormSection";
 import PhoneInputList, { PhoneNumber } from "../../atoms/PhoneInputList";
 import LinkWrapper from "../../atoms/LinkWrapper";
-import CreateContactButton from "../../atoms/CreateContactButton";
-
-import { Wrapper, InputWrapper } from "./styles";
+import Row from "../../../../../../../shared/atoms/Row";
+import SubtitledLabel from "../../atoms/SubtitledLabel";
+import { ButtonWrapper } from "./styles";
 import {
   CONTACT_INFO_CANCEL,
   CONTACT_INFO_TITLE,
@@ -74,62 +73,52 @@ const ContactInfoFields: React.FC = () =>  {
     setMobilePhones(currentMobilePhones);
   }
 
-  const options = [
-    {
-      label: "Option 1",
-      value: "1"
-    },
-    {
-      label: "Option 2",
-      value: "2"
-    }
-  ];
-
   return (
-      <FormSection title={CONTACT_INFO_TITLE}>
-        <InputWrapper>
+      <Fragment>
+        <FormSection title={CONTACT_INFO_TITLE}>
+          <SubtitledLabel 
+            title={CONTACT_INFO_MAIN_EMAIL} 
+            subTitle={CONTACT_INFO_MAIN_EMAIL_SUBTITLE} 
+          />
+          <Row>
             <ClayForm.Group>         
-              <SubtitledLabel 
-                title={CONTACT_INFO_MAIN_EMAIL} 
-                subTitle={CONTACT_INFO_MAIN_EMAIL_SUBTITLE} 
+              <EmailInputList 
+                emails={emailAddresses}
+                handleChange={handleEmailChange}
+                addEmailInput={addEmailAddressInput}
               />
             </ClayForm.Group>
+          </Row>
+        </FormSection>
 
-            <EmailInputList 
-              emails={emailAddresses}
-              handleChange={handleEmailChange}
-              addEmailInput={addEmailAddressInput}
-            />
-        </InputWrapper>
-
-        <InputWrapper>
-          <ClayForm.Group>
-            <SubtitledLabel 
-              title={CONTACT_INFO_MAIN_MOBILE} 
-              subTitle={CONTACT_INFO_MAIN_MOBILE_SUBTITLE} 
-            />
-          </ClayForm.Group>
-
-          <PhoneInputList 
-            phoneNumbers={mobilePhones} 
-            handleChange={handlePhoneChange} 
-            addPhoneInput={addMobilePhoneInput}
-            countryCodeOptions={options} 
-            areaCodeOptions={options}
+        <FormSection>
+          <SubtitledLabel 
+            title={CONTACT_INFO_MAIN_MOBILE} 
+            subTitle={CONTACT_INFO_MAIN_MOBILE_SUBTITLE} 
           />
-        </InputWrapper>
-        
-        <ClayForm.Group>
-          <LinkWrapper 
-            title={CONTACT_INFO_CANCEL}
-            handleClick={history.goBack}
+          <Row>
+            <ClayForm.Group>
+              <PhoneInputList 
+                phoneNumbers={mobilePhones} 
+                handleChange={handlePhoneChange} 
+                addPhoneInput={addMobilePhoneInput}
+                countryCodeOptions={[]} 
+                areaCodeOptions={[]}
+              />
+            </ClayForm.Group>
+          </Row>
+      </FormSection>
+      <ButtonWrapper>
+        <LinkWrapper 
+          title={CONTACT_INFO_CANCEL}
+          handleClick={history.goBack}
           />
-
-          <CreateContactButton 
-            handleClick={() => {return;}} 
-          />
-        </ClayForm.Group>
-    </FormSection>
+          
+        <CreateContactButton 
+          handleClick={() => {return;}} 
+        />
+      </ButtonWrapper>
+    </Fragment>
   );
 };
 
