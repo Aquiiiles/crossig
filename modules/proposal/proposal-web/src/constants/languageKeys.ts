@@ -38,7 +38,4 @@ export const CREATE_NEW_CONTACT = {
         HOUSE_NUMBER : Liferay.Language.get('create-new-contact-field-house-number'),
         DISPATCH_ADDRESS : Liferay.Language.get('create-new-contact-field-dispatch-address'),
     },
-    
 }
-
-
