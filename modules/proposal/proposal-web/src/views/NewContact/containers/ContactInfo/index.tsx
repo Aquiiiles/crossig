@@ -17,7 +17,7 @@ const ContactInfo: React.FC = () => {
         <p style={{ marginBottom: "1.875rem" }}>
           {CREATE_NEW_CONTACT.SUBTITLE}
         </p>
-        <BasicInfo />
+        <BasicInfo setContactType={setContactType} />
         <Addresses contactType={contactType} cities={cities} />
       </Wrapper>
     </ContactInfoProvider>
