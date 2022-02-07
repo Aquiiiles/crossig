@@ -1,8 +1,10 @@
 import ClayForm, { ClayInput } from "@clayui/form";
-import ClayLink from '@clayui/link';
 import React, { MouseEventHandler } from "react";
-import { LinkWrapper } from "./styles";
-import { CONTACT_INFO_EMAIL_ADDRESS } from "../../../../../../../constants/languageKeys";
+import LinkWrapper from "../LinkWrapper";
+import {
+  CONTACT_INFO_ADD_EMAIL_ADDRESS,
+  CONTACT_INFO_EMAIL_ADDRESS
+ } from "../../../../../../../constants/languageKeys";
 
 interface props {
   emails: Array<string>;
@@ -13,7 +15,9 @@ interface props {
 const EmailListInput: React.FC<props> = (props) => {
   return (
     <ClayForm.Group>
-      <label>{CONTACT_INFO_EMAIL_ADDRESS}</label>
+      <ClayForm.Group>
+        <label>{CONTACT_INFO_EMAIL_ADDRESS}</label>
+      </ClayForm.Group>
       <ol>
         {props.emails.map((email, index) => {
           return <li key={`emailInputList${index}`}>
@@ -26,9 +30,10 @@ const EmailListInput: React.FC<props> = (props) => {
                 </li>;
         })}
       </ol>
-      <LinkWrapper>
-        <ClayLink onClick={props.addEmailInput}>Add Email Address</ClayLink>
-      </LinkWrapper>
+      <LinkWrapper 
+        title={CONTACT_INFO_ADD_EMAIL_ADDRESS}
+        handleClick={props.addEmailInput}
+      />
   </ClayForm.Group>
   );
 };

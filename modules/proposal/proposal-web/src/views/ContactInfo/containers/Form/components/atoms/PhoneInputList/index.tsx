@@ -1,7 +1,14 @@
 import React, { MouseEventHandler } from "react";
 import ClayForm, { ClayInput, ClaySelectWithOption } from "@clayui/form";
-import ClayLink from '@clayui/link';
-import { LinkWrapper, PhoneNumberWrapper } from "./styles";
+import { PhoneNumberWrapper } from "./styles";
+import LinkWrapper from "../LinkWrapper";
+import { 
+  CONTACT_INFO_ADD_MOBILE_PHONE,
+  CONTACT_INFO_AREA_CODE,
+  CONTACT_INFO_COUNTRY_CODE,
+  CONTACT_INFO_PHONE_NUMBER
+} from "../../../../../../../constants/languageKeys";
+
 
 export interface PhoneNumber  {
   countryCode: string;
@@ -21,9 +28,16 @@ interface props {
 const PhoneInputList: React.FC<props> = (props) => {
   return (
     <ClayForm.Group>
-      <label>Country Code</label>
-      <label>Area Code</label>
-      <label>Phone Number</label>
+      {/* <ClayForm.Group style={{justifyContent: "space-between", display: "flex", flexDirection: "row"}}>
+        <label style={{width: "max-content"}}>{CONTACT_INFO_COUNTRY_CODE}</label>
+        <label style={{width: "31%"}}>{CONTACT_INFO_AREA_CODE}</label>
+        <label style={{width: "max-content"}}>{CONTACT_INFO_PHONE_NUMBER}</label>
+      </ClayForm.Group> */}
+      <ClayForm.Group >
+        <label>{CONTACT_INFO_COUNTRY_CODE}</label>
+        <label>{CONTACT_INFO_AREA_CODE}</label>
+        <label>{CONTACT_INFO_PHONE_NUMBER}</label>
+      </ClayForm.Group>
 
       <ol>
         {props.phoneNumbers.map((phoneNumber, index) => {
@@ -55,9 +69,10 @@ const PhoneInputList: React.FC<props> = (props) => {
                 </li>;
         })}
       </ol>
-      <LinkWrapper>
-        <ClayLink onClick={props.addPhoneInput}>Add Mobile Phone</ClayLink>
-      </LinkWrapper>
+      <LinkWrapper 
+        title={CONTACT_INFO_ADD_MOBILE_PHONE}
+        handleClick={props.addPhoneInput}
+      />
     </ClayForm.Group>
   );
 };
