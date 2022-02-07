@@ -1,18 +1,16 @@
 import React, { useState } from "react";
-import {
-	AutocompleteInput,
-	FormSection,
-	Row,
-	SectionSubTitle
-} from "../../atoms";
+import { AutocompleteInput } from "../../atoms";
+import SectionSubTitle from "../../atoms/SectionSubTitle";
+import FormSection from "../../../../../../../shared/atoms/FormSection";
+import Row from "../../../../../../../shared/atoms/Row";
 import ClayForm, {
-	ClayInput,
-	ClayCheckbox,
-	ClaySelectWithOption
+  ClayInput,
+  ClayCheckbox,
+  ClaySelectWithOption,
 } from "@clayui/form";
 import {
-	contactTypes,
-	croatiaCountryObject
+  contactTypes,
+  croatiaCountryObject,
 } from "../../../../../../../constants/contactConstants";
 import { CREATE_NEW_CONTACT } from "../../../../../../../constants/languageKeys";
 import { useContactSelector } from "../../../contactStore";
