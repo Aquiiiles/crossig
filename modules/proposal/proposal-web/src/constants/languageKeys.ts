@@ -1,5 +1,7 @@
 declare const Liferay: any;
 
+export const CONTACT_INFO_TITLE = Liferay.Language.get('contact-info-title');
+
 export const CONTACT_SEARCH_TITLE= Liferay.Language.get('contact-search-title');
 export const CONTACT_SEARCH_SUBTITLE= Liferay.Language.get('contact-search-subtitle');
 export const CONTACT_SEARCH_FIELD_NAME_OR_OIB= Liferay.Language.get('contact-search-field-name-or-oib');
