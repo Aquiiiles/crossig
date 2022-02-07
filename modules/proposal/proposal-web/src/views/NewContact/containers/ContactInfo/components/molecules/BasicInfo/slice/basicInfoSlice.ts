@@ -4,7 +4,9 @@ const initialState = {
   contactType: "1",
   firstName: "",
   lastName: "",
-  dateOfBirth: "",
+  dateDay: "",
+  dateMonth: "",
+  dateYear: "",
   oib: "",
   foreignerStatus: false,
   companyName: "",
@@ -24,8 +26,14 @@ const basicInfoSlice = createSlice({
     setLastName(state, action: PayloadAction<string>) {
       state.lastName = action.payload;
     },
-    setDateOfBirth(state, action: PayloadAction<string>) {
-      state.dateOfBirth = action.payload;
+    setDateDay(state, action: PayloadAction<string>) {
+      state.dateDay = action.payload;
+    },
+    setDateMonth(state, action: PayloadAction<string>) {
+      state.dateMonth = action.payload;
+    },
+    setDateYear(state, action: PayloadAction<string>) {
+      state.dateYear = action.payload;
     },
     setOIB(state, action: PayloadAction<string>) {
       if (!isNaN(Number(action.payload)) && action.payload.length <= 11) {

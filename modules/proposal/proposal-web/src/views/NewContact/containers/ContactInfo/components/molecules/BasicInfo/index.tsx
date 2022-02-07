@@ -6,7 +6,6 @@ import ClayForm, {
   ClayCheckbox,
   ClaySelectWithOption,
 } from "@clayui/form";
-import ClayDatePicker from "@clayui/date-picker";
 import { actions } from "./slice/basicInfoSlice";
 import { useContactDispatch, useContactSelector } from "../../../contactStore";
 
@@ -16,7 +15,6 @@ const BasicInfo: React.FC = () => {
     contactType,
     firstName,
     lastName,
-    dateOfBirth,
     oib,
     foreignerStatus,
     companyName,
@@ -26,7 +24,6 @@ const BasicInfo: React.FC = () => {
     setType,
     setFirstName,
     setLastName,
-    setDateOfBirth,
     setOIB,
     toggleForeignerStatus,
     setCompanyName,
@@ -112,14 +109,6 @@ const BasicInfo: React.FC = () => {
             <label htmlFor="dateOfBirthInput">
               {CREATE_NEW_CONTACT.FIELD.BIRTH_DATE}
             </label>
-            <ClayDatePicker
-              aria-required={showIndividualFields}
-              id="dateOfBirthInput"
-              placeholder="dd/mm/yyyy"
-              dateFormat="dd/MM/yyyy"
-              value={dateOfBirth}
-              onValueChange={value => dispatch(setDateOfBirth(value))}
-            />
           </ClayForm.Group>
         ) : null}
         <ClayForm.Group>

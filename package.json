@@ -6,5 +6,6 @@
             "modules\\contact\\contact-web",
             "themes\\agent-portal-theme"
         ]
-    }
+    },
+    "dependencies": {}
 }
