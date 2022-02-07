@@ -42,7 +42,13 @@ public class RestAPIInvokerIDITMock implements RestAPIServiceInvoker {
 			ServiceProviderType provider, String path, String payload)
 		throws ServiceInvocationException {
 
-		return null;
+		try {
+			return new ServiceResponse(200, _getResponse("post", path));
+		}
+		catch (Exception exception) {
+			throw new ServiceInvocationException(
+					"Error getting mock for " + path, exception);
+		}
 	}
 
 	@Override
@@ -50,7 +56,13 @@ public class RestAPIInvokerIDITMock implements RestAPIServiceInvoker {
 			ServiceProviderType provider, String path, String payload)
 		throws ServiceInvocationException {
 
-		return null;
+		try {
+			return new ServiceResponse(200, _getResponse("put", path));
+		}
+		catch (Exception exception) {
+			throw new ServiceInvocationException(
+					"Error getting mock for " + path, exception);
+		}
 	}
 
 	private String _getResponse(String operation, String path)
