@@ -1,11 +1,6 @@
 import React from "react";
 import { Row, FormSection } from "../../atoms";
 import { CREATE_NEW_CONTACT } from "../../../../../../../constants/languageKeys";
-import {
-	contactTypeOptions,
-	contactTypes
-} from "../../../../../../../constants/contactConstants";
-
 import ClayForm, {
 	ClayInput,
 	ClayCheckbox,
@@ -13,6 +8,10 @@ import ClayForm, {
 } from "@clayui/form";
 import { actions } from "./slice/basicInfoSlice";
 import { useContactDispatch, useContactSelector } from "../../../contactStore";
+import {
+	contactTypeOptions,
+	contactTypes
+} from "../../../../../../../constants/contactConstants";
 
 const BasicInfo: React.FC = () => {
 	const dispatch = useContactDispatch();
@@ -20,7 +19,9 @@ const BasicInfo: React.FC = () => {
 		contactType,
 		firstName,
 		lastName,
-		dateOfBirth,
+		dateDay,
+		dateMonth,
+		dateYear,
 		oib,
 		foreignerStatus,
 		companyName,
@@ -30,7 +31,9 @@ const BasicInfo: React.FC = () => {
 		setType,
 		setFirstName,
 		setLastName,
-		setDateOfBirth,
+		setDateDay,
+		setDateMonth,
+		setDateYear,
 		setOIB,
 		toggleForeignerStatus,
 		setCompanyName,
@@ -41,14 +44,16 @@ const BasicInfo: React.FC = () => {
 
 	return (
 		<FormSection title={CREATE_NEW_CONTACT.BASIC_INFO_TITLE}>
-			<div className='select-arrow-down'>
+			<ClayForm.Group>
+				<label htmlFor='contactTypeInput'>Type</label>
 				<ClaySelectWithOption
+					id='contactTypeInput'
 					required
 					value={contactType}
 					onChange={({ target: { value } }) => dispatch(setType(value))}
 					options={contactTypeOptions}
 				></ClaySelectWithOption>
-			</div>
+			</ClayForm.Group>
 			{showIndividualFields ? (
 				<Row>
 					<ClayForm.Group>
@@ -102,14 +107,38 @@ const BasicInfo: React.FC = () => {
 						<label htmlFor='dateOfBirthInput'>
 							{CREATE_NEW_CONTACT.FIELD.BIRTH_DATE}
 						</label>
-						<ClayDatePicker
-							aria-required={showIndividualFields}
-							id='dateOfBirthInput'
-							placeholder='dd/mm/yyyy'
-							dateFormat='dd/MM/yyyy'
-							value={dateOfBirth}
-							onValueChange={(value) => dispatch(setDateOfBirth(value))}
-						/>
+						<div className='birth-date-group'>
+							<ClayInput
+								required={showIndividualFields}
+								id='birthDateDay'
+								type='text'
+								onChange={({ target: { value } }) =>
+									dispatch(setDateDay(value))
+								}
+								placeholder='DD'
+								value={dateDay}
+							/>
+							<ClayInput
+								required={showIndividualFields}
+								id='birthDateMonth'
+								type='text'
+								onChange={({ target: { value } }) =>
+									dispatch(setDateMonth(value))
+								}
+								placeholder='MM'
+								value={dateMonth}
+							/>
+							<ClayInput
+								required={showIndividualFields}
+								id='birthDateYear'
+								type='text'
+								onChange={({ target: { value } }) =>
+									dispatch(setDateYear(value))
+								}
+								placeholder='YYYY'
+								value={dateYear}
+							/>
+						</div>
 					</ClayForm.Group>
 				) : null}
 				<ClayForm.Group>
