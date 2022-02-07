@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import ClayForm, { ClayInput } from "@clayui/form";
-import ClayLink from '@clayui/link';
+import { useHistory } from "react-router-dom";
+import ClayForm from "@clayui/form";
 import SectionTitle from "../../../../../../../shared/atoms/SectionTitle";
 import SubtitledLabel from "../../atoms/SubtitledLabel";
 
 import EmailInputList from "../../atoms/EmailInputList";
 import PhoneInputList, { PhoneNumber } from "../../atoms/PhoneInputList";
+import LinkWrapper from "../../atoms/LinkWrapper";
+import CreateContactButton from "../../atoms/CreateContactButton";
 
 import { Wrapper, InputWrapper } from "./styles";
 import {
+  CONTACT_INFO_CANCEL,
   CONTACT_INFO_TITLE,
   CONTACT_INFO_MAIN_EMAIL,
   CONTACT_INFO_MAIN_EMAIL_SUBTITLE,
@@ -18,6 +21,7 @@ import {
 
 
 const ContactInfoFields: React.FC = () =>  {
+  const history = useHistory();
   
   const createEmptyPhoneNumber = () => {
     return {
@@ -115,6 +119,19 @@ const ContactInfoFields: React.FC = () =>  {
           areaCodeOptions={options}
         />
       </InputWrapper>
+      
+      <ClayForm.Group>
+        <LinkWrapper 
+          title={CONTACT_INFO_CANCEL}
+          handleClick={history.goBack}
+        />
+
+        <CreateContactButton 
+          handleClick={() => {return;}} 
+        />
+      </ClayForm.Group>
+
+      
     </Wrapper>
   );
 };
