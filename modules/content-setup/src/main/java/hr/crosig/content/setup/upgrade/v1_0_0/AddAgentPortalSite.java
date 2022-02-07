@@ -3,13 +3,10 @@ package hr.crosig.content.setup.upgrade.v1_0_0;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.GroupConstants;
-import com.liferay.portal.kernel.service.CompanyLocalService;
-import com.liferay.portal.kernel.service.GroupLocalService;
-import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.util.PrefsProps;
 
 import hr.crosig.content.setup.constants.ContentSetupConstants;
 import hr.crosig.content.setup.upgrade.common.BaseUpgradeProcess;
+import hr.crosig.content.setup.upgrade.common.DependencyProvider;
 
 import javax.portlet.PortletPreferences;
 
@@ -19,14 +16,8 @@ import javax.portlet.PortletPreferences;
  */
 public class AddAgentPortalSite extends BaseUpgradeProcess {
 
-	public AddAgentPortalSite(
-		GroupLocalService groupLocalService, UserLocalService userLocalService,
-		PrefsProps prefsProps, CompanyLocalService companyLocalService) {
-
-		super(groupLocalService, companyLocalService, userLocalService);
-
-		this.prefsProps = prefsProps;
-		this.companyLocalService = companyLocalService;
+	public AddAgentPortalSite(DependencyProvider dependencyProvider) {
+		super(dependencyProvider);
 	}
 
 	@Override
@@ -60,8 +51,5 @@ public class AddAgentPortalSite extends BaseUpgradeProcess {
 
 		companyLocalService.updateCompany(company);
 	}
-
-	protected CompanyLocalService companyLocalService;
-	protected PrefsProps prefsProps;
 
 }

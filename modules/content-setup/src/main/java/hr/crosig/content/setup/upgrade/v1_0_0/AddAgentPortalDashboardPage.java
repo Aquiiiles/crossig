@@ -3,6 +3,7 @@ package hr.crosig.content.setup.upgrade.v1_0_0;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutConstants;
+import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
@@ -12,23 +13,17 @@ import com.liferay.portal.kernel.util.PortalUtil;
 
 import hr.crosig.content.setup.constants.ContentSetupConstants;
 import hr.crosig.content.setup.upgrade.common.BaseUpgradeProcess;
+import hr.crosig.content.setup.upgrade.common.DependencyProvider;
 
 /**
  * @author victor.catanante
  */
 public class AddAgentPortalDashboardPage extends BaseUpgradeProcess {
 
-	public AddAgentPortalDashboardPage(
-		GroupLocalService groupLocalService, UserLocalService userLocalService,
-		LayoutLocalService layoutLocalService,
-		RoleLocalService roleLocalService) {
+	public AddAgentPortalDashboardPage(DependencyProvider dependencyProvider) {
 
-		super(
-			groupLocalService, userLocalService, layoutLocalService,
-			roleLocalService);
+		super(dependencyProvider);
 
-		_groupLocalService = groupLocalService;
-		_userLocalService = userLocalService;
 	}
 
 	@Override
@@ -89,18 +84,15 @@ public class AddAgentPortalDashboardPage extends BaseUpgradeProcess {
 	protected Long userId;
 
 	private Long _getAdminUserId(Long companyId) throws PortalException {
-		return _userLocalService.getUser(
-			_userLocalService.getDefaultUserId(companyId)
+		return userLocalService.getUser(
+			userLocalService.getDefaultUserId(companyId)
 		).getUserId();
 	}
 
 	private Long _getDefaultGroupId(Long companyId) {
-		return _groupLocalService.fetchFriendlyURLGroup(
+		return groupLocalService.fetchFriendlyURLGroup(
 			companyId, ContentSetupConstants.AGENT_PORTAL_FRIENDLY_URL
 		).getGroupId();
 	}
-
-	private GroupLocalService _groupLocalService;
-	private UserLocalService _userLocalService;
 
 }
