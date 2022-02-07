@@ -13,6 +13,12 @@ export const InputWrapper = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   .form-group {
-    width: 31%;
+    width: max-content;
   }
+
+  & ol {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
 `;
