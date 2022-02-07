@@ -1,10 +1,11 @@
-import ClayForm, { ClayInput } from "@clayui/form";
 import React, { MouseEventHandler } from "react";
-import LinkWrapper from "../LinkWrapper";
+import { ClayInput } from "@clayui/form";
 import {
   CONTACT_INFO_ADD_EMAIL_ADDRESS,
   CONTACT_INFO_EMAIL_ADDRESS
  } from "../../../../../../../constants/languageKeys";
+import LinkWrapper from "../LinkWrapper";
+import { StyledFormGroup } from "./styles";
 
 interface props {
   emails: Array<string>;
@@ -14,27 +15,22 @@ interface props {
 
 const EmailListInput: React.FC<props> = (props) => {
   return (
-    <ClayForm.Group>
-      <ClayForm.Group>
-        <label>{CONTACT_INFO_EMAIL_ADDRESS}</label>
-      </ClayForm.Group>
-      <ol>
-        {props.emails.map((email, index) => {
-          return <li key={`emailInputList${index}`}>
-                    <ClayInput
-                      id={`emailInput${index}`}
-                      type="text"
-                      onChange={e => props.handleChange(index, e)}
-                      value={email.toString()}
-                    />
-                </li>;
+    <StyledFormGroup>
+      <label>{CONTACT_INFO_EMAIL_ADDRESS}</label>
+      {props.emails.map((email, index) => {
+        return <ClayInput
+                 key={`emailInputKey${index}`}
+                 id={`emailInput${index}`}
+                 type="text"
+                 onChange={e => props.handleChange(index, e)}
+                 value={email.toString()}
+               />;
         })}
-      </ol>
       <LinkWrapper 
         title={CONTACT_INFO_ADD_EMAIL_ADDRESS}
         handleClick={props.addEmailInput}
       />
-  </ClayForm.Group>
+    </StyledFormGroup>
   );
 };
 
