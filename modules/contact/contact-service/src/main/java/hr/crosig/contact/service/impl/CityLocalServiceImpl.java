@@ -83,8 +83,10 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 	public City deleteCityByExternalId(long externalId) {
 		City city = cityPersistence.fetchByPrimaryKey(externalId);
 
-		if (!Objects.isNull(city))
+		if (!Objects.isNull(city)) {
 			cityLocalService.deleteCity(city);
+			_streetLocalService.deleteStreetsByCityId(city.getCityId());
+		}
 
 		return city;
 	}
