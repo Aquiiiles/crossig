@@ -23,19 +23,19 @@ export const Wrapper = styled.div`
   & > *:first-child {
     position: relative;
     justify-self: end;
+  }
 
-    &:after {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: -2px;
-      width: 0;
-      height: 0;
-      transform: translateY(200%);
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-top: 5px solid #000;
-    }
+  & > .select-arrow-down:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -2px;
+    width: 0;
+    height: 0;
+    transform: translateY(200%);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #000;
   }
 
   & > *:not(:first-child) {

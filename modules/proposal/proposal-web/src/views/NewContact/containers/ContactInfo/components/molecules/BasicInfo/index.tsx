@@ -51,7 +51,7 @@ const BasicInfo: React.FC = () => {
 
   return (
     <FormSection title={CREATE_NEW_CONTACT.BASIC_INFO_TITLE}>
-      <div>
+      <div className="select-arrow-down">
         <ClaySelectWithOption
           required
           value={contactType}
