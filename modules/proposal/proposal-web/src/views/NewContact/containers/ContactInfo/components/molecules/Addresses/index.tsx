@@ -76,13 +76,8 @@ const Addresses: React.FC<{ contactType: number; cities: Array<Object> }> = ({
 
 			{!sameAddress && (
 				<>
-					<ClayForm.Group>
-						<label htmlFor='dispatch-country'>
-							{CREATE_NEW_CONTACT.FIELD.COUNTRY}
-						</label>
-
-						<ClayInput id='dispatch-country' type='text' />
-					</ClayForm.Group>
+					<strong>{CREATE_NEW_CONTACT.FIELD.COUNTRY}</strong>
+					<ClaySelectWithOption options={cities} />
 
 					<ClayForm.Group>
 						<ClayInput.Group>
