@@ -12,7 +12,12 @@ export const InputWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
+
   .form-group {
+    width: max-content;
+  }
+
+  & label {
     width: max-content;
   }
 

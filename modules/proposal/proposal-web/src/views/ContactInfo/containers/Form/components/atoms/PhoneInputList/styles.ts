@@ -6,8 +6,12 @@ export const PhoneNumberWrapper = styled.li`
   justify-content: space-between;
   flex-wrap: wrap;
 
-  & select, input {
+  & select {
     width: 31%;
+  }
+
+  & input {
+    width: 38%;
   }
 `;
 
