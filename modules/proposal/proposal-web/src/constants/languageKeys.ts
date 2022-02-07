@@ -1,6 +1,11 @@
 declare const Liferay: any;
 
 export const CONTACT_INFO_TITLE = Liferay.Language.get('contact-info-title');
+export const CONTACT_INFO_MAIN_EMAIL = Liferay.Language.get('contact-info-main-email');
+export const CONTACT_INFO_MAIN_EMAIL_SUBTITLE = Liferay.Language.get('contact-info-main-email-subtitle');
+export const CONTACT_INFO_EMAIL_ADDRESS = Liferay.Language.get('contact-info-email-address');
+export const CONTACT_INFO_MAIN_MOBILE = Liferay.Language.get('contact-info-main-mobile');
+export const CONTACT_INFO_MAIN_MOBILE_SUBTITLE = Liferay.Language.get('contact-info-main-mobile-subtitle');
 
 export const CONTACT_SEARCH_TITLE= Liferay.Language.get('contact-search-title');
 export const CONTACT_SEARCH_SUBTITLE= Liferay.Language.get('contact-search-subtitle');
