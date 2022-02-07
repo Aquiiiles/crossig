@@ -15,6 +15,9 @@ const BasicInfo: React.FC = () => {
     contactType,
     firstName,
     lastName,
+    dateDay,
+    dateMonth,
+    dateYear,
     oib,
     foreignerStatus,
     companyName,
@@ -24,6 +27,9 @@ const BasicInfo: React.FC = () => {
     setType,
     setFirstName,
     setLastName,
+    setDateDay,
+    setDateMonth,
+    setDateYear,
     setOIB,
     toggleForeignerStatus,
     setCompanyName,
@@ -48,14 +54,16 @@ const BasicInfo: React.FC = () => {
 
   return (
     <FormSection title={CREATE_NEW_CONTACT.BASIC_INFO_TITLE}>
-      <div className="select-arrow-down">
+      <ClayForm.Group>
+        <label htmlFor="contactTypeInput">Type</label>
         <ClaySelectWithOption
+          id="contactTypeInput"
           required
           value={contactType}
           onChange={({ target: { value } }) => dispatch(setType(value))}
           options={contactTypeOptions}
         ></ClaySelectWithOption>
-      </div>
+      </ClayForm.Group>
       {showIndividualFields ? (
         <Row>
           <ClayForm.Group>
@@ -109,6 +117,38 @@ const BasicInfo: React.FC = () => {
             <label htmlFor="dateOfBirthInput">
               {CREATE_NEW_CONTACT.FIELD.BIRTH_DATE}
             </label>
+            <div className="birth-date-group">
+              <ClayInput
+                required={showIndividualFields}
+                id="birthDateDay"
+                type="text"
+                onChange={({ target: { value } }) =>
+                  dispatch(setDateDay(value))
+                }
+                placeholder="DD"
+                value={dateDay}
+              />
+              <ClayInput
+                required={showIndividualFields}
+                id="birthDateMonth"
+                type="text"
+                onChange={({ target: { value } }) =>
+                  dispatch(setDateMonth(value))
+                }
+                placeholder="MM"
+                value={dateMonth}
+              />
+              <ClayInput
+                required={showIndividualFields}
+                id="birthDateYear"
+                type="text"
+                onChange={({ target: { value } }) =>
+                  dispatch(setDateYear(value))
+                }
+                placeholder="YYYY"
+                value={dateYear}
+              />
+            </div>
           </ClayForm.Group>
         ) : null}
         <ClayForm.Group>

@@ -4,7 +4,7 @@ export const Wrapper = styled.div<{ half: boolean }>`
   display: flex;
 
   & .form-group:first-child {
-    margin-right: 1.5rem;
+    margin-right: 2.5rem;
   }
 
   & > * {

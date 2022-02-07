@@ -5,40 +5,19 @@ export const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 0.5fr 2fr;
   grid-auto-rows: auto;
-  column-gap: 3.5rem;
-  row-gap: 1rem;
-
-  & > div select.form-control {
-    background-image: none !important;
-    text-align: end;
-    padding: 0 0.75rem 0 1.75rem !important;
-    border: 0;
-    transform: translateY(-0.4rem);
-
-    &:focus {
-      box-shadow: none;
-    }
-  }
+  gap: 1rem 3rem;
 
   & > *:first-child {
-    position: relative;
     justify-self: end;
-  }
-
-  & > .select-arrow-down:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: -2px;
-    width: 0;
-    height: 0;
-    transform: translateY(200%);
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid #000;
   }
 
   & > *:not(:first-child) {
     grid-column-start: 2;
+  }
+
+  & .birth-date-group {
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr 1fr;
+    column-gap: 1rem;
   }
 `;
