@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef, ReactElement } from "react";
+import {Link} from "react-router-dom";
 import ClayForm, { ClayInput } from "@clayui/form";
 import ClayButton from "@clayui/button";
 import ClayIcon from "@clayui/icon";
@@ -8,7 +9,7 @@ import SearchFilters from "./components/molecules/SearchFilters";
 import ArrowButton from "./components/atoms/ArrowButton";
 import SearchButton from "./components/atoms/SearchButton";
 import {Wrapper} from "./styles";
-import {CONTACT_SEARCH_FIELD_NAME_OR_OIB} from "../../../../constants/languageKeys";
+import {CONTACT_SEARCH_FIELD_NAME_OR_OIB, CONTACT_SEARCH_CREATE_NEW_CONTACT} from "../../../../constants/languageKeys";
 
 const SearchField: React.FC = () => {
   const [name, setName] = useState("");
@@ -61,6 +62,8 @@ const SearchField: React.FC = () => {
       >
         <SearchFilters />
       </ClayDropDown.Menu>
+      <div></div>
+      <Link to="new_contact">{CONTACT_SEARCH_CREATE_NEW_CONTACT}</Link>
     </Wrapper>
   );
 };
