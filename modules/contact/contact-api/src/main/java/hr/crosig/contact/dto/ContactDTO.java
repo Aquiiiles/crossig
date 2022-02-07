@@ -7,24 +7,24 @@ import java.util.List;
  */
 public class ContactDTO {
 
-	public List<AddressDTO> getAddressList() {
-		return addressList;
+	public List<AddressDTO> getAddresses() {
+		return addresses;
 	}
 
 	public ChannelTypeDTO getChannelType() {
 		return channelType;
 	}
 
-	public List<ConsentDTO> getConsentList() {
-		return consentList;
+	public List<ConsentDTO> getConsents() {
+		return consents;
 	}
 
 	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public List<EmailDTO> getEmailList() {
-		return emailList;
+	public List<EmailDTO> getEmails() {
+		return emails;
 	}
 
 	public EntityTypeDTO getEntityType() {
@@ -43,8 +43,8 @@ public class ContactDTO {
 		return gender;
 	}
 
-	public List<IdentifierDTO> getIdentifierList() {
-		return identifierList;
+	public List<IdentifierDTO> getIdentifiers() {
+		return identifiers;
 	}
 
 	public LanguageDTO getLanguage() {
@@ -71,36 +71,36 @@ public class ContactDTO {
 		return profession;
 	}
 
-	public List<SubscriptionDTO> getSubscriptionList() {
-		return subscriptionList;
+	public List<SubscriptionDTO> getSubscriptions() {
+		return subscriptions;
 	}
 
-	public List<TelephoneDTO> getTelephoneList() {
-		return telephoneList;
+	public List<TelephoneDTO> getTelephones() {
+		return telephones;
 	}
 
 	public TitleDTO getTitle() {
 		return title;
 	}
 
-	public void setAddressList(List<AddressDTO> addressList) {
-		this.addressList = addressList;
+	public void setAddresses(List<AddressDTO> addresses) {
+		this.addresses = addresses;
 	}
 
 	public void setChannelType(ChannelTypeDTO channelType) {
 		this.channelType = channelType;
 	}
 
-	public void setConsentList(List<ConsentDTO> consentList) {
-		this.consentList = consentList;
+	public void setConsents(List<ConsentDTO> consents) {
+		this.consents = consents;
 	}
 
 	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public void setEmailList(List<EmailDTO> emailList) {
-		this.emailList = emailList;
+	public void setEmails(List<EmailDTO> emails) {
+		this.emails = emails;
 	}
 
 	public void setEntityType(EntityTypeDTO entityType) {
@@ -119,8 +119,8 @@ public class ContactDTO {
 		this.gender = gender;
 	}
 
-	public void setIdentifierList(List<IdentifierDTO> identifierList) {
-		this.identifierList = identifierList;
+	public void setIdentifiers(List<IdentifierDTO> identifiers) {
+		this.identifiers = identifiers;
 	}
 
 	public void setLanguage(LanguageDTO language) {
@@ -140,7 +140,7 @@ public class ContactDTO {
 	}
 
 	public void setPreferredDeliveryType(
-		PreferredDeliveryTypeDTO preferredDeliveryType) {
+			PreferredDeliveryTypeDTO preferredDeliveryType) {
 
 		this.preferredDeliveryType = preferredDeliveryType;
 	}
@@ -149,36 +149,36 @@ public class ContactDTO {
 		this.profession = profession;
 	}
 
-	public void setSubscriptionList(List<SubscriptionDTO> subscriptionList) {
-		this.subscriptionList = subscriptionList;
+	public void setSubscriptions(List<SubscriptionDTO> subscriptions) {
+		this.subscriptions = subscriptions;
 	}
 
-	public void setTelephoneList(List<TelephoneDTO> telephoneList) {
-		this.telephoneList = telephoneList;
+	public void setTelephones(List<TelephoneDTO> telephones) {
+		this.telephones = telephones;
 	}
 
 	public void setTitle(TitleDTO title) {
 		this.title = title;
 	}
 
-	private List<AddressDTO> addressList;
+	private List<AddressDTO> addresses;
 	private ChannelTypeDTO channelType;
-	private List<ConsentDTO> consentList;
+	private List<ConsentDTO> consents;
 	private String dateOfBirth;
-	private List<EmailDTO> emailList;
+	private List<EmailDTO> emails;
 	private EntityTypeDTO entityType;
 	private FamilyStatusDTO familyStatus;
 	private String firstName;
 	private GenderDTO gender;
-	private List<IdentifierDTO> identifierList;
+	private List<IdentifierDTO> identifiers;
 	private LanguageDTO language;
 	private String middleName;
 	private String name;
 	private NationalityDTO nationality;
 	private PreferredDeliveryTypeDTO preferredDeliveryType;
 	private ProfessionDTO profession;
-	private List<SubscriptionDTO> subscriptionList;
-	private List<TelephoneDTO> telephoneList;
+	private List<SubscriptionDTO> subscriptions;
+	private List<TelephoneDTO> telephones;
 	private TitleDTO title;
 
 }
