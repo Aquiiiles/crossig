@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Wrapper } from "./style";
 import BasicInfo from "./components/molecules/BasicInfo";
 import Addresses from "./components/molecules/Addresses";
+import ContactInfoForm from "../../../ContactInfoForm";
 import { Provider as ContactInfoProvider } from "react-redux";
 import { CREATE_NEW_CONTACT } from "../../../../constants/languageKeys";
 import { croatiaCountryObject } from "../../../../constants/contactConstants";
@@ -47,6 +48,7 @@ const ContactInfo: React.FC = () => {
 				</p>
 				<BasicInfo />
 				{countries && <Addresses countries={countries} />}
+				<ContactInfoForm />
 			</Wrapper>
 		</ContactInfoProvider>
 	);

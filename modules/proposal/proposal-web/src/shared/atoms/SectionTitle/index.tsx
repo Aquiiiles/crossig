@@ -1,5 +1,5 @@
 import React from "react";
-import { Wrapper } from "./styles";
+import { Wrapper } from "./style";
 
 interface props {
   title: string;

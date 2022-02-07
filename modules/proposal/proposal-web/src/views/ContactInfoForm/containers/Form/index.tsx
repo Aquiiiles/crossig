@@ -4,9 +4,7 @@ import { Wrapper } from "./styles";
 const Form: React.FC = () => {
 
   return (
-    <Wrapper>
-      <ContactInfoFields />
-    </Wrapper>
+    <ContactInfoFields />
   );
 };
 
