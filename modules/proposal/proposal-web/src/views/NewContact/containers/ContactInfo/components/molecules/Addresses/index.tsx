@@ -7,12 +7,11 @@ import ClayForm, {
 } from "@clayui/form";
 import { contactTypes } from "../../../../../../../constants/contactConstants";
 import { CREATE_NEW_CONTACT } from "../../../../../../../constants/languageKeys";
+import { useContactSelector } from "../../../contactStore";
 
-const Addresses: React.FC<{ contactType: string; cities: Array<Object> }> = ({
-	contactType,
-	cities
-}) => {
+const Addresses: React.FC<{ cities: Array<Object> }> = ({ cities }) => {
 	const [sameAddress, setSameAdress] = useState(true);
+	const { contactType } = useContactSelector((state) => state.basicInfo);
 
 	return (
 		<FormSection title={CREATE_NEW_CONTACT.ADDRESS_TITLE}>

@@ -1,7 +1,10 @@
 import React from "react";
 import { Row, FormSection } from "../../atoms";
 import { CREATE_NEW_CONTACT } from "../../../../../../../constants/languageKeys";
-import { contactTypeOptions, contactTypes } from "../../../../../../../constants/contactConstants";
+import {
+	contactTypeOptions,
+	contactTypes
+} from "../../../../../../../constants/contactConstants";
 
 import ClayForm, {
 	ClayInput,
@@ -11,9 +14,7 @@ import ClayForm, {
 import { actions } from "./slice/basicInfoSlice";
 import { useContactDispatch, useContactSelector } from "../../../contactStore";
 
-const BasicInfo: React.FC<{ setContactType: Function }> = ({
-	setContactType
-}) => {
+const BasicInfo: React.FC = () => {
 	const dispatch = useContactDispatch();
 	const {
 		contactType,
@@ -36,7 +37,6 @@ const BasicInfo: React.FC<{ setContactType: Function }> = ({
 		setSubsidiaryNumber
 	} = actions;
 
-	
 	const showIndividualFields = contactType === contactTypes.Individual;
 
 	return (
@@ -45,10 +45,7 @@ const BasicInfo: React.FC<{ setContactType: Function }> = ({
 				<ClaySelectWithOption
 					required
 					value={contactType}
-					onChange={({ target: { value } }) => {
-						dispatch(setType(value));
-						setContactType(value);
-					}}
+					onChange={({ target: { value } }) => dispatch(setType(value))}
 					options={contactTypeOptions}
 				></ClaySelectWithOption>
 			</div>
