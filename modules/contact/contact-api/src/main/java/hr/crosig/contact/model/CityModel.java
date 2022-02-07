@@ -169,6 +169,20 @@ public interface CityModel extends AuditedModel, BaseModel<City>, ShardedModel {
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
+	 * Returns the external ID of this city.
+	 *
+	 * @return the external ID of this city
+	 */
+	public long getExternalId();
+
+	/**
+	 * Sets the external ID of this city.
+	 *
+	 * @param externalId the external ID of this city
+	 */
+	public void setExternalId(long externalId);
+
+	/**
 	 * Returns the name of this city.
 	 *
 	 * @return the name of this city

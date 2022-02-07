@@ -8,6 +8,7 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
+		<field name="externalId" type="long" />
 		<field name="name" type="String" />
 		<field name="zipCode" type="String" />
 		<field name="boxNumber" type="String" />

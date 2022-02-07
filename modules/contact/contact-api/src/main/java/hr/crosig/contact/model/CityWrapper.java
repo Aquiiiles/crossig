@@ -47,6 +47,7 @@ public class CityWrapper
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("externalId", getExternalId());
 		attributes.put("name", getName());
 		attributes.put("zipCode", getZipCode());
 		attributes.put("boxNumber", getBoxNumber());
@@ -91,6 +92,12 @@ public class CityWrapper
 
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
+		}
+
+		Long externalId = (Long)attributes.get("externalId");
+
+		if (externalId != null) {
+			setExternalId(externalId);
 		}
 
 		String name = (String)attributes.get("name");
@@ -156,6 +163,16 @@ public class CityWrapper
 	@Override
 	public Date getCreateDate() {
 		return model.getCreateDate();
+	}
+
+	/**
+	 * Returns the external ID of this city.
+	 *
+	 * @return the external ID of this city
+	 */
+	@Override
+	public long getExternalId() {
+		return model.getExternalId();
 	}
 
 	/**
@@ -281,6 +298,16 @@ public class CityWrapper
 	@Override
 	public void setCreateDate(Date createDate) {
 		model.setCreateDate(createDate);
+	}
+
+	/**
+	 * Sets the external ID of this city.
+	 *
+	 * @param externalId the external ID of this city
+	 */
+	@Override
+	public void setExternalId(long externalId) {
+		model.setExternalId(externalId);
 	}
 
 	/**
