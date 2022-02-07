@@ -42,38 +42,138 @@ public interface CityPersistence extends BasePersistence<City> {
 	 */
 
 	/**
-	 * Returns the city where name = &#63; or throws a <code>NoSuchCityException</code> if it could not be found.
+	 * Returns all the cities where name = &#63;.
 	 *
 	 * @param name the name
-	 * @return the matching city
+	 * @return the matching cities
+	 */
+	public java.util.List<City> findByName(String name);
+
+	/**
+	 * Returns a range of all the cities where name = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CityModelImpl</code>.
+	 * </p>
+	 *
+	 * @param name the name
+	 * @param start the lower bound of the range of cities
+	 * @param end the upper bound of the range of cities (not inclusive)
+	 * @return the range of matching cities
+	 */
+	public java.util.List<City> findByName(String name, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the cities where name = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CityModelImpl</code>.
+	 * </p>
+	 *
+	 * @param name the name
+	 * @param start the lower bound of the range of cities
+	 * @param end the upper bound of the range of cities (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching cities
+	 */
+	public java.util.List<City> findByName(
+		String name, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<City>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the cities where name = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CityModelImpl</code>.
+	 * </p>
+	 *
+	 * @param name the name
+	 * @param start the lower bound of the range of cities
+	 * @param end the upper bound of the range of cities (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching cities
+	 */
+	public java.util.List<City> findByName(
+		String name, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<City>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first city in the ordered set where name = &#63;.
+	 *
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching city
 	 * @throws NoSuchCityException if a matching city could not be found
 	 */
-	public City findByName(String name) throws NoSuchCityException;
+	public City findByName_First(
+			String name,
+			com.liferay.portal.kernel.util.OrderByComparator<City>
+				orderByComparator)
+		throws NoSuchCityException;
 
 	/**
-	 * Returns the city where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the first city in the ordered set where name = &#63;.
 	 *
 	 * @param name the name
-	 * @return the matching city, or <code>null</code> if a matching city could not be found
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching city, or <code>null</code> if a matching city could not be found
 	 */
-	public City fetchByName(String name);
+	public City fetchByName_First(
+		String name,
+		com.liferay.portal.kernel.util.OrderByComparator<City>
+			orderByComparator);
 
 	/**
-	 * Returns the city where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the last city in the ordered set where name = &#63;.
 	 *
 	 * @param name the name
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the matching city, or <code>null</code> if a matching city could not be found
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching city
+	 * @throws NoSuchCityException if a matching city could not be found
 	 */
-	public City fetchByName(String name, boolean useFinderCache);
+	public City findByName_Last(
+			String name,
+			com.liferay.portal.kernel.util.OrderByComparator<City>
+				orderByComparator)
+		throws NoSuchCityException;
 
 	/**
-	 * Removes the city where name = &#63; from the database.
+	 * Returns the last city in the ordered set where name = &#63;.
 	 *
 	 * @param name the name
-	 * @return the city that was removed
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching city, or <code>null</code> if a matching city could not be found
 	 */
-	public City removeByName(String name) throws NoSuchCityException;
+	public City fetchByName_Last(
+		String name,
+		com.liferay.portal.kernel.util.OrderByComparator<City>
+			orderByComparator);
+
+	/**
+	 * Returns the cities before and after the current city in the ordered set where name = &#63;.
+	 *
+	 * @param cityId the primary key of the current city
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next city
+	 * @throws NoSuchCityException if a city with the primary key could not be found
+	 */
+	public City[] findByName_PrevAndNext(
+			long cityId, String name,
+			com.liferay.portal.kernel.util.OrderByComparator<City>
+				orderByComparator)
+		throws NoSuchCityException;
+
+	/**
+	 * Removes all the cities where name = &#63; from the database.
+	 *
+	 * @param name the name
+	 */
+	public void removeByName(String name);
 
 	/**
 	 * Returns the number of cities where name = &#63;.

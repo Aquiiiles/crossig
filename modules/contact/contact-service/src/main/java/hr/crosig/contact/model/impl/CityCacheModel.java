@@ -61,7 +61,7 @@ public class CityCacheModel implements CacheModel<City>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{cityId=");
 		sb.append(cityId);
@@ -75,6 +75,8 @@ public class CityCacheModel implements CacheModel<City>, Externalizable {
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+		sb.append(", externalId=");
+		sb.append(externalId);
 		sb.append(", name=");
 		sb.append(name);
 		sb.append(", zipCode=");
@@ -116,6 +118,8 @@ public class CityCacheModel implements CacheModel<City>, Externalizable {
 		else {
 			cityImpl.setModifiedDate(new Date(modifiedDate));
 		}
+
+		cityImpl.setExternalId(externalId);
 
 		if (name == null) {
 			cityImpl.setName("");
@@ -160,6 +164,8 @@ public class CityCacheModel implements CacheModel<City>, Externalizable {
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
+
+		externalId = objectInput.readLong();
 		name = objectInput.readUTF();
 		zipCode = objectInput.readUTF();
 		boxNumber = objectInput.readUTF();
@@ -183,6 +189,8 @@ public class CityCacheModel implements CacheModel<City>, Externalizable {
 
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
+
+		objectOutput.writeLong(externalId);
 
 		if (name == null) {
 			objectOutput.writeUTF("");
@@ -219,6 +227,7 @@ public class CityCacheModel implements CacheModel<City>, Externalizable {
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
+	public long externalId;
 	public String name;
 	public String zipCode;
 	public String boxNumber;

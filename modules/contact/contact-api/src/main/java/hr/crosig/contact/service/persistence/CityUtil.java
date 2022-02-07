@@ -117,49 +117,153 @@ public class CityUtil {
 	}
 
 	/**
-	 * Returns the city where name = &#63; or throws a <code>NoSuchCityException</code> if it could not be found.
+	 * Returns all the cities where name = &#63;.
 	 *
 	 * @param name the name
-	 * @return the matching city
-	 * @throws NoSuchCityException if a matching city could not be found
+	 * @return the matching cities
 	 */
-	public static City findByName(String name)
-		throws hr.crosig.contact.exception.NoSuchCityException {
-
+	public static List<City> findByName(String name) {
 		return getPersistence().findByName(name);
 	}
 
 	/**
-	 * Returns the city where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns a range of all the cities where name = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CityModelImpl</code>.
+	 * </p>
 	 *
 	 * @param name the name
-	 * @return the matching city, or <code>null</code> if a matching city could not be found
+	 * @param start the lower bound of the range of cities
+	 * @param end the upper bound of the range of cities (not inclusive)
+	 * @return the range of matching cities
 	 */
-	public static City fetchByName(String name) {
-		return getPersistence().fetchByName(name);
+	public static List<City> findByName(String name, int start, int end) {
+		return getPersistence().findByName(name, start, end);
 	}
 
 	/**
-	 * Returns the city where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns an ordered range of all the cities where name = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CityModelImpl</code>.
+	 * </p>
 	 *
 	 * @param name the name
+	 * @param start the lower bound of the range of cities
+	 * @param end the upper bound of the range of cities (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching cities
+	 */
+	public static List<City> findByName(
+		String name, int start, int end,
+		OrderByComparator<City> orderByComparator) {
+
+		return getPersistence().findByName(name, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the cities where name = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CityModelImpl</code>.
+	 * </p>
+	 *
+	 * @param name the name
+	 * @param start the lower bound of the range of cities
+	 * @param end the upper bound of the range of cities (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @param useFinderCache whether to use the finder cache
-	 * @return the matching city, or <code>null</code> if a matching city could not be found
+	 * @return the ordered range of matching cities
 	 */
-	public static City fetchByName(String name, boolean useFinderCache) {
-		return getPersistence().fetchByName(name, useFinderCache);
+	public static List<City> findByName(
+		String name, int start, int end,
+		OrderByComparator<City> orderByComparator, boolean useFinderCache) {
+
+		return getPersistence().findByName(
+			name, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
-	 * Removes the city where name = &#63; from the database.
+	 * Returns the first city in the ordered set where name = &#63;.
 	 *
 	 * @param name the name
-	 * @return the city that was removed
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching city
+	 * @throws NoSuchCityException if a matching city could not be found
 	 */
-	public static City removeByName(String name)
+	public static City findByName_First(
+			String name, OrderByComparator<City> orderByComparator)
 		throws hr.crosig.contact.exception.NoSuchCityException {
 
-		return getPersistence().removeByName(name);
+		return getPersistence().findByName_First(name, orderByComparator);
+	}
+
+	/**
+	 * Returns the first city in the ordered set where name = &#63;.
+	 *
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching city, or <code>null</code> if a matching city could not be found
+	 */
+	public static City fetchByName_First(
+		String name, OrderByComparator<City> orderByComparator) {
+
+		return getPersistence().fetchByName_First(name, orderByComparator);
+	}
+
+	/**
+	 * Returns the last city in the ordered set where name = &#63;.
+	 *
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching city
+	 * @throws NoSuchCityException if a matching city could not be found
+	 */
+	public static City findByName_Last(
+			String name, OrderByComparator<City> orderByComparator)
+		throws hr.crosig.contact.exception.NoSuchCityException {
+
+		return getPersistence().findByName_Last(name, orderByComparator);
+	}
+
+	/**
+	 * Returns the last city in the ordered set where name = &#63;.
+	 *
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching city, or <code>null</code> if a matching city could not be found
+	 */
+	public static City fetchByName_Last(
+		String name, OrderByComparator<City> orderByComparator) {
+
+		return getPersistence().fetchByName_Last(name, orderByComparator);
+	}
+
+	/**
+	 * Returns the cities before and after the current city in the ordered set where name = &#63;.
+	 *
+	 * @param cityId the primary key of the current city
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next city
+	 * @throws NoSuchCityException if a city with the primary key could not be found
+	 */
+	public static City[] findByName_PrevAndNext(
+			long cityId, String name, OrderByComparator<City> orderByComparator)
+		throws hr.crosig.contact.exception.NoSuchCityException {
+
+		return getPersistence().findByName_PrevAndNext(
+			cityId, name, orderByComparator);
+	}
+
+	/**
+	 * Removes all the cities where name = &#63; from the database.
+	 *
+	 * @param name the name
+	 */
+	public static void removeByName(String name) {
+		getPersistence().removeByName(name);
 	}
 
 	/**

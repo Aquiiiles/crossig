@@ -63,6 +63,7 @@ public interface CityLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>hr.crosig.contact.service.impl.CityLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the city local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CityLocalServiceUtil} if injection and service tracking are not available.
 	 */
+	public void addCities(List<CityDTO> cities);
 
 	/**
 	 * Adds the city to the database. Also notifies the appropriate model listeners.
@@ -78,8 +79,6 @@ public interface CityLocalService
 	public City addCity(City city);
 
 	public City addCity(CityDTO cityDTO) throws CityException;
-
-	public void addOrUpdateCities(List<CityDTO> cities);
 
 	/**
 	 * Creates a new city with the primary key. Does not add the city to the database.
@@ -97,6 +96,8 @@ public interface CityLocalService
 		throws PortalException;
 
 	public void deleteAllCities();
+
+	public List<City> deleteCitiesByName(String cityName);
 
 	/**
 	 * Deletes the city from the database. Also notifies the appropriate model listeners.
@@ -124,6 +125,8 @@ public interface CityLocalService
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	public City deleteCity(long cityId) throws PortalException;
+
+	public City deleteCityByExternalId(long externalId);
 
 	/**
 	 * @throws PortalException

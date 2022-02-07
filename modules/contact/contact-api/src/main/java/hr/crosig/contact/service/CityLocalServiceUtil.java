@@ -44,6 +44,9 @@ public class CityLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>hr.crosig.contact.service.impl.CityLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static void addCities(List<hr.crosig.contact.dto.CityDTO> cities) {
+		getService().addCities(cities);
+	}
 
 	/**
 	 * Adds the city to the database. Also notifies the appropriate model listeners.
@@ -63,12 +66,6 @@ public class CityLocalServiceUtil {
 		throws hr.crosig.contact.exception.CityException {
 
 		return getService().addCity(cityDTO);
-	}
-
-	public static void addOrUpdateCities(
-		List<hr.crosig.contact.dto.CityDTO> cities) {
-
-		getService().addOrUpdateCities(cities);
 	}
 
 	/**
@@ -93,6 +90,10 @@ public class CityLocalServiceUtil {
 
 	public static void deleteAllCities() {
 		getService().deleteAllCities();
+	}
+
+	public static List<City> deleteCitiesByName(String cityName) {
+		return getService().deleteCitiesByName(cityName);
 	}
 
 	/**
@@ -122,6 +123,10 @@ public class CityLocalServiceUtil {
 	 */
 	public static City deleteCity(long cityId) throws PortalException {
 		return getService().deleteCity(cityId);
+	}
+
+	public static City deleteCityByExternalId(long externalId) {
+		return getService().deleteCityByExternalId(externalId);
 	}
 
 	/**

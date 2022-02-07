@@ -7,7 +7,7 @@ public interface IndexManagementLocalService {
 
 	public void clearAllIndicesCache();
 
-	public void clearIndexCache(String index);
+	public void clearCityByName(String cityName);
 
 	public void populateAllIndices();
 

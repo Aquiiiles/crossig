@@ -25,7 +25,6 @@ import com.liferay.portal.kernel.service.UserGroupLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.kernel.util.LocaleUtil;
-import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 
@@ -209,7 +208,7 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 		this.originalPermissionChecker = originalPermissionChecker;
 		this.originalName = originalName;
 
-		long companyId = PortalUtil.getDefaultCompanyId();
+		long companyId = getDefaultCompanyId();
 
 		Role adminRole = roleLocalService.getRole(
 			companyId, RoleConstants.ADMINISTRATOR);

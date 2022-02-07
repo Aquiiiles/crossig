@@ -30,6 +30,13 @@ public class CityLocalServiceWrapper
 		_cityLocalService = cityLocalService;
 	}
 
+	@Override
+	public void addCities(
+		java.util.List<hr.crosig.contact.dto.CityDTO> cities) {
+
+		_cityLocalService.addCities(cities);
+	}
+
 	/**
 	 * Adds the city to the database. Also notifies the appropriate model listeners.
 	 *
@@ -53,13 +60,6 @@ public class CityLocalServiceWrapper
 		throws hr.crosig.contact.exception.CityException {
 
 		return _cityLocalService.addCity(cityDTO);
-	}
-
-	@Override
-	public void addOrUpdateCities(
-		java.util.List<hr.crosig.contact.dto.CityDTO> cities) {
-
-		_cityLocalService.addOrUpdateCities(cities);
 	}
 
 	/**
@@ -87,6 +87,13 @@ public class CityLocalServiceWrapper
 	@Override
 	public void deleteAllCities() {
 		_cityLocalService.deleteAllCities();
+	}
+
+	@Override
+	public java.util.List<hr.crosig.contact.model.City> deleteCitiesByName(
+		String cityName) {
+
+		return _cityLocalService.deleteCitiesByName(cityName);
 	}
 
 	/**
@@ -122,6 +129,13 @@ public class CityLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _cityLocalService.deleteCity(cityId);
+	}
+
+	@Override
+	public hr.crosig.contact.model.City deleteCityByExternalId(
+		long externalId) {
+
+		return _cityLocalService.deleteCityByExternalId(externalId);
 	}
 
 	/**

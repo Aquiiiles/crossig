@@ -33,7 +33,6 @@ import com.liferay.portal.search.searcher.SearchRequestBuilder;
 import com.liferay.portal.search.searcher.SearchRequestBuilderFactory;
 import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.searcher.Searcher;
-
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.StreetConstants;
 import hr.crosig.contact.constants.StreetMessages;
@@ -42,14 +41,13 @@ import hr.crosig.contact.exception.StreetException;
 import hr.crosig.contact.model.Street;
 import hr.crosig.contact.model.impl.StreetModelImpl;
 import hr.crosig.contact.service.base.StreetLocalServiceBaseImpl;
+import hr.crosig.contact.util.BulkHelper;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import hr.crosig.contact.util.BulkHelper;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Guilherme Kfouri
@@ -60,41 +58,32 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 
-	public void addOrUpdateStreets(List<StreetDTO> streets) {
-		long companyId = PortalUtil.getDefaultCompanyId();
-		streets.forEach(
-			streetDTO -> {
-				Street street = createStreet(streetDTO, companyId);
-				// should always be new
-				street.setNew(true);
-
-				streetLocalService.updateStreet(street);
-			});
-	}
-
 	public Street addStreet(StreetDTO streetDTO) throws StreetException {
 		validateStreet(streetDTO.getCityId(), streetDTO.getStreetName());
 
-		Street street = createStreet(streetDTO, PortalUtil.getDefaultCompanyId());
+		Street street = createStreet(
+			streetDTO, PortalUtil.getDefaultCompanyId());
 
 		return streetLocalService.updateStreet(street);
 	}
 
+	public void addStreets(List<StreetDTO> streets) {
+		long companyId = PortalUtil.getDefaultCompanyId();
+
+		streets.forEach(
+			streetDTO -> streetLocalService.updateStreet(
+				createStreet(streetDTO, companyId)));
+	}
+
 	public void deleteAllStreets() {
-		BulkHelper.bulkDeleteAll(streetPersistence.getCurrentSession(), StreetModelImpl.TABLE_NAME);
+		BulkHelper.bulkDeleteAll(
+			streetPersistence.getCurrentSession(), StreetModelImpl.TABLE_NAME);
 		reindex();
 	}
 
-	private void reindex() {
-		Indexer<Street> indexer = _indexerRegistry.getIndexer(Street.class.getName());
-
-		if (Objects.nonNull(indexer)) {
-			try {
-				indexer.reindex(new String[] {String.valueOf(PortalUtil.getDefaultCompanyId())});
-			} catch (SearchException e) {
-				throw new IllegalStateException(e);
-			}
-		}
+	public void deleteStreetsByCityId(long cityId) {
+		streetPersistence.removeByCityId(cityId);
+		reindex();
 	}
 
 	public List<String> searchStreetsNamesByNameAndCityId(
@@ -148,7 +137,7 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 
 	protected Street createStreet(StreetDTO streetDTO, long companyId) {
 		Street street = streetLocalService.createStreet(
-				counterLocalService.increment(Street.class.getName()));
+			counterLocalService.increment(Street.class.getName()));
 
 		street.setExternalId(streetDTO.getStreetId());
 		street.setName(streetDTO.getStreetName());
@@ -182,7 +171,8 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 	}
 
 	protected boolean streetExists(long cityId, String name) {
-		List<Street> streets = streetPersistence.findByCityId_Name(cityId, name);
+		List<Street> streets = streetPersistence.findByCityId_Name(
+			cityId, name);
 
 		return !streets.isEmpty();
 	}
@@ -195,21 +185,40 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 			throw new StreetException(StreetMessages.INSUFFICIENT_NAME_LENGTH);
 	}
 
-	protected void validateStreet(long cityId, String name) throws StreetException {
+	protected void validateStreet(long cityId, String name)
+		throws StreetException {
+
 		if (streetExists(cityId, name))
 
 			throw new StreetException(
 				StreetMessages.STREET_WITH_THIS_ID_ALREADY_EXISTS + name);
 	}
 
+	private void reindex() {
+		Indexer<Street> indexer = _indexerRegistry.getIndexer(
+			Street.class.getName());
+
+		if (Objects.nonNull(indexer)) {
+			try {
+				indexer.reindex(
+					new String[] {
+						String.valueOf(PortalUtil.getDefaultCompanyId())
+					});
+			}
+			catch (SearchException e) {
+				throw new IllegalStateException(e);
+			}
+		}
+	}
+
+	@Reference
+	private IndexerRegistry _indexerRegistry;
+
 	@Reference
 	private Queries _queries;
 
 	@Reference
 	private Searcher _searcher;
-
-	@Reference
-	private IndexerRegistry _indexerRegistry;
 
 	@Reference
 	private SearchRequestBuilderFactory _searchRequestBuilderFactory;

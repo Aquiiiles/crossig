@@ -13,6 +13,7 @@
 				</button>
 			</div>
 			<div class="col-md-2">
+				<aui:input id="cityName" name="cityName" type="text" label="city-name"/>
 				<button class="btn btn-primary gsdc-btn-action" type="submit" onClick="<%= renderResponse.getNamespace() + "setCacheName('" + ClearCacheMVCActionConstants.CLEAR_CACHE_CITY + "');" %>">
 					<span class="gsdc-btn-text"><liferay-ui:message key="clear-cities-cache" /></span>
 				</button>
