@@ -12,7 +12,6 @@ import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.StreetConstants;
 import hr.crosig.contact.dto.CityDTO;
 import hr.crosig.contact.dto.StreetDTO;
-import hr.crosig.contact.model.City;
 import hr.crosig.contact.service.CityLocalService;
 import hr.crosig.contact.service.IndexManagementLocalService;
 import hr.crosig.contact.service.StreetLocalService;
@@ -41,8 +40,7 @@ public class IndexManagementLocalServiceImpl
 
 	@Override
 	public void clearCityByName(String cityName) {
-		List<City> cities = _cityLocalService.deleteCitiesByName(cityName);
-		cities.forEach(city -> _streetLocalService.deleteStreetsByCityId(city.getCityId()));
+		_cityLocalService.deleteCitiesByName(cityName);
 	}
 
 	@Override

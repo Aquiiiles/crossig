@@ -39,6 +39,7 @@ import hr.crosig.contact.dto.CityDTO;
 import hr.crosig.contact.exception.CityException;
 import hr.crosig.contact.model.City;
 import hr.crosig.contact.model.impl.CityModelImpl;
+import hr.crosig.contact.service.StreetLocalService;
 import hr.crosig.contact.service.base.CityLocalServiceBaseImpl;
 import hr.crosig.contact.util.BulkHelper;
 import org.osgi.service.component.annotations.Component;
@@ -91,7 +92,10 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 	public List<City> deleteCitiesByName(String cityName) {
 		List<City> cities = cityPersistence.findByName(cityName);
 
-		cities.forEach(city -> cityLocalService.deleteCity(city));
+		cities.forEach(city -> {
+			cityLocalService.deleteCity(city);
+			_streetLocalService.deleteStreetsByCityId(city.getCityId());
+		});
 
 		return cities;
 	}
@@ -241,5 +245,8 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 
 	@Reference
 	private SearchRequestBuilderFactory _searchRequestBuilderFactory;
+
+	@Reference
+	private StreetLocalService _streetLocalService;
 
 }
