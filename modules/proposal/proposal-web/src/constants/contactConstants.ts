@@ -1,28 +1,28 @@
 export const ContactType = {
-    "Individual": 1,
-    "Self-Employed": 2,
-    "Legal Entity": 3
-}
+	Individual: 1,
+	Self_Employed: 2,
+	Legal_Entity: 3
+};
 
 export const cities = [
     {
-        label: "Alemanha",
+        label: "Croatia",
         value: 1
     },
     {
-        label: "Brasil",
-        value: 2
-    },
+        label: "Alemanha",
+		value: 2
+	},
     {
-        label: "Croatia",
+        label: "Brasil",
         value: 3
     },
-    {
-        label: "EUA",
-        value: 4
-    },
-    {
-        label: "Inglaterra",
-        value: 5
-    }
-]
+	{
+		label: "EUA",
+		value: 4
+	},
+	{
+		label: "Inglaterra",
+		value: 5
+	}
+];
