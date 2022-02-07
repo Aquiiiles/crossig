@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FormSection } from "../../atoms";
+import { FormSection, SectionSubTitle } from "../../atoms";
 import ClayForm, {
 	ClayInput,
 	ClayCheckbox,
@@ -16,11 +16,13 @@ const Addresses: React.FC<{ contactType: number; cities: Array<Object> }> = ({
 
 	return (
 		<FormSection title={CREATE_NEW_CONTACT.ADDRESS_TITLE}>
-			<span>
-				{contactType === ContactType.Individual
-					? CREATE_NEW_CONTACT.ID_ADDRES
-					: CREATE_NEW_CONTACT.REGISTERED_OFFICE_ADDRESS}
-			</span>
+			<SectionSubTitle
+				subTitle={
+					contactType === ContactType.Individual
+						? CREATE_NEW_CONTACT.ID_ADDRES
+						: CREATE_NEW_CONTACT.REGISTERED_OFFICE_ADDRESS
+				}
+			/>
 
 			<strong>{CREATE_NEW_CONTACT.FIELD.COUNTRY}</strong>
 			<ClaySelectWithOption options={cities} />
@@ -64,12 +66,12 @@ const Addresses: React.FC<{ contactType: number; cities: Array<Object> }> = ({
 				<ClayInput id='house-number' type='text' />
 			</ClayForm.Group>
 
-			<span>{CREATE_NEW_CONTACT.FIELD.DISPATCH_ADDRESS}</span>
+			<SectionSubTitle subTitle={CREATE_NEW_CONTACT.DISPATCH_ADDRESS} />
 
 			<ClayCheckbox
 				checked={sameAddress}
 				onChange={() => setSameAdress((val) => !val)}
-				label={CREATE_NEW_CONTACT.DISPATCH_ADDRESS}
+				label={CREATE_NEW_CONTACT.FIELD.DISPATCH_ADDRESS}
 			/>
 
 			{!sameAddress && (
@@ -85,7 +87,9 @@ const Addresses: React.FC<{ contactType: number; cities: Array<Object> }> = ({
 					<ClayForm.Group>
 						<ClayInput.Group>
 							<ClayInput.GroupItem>
-								<label htmlFor='dispatch-city'>{CREATE_NEW_CONTACT.FIELD.CITY}</label>
+								<label htmlFor='dispatch-city'>
+									{CREATE_NEW_CONTACT.FIELD.CITY}
+								</label>
 
 								<ClayInput
 									id='dispatch-city'
