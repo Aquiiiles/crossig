@@ -5,6 +5,8 @@ import { useSafeDispatch } from "./useSafeDispatch";
 
 import { IDLE, PENDING, REJECTED, RESOLVED,SUCCESS_CODE } from "../reducers/constants";
 
+import API from '../';
+
 const initialArgs = {
   status: IDLE,
   response: {
@@ -13,7 +15,6 @@ const initialArgs = {
   statusMessage: "",
   statusCode: "",
 };
-declare const Liferay: any;
 
 export const useFetchData = () => {
   const [state, unsafeDispatch] = useReducer(
@@ -26,24 +27,15 @@ export const useFetchData = () => {
   const fetchData = useCallback(
     async (url,params) => {
       dispatch({ type: PENDING });
-      return new Promise((resolve, reject) => {
-        Liferay.Service(
-            url,
-          {
-            ...params,
-          },
-          (response: { statusCode: any; }) => {
+      API.post(url,params).then(       
+          (response) => {
             dispatch({ type: RESOLVED, response });
-            response.statusCode === SUCCESS_CODE
-              ? resolve(RESOLVED)
-              : reject(REJECTED);
-          },
-          (error: any) => {
+            console.log('response',response);
+          }).catch(
+          (error) => {
             dispatch({ type: REJECTED, error });
-            reject(REJECTED);
-          }
-        );
-      });
+            console.log('error',error);
+          });
     },
    [dispatch]);
 
