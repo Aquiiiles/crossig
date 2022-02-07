@@ -19,12 +19,14 @@ import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.LayoutLocalService;
+import com.liferay.portal.kernel.service.LayoutSetLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserGroupLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PrefsProps;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 
@@ -37,36 +39,17 @@ import java.util.Map;
  */
 public abstract class BaseUpgradeProcess extends UpgradeProcess {
 
-	public BaseUpgradeProcess(
-		CompanyLocalService companyLocalService,
-		GroupLocalService groupLocalService, UserLocalService userLocalService,
-		UserGroupLocalService userGroupLocalService) {
+	public BaseUpgradeProcess(DependencyProvider dependencyProvider) {
+		this.dependencyProvider = dependencyProvider;
 
-		this.companyLocalService = companyLocalService;
-		this.groupLocalService = groupLocalService;
-		this.userLocalService = userLocalService;
-		this.userGroupLocalService = userGroupLocalService;
-	}
-
-	public BaseUpgradeProcess(
-		GroupLocalService groupLocalService,
-		CompanyLocalService companyLocalService,
-		UserLocalService userLocalService) {
-
-		this.groupLocalService = groupLocalService;
-		this.companyLocalService = companyLocalService;
-		this.userLocalService = userLocalService;
-	}
-
-	public BaseUpgradeProcess(
-		GroupLocalService groupLocalService, UserLocalService userLocalService,
-		LayoutLocalService layoutLocalService,
-		RoleLocalService roleLocalService) {
-
-		this.groupLocalService = groupLocalService;
-		this.userLocalService = userLocalService;
-		this.layoutLocalService = layoutLocalService;
-		this.roleLocalService = roleLocalService;
+		layoutLocalService = dependencyProvider.layoutLocalService;
+		groupLocalService = dependencyProvider.groupLocalService;
+		userGroupLocalService = dependencyProvider.userGroupLocalService;
+		userLocalService = dependencyProvider.userLocalService;
+		companyLocalService = dependencyProvider.companyLocalService;
+		roleLocalService = dependencyProvider.roleLocalService;
+		prefsProps = dependencyProvider.prefsProps;
+		layoutSetLocalService = dependencyProvider.layoutSetLocalService;
 	}
 
 	protected Layout addPage(
@@ -242,10 +225,13 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 		BaseUpgradeProcess.class);
 
 	protected CompanyLocalService companyLocalService;
+	protected final DependencyProvider dependencyProvider;
 	protected GroupLocalService groupLocalService;
 	protected LayoutLocalService layoutLocalService;
+	protected LayoutSetLocalService layoutSetLocalService;
 	protected String originalName;
 	protected PermissionChecker originalPermissionChecker;
+	protected PrefsProps prefsProps;
 	protected RoleLocalService roleLocalService;
 	protected UserGroupLocalService userGroupLocalService;
 	protected UserLocalService userLocalService;

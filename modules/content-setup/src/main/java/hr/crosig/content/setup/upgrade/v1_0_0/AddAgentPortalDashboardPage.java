@@ -1,34 +1,25 @@
 package hr.crosig.content.setup.upgrade.v1_0_0;
 
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutConstants;
-import com.liferay.portal.kernel.service.GroupLocalService;
-import com.liferay.portal.kernel.service.LayoutLocalService;
-import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.PortalUtil;
 
 import hr.crosig.content.setup.constants.ContentSetupConstants;
 import hr.crosig.content.setup.upgrade.common.BaseUpgradeProcess;
+import hr.crosig.content.setup.upgrade.common.DependencyProvider;
+
+import java.io.InputStream;
 
 /**
  * @author victor.catanante
  */
 public class AddAgentPortalDashboardPage extends BaseUpgradeProcess {
 
-	public AddAgentPortalDashboardPage(
-		GroupLocalService groupLocalService, UserLocalService userLocalService,
-		LayoutLocalService layoutLocalService,
-		RoleLocalService roleLocalService) {
-
-		super(
-			groupLocalService, userLocalService, layoutLocalService,
-			roleLocalService);
-
-		_groupLocalService = groupLocalService;
-		_userLocalService = userLocalService;
+	public AddAgentPortalDashboardPage(DependencyProvider dependencyProvider) {
+		super(dependencyProvider);
 	}
 
 	@Override
@@ -54,6 +45,14 @@ public class AddAgentPortalDashboardPage extends BaseUpgradeProcess {
 				ContentSetupConstants.COLUMN_1, PORTLET_COLUMN_POS);
 
 			updatePage(layout);
+
+			layoutSetLocalService.updateLookAndFeel(
+				groupId, true, THEME_ID, StringPool.BLANK, StringPool.BLANK);
+
+			InputStream is = getClass().getResourceAsStream(
+				"/META-INF/resources/images/crosig_logo.png");
+
+			layoutSetLocalService.updateLogo(groupId, true, true, is);
 		}
 		finally {
 			teardownAdminUpgrade();
@@ -84,23 +83,23 @@ public class AddAgentPortalDashboardPage extends BaseUpgradeProcess {
 
 	protected static final Boolean PRIVATE_PAGE = Boolean.TRUE;
 
+	protected static final String THEME_ID =
+		"agentportaltheme_WAR_agentportaltheme";
+
 	protected Long companyId;
 	protected Long groupId;
 	protected Long userId;
 
 	private Long _getAdminUserId(Long companyId) throws PortalException {
-		return _userLocalService.getUser(
-			_userLocalService.getDefaultUserId(companyId)
+		return userLocalService.getUser(
+			userLocalService.getDefaultUserId(companyId)
 		).getUserId();
 	}
 
 	private Long _getDefaultGroupId(Long companyId) {
-		return _groupLocalService.fetchFriendlyURLGroup(
+		return groupLocalService.fetchFriendlyURLGroup(
 			companyId, ContentSetupConstants.AGENT_PORTAL_FRIENDLY_URL
 		).getGroupId();
 	}
-
-	private GroupLocalService _groupLocalService;
-	private UserLocalService _userLocalService;
 
 }
