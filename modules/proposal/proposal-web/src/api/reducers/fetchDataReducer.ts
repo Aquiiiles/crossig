@@ -1,6 +1,6 @@
 import { PENDING, REJECTED, RESOLVED, IDLE, SUCCESS_CODE } from "./constants";
 
-export function fetchDataReducer(state: { response: any; }, action: { type: any; response: { statusCode: any; }; error: { message: any; }; }) {
+export function fetchDataReducer(state: { response: any; }, action: { type: any; response: { status: any; }; error: { message: any; }; }) {
   switch (action.type) {
     case IDLE: {
       return { ...state, status: IDLE };
@@ -9,7 +9,7 @@ export function fetchDataReducer(state: { response: any; }, action: { type: any;
       return { ...state, status: PENDING };
     }
     case RESOLVED: {
-      const { statusCode } = action.response;
+      const { status : statusCode } = action.response;
       const status = statusCode === SUCCESS_CODE ? RESOLVED : REJECTED;
       return {
         ...state,
