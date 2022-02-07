@@ -5,10 +5,10 @@ import ClayForm, {
 	ClayCheckbox,
 	ClaySelectWithOption
 } from "@clayui/form";
-import { ContactType } from "../../../../../../../constants/contactConstants";
+import { contactTypes } from "../../../../../../../constants/contactConstants";
 import { CREATE_NEW_CONTACT } from "../../../../../../../constants/languageKeys";
 
-const Addresses: React.FC<{ contactType: number; cities: Array<Object> }> = ({
+const Addresses: React.FC<{ contactType: string; cities: Array<Object> }> = ({
 	contactType,
 	cities
 }) => {
@@ -18,7 +18,7 @@ const Addresses: React.FC<{ contactType: number; cities: Array<Object> }> = ({
 		<FormSection title={CREATE_NEW_CONTACT.ADDRESS_TITLE}>
 			<SectionSubTitle
 				subTitle={
-					contactType === ContactType.Individual
+					contactType === contactTypes.Individual
 						? CREATE_NEW_CONTACT.ID_ADDRES
 						: CREATE_NEW_CONTACT.REGISTERED_OFFICE_ADDRESS
 				}

@@ -1,6 +1,8 @@
 import React from "react";
 import { Row, FormSection } from "../../atoms";
 import { CREATE_NEW_CONTACT } from "../../../../../../../constants/languageKeys";
+import { contactTypeOptions, contactTypes } from "../../../../../../../constants/contactConstants";
+
 import ClayForm, {
 	ClayInput,
 	ClayCheckbox,
@@ -34,21 +36,8 @@ const BasicInfo: React.FC<{ setContactType: Function }> = ({
 		setSubsidiaryNumber
 	} = actions;
 
-	const contactTypeOptions = [
-		{
-			label: CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.INDIVIDUAL,
-			value: "1"
-		},
-		{
-			label: CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.SELF_EMPLOYED,
-			value: "2"
-		},
-		{
-			label: CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.LEGAL_ENTITY,
-			value: "3"
-		}
-	];
-	const showIndividualFields = contactType === "1";
+	
+	const showIndividualFields = contactType === contactTypes.Individual;
 
 	return (
 		<FormSection title={CREATE_NEW_CONTACT.BASIC_INFO_TITLE}>
