@@ -16,6 +16,8 @@ import {
   contactTypeOptions,
   contactTypes,
 } from "../../../../../../../constants/contactConstants";
+import useFieldValidation from "../../../../../hooks/useFieldValidation";
+import { validateDay, validateMonth, validateYear } from "./validators";
 
 const BasicInfo: React.FC = () => {
   const dispatch = useContactDispatch();
@@ -43,6 +45,16 @@ const BasicInfo: React.FC = () => {
     setCompanyName,
     setSubsidiaryNumber,
   } = actions;
+  const [dayRef, dayError, hasDayError] = useFieldValidation<HTMLInputElement>(
+    React.useCallback(
+      value => validateDay(value, dateMonth, dateYear),
+      [dateYear, dateMonth]
+    )
+  );
+  const [monthRef, monthError, hasMonthError] =
+    useFieldValidation<HTMLInputElement>(React.useCallback(validateMonth, []));
+  const [yearRef, yearError, hasYearError] =
+    useFieldValidation<HTMLInputElement>(React.useCallback(validateYear, []));
 
   const showIndividualFields = contactType === contactTypes.Individual;
 
@@ -113,58 +125,67 @@ const BasicInfo: React.FC = () => {
         </Row>
       )}
       <Row half={!showIndividualFields}>
-        <ClayForm.Group>
-          <ClayInput.Group>
-            {showIndividualFields ? (
-              <ClayInput.GroupItem style={{ display: "block" }}>
-                <label htmlFor="dateOfBirthInput">
-                  {CREATE_NEW_CONTACT.FIELD.BIRTH_DATE}
-                </label>
-                <div className="birth-date-group">
-                  <ClayInput
-                    required={showIndividualFields}
-                    id="birthDateDay"
-                    type="text"
-                    onChange={({ target: { value } }) =>
-                      dispatch(setDateDay(value))
-                    }
-                    placeholder="DD"
-                    value={dateDay}
-                  />
-                  <ClayInput
-                    required={showIndividualFields}
-                    id="birthDateMonth"
-                    type="text"
-                    onChange={({ target: { value } }) =>
-                      dispatch(setDateMonth(value))
-                    }
-                    placeholder="MM"
-                    value={dateMonth}
-                  />
-                  <ClayInput
-                    required={showIndividualFields}
-                    id="birthDateYear"
-                    type="text"
-                    onChange={({ target: { value } }) =>
-                      dispatch(setDateYear(value))
-                    }
-                    placeholder="YYYY"
-                    value={dateYear}
-                  />
-                </div>
-              </ClayInput.GroupItem>
-            ) : null}
-            <ClayInput.GroupItem>
-              <label htmlFor="oibInput">{CREATE_NEW_CONTACT.FIELD.OIB}</label>
+        {showIndividualFields ? (
+          <ClayForm.Group
+            className={
+              hasDayError || hasMonthError || hasYearError ? "has-error" : ""
+            }
+          >
+            <label htmlFor="dateOfBirthInput">
+              {CREATE_NEW_CONTACT.FIELD.BIRTH_DATE}
+            </label>
+            <div className="birth-date-group">
               <ClayInput
-                required={foreignerStatus ? false : true}
-                id="oibInput"
+                ref={dayRef}
+                required={showIndividualFields}
+                id="birthDateDay"
                 type="text"
-                onChange={({ target: { value } }) => dispatch(setOIB(value))}
-                value={oib}
+                onChange={({ target: { value } }) =>
+                  dispatch(setDateDay(value))
+                }
+                placeholder="DD"
+                value={dateDay}
               />
-            </ClayInput.GroupItem>
-          </ClayInput.Group>
+              <ClayInput
+                ref={monthRef}
+                required={showIndividualFields}
+                id="birthDateMonth"
+                type="text"
+                onChange={({ target: { value } }) =>
+                  dispatch(setDateMonth(value))
+                }
+                placeholder="MM"
+                value={dateMonth}
+              />
+              <ClayInput
+                ref={yearRef}
+                required={showIndividualFields}
+                id="birthDateYear"
+                type="text"
+                onChange={({ target: { value } }) =>
+                  dispatch(setDateYear(value))
+                }
+                value={dateYear}
+              />
+            </div>
+            {hasDayError || hasMonthError || hasYearError ? (
+              <ClayForm.FeedbackGroup>
+                <ClayForm.FeedbackItem>{dayError}</ClayForm.FeedbackItem>
+                <ClayForm.FeedbackItem>{monthError}</ClayForm.FeedbackItem>
+                <ClayForm.FeedbackItem>{yearError}</ClayForm.FeedbackItem>
+              </ClayForm.FeedbackGroup>
+            ) : null}
+          </ClayForm.Group>
+        ) : null}
+        <ClayForm.Group>
+          <label htmlFor="oibInput">{CREATE_NEW_CONTACT.FIELD.OIB}</label>
+          <ClayInput
+            required={foreignerStatus ? false : true}
+            id="oibInput"
+            type="text"
+            onChange={({ target: { value } }) => dispatch(setOIB(value))}
+            value={oib}
+          />
         </ClayForm.Group>
       </Row>
       {!showIndividualFields ? (
