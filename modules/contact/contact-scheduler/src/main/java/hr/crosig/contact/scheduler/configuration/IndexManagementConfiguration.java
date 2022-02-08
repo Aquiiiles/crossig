@@ -12,7 +12,8 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 public interface IndexManagementConfiguration {
 
 	public static final String OCD_ID =
-		"hr.crosig.contact.scheduler.configuration.IndexManagementConfiguration";
+		"hr.crosig.contact.scheduler.configuration." +
+				"IndexManagementConfiguration";
 
 	@Meta.AD(deflt = "true", name = "Enable Scheduler", required = false)
 	Boolean _enable();

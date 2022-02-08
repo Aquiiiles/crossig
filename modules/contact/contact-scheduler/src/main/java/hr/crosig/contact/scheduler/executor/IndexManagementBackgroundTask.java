@@ -25,14 +25,16 @@ public class IndexManagementBackgroundTask extends BaseBackgroundTaskExecutor {
 	public static final String EXECUTOR_CLASS_NAME =
 		"hr.crosig.contact.scheduler.executor.IndexManagementBackgroundTask";
 
+	public IndexManagementBackgroundTask(
+		IndexManagementLocalService indexManagementLocalService) {
+			_indexManagementLocalService = indexManagementLocalService;
+	}
+
+	public IndexManagementBackgroundTask() {}
+
 	@Override
 	public BackgroundTaskExecutor clone() {
-		IndexManagementBackgroundTask task =
-			new IndexManagementBackgroundTask();
-
-		task.setIndexManagementLocalService(_indexManagementLocalService);
-
-		return task;
+		return new IndexManagementBackgroundTask(_indexManagementLocalService);
 	}
 
 	@Override
@@ -57,13 +59,10 @@ public class IndexManagementBackgroundTask extends BaseBackgroundTaskExecutor {
 	}
 
 	@Reference(unbind = "-")
-	protected void setIndexManagementLocalService(
-		IndexManagementLocalService indexManagementLocalService) {
-
+	protected void setIndexManagementLocalService(IndexManagementLocalService indexManagementLocalService) {
 		_indexManagementLocalService = indexManagementLocalService;
 	}
 
-	@Reference(unbind = "-")
 	private IndexManagementLocalService _indexManagementLocalService;
 
 }
