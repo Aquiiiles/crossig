@@ -10,10 +10,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -104,6 +101,20 @@ public class ContactApplication extends Application {
 
 			ServiceResponse serviceResponse = _iditwsClient.validatePhone(
 				entityJSON);
+
+			return ApplicationUtilities.handleServiceResponse(serviceResponse);
+		}
+		catch (Exception exception) {
+			return ApplicationUtilities.handleErrorResponse(exception);
+		}
+	}
+
+	@Path("/{extNumber}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getContact(@PathParam("extNumber") String extNumber) {
+		try {
+			ServiceResponse serviceResponse = _iditwsClient.getContact(extNumber);
 
 			return ApplicationUtilities.handleServiceResponse(serviceResponse);
 		}
