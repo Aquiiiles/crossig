@@ -31,10 +31,10 @@ public class CityLocalServiceWrapper
 	}
 
 	@Override
-	public void addCities(
+	public java.util.List<hr.crosig.contact.dto.CityDTO> addCities(
 		java.util.List<hr.crosig.contact.dto.CityDTO> cities) {
 
-		_cityLocalService.addCities(cities);
+		return _cityLocalService.addCities(cities);
 	}
 
 	/**
