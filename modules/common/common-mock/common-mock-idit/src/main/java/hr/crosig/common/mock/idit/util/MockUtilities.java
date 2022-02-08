@@ -20,13 +20,13 @@ public class MockUtilities {
 	/**
 	 * Checks if a given file exists
 	 */
-	public static boolean mockFileExists(String fileName) {
+	public static boolean mockFileExists(String pathFormatted) {
 		try {
 
 			// mounts the mock file path
 
 			String mockFilePath =
-				MockConstants.RESPONSES_PATH + fileName +
+				MockConstants.RESPONSES_PATH + pathFormatted +
 					MockConstants.JSON_EXTENSION;
 
 			// tries to get the file from the resource path
@@ -45,21 +45,21 @@ public class MockUtilities {
 
 	/**
 	 * Searches for Mock File with the Path Param
-	 * @param fileName
+	 * @param pathFormatted
 	 * @return
 	 */
-	public static String searchMockFileWithPathParam(String fileName) {
+	public static String searchMockFileWithPathParam(String pathFormatted) {
 		try {
 
 			// iterate over similar Mock Filenames
 
 			for (String mockFileName :
-					_getSimilarMockFileNamesWithPathParam(fileName)) {
+					_getSimilarMockFileNamesWithPathParam(pathFormatted)) {
 
-				// gets the formatted filename with path param
+				// gets the formatted path with path param
 
 				String formattedFileNameWithPathParam =
-					_formatFileNameWithPathParam(fileName, mockFileName);
+					_formatFileNameWithPathParam(pathFormatted, mockFileName);
 
 				// if it's the same file
 
@@ -72,26 +72,26 @@ public class MockUtilities {
 			_log.error(exception);
 		}
 
-		return fileName;
+		return pathFormatted;
 	}
 
 	/**
 	 * Formats Filename with Path Param
-	 * @param fileName
+	 * @param pathFormatted
 	 * @param mockFileName
 	 * @return
 	 */
 	private static String _formatFileNameWithPathParam(
-		String fileName, String mockFileName) {
+		String pathFormatted, String mockFileName) {
 
 		try {
 
-			// splits the filename
+			// splits the formatted path
 
-			String[] fileSplitted = fileName.split(
+			String[] fileSplitted = pathFormatted.split(
 				MockConstants.API_PATH_SEPARATOR);
 
-			// splits the mock filename
+			// splits the mock formatted path
 
 			String[] mockFileSplitted = mockFileName.split(
 				MockConstants.API_PATH_SEPARATOR);
@@ -117,7 +117,7 @@ public class MockUtilities {
 		catch (Exception exception) {
 			_log.error(exception);
 
-			return fileName;
+			return pathFormatted;
 		}
 	}
 
@@ -152,27 +152,27 @@ public class MockUtilities {
 
 	/**
 	 * Gets Similar Mock Filenames with Path Param
-	 * Given a filename, it returns similar Mock Filenames which has Path Param, and the same operation and element count
+	 * Given a formatted path, it returns similar Mock Filenames which has Path Param, and the same operation and element count
 	 *
-	 * @param fileNameFilter
+	 * @param pathFormattedFilter
 	 * @return
 	 */
 	private static List<String> _getSimilarMockFileNamesWithPathParam(
-		String fileNameFilter) {
+		String pathFormattedFilter) {
 
 		List<String> mockFileNames = new ArrayList<>();
 
 		try {
 
-			// path element count from the given filename
+			// path element count from the given formatted path
 
-			int pathElementCount = fileNameFilter.split(
+			int pathElementCount = pathFormattedFilter.split(
 				MockConstants.API_PATH_SEPARATOR).length;
 
 			// path operation
 
 			String operation =
-				fileNameFilter.split(MockConstants.API_PATH_SEPARATOR)[0];
+				pathFormattedFilter.split(MockConstants.API_PATH_SEPARATOR)[0];
 
 			// filters the mock files
 
