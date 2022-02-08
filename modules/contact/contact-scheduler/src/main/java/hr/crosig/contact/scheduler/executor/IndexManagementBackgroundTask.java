@@ -9,17 +9,10 @@ import com.liferay.portal.kernel.backgroundtask.display.BackgroundTaskDisplayFac
 
 import hr.crosig.contact.service.IndexManagementLocalService;
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author victor.catanante
  */
-@Component(
-	immediate = true,
-	property = "background.task.executor.class.name=" + IndexManagementBackgroundTask.EXECUTOR_CLASS_NAME,
-	service = IndexManagementBackgroundTask.class
-)
 public class IndexManagementBackgroundTask extends BaseBackgroundTaskExecutor {
 
 	public static final String EXECUTOR_CLASS_NAME =
@@ -60,7 +53,6 @@ public class IndexManagementBackgroundTask extends BaseBackgroundTaskExecutor {
 		return true;
 	}
 
-	@Reference(unbind = "-")
 	protected void setIndexManagementLocalService(
 		IndexManagementLocalService indexManagementLocalService) {
 
