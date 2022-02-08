@@ -35,11 +35,12 @@ import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.searcher.Searcher;
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.CityMessages;
+import hr.crosig.contact.constants.StreetConstants;
 import hr.crosig.contact.dto.CityDTO;
 import hr.crosig.contact.exception.CityException;
 import hr.crosig.contact.model.City;
 import hr.crosig.contact.model.impl.CityModelImpl;
-import hr.crosig.contact.service.StreetLocalService;
+import hr.crosig.contact.model.impl.StreetModelImpl;
 import hr.crosig.contact.service.base.CityLocalServiceBaseImpl;
 import hr.crosig.contact.util.BulkHelper;
 import org.osgi.service.component.annotations.Component;
@@ -48,6 +49,7 @@ import org.osgi.service.component.annotations.Reference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Guilherme Kfouri
@@ -80,26 +82,38 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		reindex();
 	}
 
+	public List<City> deleteCitiesByName(String cityName) {
+		List<City> cities = cityPersistence.findByName(cityName);
+
+		String externalCitiesIds = cities.stream(
+		).map(
+			city -> String.valueOf(city.getCityId())
+		).collect(
+			Collectors.joining(",")
+		);
+
+		BulkHelper.bulkDeleteByColumnValues(
+			cityPersistence.getCurrentSession(), CityModelImpl.TABLE_NAME,
+			CityConstants.FIELD_EXTERNAL_ID, externalCitiesIds);
+		BulkHelper.bulkDeleteByColumnValues(
+			cityPersistence.getCurrentSession(), StreetModelImpl.TABLE_NAME,
+			StreetConstants.FIELD_EXTERNAL_CITY_ID, externalCitiesIds);
+
+		return cities;
+	}
+
 	public City deleteCityByExternalId(long externalId) {
 		City city = cityPersistence.fetchByPrimaryKey(externalId);
 
 		if (!Objects.isNull(city)) {
 			cityLocalService.deleteCity(city);
-			_streetLocalService.deleteStreetsByCityId(city.getCityId());
+
+			BulkHelper.bulkDeleteByColumnValues(
+				cityPersistence.getCurrentSession(), StreetModelImpl.TABLE_NAME,
+				CityConstants.FIELD_CITY_ID, String.valueOf(externalId));
 		}
 
 		return city;
-	}
-
-	public List<City> deleteCitiesByName(String cityName) {
-		List<City> cities = cityPersistence.findByName(cityName);
-
-		cities.forEach(city -> {
-			cityLocalService.deleteCity(city);
-			_streetLocalService.deleteStreetsByCityId(city.getCityId());
-		});
-
-		return cities;
 	}
 
 	public List<String> searchCitiesNamesByName(
@@ -247,8 +261,5 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 
 	@Reference
 	private SearchRequestBuilderFactory _searchRequestBuilderFactory;
-
-	@Reference
-	private StreetLocalService _streetLocalService;
 
 }
