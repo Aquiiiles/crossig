@@ -35,7 +35,6 @@ import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.searcher.Searcher;
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.CityMessages;
-import hr.crosig.contact.constants.StreetConstants;
 import hr.crosig.contact.dto.CityDTO;
 import hr.crosig.contact.exception.CityException;
 import hr.crosig.contact.model.City;
@@ -60,12 +59,19 @@ import java.util.stream.Collectors;
 )
 public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 
-	public void addCities(List<CityDTO> cities) {
+	public List<CityDTO> addCities(List<CityDTO> cities) {
 		long companyId = PortalUtil.getDefaultCompanyId();
 
 		cities.forEach(
-			cityDTO -> cityLocalService.updateCity(
-				createCity(cityDTO, companyId)));
+			cityDTO -> {
+				City city = createCity(cityDTO, companyId);
+
+				city = cityLocalService.updateCity(city);
+
+				cityDTO.setCityId(city.getCityId());
+			});
+
+		return cities;
 	}
 
 	public City addCity(CityDTO cityDTO) throws CityException {
@@ -94,10 +100,10 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 
 		BulkHelper.bulkDeleteByColumnValues(
 			cityPersistence.getCurrentSession(), CityModelImpl.TABLE_NAME,
-			CityConstants.FIELD_EXTERNAL_ID, externalCitiesIds);
+			CityConstants.FIELD_CITY_ID, externalCitiesIds);
 		BulkHelper.bulkDeleteByColumnValues(
 			cityPersistence.getCurrentSession(), StreetModelImpl.TABLE_NAME,
-			StreetConstants.FIELD_EXTERNAL_CITY_ID, externalCitiesIds);
+			CityConstants.FIELD_CITY_ID, externalCitiesIds);
 
 		return cities;
 	}
@@ -155,7 +161,7 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		City city = cityLocalService.createCity(
 			counterLocalService.increment(City.class.getName()));
 
-		city.setExternalId(cityDTO.getCityId());
+		city.setExternalId(cityDTO.getExternalCityId());
 		city.setName(cityDTO.getCityName());
 		city.setZipCode(cityDTO.getZipCode());
 		city.setBoxNumber(cityDTO.getBoxNumber());

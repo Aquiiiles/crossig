@@ -56,7 +56,7 @@ public class IndexManagementLocalServiceImpl
 
 			List<CityDTO> cities = _parseIDITCityResponse(response);
 
-			_cityLocalService.addCities(cities);
+			cities = _cityLocalService.addCities(cities);
 
 			_log.info("Added " + cities.size() + " cities");
 
@@ -95,8 +95,8 @@ public class IndexManagementLocalServiceImpl
 	private CityDTO _parseCityDTO(JSONObject jsonObject) {
 		CityDTO cityDTO = new CityDTO();
 
-		cityDTO.setCityId(
-			jsonObject.getLong(CityConstants.JSON_KEY_FOR_CITY_ID));
+		cityDTO.setExternalCityId(
+			jsonObject.getLong(CityConstants.JSON_KEY_FOR_EXTERNAL_CITY_ID));
 		cityDTO.setZipCode(
 			jsonObject.getString(CityConstants.JSON_KEY_FOR_ZIP_CODE));
 		cityDTO.setBoxNumber(

@@ -6,49 +6,58 @@ package hr.crosig.contact.dto;
 public class CityDTO {
 
 	public String getBoxNumber() {
-		return _boxNumber;
-	}
-
-	public long getCityId() {
-		return _cityId;
-	}
-
-	public String getCityName() {
-		return _cityName;
-	}
-
-	public String getPostName() {
-		return _postName;
-	}
-
-	public String getZipCode() {
-		return _zipCode;
+		return boxNumber;
 	}
 
 	public void setBoxNumber(String boxNumber) {
-		_boxNumber = boxNumber;
+		this.boxNumber = boxNumber;
+	}
+
+	public long getCityId() {
+		return cityId;
 	}
 
 	public void setCityId(long cityId) {
-		_cityId = cityId;
+		this.cityId = cityId;
+	}
+
+	public String getCityName() {
+		return cityName;
 	}
 
 	public void setCityName(String cityName) {
-		_cityName = cityName;
+		this.cityName = cityName;
+	}
+
+	public long getExternalCityId() {
+		return externalCityId;
+	}
+
+	public void setExternalCityId(long externalCityId) {
+		this.externalCityId = externalCityId;
+	}
+
+	public String getPostName() {
+		return postName;
 	}
 
 	public void setPostName(String postName) {
-		_postName = postName;
+		this.postName = postName;
+	}
+
+	public String getZipCode() {
+		return zipCode;
 	}
 
 	public void setZipCode(String zipCode) {
-		_zipCode = zipCode;
+		this.zipCode = zipCode;
 	}
 
-	private String _boxNumber;
-	private long _cityId;
-	private String _cityName;
-	private String _postName;
-	private String _zipCode;
+	private String boxNumber;
+	private long cityId;
+	private String cityName;
+	private long externalCityId;
+	private String postName;
+	private String zipCode;
 
 }
