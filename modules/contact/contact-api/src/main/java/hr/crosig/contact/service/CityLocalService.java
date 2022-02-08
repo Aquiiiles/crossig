@@ -63,7 +63,7 @@ public interface CityLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>hr.crosig.contact.service.impl.CityLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the city local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CityLocalServiceUtil} if injection and service tracking are not available.
 	 */
-	public void addCities(List<CityDTO> cities);
+	public List<CityDTO> addCities(List<CityDTO> cities);
 
 	/**
 	 * Adds the city to the database. Also notifies the appropriate model listeners.

@@ -44,8 +44,10 @@ public class CityLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>hr.crosig.contact.service.impl.CityLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static void addCities(List<hr.crosig.contact.dto.CityDTO> cities) {
-		getService().addCities(cities);
+	public static List<hr.crosig.contact.dto.CityDTO> addCities(
+		List<hr.crosig.contact.dto.CityDTO> cities) {
+
+		return getService().addCities(cities);
 	}
 
 	/**

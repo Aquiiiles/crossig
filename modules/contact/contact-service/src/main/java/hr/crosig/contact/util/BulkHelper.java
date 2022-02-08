@@ -30,6 +30,16 @@ public abstract class BulkHelper {
 		return _bulkDelete(session, String.format(_TRUNCATE_SQL, table), table);
 	}
 
+	public static int bulkDeleteByColumnValues(
+		Session session, String table, String columnName, String columnValues) {
+
+		return _bulkDelete(
+			session,
+			String.format(
+				_DELETE_SQL_BY_COLUMN, table, columnName, columnValues),
+			table);
+	}
+
 	private static int _bulkDelete(
 		Session session, String sql, String tableName, String... criteria) {
 
@@ -51,6 +61,9 @@ public abstract class BulkHelper {
 	}
 
 	private static final String _DELETE_SQL = "DELETE FROM %s";
+
+	private static final String _DELETE_SQL_BY_COLUMN =
+		_DELETE_SQL + " WHERE %s IN (%s)";
 
 	private static final String _DELETE_SQL_ROW_PROCESSED =
 		_DELETE_SQL + " WHERE rowProcessed != ?";

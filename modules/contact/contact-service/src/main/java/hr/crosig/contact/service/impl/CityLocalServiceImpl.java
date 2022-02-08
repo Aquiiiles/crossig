@@ -39,6 +39,7 @@ import hr.crosig.contact.dto.CityDTO;
 import hr.crosig.contact.exception.CityException;
 import hr.crosig.contact.model.City;
 import hr.crosig.contact.model.impl.CityModelImpl;
+import hr.crosig.contact.model.impl.StreetModelImpl;
 import hr.crosig.contact.service.base.CityLocalServiceBaseImpl;
 import hr.crosig.contact.util.BulkHelper;
 import org.osgi.service.component.annotations.Component;
@@ -47,6 +48,7 @@ import org.osgi.service.component.annotations.Reference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Guilherme Kfouri
@@ -57,12 +59,19 @@ import java.util.Objects;
 )
 public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 
-	public void addCities(List<CityDTO> cities) {
+	public List<CityDTO> addCities(List<CityDTO> cities) {
 		long companyId = PortalUtil.getDefaultCompanyId();
 
 		cities.forEach(
-			cityDTO -> cityLocalService.updateCity(
-				createCity(cityDTO, companyId)));
+			cityDTO -> {
+				City city = createCity(cityDTO, companyId);
+
+				city = cityLocalService.updateCity(city);
+
+				cityDTO.setCityId(city.getCityId());
+			});
+
+		return cities;
 	}
 
 	public City addCity(CityDTO cityDTO) throws CityException {
@@ -79,21 +88,38 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		reindex();
 	}
 
-	public City deleteCityByExternalId(long externalId) {
-		City city = cityPersistence.fetchByPrimaryKey(externalId);
-
-		if (!Objects.isNull(city))
-			cityLocalService.deleteCity(city);
-
-		return city;
-	}
-
 	public List<City> deleteCitiesByName(String cityName) {
 		List<City> cities = cityPersistence.findByName(cityName);
 
-		cities.forEach(city -> cityLocalService.deleteCity(city));
+		String externalCitiesIds = cities.stream(
+		).map(
+			city -> String.valueOf(city.getCityId())
+		).collect(
+			Collectors.joining(",")
+		);
+
+		BulkHelper.bulkDeleteByColumnValues(
+			cityPersistence.getCurrentSession(), CityModelImpl.TABLE_NAME,
+			CityConstants.FIELD_CITY_ID, externalCitiesIds);
+		BulkHelper.bulkDeleteByColumnValues(
+			cityPersistence.getCurrentSession(), StreetModelImpl.TABLE_NAME,
+			CityConstants.FIELD_CITY_ID, externalCitiesIds);
 
 		return cities;
+	}
+
+	public City deleteCityByExternalId(long externalId) {
+		City city = cityPersistence.fetchByPrimaryKey(externalId);
+
+		if (!Objects.isNull(city)) {
+			cityLocalService.deleteCity(city);
+
+			BulkHelper.bulkDeleteByColumnValues(
+				cityPersistence.getCurrentSession(), StreetModelImpl.TABLE_NAME,
+				CityConstants.FIELD_CITY_ID, String.valueOf(externalId));
+		}
+
+		return city;
 	}
 
 	public List<String> searchCitiesNamesByName(
@@ -135,7 +161,7 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		City city = cityLocalService.createCity(
 			counterLocalService.increment(City.class.getName()));
 
-		city.setExternalId(cityDTO.getCityId());
+		city.setExternalId(cityDTO.getExternalCityId());
 		city.setName(cityDTO.getCityName());
 		city.setZipCode(cityDTO.getZipCode());
 		city.setBoxNumber(cityDTO.getBoxNumber());

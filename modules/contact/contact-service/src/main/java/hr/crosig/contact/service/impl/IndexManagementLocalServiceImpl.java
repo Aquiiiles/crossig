@@ -12,7 +12,6 @@ import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.StreetConstants;
 import hr.crosig.contact.dto.CityDTO;
 import hr.crosig.contact.dto.StreetDTO;
-import hr.crosig.contact.model.City;
 import hr.crosig.contact.service.CityLocalService;
 import hr.crosig.contact.service.IndexManagementLocalService;
 import hr.crosig.contact.service.StreetLocalService;
@@ -41,8 +40,7 @@ public class IndexManagementLocalServiceImpl
 
 	@Override
 	public void clearCityByName(String cityName) {
-		List<City> cities = _cityLocalService.deleteCitiesByName(cityName);
-		cities.forEach(city -> _streetLocalService.deleteStreetsByCityId(city.getCityId()));
+		_cityLocalService.deleteCitiesByName(cityName);
 	}
 
 	@Override
@@ -58,7 +56,7 @@ public class IndexManagementLocalServiceImpl
 
 			List<CityDTO> cities = _parseIDITCityResponse(response);
 
-			_cityLocalService.addCities(cities);
+			cities = _cityLocalService.addCities(cities);
 
 			_log.info("Added " + cities.size() + " cities");
 
@@ -97,8 +95,8 @@ public class IndexManagementLocalServiceImpl
 	private CityDTO _parseCityDTO(JSONObject jsonObject) {
 		CityDTO cityDTO = new CityDTO();
 
-		cityDTO.setCityId(
-			jsonObject.getLong(CityConstants.JSON_KEY_FOR_CITY_ID));
+		cityDTO.setExternalCityId(
+			jsonObject.getLong(CityConstants.JSON_KEY_FOR_EXTERNAL_CITY_ID));
 		cityDTO.setZipCode(
 			jsonObject.getString(CityConstants.JSON_KEY_FOR_ZIP_CODE));
 		cityDTO.setBoxNumber(
