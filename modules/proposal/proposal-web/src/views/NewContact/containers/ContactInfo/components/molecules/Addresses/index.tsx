@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FormSection, SectionSubTitle } from "../../atoms";
+import { FormSection, SectionSubTitle, Row } from "../../atoms";
 import ClayForm, {
 	ClayInput,
 	ClayCheckbox,
@@ -9,9 +9,11 @@ import { contactTypes } from "../../../../../../../constants/contactConstants";
 import { CREATE_NEW_CONTACT } from "../../../../../../../constants/languageKeys";
 import { useContactSelector } from "../../../contactStore";
 
-const Addresses: React.FC<{ cities: Array<Object> }> = ({ cities }) => {
+const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 	const [sameAddress, setSameAdress] = useState(true);
-	const { contactType } = useContactSelector((state) => state.basicInfo);
+	const { contactType } = useContactSelector(
+		(state: { basicInfo: any }) => state.basicInfo
+	);
 
 	return (
 		<FormSection title={CREATE_NEW_CONTACT.ADDRESS_TITLE}>
@@ -23,31 +25,35 @@ const Addresses: React.FC<{ cities: Array<Object> }> = ({ cities }) => {
 				}
 			/>
 
-			<strong>{CREATE_NEW_CONTACT.FIELD.COUNTRY}</strong>
-			<ClaySelectWithOption options={cities} />
+			<Row half>
+				<label htmlFor='contactTypeInput'>Type</label>
+				<ClaySelectWithOption options={countries} />
+			</Row>
 
-			<ClayForm.Group>
-				<ClayInput.Group>
-					<ClayInput.GroupItem>
-						<label htmlFor='city'>{CREATE_NEW_CONTACT.FIELD.CITY}</label>
+			<Row>
+				<ClayForm.Group>
+					<ClayInput.Group>
+						<ClayInput.GroupItem>
+							<label htmlFor='city'>{CREATE_NEW_CONTACT.FIELD.CITY}</label>
 
-						<ClayInput
-							id='city'
-							aria-required={true}
-							type='text'
-							required={true}
-						/>
-					</ClayInput.GroupItem>
+							<ClayInput
+								id='city'
+								aria-required={true}
+								type='text'
+								required={true}
+							/>
+						</ClayInput.GroupItem>
 
-					<ClayInput.GroupItem>
-						<label htmlFor='postal-code'>
-							{CREATE_NEW_CONTACT.FIELD.POSTAL_CODE}
-						</label>
+						<ClayInput.GroupItem>
+							<label htmlFor='postal-code'>
+								{CREATE_NEW_CONTACT.FIELD.POSTAL_CODE}
+							</label>
 
-						<ClayInput id='postal-code' type='text' />
-					</ClayInput.GroupItem>
-				</ClayInput.Group>
-			</ClayForm.Group>
+							<ClayInput id='postal-code' type='text' />
+						</ClayInput.GroupItem>
+					</ClayInput.Group>
+				</ClayForm.Group>
+			</Row>
 
 			<ClayForm.Group>
 				<label htmlFor='street-address'>
@@ -76,7 +82,7 @@ const Addresses: React.FC<{ cities: Array<Object> }> = ({ cities }) => {
 			{!sameAddress && (
 				<>
 					<strong>{CREATE_NEW_CONTACT.FIELD.COUNTRY}</strong>
-					<ClaySelectWithOption options={cities} />
+					<ClaySelectWithOption options={countries} />
 
 					<ClayForm.Group>
 						<ClayInput.Group>

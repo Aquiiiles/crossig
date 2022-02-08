@@ -20,26 +20,3 @@ export const contactTypeOptions = [
 		value: contactTypes.Self_Employed
 	}
 ];
-
-export const cities = [
-	{
-		label: "Croatia",
-		value: "1"
-	},
-	{
-		label: "Alemanha",
-		value: "2"
-	},
-	{
-		label: "Brasil",
-		value: "3"
-	},
-	{
-		label: "EUA",
-		value: "4"
-	},
-	{
-		label: "Inglaterra",
-		value: "5"
-	}
-];
