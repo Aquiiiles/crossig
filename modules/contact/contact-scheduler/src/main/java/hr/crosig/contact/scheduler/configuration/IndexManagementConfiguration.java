@@ -17,9 +17,7 @@ public interface IndexManagementConfiguration {
 	@Meta.AD(deflt = "true", name = "Enable Scheduler", required = false)
 	Boolean _enable();
 
-	@Meta.AD(
-		deflt = "0 0 1 * * ?", name = "Cron Expression", required = false
-	)
+	@Meta.AD(deflt = "0 0 1 * * ?", name = "Cron Expression", required = false)
 	String _cronExpression();
 
 }

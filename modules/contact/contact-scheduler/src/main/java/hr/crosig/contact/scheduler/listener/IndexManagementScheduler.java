@@ -15,7 +15,6 @@ import com.liferay.portal.kernel.scheduler.SchedulerEntry;
 import com.liferay.portal.kernel.scheduler.SchedulerEntryImpl;
 import com.liferay.portal.kernel.scheduler.Trigger;
 import com.liferay.portal.kernel.scheduler.TriggerFactory;
-import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -117,6 +116,9 @@ public class IndexManagementScheduler implements MessageListener {
 		_indexManagementConfiguration;
 
 	@Reference(unbind = "-")
+	private BackgroundTaskLocalService _backgroundTaskLocalService;
+
+	@Reference(unbind = "-")
 	private volatile SchedulerEngineHelper _schedulerEngineHelper;
 
 	@Reference(unbind = "-")
@@ -124,8 +126,5 @@ public class IndexManagementScheduler implements MessageListener {
 
 	@Reference(unbind = "-")
 	private UserLocalService _userLocalService;
-
-	@Reference(unbind = "-")
-	private BackgroundTaskLocalService _backgroundTaskLocalService;
 
 }
