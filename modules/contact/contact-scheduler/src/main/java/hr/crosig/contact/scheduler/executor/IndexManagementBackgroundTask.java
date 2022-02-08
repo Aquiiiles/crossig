@@ -18,19 +18,21 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = "background.task.executor.class.name=" + IndexManagementBackgroundTask.EXECUTOR_CLASS_NAME,
-	service = BackgroundTaskExecutor.class
+	service = IndexManagementBackgroundTask.class
 )
 public class IndexManagementBackgroundTask extends BaseBackgroundTaskExecutor {
 
 	public static final String EXECUTOR_CLASS_NAME =
 		"hr.crosig.contact.scheduler.executor.IndexManagementBackgroundTask";
 
-	public IndexManagementBackgroundTask(
-		IndexManagementLocalService indexManagementLocalService) {
-			_indexManagementLocalService = indexManagementLocalService;
+	public IndexManagementBackgroundTask() {
 	}
 
-	public IndexManagementBackgroundTask() {}
+	public IndexManagementBackgroundTask(
+		IndexManagementLocalService indexManagementLocalService) {
+
+		_indexManagementLocalService = indexManagementLocalService;
+	}
 
 	@Override
 	public BackgroundTaskExecutor clone() {
@@ -59,7 +61,9 @@ public class IndexManagementBackgroundTask extends BaseBackgroundTaskExecutor {
 	}
 
 	@Reference(unbind = "-")
-	protected void setIndexManagementLocalService(IndexManagementLocalService indexManagementLocalService) {
+	protected void setIndexManagementLocalService(
+		IndexManagementLocalService indexManagementLocalService) {
+
 		_indexManagementLocalService = indexManagementLocalService;
 	}
 

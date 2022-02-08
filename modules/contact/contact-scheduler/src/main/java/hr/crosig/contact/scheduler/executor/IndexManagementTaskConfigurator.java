@@ -22,47 +22,49 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = IndexManagementTaskConfigurator.class)
 public class IndexManagementTaskConfigurator {
 
-    @Activate
-    protected void activate(BundleContext bundleContext) {
-        IndexManagementBackgroundTask executor = new IndexManagementBackgroundTask();
-        executor.setIndexManagementLocalService(_indexManagementLocalService);
+	@Activate
+	protected void activate(BundleContext bundleContext) {
+		IndexManagementBackgroundTask executor =
+			new IndexManagementBackgroundTask();
 
-        _registerBackgroundTaskExecutor(bundleContext, executor);
-    }
+		executor.setIndexManagementLocalService(_indexManagementLocalService);
 
-    @Deactivate
-    protected void deactivate() {
-        if (_serviceRegistrations != null) {
-            for (ServiceRegistration<BackgroundTaskExecutor>
-                    serviceRegistration : _serviceRegistrations) {
+		_registerBackgroundTaskExecutor(bundleContext, executor);
+	}
 
-                serviceRegistration.unregister();
-            }
-        }
-    }
+	@Deactivate
+	protected void deactivate() {
+		if (_serviceRegistrations != null) {
+			for (ServiceRegistration<BackgroundTaskExecutor>
+					serviceRegistration : _serviceRegistrations) {
 
-    private void _registerBackgroundTaskExecutor(
-            BundleContext bundleContext,
-            BackgroundTaskExecutor backgroundTaskExecutor) {
+				serviceRegistration.unregister();
+			}
+		}
+	}
 
-        Dictionary<String, Object> properties = new HashMapDictionary<>();
+	private void _registerBackgroundTaskExecutor(
+		BundleContext bundleContext,
+		BackgroundTaskExecutor backgroundTaskExecutor) {
 
-        Class<?> clazz = backgroundTaskExecutor.getClass();
+		Dictionary<String, Object> properties = new HashMapDictionary<>();
 
-        properties.put("background.task.executor.class.name", clazz.getName());
+		Class<?> clazz = backgroundTaskExecutor.getClass();
 
-        ServiceRegistration<BackgroundTaskExecutor> serviceRegistration =
-                bundleContext.registerService(
-                        BackgroundTaskExecutor.class, backgroundTaskExecutor,
-                        properties);
+		properties.put("background.task.executor.class.name", clazz.getName());
 
-        _serviceRegistrations.add(serviceRegistration);
-    }
+		ServiceRegistration<BackgroundTaskExecutor> serviceRegistration =
+			bundleContext.registerService(
+				BackgroundTaskExecutor.class, backgroundTaskExecutor,
+				properties);
 
-    @Reference
-    private IndexManagementLocalService _indexManagementLocalService;
+		_serviceRegistrations.add(serviceRegistration);
+	}
 
-    private final Set<ServiceRegistration<BackgroundTaskExecutor>>
-            _serviceRegistrations = new HashSet<>();
+	@Reference
+	private IndexManagementLocalService _indexManagementLocalService;
+
+	private final Set<ServiceRegistration<BackgroundTaskExecutor>>
+		_serviceRegistrations = new HashSet<>();
 
 }
