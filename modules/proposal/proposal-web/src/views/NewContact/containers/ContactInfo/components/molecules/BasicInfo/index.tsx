@@ -45,7 +45,7 @@ const BasicInfo: React.FC = () => {
   return (
     <FormSection title={CREATE_NEW_CONTACT.BASIC_INFO_TITLE}>
       <ClayForm.Group>
-        <label htmlFor="contactTypeInput">Type</label>
+        <label htmlFor="contactTypeInput">{CREATE_NEW_CONTACT.TYPE}</label>
         <ClaySelectWithOption
           id="contactTypeInput"
           required

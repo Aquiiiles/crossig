@@ -14,6 +14,7 @@ export const CREATE_NEW_CONTACT = {
     TITLE: Liferay.Language.get('create-new-contact-title'),
     SUBTITLE: Liferay.Language.get('create-new-contact-subtitle'),
     BASIC_INFO_TITLE: Liferay.Language.get('create-new-contact-basic-info-title'),
+    TYPE: Liferay.Language.get('create-new-contact-type'),
     ADDRESS_TITLE : Liferay.Language.get('create-new-contact-address-title'),
     ID_ADDRES : Liferay.Language.get('create-new-contact-id-address'),
     REGISTERED_OFFICE_ADDRESS : Liferay.Language.get('create-new-contact-registered-office-address'),
