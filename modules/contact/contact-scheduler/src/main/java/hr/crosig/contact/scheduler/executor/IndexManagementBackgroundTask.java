@@ -1,8 +1,10 @@
 package hr.crosig.contact.scheduler.executor;
 
+import com.liferay.portal.background.task.service.BackgroundTaskLocalServiceUtil;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTask;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTaskExecutor;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTaskResult;
+import com.liferay.portal.kernel.backgroundtask.BackgroundTaskStatusMessageTranslator;
 import com.liferay.portal.kernel.backgroundtask.BaseBackgroundTaskExecutor;
 import com.liferay.portal.kernel.backgroundtask.display.BackgroundTaskDisplay;
 import com.liferay.portal.kernel.backgroundtask.display.BackgroundTaskDisplayFactoryUtil;
@@ -17,7 +19,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "background.task.executor.class.name=hr.crosig.contact.scheduler.executor.IndexManagementBackgroundTask",
+	property = "background.task.executor.class.name=" + IndexManagementBackgroundTask.EXECUTOR_CLASS_NAME,
 	service = BackgroundTaskExecutor.class
 )
 public class IndexManagementBackgroundTask extends BaseBackgroundTaskExecutor {
@@ -27,7 +29,9 @@ public class IndexManagementBackgroundTask extends BaseBackgroundTaskExecutor {
 
 	@Override
 	public BackgroundTaskExecutor clone() {
-		return this;
+		IndexManagementBackgroundTask task = new IndexManagementBackgroundTask();
+		task.setIndexManagementLocalService(_indexManagementLocalService);
+		return task;
 	}
 
 	@Override
@@ -54,4 +58,8 @@ public class IndexManagementBackgroundTask extends BaseBackgroundTaskExecutor {
 	@Reference(unbind = "-")
 	private IndexManagementLocalService _indexManagementLocalService;
 
+	@Reference(unbind = "-")
+	protected void setIndexManagementLocalService(IndexManagementLocalService indexManagementLocalService) {
+		_indexManagementLocalService = indexManagementLocalService;
+	}
 }

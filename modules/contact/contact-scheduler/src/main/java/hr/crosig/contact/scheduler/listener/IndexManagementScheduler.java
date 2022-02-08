@@ -1,7 +1,7 @@
 package hr.crosig.contact.scheduler.listener;
 
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.background.task.service.BackgroundTaskLocalServiceUtil;
+import com.liferay.portal.background.task.service.BackgroundTaskLocalService;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -9,6 +9,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.DestinationNames;
 import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.messaging.MessageListener;
+import com.liferay.portal.kernel.model.CompanyConstants;
 import com.liferay.portal.kernel.scheduler.SchedulerEngineHelper;
 import com.liferay.portal.kernel.scheduler.SchedulerEntry;
 import com.liferay.portal.kernel.scheduler.SchedulerEntryImpl;
@@ -46,8 +47,8 @@ public class IndexManagementScheduler implements MessageListener {
 		_log.info(SchedulerConstants.SCHEDULER_TRIGGERED);
 
 		try {
-			BackgroundTaskLocalServiceUtil.addBackgroundTask(
-				_getAdminUserId(), _getDefaultGroupId(), StringPool.BLANK,
+			_backgroundTaskLocalService.addBackgroundTask(
+				_getAdminUserId(), CompanyConstants.SYSTEM, StringPool.BLANK,
 				IndexManagementBackgroundTask.class.getName(), new HashMap<>(),
 				new ServiceContext());
 
@@ -109,23 +110,6 @@ public class IndexManagementScheduler implements MessageListener {
 		return null;
 	}
 
-	private Long _getDefaultGroupId() {
-		try {
-			Long companyId = PortalUtil.getDefaultCompanyId();
-
-			return GroupLocalServiceUtil.getCompanyGroup(
-				companyId
-			).getGroupId();
-		}
-		catch (PortalException portalException) {
-			_log.error(
-				SchedulerConstants.SCHEDULER_FAILED_WHEN_TRIGGERED,
-				portalException);
-		}
-
-		return null;
-	}
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		IndexManagementScheduler.class);
 
@@ -140,5 +124,8 @@ public class IndexManagementScheduler implements MessageListener {
 
 	@Reference(unbind = "-")
 	private UserLocalService _userLocalService;
+
+	@Reference(unbind = "-")
+	private BackgroundTaskLocalService _backgroundTaskLocalService;
 
 }
