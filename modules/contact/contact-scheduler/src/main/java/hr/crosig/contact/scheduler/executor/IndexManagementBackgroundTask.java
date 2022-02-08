@@ -5,8 +5,8 @@ import com.liferay.portal.kernel.backgroundtask.BackgroundTaskExecutor;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTaskResult;
 import com.liferay.portal.kernel.backgroundtask.BaseBackgroundTaskExecutor;
 import com.liferay.portal.kernel.backgroundtask.display.BackgroundTaskDisplay;
-
 import com.liferay.portal.kernel.backgroundtask.display.BackgroundTaskDisplayFactoryUtil;
+
 import hr.crosig.contact.service.IndexManagementLocalService;
 
 import org.osgi.service.component.annotations.Component;
@@ -21,6 +21,9 @@ import org.osgi.service.component.annotations.Reference;
 	service = BackgroundTaskExecutor.class
 )
 public class IndexManagementBackgroundTask extends BaseBackgroundTaskExecutor {
+
+	public static final String EXECUTOR_CLASS_NAME =
+		"hr.crosig.contact.scheduler.executor.IndexManagementBackgroundTask";
 
 	@Override
 	public BackgroundTaskExecutor clone() {
@@ -38,16 +41,15 @@ public class IndexManagementBackgroundTask extends BaseBackgroundTaskExecutor {
 	@Override
 	public BackgroundTaskDisplay getBackgroundTaskDisplay(
 		BackgroundTask backgroundTask) {
-		return BackgroundTaskDisplayFactoryUtil.getBackgroundTaskDisplay(backgroundTask);
+
+		return BackgroundTaskDisplayFactoryUtil.getBackgroundTaskDisplay(
+			backgroundTask);
 	}
 
 	@Override
 	public boolean isSerial() {
 		return true;
 	}
-
-	public static final String EXECUTOR_CLASS_NAME =
-		"hr.crosig.contact.scheduler.executor.IndexManagementBackgroundTask";
 
 	@Reference(unbind = "-")
 	private IndexManagementLocalService _indexManagementLocalService;

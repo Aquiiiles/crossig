@@ -1,7 +1,6 @@
 package hr.crosig.contact.scheduler.listener;
 
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.background.task.model.BackgroundTask;
 import com.liferay.portal.background.task.service.BackgroundTaskLocalServiceUtil;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -47,7 +46,7 @@ public class IndexManagementScheduler implements MessageListener {
 		_log.info(SchedulerConstants.SCHEDULER_TRIGGERED);
 
 		try {
-			BackgroundTask task = BackgroundTaskLocalServiceUtil.addBackgroundTask(
+			BackgroundTaskLocalServiceUtil.addBackgroundTask(
 				_getAdminUserId(), _getDefaultGroupId(), StringPool.BLANK,
 				IndexManagementBackgroundTask.class.getName(), new HashMap<>(),
 				new ServiceContext());
@@ -98,7 +97,8 @@ public class IndexManagementScheduler implements MessageListener {
 
 		try {
 			return _userLocalService.getUser(
-				_userLocalService.getDefaultUserId(companyId)).getUserId();
+				_userLocalService.getDefaultUserId(companyId)
+			).getUserId();
 		}
 		catch (PortalException portalException) {
 			_log.error(
@@ -112,8 +112,12 @@ public class IndexManagementScheduler implements MessageListener {
 	private Long _getDefaultGroupId() {
 		try {
 			Long companyId = PortalUtil.getDefaultCompanyId();
-			return GroupLocalServiceUtil.getCompanyGroup(companyId).getGroupId();
-		} catch (PortalException portalException) {
+
+			return GroupLocalServiceUtil.getCompanyGroup(
+				companyId
+			).getGroupId();
+		}
+		catch (PortalException portalException) {
 			_log.error(
 				SchedulerConstants.SCHEDULER_FAILED_WHEN_TRIGGERED,
 				portalException);
@@ -136,4 +140,5 @@ public class IndexManagementScheduler implements MessageListener {
 
 	@Reference(unbind = "-")
 	private UserLocalService _userLocalService;
+
 }
