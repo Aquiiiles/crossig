@@ -28,14 +28,14 @@ public class RestAPIInvokerIDITMock implements RestAPIServiceInvoker {
 
 	@Override
 	public ServiceResponse get(ServiceProviderType provider, String path)
-			throws ServiceInvocationException {
+		throws ServiceInvocationException {
 
 		try {
 			return new ServiceResponse(200, _getResponse("get", path));
 		}
 		catch (Exception exception) {
 			throw new ServiceInvocationException(
-					"Error getting mock for " + path, exception);
+				"Error getting mock for " + path, exception);
 		}
 	}
 
@@ -49,7 +49,7 @@ public class RestAPIInvokerIDITMock implements RestAPIServiceInvoker {
 		}
 		catch (Exception exception) {
 			throw new ServiceInvocationException(
-					"Error getting mock for " + path, exception);
+				"Error getting mock for " + path, exception);
 		}
 	}
 
@@ -63,21 +63,11 @@ public class RestAPIInvokerIDITMock implements RestAPIServiceInvoker {
 		}
 		catch (Exception exception) {
 			throw new ServiceInvocationException(
-					"Error getting mock for " + path, exception);
+				"Error getting mock for " + path, exception);
 		}
 	}
 
-	private String _getResponse(String operation, String path)
-		throws Exception {
-
-		Bundle bundle = FrameworkUtil.getBundle(getClass());
-
-		URL entry = bundle.getEntry(getMockPath(operation, path));
-
-		return StringUtil.read(entry.openStream());
-	}
-
-	private String getMockPath(String operation, String path) {
+	private String _getMockPath(String operation, String path) {
 		String pathWithoutQuery = path;
 
 		int lastIndexOf = path.lastIndexOf(StringPool.QUESTION);
@@ -86,14 +76,30 @@ public class RestAPIInvokerIDITMock implements RestAPIServiceInvoker {
 			pathWithoutQuery = path.substring(0, lastIndexOf);
 		}
 
-		String pathFormatted = operation + pathWithoutQuery.replace(StringPool.SLASH, StringPool.UNDERLINE);
+		pathWithoutQuery = pathWithoutQuery.replace(
+			StringPool.SLASH, StringPool.UNDERLINE);
+
+		String pathFormatted = operation + pathWithoutQuery;
 
 		StringBundler sb = new StringBundler();
 
 		sb.append(MockConstants.RESPONSES_PATH);
-		sb.append(MockUtilities.mockFileExists(pathFormatted) ? pathFormatted : MockUtilities.searchMockFileWithPathParam(pathFormatted));
+		sb.append(
+			MockUtilities.mockFileExists(pathFormatted) ? pathFormatted :
+				MockUtilities.searchMockFileWithPathParam(pathFormatted));
 		sb.append(MockConstants.JSON_EXTENSION);
 
 		return sb.toString();
 	}
+
+	private String _getResponse(String operation, String path)
+		throws Exception {
+
+		Bundle bundle = FrameworkUtil.getBundle(getClass());
+
+		URL entry = bundle.getEntry(_getMockPath(operation, path));
+
+		return StringUtil.read(entry.openStream());
+	}
+
 }

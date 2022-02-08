@@ -2,152 +2,212 @@ package hr.crosig.common.mock.idit.util;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import org.osgi.framework.FrameworkUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
+import org.osgi.framework.FrameworkUtil;
+
 /**
  * @author marcelo.mazurky
  */
 public class MockUtilities {
-    /**
-     * Searches for Mock File with the Path Param
-     *
-     * @param filename
-     * @return
-     */
-    public static String searchMockFileWithPathParam(String filename) {
-        try {
-            // iterate over similar Mock Filenames
-            for (String mockFilename : getSimilarMockFilenamesWithPathParam(filename)) {
-                // gets the formatted filename with path param
-                String formattedFilenameWithPathParam = formatFilenameWithPathParam(filename, mockFilename);
 
-                // if it's the same file
-                if (formattedFilenameWithPathParam.equals(mockFilename)) {
-                    return formattedFilenameWithPathParam;
-                }
-            }
-        } catch (Exception exception) {
-            _log.error(exception);
-        }
+	/**
+	 * Checks if a given file exists
+	 */
+	public static boolean mockFileExists(String fileName) {
+		try {
 
-        return filename;
-    }
+			// mounts the mock file path
 
-    /**
-     * Formats Filename with Path Param
-     *
-     * @param filename
-     * @param mockFilename
-     * @return
-     */
-    private static String formatFilenameWithPathParam(String filename, String mockFilename) {
-        try {
-            // splits the filename
-            String[] fileSplitted = filename.split(MockConstants.API_PATH_SEPARATOR);
-            // splits the mock filename
-            String[] mockFileSplitted = mockFilename.split(MockConstants.API_PATH_SEPARATOR);
+			String mockFilePath =
+				MockConstants.RESPONSES_PATH + fileName +
+					MockConstants.JSON_EXTENSION;
 
-            for (int i = 0; i < mockFileSplitted.length; i++) {
-                String filePart = fileSplitted[i];
-                String mockFilePart = mockFileSplitted[i];
+			// tries to get the file from the resource path
 
-                // if a part of the file is different than the mock
-                if (!filePart.equals(mockFilePart)) {
-                    // changes the part to the Path Param
-                    fileSplitted[i] = MockConstants.PATH_PARAM_PATTERN;
-                }
-            }
+			String file = MockUtilities.class.getClassLoader(
+			).getResource(
+				mockFilePath
+			).getFile();
 
-            // joins the previously splitted file with the new values
-            String fileFormatted = String.join(MockConstants.API_PATH_SEPARATOR, fileSplitted);
+			return StringUtils.isNotEmpty(file);
+		}
+		catch (Exception exception) {
+			return false;
+		}
+	}
 
-            return fileFormatted;
-        } catch (Exception exception) {
-            _log.error(exception);
+	/**
+	 * Searches for Mock File with the Path Param
+	 * @param fileName
+	 * @return
+	 */
+	public static String searchMockFileWithPathParam(String fileName) {
+		try {
 
-            return filename;
-        }
+			// iterate over similar Mock Filenames
 
-    }
+			for (String mockFileName :
+					_getSimilarMockFileNamesWithPathParam(fileName)) {
 
-    /**
-     * Checks if a given file exists
-     *
-     * @param filename
-     * @return
-     */
-    public static boolean mockFileExists(String filename) {
-        try {
-            // mounts the mock file path
-            String mockFilePath = MockConstants.RESPONSES_PATH + filename + MockConstants.JSON_EXTENSION;
-            // tries to get the file from the resource path
-            String file = MockUtilities.class.getClassLoader().getResource(mockFilePath).getFile();
+				// gets the formatted filename with path param
 
-            return file != null && !"".equals(file);
-        } catch (Exception e) {
-            return false;
-        }
-    }
+				String formattedFileNameWithPathParam =
+					_formatFileNameWithPathParam(fileName, mockFileName);
 
-    /**
-     * Gets Similar Mock Filenames with Path Param
-     * Given a filename, it returns similar Mock Filenames which has Path Param, and the same operation and element count
-     *
-     * @param filenameFilter
-     * @return
-     */
-    private static List<String> getSimilarMockFilenamesWithPathParam(String filenameFilter) {
-        List<String> mockFilenames = new ArrayList<>();
-        try {
-            // path element count from the given filename
-            int pathElementCount = filenameFilter.split(MockConstants.API_PATH_SEPARATOR).length;
-            // path operation
-            String operation = filenameFilter.split(MockConstants.API_PATH_SEPARATOR)[0];
+				// if it's the same file
 
-            // filters the mock files
-            getResourceFilenames(MockConstants.RESPONSES_PATH).stream().map(mockPath -> mockPath.replace(MockConstants.JSON_EXTENSION, "")).forEach(mockFilenameWithoutExtension -> {
-                boolean hasPathParam = mockFilenameWithoutExtension.contains(MockConstants.PATH_PARAM_PATTERN);
-                boolean sameElementCount = mockFilenameWithoutExtension.contains(MockConstants.API_PATH_SEPARATOR) && mockFilenameWithoutExtension.split(MockConstants.API_PATH_SEPARATOR).length == pathElementCount;
-                boolean sameOperation = mockFilenameWithoutExtension.startsWith(operation);
-                if (hasPathParam && sameElementCount && sameOperation) {
-                    mockFilenames.add(mockFilenameWithoutExtension);
-                }
-            });
-        } catch (Exception exception) {
-            _log.error(exception);
-        }
+				if (formattedFileNameWithPathParam.equals(mockFileName)) {
+					return formattedFileNameWithPathParam;
+				}
+			}
+		}
+		catch (Exception exception) {
+			_log.error(exception);
+		}
 
-        return mockFilenames;
-    }
+		return fileName;
+	}
 
-    /**
-     * Gets the Resource Filenames
-     * @param resourcePath
-     * @return
-     */
-    private static List<String> getResourceFilenames(String resourcePath) {
-        List<String> resourceFilenames = new ArrayList<>();
+	/**
+	 * Formats Filename with Path Param
+	 * @param fileName
+	 * @param mockFileName
+	 * @return
+	 */
+	private static String _formatFileNameWithPathParam(
+		String fileName, String mockFileName) {
 
-        try {
-            // gets the paths
-            Enumeration<String> paths = FrameworkUtil.getBundle(MockUtilities.class).getEntryPaths(resourcePath);
+		try {
 
-            for (String path : Collections.list(paths)) {
-                resourceFilenames.add(path.replace(resourcePath, ""));
-            }
-        } catch (Exception exception) {
-            _log.error(exception);
-        }
+			// splits the filename
 
-        return resourceFilenames;
-    }
+			String[] fileSplitted = fileName.split(
+				MockConstants.API_PATH_SEPARATOR);
 
-    private static final Log _log = LogFactoryUtil.getLog(
-            MockUtilities.class);
+			// splits the mock filename
+
+			String[] mockFileSplitted = mockFileName.split(
+				MockConstants.API_PATH_SEPARATOR);
+
+			for (int i = 0; i < mockFileSplitted.length; i++) {
+				String filePart = fileSplitted[i];
+				String mockFilePart = mockFileSplitted[i];
+
+				// if a part of the file is different than the mock
+
+				if (!filePart.equals(mockFilePart)) {
+
+					// changes the part to the Path Param
+
+					fileSplitted[i] = MockConstants.PATH_PARAM_PATTERN;
+				}
+			}
+
+			// joins the previously splitted file with the new values
+
+			return String.join(MockConstants.API_PATH_SEPARATOR, fileSplitted);
+		}
+		catch (Exception exception) {
+			_log.error(exception);
+
+			return fileName;
+		}
+	}
+
+	/**
+	 * Gets the Resource Filenames
+	 * @param resourcePath
+	 * @return
+	 */
+	private static List<String> _getResourceFileNames(String resourcePath) {
+		List<String> resourceFileNames = new ArrayList<>();
+
+		try {
+
+			// gets the paths
+
+			Enumeration<String> paths = FrameworkUtil.getBundle(
+				MockUtilities.class
+			).getEntryPaths(
+				resourcePath
+			);
+
+			for (String path : Collections.list(paths)) {
+				resourceFileNames.add(path.replace(resourcePath, ""));
+			}
+		}
+		catch (Exception exception) {
+			_log.error(exception);
+		}
+
+		return resourceFileNames;
+	}
+
+	/**
+	 * Gets Similar Mock Filenames with Path Param
+	 * Given a filename, it returns similar Mock Filenames which has Path Param, and the same operation and element count
+	 *
+	 * @param fileNameFilter
+	 * @return
+	 */
+	private static List<String> _getSimilarMockFileNamesWithPathParam(
+		String fileNameFilter) {
+
+		List<String> mockFileNames = new ArrayList<>();
+
+		try {
+
+			// path element count from the given filename
+
+			int pathElementCount = fileNameFilter.split(
+				MockConstants.API_PATH_SEPARATOR).length;
+
+			// path operation
+
+			String operation =
+				fileNameFilter.split(MockConstants.API_PATH_SEPARATOR)[0];
+
+			// filters the mock files
+
+			_getResourceFileNames(
+				MockConstants.RESPONSES_PATH
+			).stream(
+			).map(
+				mockPath -> mockPath.replace(MockConstants.JSON_EXTENSION, "")
+			).forEach(
+				mockFileNameWithoutExtension -> {
+					boolean hasPathParam =
+						mockFileNameWithoutExtension.contains(
+							MockConstants.PATH_PARAM_PATTERN);
+					boolean sameElementCount =
+						mockFileNameWithoutExtension.contains(
+							MockConstants.API_PATH_SEPARATOR) &&
+						(mockFileNameWithoutExtension.split(
+							MockConstants.API_PATH_SEPARATOR).length ==
+								pathElementCount);
+					boolean sameOperation =
+						mockFileNameWithoutExtension.startsWith(operation);
+
+					if (hasPathParam && sameElementCount && sameOperation) {
+						mockFileNames.add(mockFileNameWithoutExtension);
+					}
+				}
+			);
+		}
+		catch (Exception exception) {
+			_log.error(exception);
+		}
+
+		return mockFileNames;
+	}
+
+	private static final Log _log = LogFactoryUtil.getLog(MockUtilities.class);
+
 }
-

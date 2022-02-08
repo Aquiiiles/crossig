@@ -1,225 +1,310 @@
 package hr.crosig.common.mock.idit.util;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.commons.lang3.RandomStringUtils;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * @author marcelo.mazurky
  */
-@PrepareForTest({MockUtilities.class})
+@PrepareForTest(MockUtilities.class)
 @RunWith(PowerMockRunner.class)
 public class MockUtilitiesTest {
 
-    @Before
-    public void setUp() throws Exception {
-        _injectMocks();
-    }
+	@Test
+	public void formatFileNameWithPathParam_fileNamesWithoutParam()
+		throws IllegalAccessException, InvocationTargetException {
 
-    public void _injectMocks() throws Exception {
-        // clears resource filenames
-        _mockGetResourceFilenames(new ArrayList<>());
-    }
+		String fileNameWithoutParam = "get_contacts";
+		String mockFileNameWithoutParam = "get_contacts";
 
-    public void _mockGetResourceFilenames(List<String> listToReturn) throws Exception {
-        PowerMockito.spy(MockUtilities.class);
-        PowerMockito.doReturn(listToReturn).when(MockUtilities.class, "getResourceFilenames", MockConstants.RESPONSES_PATH);
-    }
+		Method formatFileNameWithPathParamMethod = Whitebox.getMethod(
+			MockUtilities.class, "_formatFileNameWithPathParam", String.class,
+			String.class);
 
-    @Test
-    public void formatFilenameWithPathParam_filenamesWithParam() throws InvocationTargetException, IllegalAccessException {
-        String filenameWithParam = "get_contacts_5";
-        String mockFilenameWithParam = "get_contacts_" + MockConstants.PATH_PARAM_PATTERN;
+		String expected = fileNameWithoutParam;
+		String result = (String)formatFileNameWithPathParamMethod.invoke(
+			null, fileNameWithoutParam, mockFileNameWithoutParam);
 
-        Method formatFilenameWithPathParamMethod = Whitebox.getMethod(MockUtilities.class, "formatFilenameWithPathParam", String.class, String.class);
+		Assert.assertEquals(expected, result);
+	}
 
-        String expected = mockFilenameWithParam;
-        String result = (String) formatFilenameWithPathParamMethod.invoke(null, filenameWithParam, mockFilenameWithParam);
+	@Test
+	public void formatFileNameWithPathParam_fileNamesWithParam()
+		throws IllegalAccessException, InvocationTargetException {
 
-        Assert.assertEquals(expected, result);
-    }
+		String fileNameWithParam = "get_contacts_5";
+		String mockFileNameWithParam =
+			"get_contacts_" + MockConstants.PATH_PARAM_PATTERN;
 
-    @Test
-    public void formatFilenameWithPathParam_filenameWithoutParam() throws InvocationTargetException, IllegalAccessException {
-        String filenameWithoutParam = "get_contacts";
-        String mockFilenameWithParam = "get_contacts_" + MockConstants.PATH_PARAM_PATTERN;
+		Method formatFileNameWithPathParamMethod = Whitebox.getMethod(
+			MockUtilities.class, "_formatFileNameWithPathParam", String.class,
+			String.class);
 
-        Method formatFilenameWithPathParamMethod = Whitebox.getMethod(MockUtilities.class, "formatFilenameWithPathParam", String.class, String.class);
+		String expected = mockFileNameWithParam;
+		String result = (String)formatFileNameWithPathParamMethod.invoke(
+			null, fileNameWithParam, mockFileNameWithParam);
 
-        String expected = filenameWithoutParam;
-        String result = (String) formatFilenameWithPathParamMethod.invoke(null, filenameWithoutParam, mockFilenameWithParam);
+		Assert.assertEquals(expected, result);
+	}
 
-        Assert.assertEquals(expected, result);
-    }
+	@Test
+	public void formatFileNameWithPathParam_fileNameWithoutParam()
+		throws IllegalAccessException, InvocationTargetException {
 
-    @Test
-    public void formatFilenameWithPathParam_mockWithoutParam() throws InvocationTargetException, IllegalAccessException {
-        String filenameWithParam = "get_contacts_5";
-        String mockFilenameWithoutParam = "get_contacts";
+		String fileNameWithoutParam = "get_contacts";
+		String mockFileNameWithParam =
+			"get_contacts_" + MockConstants.PATH_PARAM_PATTERN;
 
-        Method formatFilenameWithPathParamMethod = Whitebox.getMethod(MockUtilities.class, "formatFilenameWithPathParam", String.class, String.class);
+		Method formatFileNameWithPathParamMethod = Whitebox.getMethod(
+			MockUtilities.class, "_formatFileNameWithPathParam", String.class,
+			String.class);
 
-        String expected = filenameWithParam;
-        String result = (String) formatFilenameWithPathParamMethod.invoke(null, filenameWithParam, mockFilenameWithoutParam);
+		String expected = fileNameWithoutParam;
+		String result = (String)formatFileNameWithPathParamMethod.invoke(
+			null, fileNameWithoutParam, mockFileNameWithParam);
 
-        Assert.assertEquals(expected, result);
-    }
+		Assert.assertEquals(expected, result);
+	}
 
-    @Test
-    public void formatFilenameWithPathParam_filenamesWithoutParam() throws InvocationTargetException, IllegalAccessException {
-        String filenameWithoutParam = "get_contacts";
-        String mockFilenameWithoutParam = "get_contacts";
+	@Test
+	public void formatFileNameWithPathParam_invalidRequest()
+		throws IllegalAccessException, InvocationTargetException {
 
-        Method formatFilenameWithPathParamMethod = Whitebox.getMethod(MockUtilities.class, "formatFilenameWithPathParam", String.class, String.class);
+		String fileName = null;
+		String mockFileName = null;
 
-        String expected = filenameWithoutParam;
-        String result = (String) formatFilenameWithPathParamMethod.invoke(null, filenameWithoutParam, mockFilenameWithoutParam);
+		Method formatFileNameWithPathParamMethod = Whitebox.getMethod(
+			MockUtilities.class, "_formatFileNameWithPathParam", String.class,
+			String.class);
 
-        Assert.assertEquals(expected, result);
-    }
+		String expected = fileName;
+		String result = (String)formatFileNameWithPathParamMethod.invoke(
+			null, fileName, mockFileName);
 
-    @Test
-    public void formatFilenameWithPathParam_invalidRequest() throws InvocationTargetException, IllegalAccessException {
-        String filename = null;
-        String mockFilename = null;
+		Assert.assertEquals(expected, result);
+	}
 
-        Method formatFilenameWithPathParamMethod = Whitebox.getMethod(MockUtilities.class, "formatFilenameWithPathParam", String.class, String.class);
+	@Test
+	public void formatFileNameWithPathParam_mockWithoutParam()
+		throws IllegalAccessException, InvocationTargetException {
 
-        String expected = filename;
-        String result = (String) formatFilenameWithPathParamMethod.invoke(null, filename, mockFilename);
+		String fileNameWithParam = "get_contacts_5";
+		String mockFileNameWithoutParam = "get_contacts";
 
-        Assert.assertEquals(expected, result);
-    }
+		Method formatFileNameWithPathParamMethod = Whitebox.getMethod(
+			MockUtilities.class, "_formatFileNameWithPathParam", String.class,
+			String.class);
 
-    @Test
-    public void getSimilarMockFilenamesWithPathParam_hasSimilarMocks() throws Exception {
-        String filenameWithParam = "get_contacts_5";
-        String mockFilenameWithParam = "get_contacts_" + MockConstants.PATH_PARAM_PATTERN;
+		String expected = fileNameWithParam;
+		String result = (String)formatFileNameWithPathParamMethod.invoke(
+			null, fileNameWithParam, mockFileNameWithoutParam);
 
-        List<String> resourceFilenames = new ArrayList<>();
-        resourceFilenames.add(mockFilenameWithParam);
-        resourceFilenames.add(RandomStringUtils.random(5));
-        resourceFilenames.add(RandomStringUtils.random(5));
-        resourceFilenames.add(RandomStringUtils.random(5));
+		Assert.assertEquals(expected, result);
+	}
 
-        _mockGetResourceFilenames(resourceFilenames);
+	@Test
+	public void getSimilarMockFileNamesWithPathParam_differentElementCount()
+		throws Exception {
 
-        Method getSimilarMockFilenamesWithPathParam = Whitebox.getMethod(MockUtilities.class, "getSimilarMockFilenamesWithPathParam", String.class);
+		List<String> resourceFileNames = new ArrayList<>();
 
-        String request = filenameWithParam;
-        List<String> expected = Arrays.asList(mockFilenameWithParam);
-        List<String> result = (List<String>) getSimilarMockFilenamesWithPathParam.invoke(null, request);
+		resourceFileNames.add("get_contact_otherelement_5");
 
-        Assert.assertEquals(expected, result);
-    }
+		_mockGetResourceFileNames(resourceFileNames);
 
-    @Test
-    public void getSimilarMockFilenamesWithPathParam_noPathParam() throws Exception {
-        List<String> resourceFilenames = new ArrayList<>();
-        resourceFilenames.add("get_contacts_test");
+		Method getSimilarMockFileNamesWithPathParam = Whitebox.getMethod(
+			MockUtilities.class, "_getSimilarMockFileNamesWithPathParam",
+			String.class);
 
-        _mockGetResourceFilenames(resourceFilenames);
+		String request = "get_contacts_5";
 
-        Method getSimilarMockFilenamesWithPathParam = Whitebox.getMethod(MockUtilities.class, "getSimilarMockFilenamesWithPathParam", String.class);
+		List<String> expected = new ArrayList<>();
+		List<String> result =
+			(List<String>)getSimilarMockFileNamesWithPathParam.invoke(
+				null, request);
 
-        String request = "get_contacts_5";
-        List<String> expected = new ArrayList<>();
-        List<String> result = (List<String>) getSimilarMockFilenamesWithPathParam.invoke(null, request);
+		Assert.assertEquals(expected, result);
+	}
 
-        Assert.assertEquals(expected, result);
-    }
+	@Test
+	public void getSimilarMockFileNamesWithPathParam_differentOperation()
+		throws Exception {
 
-    @Test
-    public void getSimilarMockFilenamesWithPathParam_differentElementCount() throws Exception {
-        List<String> resourceFilenames = new ArrayList<>();
-        resourceFilenames.add("get_contact_otherelement_5");
+		List<String> resourceFileNames = new ArrayList<>();
 
-        _mockGetResourceFilenames(resourceFilenames);
+		resourceFileNames.add("post_contacts_5");
 
-        Method getSimilarMockFilenamesWithPathParam = Whitebox.getMethod(MockUtilities.class, "getSimilarMockFilenamesWithPathParam", String.class);
+		_mockGetResourceFileNames(resourceFileNames);
 
-        String request = "get_contacts_5";
-        List<String> expected = new ArrayList<>();
-        List<String> result = (List<String>) getSimilarMockFilenamesWithPathParam.invoke(null, request);
+		Method getSimilarMockFileNamesWithPathParam = Whitebox.getMethod(
+			MockUtilities.class, "_getSimilarMockFileNamesWithPathParam",
+			String.class);
 
-        Assert.assertEquals(expected, result);
-    }
+		String request = "get_contacts_5";
 
-    @Test
-    public void getSimilarMockFilenamesWithPathParam_differentOperation() throws Exception {
-        List<String> resourceFilenames = new ArrayList<>();
-        resourceFilenames.add("post_contacts_5");
+		List<String> expected = new ArrayList<>();
+		List<String> result =
+			(List<String>)getSimilarMockFileNamesWithPathParam.invoke(
+				null, request);
 
-        _mockGetResourceFilenames(resourceFilenames);
+		Assert.assertEquals(expected, result);
+	}
 
-        Method getSimilarMockFilenamesWithPathParam = Whitebox.getMethod(MockUtilities.class, "getSimilarMockFilenamesWithPathParam", String.class);
+	@Test
+	public void getSimilarMockFileNamesWithPathParam_hasSimilarMocks()
+		throws Exception {
 
-        String request = "get_contacts_5";
-        List<String> expected = new ArrayList<>();
-        List<String> result = (List<String>) getSimilarMockFilenamesWithPathParam.invoke(null, request);
+		String fileNameWithParam = "get_contacts_5";
+		String mockFileNameWithParam =
+			"get_contacts_" + MockConstants.PATH_PARAM_PATTERN;
 
-        Assert.assertEquals(expected, result);
-    }
+		List<String> resourceFileNames = new ArrayList<>();
 
-    @Test
-    public void getSimilarMockFilenamesWithPathParam_noSimilarMocks() throws Exception {
-        String filenameWithParam = "get_contacts_5";
+		resourceFileNames.add(mockFileNameWithParam);
+		resourceFileNames.add(RandomStringUtils.random(5));
+		resourceFileNames.add(RandomStringUtils.random(5));
+		resourceFileNames.add(RandomStringUtils.random(5));
 
-        List<String> resourceFilenames = new ArrayList<>();
-        resourceFilenames.add(RandomStringUtils.random(10));
-        resourceFilenames.add(RandomStringUtils.random(20));
-        resourceFilenames.add(RandomStringUtils.random(30));
+		_mockGetResourceFileNames(resourceFileNames);
 
-        _mockGetResourceFilenames(resourceFilenames);
+		Method getSimilarMockFileNamesWithPathParam = Whitebox.getMethod(
+			MockUtilities.class, "_getSimilarMockFileNamesWithPathParam",
+			String.class);
 
-        Method getSimilarMockFilenamesWithPathParam = Whitebox.getMethod(MockUtilities.class, "getSimilarMockFilenamesWithPathParam", String.class);
+		String request = fileNameWithParam;
 
-        String request = filenameWithParam;
-        List<String> expected = new ArrayList<>();
-        List<String> result = (List<String>) getSimilarMockFilenamesWithPathParam.invoke(null, request);
+		List<String> expected = Arrays.asList(mockFileNameWithParam);
+		List<String> result =
+			(List<String>)getSimilarMockFileNamesWithPathParam.invoke(
+				null, request);
 
-        Assert.assertEquals(expected, result);
-    }
+		Assert.assertEquals(expected, result);
+	}
 
-    @Test
-    public void searchMockFileWithPathParam_found() throws Exception {
-        String filenameWithParam = "get_contacts_5";
-        String mockFilenameWithParam = "get_contacts_" + MockConstants.PATH_PARAM_PATTERN;
+	@Test
+	public void getSimilarMockFileNamesWithPathParam_noPathParam()
+		throws Exception {
 
-        List<String> resourceFilenames = new ArrayList<>();
-        resourceFilenames.add(mockFilenameWithParam);
+		List<String> resourceFileNames = new ArrayList<>();
 
-        _mockGetResourceFilenames(resourceFilenames);
+		resourceFileNames.add("get_contacts_test");
 
-        String request = filenameWithParam;
-        String expected = mockFilenameWithParam;
-        String result = MockUtilities.searchMockFileWithPathParam(request);
+		_mockGetResourceFileNames(resourceFileNames);
 
-        Assert.assertEquals(expected, result);
-    }
+		Method getSimilarMockFileNamesWithPathParam = Whitebox.getMethod(
+			MockUtilities.class, "_getSimilarMockFileNamesWithPathParam",
+			String.class);
 
-    @Test
-    public void searchMockFileWithPathParam_notFound() throws Exception {
-        String filenameWithParam = "get_contacts_5";
+		String request = "get_contacts_5";
 
-        _mockGetResourceFilenames(new ArrayList<>());
+		List<String> expected = new ArrayList<>();
+		List<String> result =
+			(List<String>)getSimilarMockFileNamesWithPathParam.invoke(
+				null, request);
 
-        String request = filenameWithParam;
-        String expected = filenameWithParam;
-        String result = MockUtilities.searchMockFileWithPathParam(request);
+		Assert.assertEquals(expected, result);
+	}
 
-        Assert.assertEquals(expected, result);
-    }
+	@Test
+	public void getSimilarMockFileNamesWithPathParam_noSimilarMocks()
+		throws Exception {
+
+		String fileNameWithParam = "get_contacts_5";
+
+		List<String> resourceFileNames = new ArrayList<>();
+
+		resourceFileNames.add(RandomStringUtils.random(10));
+		resourceFileNames.add(RandomStringUtils.random(20));
+		resourceFileNames.add(RandomStringUtils.random(30));
+
+		_mockGetResourceFileNames(resourceFileNames);
+
+		Method getSimilarMockFileNamesWithPathParam = Whitebox.getMethod(
+			MockUtilities.class, "_getSimilarMockFileNamesWithPathParam",
+			String.class);
+
+		String request = fileNameWithParam;
+
+		List<String> expected = new ArrayList<>();
+		List<String> result =
+			(List<String>)getSimilarMockFileNamesWithPathParam.invoke(
+				null, request);
+
+		Assert.assertEquals(expected, result);
+	}
+
+	@Test
+	public void searchMockFileWithPathParam_found() throws Exception {
+		String fileNameWithParam = "get_contacts_5";
+		String mockFileNameWithParam =
+			"get_contacts_" + MockConstants.PATH_PARAM_PATTERN;
+
+		List<String> resourceFileNames = new ArrayList<>();
+
+		resourceFileNames.add(mockFileNameWithParam);
+
+		_mockGetResourceFileNames(resourceFileNames);
+
+		String request = fileNameWithParam;
+
+		String expected = mockFileNameWithParam;
+		String result = MockUtilities.searchMockFileWithPathParam(request);
+
+		Assert.assertEquals(expected, result);
+	}
+
+	@Test
+	public void searchMockFileWithPathParam_notFound() throws Exception {
+		String fileNameWithParam = "get_contacts_5";
+
+		_mockGetResourceFileNames(new ArrayList<>());
+
+		String request = fileNameWithParam;
+
+		String expected = fileNameWithParam;
+		String result = MockUtilities.searchMockFileWithPathParam(request);
+
+		Assert.assertEquals(expected, result);
+	}
+
+	@Before
+	public void setUp() throws Exception {
+		_injectMocks();
+	}
+
+	private void _injectMocks() throws Exception {
+
+		// clears resource filenames
+
+		_mockGetResourceFileNames(new ArrayList<>());
+	}
+
+	private void _mockGetResourceFileNames(List<String> listToReturn)
+		throws Exception {
+
+		PowerMockito.spy(MockUtilities.class);
+		PowerMockito.doReturn(
+			listToReturn
+		).when(
+			MockUtilities.class, "_getResourceFileNames",
+			MockConstants.RESPONSES_PATH
+		);
+	}
+
 }

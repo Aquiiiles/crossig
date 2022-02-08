@@ -1,11 +1,13 @@
 dependencies {
+	compileInclude group: "org.apache.commons", name: "commons-lang3", version: "3.12.0"
+
 	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
 	compileOnly project(":modules:common:common-configuration")
 	compileOnly project(":modules:common:common-ws")
 
-	testCompile group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
 	testCompile group: "com.liferay.portal", name: "release.dxp.api"
 	testCompile group: "junit", name: "junit"
+	testCompile group: "org.apache.commons", name: "commons-lang3", version: "3.12.0"
 	testCompile group: "org.assertj", name: "assertj-core", version: "3.19.0"
 	testCompile group: "org.glassfish.jersey.core", name: "jersey-common"
 	testCompile group: "org.mockito", name: "mockito-core", version: "3.8.0"
