@@ -4,13 +4,18 @@ import { Wrapper } from "./styles";
 
 interface props {
   title: string;
+  disabled: boolean;
   handleClick: MouseEventHandler;
 }
 
-const LinkWrapper: React.FC<props> = ({ handleClick, title }: props) => {
+const LinkWrapper: React.FC<props> = (props) => {
   return (
     <Wrapper>
-        <ClayLink onClick={handleClick}>{title}</ClayLink>
+      <ClayLink 
+        onClick={props.handleClick}
+        className={props.disabled ? 'disabled' : 'active'}>
+        {props.title}
+      </ClayLink>
     </Wrapper>
   );
 };

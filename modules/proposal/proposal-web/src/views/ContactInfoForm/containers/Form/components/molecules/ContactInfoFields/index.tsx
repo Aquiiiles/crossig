@@ -17,7 +17,10 @@ import {
   CONTACT_INFO_MAIN_MOBILE,
   CONTACT_INFO_MAIN_MOBILE_SUBTITLE
 } from "../../../../../../../constants/languageKeys";
-
+import { 
+  MAXIMUM_EMAIL_ADDRESSES,
+  MAXIMUM_MOBILE_PHONES
+} from "../../../../../constants/index";
 
 const ContactInfoFields: React.FC = () =>  {
   const history = useHistory();
@@ -63,14 +66,20 @@ const ContactInfoFields: React.FC = () =>  {
 
   const addEmailAddressInput = () => {
     let currentEmails = [...emailAddresses];
-    currentEmails.push("");
-    setEmailAddresses(currentEmails);
+
+    if (currentEmails.length < MAXIMUM_EMAIL_ADDRESSES) {
+      currentEmails.push("");
+      setEmailAddresses(currentEmails);
+    }
   }
 
   const addMobilePhoneInput = () => {
     let currentMobilePhones = [...mobilePhones];
-    currentMobilePhones.push(createEmptyPhoneNumber());
-    setMobilePhones(currentMobilePhones);
+
+    if (currentMobilePhones.length < MAXIMUM_MOBILE_PHONES) {
+      currentMobilePhones.push(createEmptyPhoneNumber());
+      setMobilePhones(currentMobilePhones);
+    }
   }
 
   return (
@@ -112,6 +121,7 @@ const ContactInfoFields: React.FC = () =>  {
         <LinkWrapper 
           title={CONTACT_INFO_CANCEL}
           handleClick={history.goBack}
+          disabled={false}
           />
           
         <CreateContactButton 

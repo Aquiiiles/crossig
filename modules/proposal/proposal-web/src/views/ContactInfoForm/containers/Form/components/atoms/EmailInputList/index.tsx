@@ -4,6 +4,7 @@ import {
   CONTACT_INFO_ADD_EMAIL_ADDRESS,
   CONTACT_INFO_EMAIL_ADDRESS
  } from "../../../../../../../constants/languageKeys";
+import { MAXIMUM_EMAIL_ADDRESSES } from "../../../../../constants/index"; 
 import LinkWrapper from "../LinkWrapper";
 import { StyledFormGroup } from "./styles";
 
@@ -14,6 +15,11 @@ interface props {
 }
 
 const EmailListInput: React.FC<props> = (props) => {
+
+  const shouldDisableLink = () => {
+    return props.emails.length == MAXIMUM_EMAIL_ADDRESSES;
+  }
+
   return (
     <StyledFormGroup>
       <label>{CONTACT_INFO_EMAIL_ADDRESS}</label>
@@ -29,6 +35,7 @@ const EmailListInput: React.FC<props> = (props) => {
       <LinkWrapper 
         title={CONTACT_INFO_ADD_EMAIL_ADDRESS}
         handleClick={props.addEmailInput}
+        disabled={shouldDisableLink()}
       />
     </StyledFormGroup>
   );

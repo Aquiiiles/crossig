@@ -4,6 +4,7 @@ import {
   CONTACT_INFO_ADD_MOBILE_PHONE,
   CONTACT_INFO_PHONE_NUMBER
 } from "../../../../../../../constants/languageKeys";
+import { MAXIMUM_MOBILE_PHONES } from "../../../../../constants/index"; 
 import { OrderedListWrapper, PhoneNumberWrapper } from "./styles";
 import LinkWrapper from "../LinkWrapper";
 export interface PhoneNumber  {
@@ -20,6 +21,11 @@ interface props {
 }
 
 const PhoneInputList: React.FC<props> = (props) => {
+  
+  const shouldDisableLink = () => {
+    return props.phoneNumbers.length == MAXIMUM_MOBILE_PHONES;
+  }
+
   return (
     <ClayForm.Group>
       <label>{CONTACT_INFO_PHONE_NUMBER}</label>
@@ -56,6 +62,7 @@ const PhoneInputList: React.FC<props> = (props) => {
       <LinkWrapper 
         title={CONTACT_INFO_ADD_MOBILE_PHONE}
         handleClick={props.addPhoneInput}
+        disabled={shouldDisableLink()}
       />
     </ClayForm.Group>
   );
