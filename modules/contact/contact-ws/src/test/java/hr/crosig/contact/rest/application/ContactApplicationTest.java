@@ -220,6 +220,52 @@ public class ContactApplicationTest {
 		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
 	}
 
+	@Test
+	public void getContact_ApiError()
+			throws JsonProcessingException, ServiceInvocationException {
+
+		_mockApiError();
+
+		Response response = _contactApplication.getContact(
+				TestConstants.VALID_GET_CONTACT_REQUEST);
+		Response expectedResponse = ApplicationUtilities.handleErrorResponse(
+				TestConstants.API_ERROR_STATUS_CODE,
+				TestConstants.API_ERROR_STATUS_CONTENT);
+
+		Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
+		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
+	}
+
+	@Test
+	public void getContact_ApiException()
+			throws JsonProcessingException, ServiceInvocationException {
+
+		_mockApiException();
+
+		Response response = _contactApplication.getContact(
+				TestConstants.VALID_GET_CONTACT_REQUEST);
+		Response expectedResponse = ApplicationUtilities.handleErrorResponse(
+				TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
+
+		Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
+		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
+	}
+
+	@Test
+	public void getContact_ApiSuccess()
+			throws JsonProcessingException, ServiceInvocationException {
+
+		_mockApiSuccess();
+
+		Response response = _contactApplication.getContact(
+				TestConstants.VALID_GET_CONTACT_REQUEST);
+		Response expectedResponse = ApplicationUtilities.handleSuccessResponse(
+				TestConstants.API_SUCCESS_STATUS_CONTENT);
+
+		Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
+		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
+	}
+
 	private void _injectMocks() {
 		Whitebox.setInternalState(
 			_contactApplication, "_iditwsClient", _iditwsClient);
@@ -265,6 +311,12 @@ public class ContactApplicationTest {
 		).thenReturn(
 			serviceResponseError
 		);
+
+		Mockito.when(
+				_iditwsClient.getContact(TestConstants.VALID_GET_CONTACT_REQUEST)
+		).thenReturn(
+				serviceResponseError
+		);
 	}
 
 	private void _mockApiException()
@@ -302,6 +354,12 @@ public class ContactApplicationTest {
 			_iditwsClient.validatePhone(validPhoneNumberRequest)
 		).thenThrow(
 			TestConstants.API_SERVICE_INVOCATION_EXCEPTION
+		);
+
+		Mockito.when(
+				_iditwsClient.getContact(TestConstants.VALID_GET_CONTACT_REQUEST)
+		).thenThrow(
+				TestConstants.API_SERVICE_INVOCATION_EXCEPTION
 		);
 	}
 
@@ -344,6 +402,12 @@ public class ContactApplicationTest {
 			_iditwsClient.validatePhone(validPhoneNumberRequest)
 		).thenReturn(
 			serviceResponseSuccess
+		);
+
+		Mockito.when(
+				_iditwsClient.getContact(TestConstants.VALID_GET_CONTACT_REQUEST)
+		).thenReturn(
+				serviceResponseSuccess
 		);
 	}
 

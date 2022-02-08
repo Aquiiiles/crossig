@@ -46,4 +46,5 @@ public class TestConstants {
 
 	public static final SearchDTO VALID_SEARCH_REQUEST = new SearchDTO();
 
+	public static final String VALID_GET_CONTACT_REQUEST = "10";
 }
