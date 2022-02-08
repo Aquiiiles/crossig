@@ -4,9 +4,6 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import org.osgi.framework.FrameworkUtil;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -49,26 +46,33 @@ public class MockUtilities {
      * @return
      */
     private static String formatFilenameWithPathParam(String filename, String mockFilename) {
-        // splits the filename
-        String[] fileSplitted = filename.split(MockConstants.API_PATH_SEPARATOR);
-        // splits the mock filename
-        String[] mockFileSplitted = mockFilename.split(MockConstants.API_PATH_SEPARATOR);
+        try {
+            // splits the filename
+            String[] fileSplitted = filename.split(MockConstants.API_PATH_SEPARATOR);
+            // splits the mock filename
+            String[] mockFileSplitted = mockFilename.split(MockConstants.API_PATH_SEPARATOR);
 
-        for (int i = 0; i < mockFileSplitted.length; i++) {
-            String filePart = fileSplitted[i];
-            String mockFilePart = mockFileSplitted[i];
+            for (int i = 0; i < mockFileSplitted.length; i++) {
+                String filePart = fileSplitted[i];
+                String mockFilePart = mockFileSplitted[i];
 
-            // if a part of the file is different than the mock
-            if (!filePart.equals(mockFilePart)) {
-                // changes the part to the Path Param
-                fileSplitted[i] = MockConstants.PATH_PARAM_PATTERN;
+                // if a part of the file is different than the mock
+                if (!filePart.equals(mockFilePart)) {
+                    // changes the part to the Path Param
+                    fileSplitted[i] = MockConstants.PATH_PARAM_PATTERN;
+                }
             }
+
+            // joins the previously splitted file with the new values
+            String fileFormatted = String.join(MockConstants.API_PATH_SEPARATOR, fileSplitted);
+
+            return fileFormatted;
+        } catch (Exception exception) {
+            _log.error(exception);
+
+            return filename;
         }
 
-        // joins the previously splitted file with the new values
-        String fileFormatted = String.join(MockConstants.API_PATH_SEPARATOR, fileSplitted);
-
-        return fileFormatted;
     }
 
     /**
@@ -105,10 +109,8 @@ public class MockUtilities {
             // path operation
             String operation = filenameFilter.split(MockConstants.API_PATH_SEPARATOR)[0];
 
-            // gets the mock paths
-            Enumeration<String> mockPaths = FrameworkUtil.getBundle(MockUtilities.class).getEntryPaths(MockConstants.RESPONSES_PATH);
             // filters the mock files
-            Collections.list(mockPaths).stream().map(mockPath -> mockPath.replace(MockConstants.RESPONSES_PATH, "").replace(MockConstants.JSON_EXTENSION, "")).forEach(mockFilenameWithoutExtension -> {
+            getResourceFilenames(MockConstants.RESPONSES_PATH).stream().map(mockPath -> mockPath.replace(MockConstants.JSON_EXTENSION, "")).forEach(mockFilenameWithoutExtension -> {
                 boolean hasPathParam = mockFilenameWithoutExtension.contains(MockConstants.PATH_PARAM_PATTERN);
                 boolean sameElementCount = mockFilenameWithoutExtension.contains(MockConstants.API_PATH_SEPARATOR) && mockFilenameWithoutExtension.split(MockConstants.API_PATH_SEPARATOR).length == pathElementCount;
                 boolean sameOperation = mockFilenameWithoutExtension.startsWith(operation);
@@ -121,6 +123,28 @@ public class MockUtilities {
         }
 
         return mockFilenames;
+    }
+
+    /**
+     * Gets the Resource Filenames
+     * @param resourcePath
+     * @return
+     */
+    private static List<String> getResourceFilenames(String resourcePath) {
+        List<String> resourceFilenames = new ArrayList<>();
+
+        try {
+            // gets the paths
+            Enumeration<String> paths = FrameworkUtil.getBundle(MockUtilities.class).getEntryPaths(resourcePath);
+
+            for (String path : Collections.list(paths)) {
+                resourceFilenames.add(path.replace(resourcePath, ""));
+            }
+        } catch (Exception exception) {
+            _log.error(exception);
+        }
+
+        return resourceFilenames;
     }
 
     private static final Log _log = LogFactoryUtil.getLog(
