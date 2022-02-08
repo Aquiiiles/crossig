@@ -1,7 +1,7 @@
 package hr.crosig.contact.scheduler.listener;
 
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.background.task.service.BackgroundTaskLocalServiceUtil;
+import com.liferay.portal.background.task.service.BackgroundTaskLocalService;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -9,7 +9,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.DestinationNames;
 import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.messaging.MessageListener;
-import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.CompanyConstants;
 import com.liferay.portal.kernel.scheduler.SchedulerEngineHelper;
 import com.liferay.portal.kernel.scheduler.SchedulerEntry;
 import com.liferay.portal.kernel.scheduler.SchedulerEntryImpl;
@@ -46,10 +46,8 @@ public class IndexManagementScheduler implements MessageListener {
 		_log.info(SchedulerConstants.SCHEDULER_TRIGGERED);
 
 		try {
-			User adminUser = _getAdminUser();
-
-			BackgroundTaskLocalServiceUtil.addBackgroundTask(
-				adminUser.getUserId(), adminUser.getGroupId(), StringPool.BLANK,
+			_backgroundTaskLocalService.addBackgroundTask(
+				_getAdminUserId(), CompanyConstants.SYSTEM, StringPool.BLANK,
 				IndexManagementBackgroundTask.class.getName(), new HashMap<>(),
 				new ServiceContext());
 
@@ -94,12 +92,13 @@ public class IndexManagementScheduler implements MessageListener {
 		_log.info(SchedulerConstants.SCHEDULER_DISABLED);
 	}
 
-	private User _getAdminUser() {
+	private Long _getAdminUserId() {
 		final Long companyId = PortalUtil.getDefaultCompanyId();
 
 		try {
 			return _userLocalService.getUser(
-				_userLocalService.getDefaultUserId(companyId));
+				_userLocalService.getDefaultUserId(companyId)
+			).getUserId();
 		}
 		catch (PortalException portalException) {
 			_log.error(
@@ -115,6 +114,9 @@ public class IndexManagementScheduler implements MessageListener {
 
 	private static volatile IndexManagementConfiguration
 		_indexManagementConfiguration;
+
+	@Reference(unbind = "-")
+	private BackgroundTaskLocalService _backgroundTaskLocalService;
 
 	@Reference(unbind = "-")
 	private volatile SchedulerEngineHelper _schedulerEngineHelper;

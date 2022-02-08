@@ -5,30 +5,37 @@ import com.liferay.portal.kernel.backgroundtask.BackgroundTaskExecutor;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTaskResult;
 import com.liferay.portal.kernel.backgroundtask.BaseBackgroundTaskExecutor;
 import com.liferay.portal.kernel.backgroundtask.display.BackgroundTaskDisplay;
+import com.liferay.portal.kernel.backgroundtask.display.BackgroundTaskDisplayFactoryUtil;
 
 import hr.crosig.contact.service.IndexManagementLocalService;
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author victor.catanante
  */
-@Component(
-	immediate = true,
-	property = "background.task.executor.class.name=" + IndexManagementBackgroundTask.EXECUTOR_CLASS_NAME,
-	service = IndexManagementBackgroundTask.class
-)
 public class IndexManagementBackgroundTask extends BaseBackgroundTaskExecutor {
+
+	public static final String EXECUTOR_CLASS_NAME =
+		"hr.crosig.contact.scheduler.executor.IndexManagementBackgroundTask";
+
+	public IndexManagementBackgroundTask() {
+	}
+
+	public IndexManagementBackgroundTask(
+		IndexManagementLocalService indexManagementLocalService) {
+
+		_indexManagementLocalService = indexManagementLocalService;
+	}
 
 	@Override
 	public BackgroundTaskExecutor clone() {
-		return new IndexManagementBackgroundTask();
+		return new IndexManagementBackgroundTask(_indexManagementLocalService);
 	}
 
 	@Override
 	public BackgroundTaskResult execute(BackgroundTask backgroundTask) {
 		_indexManagementLocalService.clearAllIndicesCache();
+		_indexManagementLocalService.populateAllIndices();
 
 		return BackgroundTaskResult.SUCCESS;
 	}
@@ -37,7 +44,8 @@ public class IndexManagementBackgroundTask extends BaseBackgroundTaskExecutor {
 	public BackgroundTaskDisplay getBackgroundTaskDisplay(
 		BackgroundTask backgroundTask) {
 
-		return null;
+		return BackgroundTaskDisplayFactoryUtil.getBackgroundTaskDisplay(
+			backgroundTask);
 	}
 
 	@Override
@@ -45,10 +53,12 @@ public class IndexManagementBackgroundTask extends BaseBackgroundTaskExecutor {
 		return true;
 	}
 
-	protected static final String EXECUTOR_CLASS_NAME =
-		"hr.crosig.contact.scheduler.executor.IndexManagementBackgroundTask";
+	protected void setIndexManagementLocalService(
+		IndexManagementLocalService indexManagementLocalService) {
 
-	@Reference(unbind = "-")
+		_indexManagementLocalService = indexManagementLocalService;
+	}
+
 	private IndexManagementLocalService _indexManagementLocalService;
 
 }
