@@ -6,6 +6,7 @@ import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutConstants;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.PortalUtil;
+
 import hr.crosig.content.setup.constants.ContentSetupConstants;
 import hr.crosig.content.setup.upgrade.common.BaseUpgradeProcess;
 import hr.crosig.content.setup.upgrade.common.DependencyProvider;
@@ -29,8 +30,7 @@ public class AddAgentPortalHomePage extends BaseUpgradeProcess {
 			Layout layout = addPage(
 				userId, groupId, PRIVATE_PAGE, PARENT_LAYOUT_ID, PAGE_NAME,
 				PAGE_NAME, DESCRIPTION, LayoutConstants.TYPE_PORTLET, HIDDEN,
-				ContentSetupConstants.HOME_FRIENDLY_URL,
-				new ServiceContext());
+				ContentSetupConstants.HOME_FRIENDLY_URL, new ServiceContext());
 
 			setPageLayoutTemplateId(
 				layout, userId, ContentSetupConstants.LAYOUT_1_COLUMN);

@@ -67,9 +67,9 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 		Layout layout, Long userId, String portletId, String columnId,
 		Integer columnPos) {
 
-
 		LayoutTypePortlet layoutTypePortlet =
-				(LayoutTypePortlet)layout.getLayoutType();
+			(LayoutTypePortlet)layout.getLayoutType();
+
 		try {
 			layoutTypePortlet.addPortletId(
 				userId, portletId, columnId, columnPos);
