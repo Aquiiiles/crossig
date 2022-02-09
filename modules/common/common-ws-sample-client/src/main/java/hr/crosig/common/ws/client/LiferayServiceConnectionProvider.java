@@ -8,6 +8,7 @@ import hr.crosig.common.configuration.ServiceSource;
 import hr.crosig.common.ws.ServiceConnectionProvider;
 import hr.crosig.common.ws.ServiceProviderType;
 
+import java.util.Collections;
 import java.util.Map;
 
 import hr.crosig.common.ws.ServiceRegistrator;
@@ -42,6 +43,11 @@ public class LiferayServiceConnectionProvider
 	@Override
 	public String getAuthType() {
 		return _configuration.getAuthType();
+	}
+
+	@Override
+	public Map<String, String> getCustomHeaders() {
+		return Collections.emptyMap();
 	}
 
 	@Override

@@ -118,6 +118,10 @@ public class RestAPIServiceInvokerImpl implements RestAPIServiceInvoker {
 			options.addHeader(
 				"Authorization", String.format("Bearer %s", token.getToken()));
 		}
+
+		if (AuthType.CUSTOM.getType().equals(provider.getAuthType())) {
+			provider.getCustomHeaders().forEach((key, value) -> options.addHeader(key, value));
+		}
 	}
 
 	private Http.Options _setupServiceCall(
