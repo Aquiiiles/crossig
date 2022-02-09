@@ -1,7 +1,9 @@
 import React from "react";
 
 type ValidatorReturn = string | undefined;
-export type ValidatorFunction = (value: string) => ValidatorReturn;
+export type ValidatorFunction = (
+  value: string
+) => ValidatorReturn | Promise<ValidatorReturn>;
 
 /**
  * Validates fields based on their current values.
@@ -17,8 +19,8 @@ export default function useFieldValidation<
   const [hasError, setHasError] = React.useState(false);
 
   React.useEffect(() => {
-    if (ref.current) {
-      const validatorReturn = validator(ref.current.value);
+    const validate = async (value: string) => {
+      const validatorReturn = await validator(value);
 
       if (typeof validatorReturn === "string") {
         setErrorMessage(validatorReturn);
@@ -27,6 +29,10 @@ export default function useFieldValidation<
         setErrorMessage("");
         setHasError(false);
       }
+    };
+
+    if (ref.current) {
+      validate(ref.current.value);
     }
   }, [ref.current?.value, ref, validator]);
 
