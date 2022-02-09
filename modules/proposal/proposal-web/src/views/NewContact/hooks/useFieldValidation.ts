@@ -1,5 +1,8 @@
 import React from "react";
 
+type ValidatorReturn = string | undefined;
+export type ValidatorFunction = (value: string) => ValidatorReturn;
+
 /**
  * Validates fields based on their current values.
  * @param validator A validator function, it receives the current value of the input and returns either a string or undefined.
@@ -8,7 +11,7 @@ import React from "react";
  */
 export default function useFieldValidation<
   RefElementType extends HTMLInputElement
->(validator: (value: string) => string | undefined) {
+>(validator: ValidatorFunction) {
   const ref = React.useRef<RefElementType>(null);
   const [errorMessage, setErrorMessage] = React.useState("");
   const [hasError, setHasError] = React.useState(false);

@@ -1,10 +1,9 @@
-type ValidatorReturn = string | undefined;
-export type ValidatorFunction = (value: string) => ValidatorReturn;
+import { ValidatorFunction } from "../../../../../../hooks/useFieldValidation";
 type ValidatorFunctionDay = (
-  value: string,
+  value: Parameters<ValidatorFunction>[0],
   dateMonth: string,
   dateYear: string
-) => ValidatorReturn;
+) => ReturnType<ValidatorFunction>;
 
 const isLeapYear = (year: number) =>
   year % 4 === 0 && !(year % 100 === 0 && year % 400 !== 0);
