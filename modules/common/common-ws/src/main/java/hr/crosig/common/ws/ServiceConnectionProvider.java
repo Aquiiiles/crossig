@@ -3,6 +3,8 @@ package hr.crosig.common.ws;
 import hr.crosig.common.configuration.OAuthGrantType;
 import hr.crosig.common.configuration.ServiceSource;
 
+import java.util.Map;
+
 /**
  * @author Leonardo Miyagi
  */
@@ -11,6 +13,8 @@ public interface ServiceConnectionProvider {
 	public String getAccessToken();
 
 	public String getAuthType();
+
+	public Map<String, String> getCustomHeaders();
 
 	public String getHost();
 

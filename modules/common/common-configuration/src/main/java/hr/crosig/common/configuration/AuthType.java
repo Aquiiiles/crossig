@@ -5,7 +5,7 @@ package hr.crosig.common.configuration;
  */
 public enum AuthType {
 
-	BASIC("Basic"), GUEST("Guest"), OAUTH("OAuth");
+	BASIC("Basic"), CUSTOM("Custom"), GUEST("Guest"), OAUTH("OAuth");
 
 	AuthType(String type) {
 		_type = type;
