@@ -5,6 +5,7 @@ import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
 import hr.crosig.content.setup.upgrade.common.DependencyProvider;
 import hr.crosig.content.setup.upgrade.v1_0_0.AddAgentPortalDashboardPage;
 import hr.crosig.content.setup.upgrade.v1_0_0.AddAgentPortalSite;
+import hr.crosig.content.setup.upgrade.v1_0_0.AddAgentPortalHomePage;
 import hr.crosig.content.setup.upgrade.v1_0_0.CreateAgentPortalUserGroups;
 
 import org.osgi.service.component.annotations.Component;
@@ -22,7 +23,8 @@ public class ContentSetupUpgradeStepRegistrator
 		registry.register(
 			"0.0.0", "1.0.0", new AddAgentPortalSite(_dependencyProvider),
 			new CreateAgentPortalUserGroups(_dependencyProvider),
-			new AddAgentPortalDashboardPage(_dependencyProvider));
+			new AddAgentPortalDashboardPage(_dependencyProvider),
+            new AddAgentPortalHomePage(_dependencyProvider));
 	}
 
 	@Reference
