@@ -18,7 +18,7 @@ const basicInfoSlice = createSlice({
   name: "basicInfo",
   initialState,
   reducers: {
-    setType(state, action: PayloadAction<string>) {
+    setContactType(state, action: PayloadAction<string>) {
       state.contactType = action.payload;
     },
     setFirstName(state, action: PayloadAction<string>) {

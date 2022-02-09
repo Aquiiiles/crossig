@@ -34,7 +34,7 @@ const BasicInfo: React.FC = () => {
     subsidiaryNumber,
   } = useContactSelector(state => state.basicInfo);
   const {
-    setType,
+    setContactType,
     setFirstName,
     setLastName,
     setDateDay,
@@ -66,7 +66,7 @@ const BasicInfo: React.FC = () => {
           id="contactTypeInput"
           required
           value={contactType}
-          onChange={({ target: { value } }) => dispatch(setType(value))}
+          onChange={({ target: { value } }) => dispatch(setContactType(value))}
           options={contactTypeOptions}
         ></ClaySelectWithOption>
       </ClayForm.Group>
