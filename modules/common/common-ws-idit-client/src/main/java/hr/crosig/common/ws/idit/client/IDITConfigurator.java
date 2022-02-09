@@ -2,6 +2,7 @@ package hr.crosig.common.ws.idit.client;
 
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 
+import com.liferay.portal.kernel.util.ContentTypes;
 import hr.crosig.common.configuration.AuthType;
 import hr.crosig.common.configuration.IDITConfiguration;
 import hr.crosig.common.configuration.OAuthGrantType;
@@ -9,6 +10,7 @@ import hr.crosig.common.configuration.ServiceSource;
 import hr.crosig.common.ws.ServiceConnectionProvider;
 import hr.crosig.common.ws.ServiceProviderType;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import hr.crosig.common.ws.ServiceRegistrator;
@@ -48,6 +50,18 @@ public class IDITConfigurator implements ServiceConnectionProvider {
 	}
 
 	@Override
+	public Map<String, String> getCustomHeaders() {
+
+		Map<String, String> headers = new HashMap<>();
+
+		headers.put(_USER_NAME, _iditConfiguration.headerUserName());
+		headers.put(_PASSWORD, _iditConfiguration.headerPassword());
+		headers.put("Content-Type", ContentTypes.APPLICATION_JSON);
+
+		return headers;
+	}
+
+	@Override
 	public String getHost() {
 		return _iditConfiguration.hostURL();
 	}
@@ -81,6 +95,9 @@ public class IDITConfigurator implements ServiceConnectionProvider {
 	public ServiceSource getSource() {
 		return ServiceSource.valueOf(_iditConfiguration.getSource());
 	}
+
+	private static final String _USER_NAME = "userName";
+	private static final String _PASSWORD = "password";
 
 	private volatile IDITConfiguration _iditConfiguration;
 

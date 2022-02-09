@@ -41,9 +41,9 @@ public interface IDITConfiguration {
 	public String accessToken();
 
 	@Meta.AD(
-		deflt = "Basic", name = "authentication-type",
-		optionLabels = {"Basic", "OAuth2"}, optionValues = {"BASIC", "OAUTH"},
-		required = false
+		deflt = "CUSTOM", name = "authentication-type",
+		optionLabels = {"Basic", "Custom", "OAuth2"},
+		optionValues = {"BASIC", "CUSTOM", "OAUTH"}, required = false
 	)
 	public String authenticationType();
 
@@ -53,5 +53,11 @@ public interface IDITConfiguration {
 		optionValues = {"EXTERNAL", "MOCK"}, required = false
 	)
 	public String getSource();
+
+	@Meta.AD(deflt = "", required = false)
+	public String headerUserName();
+
+	@Meta.AD(deflt = "", required = false)
+	public String headerPassword();
 
 }
