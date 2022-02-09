@@ -21,6 +21,8 @@ public class ContentSetupConstants {
 
 	public static final String DASHBOARD_FRIENDLY_URL = "/dashboard";
 
+	public static final String HOME_FRIENDLY_URL = "/home";
+
 	public static final String HOME_URL = "/web/agent-portal";
 
 	public static final String LANDING_PAGE_URL = "/group/agent-portal";
