@@ -20,3 +20,5 @@ export const contactTypeOptions = [
 		value: contactTypes.Self_Employed
 	}
 ];
+
+export const croatiaCountryObject = { label: "Croatia", value: "70" };

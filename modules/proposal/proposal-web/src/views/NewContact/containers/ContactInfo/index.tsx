@@ -4,6 +4,8 @@ import BasicInfo from "./components/molecules/BasicInfo";
 import Addresses from "./components/molecules/Addresses";
 import { Provider as ContactInfoProvider } from "react-redux";
 import { CREATE_NEW_CONTACT } from "../../../../constants/languageKeys";
+import { croatiaCountryObject } from "../../../../constants/contactConstants";
+
 import store from "./contactStore";
 
 declare var Liferay: any;
@@ -26,7 +28,7 @@ const ContactInfo: React.FC = () => {
 						};
 					})
 					.filter((country) => country.label !== "Croatia");
-				countries.unshift({ label: "Croatia", value: "70" });
+				countries.unshift(croatiaCountryObject);
 				setCountries(countries);
 			}
 		);
