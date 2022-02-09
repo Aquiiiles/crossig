@@ -89,11 +89,19 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 				{!sameAddress && (
 					<>
 						<Row half>
-							<strong>{CREATE_NEW_CONTACT.FIELD.COUNTRY}</strong>
-							<ClaySelectWithOption options={countries} />
+							<ClayForm.Group>
+								<label htmlFor='dispatch-country'>
+									{CREATE_NEW_CONTACT.FIELD.COUNTRY}
+								</label>
+								<ClaySelectWithOption
+									id='dispatch-country'
+									options={countries}
+									required
+								/>
+							</ClayForm.Group>
 						</Row>
 
-						<Row half>
+						<Row>
 							<ClayForm.Group>
 								<ClayInput.Group>
 									<ClayInput.GroupItem>
