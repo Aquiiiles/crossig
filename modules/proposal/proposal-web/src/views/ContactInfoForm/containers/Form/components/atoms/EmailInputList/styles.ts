@@ -12,3 +12,8 @@ export const StyledFormGroup = styled(ClayForm.Group)`
     opacity: 0.8;
   }
 `;
+
+export const Error = styled.small`
+  font-size: 12px;
+  color: red;
+`;

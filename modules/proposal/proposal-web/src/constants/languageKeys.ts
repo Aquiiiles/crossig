@@ -17,6 +17,7 @@ export const CONTACT_INFO_OTHER_EMAIL_ADDRESSES_SUBTITLE = Liferay.Language.get(
 export const CONTACT_INFO_OTHER_MOBILE_PHONES_FIXED = Liferay.Language.get('contact-info-other-mobile-phones-fixed');
 export const CONTACT_INFO_OTHER_MOBILE_PHONES_MOBILE = Liferay.Language.get('contact-info-other-mobile-phones-mobile');
 export const CONTACT_INFO_OTHER_MOBILE_PHONES_SUBTITLE = Liferay.Language.get('contact-info-other-mobile-phones-subtitle');
+export const CONTACT_INFO_INVALID_EMAIL_MESSAGE = Liferay.Language.get('contact-info-invalid-email-message');
 
 export const CONTACT_SEARCH_TITLE= Liferay.Language.get('contact-search-title');
 export const CONTACT_SEARCH_SUBTITLE= Liferay.Language.get('contact-search-subtitle');
