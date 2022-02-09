@@ -4,15 +4,16 @@ import { Wrapper } from "./styles";
 
 interface props {
   title: string;
+  padded: boolean;
   subTitle: string;
 }
 
-const SubtitledLabel: React.FC<props> = ({ title, subTitle }: props) => {
+const SubtitledLabel: React.FC<props> = (props) => {
   return (
     <Wrapper>
-      <ClayForm.Group>
-        <h5>{title}</h5>
-        <ClayForm.Text>{subTitle}</ClayForm.Text>
+      <ClayForm.Group className={props.padded ? "padded" : ""}>
+        <label>{props.title}</label>
+        <ClayForm.Text>{props.subTitle}</ClayForm.Text>
       </ClayForm.Group>
     </Wrapper>
   );

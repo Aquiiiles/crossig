@@ -5,13 +5,15 @@ import {
   CONTACT_INFO_PHONE_NUMBER
 } from "../../../../../../../constants/languageKeys";
 import { MAXIMUM_MOBILE_PHONES } from "../../../../../constants/index"; 
-import { OrderedListWrapper, PhoneNumberWrapper } from "./styles";
+import { OrderedListWrapper, PhoneNumberWrapper, StyledFormGroup } from "./styles";
 import LinkWrapper from "../LinkWrapper";
+
 export interface PhoneNumber  {
   countryCode: string;
   areaCode: string;
   phoneNumber: string;
 }
+
 interface props {
   phoneNumbers: Array<PhoneNumber>;
   handleChange: Function;
@@ -27,8 +29,10 @@ const PhoneInputList: React.FC<props> = (props) => {
   }
 
   return (
-    <ClayForm.Group>
-      <label>{CONTACT_INFO_PHONE_NUMBER}</label>
+    <StyledFormGroup>
+      <label className={'phone-label'}>
+        {CONTACT_INFO_PHONE_NUMBER}
+      </label>
       <OrderedListWrapper>
         {props.phoneNumbers.map((phoneNumber, index) => {
           return <li key={`phoneInputList${index}`}>
@@ -64,7 +68,7 @@ const PhoneInputList: React.FC<props> = (props) => {
         handleClick={props.addPhoneInput}
         disabled={shouldDisableLink()}
       />
-    </ClayForm.Group>
+    </StyledFormGroup>
   );
 };
   

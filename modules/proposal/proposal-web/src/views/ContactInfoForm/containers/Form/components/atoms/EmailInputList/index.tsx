@@ -22,7 +22,9 @@ const EmailListInput: React.FC<props> = (props) => {
 
   return (
     <StyledFormGroup>
-      <label>{CONTACT_INFO_EMAIL_ADDRESS}</label>
+      <label className={'email-label'}>
+        {CONTACT_INFO_EMAIL_ADDRESS}
+      </label>
       {props.emails.map((email, index) => {
         return <ClayInput
                  key={`emailInputKey${index}`}

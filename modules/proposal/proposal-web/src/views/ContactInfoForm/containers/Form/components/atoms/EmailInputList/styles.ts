@@ -6,4 +6,9 @@ export const StyledFormGroup = styled(ClayForm.Group)`
   grid-template-columns: 80%;
   grid-auto-rows: auto;
   row-gap: 1rem;
+
+  .email-label {
+    color: #1A1A1A;
+    opacity: 0.8;
+  }
 `;

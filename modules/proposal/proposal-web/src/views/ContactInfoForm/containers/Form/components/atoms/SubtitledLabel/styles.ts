@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  padding-top: 0.2rem;
-  h5 {
+  label {
     display: flex;
     justify-content: flex-end;
     width: 15rem;
@@ -12,5 +11,9 @@ export const Wrapper = styled.div`
     display: flex;
     justify-content: flex-end;
     width: 15rem;
+  }
+
+  .padded {
+    padding-top:1.5rem;
   }
 `;
