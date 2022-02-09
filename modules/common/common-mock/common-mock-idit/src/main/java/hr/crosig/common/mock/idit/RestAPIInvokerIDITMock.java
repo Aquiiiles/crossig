@@ -4,6 +4,8 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 
+import hr.crosig.common.mock.idit.util.MockConstants;
+import hr.crosig.common.mock.idit.util.MockUtilities;
 import hr.crosig.common.ws.RestAPIServiceInvoker;
 import hr.crosig.common.ws.ServiceProviderType;
 import hr.crosig.common.ws.exception.ServiceInvocationException;
@@ -47,7 +49,7 @@ public class RestAPIInvokerIDITMock implements RestAPIServiceInvoker {
 		}
 		catch (Exception exception) {
 			throw new ServiceInvocationException(
-					"Error getting mock for " + path, exception);
+				"Error getting mock for " + path, exception);
 		}
 	}
 
@@ -61,15 +63,11 @@ public class RestAPIInvokerIDITMock implements RestAPIServiceInvoker {
 		}
 		catch (Exception exception) {
 			throw new ServiceInvocationException(
-					"Error getting mock for " + path, exception);
+				"Error getting mock for " + path, exception);
 		}
 	}
 
-	private String _getResponse(String operation, String path)
-		throws Exception {
-
-		Bundle bundle = FrameworkUtil.getBundle(getClass());
-
+	private String _getMockPath(String operation, String path) {
 		String pathWithoutQuery = path;
 
 		int lastIndexOf = path.lastIndexOf(StringPool.QUESTION);
@@ -78,21 +76,30 @@ public class RestAPIInvokerIDITMock implements RestAPIServiceInvoker {
 			pathWithoutQuery = path.substring(0, lastIndexOf);
 		}
 
+		pathWithoutQuery = pathWithoutQuery.replace(
+			StringPool.SLASH, StringPool.UNDERLINE);
+
+		String pathFormatted = operation + pathWithoutQuery;
+
 		StringBundler sb = new StringBundler();
 
-		sb.append(_RESPONSES_PATH);
-		sb.append(operation);
+		sb.append(MockConstants.RESPONSES_PATH);
 		sb.append(
-			pathWithoutQuery.replace(StringPool.SLASH, StringPool.UNDERLINE));
-		sb.append(_JSON_EXTENSION);
+			MockUtilities.mockFileExists(pathFormatted) ? pathFormatted :
+				MockUtilities.searchMockFileWithPathParam(pathFormatted));
+		sb.append(MockConstants.JSON_EXTENSION);
 
-		URL entry = bundle.getEntry(sb.toString());
+		return sb.toString();
+	}
+
+	private String _getResponse(String operation, String path)
+		throws Exception {
+
+		Bundle bundle = FrameworkUtil.getBundle(getClass());
+
+		URL entry = bundle.getEntry(_getMockPath(operation, path));
 
 		return StringUtil.read(entry.openStream());
 	}
-
-	private static final String _JSON_EXTENSION = ".json";
-
-	private static final String _RESPONSES_PATH = "responses/";
 
 }

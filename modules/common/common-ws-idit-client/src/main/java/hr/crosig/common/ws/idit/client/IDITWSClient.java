@@ -103,6 +103,17 @@ public class IDITWSClient {
 		return serviceResponse;
 	}
 
+	public ServiceResponse getContact(String extNumber)
+			throws ServiceInvocationException {
+
+		RestAPIServiceInvoker invoker = _restAPIServiceInvokerFactory.getInvoker(ServiceProviderType.IDIT);
+
+		ServiceResponse serviceResponse = invoker.get(
+				ServiceProviderType.IDIT, "/contact/" + extNumber);
+
+		return serviceResponse;
+	}
+
 	@Reference
 	private RestAPIServiceInvokerFactory _restAPIServiceInvokerFactory;
 

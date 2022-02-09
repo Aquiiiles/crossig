@@ -1,403 +1,403 @@
 [
-  {
-    "contactInListIVO": [
-      {
-        "phoneType": 4,
-        "address": "ANTUNA MIHANOVIĆA 37, 32100 VINKOVCI, Croatia",
-        "updateVersion": -1,
-        "addressType": 1000000,
-        "isLinkedBC": true,
-        "idValue": null,
-        "birthDate": "1997-02-17",
-        "fName": "Sanja",
-        "phoneNr": "+385 98 837 8766",
-        "entityTypeVO": {
-          "id": 1,
-          "desc": "Individual"
-        },
-        "name": "Antonić",
-        "middleName": null,
-        "id": 457348
-      },
-      {
-        "phoneType": 4,
-        "address": "ULICA MATE MERŠIĆA 36, 10000 ZAGREB, Croatia",
-        "updateVersion": -1,
-        "addressType": 1000000,
-        "isLinkedBC": true,
-        "idValue": null,
-        "birthDate": "1965-12-28",
-        "fName": "Lucija",
-        "phoneNr": "+385 98 230 0158",
-        "entityTypeVO": {
-          "id": 1,
-          "desc": "Individual"
-        },
-        "name": "Antonić",
-        "middleName": null,
-        "id": 504355
-      },
-      {
-        "phoneType": 4,
-        "address": "Anonimized 1, 10360 SESVETE, Croatia",
-        "updateVersion": -1,
-        "addressType": 1000000,
-        "isLinkedBC": true,
-        "idValue": null,
-        "birthDate": "1987-11-21",
-        "fName": "Dalibor",
-        "phoneNr": "+385 98 777 777",
-        "entityTypeVO": {
-          "id": 1,
-          "desc": "Individual"
-        },
-        "name": "Antonić",
-        "middleName": null,
-        "id": 324513
-      },
-      {
-        "phoneType": 4,
-        "address": "VRH VISOKE 17E, 21000 SPLIT, Croatia",
-        "updateVersion": -1,
-        "addressType": 1000000,
-        "isLinkedBC": true,
-        "idValue": "99010313563",
-        "birthDate": "1975-11-19",
-        "fName": "Ivan",
-        "phoneNr": "+385 91 140 1813",
-        "entityTypeVO": {
-          "id": 1,
-          "desc": "Individual"
-        },
-        "name": "Antonić",
-        "middleName": null,
-        "id": 435233
-      },
-      {
-        "phoneType": 4,
-        "address": "ULICA SV. PETKA 1, 31000 OSIJEK, Croatia",
-        "updateVersion": -1,
-        "addressType": 1000000,
-        "isLinkedBC": true,
-        "idValue": null,
-        "birthDate": "1957-12-25",
-        "fName": "Bozidar",
-        "phoneNr": "+385 91 442 3553",
-        "entityTypeVO": {
-          "id": 1,
-          "desc": "Individual"
-        },
-        "name": "Antonić",
-        "middleName": null,
-        "id": 447873
-      },
-      {
-        "phoneType": 4,
-        "address": "PRIJEKO 1, 20000 DUBROVNIK, Croatia",
-        "updateVersion": -1,
-        "addressType": 1000000,
-        "isLinkedBC": true,
-        "idValue": null,
-        "birthDate": "1961-04-13",
-        "fName": "Antun",
-        "phoneNr": "+385 98 645 128",
-        "entityTypeVO": {
-          "id": 1,
-          "desc": "Individual"
-        },
-        "name": "Antonić",
-        "middleName": null,
-        "id": 371596
-      },
-      {
-        "phoneType": 4,
-        "address": "Anonimized 18, 42000 VARAŽDIN, Croatia",
-        "updateVersion": -1,
-        "addressType": 1000000,
-        "isLinkedBC": true,
-        "idValue": null,
-        "birthDate": "1984-05-14",
-        "fName": "Franko",
-        "phoneNr": "+385 98 158 4728",
-        "entityTypeVO": {
-          "id": 1,
-          "desc": "Individual"
-        },
-        "name": "Antonić",
-        "middleName": null,
-        "id": 397452
-      },
-      {
-        "phoneType": 4,
-        "address": "Anonimized 6, 52100 PULA, Croatia",
-        "updateVersion": -1,
-        "addressType": 1000000,
-        "isLinkedBC": true,
-        "idValue": null,
-        "birthDate": "1997-07-22",
-        "fName": "Mirjana",
-        "phoneNr": "+385 97 543 3146",
-        "entityTypeVO": {
-          "id": 1,
-          "desc": "Individual"
-        },
-        "name": "Antonić",
-        "middleName": null,
-        "id": 483597
-      },
-      {
-        "phoneType": 4,
-        "address": "ULICA BOKOKOTORSKOG USTANKA 1, 52100 PULA, Croatia",
-        "updateVersion": -1,
-        "addressType": 1000000,
-        "isLinkedBC": true,
-        "idValue": "99010096481",
-        "birthDate": "1956-07-18",
-        "fName": "Marko",
-        "phoneNr": "+385 98 424 520",
-        "entityTypeVO": {
-          "id": 1,
-          "desc": "Individual"
-        },
-        "name": "Antonić",
-        "middleName": null,
-        "id": 405610
-      },
-      {
-        "phoneType": 4,
-        "address": "PETRINJSKA ULICA 14, 44000 SISAK, Croatia",
-        "updateVersion": -1,
-        "addressType": 1000000,
-        "isLinkedBC": true,
-        "idValue": null,
-        "birthDate": "1997-08-02",
-        "fName": "Matea",
-        "phoneNr": "+385 91 614 6138",
-        "entityTypeVO": {
-          "id": 1,
-          "desc": "Individual"
-        },
-        "name": "Antonić",
-        "middleName": null,
-        "id": 484874
-      },
-      {
-        "phoneType": 4,
-        "address": "HRASTJE PLEŠIVIČKO 1, 10450 JASTREBARSKO, HRASTJE PLEŠIVIČKO, Croatia",
-        "updateVersion": -1,
-        "addressType": 1000000,
-        "isLinkedBC": true,
-        "idValue": "99010087138",
-        "birthDate": "1962-07-21",
-        "fName": "Mia",
-        "phoneNr": "+385 91 677 3644",
-        "entityTypeVO": {
-          "id": 1,
-          "desc": "Individual"
-        },
-        "name": "Antonić",
-        "middleName": null,
-        "id": 414871
-      },
-      {
-        "phoneType": 4,
-        "address": "Anonimized 1, 10431 SVETA NEDELJA, Croatia",
-        "updateVersion": -1,
-        "addressType": 1000000,
-        "isLinkedBC": true,
-        "idValue": "99010015468",
-        "birthDate": "1971-09-28",
-        "fName": "Ivica",
-        "phoneNr": "+385 91 651 1815",
-        "entityTypeVO": {
-          "id": 1,
-          "desc": "Individual"
-        },
-        "name": "Antonić",
-        "middleName": null,
-        "id": 371540
-      },
-      {
-        "phoneType": 4,
-        "address": "KALNIČKA 3, 31000 OSIJEK, Croatia",
-        "updateVersion": -1,
-        "addressType": 1000000,
-        "isLinkedBC": true,
-        "idValue": null,
-        "birthDate": "1981-07-23",
-        "fName": "Hrvoje",
-        "phoneNr": "+385 97 112 3456",
-        "entityTypeVO": {
-          "id": 1,
-          "desc": "Individual"
-        },
-        "name": "Antonić",
-        "middleName": null,
-        "id": 455316
-      },
-      {
-        "phoneType": 4,
-        "address": "Anonimized 10, 49000 KRAPINA, Croatia",
-        "updateVersion": -1,
-        "addressType": 1000000,
-        "isLinkedBC": true,
-        "idValue": null,
-        "birthDate": "1998-07-24",
-        "fName": "Danica",
-        "phoneNr": "+385 92 332 2321",
-        "entityTypeVO": {
-          "id": 1,
-          "desc": "Individual"
-        },
-        "name": "Antonić",
-        "middleName": null,
-        "id": 409971
-      },
-      {
-        "phoneType": 4,
-        "address": "CELJSKA ULICA, 10000 ZAGREB, Croatia",
-        "updateVersion": -1,
-        "addressType": 1000000,
-        "isLinkedBC": true,
-        "idValue": "2299901",
-        "birthDate": "1979-08-04",
-        "fName": "Marko",
-        "phoneNr": "+385 91 517 1517",
-        "entityTypeVO": {
-          "id": 1,
-          "desc": "Individual"
-        },
-        "name": "Antonić",
-        "middleName": null,
-        "id": 290076
-      },
-      {
-        "phoneType": 4,
-        "address": "ULICA MIROSLAVA KRLEŽE 11, 42223 VARAŽDINSKE TOPLICE, Croatia",
-        "updateVersion": -1,
-        "addressType": 1000000,
-        "isLinkedBC": true,
-        "idValue": null,
-        "birthDate": "1982-05-22",
-        "fName": "Leo",
-        "phoneNr": "+385 95 732 2704",
-        "entityTypeVO": {
-          "id": 1,
-          "desc": "Individual"
-        },
-        "name": "Antonić",
-        "middleName": null,
-        "id": 515647
-      },
-      {
-        "phoneType": 4,
-        "address": "TONŽINO 1, 51000 RIJEKA, Croatia",
-        "updateVersion": -1,
-        "addressType": 1000000,
-        "isLinkedBC": true,
-        "idValue": null,
-        "birthDate": "1970-09-04",
-        "fName": "Ivan",
-        "phoneNr": "+385 91 410 1148",
-        "entityTypeVO": {
-          "id": 1,
-          "desc": "Individual"
-        },
-        "name": "Antonić",
-        "middleName": null,
-        "id": 318652
-      },
-      {
-        "phoneType": 4,
-        "address": "ULICA OTONA IVEKOVIĆA 60, 10360 SESVETE, Croatia",
-        "updateVersion": -1,
-        "addressType": 1000000,
-        "isLinkedBC": true,
-        "idValue": null,
-        "birthDate": "1997-10-29",
-        "fName": "Ivica",
-        "phoneNr": "+385 97 527 1778",
-        "entityTypeVO": {
-          "id": 1,
-          "desc": "Individual"
-        },
-        "name": "ANTONIĆ",
-        "middleName": null,
-        "id": 349470
-      },
-      {
-        "phoneType": 4,
-        "address": "ULICA FOJBON 1, 52100 PULA, Croatia",
-        "updateVersion": -1,
-        "addressType": 1000000,
-        "isLinkedBC": true,
-        "idValue": null,
-        "birthDate": "1974-10-07",
-        "fName": "Tomislav",
-        "phoneNr": "+385 95 412 7640",
-        "entityTypeVO": {
-          "id": 1,
-          "desc": "Individual"
-        },
-        "name": "Antonić",
-        "middleName": null,
-        "id": 503322
-      },
-      {
-        "phoneType": 4,
-        "address": "Anonimized 23, 32000 VUKOVAR, Croatia",
-        "updateVersion": -1,
-        "addressType": 1000000,
-        "isLinkedBC": true,
-        "idValue": null,
-        "birthDate": "1977-09-13",
-        "fName": "Blazenka",
-        "phoneNr": "+385 91 147 7200",
-        "entityTypeVO": {
-          "id": 1,
-          "desc": "Individual"
-        },
-        "name": "Antonić",
-        "middleName": null,
-        "id": 412920
-      },
-      {
-        "phoneType": 0,
-        "address": "Anonimized 1, 10000 ZAGREB, Croatia",
-        "updateVersion": -1,
-        "addressType": 6,
-        "isLinkedBC": true,
-        "idValue": "080194588",
-        "birthDate": null,
-        "fName": null,
-        "phoneNr": "+ ",
-        "entityTypeVO": {
-          "id": 101,
-          "desc": "Legal entity"
-        },
-        "name": "ANTONIĆ društvo s ograničenom odgovornošću za usluge obrade podataka",
-        "middleName": null,
-        "id": 186958
-      },
-      {
-        "phoneType": 0,
-        "address": "ULICA JOSIPA JELAČIĆA 1, 10430 SAMOBOR, Croatia",
-        "updateVersion": -1,
-        "addressType": 6,
-        "isLinkedBC": true,
-        "idValue": "19947507964",
-        "birthDate": null,
-        "fName": null,
-        "phoneNr": "+ ",
-        "entityTypeVO": {
-          "id": 101,
-          "desc": "Legal entity"
-        },
-        "name": "ANTONIĆ-INŽENJERING inženjering, građevinarstvo, trgovina i turizam, d.o.o.",
-        "middleName": null,
-        "id": 307105
-      }
-    ],
-    "id": -87476852
-  }
+	{
+		"contactInListIVO": [
+			{
+				"address": "ANTUNA MIHANOVIĆA 37, 32100 VINKOVCI, Croatia",
+				"addressType": 1000000,
+				"birthDate": "1997-02-17",
+				"entityTypeVO": {
+					"desc": "Individual",
+					"id": 1
+				},
+				"fName": "Sanja",
+				"id": 457348,
+				"idValue": null,
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "Antonić",
+				"phoneNr": "+385 98 837 8766",
+				"phoneType": 4,
+				"updateVersion": -1
+			},
+			{
+				"address": "ULICA MATE MERŠIĆA 36, 10000 ZAGREB, Croatia",
+				"addressType": 1000000,
+				"birthDate": "1965-12-28",
+				"entityTypeVO": {
+					"desc": "Individual",
+					"id": 1
+				},
+				"fName": "Lucija",
+				"id": 504355,
+				"idValue": null,
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "Antonić",
+				"phoneNr": "+385 98 230 0158",
+				"phoneType": 4,
+				"updateVersion": -1
+			},
+			{
+				"address": "Anonimized 1, 10360 SESVETE, Croatia",
+				"addressType": 1000000,
+				"birthDate": "1987-11-21",
+				"entityTypeVO": {
+					"desc": "Individual",
+					"id": 1
+				},
+				"fName": "Dalibor",
+				"id": 324513,
+				"idValue": null,
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "Antonić",
+				"phoneNr": "+385 98 777 777",
+				"phoneType": 4,
+				"updateVersion": -1
+			},
+			{
+				"address": "VRH VISOKE 17E, 21000 SPLIT, Croatia",
+				"addressType": 1000000,
+				"birthDate": "1975-11-19",
+				"entityTypeVO": {
+					"desc": "Individual",
+					"id": 1
+				},
+				"fName": "Ivan",
+				"id": 435233,
+				"idValue": "99010313563",
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "Antonić",
+				"phoneNr": "+385 91 140 1813",
+				"phoneType": 4,
+				"updateVersion": -1
+			},
+			{
+				"address": "ULICA SV. PETKA 1, 31000 OSIJEK, Croatia",
+				"addressType": 1000000,
+				"birthDate": "1957-12-25",
+				"entityTypeVO": {
+					"desc": "Individual",
+					"id": 1
+				},
+				"fName": "Bozidar",
+				"id": 447873,
+				"idValue": null,
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "Antonić",
+				"phoneNr": "+385 91 442 3553",
+				"phoneType": 4,
+				"updateVersion": -1
+			},
+			{
+				"address": "PRIJEKO 1, 20000 DUBROVNIK, Croatia",
+				"addressType": 1000000,
+				"birthDate": "1961-04-13",
+				"entityTypeVO": {
+					"desc": "Individual",
+					"id": 1
+				},
+				"fName": "Antun",
+				"id": 371596,
+				"idValue": null,
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "Antonić",
+				"phoneNr": "+385 98 645 128",
+				"phoneType": 4,
+				"updateVersion": -1
+			},
+			{
+				"address": "Anonimized 18, 42000 VARAŽDIN, Croatia",
+				"addressType": 1000000,
+				"birthDate": "1984-05-14",
+				"entityTypeVO": {
+					"desc": "Individual",
+					"id": 1
+				},
+				"fName": "Franko",
+				"id": 397452,
+				"idValue": null,
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "Antonić",
+				"phoneNr": "+385 98 158 4728",
+				"phoneType": 4,
+				"updateVersion": -1
+			},
+			{
+				"address": "Anonimized 6, 52100 PULA, Croatia",
+				"addressType": 1000000,
+				"birthDate": "1997-07-22",
+				"entityTypeVO": {
+					"desc": "Individual",
+					"id": 1
+				},
+				"fName": "Mirjana",
+				"id": 483597,
+				"idValue": null,
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "Antonić",
+				"phoneNr": "+385 97 543 3146",
+				"phoneType": 4,
+				"updateVersion": -1
+			},
+			{
+				"address": "ULICA BOKOKOTORSKOG USTANKA 1, 52100 PULA, Croatia",
+				"addressType": 1000000,
+				"birthDate": "1956-07-18",
+				"entityTypeVO": {
+					"desc": "Individual",
+					"id": 1
+				},
+				"fName": "Marko",
+				"id": 405610,
+				"idValue": "99010096481",
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "Antonić",
+				"phoneNr": "+385 98 424 520",
+				"phoneType": 4,
+				"updateVersion": -1
+			},
+			{
+				"address": "PETRINJSKA ULICA 14, 44000 SISAK, Croatia",
+				"addressType": 1000000,
+				"birthDate": "1997-08-02",
+				"entityTypeVO": {
+					"desc": "Individual",
+					"id": 1
+				},
+				"fName": "Matea",
+				"id": 484874,
+				"idValue": null,
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "Antonić",
+				"phoneNr": "+385 91 614 6138",
+				"phoneType": 4,
+				"updateVersion": -1
+			},
+			{
+				"address": "HRASTJE PLEŠIVIČKO 1, 10450 JASTREBARSKO, HRASTJE PLEŠIVIČKO, Croatia",
+				"addressType": 1000000,
+				"birthDate": "1962-07-21",
+				"entityTypeVO": {
+					"desc": "Individual",
+					"id": 1
+				},
+				"fName": "Mia",
+				"id": 414871,
+				"idValue": "99010087138",
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "Antonić",
+				"phoneNr": "+385 91 677 3644",
+				"phoneType": 4,
+				"updateVersion": -1
+			},
+			{
+				"address": "Anonimized 1, 10431 SVETA NEDELJA, Croatia",
+				"addressType": 1000000,
+				"birthDate": "1971-09-28",
+				"entityTypeVO": {
+					"desc": "Individual",
+					"id": 1
+				},
+				"fName": "Ivica",
+				"id": 371540,
+				"idValue": "99010015468",
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "Antonić",
+				"phoneNr": "+385 91 651 1815",
+				"phoneType": 4,
+				"updateVersion": -1
+			},
+			{
+				"address": "KALNIČKA 3, 31000 OSIJEK, Croatia",
+				"addressType": 1000000,
+				"birthDate": "1981-07-23",
+				"entityTypeVO": {
+					"desc": "Individual",
+					"id": 1
+				},
+				"fName": "Hrvoje",
+				"id": 455316,
+				"idValue": null,
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "Antonić",
+				"phoneNr": "+385 97 112 3456",
+				"phoneType": 4,
+				"updateVersion": -1
+			},
+			{
+				"address": "Anonimized 10, 49000 KRAPINA, Croatia",
+				"addressType": 1000000,
+				"birthDate": "1998-07-24",
+				"entityTypeVO": {
+					"desc": "Individual",
+					"id": 1
+				},
+				"fName": "Danica",
+				"id": 409971,
+				"idValue": null,
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "Antonić",
+				"phoneNr": "+385 92 332 2321",
+				"phoneType": 4,
+				"updateVersion": -1
+			},
+			{
+				"address": "CELJSKA ULICA, 10000 ZAGREB, Croatia",
+				"addressType": 1000000,
+				"birthDate": "1979-08-04",
+				"entityTypeVO": {
+					"desc": "Individual",
+					"id": 1
+				},
+				"fName": "Marko",
+				"id": 290076,
+				"idValue": "2299901",
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "Antonić",
+				"phoneNr": "+385 91 517 1517",
+				"phoneType": 4,
+				"updateVersion": -1
+			},
+			{
+				"address": "ULICA MIROSLAVA KRLEŽE 11, 42223 VARAŽDINSKE TOPLICE, Croatia",
+				"addressType": 1000000,
+				"birthDate": "1982-05-22",
+				"entityTypeVO": {
+					"desc": "Individual",
+					"id": 1
+				},
+				"fName": "Leo",
+				"id": 515647,
+				"idValue": null,
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "Antonić",
+				"phoneNr": "+385 95 732 2704",
+				"phoneType": 4,
+				"updateVersion": -1
+			},
+			{
+				"address": "TONŽINO 1, 51000 RIJEKA, Croatia",
+				"addressType": 1000000,
+				"birthDate": "1970-09-04",
+				"entityTypeVO": {
+					"desc": "Individual",
+					"id": 1
+				},
+				"fName": "Ivan",
+				"id": 318652,
+				"idValue": null,
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "Antonić",
+				"phoneNr": "+385 91 410 1148",
+				"phoneType": 4,
+				"updateVersion": -1
+			},
+			{
+				"address": "ULICA OTONA IVEKOVIĆA 60, 10360 SESVETE, Croatia",
+				"addressType": 1000000,
+				"birthDate": "1997-10-29",
+				"entityTypeVO": {
+					"desc": "Individual",
+					"id": 1
+				},
+				"fName": "Ivica",
+				"id": 349470,
+				"idValue": null,
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "ANTONIĆ",
+				"phoneNr": "+385 97 527 1778",
+				"phoneType": 4,
+				"updateVersion": -1
+			},
+			{
+				"address": "ULICA FOJBON 1, 52100 PULA, Croatia",
+				"addressType": 1000000,
+				"birthDate": "1974-10-07",
+				"entityTypeVO": {
+					"desc": "Individual",
+					"id": 1
+				},
+				"fName": "Tomislav",
+				"id": 503322,
+				"idValue": null,
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "Antonić",
+				"phoneNr": "+385 95 412 7640",
+				"phoneType": 4,
+				"updateVersion": -1
+			},
+			{
+				"address": "Anonimized 23, 32000 VUKOVAR, Croatia",
+				"addressType": 1000000,
+				"birthDate": "1977-09-13",
+				"entityTypeVO": {
+					"desc": "Individual",
+					"id": 1
+				},
+				"fName": "Blazenka",
+				"id": 412920,
+				"idValue": null,
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "Antonić",
+				"phoneNr": "+385 91 147 7200",
+				"phoneType": 4,
+				"updateVersion": -1
+			},
+			{
+				"address": "Anonimized 1, 10000 ZAGREB, Croatia",
+				"addressType": 6,
+				"birthDate": null,
+				"entityTypeVO": {
+					"desc": "Legal entity",
+					"id": 101
+				},
+				"fName": null,
+				"id": 186958,
+				"idValue": "080194588",
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "ANTONIĆ društvo s ograničenom odgovornošću za usluge obrade podataka",
+				"phoneNr": "+ ",
+				"phoneType": 0,
+				"updateVersion": -1
+			},
+			{
+				"address": "ULICA JOSIPA JELAČIĆA 1, 10430 SAMOBOR, Croatia",
+				"addressType": 6,
+				"birthDate": null,
+				"entityTypeVO": {
+					"desc": "Legal entity",
+					"id": 101
+				},
+				"fName": null,
+				"id": 307105,
+				"idValue": "19947507964",
+				"isLinkedBC": true,
+				"middleName": null,
+				"name": "ANTONIĆ-INŽENJERING inženjering, građevinarstvo, trgovina i turizam, d.o.o.",
+				"phoneNr": "+ ",
+				"phoneType": 0,
+				"updateVersion": -1
+			}
+		],
+		"id": -87476852
+	}
 ]

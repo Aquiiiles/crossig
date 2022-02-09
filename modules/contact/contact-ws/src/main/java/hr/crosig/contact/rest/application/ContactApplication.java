@@ -6,20 +6,24 @@ import hr.crosig.contact.dto.ContactDTO;
 import hr.crosig.contact.dto.EmailDTO;
 import hr.crosig.contact.dto.TelephoneDTO;
 import hr.crosig.contact.rest.application.utils.ApplicationUtilities;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
 /**
  * @author victor.catanante
@@ -46,6 +50,21 @@ public class ContactApplication extends Application {
 
 			ServiceResponse serviceResponse = _iditwsClient.createContact(
 				entityJSON);
+
+			return ApplicationUtilities.handleServiceResponse(serviceResponse);
+		}
+		catch (Exception exception) {
+			return ApplicationUtilities.handleErrorResponse(exception);
+		}
+	}
+
+	@GET
+	@Path("/{extNumber}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getContact(@PathParam("extNumber") String extNumber) {
+		try {
+			ServiceResponse serviceResponse = _iditwsClient.getContact(
+				extNumber);
 
 			return ApplicationUtilities.handleServiceResponse(serviceResponse);
 		}
@@ -100,7 +119,7 @@ public class ContactApplication extends Application {
 	public Response validatePhoneNumber(List<TelephoneDTO> telephoneDTOS) {
 		try {
 			String entityJSON = ApplicationUtilities.createEntityJsonString(
-					telephoneDTOS);
+				telephoneDTOS);
 
 			ServiceResponse serviceResponse = _iditwsClient.validatePhone(
 				entityJSON);

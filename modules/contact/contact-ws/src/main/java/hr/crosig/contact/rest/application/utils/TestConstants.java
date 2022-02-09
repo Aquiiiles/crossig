@@ -6,9 +6,10 @@ import hr.crosig.contact.dto.EmailDTO;
 import hr.crosig.contact.dto.SearchDTO;
 import hr.crosig.contact.dto.TelephoneDTO;
 
-import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.ws.rs.core.Response;
 
 /**
  * @author marcelo.mazurky
@@ -39,11 +40,12 @@ public class TestConstants {
 
 	public static final ContactDTO VALID_CONTACT_REQUEST = new ContactDTO();
 
-	public static final List<EmailDTO> VALID_EMAIL_REQUEST = new ArrayList<>();
-
-	public static final List<TelephoneDTO> VALID_PHONE_NUMBER_REQUEST =
-		new ArrayList<>();
+	public static final String VALID_GET_CONTACT_REQUEST = "10";
 
 	public static final SearchDTO VALID_SEARCH_REQUEST = new SearchDTO();
+
+	public static final List<EmailDTO> validEmailRequest = new ArrayList<>();
+	public static final List<TelephoneDTO> validPhoneNumberRequest =
+		new ArrayList<>();
 
 }
