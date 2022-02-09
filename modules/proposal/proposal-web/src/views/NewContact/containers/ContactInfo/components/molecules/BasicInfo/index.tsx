@@ -17,7 +17,12 @@ import {
   contactTypes,
 } from "../../../../../../../constants/contactConstants";
 import useFieldValidation from "../../../../../hooks/useFieldValidation";
-import { validateDay, validateMonth, validateYear } from "./validators";
+import {
+  validateDay,
+  validateMonth,
+  validateYear,
+  validateOib,
+} from "./validators";
 
 const BasicInfo: React.FC = () => {
   const dispatch = useContactDispatch();
@@ -55,6 +60,9 @@ const BasicInfo: React.FC = () => {
     useFieldValidation<HTMLInputElement>(React.useCallback(validateMonth, []));
   const [yearRef, yearError, hasYearError] =
     useFieldValidation<HTMLInputElement>(React.useCallback(validateYear, []));
+  const [oibRef, oibError, hasOibError] = useFieldValidation<HTMLInputElement>(
+    React.useCallback(validateOib, [])
+  );
 
   const showIndividualFields = contactType === contactTypes.Individual;
 
@@ -177,7 +185,7 @@ const BasicInfo: React.FC = () => {
             ) : null}
           </ClayForm.Group>
         ) : null}
-        <ClayForm.Group>
+        <ClayForm.Group className={hasOibError ? "has-error" : ""}>
           <label htmlFor="oibInput">{CREATE_NEW_CONTACT.FIELD.OIB}</label>
           <ClayInput
             required={foreignerStatus ? false : true}
@@ -185,7 +193,13 @@ const BasicInfo: React.FC = () => {
             type="text"
             onChange={({ target: { value } }) => dispatch(setOIB(value))}
             value={oib}
+            ref={oibRef}
           />
+          {hasOibError ? (
+            <ClayForm.FeedbackGroup>
+              <ClayForm.FeedbackItem>{oibError}</ClayForm.FeedbackItem>
+            </ClayForm.FeedbackGroup>
+          ) : null}
         </ClayForm.Group>
       </Row>
       {!showIndividualFields ? (
