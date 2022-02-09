@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { contactTypes } from "../../../../../../../../constants/contactConstants";
 
 const initialState = {
-  contactType: "1",
+  contactType: contactTypes.Individual,
   firstName: "",
   lastName: "",
   dateDay: "",

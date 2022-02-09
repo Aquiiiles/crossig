@@ -14,6 +14,11 @@ export const CREATE_NEW_CONTACT = {
     TITLE: Liferay.Language.get('create-new-contact-title'),
     SUBTITLE: Liferay.Language.get('create-new-contact-subtitle'),
     BASIC_INFO_TITLE: Liferay.Language.get('create-new-contact-basic-info-title'),
+    TYPE: Liferay.Language.get('create-new-contact-type'),
+    ADDRESS_TITLE : Liferay.Language.get('create-new-contact-address-title'),
+    ID_ADDRES : Liferay.Language.get('create-new-contact-id-address'),
+    REGISTERED_OFFICE_ADDRESS : Liferay.Language.get('create-new-contact-registered-office-address'),
+    DISPATCH_ADDRESS : Liferay.Language.get('create-new-contact-dispatch-address'),
     FIELD: {
         CONTACT_TYPE: {
             INDIVIDUAL: Liferay.Language.get('create-new-contact-field-contact-type-individual'),
@@ -27,5 +32,11 @@ export const CREATE_NEW_CONTACT = {
         FOREIGNER_STATUS: Liferay.Language.get('create-new-contact-field-foreigner-status'),
         COMPANY_NAME: Liferay.Language.get('create-new-contact-field-company-name'),
         SUBSIDIARY_NUMBER: Liferay.Language.get('create-new-contact-field-subsidiary-number'),
+        COUNTRY : Liferay.Language.get('create-new-contact-field-country'),
+        CITY : Liferay.Language.get('create-new-contact-field-city'),
+        POSTAL_CODE : Liferay.Language.get('create-new-contact-field-postal-code'),
+        STREET_ADDRESS : Liferay.Language.get('create-new-contact-field-street-address'),
+        HOUSE_NUMBER : Liferay.Language.get('create-new-contact-field-house-number'),
+        DISPATCH_ADDRESS : Liferay.Language.get('create-new-contact-field-dispatch-address'),
     },
 }
