@@ -4,10 +4,11 @@ import ClayForm from "@clayui/form";
 import CreateContactButton from "../../atoms/CreateContactButton";
 import EmailInputList from "../../atoms/EmailInputList";
 import FormSection from "../../../../../../../shared/atoms/FormSection";
-import PhoneInputList, { PhoneNumber } from "../../atoms/PhoneInputList";
+import PhoneInputList, { PhoneNumber, croatiaCountry } from "../../atoms/PhoneInputList";
 import LinkWrapper from "../../atoms/LinkWrapper";
 import Row from "../../../../../../../shared/atoms/Row";
 import SubtitledLabel from "../../atoms/SubtitledLabel";
+import SubtitledSelect from "../../atoms/SubtitledSelect";
 import { ButtonWrapper } from "./styles";
 import {
   CONTACT_INFO_CANCEL,
@@ -15,7 +16,12 @@ import {
   CONTACT_INFO_MAIN_EMAIL,
   CONTACT_INFO_MAIN_EMAIL_SUBTITLE,
   CONTACT_INFO_MAIN_MOBILE,
-  CONTACT_INFO_MAIN_MOBILE_SUBTITLE
+  CONTACT_INFO_MAIN_MOBILE_SUBTITLE,
+  CONTACT_INFO_OTHER_EMAIL_ADDRESSES,
+  CONTACT_INFO_OTHER_EMAIL_ADDRESSES_SUBTITLE,
+  CONTACT_INFO_OTHER_MOBILE_PHONES_FIXED,
+  CONTACT_INFO_OTHER_MOBILE_PHONES_MOBILE,
+  CONTACT_INFO_OTHER_MOBILE_PHONES_SUBTITLE
 } from "../../../../../../../constants/languageKeys";
 import { 
   MAXIMUM_EMAIL_ADDRESSES,
@@ -28,7 +34,7 @@ const ContactInfoFields: React.FC = () =>  {
   const createEmptyPhoneNumber = () => {
     return {
       areaCode: "",
-      countryCode: "",
+      countryCode: croatiaCountry.value,
       phoneNumber: ""
     } as PhoneNumber;
   };
@@ -82,15 +88,44 @@ const ContactInfoFields: React.FC = () =>  {
     }
   }
 
+  const shouldDisplayOtherEmailLabel = () => {
+    return emailAddresses.length > 1;
+  }
+
+  const shouldDisplayOtherMobileSelect = () => {
+    return mobilePhones.length > 1;
+  }
+
+  const options = [
+    {
+      label: CONTACT_INFO_OTHER_MOBILE_PHONES_FIXED,
+      value: "1"
+    },
+    {
+      label: CONTACT_INFO_OTHER_MOBILE_PHONES_MOBILE,
+      value: "2"
+    }
+  ];
+
   return (
       <Fragment>
         <FormSection title={CONTACT_INFO_TITLE}>
-          <SubtitledLabel 
-            title={CONTACT_INFO_MAIN_EMAIL} 
-            subTitle={CONTACT_INFO_MAIN_EMAIL_SUBTITLE} 
-          />
+        <ClayForm.Group>
+            <SubtitledLabel 
+              title={CONTACT_INFO_MAIN_EMAIL} 
+              subTitle={CONTACT_INFO_MAIN_EMAIL_SUBTITLE}
+              padded={false}
+            />
+            {shouldDisplayOtherEmailLabel() && 
+              <SubtitledLabel 
+                title={CONTACT_INFO_OTHER_EMAIL_ADDRESSES} 
+                subTitle={CONTACT_INFO_OTHER_EMAIL_ADDRESSES_SUBTITLE}
+                padded={true}
+              />
+            }
+          </ClayForm.Group>
           <Row>
-            <ClayForm.Group>         
+            <ClayForm.Group>
               <EmailInputList 
                 emails={emailAddresses}
                 handleChange={handleEmailChange}
@@ -101,10 +136,19 @@ const ContactInfoFields: React.FC = () =>  {
         </FormSection>
 
         <FormSection>
-          <SubtitledLabel 
-            title={CONTACT_INFO_MAIN_MOBILE} 
-            subTitle={CONTACT_INFO_MAIN_MOBILE_SUBTITLE} 
-          />
+          <ClayForm.Group>
+            <SubtitledLabel 
+              title={CONTACT_INFO_MAIN_MOBILE} 
+              subTitle={CONTACT_INFO_MAIN_MOBILE_SUBTITLE}
+              padded={false}
+            />
+            {shouldDisplayOtherMobileSelect() && 
+              <SubtitledSelect 
+                options={options} 
+                subTitle={CONTACT_INFO_OTHER_MOBILE_PHONES_SUBTITLE}
+              />
+            }
+          </ClayForm.Group>
           <Row>
             <ClayForm.Group>
               <PhoneInputList 

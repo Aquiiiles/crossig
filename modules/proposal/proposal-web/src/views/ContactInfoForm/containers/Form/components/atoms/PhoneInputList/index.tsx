@@ -1,15 +1,24 @@
-import React, { MouseEventHandler, useCallback, useEffect, useState } from "react";
+import React, {
+  MouseEventHandler,
+  useCallback,
+  useEffect,
+  useState
+} from "react";
 import { ClayInput, ClaySelectWithOption } from "@clayui/form";
 import { 
   CONTACT_INFO_ADD_MOBILE_PHONE,
   CONTACT_INFO_PHONE_NUMBER
 } from "../../../../../../../constants/languageKeys";
 import { MAXIMUM_MOBILE_PHONES } from "../../../../../constants/index"; 
-import { OrderedListWrapper, PhoneNumberWrapper, StyledFormGroup } from "./styles";
+import {
+  Error,
+  OrderedListWrapper,
+  PhoneNumberWrapper,
+  StyledFormGroup
+} from "./styles";
 import LinkWrapper from "../LinkWrapper";
 
 import getUnicodeFlagIcon from 'country-flag-icons/unicode'
-import * as flags from 'country-flag-icons/string/3x2';
 
 declare var Liferay: any;
 
@@ -18,7 +27,6 @@ export interface PhoneNumber  {
   areaCode: string;
   phoneNumber: string;
 }
-
 interface props {
   phoneNumbers: Array<PhoneNumber>;
   handleChange: Function;
@@ -33,15 +41,18 @@ interface Country {
   flagKey: string
 }
 
-const croatiaCountryObject = { label: "385", value: "70", flagKey: "HR" };
+export const croatiaCountry = { 
+  label: "385",
+  value: "385",
+  flagKey: "HR"
+} as Country;
 
 const PhoneInputList: React.FC<props> = (props) => {
 
-  const [countries, setCountries] = useState<Array<Country>>([]);
+  const [countries, setCountries] = useState<Array<Country>>([croatiaCountry]);
+  const [hasSomeInvalidPhone, setSomeInvalidPhone] = useState(false);
 
 	const loadCountries = useCallback(() => {
-    console.log(Object.keys(flags));
-
 		Liferay.Service(
 			"/country/get-countries",
 			{
@@ -52,12 +63,12 @@ const PhoneInputList: React.FC<props> = (props) => {
 					.map((country) => {
 						return {
 							label: country.idd,
-							value: country.countryId,
+							value: country.idd,
               flagKey: country.a2
 						} as Country;
 					})
-					.filter((country) => country.label !== croatiaCountryObject.label);
-				countries.unshift(croatiaCountryObject);
+					.filter((country) => country.label !== croatiaCountry.label);
+        countries.unshift(croatiaCountry);
 				setCountries(countries);
 			}
 		);
@@ -84,6 +95,27 @@ const PhoneInputList: React.FC<props> = (props) => {
     });
   }
 
+  const isCroatianPhoneValid = (phoneNumber:string) => {
+    return phoneNumber.length >= 4 && phoneNumber.length <= 7;
+  }
+
+  const validatePhones = () => {
+    setSomeInvalidPhone(false);
+
+    props.phoneNumbers.forEach((phoneNumber) => {
+      if (phoneNumber.countryCode === croatiaCountry.label &&
+          !isCroatianPhoneValid(phoneNumber.phoneNumber)) {
+          setSomeInvalidPhone(true);
+          return;
+      }
+    });
+  }
+
+  const handleChange = (index:number, e:React.ChangeEvent, property:string) => {
+    props.handleChange(index, e, property);
+    validatePhones();
+  }
+
   return (
     <StyledFormGroup>
       <label className={'phone-label'}>
@@ -94,19 +126,17 @@ const PhoneInputList: React.FC<props> = (props) => {
           return <li key={`phoneInputList${index}`}>
                    <PhoneNumberWrapper>
                      <ClaySelectWithOption
-                        aria-label="Select Label"
                         id={`countryCodeSelect${index}`}
                         className="country-code"
-                        onChange={e => props.handleChange(index, e, "countryCode")}
+                        onChange={e => handleChange(index, e, "countryCode")}
                         value={phoneNumber.countryCode}
                         options={createOptionsWithFlags()}>
                     </ClaySelectWithOption>
 
                      <ClaySelectWithOption
-                       aria-label="Select Label"
                        id={`areaCodeSelect${index}`}
                        className="area-code"
-                       onChange={e => props.handleChange(index, e, "areaCode")}
+                       onChange={e => handleChange(index, e, "areaCode")}
                        value={phoneNumber.areaCode}
                        options={props.areaCodeOptions}
                      />
@@ -114,14 +144,15 @@ const PhoneInputList: React.FC<props> = (props) => {
                      <ClayInput 
                        id={`phoneNumber${index}`}
                        className="phone-number"
-                       type="text"
-                       onChange={e => props.handleChange(index, e, "phoneNumber")}
+                       type="number"
+                       onChange={e => handleChange(index, e, "phoneNumber")}
                        value={phoneNumber.phoneNumber}
                      />
                    </PhoneNumberWrapper>
                  </li>;
           })}
       </OrderedListWrapper>
+      {hasSomeInvalidPhone && <Error>{"Phone number must be 4 to 7 digits"}</Error>}
       <LinkWrapper 
         title={CONTACT_INFO_ADD_MOBILE_PHONE}
         handleClick={props.addPhoneInput}

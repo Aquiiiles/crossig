@@ -53,10 +53,15 @@ export const LinkWrapper = styled.div`
 
 export const OrderedListWrapper = styled.ol`
   display: grid;
-  grid-template-columns: 80%;
   grid-auto-rows: auto;
   row-gap: 1rem;
   list-style-type: none;
   margin: 0;
   padding: 0;
+`;
+
+
+export const Error = styled.small`
+  font-size: 12px;
+  color: red;
 `;
