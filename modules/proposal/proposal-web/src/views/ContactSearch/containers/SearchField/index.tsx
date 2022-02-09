@@ -21,7 +21,6 @@ const SearchField: React.FC = () => {
   const menuElementRef = useRef<HTMLDivElement>(null);
 
   const handleExpand = () => {
-    console.log("status", expand);
     setExpand(!expand);
   };
 
