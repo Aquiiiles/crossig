@@ -27,7 +27,7 @@ public class AddressDTO {
 		return cityName;
 	}
 
-	public ContactDTO getCountry() {
+	public CountryDTO getCountry() {
 		return country;
 	}
 
@@ -45,6 +45,10 @@ public class AddressDTO {
 
 	public String getHouseNr() {
 		return houseNr;
+	}
+
+	public boolean getIsPreferredDeliveryAddress() {
+		return isPreferredDeliveryAddress;
 	}
 
 	public String getPob() {
@@ -67,10 +71,6 @@ public class AddressDTO {
 		return zipCode;
 	}
 
-	public boolean isPreferredDeliveryAddress() {
-		return isPreferredDeliveryAddress;
-	}
-
 	public void setAddressType(AddressTypeDTO addressType) {
 		this.addressType = addressType;
 	}
@@ -91,7 +91,7 @@ public class AddressDTO {
 		this.cityName = cityName;
 	}
 
-	public void setCountry(ContactDTO country) {
+	public void setCountry(CountryDTO country) {
 		this.country = country;
 	}
 
@@ -111,12 +111,14 @@ public class AddressDTO {
 		this.houseNr = houseNr;
 	}
 
-	public void setPob(String pob) {
-		this.pob = pob;
+	public void setIsPreferredDeliveryAddress(
+		boolean isPreferredDeliveryAddress) {
+
+		this.isPreferredDeliveryAddress = isPreferredDeliveryAddress;
 	}
 
-	public void setPreferredDeliveryAddress(boolean preferredDeliveryAddress) {
-		isPreferredDeliveryAddress = preferredDeliveryAddress;
+	public void setPob(String pob) {
+		this.pob = pob;
 	}
 
 	public void setProvinceName(String provinceName) {
@@ -143,7 +145,7 @@ public class AddressDTO {
 	@Size(max = 100, min = 1)
 	private String cityName;
 
-	private ContactDTO country;
+	private CountryDTO country;
 	private String countyName;
 	private String districtName;
 	private String entranceNr;

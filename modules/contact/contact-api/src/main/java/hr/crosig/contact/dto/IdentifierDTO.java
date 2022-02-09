@@ -1,7 +1,5 @@
 package hr.crosig.contact.dto;
 
-import java.time.LocalDateTime;
-
 /**
  * @author david.martini
  */
@@ -19,7 +17,7 @@ public class IdentifierDTO {
 		return idValue;
 	}
 
-	public LocalDateTime getIssueDate() {
+	public String getIssueDate() {
 		return issueDate;
 	}
 
@@ -44,7 +42,7 @@ public class IdentifierDTO {
 		this.idValue = idValue;
 	}
 
-	public void setIssueDate(LocalDateTime issueDate) {
+	public void setIssueDate(String issueDate) {
 		this.issueDate = issueDate;
 	}
 
@@ -59,7 +57,7 @@ public class IdentifierDTO {
 	private CountryDTO country;
 	private IdTypeDTO idType;
 	private String idValue;
-	private LocalDateTime issueDate;
+	private String issueDate;
 	private String issuePlace;
 	private String serialNumber;
 

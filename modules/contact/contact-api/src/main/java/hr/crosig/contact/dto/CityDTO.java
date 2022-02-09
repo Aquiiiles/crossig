@@ -9,44 +9,44 @@ public class CityDTO {
 		return boxNumber;
 	}
 
-	public void setBoxNumber(String boxNumber) {
-		this.boxNumber = boxNumber;
-	}
-
 	public long getCityId() {
 		return cityId;
-	}
-
-	public void setCityId(long cityId) {
-		this.cityId = cityId;
 	}
 
 	public String getCityName() {
 		return cityName;
 	}
 
-	public void setCityName(String cityName) {
-		this.cityName = cityName;
-	}
-
 	public long getExternalCityId() {
 		return externalCityId;
-	}
-
-	public void setExternalCityId(long externalCityId) {
-		this.externalCityId = externalCityId;
 	}
 
 	public String getPostName() {
 		return postName;
 	}
 
-	public void setPostName(String postName) {
-		this.postName = postName;
-	}
-
 	public String getZipCode() {
 		return zipCode;
+	}
+
+	public void setBoxNumber(String boxNumber) {
+		this.boxNumber = boxNumber;
+	}
+
+	public void setCityId(long cityId) {
+		this.cityId = cityId;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
+
+	public void setExternalCityId(long externalCityId) {
+		this.externalCityId = externalCityId;
+	}
+
+	public void setPostName(String postName) {
+		this.postName = postName;
 	}
 
 	public void setZipCode(String zipCode) {

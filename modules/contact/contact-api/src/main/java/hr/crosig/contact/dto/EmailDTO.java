@@ -15,7 +15,7 @@ public class EmailDTO {
 		return emailType;
 	}
 
-	public boolean isPreferredDeliveryAddress() {
+	public boolean getIsPreferredDeliveryAddress() {
 		return isPreferredDeliveryAddress;
 	}
 
@@ -27,8 +27,10 @@ public class EmailDTO {
 		this.emailType = emailType;
 	}
 
-	public void setPreferredDeliveryAddress(boolean preferredDeliveryAddress) {
-		isPreferredDeliveryAddress = preferredDeliveryAddress;
+	public void setIsPreferredDeliveryAddress(
+		boolean isPreferredDeliveryAddress) {
+
+		this.isPreferredDeliveryAddress = isPreferredDeliveryAddress;
 	}
 
 	@Pattern(regexp = "/^[a-z0-9.]+@[a-z0-9]+.[a-z]+.([a-z]+)?$/i")

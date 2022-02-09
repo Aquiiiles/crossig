@@ -9,7 +9,7 @@ public class CityMessages {
 		"There is already a city with the cityId: ";
 
 	public static final String CITY_WITH_THIS_NAME_ALREADY_EXISTS =
-			"There is already a city with the name: ";
+		"There is already a city with the name: ";
 
 	public static final String INSUFICIENT_NAME_LENGTH =
 		"City name length must be higher than 2 to search";
