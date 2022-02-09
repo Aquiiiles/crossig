@@ -4,12 +4,10 @@ import com.liferay.application.list.BasePanelCategory;
 import com.liferay.application.list.PanelCategory;
 import com.liferay.application.list.constants.PanelCategoryKeys;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
 import hr.crosig.common.cache.management.constants.CacheManagementPanelCategoryKeys;
 
 import java.util.Locale;
-import java.util.ResourceBundle;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -33,7 +31,8 @@ public class CacheManagementPanelCategory extends BasePanelCategory {
 
 	@Override
 	public String getLabel(Locale locale) {
-		return LanguageUtil.get(locale, CacheManagementPanelCategoryKeys.CONTROL_PANEL_CATEGORY);
+		return LanguageUtil.get(
+			locale, CacheManagementPanelCategoryKeys.CONTROL_PANEL_CATEGORY);
 	}
 
 }
