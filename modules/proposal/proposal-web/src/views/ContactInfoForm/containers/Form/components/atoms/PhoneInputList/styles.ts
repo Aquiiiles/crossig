@@ -26,6 +26,22 @@ export const PhoneNumberWrapper = styled.li`
   & input {
     width: 38%;
   }
+
+  .country-code {
+    color: #005CD0;
+    border-radius: 0.25rem 0 0 0.25rem;
+    border-right-color: white;
+  }
+
+  .area-code {
+    border-radius: 0 0 0 0;
+    border-left-color: white;
+    border-right-color: white;
+  }
+
+  .phone-number {
+    border-left-color: white;
+  }
 `;
 
 export const LinkWrapper = styled.div`
