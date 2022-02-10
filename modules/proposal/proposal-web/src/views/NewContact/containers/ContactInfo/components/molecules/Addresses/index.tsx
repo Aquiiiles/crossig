@@ -13,7 +13,8 @@ import ClayForm, {
 import {
 	contactTypes,
 	croatiaCountryObject,
-	citiesMock
+	citiesMock,
+	streetsMock
 } from "../../../../../../../constants/contactConstants";
 import { CREATE_NEW_CONTACT } from "../../../../../../../constants/languageKeys";
 import { useContactSelector } from "../../../contactStore";
@@ -27,6 +28,8 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 	);
 
 	const searchCitiesByName = () => citiesMock;
+
+	const searchStreetsByCityIdAndName = () => streetsMock;
 
 	return (
 		<>
@@ -76,11 +79,12 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 				</Row>
 
 				<ClayForm.Group>
-					<label htmlFor='street-address'>
-						{CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS}
-					</label>
-
-					<ClayInput id='street-address' type='text' required={true} />
+					<AutocompleteInput
+						label={CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS}
+						id={"street-addres"}
+						active={country === croatiaCountryObject}
+						getOptions={searchStreetsByCityIdAndName}
+					/>
 				</ClayForm.Group>
 
 				<Row half>
@@ -120,15 +124,11 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 							<ClayForm.Group>
 								<ClayInput.Group>
 									<ClayInput.GroupItem>
-										<label htmlFor='dispatch-city'>
-											{CREATE_NEW_CONTACT.FIELD.CITY}
-										</label>
-
-										<ClayInput
-											id='dispatch-city'
-											aria-required={true}
-											type='text'
-											required={true}
+										<AutocompleteInput
+											label={CREATE_NEW_CONTACT.FIELD.CITY}
+											id={"dispatch-city"}
+											active={country === croatiaCountryObject}
+											getOptions={searchCitiesByName}
 										/>
 									</ClayInput.GroupItem>
 
@@ -144,11 +144,12 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 						</Row>
 
 						<ClayForm.Group>
-							<label htmlFor='dispatch-street-address'>
-								{CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS}
-							</label>
-
-							<ClayInput id='dispatch-street-address' type='text' />
+							<AutocompleteInput
+								label={CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS}
+								id={"dispatch-street-addres"}
+								active={country === croatiaCountryObject}
+								getOptions={searchStreetsByCityIdAndName}
+							/>
 						</ClayForm.Group>
 
 						<Row half>
