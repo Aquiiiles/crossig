@@ -124,13 +124,13 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		return city;
 	}
 
-	public List<String> searchCitiesNamesByName(String cityName)
+	public List<CityDTO> searchCitiesNamesByName(String cityName)
 		throws CityException {
 
 		return searchCitiesNamesByName(cityName, -1, -1);
 	}
 
-	public List<String> searchCitiesNamesByName(
+	public List<CityDTO> searchCitiesNamesByName(
 			String cityName, int start, int end)
 		throws CityException {
 
@@ -150,7 +150,7 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 
 		List<SearchHit> searchHitsList = getSearchHits(searchRequest);
 
-		return getCitiesNames(searchHitsList);
+		return getCities(searchHitsList);
 	}
 
 	protected boolean cityExists(long cityId) {
@@ -202,19 +202,24 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		).build();
 	}
 
-	protected List<String> getCitiesNames(List<SearchHit> searchHitsList) {
-		List<String> citiesNames = new ArrayList<>();
+	protected List<CityDTO> getCities(List<SearchHit> searchHitsList) {
+		List<CityDTO> cities = new ArrayList<>();
 
 		searchHitsList.forEach(
 			searchHit -> {
 				Document doc = searchHit.getDocument();
+				CityDTO city = new CityDTO();
 
+				long cityId = doc.getLong(CityConstants.FIELD_CITY_ID);
 				String name = doc.getString(CityConstants.FIELD_CITY_NAME);
 
-				citiesNames.add(name);
+				city.setCityId(cityId);
+				city.setCityName(name);
+
+				cities.add(city);
 			});
 
-		return citiesNames;
+		return cities;
 	}
 
 	protected List<SearchHit> getSearchHits(SearchRequest searchRequest) {
