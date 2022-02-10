@@ -1,12 +1,15 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { FormSection, SectionSubTitle, Row } from "../../atoms";
+import React, { useState } from "react";
+import {
+	AutocompleteInput,
+	FormSection,
+	Row,
+	SectionSubTitle
+} from "../../atoms";
 import ClayForm, {
 	ClayInput,
 	ClayCheckbox,
 	ClaySelectWithOption
 } from "@clayui/form";
-import ClayAutocomplete from "@clayui/autocomplete";
-import ClayDropDown from "@clayui/drop-down";
 import {
 	contactTypes,
 	croatiaCountryObject,
@@ -18,23 +21,12 @@ import { Line } from "./styles";
 
 const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 	const [country, setCountry] = useState<Object>(croatiaCountryObject);
-	const [cities, setCities] = useState<Array<any>>(citiesMock);
-	const [cityName, setCityName] = useState<string>("");
-	const [loading, setLoading] = useState<boolean>(false);
 	const [sameAddress, setSameAdress] = useState(true);
 	const { contactType } = useContactSelector(
 		(state: { basicInfo: any }) => state.basicInfo
 	);
 
-	const searchCitiesByName = useCallback(() => {
-		if (cityName?.length > 2) {
-			setLoading(true);
-			setCities(citiesMock);
-			setLoading(false);
-		}
-	}, [cityName]);
-
-	useEffect(() => searchCitiesByName, [searchCitiesByName, cityName]);
+	const searchCitiesByName = () => citiesMock;
 
 	return (
 		<>
@@ -64,38 +56,12 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 					<ClayForm.Group>
 						<ClayInput.Group>
 							<ClayInput.GroupItem>
-								<label htmlFor='city'>{CREATE_NEW_CONTACT.FIELD.CITY}</label>
-
-								<ClayAutocomplete>
-									<ClayAutocomplete.Input
-										onChange={(event: {
-											target: { value: React.SetStateAction<string> };
-										}) => setCityName(event.target.value)}
-										value={cityName}
-										id='city'
-									/>
-									<ClayAutocomplete.DropDown
-										active={
-											country === croatiaCountryObject &&
-											!!cities &&
-											cityName?.length > 2
-										}
-										closeOnClickOutside
-									>
-										<ClayDropDown.ItemList>
-											{cities &&
-												cities.map((item) => (
-													<ClayAutocomplete.Item
-														match={cityName}
-														value={item}
-														key={item}
-														onClick={() => setCityName(item)}
-													/>
-												))}
-										</ClayDropDown.ItemList>
-									</ClayAutocomplete.DropDown>
-									{loading && <ClayAutocomplete.LoadingIndicator />}
-								</ClayAutocomplete>
+								<AutocompleteInput
+									label={CREATE_NEW_CONTACT.FIELD.CITY}
+									id={"city"}
+									active={country === croatiaCountryObject}
+									getOptions={searchCitiesByName}
+								/>
 							</ClayInput.GroupItem>
 
 							<ClayInput.GroupItem>
