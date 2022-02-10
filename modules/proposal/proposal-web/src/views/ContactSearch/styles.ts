@@ -17,3 +17,7 @@ export const Content = styled.div`
   flex: 1;
   padding: 1.25rem;
 `;
+
+export const EmptySpace = styled.div`
+  height: calc(65px + 121px);
+`;

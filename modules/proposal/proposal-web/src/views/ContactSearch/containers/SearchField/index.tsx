@@ -110,6 +110,7 @@ const SearchField: React.FC<props> = ({ fetchSearchResultData }: props) => {
         style={fieldSize}
         active={expand}
         alignElementRef={triggerElementRef}
+        closeOnClickOutside
         onSetActive={() => {}}
       >
         <SearchFilters
