@@ -23,6 +23,7 @@ export const CONTACT_INFO_INVALID_EMAIL_MESSAGE = Liferay.Language.get('contact-
 
 export const CONTACT_SEARCH_TITLE= Liferay.Language.get('contact-search-title');
 export const CONTACT_SEARCH_SUBTITLE= Liferay.Language.get('contact-search-subtitle');
+export const CONTACT_SEARCH_ACTION_BUTTON= Liferay.Language.get('contact-search-action-button');
 export const CONTACT_SEARCH_FIELD_NAME_OR_OIB= Liferay.Language.get('contact-search-field-name-or-oib');
 export const CONTACT_SEARCH_FIELD_CITY= Liferay.Language.get('contact-search-field-city');
 export const CONTACT_SEARCH_FIELD_STREET_ADDRESS= Liferay.Language.get('contact-search-field-street-address');

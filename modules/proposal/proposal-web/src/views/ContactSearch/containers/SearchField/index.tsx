@@ -4,10 +4,13 @@ import ClayForm, { ClayInput } from "@clayui/form";
 import ClayDropDown from "@clayui/drop-down";
 import SearchFilters from "./components/molecules/SearchFilters";
 import ArrowButton from "./components/atoms/ArrowButton";
-import { CONTACT_SEARCH_FIELD_NAME_OR_OIB } from "../../../../constants/languageKeys";
 import { mapToCountryCodes } from "../../../../shared/util/countryMappers";
 
 import { Wrapper, SearchWrapper } from "./styles";
+import {
+  CONTACT_SEARCH_FIELD_NAME_OR_OIB,
+  CONTACT_SEARCH_ACTION_BUTTON,
+} from "../../../../constants/languageKeys";
 import { SEARCH_URL } from "../../../../api/constants/routes";
 import { useContactSelector } from "../../../../redux/store";
 import { FetchDataFunction } from "../../../../api/hooks/useFetchData";
@@ -99,7 +102,7 @@ const SearchField: React.FC<props> = ({ fetchSearchResultData }: props) => {
           disabled={disabled}
           onClick={fetchData}
         >
-          SEARCH
+          {CONTACT_SEARCH_ACTION_BUTTON}
         </ClayButton>
       </SearchWrapper>
       <ClayDropDown.Menu
