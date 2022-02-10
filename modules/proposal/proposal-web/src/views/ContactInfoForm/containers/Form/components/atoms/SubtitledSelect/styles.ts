@@ -1,19 +1,18 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  label {
-    display: flex;
-    justify-content: flex-end;
-    width: 15rem;
-  }
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
 
   .form-text {
+    width: 15rem;
     display: flex;
     justify-content: flex-end;
-    width: 15rem;
   }
 
-  .padded {
-    padding-top:1.7rem;
+  .padded-select {
+    width: min-content;
+    margin-top: 2.02rem;
   }
 `;

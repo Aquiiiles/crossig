@@ -6,9 +6,3 @@ export const ButtonWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
-
-export const StyledClaySelectWithOption = styled(ClaySelectWithOption)`
-  .form-control-select {
-    background-image: clay-icon(caret-bottom, #000000);
-  }
-`;
