@@ -1,8 +1,13 @@
 .cap {
+    .form-group {
+        text-align: left;
+    }
+
     .input-label {
         font-size: 1rem;
         line-height: 1.5rem;
         color: #1A1A1A; // export
+        // color: red;
         opacity: 0.8;
     }
 
@@ -10,6 +15,22 @@
         font-family: CrosigSans-Regular;
         font-size: 0.8125rem;
         color: #79838C;
+        // color: red;
+    }
+    
+    .form-feedback-text {
+        font-family: CrosigSans-Regular;
+        font-size: 0.8125rem;
+
+        &.success {
+            color: #00CB79;
+        }
+        &.warning {
+            color: #FFCF56;
+        }
+        &.danger {
+            color: #FF0000;
+        }
     }
     
     .form-mandatory-field {
@@ -19,7 +40,7 @@
         color: #FF0000; // export
     }
 
-    input[type=text] {
+    .form-input {
         height: 3.4375rem;
         border-radius: 0.75rem;
         padding: 0.75rem 1rem;
@@ -44,8 +65,10 @@
             color: #79838C;
         }
 
-        &:active {
+        &:focus &:hover {
             border-color: #2172FF; // export
+            pointer-events: none;
+            box-shadow: none;
         }
 
         &.filled {

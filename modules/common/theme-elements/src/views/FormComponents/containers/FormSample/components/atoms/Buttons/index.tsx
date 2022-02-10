@@ -1,19 +1,54 @@
 import React from "react";
 
+import ClayButton from '@clayui/button';
 import ClayIcon from "@clayui/icon";
 import spritemap from "@clayui/css/lib/images/icons/icons.svg";
-import { Button } from "./styles";
+// import { Button } from "./styles";
 
 interface props {
+  size: string,
+  type: string, // solid, ghost, borderless
+  label: string,
+  icon: string,
+  disabled: boolean
   onClick: () => void;
 }
 
-const Buttons: React.FC<props> = ({  onClick }: props) => {
+const ButtonCrosig: React.FC<props> = ({
+  size,
+  type,
+  label,
+  icon,
+  disabled,
+  onClick
+}: props) => {
+
+
   return (
-    <Button displayType={null} onClick={onClick} >
-      <ClayIcon symbol="angle-down" spritemap={spritemap} />
-    </Button>
+    <ClayButton
+      className={`
+        btn-${size} ${type}
+        ${label === '' ? 'icon-only' : ''}
+        ${disabled ? 'disabled' : ''}
+      `}
+      disabled={disabled}
+      onClick={onClick}
+    >
+      {
+        icon !== ""
+          ? 
+            <span className="icon-btn">
+              <ClayIcon symbol={icon} spritemap={spritemap} />
+            </span>
+          : ""
+      }
+      {
+        label !== ""
+          ? label
+          : ""
+      }
+    </ClayButton>
   );
 };
 
-export default Buttons;
+export default ButtonCrosig;

@@ -1120,6 +1120,15 @@
     "@clayui/shared" "^3.45.0"
     classnames "^2.2.6"
 
+"@clayui/alert@^3.40.0":
+  version "3.40.0"
+  resolved "https://registry.yarnpkg.com/@clayui/alert/-/alert-3.40.0.tgz#de7d721754973904b5859d867439788e22ba8aab"
+  integrity sha512-UJKRvL4NBc66gknQ9LlBO4eP825xIWSEM8kFYdq0GSZ2g7vGbr0curQd0s9nhJS91tjWm/S5Ct6J7oFYNqnjbA==
+  dependencies:
+    "@clayui/icon" "^3.40.0"
+    "@clayui/layout" "^3.40.0"
+    classnames "^2.2.6"
+
 "@clayui/icon@^3.40.0":
   version "3.40.0"
   resolved "https://registry.yarnpkg.com/@clayui/icon/-/icon-3.40.0.tgz#e00efd08f9becf4aecd046bef9496a26aa2f3318"
@@ -1170,6 +1179,14 @@
     "@clayui/icon" "^3.40.0"
     "@clayui/shared" "^3.45.0"
     classnames "^2.2.6"
+
+"@clayui/layout@^3.40.0":
+  version "3.40.0"
+  resolved "https://registry.yarnpkg.com/@clayui/layout/-/layout-3.40.0.tgz#321477facebd903692d936ba5a8666af7f0e3a7a"
+  integrity sha512-Mr/TKRY7wp/HncRo8gzOE0CCeSGue3/LEkcA/cP5W0q1v8k41xgAkIaBHLSW+ApIqMo1lqseWsRSQ28gC8lSTA==
+  dependencies:
+    classnames "^2.2.6"
+    warning "^4.0.3"
 
 "@csstools/normalize.css@*":
   version "12.0.0"
