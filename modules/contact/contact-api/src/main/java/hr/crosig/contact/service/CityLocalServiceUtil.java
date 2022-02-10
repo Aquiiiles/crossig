@@ -288,7 +288,14 @@ public class CityLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static List<String> searchCitiesNamesByName(
+	public static List<hr.crosig.contact.dto.CityDTO> searchCitiesNamesByName(
+			String cityName)
+		throws hr.crosig.contact.exception.CityException {
+
+		return getService().searchCitiesNamesByName(cityName);
+	}
+
+	public static List<hr.crosig.contact.dto.CityDTO> searchCitiesNamesByName(
 			String cityName, int start, int end)
 		throws hr.crosig.contact.exception.CityException {
 

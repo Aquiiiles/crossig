@@ -321,8 +321,16 @@ public class CityLocalServiceWrapper
 	}
 
 	@Override
-	public java.util.List<String> searchCitiesNamesByName(
-			String cityName, int start, int end)
+	public java.util.List<hr.crosig.contact.dto.CityDTO>
+			searchCitiesNamesByName(String cityName)
+		throws hr.crosig.contact.exception.CityException {
+
+		return _cityLocalService.searchCitiesNamesByName(cityName);
+	}
+
+	@Override
+	public java.util.List<hr.crosig.contact.dto.CityDTO>
+			searchCitiesNamesByName(String cityName, int start, int end)
 		throws hr.crosig.contact.exception.CityException {
 
 		return _cityLocalService.searchCitiesNamesByName(cityName, start, end);

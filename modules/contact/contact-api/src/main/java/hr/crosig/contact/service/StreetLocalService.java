@@ -258,8 +258,13 @@ public interface StreetLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<String> searchStreetsNamesByNameAndCityId(
+			String streetName, long cityId)
+		throws StreetException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<String> searchStreetsNamesByNameAndCityId(
 			String streetName, long cityId, int start, int end)
-		throws Exception;
+		throws StreetException;
 
 	/**
 	 * Updates the street in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
