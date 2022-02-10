@@ -1,269 +1,241 @@
 {
-	"auth": {
-		"basic": [
-			{
-				"key": "password",
-				"type": "string",
-				"value": "test"
-			},
-			{
-				"key": "username",
-				"type": "string",
-				"value": "test@liferay.com"
-			}
-		],
-		"type": "basic"
-	},
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"exec": [
-					""
-				],
-				"type": "text/javascript"
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"exec": [
-					""
-				],
-				"type": "text/javascript"
-			}
-		}
-	],
 	"info": {
-		"_postman_id": "da202f12-3822-42fc-8a76-892dbda98f10",
+		"_postman_id": "e14839a0-55e3-4668-9ce3-a30f66278e1d",
 		"name": "Crosig Agent Portal Contact",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Search Contact",
-			"request": {
-				"header": [
-				],
-				"method": "GET",
-				"url": {
-					"host": [
-						"{{localURL}}contact"
-					],
-					"path": [
-						"search"
-					],
-					"query": [
-						{
-							"key": "nameOrOIB",
-							"value": null
-						},
-						{
-							"key": "city",
-							"value": null
-						},
-						{
-							"key": "streetAddress",
-							"value": null
-						},
-						{
-							"key": "phoneCountryCode",
-							"value": null
-						},
-						{
-							"key": "phoneAreaCode",
-							"value": null
-						},
-						{
-							"key": "phoneNumber",
-							"value": null
-						},
-						{
-							"key": "email",
-							"value": null
-						}
-					],
-					"raw": "{{localURL}}contact/search?nameOrOIB&city&streetAddress&phoneCountryCode&phoneAreaCode&phoneNumber&email"
-				}
-			},
-			"response": [
-			]
-		},
-		{
 			"name": "Create Contact",
 			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
+					"raw": "  {\n    \"addresses\": [\n      {\n        \"zipCode\": \"32100\",\n        \"country\": {\n          \"id\": 51\n        },\n        \"apartmentNr\": \"222\",\n        \"addressType\": {\n          \"id\": 1000000\n        },\n        \"streetName\": \"ANTUNA MIHANOVIĆA\",\n        \"cityName\": \"VINKOVCI\",\n        \"houseNr\": \"1\",\n        \"isPreferredDeliveryAddress\": true\n      }\n    ],\n    \"entityType\": {\n         \"id\": 1\n    },\n    \"identifiers\": [\n        {\n            \"idType\": {\n                \"id\": 1000000\n            },\n            \"idValue\": \"36584978501\"\n        }\n    ],\n    \"dateOfBirth\": \"1979-02-03T00:00:00.000Z\",\n    \"firstName\": \"Leonardo\",\n    \"name\": \"Miyagi\",\n    \"middleName\": \"\"\n  }\n\n",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
-					},
-					"raw": "{\n    \"contactType\": 1,\n    \"firstName\": \"John\",\n    \"lastName\": \"Silberman\",\n    \"dateOfBirth\": \"022-01-25\",\n    \"oib\": 123456789,\n    \"foreignerStatus\": true,\n    \"country\": \"Croatia\",\n    \"city\": \"Dubrovnik\",\n    \"postalCode\": \"20000\",\n    \"streetAddress\": \"Ul. Svetog Dominika\",\n    \"houseNumber\": \"67\",\n    \"dispatchCountry\": \"Croatia\",\n    \"dispatchCity\": \"Dubrovnik\",\n    \"dispatchPostalCode\": \"20000\",\n    \"dispatchStreetAddress\": \"Ul. Svetog Dominika\",\n    \"dispatchHouseNumber\": \"67\",\n    \"emails\": [\n        \"a@gmail.com\",\n        \"b@gmail.com\"\n    ],\n    \"phoneNumbers\": [\n        {\n            \"countryCode\": 385,\n            \"areaCode\": 91,\n            \"phoneNumber\": \"6457900\"\n        }\n    ]\n}"
-				},
-				"header": [
-					{
-						"key": "Accept",
-						"type": "text",
-						"value": "application/json"
 					}
-				],
-				"method": "POST",
+				},
 				"url": {
+					"raw": "{{localURL}}contact",
 					"host": [
 						"{{localURL}}contact"
-					],
-					"raw": "{{localURL}}contact"
+					]
 				}
 			},
-			"response": [
-			]
+			"response": []
 		},
 		{
 			"name": "Update Contact",
 			"request": {
+				"method": "PUT",
+				"header": [],
 				"body": {
 					"mode": "raw",
+					"raw": "{\n  \"addresses\": [\n    {\n      \"addressType\": {\n        \"id\": 1000000\n      },\n      \"apartmentNr\": \"222\",\n      \"cityName\": \"VINKOVCI\",\n      \"country\": {\n        \"id\": 51\n      },\n      \"houseNr\": \"1\",\n      \"isPreferredDeliveryAddress\": true,\n      \"streetName\": \"ANTUNA MIHANOVIĆA\",\n      \"zipCode\": \"32100\"\n    }\n  ],\n  \"dateOfBirth\": \"1979-02-03T00:00:00.000Z\",\n  \"emails\": [\n    {\n      \"email\": \"leonardo@email.com.br\",\n      \"emailType\": {\n        \"id\": 1\n      },\n      \"isPreferredDeliveryAddress\": true\n    }\n  ],\n  \"entityType\": {\n    \"id\": 1\n  },\n  \"firstName\": \"Leonardo\",\n  \"identifiers\": [\n    {\n      \"idType\": {\n        \"id\": 1000000\n      },\n      \"idValue\": \"36584978501\"\n    }\n  ],\n  \"middleName\": \"\",\n  \"name\": \"Miyagi\",\n  \"id\": 526332\n}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
-					},
-					"raw": "{\n    \"contactType\": 1,\n    \"firstName\": \"John\",\n    \"lastName\": \"Silberman\",\n    \"dateOfBirth\": \"022-01-25\",\n    \"oib\": 123456789,\n    \"foreignerStatus\": true,\n    \"country\": \"Croatia\",\n    \"city\": \"Dubrovnik\",\n    \"postalCode\": \"20000\",\n    \"streetAddress\": \"Ul. Svetog Dominika\",\n    \"houseNumber\": \"67\",\n    \"dispatchCountry\": \"Croatia\",\n    \"dispatchCity\": \"Dubrovnik\",\n    \"dispatchPostalCode\": \"20000\",\n    \"dispatchStreetAddress\": \"Ul. Svetog Dominika\",\n    \"dispatchHouseNumber\": \"67\",\n    \"emails\": [\n        \"a@gmail.com\",\n        \"b@gmail.com\"\n    ],\n    \"phoneNumbers\": [\n        {\n            \"countryCode\": 385,\n            \"areaCode\": 91,\n            \"phoneNumber\": \"6457900\"\n        }\n    ]\n}"
+					}
 				},
-				"header": [
-				],
-				"method": "PUT",
 				"url": {
+					"raw": "{{localURL}}contact",
 					"host": [
 						"{{localURL}}contact"
-					],
-					"raw": "{{localURL}}contact"
+					]
 				}
 			},
-			"response": [
-			]
+			"response": []
 		},
 		{
 			"name": "Get Cities",
 			"request": {
-				"header": [
-				],
 				"method": "GET",
+				"header": [],
 				"url": {
+					"raw": "{{localURL}}city/",
 					"host": [
 						"{{localURL}}city"
 					],
 					"path": [
 						""
-					],
-					"raw": "{{localURL}}city/"
+					]
 				}
 			},
-			"response": [
-			]
+			"response": []
 		},
 		{
 			"name": "Get Streets by City",
 			"request": {
-				"header": [
-				],
 				"method": "GET",
+				"header": [],
 				"url": {
+					"raw": "{{localURL}}city/1/streets",
 					"host": [
 						"{{localURL}}city"
 					],
 					"path": [
-						""
-					],
-					"query": [
-						{
-							"key": "cityId",
-							"value": "1"
-						}
-					],
-					"raw": "{{localURL}}city/?cityId=1"
+						"1",
+						"streets"
+					]
 				}
 			},
-			"response": [
-			]
+			"response": []
 		},
 		{
 			"name": "Get Area Codes",
 			"request": {
-				"header": [
-				],
 				"method": "GET",
+				"header": [],
 				"url": {
+					"raw": "{{localURL}}phone/area-code",
 					"host": [
 						"{{localURL}}phone"
 					],
 					"path": [
 						"area-code"
-					],
-					"raw": "{{localURL}}phone/area-code"
+					]
 				}
 			},
-			"response": [
-			]
+			"response": []
 		},
 		{
 			"name": "Mail Validation",
 			"request": {
+				"method": "POST",
+				"header": [],
 				"body": {
 					"mode": "raw",
+					"raw": "[\n  {\n    \"email\":\"test@crosig.hr\",\n    \"emailType\": {\n        \"id\": 1\n    }\n  }\n]",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
-					},
-					"raw": "[\n  {\n    \"ifsId\":1,\n    \"email\":\"test@crosig.hr\",\n    \"emailTypeId\":1,\n    \"emailTypeExternalCode\":1,\n    \"brand\":1,\n    \"userName\":\"user\"\n  }\n]"
+					}
 				},
-				"header": [
-				],
-				"method": "POST",
 				"url": {
+					"raw": "{{localURL}}contact/email/verification",
 					"host": [
-						"{{localURL}}"
+						"{{localURL}}contact"
 					],
 					"path": [
-						"contact",
-						"email"
-					],
-					"raw": "{{localURL}}contact/email/verification"
+						"email",
+						"verification"
+					]
 				}
 			},
-			"response": [
-			]
+			"response": []
 		},
 		{
 			"name": "Phone Validation",
 			"request": {
+				"method": "POST",
+				"header": [],
 				"body": {
 					"mode": "raw",
+					"raw": "[\n    {\n        \"telephoneNumber\": \"6457900\",\n        \"telephoneType\": {\n            \"id\": 1\n        }\n    }\n]",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
-					},
-					"raw": "[\n    {\n        \"ifsId\": 1,\n        \"countryCode\": \"385\",\n        \"phoneNumber\": \"6457900\",\n        \"phoneNumberTypeId\": 1,\n        \"phoneNumberTypeExternalCode\": \"1\",\n        \"brand\": \"some brand\",\n        \"username\": \"some username\"\n    }\n]"
+					}
 				},
-				"header": [
-				],
-				"method": "POST",
 				"url": {
+					"raw": "{{localURL}}contact/phone/verification",
 					"host": [
-						"{{localURL}}"
+						"{{localURL}}contact"
 					],
 					"path": [
-						"contact",
-						"mobilePhone"
-					],
-					"raw": "{{localURL}}contact/phone/verification"
+						"phone",
+						"verification"
+					]
 				}
 			},
-			"response": [
-			]
+			"response": []
+		},
+		{
+			"name": "Search Contact By OIB",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "test",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "test@liferay.com",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n    {   \n        \"finderKey\": 1,\n        \"identityNumber\": \"36584978501\",\n        \"identifierType\": 1000000\n    }"
+				},
+				"url": {
+					"raw": "{{localURL}}search",
+					"host": [
+						"{{localURL}}search"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "test",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "test@liferay.com",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	],
 	"variable": [
