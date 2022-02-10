@@ -2,12 +2,11 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   & a.active {
-    color: #005CD0;
+    color: ${props => props.theme.color.action.active}
   }
 
   & a.disabled {
-    color: #005CD0;
+    color: ${props => props.theme.color.action.disabled}
     pointer-events: none;
-    opacity: 0.7;
   }
 `;

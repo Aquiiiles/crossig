@@ -3,6 +3,7 @@ import ClayButton from "@clayui/button";
 
 export const Button = styled(ClayButton)`
   border: none;
-  color: #f6f7f7;
-  background-color: #051226 !important;
+  color: ${props => props.theme.color.neutral.white};
+  background-color: ${props => props.theme.color.action.default};
+
 `;

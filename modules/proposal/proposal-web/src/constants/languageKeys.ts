@@ -6,6 +6,7 @@ export const CONTACT_INFO_AREA_CODE = Liferay.Language.get('contact-info-area-co
 export const CONTACT_INFO_CANCEL = Liferay.Language.get('contact-info-cancel');
 export const CONTACT_INFO_COUNTRY_CODE = Liferay.Language.get('contact-info-country-code');
 export const CONTACT_INFO_PHONE_NUMBER = Liferay.Language.get('contact-info-phone-number');
+export const CONTACT_INFO_PHONE_NUMBER_ERROR = Liferay.Language.get('contact-info-phone-number-error');
 export const CONTACT_INFO_TITLE = Liferay.Language.get('contact-info-title');
 export const CONTACT_INFO_MAIN_EMAIL = Liferay.Language.get('contact-info-main-email');
 export const CONTACT_INFO_MAIN_EMAIL_SUBTITLE = Liferay.Language.get('contact-info-main-email-subtitle');

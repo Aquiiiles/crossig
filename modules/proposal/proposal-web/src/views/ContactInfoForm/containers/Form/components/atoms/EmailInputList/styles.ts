@@ -7,13 +7,16 @@ export const StyledFormGroup = styled(ClayForm.Group)`
   grid-auto-rows: auto;
   row-gap: 1rem;
 
-  .email-label {
-    color: #1A1A1A;
-    opacity: 0.8;
+  & input {
+    color: ${props => props.theme.color.primary.links};
+  }
+
+  .form-control:focus {
+    color: ${props => props.theme.color.primary.links};
   }
 `;
 
 export const Error = styled.small`
-  font-size: 12px;
-  color: red;
+  font-size: 13px;
+  color: ${props => props.theme.color.feedback.error};
 `;

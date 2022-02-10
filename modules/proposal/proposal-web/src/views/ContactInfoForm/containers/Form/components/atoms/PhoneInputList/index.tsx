@@ -4,10 +4,11 @@ import React, {
   useEffect,
   useState
 } from "react";
-import { ClayInput, ClaySelectWithOption } from "@clayui/form";
+import { ClayInput, ClaySelect, ClaySelectWithOption } from "@clayui/form";
 import { 
   CONTACT_INFO_ADD_MOBILE_PHONE,
-  CONTACT_INFO_PHONE_NUMBER
+  CONTACT_INFO_PHONE_NUMBER,
+  CONTACT_INFO_PHONE_NUMBER_ERROR
 } from "../../../../../../../constants/languageKeys";
 import { MAXIMUM_MOBILE_PHONES } from "../../../../../constants/index"; 
 import {
@@ -51,6 +52,11 @@ const PhoneInputList: React.FC<props> = (props) => {
 
   const [countries, setCountries] = useState<Array<Country>>([croatiaCountry]);
   const [hasSomeInvalidPhone, setSomeInvalidPhone] = useState(false);
+
+  const defaultAreaCodeOption = {
+    value: "",
+    label: "Area Code",
+  }
 
 	const loadCountries = useCallback(() => {
 		Liferay.Service(
@@ -116,43 +122,76 @@ const PhoneInputList: React.FC<props> = (props) => {
     validatePhones();
   }
 
+  const displayAreaCode = (phoneNumber:PhoneNumber) => {
+    let style = "area-code" ;
+    
+    if (phoneNumber.countryCode !== croatiaCountry.label) {
+      style += " hidden-select"
+      phoneNumber.areaCode = "";
+    } 
+
+    return style;
+  }
+
+  const handlePhoneInputWidth = (countryCode:string) => {
+    let style = "phone-number" ;
+    if (countryCode !== croatiaCountry.label) {
+      style += " stretch-phone-number"
+    } 
+
+    return style;
+  }
+
   return (
     <StyledFormGroup>
-      <label className={'phone-label'}>
-        {CONTACT_INFO_PHONE_NUMBER}
-      </label>
+      <label>{CONTACT_INFO_PHONE_NUMBER}</label>
       <OrderedListWrapper>
         {props.phoneNumbers.map((phoneNumber, index) => {
           return <li key={`phoneInputList${index}`}>
-                   <PhoneNumberWrapper>
-                     <ClaySelectWithOption
-                        id={`countryCodeSelect${index}`}
-                        className="country-code"
-                        onChange={e => handleChange(index, e, "countryCode")}
-                        value={phoneNumber.countryCode}
-                        options={createOptionsWithFlags()}>
-                    </ClaySelectWithOption>
+                    <PhoneNumberWrapper>
+                      <ClaySelectWithOption
+                          id={`countryCodeSelect${index}`}
+                          className="country-code"
+                          onChange={e => handleChange(index, e, "countryCode")}
+                          value={phoneNumber.countryCode}
+                          options={createOptionsWithFlags()}>
+                      </ClaySelectWithOption>
 
-                     <ClaySelectWithOption
-                       id={`areaCodeSelect${index}`}
-                       className="area-code"
-                       onChange={e => handleChange(index, e, "areaCode")}
-                       value={phoneNumber.areaCode}
-                       options={props.areaCodeOptions}
-                     />
+                      <ClaySelect 
+                        aria-label="Select Label"
+                        id={`areaCodeSelect${index}`}
+                        className={displayAreaCode(phoneNumber)}
+                        onChange={e => handleChange(index, e, "areaCode")}
+                        value={phoneNumber.areaCode}>
+                          <ClaySelect.Option
+                            className="area-code-default-option"
+                            disabled={true}
+                            key={defaultAreaCodeOption.value}
+                            label={defaultAreaCodeOption.label}
+                            value={defaultAreaCodeOption.value}
+                          />
+                          {props.areaCodeOptions.map(item => (
+                              <ClaySelect.Option
+                                className="area-code-option"
+                                key={item.value}
+                                label={item.label}
+                                value={item.value}
+                              />
+                          ))}
+                      </ClaySelect>
 
-                     <ClayInput 
-                       id={`phoneNumber${index}`}
-                       className="phone-number"
-                       type="number"
-                       onChange={e => handleChange(index, e, "phoneNumber")}
-                       value={phoneNumber.phoneNumber}
-                     />
-                   </PhoneNumberWrapper>
+                      <ClayInput 
+                        id={`phoneNumber${index}`}
+                        className={handlePhoneInputWidth(phoneNumber.countryCode)}
+                        type="number"
+                        onChange={e => handleChange(index, e, "phoneNumber")}
+                        value={phoneNumber.phoneNumber}
+                      />
+                    </PhoneNumberWrapper>
                  </li>;
-          })}
+        })}
       </OrderedListWrapper>
-      {hasSomeInvalidPhone && <Error>{"Phone number must be 4 to 7 digits"}</Error>}
+      {hasSomeInvalidPhone && <Error>{CONTACT_INFO_PHONE_NUMBER_ERROR}</Error>}
       <LinkWrapper 
         title={CONTACT_INFO_ADD_MOBILE_PHONE}
         handleClick={props.addPhoneInput}

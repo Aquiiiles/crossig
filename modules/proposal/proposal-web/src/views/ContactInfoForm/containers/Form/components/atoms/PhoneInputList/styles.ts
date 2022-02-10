@@ -6,10 +6,6 @@ export const StyledFormGroup = styled(ClayForm.Group)`
   grid-template-columns: 80%;
   grid-auto-rows: auto;
   row-gap: 1rem;
-
-  .phone-label {
-    color: #1A1A1A;
-    opacity: 0.8;
   }
 `;
 
@@ -19,35 +15,48 @@ export const PhoneNumberWrapper = styled.li`
   justify-content: space-between;
   flex-wrap: wrap;
 
-  & select {
-    width: 31%;
+  & input {
+    color: ${props => props.theme.color.primary.links};
+    width: 65%;
   }
 
-  & input {
-    width: 38%;
+  option:disabled {
+    color: ${props => props.theme.color.action.disabled};
   }
 
   .country-code {
-    color: #005CD0;
+    width: 15%;
+    color: ${props => props.theme.color.primary.links};
     border-radius: 0.25rem 0 0 0.25rem;
     border-right-color: white;
   }
 
   .area-code {
+    width: 20%;
     border-radius: 0 0 0 0;
     border-left-color: white;
     border-right-color: white;
   }
 
+  .area-code-default-option {
+    color: ${props => props.theme.color.neutral.neutralGreyText};
+  }
+
+  .area-code-option {
+    color: ${props => props.theme.color.primary.links};
+  }
+
   .phone-number {
+    color: ${props => props.theme.color.primary.links};
     border-left-color: white;
   }
-`;
 
-export const LinkWrapper = styled.div`
-  & a {
-    color: #394a64;
-    text-decoration: underline;
+  .hidden-select {
+    display: none;
+  }
+
+  .stretch-phone-number {
+    width: 85%;
   }
 `;
 
@@ -70,8 +79,7 @@ export const OrderedListWrapper = styled.ol`
   }
 `;
 
-
 export const Error = styled.small`
-  font-size: 12px;
-  color: red;
+  font-size: 13px;
+  color: ${props => props.theme.color.feedback.error};
 `;
