@@ -26,8 +26,8 @@ import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 		JaxrsWhiteboardConstants.JAX_RS_APPLICATION_BASE + "=/agent-portal/phone",
 		JaxrsWhiteboardConstants.JAX_RS_NAME + "=Phone.Rest",
 		JaxrsWhiteboardConstants.JAX_RS_MEDIA_TYPE + "=application/json",
-		"auth.verifier.guest.allowed=true",
-		"liferay.access.control.disable=true"
+		"auth.verifier.guest.allowed=false",
+		"liferay.access.control.disable=false"
 	},
 	service = Application.class
 )

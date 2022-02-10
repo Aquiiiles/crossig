@@ -27,7 +27,7 @@ export const useFetchData = () => {
     const fetchData = useCallback(
         async (url, params) => {
             dispatch({type: PENDING});
-            API.get(url, params).then(
+            API.post(url, params).then(
                 (response) => {
                     dispatch({type: RESOLVED, response});
                     console.log('response', response);
@@ -39,5 +39,19 @@ export const useFetchData = () => {
         },
         [dispatch]);
 
-    return {state, fetchData, dispatch};
+
+    const get = useCallback(
+        (url, params) => {
+            dispatch({type: PENDING});
+            API.get(url, params).then(
+                (response) => {
+                    dispatch({type: RESOLVED, response});
+                }).catch(
+                (error) => {
+                    dispatch({type: REJECTED, error});
+                })
+        },
+        [dispatch]);
+
+    return {state, fetchData, dispatch, get};
 };
