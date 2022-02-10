@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useState } from "react";
+import React, { Fragment, MouseEventHandler, useState } from "react";
 import { ClayInput } from "@clayui/form";
 import {
   CONTACT_INFO_ADD_EMAIL_ADDRESS,
@@ -42,15 +42,17 @@ const EmailListInput: React.FC<props> = (props) => {
 
   return (
     <StyledFormGroup>
-      <label>{CONTACT_INFO_EMAIL_ADDRESS}</label>
       {props.emails.map((email, index) => {
-        return <ClayInput
-                 key={`emailInputKey${index}`}
-                 id={`emailInput${index}`}
-                 type="text"
-                 onChange={e => handleChange(index, e)}
-                 value={email.toString()}
-               />;
+        return <Fragment>
+                  <label>{CONTACT_INFO_EMAIL_ADDRESS}</label>
+                  <ClayInput
+                          key={`emailInputKey${index}`}
+                          id={`emailInput${index}`}
+                          type="text"
+                          onChange={e => handleChange(index, e)}
+                          value={email.toString()}
+                        />
+               </Fragment>;
         })}
       {hasSomeInvalidEmail && <Error>{CONTACT_INFO_INVALID_EMAIL_MESSAGE}</Error>}
       <LinkWrapper 

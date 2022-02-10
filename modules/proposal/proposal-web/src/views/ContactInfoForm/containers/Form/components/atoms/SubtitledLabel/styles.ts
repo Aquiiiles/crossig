@@ -14,6 +14,6 @@ export const Wrapper = styled.div`
   }
 
   .padded {
-    padding-top:1.7rem;
+    padding-top: 2.06rem;
   }
 `;

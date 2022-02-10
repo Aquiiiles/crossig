@@ -88,8 +88,16 @@ const ContactInfoFields: React.FC = () =>  {
     }
   }
 
-  const shouldDisplayOtherEmailLabel = () => {
-    return emailAddresses.length > 1;
+  const getEmailLabelTitle = (index:number) => {
+    return index == 0 ? CONTACT_INFO_MAIN_EMAIL : CONTACT_INFO_OTHER_EMAIL_ADDRESSES;
+  }
+
+  const getEmailLabelSubtitle = (index:number) => {
+    return index == 0 ? CONTACT_INFO_MAIN_EMAIL_SUBTITLE : CONTACT_INFO_OTHER_EMAIL_ADDRESSES_SUBTITLE;
+  }
+
+  const shouldPadEmailLabel = (index:number) => {
+    return !(index == 0);
   }
 
   const shouldDisplayOtherMobileSelect = () => {
@@ -110,19 +118,15 @@ const ContactInfoFields: React.FC = () =>  {
   return (
       <Fragment>
         <FormSection title={CONTACT_INFO_TITLE}>
-        <ClayForm.Group>
-            <SubtitledLabel 
-              title={CONTACT_INFO_MAIN_EMAIL} 
-              subTitle={CONTACT_INFO_MAIN_EMAIL_SUBTITLE}
-              padded={false}
-            />
-            {shouldDisplayOtherEmailLabel() && 
-              <SubtitledLabel 
-                title={CONTACT_INFO_OTHER_EMAIL_ADDRESSES} 
-                subTitle={CONTACT_INFO_OTHER_EMAIL_ADDRESSES_SUBTITLE}
-                padded={true}
+          <ClayForm.Group>
+            {emailAddresses.map((email, index) => (
+                <SubtitledLabel
+                  key={"email-label-" + index}
+                  title={getEmailLabelTitle(index)} 
+                  subTitle={getEmailLabelSubtitle(index)}
+                  padded={shouldPadEmailLabel(index)}
               />
-            }
+            ))}
           </ClayForm.Group>
           <Row>
             <ClayForm.Group>
@@ -144,7 +148,7 @@ const ContactInfoFields: React.FC = () =>  {
             />
             {shouldDisplayOtherMobileSelect() && 
               <SubtitledSelect 
-                options={options} 
+                options={options}
                 subTitle={CONTACT_INFO_OTHER_MOBILE_PHONES_SUBTITLE}
               />
             }
@@ -167,7 +171,6 @@ const ContactInfoFields: React.FC = () =>  {
           handleClick={history.goBack}
           disabled={false}
           />
-          
         <CreateContactButton 
           handleClick={() => {return;}} 
         />
