@@ -9,7 +9,7 @@
 		</div>
 
 		<div>
-			<button class="btn btn-primary">NEW PROPOSAL</button>
+			<button class="btn btn-primary" onclick={location.href='/group/agent-portal/proposal'}>NEW PROPOSAL</button>
 		</div>
 	</div>
 </header>
