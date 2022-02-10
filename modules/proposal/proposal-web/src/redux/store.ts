@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import basicInfoReducer from "./components/molecules/BasicInfo/slice/basicInfoSlice";
-import contactinfoReducer from "./components/molecules/ContactInfoForm/slice/contactInfoSlice";
+import contactinfoReducer from "../views/NewContact/containers/ContactInfo/components/molecules/ContactInfoForm/slice/contactInfoSlice";
+import basicInfoReducer from "./basicInfoSlice";
 
 export const getInitialState = () => {
   return configureStore({
