@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import ClayForm, {ClayInput, ClaySelect} from "@clayui/form";
 import ClayButton from "@clayui/button";
-import {Wrapper, InputWrappers, ButtonsWrapper} from "./styles";
+import {ButtonsWrapper, InputWrappers, Wrapper} from "./styles";
 import {
     CONTACT_SEARCH_FIELD_AREA_CODE,
     CONTACT_SEARCH_FIELD_CITY,
@@ -14,7 +14,7 @@ import {
 import {useFetchData} from "../../../../../../../api/hooks/useFetchData";
 import {AREA_CODE_URL} from "../../../../../../../api/constants/routes";
 
-interface IKeys {
+type AreaCodeType = {
     area_name: string;
     area_code: number
 };
@@ -23,7 +23,7 @@ interface State {
     status: string,
     response: {
         data: {
-            area_codes: Array<IKeys>
+            area_codes: Array<AreaCodeType>
         },
     },
     statusMessage: string,
@@ -34,23 +34,23 @@ const SearchFilters: React.FC = () => {
     const [city, setCity] = React.useState("");
     const [street, setStreet] = React.useState("");
     const [countryCode, setCountryCode] = React.useState("");
-    const [areaCode, setAreaCode] = React.useState<Array<{ label: string, value: number }>>([]);
+    const [areaCode, setAreaCode] = React.useState("");
     const [phoneNumber, setPhoneNumber] = React.useState("");
     const [email, setEmail] = React.useState("");
-    const {state, fetchData: fetchAreaCode} = useFetchData();
+    const {state, get: getAreaCode} = useFetchData();
     const areaCodeData = state as State;
 
     const clearValues = () => {
         setCity("");
         setStreet("");
         setCountryCode("");
-        setAreaCode([]);
+        setAreaCode("");
         setPhoneNumber("");
         setEmail("");
     };
 
     useEffect(() => {
-        fetchAreaCode(AREA_CODE_URL, {})
+        getAreaCode(AREA_CODE_URL, {})
 
     }, []);
 
@@ -76,11 +76,12 @@ const SearchFilters: React.FC = () => {
                     <label htmlFor="countryInput">{CONTACT_SEARCH_FIELD_AREA_CODE}</label>
                     <>
                         {areaCodeData.response.data?.area_codes && (
-                            <ClaySelect aria-label={CONTACT_SEARCH_FIELD_AREA_CODE} id="areaInput">
-                                {areaCodeData.response.data.area_codes.map((item: IKeys) => (
-                                    <ClaySelect.Option
+                            <ClaySelect aria-label={CONTACT_SEARCH_FIELD_AREA_CODE} id="areaInput"
+                                        onChange={e => setAreaCode(e.target.value)}>
+                                {areaCodeData.response.data.area_codes.map((item: AreaCodeType) => (
+                                    <ClaySelect.Option selected={areaCode === item.area_code.toString()}
                                         key={item.area_code}
-                                        label={item.area_name}
+                                        label={item.area_code.toString()}
                                         value={item.area_code}
                                     />
                                 ))}
