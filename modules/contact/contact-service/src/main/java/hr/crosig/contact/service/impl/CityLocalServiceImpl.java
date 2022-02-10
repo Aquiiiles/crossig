@@ -33,6 +33,7 @@ import com.liferay.portal.search.searcher.SearchRequestBuilder;
 import com.liferay.portal.search.searcher.SearchRequestBuilderFactory;
 import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.searcher.Searcher;
+
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.CityMessages;
 import hr.crosig.contact.dto.CityDTO;
@@ -42,13 +43,14 @@ import hr.crosig.contact.model.impl.CityModelImpl;
 import hr.crosig.contact.model.impl.StreetModelImpl;
 import hr.crosig.contact.service.base.CityLocalServiceBaseImpl;
 import hr.crosig.contact.util.BulkHelper;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Guilherme Kfouri
@@ -120,6 +122,12 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		}
 
 		return city;
+	}
+
+	public List<String> searchCitiesNamesByName(String cityName)
+		throws CityException {
+
+		return searchCitiesNamesByName(cityName, -1, -1);
 	}
 
 	public List<String> searchCitiesNamesByName(
