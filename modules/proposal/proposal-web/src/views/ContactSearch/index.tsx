@@ -11,6 +11,8 @@ import { useFetchData } from "../../api/hooks/useFetchData";
 import { SEARCH_URL } from "../../api/constants/routes";
 import SearchResult from "./containers/SearchResult";
 import { PENDING } from "../../api/reducers/constants";
+import { Link } from "react-router-dom";
+import { CONTACT_SEARCH_CREATE_NEW_CONTACT } from "../../constants/languageKeys";
 
 const ContactSearch: React.FC = () => {
   const { state: searchResultData, fetchData: fetchSearchResultData } =
@@ -30,10 +32,15 @@ const ContactSearch: React.FC = () => {
       <Stepper />
 
       <Content>
-        <h1>{CONTACT_SEARCH_TITLE}</h1>
-        <p style={{ marginBottom: "1.875rem" }}>{CONTACT_SEARCH_SUBTITLE}</p>
-        <SearchField />
+        <h5>{CONTACT_SEARCH_TITLE}</h5>
+        <p className="body-small" style={{ marginBottom: "1.875rem" }}>
+          {CONTACT_SEARCH_SUBTITLE}
+        </p>
+        <SearchField fetchSearchResultData={fetchSearchResultData} />
         <SearchResult data={data} loading={loading} />
+        <LinkWrapper>
+          <Link to="new_contact">{CONTACT_SEARCH_CREATE_NEW_CONTACT}</Link>
+        </LinkWrapper>
       </Content>
     </Wrapper>
   );

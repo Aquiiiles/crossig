@@ -6,7 +6,6 @@ import ClayDropDown from "@clayui/drop-down";
 import SearchFilters from "./components/molecules/SearchFilters";
 import ArrowButton from "./components/atoms/ArrowButton";
 import SearchButton from "./components/atoms/SearchButton";
-import { Wrapper } from "./styles";
 import {
   CONTACT_SEARCH_FIELD_NAME_OR_OIB,
   CONTACT_SEARCH_CREATE_NEW_CONTACT,
@@ -14,6 +13,7 @@ import {
 import { mapToCountryCodes } from "../../../../shared/util/countryMappers";
 
 declare const Liferay: any;
+import { Wrapper, SearchWrapper } from "./styles";
 
 const SearchField: React.FC = () => {
   const [name, setName] = useState("");
@@ -61,20 +61,29 @@ const SearchField: React.FC = () => {
 
   return (
     <Wrapper>
-      <ClayForm.Group>
-        <label htmlFor="basicInputText">
-          {CONTACT_SEARCH_FIELD_NAME_OR_OIB}
-        </label>
-        <ClayInput
-          id="basicInputText"
-          type="text"
-          ref={triggerElementRef}
-          value={name}
-          onChange={e => setName(e.target.value)}
+      <SearchWrapper>
+        <ClayForm.Group style={{ marginBottom: "0" }}>
+          <label className="body-small" htmlFor="basicInputText">
+            {CONTACT_SEARCH_FIELD_NAME_OR_OIB}
+          </label>
+          <ClayInput
+            id="basicInputText"
+            type="text"
+            ref={triggerElementRef}
+            value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <SearchButton disabled={disabled} onClick={() => {}} />
         <ArrowButton onClick={handleExpand} />
       </ClayForm.Group>
+        <ClayButton
+          displayType="primary"
+          disabled={disabled}
+          onClick={fetchData}
+        >
+          SEARCH
+        </ClayButton>
+      </SearchWrapper>
       <ClayDropDown.Menu
         ref={menuElementRef}
         style={fieldSize}
