@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { useEffect } from "react";
+import React from "react";
 import SearchField from "./containers/SearchField";
-import { Content, Wrapper } from "./styles";
+import { Content, Wrapper, LinkWrapper } from "./styles";
 import Stepper from "./containers/Stepper";
 import {
   CONTACT_SEARCH_SUBTITLE,
   CONTACT_SEARCH_TITLE,
 } from "../../constants/languageKeys";
 import { useFetchData } from "../../api/hooks/useFetchData";
-import { SEARCH_URL } from "../../api/constants/routes";
 import SearchResult from "./containers/SearchResult";
 import { PENDING } from "../../api/reducers/constants";
 import { Link } from "react-router-dom";
@@ -17,12 +16,6 @@ import { CONTACT_SEARCH_CREATE_NEW_CONTACT } from "../../constants/languageKeys"
 const ContactSearch: React.FC = () => {
   const { state: searchResultData, fetchData: fetchSearchResultData } =
     useFetchData();
-
-  useEffect(() => {
-    fetchSearchResultData(SEARCH_URL, {})
-      .then()
-      .catch(_e => {});
-  }, [fetchSearchResultData]);
 
   const loading = searchResultData.status === PENDING;
   const data = searchResultData.response.data.contactInListIVO;

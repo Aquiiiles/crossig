@@ -1,28 +1,33 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { useEffect, useState, useRef, useCallback } from "react";
-import {Link} from "react-router-dom";
 import ClayForm, { ClayInput } from "@clayui/form";
 import ClayDropDown from "@clayui/drop-down";
 import SearchFilters from "./components/molecules/SearchFilters";
 import ArrowButton from "./components/atoms/ArrowButton";
-import SearchButton from "./components/atoms/SearchButton";
-import {
-  CONTACT_SEARCH_FIELD_NAME_OR_OIB,
-  CONTACT_SEARCH_CREATE_NEW_CONTACT,
-} from "../../../../constants/languageKeys";
+import { CONTACT_SEARCH_FIELD_NAME_OR_OIB } from "../../../../constants/languageKeys";
 import { mapToCountryCodes } from "../../../../shared/util/countryMappers";
 
-declare const Liferay: any;
 import { Wrapper, SearchWrapper } from "./styles";
+import { SEARCH_URL } from "../../../../api/constants/routes";
+import { useContactSelector } from "../../../../redux/store";
+import { FetchDataFunction } from "../../../../api/hooks/useFetchData";
 
-const SearchField: React.FC = () => {
-  const [name, setName] = useState("");
+interface props {
+  fetchSearchResultData: FetchDataFunction;
+}
+
+declare const Liferay: any;
+
+const SearchField: React.FC<props> = ({ fetchSearchResultData }: props) => {
   const [disabled, setDisabled] = useState(false);
-  const triggerElementRef = useRef<HTMLInputElement>(null);
   const [expand, setExpand] = useState(false);
   const [fieldWidth, setFieldWidth] = useState(0);
+  const [name, setName] = useState("");
+  const triggerElementRef = useRef<HTMLInputElement>(null);
   const menuElementRef = useRef<HTMLDivElement>(null);
   const [countries, setCountries] = useState<Array<any>>([]);
+  const { city, street, countryCode, areaCode, phoneNumber, email } =
+    useContactSelector(state => state.searchFilter);
 
   const loadCountries = useCallback(() => {
     Liferay.Service(
@@ -40,17 +45,31 @@ const SearchField: React.FC = () => {
     loadCountries();
   }, [loadCountries]);
 
+  const fetchData = () => {
+    const searchString = new URLSearchParams({
+      nameOrOIB: name,
+      city: city,
+      streetAdress: street,
+      phoneCountryCode: countryCode,
+      phoneAreaCode: areaCode,
+      phoneNumber: phoneNumber,
+      email: email,
+    });
+
+    fetchSearchResultData("GET", `${SEARCH_URL}?${searchString.toString()}`);
+  };
+
   const handleExpand = () => {
     setExpand(!expand);
   };
 
   useEffect(() => {
-    if (name.length > 0) {
+    if (name.length >= 3 || phoneNumber.length > 0 || email.length > 0) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [name]);
+  }, [name, phoneNumber, email]);
   const fieldSize = { width: fieldWidth, maxWidth: fieldWidth };
 
   useEffect(() => {
@@ -71,11 +90,10 @@ const SearchField: React.FC = () => {
             type="text"
             ref={triggerElementRef}
             value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <SearchButton disabled={disabled} onClick={() => {}} />
-        <ArrowButton onClick={handleExpand} />
-      </ClayForm.Group>
+            onChange={e => setName(e.target.value)}
+          />
+          <ArrowButton onClick={handleExpand} />
+        </ClayForm.Group>
         <ClayButton
           displayType="primary"
           disabled={disabled}
@@ -91,10 +109,16 @@ const SearchField: React.FC = () => {
         alignElementRef={triggerElementRef}
         onSetActive={() => {}}
       >
-        <SearchFilters countries={mapToCountryCodes(countries)} />
+        <SearchFilters
+          fetchData={() => {
+            fetchData();
+            handleExpand();
+          }}
+          countries={mapToCountryCodes(countries)}
+          searchDisabled={disabled}
+        />
       </ClayDropDown.Menu>
       <div></div>
-      <Link to="new_contact">{CONTACT_SEARCH_CREATE_NEW_CONTACT}</Link>
     </Wrapper>
   );
 };
