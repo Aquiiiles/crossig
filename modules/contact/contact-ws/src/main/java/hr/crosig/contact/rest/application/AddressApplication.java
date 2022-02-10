@@ -11,8 +11,8 @@ import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -37,9 +37,9 @@ import java.util.Set;
 public class AddressApplication extends Application {
 
 	@GET
-	@Path("/city/{cityName}")
+	@Path("/city")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getCities(@PathParam("cityName") String cityName) {
+	public Response getCities(@QueryParam("cityName") String cityName) {
 		ResponseBuilder responseBuilder;
 		try {
 			List<CityDTO> citiesNames = _cityLocalService.searchCitiesNamesByName(cityName);
@@ -57,9 +57,9 @@ public class AddressApplication extends Application {
 	}
 
 	@GET
-	@Path("/streets/{cityId}/{streetName}")
+	@Path("/streets")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getStreetsByCity(@PathParam("cityId") long cityId, @PathParam("streetName") String streetName) {
+	public Response getStreetsByCity(@QueryParam("cityId") long cityId, @QueryParam("streetName") String streetName) {
 		ResponseBuilder responseBuilder;
 		try {
 			List<String> streetsNames = _streetLocalService.searchStreetsNamesByNameAndCityId(streetName, cityId);
