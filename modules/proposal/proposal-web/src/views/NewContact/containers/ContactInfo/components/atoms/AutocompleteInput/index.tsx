@@ -17,7 +17,7 @@ const AutoCompleteInput: React.FC<{
 	const [getNewOptions, setGetNewOptions] = useState<boolean>(true);
 	const dropdownRef = useRef<HTMLInputElement>(null);
 
-	const updateOptions = useCallback(() => {
+	const updateOptions = useCallback((value: string) => {
 		if (value?.length > MINIMUN_LENGTH_FOR_AUTOCOMPLETE_INPUT) {
 			setLoading(true);
 			if (getNewOptions) {
@@ -25,12 +25,7 @@ const AutoCompleteInput: React.FC<{
 				setOptions(newOptions);
 				setFilteredOptions(newOptions);
 				setGetNewOptions(false);
-				console.log(newOptions);
 			} else {
-				console.log(
-					"filtered?",
-					options?.filter((option) => option.includes(value))
-				);
 				setFilteredOptions(options?.filter((option) => option.includes(value)));
 			}
 			setLoading(false);
@@ -39,7 +34,7 @@ const AutoCompleteInput: React.FC<{
 				setGetNewOptions(true);
 			}
 		}
-	}, [value]);
+	},[getNewOptions, getOptions, options]);
 
 	const closeDropdown = (event: Event) => {
 		if (
@@ -50,7 +45,7 @@ const AutoCompleteInput: React.FC<{
 		}
 	};
 
-	useEffect(() => updateOptions, [updateOptions, value]);
+	useEffect(() => updateOptions(value), [updateOptions, value]);
 	useEffect(() => {
 		document.addEventListener("click", closeDropdown, true);
 	});
