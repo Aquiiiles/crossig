@@ -63,12 +63,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{localURL}}city/",
+					"raw": "{{localURL}}address/city?cityName=SOK",
 					"host": [
-						"{{localURL}}city"
+						"{{localURL}}address"
 					],
 					"path": [
-						""
+						"city"
+					],
+					"query": [
+						{
+							"key": "cityName",
+							"value": "SOK"
+						}
 					]
 				}
 			},
@@ -80,13 +86,22 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{localURL}}city/1/streets",
+					"raw": "{{localURL}}address/streets?cityId=4501&streetName=ULI",
 					"host": [
-						"{{localURL}}city"
+						"{{localURL}}address"
 					],
 					"path": [
-						"1",
 						"streets"
+					],
+					"query": [
+						{
+							"key": "cityId",
+							"value": "4501"
+						},
+						{
+							"key": "streetName",
+							"value": "ULI"
+						}
 					]
 				}
 			},
