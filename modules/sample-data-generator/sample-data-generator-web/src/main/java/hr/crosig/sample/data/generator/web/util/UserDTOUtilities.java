@@ -29,17 +29,17 @@ public class UserDTOUtilities {
 		try {
 			if (ActionUtilities.isJsonArray(json)) {
 				List<LinkedTreeMap<String, Object>> userMapList =
-						new Gson().fromJson(json, List.class);
+					new Gson().fromJson(json, List.class);
 
 				userMapList.forEach(
-						userMap -> userDTOList.add(_getUserDTOFromMap(userMap)));
-			} else {
+					userMap -> userDTOList.add(_getUserDTOFromMap(userMap)));
+			}
+			else {
 				LinkedTreeMap<String, Object> userMap = new Gson().fromJson(
-						json, LinkedTreeMap.class);
+					json, LinkedTreeMap.class);
 
 				userDTOList.add(_getUserDTOFromMap(userMap));
 			}
-
 		}
 		catch (Exception exception) {
 			_log.error(exception);

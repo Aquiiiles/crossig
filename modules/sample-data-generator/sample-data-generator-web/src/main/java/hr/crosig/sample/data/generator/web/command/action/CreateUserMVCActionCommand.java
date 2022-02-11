@@ -7,6 +7,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
+
 import hr.crosig.sample.data.generator.api.UserDataGenerator;
 import hr.crosig.sample.data.generator.web.constants.CreateUserMVCActionConstants;
 import hr.crosig.sample.data.generator.web.constants.SampleDataGeneratorWebCommandNames;
@@ -14,13 +15,16 @@ import hr.crosig.sample.data.generator.web.constants.SampleDataGeneratorWebPortl
 import hr.crosig.sample.data.generator.web.dto.UserDTO;
 import hr.crosig.sample.data.generator.web.enums.UserAttributeEnum;
 import hr.crosig.sample.data.generator.web.util.UserDTOUtilities;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
+
+import java.sql.SQLException;
+
+import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
-import java.sql.SQLException;
-import java.util.List;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author marcelo.mazurky
@@ -91,17 +95,17 @@ public class CreateUserMVCActionCommand extends BaseMVCActionCommand {
 	private void _handleCreateUser(String usersJSON)
 		throws PortalException, SQLException {
 
-			// gets the user map list from the users json
+		// gets the user map list from the users json
 
-			List<UserDTO> users = UserDTOUtilities.getUserDTOListFromJSONString(
-				usersJSON);
+		List<UserDTO> users = UserDTOUtilities.getUserDTOListFromJSONString(
+			usersJSON);
 
-			for (UserDTO user : users) {
+		for (UserDTO user : users) {
 
-				// creates the user
+			// creates the user
 
-				_addRegularUser(user);
-			}
+			_addRegularUser(user);
+		}
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
