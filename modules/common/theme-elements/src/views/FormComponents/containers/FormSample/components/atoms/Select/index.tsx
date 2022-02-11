@@ -1,66 +1,76 @@
-import React from "react";
+import React, { useState } from "react";
 import ClayForm, { ClaySelect } from '@clayui/form';
 
 interface props {
-  fieldName: string;
+  id: string;
   options: any[];
-  showErrors: boolean;
+  showFeedback: boolean;
   defaultValue: string;
   label: string;
   labelHint: string;
   disabled: boolean;
-  errorMsg: string;
+  feedbackMsg: string;
   required: boolean;
   handleFieldChange: any;
 }
 
 const SelectInput: React.FC<props> = ({
-  fieldName,
+  id,
   options,
-  showErrors,
+  showFeedback,
   defaultValue,
   label,
   labelHint,
   disabled,
-  errorMsg,
+  feedbackMsg,
   required,
   handleFieldChange
 }: props) => {
 
-	const onChange = (e:any) => {
-    console.log("aqui");
-		let fieldValue = e.target.value;
-		handleFieldChange(fieldName, fieldValue);
+	const onChange = (e: any) => {
+		setValue(e.target.value);
+		handleFieldChange(id, e.target.value);
 	}
 
-	let displayError = showErrors && !defaultValue;
+  const [value, setValue] = useState(defaultValue);
+
+	let displayFeedback = showFeedback && !defaultValue;
   
   return (
-    <ClayForm.Group className={displayError ? "has-error" : ""}>
-    <label className="input-label" htmlFor={fieldName}>
+    <ClayForm.Group className={displayFeedback ? "has-error" : ""}>
+    <label htmlFor={id}>
       {label}
       {required ? <span className="form-mandatory-field">*</span> : ''}
       {labelHint ? <small><i> {labelHint.toLowerCase()}</i></small> : ''}
     </label>
     <ClaySelect
-      id={fieldName}
-      name={fieldName}
-      onChange={(e) => onChange(e)}
-      value={defaultValue}
+      id={id}
+      name={id}
+      onChange={e => onChange(e)}
+      // value={defaultValue}
       disabled={disabled}
     >
-      {options.map((item, index) => (
+      <ClaySelect.Option
+        value=""
+        key="select"
+        label="Select"
+        disabled
+        selected={defaultValue === '' ? true : false }
+        hidden
+        />
+      {options.map(item => (
         <ClaySelect.Option
-          key={index}
-          label={item.value}
+          key={item.value}
+          label={item.label}
           value={item.value}
+          selected={value === item.value ? true: false}
         />
       ))}
     </ClaySelect>
-    {displayError && (
+    {displayFeedback && (
       <ClayForm.FeedbackGroup>
         <ClayForm.FeedbackItem>
-          {errorMsg}
+          {feedbackMsg}
         </ClayForm.FeedbackItem>
       </ClayForm.FeedbackGroup>
     )}

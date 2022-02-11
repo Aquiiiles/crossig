@@ -2,38 +2,38 @@ import React, { useState } from "react";
 import ClayForm, { ClayToggle } from '@clayui/form';
 
 interface props {
-  fieldName: string;
+  id: string;
   setToggle: boolean;
   toggled: boolean;
-  showErrors: boolean;
+  showFeedback: boolean;
   defaultValue: string;
   label: string;
   labelHint: string;
   disabled: boolean;
-  errorMsg: string;
+  feedbackMsg: string;
   required: boolean;
   handleFieldChange: any;
 }
 
 const ToggleInput: React.FC<props> = ({
-  fieldName,
-  showErrors,
+  id,
+  showFeedback,
   defaultValue,
   label,
   labelHint,
   disabled,
-  errorMsg,
+  feedbackMsg,
   required
 }: props) => {
 
-	let displayError = showErrors && !defaultValue;
+	let displayFeedback = showFeedback && !defaultValue;
   const [toggled, setToggle] = useState(false);
   
   return (
-    <ClayForm.Group className={displayError ? "has-error" : ""}>
+    <ClayForm.Group className={displayFeedback ? "has-error" : ""}>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <label
-          htmlFor={fieldName}
+          htmlFor={id}
         >
           {label}
           {required ? <span className="form-mandatory-field">*</span> : ''}
@@ -45,10 +45,10 @@ const ToggleInput: React.FC<props> = ({
           disabled={disabled}
         />
         </div>
-      {displayError && (
+      {displayFeedback && (
         <ClayForm.FeedbackGroup>
           <ClayForm.FeedbackItem>
-            {errorMsg}
+            {feedbackMsg}
           </ClayForm.FeedbackItem>
         </ClayForm.FeedbackGroup>
       )}

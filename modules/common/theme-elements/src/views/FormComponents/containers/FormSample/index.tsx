@@ -2,7 +2,7 @@ import React from "react";
 
 import InputText from "./components/atoms/InputText";
 import TextAreaInput from "./components/atoms/TextArea";
-import CheckboxInput from "./components/atoms/Checkbox";
+// import CheckboxInput from "./components/atoms/Checkbox";
 import ToggleInput from "./components/atoms/Toogle";
 import RadioInput from "./components/atoms/Radio";
 import SelectInput from "./components/atoms/Select";
@@ -14,11 +14,22 @@ const propsForm = {
   inputSample: "",
   inputTextArea: "",
   selectOptions: [
-    {"marca 1": "1",},
-    {"marca 2": "2",},
-    {"marca 3": "3",},
-    {"marca 4": "4",},
-    {"marca 5": "5"},
+    {
+      label: "Option 1",
+      value: "1"
+    },
+    {
+      label: "Option 2",
+      value: "2"
+    },
+    {
+      label: "Option 3",
+      value: "3"
+    },
+    {
+      label: "Option 4",
+      value: "4"
+    }
   ]
 }
 
@@ -30,8 +41,8 @@ const colStyles = {
 
 
 const FormSample: React.FC = () => {
-  const handleChanges = (fieldName: string, value: any) => {
-    console.log("field:", fieldName, " | value:", value);
+  const handleChanges = (id: string, value: any) => {
+    console.log("field:", id, " | value:", value);
   };
 
   return (
@@ -46,7 +57,7 @@ const FormSample: React.FC = () => {
             label="Primary"
             icon=""
             disabled={false}
-            onClick={() => console.log("Clicou!")}
+            onClick={() => console.log("Clicked!")}
           />
           <hr />
           <ButtonCrosig
@@ -55,7 +66,7 @@ const FormSample: React.FC = () => {
             label=""
             icon="plus"
             disabled={false}
-            onClick={() => console.log("Clicou!")}
+            onClick={() => console.log("Clicked!")}
           />
           <hr />
           <ButtonCrosig
@@ -64,7 +75,7 @@ const FormSample: React.FC = () => {
             label="Borderless"
             icon=""
             disabled={false}
-            onClick={() => console.log("Clicou!")}
+            onClick={() => console.log("Clicked!")}
           />
           <hr />
           <ButtonCrosig
@@ -73,7 +84,7 @@ const FormSample: React.FC = () => {
             label="Botão"
             icon=""
             disabled={true}
-            onClick={() => console.log("Clicou!")}
+            onClick={() => console.log("Clicked!")}
           />
         </ClayLayout.Col>
         <ClayLayout.Col size={4} style={colStyles}>
@@ -83,7 +94,7 @@ const FormSample: React.FC = () => {
             label="Large Button"
             icon="download"
             disabled={false}
-            onClick={() => console.log("Clicou!")}
+            onClick={() => console.log("Clicked!")}
           />
           <hr />
           <ButtonCrosig
@@ -92,7 +103,7 @@ const FormSample: React.FC = () => {
             label="Ghost button"
             icon="download"
             disabled={false}
-            onClick={() => console.log("Clicou!")}
+            onClick={() => console.log("Clicked!")}
           />
           <hr />
           <ButtonCrosig
@@ -101,7 +112,7 @@ const FormSample: React.FC = () => {
             label="Borderless Button"
             icon="download"
             disabled={false}
-            onClick={() => console.log("Clicou!")}
+            onClick={() => console.log("Clicked!")}
           />
           <hr />
           <ButtonCrosig
@@ -110,7 +121,7 @@ const FormSample: React.FC = () => {
             label=""
             icon="plus"
             disabled={true}
-            onClick={() => console.log("Clicou!")}
+            onClick={() => console.log("Clicked!")}
           />
           </ClayLayout.Col>
         <ClayLayout.Col size={4} style={colStyles}>
@@ -120,7 +131,7 @@ const FormSample: React.FC = () => {
             label="Disabled"
             icon=""
             disabled={true}
-            onClick={() => console.log("Clicou!")}
+            onClick={() => console.log("Clicked!")}
           />
           <hr />
           <ButtonCrosig
@@ -129,7 +140,7 @@ const FormSample: React.FC = () => {
             label="Ghost"
             icon=""
             disabled={true}
-            onClick={() => console.log("Clicou!")}
+            onClick={() => console.log("Clicked!")}
           />
           <hr />
           <ButtonCrosig
@@ -138,7 +149,7 @@ const FormSample: React.FC = () => {
             label="Borderless"
             icon=""
             disabled={true}
-            onClick={() => console.log("Clicou!")}
+            onClick={() => console.log("Clicked!")}
           />
           <hr />
           <ButtonCrosig
@@ -147,7 +158,7 @@ const FormSample: React.FC = () => {
             label="Disabled"
             icon=""
             disabled={true}
-            onClick={() => console.log("Clicou!")}
+            onClick={() => console.log("Clicked!")}
           />
             
         </ClayLayout.Col>
@@ -157,89 +168,89 @@ const FormSample: React.FC = () => {
       <h6>Inputs</h6>
       <hr />
       <InputText
-        fieldName="inputText"
+        id="inputText"
         label="Label"
         defaultValue={propsForm.inputSample}
-        showErrors={false}
+        showFeedback={false}
         labelHint=""
         disabled={false}
-        placeholder="Insira seu nome"
+        placeholder="Input text"
+        feedbackMsg="Feedback message"
         inputRef="input"
-        errorMsg="Teste de mensagem de erro"
         type="text"
         required={true}
-        handleFieldChange={(fieldName: string, fieldValue: any) => handleChanges(fieldName, fieldValue)}
+        handleFieldChange={(id: string, fieldValue: any) => handleChanges(id, fieldValue)}
         onClick={() => console.log("Go Team")}
       />
       <hr />
       <TextAreaInput
-        fieldName="inputTextArea"
+        id="inputTextArea"
         label="Text Area"
         defaultValue={propsForm.inputTextArea}
         labelHint=""
         disabled={false}
-        placeholder="Text area field text area field text area field "
-        showErrors={true}
+        placeholder="Text area field"
+        showFeedback={true}
+        feedbackMsg="Feedback Message"
         inputRef=""
-        errorMsg="Error message"
         type="text"
         required={false}
-        handleFieldChange={(fieldName: string, fieldValue: any) => handleChanges(fieldName, fieldValue)}
+        handleFieldChange={(id: string, fieldValue: any) => handleChanges(id, fieldValue)}
         onClick={() => console.log("Go Team")}
       />
       <hr />
       <ToggleInput
-        fieldName="toggleInput"
+        id="toggleInput"
         setToggle={false}
         toggled={true}
         label="Toggle"
-        showErrors={true}
+        showFeedback={true}
         defaultValue="1"
         labelHint=""
+        feedbackMsg="Selecione um"
         disabled={false}
-        errorMsg="Selecione um"
         required={true}
-        handleFieldChange={(fieldName: string, fieldValue: any) => handleChanges(fieldName, fieldValue)}
+        handleFieldChange={(id: string, fieldValue: any) => handleChanges(id, fieldValue)}
       />
       <hr />
       <hr />
       <RadioInput
         label="Radio Input"
-        fieldName="radioInput"
+        id="radioInput"
         options={propsForm.selectOptions}
-        showErrors={false}
-        defaultValue={'1'}
+        showFeedback={false}
+        defaultValue="3"
         labelHint=""
+        feedbackMsg=""
         disabled={false}
-        errorMsg=""
         required={true}
-        handleFieldChange={(fieldName: string, fieldValue: any) => handleChanges(fieldName, fieldValue)}
+        handleFieldChange={(id: string, fieldValue: any) => handleChanges(id, fieldValue)}
       />
       <SelectInput
         label="Select Input"
-        fieldName="selectInput"
+        id="selectInput"
         options={propsForm.selectOptions}
-        showErrors={false}
-        defaultValue={'1'}
+        showFeedback={false}
+        defaultValue=""
         labelHint=""
+        feedbackMsg=""
         disabled={false}
-        errorMsg=""
         required={true}
-        handleFieldChange={(fieldName: string, fieldValue: any) => handleChanges(fieldName, fieldValue)}
+        handleFieldChange={(id: string, fieldValue: any) => handleChanges(id, fieldValue)}
       />
       <hr />
       {/* <CheckboxInput
-        fieldName="checkboxInput"
+        id="checkboxInput"
         options={[1, 2, 3, 4, 5, 6]}
         selectedValues={[1]}
-        showErrors={false}
+        showFeedback={false}
         defaultValue="[]"
         label="Checkbox"
         labelHint=""
+        feedbackMsg=""
         disabled={false}
-        errorMsg=""
         required={true}
-        handleFieldChange={(fieldName: string, fieldValue: any) => handleChanges(fieldName, fieldValue)}
+        handleFieldChange={(id: string, fieldValue: any) => handleChanges(id, fieldValue)}
       /> */}
       < hr />
       

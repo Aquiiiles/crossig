@@ -1,64 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
 import ClayForm, { ClayRadio, ClayRadioGroup } from '@clayui/form';
 
 interface props {
-  fieldName: string;
+  id: string;
   options: any[];
-  showErrors: boolean;
+  showFeedback: boolean;
   defaultValue: any;
   label: string;
   labelHint: string;
   disabled: boolean;
-  errorMsg: string;
+  feedbackMsg: string;
   required: boolean;
   handleFieldChange: any;
 }
 
 const RadioInput: React.FC<props> = ({
-  fieldName,
+  id,
   options,
-  showErrors,
+  showFeedback,
   defaultValue,
   label,
   labelHint,
   disabled,
-  errorMsg,
+  feedbackMsg,
   required,
   handleFieldChange
 }: props) => {
 
-	let displayError = showErrors && !defaultValue;
-  const onChange = () => {
-    console.log("aqui radio");
-		// let fieldValue = e.target.value;
-		// handleFieldChange(fieldName, fieldValue);
+	// let displayFeedback = showFeedback && !defaultValue;
+  const [value, setValue] = useState(defaultValue);
+
+  const onChange = (fiedlValue: any) => {
+    setValue(fiedlValue);
+		handleFieldChange(id, fiedlValue);
 	};
   
   return (
-    <ClayForm.Group className={displayError ? "has-error" : ""}>
-      <label className="input-label" htmlFor={fieldName}>
+    <ClayForm.Group className={showFeedback ? "has-error" : ""}>
+      <label htmlFor={id}>
         {label}
         {required ? <span className="form-mandatory-field">*</span> : ''}
         {labelHint ? <small><i> {labelHint.toLowerCase()}</i></small> : ''}
       </label>
       <ClayRadioGroup
         inline
-        onSelectedValueChange={() => onChange()}
-        selectedValue={defaultValue}
+        onSelectedValueChange={val => onChange(val)}
+        selectedValue={value}
       >
         {options.map(item => (
           <ClayRadio
             key={item.value}
-            label={item.value}
+            label={item.label}
             value={item.value}
             disabled={disabled}
           />
         ))}
       </ClayRadioGroup>
-      {displayError && (
+      {showFeedback && (
         <ClayForm.FeedbackGroup>
           <ClayForm.FeedbackItem>
-            {errorMsg}
+            {feedbackMsg}
           </ClayForm.FeedbackItem>
         </ClayForm.FeedbackGroup>
       )}

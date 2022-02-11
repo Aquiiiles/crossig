@@ -7,75 +7,74 @@
         box-shadow: none!important;
         border: none;
     }
-    button:visited {
-        background: #2172FF;
-    }
 
     .solid {
-        background: #00CB79;
+        background: $color-feedback-success;
         border: none;
-        color: #FFFFFF;
-        
+        color: $color-neutral-white;
     }
     .solid:hover {
-        background: #1A5CCC;
+        background: $color-action-hover;
     }
-    .solid:visited {
-        background: #2172FF;
+    .solid:active {
+        background: $color-action-active!important;
     }
 
     .ghost {
-        border: 2px solid #00CB79;
-        background: #FFFFFF;
-        color: #00CB79;
+        border: 2px solid $color-feedback-success;
+        background: $color-neutral-white;
+        color: $color-feedback-success;
         
     }
     .ghost:hover {
-        border: 2px solid #1A5CCC;
-        background: #1A5CCC;
-        color: #FFFFFF;
+        border: 2px solid $color-action-hover;
+        background: $color-neutral-white;
+        color: $color-action-hover!important;
     }
-    .ghost:visited {
-        background: #2172FF;
+    .ghost:active {
+        border: 2px solid $color-action-active!important;
+        background: $color-neutral-white!important;
+        color: $color-action-active!important;
     }
 
     .borderless {
         border: 0;
         background: none;
-        color: #00CB79;
+        color: $color-feedback-success;
         
     }
     .borderless:hover {
-        color: #1A5CCC;
+        color: $color-action-hover;
     }
-    .borderless:visited {
-        color: #2172FF;
+    .borderless:active {
+        border: 0;
+        background: none!important;
+        color: $color-action-active!important;
     }
 
-    
     .disabled {
-        background: #BBBFC4;
+        background: $color-action-disabled;
         pointer-events: none;
 
         &.solid {
-            background: #BBBFC4;
+            background: $color-action-disabled;
             border: none;
         }
         
         &.ghost {
-            border: 2px solid #BBBFC4;
-            background: #FFFFFF;
-            color: #BBBFC4;
-            border-color: #BBBFC4;
+            border: 2px solid $color-action-disabled;
+            background: $color-neutral-white;
+            color: $color-action-disabled;
+            border-color: $color-action-disabled;
         }
         
         &.borderless {
-            background: #FFFFFF;
+            background: $color-neutral-white;
             border: none;
-            color: #BBBFC4;
+            color: $color-action-disabled;
         }
     }
-    // .cap-button {
+
     .btn-large {
         text-transform: uppercase;
         align-items: center;
@@ -100,7 +99,6 @@
         .icon-btn {
             margin-right: 0.5rem;
         }
-
     }
 
     .btn-medium {

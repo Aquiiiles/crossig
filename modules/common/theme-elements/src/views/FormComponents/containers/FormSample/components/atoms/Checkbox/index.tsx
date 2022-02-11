@@ -2,37 +2,37 @@ import React from "react";
 import ClayForm, { ClayCheckbox } from '@clayui/form';
 
 interface props {
-  fieldName: string;
+  id: string;
   options: any[];
   selectedValues: any[],
-  showErrors: boolean;
+  showFeedback: boolean;
   defaultValue: string;
   label: string;
   labelHint: string;
   disabled: boolean;
-  errorMsg: string;
+  feedbackMsg: string;
   required: boolean;
   handleFieldChange: any;
 }
 
 const CheckboxInput: React.FC<props> = ({
-  fieldName,
+  id,
   options,
   selectedValues,
-  showErrors,
+  showFeedback,
   defaultValue,
   label,
   labelHint,
   disabled,
-  errorMsg,
+  feedbackMsg,
   required,
   handleFieldChange
 }: props) => {
 
-	let displayError = showErrors && !defaultValue;
+	let displayFeedback = showFeedback && !defaultValue;
   const onChange = (item: any) => {
     console.log("selected", selectedValues, " | item", item);
-		// handleFieldChange(fieldName, fieldValue);
+		// handleFieldChange(id, fieldValue);
 	};
 
   const isChecked = (value: string) => {
@@ -40,8 +40,8 @@ const CheckboxInput: React.FC<props> = ({
   }
   
   return (
-    <ClayForm.Group className={displayError ? "has-error" : ""}>
-      <label className="input-label" htmlFor={fieldName}>
+    <ClayForm.Group className={displayFeedback ? "has-error" : ""}>
+      <label htmlFor={id}>
         {label}
         {required ? <span className="form-mandatory-field">*</span> : ''}
         {labelHint ? <small><i> {labelHint.toLowerCase()}</i></small> : ''}
@@ -59,10 +59,10 @@ const CheckboxInput: React.FC<props> = ({
         />
       ))}
       </>
-      {displayError && (
+      {displayFeedback && (
       <ClayForm.FeedbackGroup>
           <ClayForm.FeedbackItem>
-            {errorMsg}
+            {feedbackMsg}
           </ClayForm.FeedbackItem>
         </ClayForm.FeedbackGroup>
       )}

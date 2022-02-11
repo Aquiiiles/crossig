@@ -2,14 +2,17 @@ $color-primary-main: #112D82;
 $color-primary-dark: #102872;
 $color-primary-light: #0C3D9D;
 $color-primary-links: #005CD0;
+$color-primary-inputs: #005CD0;
 $color-primary-links-light: #93BBFF;
 
 $color-neutral-black: #000;
+$color-neutral-black-label: #1A1A1A;
 $color-neutral-white: #FFF;
 $color-neutral-background: #F2F3F4;
 $color-neutral-divider-grey: #DEDFE0;
 $color-neutral-grey: #94A0AB;
 $color-neutral-grey-text: #79838C;
+$color-neutral-grey-border: #EDEEEF;
 
 $color-secondary-1: #F49F0A;
 $color-secondary-2: #F7B900;
@@ -25,8 +28,12 @@ $color-action-default: #00CB79;
 $color-action-hover: #1A5CCC;
 $color-action-active: #2172FF;
 $color-action-navbar-link: #92A3D7;
-$color-action-disabled: #D4D9DE;
+// $color-action-disabled: #D4D9DE;
+$color-action-disabled: #BBBFC4;
 
 $color-feedback-success: #00CB79;
 $color-feedback-warning: #FFCF56;
 $color-feedback-error: #FF0000;
+
+$color-toggle-checked-disabled: #93BBFF;
+$color-toggle-unchecked-disabled: #ABB5BF;

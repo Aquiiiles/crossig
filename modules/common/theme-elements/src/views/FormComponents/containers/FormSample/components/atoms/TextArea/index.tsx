@@ -2,15 +2,15 @@ import React from "react";
 import ClayForm, { ClayInput } from '@clayui/form';
 
 interface props {
-  fieldName: string;
-  showErrors: boolean;
+  id: string;
+  showFeedback: boolean;
   defaultValue: string;
   label: string;
   labelHint: string;
   disabled: boolean;
   placeholder: string;
   inputRef: string;
-  errorMsg: string;
+  feedbackMsg: string;
   type: string;
   required: boolean;
   handleFieldChange: any;
@@ -18,18 +18,18 @@ interface props {
 }
 
 
-const TextAreaInput: React.FC<props> = ({ fieldName, showErrors, defaultValue, handleFieldChange, label, labelHint, disabled, placeholder, errorMsg, type, required }: props) => {
+const TextAreaInput: React.FC<props> = ({ id, showFeedback, defaultValue, handleFieldChange, label, labelHint, disabled, placeholder, feedbackMsg, type, required }: props) => {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		let fieldValue = e.target.value;
-		handleFieldChange(fieldName, fieldValue);
+		handleFieldChange(id, fieldValue);
 	};
 
-	let displayError = showErrors && !defaultValue;
+	let displayFeedback = showFeedback && !defaultValue;
   
   return (
       <ClayForm.Group>
-        <label className="input-label" htmlFor={fieldName}>
+        <label htmlFor={id}>
           {label}
           {required ? <span className="form-mandatory-field">*</span> : ''}
           {labelHint ? <small><i> {labelHint.toLowerCase()}</i></small> : ''}
@@ -38,18 +38,18 @@ const TextAreaInput: React.FC<props> = ({ fieldName, showErrors, defaultValue, h
         <ClayInput
           disabled={disabled}
           placeholder={placeholder}
-          id={fieldName}
-          name={fieldName}
+          id={id}
+          name={id}
           component="textarea"
           type={type ? type : "text"}
           defaultValue={defaultValue}
           onChange={(e) => onChange(e)}
         />
 
-        {displayError && (
+        {displayFeedback && (
           <ClayForm.FeedbackGroup>
             <ClayForm.FeedbackItem>
-              {errorMsg}
+              {feedbackMsg}
             </ClayForm.FeedbackItem>
           </ClayForm.FeedbackGroup>
         )}
