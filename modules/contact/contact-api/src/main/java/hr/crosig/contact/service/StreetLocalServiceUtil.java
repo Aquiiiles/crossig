@@ -91,7 +91,7 @@ public class StreetLocalServiceUtil {
 		return getService().createStreet(streetId);
 	}
 
-	public static void deleteAllStreets() {
+	public static void deleteAllStreets() throws PortalException {
 		getService().deleteAllStreets();
 	}
 
@@ -134,7 +134,9 @@ public class StreetLocalServiceUtil {
 		return getService().deleteStreet(street);
 	}
 
-	public static void deleteStreetsByCityId(long cityId) {
+	public static void deleteStreetsByCityId(long cityId)
+		throws PortalException {
+
 		getService().deleteStreetsByCityId(cityId);
 	}
 

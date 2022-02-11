@@ -90,11 +90,13 @@ public class CityLocalServiceUtil {
 		return getService().createPersistedModel(primaryKeyObj);
 	}
 
-	public static void deleteAllCities() {
+	public static void deleteAllCities() throws PortalException {
 		getService().deleteAllCities();
 	}
 
-	public static List<City> deleteCitiesByName(String cityName) {
+	public static List<City> deleteCitiesByName(String cityName)
+		throws PortalException {
+
 		return getService().deleteCitiesByName(cityName);
 	}
 

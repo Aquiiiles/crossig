@@ -85,13 +85,16 @@ public class CityLocalServiceWrapper
 	}
 
 	@Override
-	public void deleteAllCities() {
+	public void deleteAllCities()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
 		_cityLocalService.deleteAllCities();
 	}
 
 	@Override
 	public java.util.List<hr.crosig.contact.model.City> deleteCitiesByName(
-		String cityName) {
+			String cityName)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _cityLocalService.deleteCitiesByName(cityName);
 	}

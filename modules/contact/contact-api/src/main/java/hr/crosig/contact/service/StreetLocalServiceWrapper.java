@@ -85,7 +85,9 @@ public class StreetLocalServiceWrapper
 	}
 
 	@Override
-	public void deleteAllStreets() {
+	public void deleteAllStreets()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
 		_streetLocalService.deleteAllStreets();
 	}
 
@@ -136,7 +138,9 @@ public class StreetLocalServiceWrapper
 	}
 
 	@Override
-	public void deleteStreetsByCityId(long cityId) {
+	public void deleteStreetsByCityId(long cityId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
 		_streetLocalService.deleteStreetsByCityId(cityId);
 	}
 
