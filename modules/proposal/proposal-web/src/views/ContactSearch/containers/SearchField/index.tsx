@@ -68,12 +68,17 @@ const SearchField: React.FC<props> = ({ fetchSearchResultData }: props) => {
   };
 
   useEffect(() => {
-    if (name.length >= 3 || phoneNumber.length > 0 || email.length > 0) {
+    const emailRegex = /\S+@\S+\.\S+/;
+    if (
+      name.length >= 3 ||
+      (phoneNumber.length > 0 && areaCode !== "") ||
+      emailRegex.test(email)
+    ) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [name, phoneNumber, email]);
+  }, [name, phoneNumber, email, areaCode]);
   const fieldSize = { width: fieldWidth, maxWidth: fieldWidth };
 
   useEffect(() => {
