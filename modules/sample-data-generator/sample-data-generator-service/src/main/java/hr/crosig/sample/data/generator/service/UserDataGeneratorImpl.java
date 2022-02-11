@@ -2,14 +2,20 @@ package hr.crosig.sample.data.generator.service;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.UserEmailAddressException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.UserGroup;
+import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
 import com.liferay.portal.kernel.service.UserGroupLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.upgrade.util.UpgradeProcessUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
+import hr.crosig.content.setup.constants.ContentSetupConstants;
 import hr.crosig.sample.data.generator.api.UserDataGenerator;
 import hr.crosig.sample.data.generator.util.GeneratorUtilities;
 import org.apache.commons.lang3.StringUtils;
@@ -31,17 +37,21 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
     private UserLocalService _userLocalService;
     @Reference
     private UserGroupLocalService _userGroupLocalService;
-
+    @Reference
+    private GroupLocalService _groupLocalService;
+    private static final Log _log = LogFactoryUtil.getLog(
+            UserDataGeneratorImpl.class);
 
     /**
      * Adds a Regular User to the system
+     * @return
      */
     @Override
-    public void addRegularUser(String firstName, String lastName, String emailAddress, String password, String userGroupName) throws PortalException, SQLException {
+    public User addRegularUser(String firstName, String lastName, String emailAddress, String password, String userGroupName) throws PortalException, SQLException {
         // validates the email address
         _validateEmailAddress(emailAddress);
-        // adds the user
-        _addUser(firstName, lastName, emailAddress, password, userGroupName);
+        // adds and return the user
+        return _addUser(firstName, lastName, emailAddress, password, userGroupName);
     }
 
     /***
@@ -54,16 +64,18 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
      * @throws PortalException
      * @throws SQLException
      */
-    private void _addUser(String firstName, String lastName, String emailAddress, String password, String userGroupName) throws PortalException, SQLException {
-        // gets the user group id by the user group name (if it was informed)
-        Long userGroupId = _getUserGroupId(userGroupName);
+    private User _addUser(String firstName, String lastName, String emailAddress, String password, String userGroupName) throws PortalException, SQLException {
         // default company id
         long defaultCompanyId = PortalUtil.getDefaultCompanyId();
         // default user id
         long defaultUserId = _userLocalService.getDefaultUserId(defaultCompanyId);
+        // gets the user group id by the user group name (if it was informed)
+        Long userGroupId = _getUserGroupId(userGroupName);
+        // gets the Agent Portal's Group Id
+        Long agentPortalGroupId = _getAgentPortalGroupId();
 
         // calls the service to add the user
-        _userLocalService.addUser(
+        return _userLocalService.addUser(
                 defaultUserId,
                 defaultCompanyId,
                 false,
@@ -83,7 +95,7 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
                 LocalDateTime.now().getDayOfMonth(),
                 LocalDateTime.now().getYear(),
                 null,
-                new long[0],
+                agentPortalGroupId != null ? new long[]{agentPortalGroupId} : new long[0],
                 new long[0],
                 new long[0],
                 userGroupId != null ? new long[]{userGroupId} : new long[0],
@@ -133,4 +145,18 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
             throw new UserEmailAddressException.MustNotBeDuplicate(user.getUserId(), emailAddress);
         }
     }
+
+    /**
+     * Gets the Agent Portal's Group Id
+     * @return
+     */
+    private Long _getAgentPortalGroupId()  {
+        // default company id
+        long defaultCompanyId = PortalUtil.getDefaultCompanyId();
+        // tries to get the Group
+        Group group = GroupLocalServiceUtil.fetchGroup(defaultCompanyId, ContentSetupConstants.AGENT_PORTAL_SITE_NAME);
+
+        return group != null ? group.getGroupId() : null;
+    }
+
 }
