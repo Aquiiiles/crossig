@@ -28,32 +28,33 @@ const AutoCompleteInput: React.FC<{
 	const [getNewOptions, setGetNewOptions] = useState<boolean>(true);
 	const dropdownRef = useRef<HTMLInputElement>(null);
 
-	const updateOptions = useCallback(
-		(value: string) => {
-			if (value?.length > MINIMUN_LENGTH_FOR_AUTOCOMPLETE_INPUT) {
-				setLoading(true);
-				if (getNewOptions) {
-					getOptions(value).then((newOptions: Array<any>) => {
-						setOptions(newOptions);
-						setFilteredOptions(newOptions);
-						setGetNewOptions(false);
-					});
-				} else {
+	const updateOptions = useCallback((value: string) => {
+		if (value?.length > MINIMUN_LENGTH_FOR_AUTOCOMPLETE_INPUT) {
+			setLoading(true);
+			if (getNewOptions) {
+				getOptions(value).then((newOptions: Array<any>) => {
+					setOptions(newOptions);
 					setFilteredOptions(
-						options?.filter((option) =>
+						newOptions?.filter((option) =>
 							isCity ? option.cityName.includes(value) : option.includes(value)
 						)
 					);
-				}
-				setLoading(false);
+					setGetNewOptions(false);
+				});
 			} else {
-				if (!getNewOptions) {
-					setGetNewOptions(true);
-				}
+				setFilteredOptions(
+					options?.filter((option) =>
+						isCity ? option.cityName.includes(value) : option.includes(value)
+					)
+				);
 			}
-		},
-		[getNewOptions, getOptions, isCity, options]
-	);
+			setLoading(false);
+		} else {
+			if (!getNewOptions) {
+				setGetNewOptions(true);
+			}
+		}
+	}, [getNewOptions, getOptions, isCity, options]);
 
 	const closeDropdown = (event: Event) => {
 		if (
@@ -93,7 +94,7 @@ const AutoCompleteInput: React.FC<{
 					id={id}
 					onFocus={() => setShowAutocomplete(true)}
 					ref={dropdownRef}
-					autoComplete="off"
+					autoComplete='off'
 				/>
 				<ClayAutocomplete.DropDown
 					active={

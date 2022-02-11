@@ -21,6 +21,9 @@ import { searchCitiesByName, searchStreetsByCityIdAndName } from "./controller";
 
 const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 	const [country, setCountry] = useState<string>(croatiaCountryObject.value);
+	const [dispatchCountry, setDispatchCountry] = useState<string>(
+		croatiaCountryObject.value
+	);
 	const [city, setCity] = useState<any>();
 	const [dispatchCity, setDispatchCity] = useState<any>();
 	const [sameAddress, setSameAdress] = useState(true);
@@ -130,6 +133,7 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 									id='dispatch-country'
 									options={countries}
 									required
+									onChange={(event) => setDispatchCountry(event.target.value)}
 								/>
 							</ClayForm.Group>
 						</Row>
@@ -141,7 +145,7 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 										<AutocompleteInput
 											label={CREATE_NEW_CONTACT.FIELD.CITY}
 											id={"dispatch-city"}
-											active={country === croatiaCountryObject.value}
+											active={dispatchCountry === croatiaCountryObject.value}
 											getOptions={searchCitiesByName}
 											setParentValue={setDispatchCity}
 											setPostalCode={setDispatchPostalCode}
@@ -164,7 +168,7 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 							<AutocompleteInput
 								label={CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS}
 								id={"dispatch-street-addres"}
-								active={country === croatiaCountryObject.value}
+								active={dispatchCountry === croatiaCountryObject.value}
 								getOptions={searchStreetsByCityIdAndName(dispatchCity)}
 								setParentValue={() => {
 									return;
