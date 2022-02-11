@@ -9,4 +9,8 @@ export const Wrapper = styled.div`
     color: ${props => props.theme.color.action.disabled}
     pointer-events: none;
   }
+
+  & a:hover {
+    cursor: pointer;
+  }
 `;

@@ -24,17 +24,12 @@ export const PhoneNumberWrapper = styled.li`
   }
 
   .country-code {
-    width: 20%;
+    width: 19%;
     color: ${props => props.theme.color.primary.links};
-    border-radius: 0.25rem 0 0 0.25rem;
-    border-right-color: white;
   }
 
   .area-code {
-    width: 20%;
-    border-radius: 0 0 0 0;
-    border-left-color: white;
-    border-right-color: white;
+    width: 19%;
   }
 
   .area-code-default-option {
@@ -47,7 +42,6 @@ export const PhoneNumberWrapper = styled.li`
 
   .phone-number {
     color: ${props => props.theme.color.primary.links};
-    border-left-color: white;
   }
 
   .hidden-select {

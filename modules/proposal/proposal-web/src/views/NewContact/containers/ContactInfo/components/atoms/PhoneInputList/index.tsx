@@ -77,7 +77,20 @@ const PhoneInputList: React.FC<propsType> = (props: propsType) => {
     );
   };
 
+  const isCroatia = (index:number) => {
+    let phone = props.phoneNumbers[index];
+    return phone.countryCode && phone.countryCode === countryCodes.value;
+  };
+
+  const moreThanSevenNumbers = (e:any, property:string) => {
+    return property === "phoneNumber" && e.target.value.toString().length > 7;
+  }
+
   const handleChange = (index: number, e: any, property: string) => {
+    if (isCroatia(index) && moreThanSevenNumbers(e, property)) {
+      return;
+    }
+
     props.handleChange(index, e, property);
   };
 
