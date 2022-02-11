@@ -7,8 +7,19 @@ const AutoCompleteInput: React.FC<{
 	label: string;
 	id: string;
 	active: boolean;
-	getOptions: Function;
-}> = ({ label, id, active, getOptions }) => {
+	getOptions: (value: string) => any;
+	setParentValue: Function;
+	setPostalCode: Function;
+	isCity: boolean;
+}> = ({
+	label,
+	id,
+	active,
+	getOptions,
+	setParentValue,
+	setPostalCode,
+	isCity
+}) => {
 	const [value, setValue] = useState<string>("");
 	const [options, setOptions] = useState<Array<any>>();
 	const [filteredOptions, setFilteredOptions] = useState<Array<any>>();
@@ -17,24 +28,33 @@ const AutoCompleteInput: React.FC<{
 	const [getNewOptions, setGetNewOptions] = useState<boolean>(true);
 	const dropdownRef = useRef<HTMLInputElement>(null);
 
-	const updateOptions = useCallback((value: string) => {
-		if (value?.length > MINIMUN_LENGTH_FOR_AUTOCOMPLETE_INPUT) {
-			setLoading(true);
-			if (getNewOptions) {
-				const newOptions = getOptions(value);
-				setOptions(newOptions);
-				setFilteredOptions(newOptions);
-				setGetNewOptions(false);
+	const updateOptions = useCallback(
+		(value: string) => {
+			if (value?.length > MINIMUN_LENGTH_FOR_AUTOCOMPLETE_INPUT) {
+				setLoading(true);
+				if (getNewOptions) {
+					getOptions(value).then((newOptions: Array<any>) => {
+						console.log(newOptions);
+						setOptions(newOptions);
+						setFilteredOptions(newOptions);
+						setGetNewOptions(false);
+					});
+				} else {
+					setFilteredOptions(
+						options?.filter((option) =>
+							isCity ? option.cityName.includes(value) : option.includes(value)
+						)
+					);
+				}
+				setLoading(false);
 			} else {
-				setFilteredOptions(options?.filter((option) => option.includes(value)));
+				if (!getNewOptions) {
+					setGetNewOptions(true);
+				}
 			}
-			setLoading(false);
-		} else {
-			if (!getNewOptions) {
-				setGetNewOptions(true);
-			}
-		}
-	},[getNewOptions, getOptions, options]);
+		},
+		[getNewOptions, getOptions, isCity, options]
+	);
 
 	const closeDropdown = (event: Event) => {
 		if (
@@ -44,6 +64,17 @@ const AutoCompleteInput: React.FC<{
 			setShowAutocomplete(false);
 		}
 	};
+
+	const createCityFullName = (
+		cityName: string,
+		postName: string,
+		boxNumber: string
+	) =>
+		cityName +
+		" - " +
+		(postName || "postName") +
+		" - " +
+		(boxNumber || "boxNumber");
 
 	useEffect(() => updateOptions(value), [updateOptions, value]);
 	useEffect(() => {
@@ -55,11 +86,15 @@ const AutoCompleteInput: React.FC<{
 			<label htmlFor={id}>{label}</label>
 			<ClayAutocomplete>
 				<ClayAutocomplete.Input
-					onChange={(event) => setValue(event.target.value)}
+					onChange={(event) => {
+						setValue(event.target.value);
+						setParentValue(event.target.value);
+					}}
 					value={value}
 					id={id}
 					onFocus={() => setShowAutocomplete(true)}
 					ref={dropdownRef}
+					autoComplete="false"
 				/>
 				<ClayAutocomplete.DropDown
 					active={
@@ -75,8 +110,20 @@ const AutoCompleteInput: React.FC<{
 								<ClayAutocomplete.Item
 									key={index}
 									match={value}
-									value={item}
-									onClick={() => setValue(item)}
+									value={
+										isCity
+											? createCityFullName(
+													item.cityName,
+													item.postName,
+													item.boxNumber
+											  )
+											: item
+									}
+									onClick={() => {
+										setValue(isCity ? item.cityName : item);
+										setParentValue(item.cityId);
+										setPostalCode(item.boxNumber || "boxNumber");
+									}}
 								/>
 							))}
 					</ClayDropDown.ItemList>
@@ -85,6 +132,16 @@ const AutoCompleteInput: React.FC<{
 			</ClayAutocomplete>
 		</>
 	);
+};
+
+AutoCompleteInput.defaultProps = {
+	setParentValue: () => {
+		return;
+	},
+	setPostalCode: () => {
+		return;
+	},
+	isCity: false
 };
 
 export default AutoCompleteInput;
