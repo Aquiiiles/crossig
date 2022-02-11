@@ -5,10 +5,10 @@ import Addresses from "./components/molecules/Addresses";
 import ContactInfoForm from "./components/molecules/ContactInfoForm";
 import { Provider as ContactInfoProvider } from "react-redux";
 import { CREATE_NEW_CONTACT } from "../../../../constants/languageKeys";
-import { 
-	mapToAddressCountries,
-  mapToContactInfoFormCountries
- } from "../../../../shared/util/countryMappers";
+import {
+  mapToAddressCountries,
+  mapToContactInfoFormCountries,
+} from "../../../../shared/util/countryMappers";
 
 import store from "./contactStore";
 
@@ -17,21 +17,21 @@ declare const Liferay: any;
 const ContactInfo: React.FC = () => {
 	const [countries, setCountries] = useState<{ label: any; value: any; }[]>();
 
-	const loadCountries = useCallback(() => {
-		Liferay.Service(
-			"/country/get-countries",
-			{
-				active: true
-			},
-			(countriesArray: Array<any>) => {
-				setCountries(countriesArray);
-			}
-		);
-	}, []);
+  const loadCountries = useCallback(() => {
+    Liferay.Service(
+      "/country/get-countries",
+      {
+        active: true,
+      },
+      (countriesArray: Array<any>) => {
+        setCountries(countriesArray);
+      }
+    );
+  }, []);
 
-	useEffect(() => {
-		loadCountries();
-	}, [loadCountries]);
+  useEffect(() => {
+    loadCountries();
+  }, [loadCountries]);
 
 	return (
 		<ContactInfoProvider store={store}>

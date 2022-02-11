@@ -1,5 +1,5 @@
 import React, { MouseEventHandler } from "react";
-import ClayLink from '@clayui/link';
+import ClayLink from "@clayui/link";
 import { Wrapper } from "./styles";
 
 interface props {
@@ -8,12 +8,13 @@ interface props {
   handleClick: MouseEventHandler;
 }
 
-const LinkWrapper: React.FC<props> = (props) => {
+const LinkWrapper: React.FC<props> = props => {
   return (
     <Wrapper>
-      <ClayLink 
+      <ClayLink
         onClick={props.handleClick}
-        className={props.disabled ? 'disabled' : 'active'}>
+        className={props.disabled ? "disabled" : "active"}
+      >
         {props.title}
       </ClayLink>
     </Wrapper>

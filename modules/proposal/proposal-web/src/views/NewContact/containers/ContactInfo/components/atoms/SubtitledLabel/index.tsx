@@ -8,7 +8,7 @@ interface props {
   subTitle: string;
 }
 
-const SubtitledLabel: React.FC<props> = (props) => {
+const SubtitledLabel: React.FC<props> = props => {
   return (
     <Wrapper>
       <ClayForm.Group className={props.padded ? "padded" : ""}>

@@ -15,47 +15,50 @@ interface props {
   addEmailInput: MouseEventHandler;
 }
 
-const EmailListInput: React.FC<props> = (props) => {
-
+const EmailListInput: React.FC<props> = props => {
   let [hasSomeInvalidEmail, setSomeInvalidEmail] = useState(false);
 
   const shouldDisableLink = () => {
     return props.emails.length === MAXIMUM_EMAIL_ADDRESSES;
-  }
+  };
 
   const validateEmails = () => {
     setSomeInvalidEmail(false);
     const regex = /\S+@\S+\.\S+/;
 
-    props.emails.forEach((email) => {
+    props.emails.forEach(email => {
       if (!regex.test(email)) {
         setSomeInvalidEmail(true);
         return;
       }
     });
-  }
+  };
 
-  const handleChange = (index:number, e:React.ChangeEvent) => {
+  const handleChange = (index: number, e: React.ChangeEvent) => {
     props.handleChange(index, e);
     validateEmails();
-  }
+  };
 
   return (
     <StyledFormGroup>
       {props.emails.map((email, index) => {
-        return <Fragment>
-                  <label>{CONTACT_INFO_EMAIL_ADDRESS}</label>
-                  <ClayInput
-                          key={`emailInputKey${index}`}
-                          id={`emailInput${index}`}
-                          type="text"
-                          onChange={e => handleChange(index, e)}
-                          value={email.toString()}
-                        />
-               </Fragment>;
-        })}
-      {hasSomeInvalidEmail && <Error>{CONTACT_INFO_INVALID_EMAIL_MESSAGE}</Error>}
-      <LinkWrapper 
+        return (
+          <Fragment>
+            <label>{CONTACT_INFO_EMAIL_ADDRESS}</label>
+            <ClayInput
+              key={`emailInputKey${index}`}
+              id={`emailInput${index}`}
+              type="text"
+              onChange={e => handleChange(index, e)}
+              value={email.toString()}
+            />
+          </Fragment>
+        );
+      })}
+      {hasSomeInvalidEmail && (
+        <Error>{CONTACT_INFO_INVALID_EMAIL_MESSAGE}</Error>
+      )}
+      <LinkWrapper
         title={CONTACT_INFO_ADD_EMAIL_ADDRESS}
         handleClick={props.addEmailInput}
         disabled={shouldDisableLink()}

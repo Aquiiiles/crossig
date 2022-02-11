@@ -4,7 +4,10 @@ import ClayForm from "@clayui/form";
 import CreateContactButton from "../../atoms/CreateContactButton";
 import EmailInputList from "../../atoms/EmailInputList";
 import FormSection from "../../../../../../../shared/atoms/FormSection";
-import PhoneInputList, { createEmptyPhoneNumber, Country } from "../../atoms/PhoneInputList";
+import PhoneInputList, {
+  createEmptyPhoneNumber,
+  Country,
+} from "../../atoms/PhoneInputList";
 import LinkWrapper from "../../atoms/LinkWrapper";
 import Row from "../../../../../../../shared/atoms/Row";
 import SubtitledLabel from "../../atoms/SubtitledLabel";
@@ -19,9 +22,9 @@ import {
   CONTACT_INFO_MAIN_MOBILE_SUBTITLE,
   CONTACT_INFO_OTHER_EMAIL_ADDRESSES,
   CONTACT_INFO_OTHER_EMAIL_ADDRESSES_SUBTITLE,
-  CONTACT_INFO_PHONE_TYPE
+  CONTACT_INFO_PHONE_TYPE,
 } from "../../../../../../../constants/languageKeys";
-import { 
+import {
   FIXED,
   MAXIMUM_EMAIL_ADDRESSES,
   MAXIMUM_MOBILE_PHONES,
@@ -30,14 +33,15 @@ import {
 import { actions } from "./slice/contactInfoSlice";
 import { useContactDispatch, useContactSelector } from "../../../contactStore";
 
-const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({ countries }) =>  {
+const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
+  countries,
+}) => {
   const history = useHistory();
   const dispatch = useContactDispatch();
 
-  const {
-		emailAddresses,
-    mobilePhones
-	} = useContactSelector((state) => state.contactInfo);
+  const { emailAddresses, mobilePhones } = useContactSelector(
+    state => state.contactInfo
+  );
 
   const {
     setEmailAddresses,
@@ -45,17 +49,17 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({ countries })
     setCountryCode,
     setPhoneNumber,
     setType,
-    setMobilePhones
-	} = actions;
+    setMobilePhones,
+  } = actions;
 
-  const handleEmailChange = (index:number, e:any) => {
+  const handleEmailChange = (index: number, e: any) => {
     let currentEmails = [...emailAddresses];
     currentEmails[index] = e.target.value.toString();
 
     dispatch(setEmailAddresses(currentEmails));
-  }
+  };
 
-  const handlePhoneChange = (index:number, e:any, property:string) => {
+  const handlePhoneChange = (index: number, e: any, property: string) => {
     const value = e.target.value.toString();
 
     switch (property) {
@@ -81,7 +85,7 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({ countries })
         break;
       }
     }
-  }
+  };
 
   const addEmailAddressInput = () => {
     let currentEmails = [...emailAddresses];
@@ -90,7 +94,7 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({ countries })
       currentEmails.push("");
       dispatch(setEmailAddresses(currentEmails));
     }
-  }
+  };
 
   const addMobilePhoneInput = () => {
     let currentMobilePhones = [...mobilePhones];
@@ -99,81 +103,87 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({ countries })
       currentMobilePhones.push(createEmptyPhoneNumber(FIXED));
       dispatch(setMobilePhones(currentMobilePhones));
     }
-  }
+  };
 
-  const getEmailLabelTitle = (index:number) => {
-    return index === 0 ? CONTACT_INFO_MAIN_EMAIL : CONTACT_INFO_OTHER_EMAIL_ADDRESSES;
-  }
+  const getEmailLabelTitle = (index: number) => {
+    return index === 0
+      ? CONTACT_INFO_MAIN_EMAIL
+      : CONTACT_INFO_OTHER_EMAIL_ADDRESSES;
+  };
 
-  const getEmailLabelSubtitle = (index:number) => {
-    return index === 0 ? CONTACT_INFO_MAIN_EMAIL_SUBTITLE : CONTACT_INFO_OTHER_EMAIL_ADDRESSES_SUBTITLE;
-  }
+  const getEmailLabelSubtitle = (index: number) => {
+    return index === 0
+      ? CONTACT_INFO_MAIN_EMAIL_SUBTITLE
+      : CONTACT_INFO_OTHER_EMAIL_ADDRESSES_SUBTITLE;
+  };
 
-  const shouldPadEmailLabel = (index:number) => {
+  const shouldPadEmailLabel = (index: number) => {
     return !(index === 0);
-  }
+  };
 
   return (
-      <Fragment>
-        <FormSection title={CONTACT_INFO_TITLE}>
-          <ClayForm.Group>
-            {emailAddresses.map((email, index) => (
-                <SubtitledLabel
-                  key={"email-label-" + index}
-                  title={getEmailLabelTitle(index)} 
-                  subTitle={getEmailLabelSubtitle(index)}
-                  padded={shouldPadEmailLabel(index)}
-              />
-            ))}
-          </ClayForm.Group>
-          <Row>
-            <ClayForm.Group>
-              <EmailInputList 
-                emails={emailAddresses}
-                handleChange={handleEmailChange}
-                addEmailInput={addEmailAddressInput}
-              />
-            </ClayForm.Group>
-          </Row>
-        </FormSection>
-
-        <FormSection>
-          <ClayForm.Group>
-            <SubtitledLabel 
-              title={CONTACT_INFO_MAIN_MOBILE} 
-              subTitle={CONTACT_INFO_MAIN_MOBILE_SUBTITLE}
-              padded={false}
+    <Fragment>
+      <FormSection title={CONTACT_INFO_TITLE}>
+        <ClayForm.Group>
+          {emailAddresses.map((email, index) => (
+            <SubtitledLabel
+              key={"email-label-" + index}
+              title={getEmailLabelTitle(index)}
+              subTitle={getEmailLabelSubtitle(index)}
+              padded={shouldPadEmailLabel(index)}
             />
-            {mobilePhones.slice(1).map((phone, index) => (
-              <PhoneTypeSelect
-                key={"phone-label-" + ++index}
-                index={++index}
-                title={CONTACT_INFO_PHONE_TYPE}
-                handleChange={handlePhoneChange}
-                entity={mobilePhones}
-                />
-            ))}
+          ))}
+        </ClayForm.Group>
+        <Row>
+          <ClayForm.Group>
+            <EmailInputList
+              emails={emailAddresses}
+              handleChange={handleEmailChange}
+              addEmailInput={addEmailAddressInput}
+            />
           </ClayForm.Group>
-          <Row>
-            <ClayForm.Group>
-              <PhoneInputList 
-                phoneNumbers={mobilePhones} 
-                handleChange={handlePhoneChange}
-                addPhoneInput={addMobilePhoneInput}
-                countries={countries} 
-                areaCodeOptions={[]}
-              />
-            </ClayForm.Group>
-          </Row>
+        </Row>
+      </FormSection>
+
+      <FormSection>
+        <ClayForm.Group>
+          <SubtitledLabel
+            title={CONTACT_INFO_MAIN_MOBILE}
+            subTitle={CONTACT_INFO_MAIN_MOBILE_SUBTITLE}
+            padded={false}
+          />
+          {mobilePhones.slice(1).map((phone, index) => (
+            <PhoneTypeSelect
+              key={"phone-label-" + ++index}
+              index={++index}
+              title={CONTACT_INFO_PHONE_TYPE}
+              handleChange={handlePhoneChange}
+              entity={mobilePhones}
+            />
+          ))}
+        </ClayForm.Group>
+        <Row>
+          <ClayForm.Group>
+            <PhoneInputList
+              phoneNumbers={mobilePhones}
+              handleChange={handlePhoneChange}
+              addPhoneInput={addMobilePhoneInput}
+              countries={countries}
+              areaCodeOptions={[]}
+            />
+          </ClayForm.Group>
+        </Row>
       </FormSection>
       <ButtonWrapper>
-        <LinkWrapper 
+        <LinkWrapper
           title={CONTACT_INFO_CANCEL}
           handleClick={history.goBack}
           disabled={false}
-          />
-        <CreateContactButton 
-          handleClick={() => {return;}} 
+        />
+        <CreateContactButton
+          handleClick={() => {
+            return;
+          }}
         />
       </ButtonWrapper>
     </Fragment>

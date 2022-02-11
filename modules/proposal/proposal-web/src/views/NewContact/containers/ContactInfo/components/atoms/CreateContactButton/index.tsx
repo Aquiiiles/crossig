@@ -7,12 +7,7 @@ interface props {
 }
 
 const CreateContactButton: React.FC<props> = ({ handleClick }: props) => {
-  return (
-    <Button 
-      onClick={handleClick}>
-      {CONTACT_INFO_CREATE_CONTACT}
-    </Button>
-  );
+  return <Button onClick={handleClick}>{CONTACT_INFO_CREATE_CONTACT}</Button>;
 };
 
 export default CreateContactButton;
