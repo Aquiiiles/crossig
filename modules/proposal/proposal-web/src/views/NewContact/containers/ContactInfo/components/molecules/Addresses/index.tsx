@@ -33,6 +33,11 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 		(state: { basicInfo: any }) => state.basicInfo
 	);
 
+	const mainAddressInCroatia = country === croatiaCountryObject.value;
+
+	const dispatchAddressInCroatia =
+		dispatchCountry === croatiaCountryObject.value;
+
 	return (
 		<>
 			<Line />
@@ -64,11 +69,12 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 								<AutocompleteInput
 									label={CREATE_NEW_CONTACT.FIELD.CITY}
 									id={"city"}
-									active={country === croatiaCountryObject.value}
+									active={mainAddressInCroatia}
 									getOptions={searchCitiesByName}
 									setParentValue={setCity}
 									setPostalCode={setPostalCode}
 									isCity
+									disabled={false}
 								/>
 							</ClayInput.GroupItem>
 
@@ -80,7 +86,7 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 								<ClayInput
 									id='postal-code'
 									type='text'
-									disabled
+									disabled={mainAddressInCroatia}
 									value={postalCode}
 								/>
 							</ClayInput.GroupItem>
@@ -92,7 +98,7 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 					<AutocompleteInput
 						label={CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS}
 						id={"street-addres"}
-						active={country === croatiaCountryObject.value}
+						active={mainAddressInCroatia}
 						getOptions={searchStreetsByCityIdAndName(city)}
 						setParentValue={() => {
 							return;
@@ -101,6 +107,7 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 							return;
 						}}
 						isCity={false}
+						disabled={!postalCode}
 					/>
 				</ClayForm.Group>
 
@@ -145,11 +152,12 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 										<AutocompleteInput
 											label={CREATE_NEW_CONTACT.FIELD.CITY}
 											id={"dispatch-city"}
-											active={dispatchCountry === croatiaCountryObject.value}
+											active={dispatchAddressInCroatia}
 											getOptions={searchCitiesByName}
 											setParentValue={setDispatchCity}
 											setPostalCode={setDispatchPostalCode}
 											isCity
+											disabled={false}
 										/>
 									</ClayInput.GroupItem>
 
@@ -158,7 +166,12 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 											{CREATE_NEW_CONTACT.FIELD.POSTAL_CODE}
 										</label>
 
-										<ClayInput id='dispatch-postal-code' type='text' />
+										<ClayInput
+											id='dispatch-postal-code'
+											type='text'
+											disabled={dispatchAddressInCroatia}
+											value={dispatchPostalCode}
+										/>
 									</ClayInput.GroupItem>
 								</ClayInput.Group>
 							</ClayForm.Group>
@@ -168,7 +181,7 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 							<AutocompleteInput
 								label={CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS}
 								id={"dispatch-street-addres"}
-								active={dispatchCountry === croatiaCountryObject.value}
+								active={dispatchAddressInCroatia}
 								getOptions={searchStreetsByCityIdAndName(dispatchCity)}
 								setParentValue={() => {
 									return;
@@ -177,6 +190,7 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 									return;
 								}}
 								isCity={false}
+								disabled={!dispatchPostalCode}
 							/>
 						</ClayForm.Group>
 
@@ -186,12 +200,7 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 									{CREATE_NEW_CONTACT.FIELD.HOUSE_NUMBER}
 								</label>
 
-								<ClayInput
-									id='dispatch-house-number'
-									type='text'
-									disabled
-									value={dispatchPostalCode}
-								/>
+								<ClayInput id='dispatch-house-number' type='text' />
 							</ClayForm.Group>
 						</Row>
 					</>

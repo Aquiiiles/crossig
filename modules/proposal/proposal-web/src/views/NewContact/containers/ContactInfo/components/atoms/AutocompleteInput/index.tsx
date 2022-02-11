@@ -11,6 +11,7 @@ const AutoCompleteInput: React.FC<{
 	setParentValue: Function;
 	setPostalCode: Function;
 	isCity: boolean;
+	disabled: boolean;
 }> = ({
 	label,
 	id,
@@ -18,7 +19,8 @@ const AutoCompleteInput: React.FC<{
 	getOptions,
 	setParentValue,
 	setPostalCode,
-	isCity
+	isCity,
+	disabled
 }) => {
 	const [value, setValue] = useState<string>("");
 	const [options, setOptions] = useState<Array<any>>();
@@ -28,33 +30,38 @@ const AutoCompleteInput: React.FC<{
 	const [getNewOptions, setGetNewOptions] = useState<boolean>(true);
 	const dropdownRef = useRef<HTMLInputElement>(null);
 
-	const updateOptions = useCallback((value: string) => {
-		if (value?.length > MINIMUN_LENGTH_FOR_AUTOCOMPLETE_INPUT) {
-			setLoading(true);
-			if (getNewOptions) {
-				getOptions(value).then((newOptions: Array<any>) => {
-					setOptions(newOptions);
+	const updateOptions = useCallback(
+		(value: string) => {
+			if (value?.length > MINIMUN_LENGTH_FOR_AUTOCOMPLETE_INPUT) {
+				setLoading(true);
+				if (getNewOptions) {
+					getOptions(value).then((newOptions: Array<any>) => {
+						setOptions(newOptions);
+						setFilteredOptions(
+							newOptions?.filter((option) =>
+								isCity
+									? option.cityName.includes(value)
+									: option.includes(value)
+							)
+						);
+						setGetNewOptions(false);
+					});
+				} else {
 					setFilteredOptions(
-						newOptions?.filter((option) =>
+						options?.filter((option) =>
 							isCity ? option.cityName.includes(value) : option.includes(value)
 						)
 					);
-					setGetNewOptions(false);
-				});
+				}
+				setLoading(false);
 			} else {
-				setFilteredOptions(
-					options?.filter((option) =>
-						isCity ? option.cityName.includes(value) : option.includes(value)
-					)
-				);
+				if (!getNewOptions) {
+					setGetNewOptions(true);
+				}
 			}
-			setLoading(false);
-		} else {
-			if (!getNewOptions) {
-				setGetNewOptions(true);
-			}
-		}
-	}, [getNewOptions, getOptions, isCity, options]);
+		},
+		[getNewOptions, getOptions, isCity, options]
+	);
 
 	const closeDropdown = (event: Event) => {
 		if (
@@ -95,6 +102,7 @@ const AutoCompleteInput: React.FC<{
 					onFocus={() => setShowAutocomplete(true)}
 					ref={dropdownRef}
 					autoComplete='off'
+					disabled={disabled}
 				/>
 				<ClayAutocomplete.DropDown
 					active={
