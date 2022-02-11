@@ -1,0 +1,3 @@
+Bundle-Name: Crosig Sample Data Generator Service
+Bundle-SymbolicName: hr.crosig.sample.data.generator.service
+Bundle-Version: 1.0.0
