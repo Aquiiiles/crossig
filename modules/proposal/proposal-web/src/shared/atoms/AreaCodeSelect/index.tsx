@@ -9,7 +9,7 @@ type propsType = {
   className: string;
   entity: any;
   handleChange: ChangeEventHandler;
-}
+};
 
 type AreaCodeType = {
   area_name: string;
@@ -33,13 +33,15 @@ interface State {
   statusCode: string;
 }
 
-const AreaCodeSelect: React.FC<propsType> = (props:propsType) => {
+const AreaCodeSelect: React.FC<propsType> = (props: propsType) => {
   const { state, get: getAreaCodes } = useFetchData();
-  const [areaCodeOptions, setAreaCodeOptions] = React.useState([{} as AreaCodeOption]);
+  const [areaCodeOptions, setAreaCodeOptions] = React.useState([
+    {} as AreaCodeOption,
+  ]);
   const areaCodeData = state as State;
 
   useEffect(() => {
-    getAreaCodes(AREA_CODE_URL, {})
+    getAreaCodes(AREA_CODE_URL, {});
   }, []);
 
   useEffect(() => {
@@ -51,7 +53,7 @@ const AreaCodeSelect: React.FC<propsType> = (props:propsType) => {
           key: index.toString(),
         };
       });
-  
+
       setAreaCodeOptions(codes);
     }
   }, [areaCodeData]);
@@ -77,15 +79,15 @@ const AreaCodeSelect: React.FC<propsType> = (props:propsType) => {
         label={defaultAreaCodeOption.label}
         value={defaultAreaCodeOption.value}
       />
-      {areaCodeOptions && (
-        areaCodeOptions.map((item:AreaCodeOption) => (
-        <ClaySelect.Option
-          className="area-code-option"
-          key={item.key}
-          label={item.label}
-          value={item.value}
-        />
-      )))}
+      {areaCodeOptions &&
+        areaCodeOptions.map((item: AreaCodeOption) => (
+          <ClaySelect.Option
+            className="area-code-option"
+            key={item.key}
+            label={item.label}
+            value={item.value}
+          />
+        ))}
     </StyledSelect>
   );
 };
