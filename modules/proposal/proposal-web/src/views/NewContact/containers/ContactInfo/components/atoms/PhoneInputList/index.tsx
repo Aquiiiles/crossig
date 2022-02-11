@@ -50,11 +50,6 @@ export const createEmptyPhoneNumber = (type: string) => {
 const PhoneInputList: React.FC<props> = props => {
   const [hasSomeInvalidPhone, setSomeInvalidPhone] = useState(false);
 
-  const defaultAreaCodeOption = {
-    value: "",
-    label: "Area Code",
-  };
-
   useEffect(() => {
     validatePhones();
   }, [props.phoneNumbers]);
@@ -141,7 +136,6 @@ const PhoneInputList: React.FC<props> = props => {
                   className={displayAreaCode(phoneNumber.countryCode)}
                   entity={phoneNumber.areaCode}
                   handleChange={e => handleChange(index, e, "areaCode")}
-                  options={props.areaCodeOptions}
                 />
 
                 <ClayInput

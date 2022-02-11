@@ -51,7 +51,6 @@ const SearchFilters: React.FC = () => {
 
     useEffect(() => {
         getAreaCode(AREA_CODE_URL, {})
-
     }, []);
 
     return (
