@@ -16,10 +16,10 @@ package hr.crosig.contact.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.kernel.search.Indexer;
-import com.liferay.portal.kernel.search.IndexerRegistry;
-import com.liferay.portal.kernel.search.SearchException;
+import com.liferay.portal.kernel.search.IndexWriterHelper;
+import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.search.document.Document;
 import com.liferay.portal.search.hits.SearchHit;
@@ -47,8 +47,8 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author Guilherme Kfouri
@@ -76,13 +76,13 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 				createStreet(streetDTO, companyId)));
 	}
 
-	public void deleteAllStreets() {
+	public void deleteAllStreets() throws PortalException {
 		BulkHelper.bulkDeleteAll(
 			streetPersistence.getCurrentSession(), StreetModelImpl.TABLE_NAME);
 		reindex();
 	}
 
-	public void deleteStreetsByCityId(long cityId) {
+	public void deleteStreetsByCityId(long cityId) throws PortalException {
 		streetPersistence.removeByCityId(cityId);
 		reindex();
 	}
@@ -201,25 +201,17 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 				StreetMessages.STREET_WITH_THIS_ID_ALREADY_EXISTS + name);
 	}
 
-	private void reindex() {
-		Indexer<Street> indexer = _indexerRegistry.getIndexer(
-			Street.class.getName());
+	private void reindex() throws PortalException {
+		long companyId = PortalUtil.getDefaultCompanyId();
 
-		if (Objects.nonNull(indexer)) {
-			try {
-				indexer.reindex(
-					new String[] {
-						String.valueOf(PortalUtil.getDefaultCompanyId())
-					});
-			}
-			catch (SearchException e) {
-				throw new IllegalStateException(e);
-			}
-		}
+		_indexWriterHelper.reindex(
+				_userLocalService.getDefaultUserId(companyId),
+				"reindex", new long[] {companyId},
+				StreetConstants.MODEL_CLASS_NAME, new HashMap<>());
 	}
 
 	@Reference
-	private IndexerRegistry _indexerRegistry;
+	private IndexWriterHelper _indexWriterHelper;
 
 	@Reference
 	private Queries _queries;
@@ -229,5 +221,8 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 
 	@Reference
 	private SearchRequestBuilderFactory _searchRequestBuilderFactory;
+
+	@Reference
+	private UserLocalService _userLocalService;
 
 }

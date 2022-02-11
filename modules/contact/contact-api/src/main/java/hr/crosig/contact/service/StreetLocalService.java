@@ -96,7 +96,7 @@ public interface StreetLocalService
 	@Transactional(enabled = false)
 	public Street createStreet(long streetId);
 
-	public void deleteAllStreets();
+	public void deleteAllStreets() throws PortalException;
 
 	/**
 	 * @throws PortalException
@@ -132,7 +132,7 @@ public interface StreetLocalService
 	@Indexable(type = IndexableType.DELETE)
 	public Street deleteStreet(Street street);
 
-	public void deleteStreetsByCityId(long cityId);
+	public void deleteStreetsByCityId(long cityId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DynamicQuery dynamicQuery();

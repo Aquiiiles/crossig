@@ -23,6 +23,10 @@ public class CityModelDocumentContributor
 	public void contribute(Document document, City entry) {
 		document.addNumber(CityConstants.FIELD_CITY_ID, entry.getCityId());
 		document.addKeyword(CityConstants.FIELD_CITY_NAME, entry.getName());
+		document.addText(
+			CityConstants.FIELD_CITY_POST_NAME, entry.getPostName());
+		document.addText(
+			CityConstants.FIELD_CITY_BOX_NUMBER, entry.getBoxNumber());
 	}
 
 }

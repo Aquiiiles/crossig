@@ -16,10 +16,10 @@ package hr.crosig.contact.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.kernel.search.Indexer;
-import com.liferay.portal.kernel.search.IndexerRegistry;
-import com.liferay.portal.kernel.search.SearchException;
+import com.liferay.portal.kernel.search.IndexWriterHelper;
+import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.search.document.Document;
 import com.liferay.portal.search.hits.SearchHit;
@@ -47,6 +47,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -83,13 +84,15 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		return cityLocalService.updateCity(city);
 	}
 
-	public void deleteAllCities() {
+	public void deleteAllCities() throws PortalException {
 		BulkHelper.bulkDeleteAll(
 			cityPersistence.getCurrentSession(), CityModelImpl.TABLE_NAME);
 		reindex();
 	}
 
-	public List<City> deleteCitiesByName(String cityName) {
+	public List<City> deleteCitiesByName(String cityName)
+		throws PortalException {
+
 		List<City> cities = cityPersistence.findByName(cityName);
 
 		String externalCitiesIds = cities.stream(
@@ -105,6 +108,8 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		BulkHelper.bulkDeleteByColumnValues(
 			cityPersistence.getCurrentSession(), StreetModelImpl.TABLE_NAME,
 			CityConstants.FIELD_CITY_ID, externalCitiesIds);
+
+		reindex();
 
 		return cities;
 	}
@@ -211,9 +216,13 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 
 				long cityId = doc.getLong(CityConstants.FIELD_CITY_ID);
 				String name = doc.getString(CityConstants.FIELD_CITY_NAME);
+				String postName = doc.getString(CityConstants.FIELD_CITY_POST_NAME);
+				String boxNumber = doc.getString(CityConstants.FIELD_CITY_BOX_NUMBER);
 
 				city.setCityId(cityId);
 				city.setCityName(name);
+				city.setPostName(postName);
+				city.setBoxNumber(boxNumber);
 
 				cities.add(city);
 			});
@@ -251,25 +260,17 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 			throw new CityException(CityMessages.INSUFICIENT_NAME_LENGTH);
 	}
 
-	private void reindex() {
-		Indexer<City> indexer = _indexerRegistry.getIndexer(
-			City.class.getName());
+	private void reindex() throws PortalException {
+		long companyId = PortalUtil.getDefaultCompanyId();
 
-		if (Objects.nonNull(indexer)) {
-			try {
-				indexer.reindex(
-					new String[] {
-						String.valueOf(PortalUtil.getDefaultCompanyId())
-					});
-			}
-			catch (SearchException e) {
-				throw new IllegalStateException(e);
-			}
-		}
+		_indexWriterHelper.reindex(
+			_userLocalService.getDefaultUserId(companyId),
+			"reindex", new long[] {companyId},
+			CityConstants.MODEL_CLASS_NAME, new HashMap<>());
 	}
 
 	@Reference
-	private IndexerRegistry _indexerRegistry;
+	private IndexWriterHelper _indexWriterHelper;
 
 	@Reference
 	private Queries _queries;
@@ -279,5 +280,8 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 
 	@Reference
 	private SearchRequestBuilderFactory _searchRequestBuilderFactory;
+
+	@Reference
+	private UserLocalService _userLocalService;
 
 }

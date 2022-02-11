@@ -95,9 +95,10 @@ public interface CityLocalService
 	public PersistedModel createPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
-	public void deleteAllCities();
+	public void deleteAllCities() throws PortalException;
 
-	public List<City> deleteCitiesByName(String cityName);
+	public List<City> deleteCitiesByName(String cityName)
+		throws PortalException;
 
 	/**
 	 * Deletes the city from the database. Also notifies the appropriate model listeners.

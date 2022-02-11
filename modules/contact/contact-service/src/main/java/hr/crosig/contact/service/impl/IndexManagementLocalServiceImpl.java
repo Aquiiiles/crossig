@@ -1,5 +1,6 @@
 package hr.crosig.contact.service.impl;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -30,7 +31,7 @@ public class IndexManagementLocalServiceImpl
 	implements IndexManagementLocalService {
 
 	@Override
-	public void clearAllIndicesCache() {
+	public void clearAllIndicesCache() throws PortalException {
 		_cityLocalService.deleteAllCities();
 
 		_streetLocalService.deleteAllStreets();
@@ -39,8 +40,15 @@ public class IndexManagementLocalServiceImpl
 	}
 
 	@Override
-	public void clearCityByName(String cityName) {
+	public void clearCityByName(String cityName) throws PortalException {
 		_cityLocalService.deleteCitiesByName(cityName);
+	}
+
+	@Override
+	public void clearStreets() throws PortalException {
+		_streetLocalService.deleteAllStreets();
+
+		_log.info("Cleared all streets");
 	}
 
 	@Override
@@ -52,7 +60,8 @@ public class IndexManagementLocalServiceImpl
 
 	protected List<CityDTO> populateCities() {
 		try {
-			String response = _iditwsClient.getCities().getContent();
+			String response = _iditwsClient.getCities(
+			).getContent();
 
 			List<CityDTO> cities = _parseIDITCityResponse(response);
 
@@ -74,7 +83,8 @@ public class IndexManagementLocalServiceImpl
 			city -> {
 				try {
 					String response = _iditwsClient.getStreetsByCityId(
-						city.getCityId()).getContent();
+						city.getCityId()
+					).getContent();
 
 					List<StreetDTO> streets = _parseIDITStreetResponse(
 						response, city.getCityId());

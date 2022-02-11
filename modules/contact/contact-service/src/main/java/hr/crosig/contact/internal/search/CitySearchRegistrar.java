@@ -27,7 +27,9 @@ public class CitySearchRegistrar {
 			modelSearchDefinition -> {
 				modelSearchDefinition.setDefaultSelectedFieldNames(
 					Field.COMPANY_ID, Field.ENTRY_CLASS_NAME,
-					CityConstants.FIELD_CITY_NAME, Field.ENTRY_CLASS_PK);
+					CityConstants.FIELD_CITY_NAME, Field.ENTRY_CLASS_PK,
+					CityConstants.FIELD_CITY_BOX_NUMBER,
+					CityConstants.FIELD_CITY_POST_NAME);
 
 				modelSearchDefinition.setModelIndexWriteContributor(
 					modelIndexWriterContributor);

@@ -7,6 +7,7 @@ import com.liferay.portal.kernel.backgroundtask.BaseBackgroundTaskExecutor;
 import com.liferay.portal.kernel.backgroundtask.display.BackgroundTaskDisplay;
 import com.liferay.portal.kernel.backgroundtask.display.BackgroundTaskDisplayFactoryUtil;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import hr.crosig.contact.service.IndexManagementLocalService;
 
 
@@ -33,7 +34,7 @@ public class IndexManagementBackgroundTask extends BaseBackgroundTaskExecutor {
 	}
 
 	@Override
-	public BackgroundTaskResult execute(BackgroundTask backgroundTask) {
+	public BackgroundTaskResult execute(BackgroundTask backgroundTask) throws PortalException {
 		_indexManagementLocalService.clearAllIndicesCache();
 		_indexManagementLocalService.populateAllIndices();
 
