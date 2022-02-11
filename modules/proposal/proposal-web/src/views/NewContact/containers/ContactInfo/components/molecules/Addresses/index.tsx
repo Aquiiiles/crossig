@@ -20,7 +20,7 @@ import { Line } from "./styles";
 import { searchCitiesByName, searchStreetsByCityIdAndName } from "./controller";
 
 const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
-	const [country, setCountry] = useState<Object>(croatiaCountryObject);
+	const [country, setCountry] = useState<string>(croatiaCountryObject.value);
 	const [city, setCity] = useState<any>();
 	const [dispatchCity, setDispatchCity] = useState<any>();
 	const [sameAddress, setSameAdress] = useState(true);
@@ -48,7 +48,7 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 						<ClaySelectWithOption
 							id='country'
 							options={countries}
-							onChange={(country) => setCountry(country)}
+							onChange={(event) => setCountry(event.target.value)}
 							required
 						/>
 					</ClayForm.Group>
@@ -61,7 +61,7 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 								<AutocompleteInput
 									label={CREATE_NEW_CONTACT.FIELD.CITY}
 									id={"city"}
-									active={country === croatiaCountryObject}
+									active={country === croatiaCountryObject.value}
 									getOptions={searchCitiesByName}
 									setParentValue={setCity}
 									setPostalCode={setPostalCode}
@@ -89,7 +89,7 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 					<AutocompleteInput
 						label={CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS}
 						id={"street-addres"}
-						active={country === croatiaCountryObject}
+						active={country === croatiaCountryObject.value}
 						getOptions={searchStreetsByCityIdAndName(city)}
 						setParentValue={() => {
 							return;
@@ -141,7 +141,7 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 										<AutocompleteInput
 											label={CREATE_NEW_CONTACT.FIELD.CITY}
 											id={"dispatch-city"}
-											active={country === croatiaCountryObject}
+											active={country === croatiaCountryObject.value}
 											getOptions={searchCitiesByName}
 											setParentValue={setDispatchCity}
 											setPostalCode={setDispatchPostalCode}
@@ -164,7 +164,7 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 							<AutocompleteInput
 								label={CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS}
 								id={"dispatch-street-addres"}
-								active={country === croatiaCountryObject}
+								active={country === croatiaCountryObject.value}
 								getOptions={searchStreetsByCityIdAndName(dispatchCity)}
 								setParentValue={() => {
 									return;

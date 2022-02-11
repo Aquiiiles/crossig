@@ -34,7 +34,6 @@ const AutoCompleteInput: React.FC<{
 				setLoading(true);
 				if (getNewOptions) {
 					getOptions(value).then((newOptions: Array<any>) => {
-						console.log(newOptions);
 						setOptions(newOptions);
 						setFilteredOptions(newOptions);
 						setGetNewOptions(false);
@@ -94,7 +93,7 @@ const AutoCompleteInput: React.FC<{
 					id={id}
 					onFocus={() => setShowAutocomplete(true)}
 					ref={dropdownRef}
-					autoComplete="false"
+					autoComplete="off"
 				/>
 				<ClayAutocomplete.DropDown
 					active={
