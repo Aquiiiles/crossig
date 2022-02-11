@@ -216,9 +216,13 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 
 				long cityId = doc.getLong(CityConstants.FIELD_CITY_ID);
 				String name = doc.getString(CityConstants.FIELD_CITY_NAME);
+				String postName = doc.getString(CityConstants.FIELD_CITY_POST_NAME);
+				String boxNumber = doc.getString(CityConstants.FIELD_CITY_BOX_NUMBER);
 
 				city.setCityId(cityId);
 				city.setCityName(name);
+				city.setPostName(postName);
+				city.setBoxNumber(boxNumber);
 
 				cities.add(city);
 			});
