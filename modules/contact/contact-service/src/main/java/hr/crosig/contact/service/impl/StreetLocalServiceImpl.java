@@ -15,6 +15,7 @@
 package hr.crosig.contact.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistry;
@@ -89,7 +90,7 @@ public class StreetLocalServiceImpl extends StreetLocalServiceBaseImpl {
 	public List<String> searchStreetsNamesByNameAndCityId(
 			String streetName, long cityId) throws StreetException {
 
-		return searchStreetsNamesByNameAndCityId(streetName, cityId, -1, -1);
+		return searchStreetsNamesByNameAndCityId(streetName, cityId, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 
 	public List<String> searchStreetsNamesByNameAndCityId(

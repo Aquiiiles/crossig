@@ -15,6 +15,7 @@
 package hr.crosig.contact.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistry;
@@ -33,7 +34,6 @@ import com.liferay.portal.search.searcher.SearchRequestBuilder;
 import com.liferay.portal.search.searcher.SearchRequestBuilderFactory;
 import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.searcher.Searcher;
-
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.CityMessages;
 import hr.crosig.contact.dto.CityDTO;
@@ -43,14 +43,13 @@ import hr.crosig.contact.model.impl.CityModelImpl;
 import hr.crosig.contact.model.impl.StreetModelImpl;
 import hr.crosig.contact.service.base.CityLocalServiceBaseImpl;
 import hr.crosig.contact.util.BulkHelper;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Guilherme Kfouri
@@ -127,7 +126,7 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 	public List<CityDTO> searchCitiesNamesByName(String cityName)
 		throws CityException {
 
-		return searchCitiesNamesByName(cityName, -1, -1);
+		return searchCitiesNamesByName(cityName, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 
 	public List<CityDTO> searchCitiesNamesByName(
