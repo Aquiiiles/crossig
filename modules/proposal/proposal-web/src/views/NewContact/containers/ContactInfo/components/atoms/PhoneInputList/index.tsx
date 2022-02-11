@@ -16,6 +16,8 @@ import LinkWrapper from "../LinkWrapper";
 import getUnicodeFlagIcon from "country-flag-icons/unicode";
 import { croatiaContactInfoCountryObject } from "../../../../../../../constants/contactConstants";
 
+import AreaCodeSelect from "../../../../../../../shared/atoms/AreaCodeSelect";
+
 export interface PhoneNumber {
   type: string;
   countryCode: string;
@@ -134,29 +136,13 @@ const PhoneInputList: React.FC<props> = props => {
                   options={createOptionsWithFlags()}
                 ></ClaySelectWithOption>
 
-                <ClaySelect
-                  aria-label="Select Label"
+                <AreaCodeSelect 
                   id={`areaCodeSelect${index}`}
                   className={displayAreaCode(phoneNumber.countryCode)}
-                  onChange={e => handleChange(index, e, "areaCode")}
-                  value={phoneNumber.areaCode}
-                >
-                  <ClaySelect.Option
-                    className="area-code-default-option"
-                    disabled={true}
-                    key={defaultAreaCodeOption.value}
-                    label={defaultAreaCodeOption.label}
-                    value={defaultAreaCodeOption.value}
-                  />
-                  {props.areaCodeOptions.map(item => (
-                    <ClaySelect.Option
-                      className="area-code-option"
-                      key={item.value}
-                      label={item.label}
-                      value={item.value}
-                    />
-                  ))}
-                </ClaySelect>
+                  entity={phoneNumber.areaCode}
+                  handleChange={e => handleChange(index, e, "areaCode")}
+                  options={props.areaCodeOptions}
+                />
 
                 <ClayInput
                   id={`phoneNumber${index}`}
