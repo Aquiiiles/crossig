@@ -9,7 +9,6 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        bitbucketStatusNotify(buildState: 'INPROGRESS')
         sh './gradlew clean assemble'
       }
     }
@@ -22,8 +21,6 @@ pipeline {
   }
 
   post {
-    success      { bitbucketStatusNotify(buildState: 'SUCCESSFUL') }
-    unsuccessful { bitbucketStatusNotify(buildState: 'FAILED') }
-    cleanup      { cleanWs() }
+    cleanup { cleanWs() }
   }
 }
