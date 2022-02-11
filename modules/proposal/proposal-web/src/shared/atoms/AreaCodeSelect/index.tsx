@@ -6,6 +6,7 @@ import { ClaySelect } from "@clayui/form";
 
 type propsType = {
   id: string;
+  disabled: boolean;
   className: string;
   entity: any;
   handleChange: ChangeEventHandler;
@@ -68,6 +69,7 @@ const AreaCodeSelect: React.FC<propsType> = (props: propsType) => {
     <StyledSelect
       aria-label="Select Label"
       id={props.id}
+      disabled={props.disabled}
       className={props.className}
       onChange={props.handleChange}
       value={props.entity}

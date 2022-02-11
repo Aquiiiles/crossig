@@ -1,16 +1,19 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { useEffect, useState, useRef, ReactElement } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import {Link} from "react-router-dom";
 import ClayForm, { ClayInput } from "@clayui/form";
-import ClayButton from "@clayui/button";
-import ClayIcon from "@clayui/icon";
-import spritemap from "@clayui/css/lib/images/icons/icons.svg";
 import ClayDropDown from "@clayui/drop-down";
 import SearchFilters from "./components/molecules/SearchFilters";
 import ArrowButton from "./components/atoms/ArrowButton";
 import SearchButton from "./components/atoms/SearchButton";
-import {Wrapper} from "./styles";
-import {CONTACT_SEARCH_FIELD_NAME_OR_OIB, CONTACT_SEARCH_CREATE_NEW_CONTACT} from "../../../../constants/languageKeys";
+import { Wrapper } from "./styles";
+import {
+  CONTACT_SEARCH_FIELD_NAME_OR_OIB,
+  CONTACT_SEARCH_CREATE_NEW_CONTACT,
+} from "../../../../constants/languageKeys";
+import { mapToCountryCodeCountries } from "../../../../shared/util/countryMappers";
+
+declare var Liferay: any;
 
 const SearchField: React.FC = () => {
   const [name, setName] = useState("");
@@ -19,6 +22,23 @@ const SearchField: React.FC = () => {
   const [expand, setExpand] = useState(false);
   const [fieldWidth, setFieldWidth] = useState(0);
   const menuElementRef = useRef<HTMLDivElement>(null);
+  const [countries, setCountries] = useState<Array<Object>>([]);
+
+  const loadCountries = useCallback(() => {
+    Liferay.Service(
+      "/country/get-countries",
+      {
+        active: true,
+      },
+      (countriesArray: Array<any>) => {
+        setCountries(countriesArray);
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    loadCountries();
+  }, [loadCountries]);
 
   const handleExpand = () => {
     setExpand(!expand);
@@ -42,13 +62,15 @@ const SearchField: React.FC = () => {
   return (
     <Wrapper>
       <ClayForm.Group>
-        <label htmlFor="basicInputText">{CONTACT_SEARCH_FIELD_NAME_OR_OIB}</label>
+        <label htmlFor="basicInputText">
+          {CONTACT_SEARCH_FIELD_NAME_OR_OIB}
+        </label>
         <ClayInput
           id="basicInputText"
           type="text"
           ref={triggerElementRef}
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={e => setName(e.target.value)}
         />
         <SearchButton disabled={disabled} onClick={() => {}} />
         <ArrowButton onClick={handleExpand} />
@@ -60,7 +82,7 @@ const SearchField: React.FC = () => {
         alignElementRef={triggerElementRef}
         onSetActive={() => {}}
       >
-        <SearchFilters />
+        <SearchFilters countries={mapToCountryCodeCountries(countries)} />
       </ClayDropDown.Menu>
       <div></div>
       <Link to="new_contact">{CONTACT_SEARCH_CREATE_NEW_CONTACT}</Link>

@@ -1,5 +1,5 @@
 import React, { MouseEventHandler, useEffect, useState } from "react";
-import { ClayInput, ClaySelect, ClaySelectWithOption } from "@clayui/form";
+import { ClayInput } from "@clayui/form";
 import {
   CONTACT_INFO_ADD_MOBILE_PHONE,
   CONTACT_INFO_PHONE_NUMBER,
@@ -13,10 +13,10 @@ import {
   StyledFormGroup,
 } from "./styles";
 import LinkWrapper from "../LinkWrapper";
-import getUnicodeFlagIcon from "country-flag-icons/unicode";
-import { croatiaContactInfoCountryObject } from "../../../../../../../constants/contactConstants";
+import { countryCodes } from "../../../../../../../constants/defaultCountryConfiguration";
 
 import AreaCodeSelect from "../../../../../../../shared/atoms/AreaCodeSelect";
+import CountryCodeSelect from "../../../../../../../shared/atoms/CountryCodeSelect";
 
 export interface PhoneNumber {
   type: string;
@@ -25,13 +25,13 @@ export interface PhoneNumber {
   phoneNumber: string;
 }
 
-interface props {
+type propsType = {
   phoneNumbers: Array<PhoneNumber>;
   handleChange: Function;
   addPhoneInput: MouseEventHandler;
   countries: Array<Country>;
   areaCodeOptions: Array<any>;
-}
+};
 export interface Country {
   label: string;
   value: string;
@@ -42,12 +42,12 @@ export const createEmptyPhoneNumber = (type: string) => {
   return {
     type: type,
     areaCode: "",
-    countryCode: croatiaContactInfoCountryObject.value,
+    countryCode: countryCodes.value,
     phoneNumber: "",
   } as PhoneNumber;
 };
 
-const PhoneInputList: React.FC<props> = props => {
+const PhoneInputList: React.FC<propsType> = (props: propsType) => {
   const [hasSomeInvalidPhone, setSomeInvalidPhone] = useState(false);
 
   useEffect(() => {
@@ -58,24 +58,9 @@ const PhoneInputList: React.FC<props> = props => {
     return props.phoneNumbers.length === MAXIMUM_MOBILE_PHONES;
   };
 
-  const getFlagSVG = (country: Country) => {
-    return getUnicodeFlagIcon(country.flagKey);
-  };
-
-  const createOptionsWithFlags = () => {
-    return props.countries.map(country => {
-      return {
-        label: getFlagSVG(country) + " " + country.label,
-        value: country.value,
-      };
-    });
-  };
-
   const validatePhones = () => {
     const invalidityChecks = props.phoneNumbers
-      .filter(
-        phone => phone.countryCode === croatiaContactInfoCountryObject.label
-      )
+      .filter(phone => phone.countryCode === countryCodes.label)
       .map(phone => {
         if (phone.phoneNumber === "") {
           return false;
@@ -99,7 +84,7 @@ const PhoneInputList: React.FC<props> = props => {
   const displayAreaCode = (countryCode: string) => {
     let style = "area-code";
 
-    if (countryCode !== croatiaContactInfoCountryObject.label) {
+    if (countryCode !== countryCodes.label) {
       style += " hidden-select";
     }
 
@@ -108,7 +93,7 @@ const PhoneInputList: React.FC<props> = props => {
 
   const handlePhoneInputWidth = (countryCode: string) => {
     let style = "phone-number";
-    if (countryCode !== croatiaContactInfoCountryObject.label) {
+    if (countryCode !== countryCodes.label) {
       style += " stretch-phone-number";
     }
 
@@ -123,18 +108,19 @@ const PhoneInputList: React.FC<props> = props => {
             <li key={`phoneInputList${index}`}>
               <label>{CONTACT_INFO_PHONE_NUMBER}</label>
               <PhoneNumberWrapper>
-                <ClaySelectWithOption
+                <CountryCodeSelect
                   id={`countryCodeSelect${index}`}
                   className="country-code"
-                  onChange={e => handleChange(index, e, "countryCode")}
-                  value={phoneNumber.countryCode}
-                  options={createOptionsWithFlags()}
-                ></ClaySelectWithOption>
+                  handleChange={e => handleChange(index, e, "countryCode")}
+                  entity={phoneNumber.countryCode}
+                  countries={props.countries}
+                />
 
-                <AreaCodeSelect 
+                <AreaCodeSelect
                   id={`areaCodeSelect${index}`}
                   className={displayAreaCode(phoneNumber.countryCode)}
                   entity={phoneNumber.areaCode}
+                  disabled={false}
                   handleChange={e => handleChange(index, e, "areaCode")}
                 />
 

@@ -22,9 +22,3 @@ export const contactTypeOptions = [
 ];
 
 export const MINIMUN_LENGTH_FOR_AUTOCOMPLETE_INPUT = 2;
-export const croatiaAddressesCountryObject = { label: "Croatia", value: "70" };
-export const croatiaContactInfoCountryObject = {
-  label: "385",
-  value: "385",
-  flagKey: "HR",
-};

@@ -1,11 +1,8 @@
-import {
-  croatiaAddressesCountryObject,
-  croatiaContactInfoCountryObject,
-} from "../../constants/contactConstants";
+import { countryNames, countryCodes } from "../../constants/defaultCountryConfiguration";
 
 import { Country } from "../../views/NewContact/containers/ContactInfo/components/atoms/PhoneInputList";
 
-export const mapToAddressCountries = (countriesArray: Array<any>) => {
+export const mapToCountryNames = (countriesArray: Array<any>) => {
   const countries = countriesArray
     .map((country) => {
       return {
@@ -13,13 +10,13 @@ export const mapToAddressCountries = (countriesArray: Array<any>) => {
         value: country.countryId,
       };
     })
-    .filter((country) => country.label !== croatiaAddressesCountryObject.label);
-  countries.unshift(croatiaAddressesCountryObject);
+    .filter((country) => country.label !== countryNames.label);
+  countries.unshift(countryNames);
 
   return countries;
 };
 
-export const mapToContactInfoFormCountries = (countriesArray: Array<any>) => {
+export const mapToCountryCodeCountries = (countriesArray: Array<any>) => {
   const countries = countriesArray
     .map((country) => {
       return {
@@ -29,9 +26,9 @@ export const mapToContactInfoFormCountries = (countriesArray: Array<any>) => {
       } as Country;
     })
     .filter(
-      (country) => country.label !== croatiaContactInfoCountryObject.label
+      (country) => country.label !== countryCodes.label
     );
-  countries.unshift(croatiaContactInfoCountryObject);
+  countries.unshift(countryCodes);
 
   return countries;
 };

@@ -8,19 +8,17 @@ import ClayForm, {
   ClayCheckbox,
   ClaySelectWithOption,
 } from "@clayui/form";
-import {
-  contactTypes,
-  croatiaAddressesCountryObject,
-} from "../../../../../../../constants/contactConstants";
+import { contactTypes } from "../../../../../../../constants/contactConstants";
+import { countryNames } from "../../../../../../../constants/defaultCountryConfiguration";
 import { CREATE_NEW_CONTACT } from "../../../../../../../constants/languageKeys";
 import { useContactSelector } from "../../../contactStore";
 import { Line } from "./styles";
 import { searchCitiesByName, searchStreetsByCityIdAndName } from "./controller";
 
 const Addresses: React.FC<{ countries: { label: any; value: any; }[] }> = ({ countries }) => {
-  const [country, setCountry] = useState<string>(croatiaAddressesCountryObject.value);
+  const [country, setCountry] = useState<string>(countryNames.value);
   const [dispatchCountry, setDispatchCountry] = useState<string>(
-    croatiaAddressesCountryObject.value
+    countryNames.value
   );
   const [city, setCity] = useState<any>();
   const [dispatchCity, setDispatchCity] = useState<any>();
@@ -31,10 +29,10 @@ const Addresses: React.FC<{ countries: { label: any; value: any; }[] }> = ({ cou
     (state: { basicInfo: any }) => state.basicInfo
   );
 
-  const mainAddressInCroatia = country === croatiaAddressesCountryObject.value;
+  const mainAddressInCroatia = country === countryNames.value;
 
   const dispatchAddressInCroatia =
-    dispatchCountry === croatiaAddressesCountryObject.value;
+    dispatchCountry === countryNames.value;
 
   return (
     <>
