@@ -1,5 +1,6 @@
 package hr.crosig.contact.rest.application.utils;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -138,6 +139,7 @@ public class ApplicationUtilities {
 		mapper.configure(
 			JsonReadFeature.ALLOW_UNESCAPED_CONTROL_CHARS.mappedFeature(),
 			true);
+		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
 		return mapper;
 	}

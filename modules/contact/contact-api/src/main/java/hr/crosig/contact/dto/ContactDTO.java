@@ -43,6 +43,10 @@ public class ContactDTO {
 		return gender;
 	}
 
+	public String getId() {
+		return id;
+	}
+
 	public List<IdentifierDTO> getIdentifiers() {
 		return identifiers;
 	}
@@ -119,6 +123,10 @@ public class ContactDTO {
 		this.gender = gender;
 	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public void setIdentifiers(List<IdentifierDTO> identifiers) {
 		this.identifiers = identifiers;
 	}
@@ -140,7 +148,7 @@ public class ContactDTO {
 	}
 
 	public void setPreferredDeliveryType(
-			PreferredDeliveryTypeDTO preferredDeliveryType) {
+		PreferredDeliveryTypeDTO preferredDeliveryType) {
 
 		this.preferredDeliveryType = preferredDeliveryType;
 	}
@@ -170,6 +178,7 @@ public class ContactDTO {
 	private FamilyStatusDTO familyStatus;
 	private String firstName;
 	private GenderDTO gender;
+	private String id;
 	private List<IdentifierDTO> identifiers;
 	private LanguageDTO language;
 	private String middleName;

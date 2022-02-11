@@ -13,9 +13,9 @@ public class CityConstants {
 
 	public static final String JSON_KEY_FOR_BOX_NUMBER = "boxNumber";
 
-	public static final String JSON_KEY_FOR_EXTERNAL_CITY_ID = "id";
-
 	public static final String JSON_KEY_FOR_CITY_NAME = "cityName";
+
+	public static final String JSON_KEY_FOR_EXTERNAL_CITY_ID = "id";
 
 	public static final String JSON_KEY_FOR_POST_NAME = "postName";
 

@@ -7,8 +7,12 @@ import javax.validation.constraints.Pattern;
  */
 public class TelephoneDTO {
 
-	public CountryDialCodeDTO getCountryDialCodeDTO() {
-		return countryDialCodeDTO;
+	public CountryDialCodeDTO getCountryDialCode() {
+		return countryDialCode;
+	}
+
+	public boolean getIsPreferredDeliveryAddress() {
+		return isPreferredDeliveryAddress;
 	}
 
 	public String getTelephoneExtension() {
@@ -23,20 +27,18 @@ public class TelephoneDTO {
 		return telephonePrefix;
 	}
 
-	public TelephoneTypeDTO getTelephoneTypeDTO() {
-		return telephoneTypeDTO;
+	public TelephoneTypeDTO getTelephoneType() {
+		return telephoneType;
 	}
 
-	public boolean isPreferredDeliveryAddress() {
-		return isPreferredDeliveryAddress;
+	public void setCountryDialCode(CountryDialCodeDTO countryDialCode) {
+		this.countryDialCode = countryDialCode;
 	}
 
-	public void setCountryDialCodeDTO(CountryDialCodeDTO countryDialCodeDTO) {
-		this.countryDialCodeDTO = countryDialCodeDTO;
-	}
+	public void setIsPreferredDeliveryAddress(
+		boolean isPreferredDeliveryAddress) {
 
-	public void setPreferredDeliveryAddress(boolean preferredDeliveryAddress) {
-		isPreferredDeliveryAddress = preferredDeliveryAddress;
+		this.isPreferredDeliveryAddress = isPreferredDeliveryAddress;
 	}
 
 	public void setTelephoneExtension(String telephoneExtension) {
@@ -51,11 +53,11 @@ public class TelephoneDTO {
 		this.telephonePrefix = telephonePrefix;
 	}
 
-	public void setTelephoneTypeDTO(TelephoneTypeDTO telephoneTypeDTO) {
-		this.telephoneTypeDTO = telephoneTypeDTO;
+	public void setTelephoneType(TelephoneTypeDTO telephoneType) {
+		this.telephoneType = telephoneType;
 	}
 
-	private CountryDialCodeDTO countryDialCodeDTO;
+	private CountryDialCodeDTO countryDialCode;
 	private boolean isPreferredDeliveryAddress;
 	private String telephoneExtension;
 
@@ -63,6 +65,6 @@ public class TelephoneDTO {
 	private String telephoneNumber;
 
 	private String telephonePrefix;
-	private TelephoneTypeDTO telephoneTypeDTO;
+	private TelephoneTypeDTO telephoneType;
 
 }
