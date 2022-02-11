@@ -258,7 +258,11 @@ public interface CityLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<String> searchCitiesNamesByName(
+	public List<CityDTO> searchCitiesNamesByName(String cityName)
+		throws CityException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CityDTO> searchCitiesNamesByName(
 			String cityName, int start, int end)
 		throws CityException;
 

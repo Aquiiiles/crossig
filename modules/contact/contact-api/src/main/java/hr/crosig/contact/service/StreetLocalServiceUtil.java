@@ -286,8 +286,16 @@ public class StreetLocalServiceUtil {
 	}
 
 	public static List<String> searchStreetsNamesByNameAndCityId(
+			String streetName, long cityId)
+		throws hr.crosig.contact.exception.StreetException {
+
+		return getService().searchStreetsNamesByNameAndCityId(
+			streetName, cityId);
+	}
+
+	public static List<String> searchStreetsNamesByNameAndCityId(
 			String streetName, long cityId, int start, int end)
-		throws Exception {
+		throws hr.crosig.contact.exception.StreetException {
 
 		return getService().searchStreetsNamesByNameAndCityId(
 			streetName, cityId, start, end);

@@ -15,29 +15,26 @@ import com.liferay.portal.search.searcher.SearchRequestBuilder;
 import com.liferay.portal.search.searcher.SearchRequestBuilderFactory;
 import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.searcher.Searcher;
-
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.CityMessages;
+import hr.crosig.contact.dto.CityDTO;
 import hr.crosig.contact.exception.CityException;
-
-import java.util.Collections;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Guilherme Kfouri
@@ -54,7 +51,7 @@ public class CityLocalServiceImplTest {
 		expectedException.expect(CityException.class);
 		expectedException.expectMessage(CityMessages.INSUFICIENT_NAME_LENGTH);
 
-		_cityLocalServiceImpl.searchCitiesNamesByName("c", -1, -1);
+		_cityLocalServiceImpl.searchCitiesNamesByName("c");
 	}
 
 	@Test
@@ -62,7 +59,7 @@ public class CityLocalServiceImplTest {
 		expectedException.expect(CityException.class);
 		expectedException.expectMessage(CityMessages.INSUFICIENT_NAME_LENGTH);
 
-		_cityLocalServiceImpl.searchCitiesNamesByName("ci", -1, -1);
+		_cityLocalServiceImpl.searchCitiesNamesByName("ci");
 	}
 
 	@Test
@@ -71,11 +68,11 @@ public class CityLocalServiceImplTest {
 
 		_mockSearchers(query);
 
-		List<String> cityNames = _cityLocalServiceImpl.searchCitiesNamesByName(
-			"cit", -1, -1);
+		List<CityDTO> cities = _cityLocalServiceImpl.searchCitiesNamesByName(
+			"cit");
 
-		Assert.assertEquals(1, cityNames.size());
-		Assert.assertEquals("cityName", cityNames.get(0));
+		Assert.assertEquals(1, cities.size());
+		Assert.assertEquals("cityName", cities.get(0).getCityName());
 	}
 
 	@Test
@@ -83,7 +80,7 @@ public class CityLocalServiceImplTest {
 		expectedException.expect(CityException.class);
 		expectedException.expectMessage(CityMessages.INSUFICIENT_NAME_LENGTH);
 
-		_cityLocalServiceImpl.searchCitiesNamesByName("", -1, -1);
+		_cityLocalServiceImpl.searchCitiesNamesByName("");
 	}
 
 	@Before

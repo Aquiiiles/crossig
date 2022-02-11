@@ -1,24 +1,21 @@
 package hr.crosig.contact.rest.application;
 
-import hr.crosig.common.ws.exception.ServiceInvocationException;
-import hr.crosig.common.ws.idit.client.IDITWSClient;
-import hr.crosig.common.ws.response.ServiceResponse;
-import hr.crosig.contact.rest.application.utils.ApplicationUtilities;
+import hr.crosig.contact.exception.CityException;
+import hr.crosig.contact.exception.StreetException;
 import hr.crosig.contact.rest.application.utils.TestConstants;
-
-import javax.ws.rs.core.Response;
-
+import hr.crosig.contact.service.CityLocalService;
+import hr.crosig.contact.service.StreetLocalService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
+
+import javax.ws.rs.core.Response;
 
 /**
  * @author marcelo.mazurky
@@ -30,84 +27,71 @@ import org.powermock.reflect.Whitebox;
 public class AddressApplicationTest {
 
 	@Test
-	public void getCities_ApiError() throws ServiceInvocationException {
+	public void getCities_ApiError() throws CityException, StreetException {
 		_mockApiError();
 
-		Response response = _addressApplication.getCities();
-		Response expectedResponse = ApplicationUtilities.handleErrorResponse(
-			TestConstants.API_ERROR_STATUS_CODE,
-			TestConstants.API_ERROR_STATUS_CONTENT);
+		Response response = _addressApplication.getCities(TestConstants.VALID_CITY_NAME);
 
-		Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
-		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
+		Assert.assertEquals(TestConstants.API_ERROR_STATUS_CODE, response.getStatus());
+		Assert.assertEquals(TestConstants.API_ERROR_STATUS_CONTENT, response.getEntity());
 	}
 
 	@Test
-	public void getCities_ApiException() throws ServiceInvocationException {
+	public void getCities_ApiException() throws CityException, StreetException {
 		_mockApiException();
 
-		Response response = _addressApplication.getCities();
-		Response expectedResponse = ApplicationUtilities.handleErrorResponse(
-			TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
+		Response response = _addressApplication.getCities(TestConstants.VALID_CITY_NAME);
 
-		Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
-		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
+		Assert.assertEquals(TestConstants.API_BAD_REQUEST_STATUS_CODE, response.getStatus());
+		Assert.assertEquals(TestConstants.API_BAD_REQUEST_STATUS_CONTENT, response.getEntity());
 	}
 
 	@Test
-	public void getCities_ApiSuccess() throws ServiceInvocationException {
+	public void getCities_ApiSuccess() throws CityException, StreetException {
 		_mockApiSuccess();
 
-		Response response = _addressApplication.getCities();
-		Response expectedResponse = ApplicationUtilities.handleSuccessResponse(
-			TestConstants.API_SUCCESS_STATUS_CONTENT);
+		Response response = _addressApplication.getCities(TestConstants.VALID_CITY_NAME);
 
-		Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
-		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
+		Assert.assertEquals(TestConstants.API_SUCCESS_STATUS_CODE, response.getStatus());
+		Assert.assertEquals(TestConstants.validCity, response.getEntity());
 	}
 
 	@Test
-	public void getStreetsByCity_ApiError() throws ServiceInvocationException {
+	public void getStreetsByCity_ApiError() throws CityException, StreetException {
 		_mockApiError();
 
 		Response response = _addressApplication.getStreetsByCity(
-			TestConstants.VALID_CITY_ID);
-		Response expectedResponse = ApplicationUtilities.handleErrorResponse(
-			TestConstants.API_ERROR_STATUS_CODE,
-			TestConstants.API_ERROR_STATUS_CONTENT);
+			TestConstants.VALID_CITY_ID, TestConstants.VALID_STREET_NAME);
 
-		Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
-		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
+		Assert.assertEquals(TestConstants.API_ERROR_STATUS_CODE, response.getStatus());
+		Assert.assertEquals(TestConstants.API_ERROR_STATUS_CONTENT, response.getEntity());
 	}
 
 	@Test
 	public void getStreetsByCity_ApiException()
-		throws ServiceInvocationException {
+			throws CityException, StreetException {
 
 		_mockApiException();
 
 		Response response = _addressApplication.getStreetsByCity(
-			TestConstants.VALID_CITY_ID);
-		Response expectedResponse = ApplicationUtilities.handleErrorResponse(
-			TestConstants.API_SERVICE_INVOCATION_EXCEPTION);
+			TestConstants.VALID_CITY_ID, TestConstants.VALID_STREET_NAME);
 
-		Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
-		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
+		Assert.assertEquals(TestConstants.API_BAD_REQUEST_STATUS_CODE, response.getStatus());
+		Assert.assertEquals(TestConstants.API_BAD_REQUEST_STATUS_CONTENT, response.getEntity());
 	}
 
 	@Test
 	public void getStreetsByCity_ApiSuccess()
-		throws ServiceInvocationException {
+			throws CityException, StreetException {
 
 		_mockApiSuccess();
 
 		Response response = _addressApplication.getStreetsByCity(
-			TestConstants.VALID_CITY_ID);
-		Response expectedResponse = ApplicationUtilities.handleSuccessResponse(
-			TestConstants.API_SUCCESS_STATUS_CONTENT);
+			TestConstants.VALID_CITY_ID, TestConstants.VALID_STREET_NAME);
 
-		Assert.assertEquals(expectedResponse.getStatus(), response.getStatus());
-		Assert.assertEquals(expectedResponse.getEntity(), response.getEntity());
+
+		Assert.assertEquals(TestConstants.API_SUCCESS_STATUS_CODE, response.getStatus());
+		Assert.assertEquals(TestConstants.validStreet, response.getEntity());
 	}
 
 	@Before
@@ -117,53 +101,47 @@ public class AddressApplicationTest {
 
 	private void _injectMocks() {
 		Whitebox.setInternalState(
-			_addressApplication, "_iditwsClient", _iditwsClient);
+			_addressApplication, "_cityLocalService", _cityLocalService);
+		Whitebox.setInternalState(
+				_addressApplication, "_streetLocalService", _streetLocalService);
 	}
 
-	private void _mockApiError() throws ServiceInvocationException {
-		ServiceResponse serviceResponseError = new ServiceResponse(
-			TestConstants.API_ERROR_STATUS_CODE,
-			TestConstants.API_ERROR_STATUS_CONTENT);
-
+	private void _mockApiError() throws CityException, StreetException {
 		Mockito.when(
-			_iditwsClient.getCities()
-		).thenReturn(
-			serviceResponseError
-		);
-		Mockito.when(
-			_iditwsClient.getStreetsByCityId(TestConstants.VALID_CITY_ID)
-		).thenReturn(
-			serviceResponseError
-		);
-	}
-
-	private void _mockApiException() throws ServiceInvocationException {
-		Mockito.when(
-			_iditwsClient.getCities()
+			_cityLocalService.searchCitiesNamesByName(TestConstants.VALID_CITY_NAME)
 		).thenThrow(
-			TestConstants.API_SERVICE_INVOCATION_EXCEPTION
+			new RuntimeException(TestConstants.API_ERROR_STATUS_CONTENT)
 		);
 		Mockito.when(
-			_iditwsClient.getStreetsByCityId(TestConstants.VALID_CITY_ID)
+				_streetLocalService.searchStreetsNamesByNameAndCityId(TestConstants.VALID_STREET_NAME, TestConstants.VALID_CITY_ID)
 		).thenThrow(
-			TestConstants.API_SERVICE_INVOCATION_EXCEPTION
+			new RuntimeException(TestConstants.API_ERROR_STATUS_CONTENT)
 		);
 	}
 
-	private void _mockApiSuccess() throws ServiceInvocationException {
-		ServiceResponse serviceResponseSuccess = new ServiceResponse(
-			TestConstants.API_SUCCESS_STATUS_CODE,
-			TestConstants.API_SUCCESS_STATUS_CONTENT);
-
+	private void _mockApiException() throws StreetException, CityException {
 		Mockito.when(
-			_iditwsClient.getCities()
-		).thenReturn(
-			serviceResponseSuccess
+				_cityLocalService.searchCitiesNamesByName(TestConstants.VALID_CITY_NAME)
+		).thenThrow(
+			new CityException(TestConstants.API_BAD_REQUEST_STATUS_CONTENT)
 		);
 		Mockito.when(
-			_iditwsClient.getStreetsByCityId(TestConstants.VALID_CITY_ID)
+				_streetLocalService.searchStreetsNamesByNameAndCityId(TestConstants.VALID_STREET_NAME, TestConstants.VALID_CITY_ID)
+		).thenThrow(
+			new StreetException(TestConstants.API_BAD_REQUEST_STATUS_CONTENT)
+		);
+	}
+
+	private void _mockApiSuccess() throws CityException, StreetException {
+		Mockito.when(
+				_cityLocalService.searchCitiesNamesByName(TestConstants.VALID_CITY_NAME)
 		).thenReturn(
-			serviceResponseSuccess
+			TestConstants.validCity
+		);
+		Mockito.when(
+				_streetLocalService.searchStreetsNamesByNameAndCityId(TestConstants.VALID_STREET_NAME, TestConstants.VALID_CITY_ID)
+		).thenReturn(
+			TestConstants.validStreet
 		);
 	}
 
@@ -171,6 +149,9 @@ public class AddressApplicationTest {
 		new AddressApplication();
 
 	@Mock
-	private IDITWSClient _iditwsClient;
+	private CityLocalService _cityLocalService;
+
+	@Mock
+	private StreetLocalService _streetLocalService;
 
 }

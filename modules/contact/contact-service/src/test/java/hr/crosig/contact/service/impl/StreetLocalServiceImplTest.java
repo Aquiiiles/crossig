@@ -15,29 +15,25 @@ import com.liferay.portal.search.searcher.SearchRequestBuilder;
 import com.liferay.portal.search.searcher.SearchRequestBuilderFactory;
 import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.searcher.Searcher;
-
 import hr.crosig.contact.constants.StreetConstants;
 import hr.crosig.contact.constants.StreetMessages;
 import hr.crosig.contact.exception.StreetException;
-
-import java.util.Collections;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Guilherme Kfouri
@@ -56,7 +52,7 @@ public class StreetLocalServiceImplTest {
 			StreetMessages.INSUFFICIENT_NAME_LENGTH);
 
 		_streetLocalServiceImpl.searchStreetsNamesByNameAndCityId(
-			"s", _cityId, -1, -1);
+			"s", _cityId);
 	}
 
 	@Test
@@ -66,7 +62,7 @@ public class StreetLocalServiceImplTest {
 			StreetMessages.INSUFFICIENT_NAME_LENGTH);
 
 		_streetLocalServiceImpl.searchStreetsNamesByNameAndCityId(
-			"st", _cityId, -1, -1);
+			"st", _cityId);
 	}
 
 	@Test
@@ -77,7 +73,7 @@ public class StreetLocalServiceImplTest {
 
 		List<String> streetNames =
 			_streetLocalServiceImpl.searchStreetsNamesByNameAndCityId(
-				"str", _cityId, -1, -1);
+				"str", _cityId);
 
 		Assert.assertEquals(1, streetNames.size());
 		Assert.assertEquals("streetName", streetNames.get(0));
@@ -90,7 +86,7 @@ public class StreetLocalServiceImplTest {
 			StreetMessages.INSUFFICIENT_NAME_LENGTH);
 
 		_streetLocalServiceImpl.searchStreetsNamesByNameAndCityId(
-			"", _cityId, -1, -1);
+			"", _cityId);
 	}
 
 	@Before

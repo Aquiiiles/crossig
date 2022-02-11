@@ -313,8 +313,17 @@ public class StreetLocalServiceWrapper
 
 	@Override
 	public java.util.List<String> searchStreetsNamesByNameAndCityId(
+			String streetName, long cityId)
+		throws hr.crosig.contact.exception.StreetException {
+
+		return _streetLocalService.searchStreetsNamesByNameAndCityId(
+			streetName, cityId);
+	}
+
+	@Override
+	public java.util.List<String> searchStreetsNamesByNameAndCityId(
 			String streetName, long cityId, int start, int end)
-		throws Exception {
+		throws hr.crosig.contact.exception.StreetException {
 
 		return _streetLocalService.searchStreetsNamesByNameAndCityId(
 			streetName, cityId, start, end);
