@@ -40,8 +40,8 @@ const AutoCompleteInput: React.FC<{
 						setFilteredOptions(
 							newOptions?.filter((option) =>
 								isCity
-									? option.cityName.includes(value)
-									: option.includes(value)
+									? option.cityName.toLowerCase().includes(value.toLowerCase())
+									: option.toLowerCase().includes(value.toLowerCase())
 							)
 						);
 						setGetNewOptions(false);
@@ -49,7 +49,9 @@ const AutoCompleteInput: React.FC<{
 				} else {
 					setFilteredOptions(
 						options?.filter((option) =>
-							isCity ? option.cityName.includes(value) : option.includes(value)
+							isCity
+								? option.cityName.toLowerCase().includes(value.toLowerCase())
+								: option.toLowerCase().includes(value.toLowerCase())
 						)
 					);
 				}
