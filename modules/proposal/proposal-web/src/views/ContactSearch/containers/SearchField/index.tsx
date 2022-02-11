@@ -49,17 +49,18 @@ const SearchField: React.FC<props> = ({ fetchSearchResultData }: props) => {
   }, [loadCountries]);
 
   const fetchData = () => {
-    const searchString = new URLSearchParams({
-      nameOrOIB: name,
-      city: city,
-      streetAdress: street,
-      phoneCountryCode: countryCode,
-      phoneAreaCode: areaCode,
-      phoneNumber: phoneNumber,
-      email: email,
-    });
+    const data = {
+      finderKey: 1,
+      identifierType: 1000000,
+      identityNumber: /^\d+/.test(name) ? name : undefined,
+      name: /^[A-Za-z\s]+/.test(name) ? name : undefined,
+      cityName: city !== "" ? city : undefined,
+      assetStreetName: street !== "" ? street : undefined,
+      telephoneCountryCode: countryCode !== "" ? countryCode : undefined,
+      telephonePrefix: areaCode !== "" ? areaCode : undefined,
+    };
 
-    fetchSearchResultData("GET", `${SEARCH_URL}?${searchString.toString()}`);
+    fetchSearchResultData("POST", SEARCH_URL, {}, data);
   };
 
   const handleExpand = () => {

@@ -129,6 +129,7 @@ const SearchFilters: React.FC<props> = ({ countries, fetchData, searchDisabled }
               onChange={e => handleAreaCodeChange(e)}
               value={areaCode}
             >
+              <ClaySelect.Option label="Select" value="" />
               {areaCodeData.response.data.area_codes.map(
                 (item: AreaCodeType) => (
                   <ClaySelect.Option

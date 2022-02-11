@@ -17,7 +17,8 @@ import { AxiosRequestConfig } from "axios";
 export type FetchDataFunction = (
   method: NonNullable<AxiosRequestConfig["method"]>,
   url: string,
-  params?: AxiosRequestConfig["params"]
+  params?: AxiosRequestConfig["params"],
+  data?: AxiosRequestConfig["data"]
 ) => Promise<void>;
 
 const initialArgs = {
@@ -35,10 +36,10 @@ export const useFetchData = () => {
   const dispatch = useSafeDispatch(unsafeDispatch);
 
   const fetchData: FetchDataFunction = useCallback(
-    async (method, url, params) => {
+    async (method, url, params, data) => {
       dispatch({ type: PENDING });
       try {
-        const response = await API({ method, url, params });
+        const response = await API({ method, url, params, data });
 
         dispatch({ type: RESOLVED, response });
         console.log("response", response);

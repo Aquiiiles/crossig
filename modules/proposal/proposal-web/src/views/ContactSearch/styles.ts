@@ -15,7 +15,7 @@ export const LinkWrapper = styled.div`
 
 export const Content = styled.div`
   flex: 1;
-  padding: 1.25rem;
+  padding: 1.25rem 3.5rem 1.25rem 3.75rem;
 `;
 
 export const EmptySpace = styled.div`
