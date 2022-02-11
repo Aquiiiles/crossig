@@ -1,5 +1,4 @@
 import React, {
-  Fragment,
   MouseEventHandler,
   useCallback,
   useEffect,
@@ -86,7 +85,7 @@ const PhoneInputList: React.FC<props> = (props) => {
 	}, [loadCountries]);
   
   const shouldDisableLink = () => {
-    return props.phoneNumbers.length == MAXIMUM_MOBILE_PHONES;
+    return props.phoneNumbers.length === MAXIMUM_MOBILE_PHONES;
   }
 
   const getFlagSVG = (country:Country) => {

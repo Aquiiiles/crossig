@@ -89,15 +89,15 @@ const ContactInfoFields: React.FC = () =>  {
   }
 
   const getEmailLabelTitle = (index:number) => {
-    return index == 0 ? CONTACT_INFO_MAIN_EMAIL : CONTACT_INFO_OTHER_EMAIL_ADDRESSES;
+    return index === 0 ? CONTACT_INFO_MAIN_EMAIL : CONTACT_INFO_OTHER_EMAIL_ADDRESSES;
   }
 
   const getEmailLabelSubtitle = (index:number) => {
-    return index == 0 ? CONTACT_INFO_MAIN_EMAIL_SUBTITLE : CONTACT_INFO_OTHER_EMAIL_ADDRESSES_SUBTITLE;
+    return index === 0 ? CONTACT_INFO_MAIN_EMAIL_SUBTITLE : CONTACT_INFO_OTHER_EMAIL_ADDRESSES_SUBTITLE;
   }
 
   const shouldPadEmailLabel = (index:number) => {
-    return !(index == 0);
+    return !(index === 0);
   }
 
   const options = [
@@ -110,11 +110,6 @@ const ContactInfoFields: React.FC = () =>  {
       value: "2"
     }
   ];
-
-  const teste = (index:number) => {
-    console.log(index)
-    return index % 2 != 0
-  }
 
   return (
       <Fragment>
@@ -153,7 +148,6 @@ const ContactInfoFields: React.FC = () =>  {
                 index={index}
                 title={CONTACT_INFO_PHONE_TYPE}
                 options={options}
-                padded={teste(index)}
                 />
             ))}
           </ClayForm.Group>

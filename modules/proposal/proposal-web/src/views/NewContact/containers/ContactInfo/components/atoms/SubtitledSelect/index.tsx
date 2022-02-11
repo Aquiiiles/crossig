@@ -6,7 +6,6 @@ interface props {
   index:number;
   options: Array<any>;
   title: string;
-  padded: boolean;
 }
 
 const getComponentId = (index:number) => {
@@ -21,7 +20,6 @@ const SubtitledSelect: React.FC<props> = (props) => {
         id={getComponentId(props.index)}
         aria-label="Select Label"
         options={props.options}
-        // className={props.padded ? "padded" : ""}
       />
     </Wrapper>
   );

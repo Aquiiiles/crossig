@@ -20,7 +20,7 @@ const EmailListInput: React.FC<props> = (props) => {
   let [hasSomeInvalidEmail, setSomeInvalidEmail] = useState(false);
 
   const shouldDisableLink = () => {
-    return props.emails.length == MAXIMUM_EMAIL_ADDRESSES;
+    return props.emails.length === MAXIMUM_EMAIL_ADDRESSES;
   }
 
   const validateEmails = () => {
