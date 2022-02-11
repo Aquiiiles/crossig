@@ -4,7 +4,7 @@ import ClayForm from "@clayui/form";
 import CreateContactButton from "../../atoms/CreateContactButton";
 import EmailInputList from "../../atoms/EmailInputList";
 import FormSection from "../../../../../../../shared/atoms/FormSection";
-import PhoneInputList, { createEmptyPhoneNumber } from "../../atoms/PhoneInputList";
+import PhoneInputList, { createEmptyPhoneNumber, Country } from "../../atoms/PhoneInputList";
 import LinkWrapper from "../../atoms/LinkWrapper";
 import Row from "../../../../../../../shared/atoms/Row";
 import SubtitledLabel from "../../atoms/SubtitledLabel";
@@ -30,7 +30,7 @@ import {
 import { actions } from "./slice/contactInfoSlice";
 import { useContactDispatch, useContactSelector } from "../../../contactStore";
 
-const ContactInfoForm: React.FC = () =>  {
+const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({ countries }) =>  {
   const history = useHistory();
   const dispatch = useContactDispatch();
 
@@ -113,17 +113,6 @@ const ContactInfoForm: React.FC = () =>  {
     return !(index === 0);
   }
 
-  const options = [
-    {
-      label: "Fixed",
-      value: "fixed"
-    },
-    {
-      label: "Mobile",
-      value: "mobile"
-    }
-  ];
-
   return (
       <Fragment>
         <FormSection title={CONTACT_INFO_TITLE}>
@@ -171,7 +160,7 @@ const ContactInfoForm: React.FC = () =>  {
                 phoneNumbers={mobilePhones} 
                 handleChange={handlePhoneChange}
                 addPhoneInput={addMobilePhoneInput}
-                countryCodeOptions={[]} 
+                countries={countries} 
                 areaCodeOptions={[]}
               />
             </ClayForm.Group>

@@ -1,6 +1,5 @@
 import React, {
   MouseEventHandler,
-  useCallback,
   useEffect,
   useState
 } from "react";
@@ -18,10 +17,8 @@ import {
   StyledFormGroup
 } from "./styles";
 import LinkWrapper from "../LinkWrapper";
-
 import getUnicodeFlagIcon from 'country-flag-icons/unicode'
-
-declare var Liferay: any;
+import { croatiaContactInfoCountryObject } from "../../../../../../../constants/contactConstants";
 
 export interface PhoneNumber  {
   type: string;
@@ -34,66 +31,32 @@ interface props {
   phoneNumbers: Array<PhoneNumber>;
   handleChange: Function;
   addPhoneInput: MouseEventHandler;
-  countryCodeOptions: Array<any>;
+  countries: Array<Country>;
   areaCodeOptions: Array<any>;
 }
-
-interface Country {
+export interface Country {
   label: string,
   value: string,
   flagKey: string
 }
 
-export const croatiaCountry = { 
-  label: "385",
-  value: "385",
-  flagKey: "HR"
-} as Country;
-
 export const createEmptyPhoneNumber = (type:string) => {
   return {
     type: type,
     areaCode: "",
-    countryCode: croatiaCountry.value,
+    countryCode: croatiaContactInfoCountryObject.value,
     phoneNumber: ""
   } as PhoneNumber;
 };
 
 const PhoneInputList: React.FC<props> = (props) => {
 
-  const [countries, setCountries] = useState<Array<Country>>([croatiaCountry]);
   const [hasSomeInvalidPhone, setSomeInvalidPhone] = useState(false);
 
   const defaultAreaCodeOption = {
     value: "",
     label: "Area Code",
   }
-
-	const loadCountries = useCallback(() => {
-		Liferay.Service(
-			"/country/get-countries",
-			{
-				active: true
-			},
-			(countriesArray: Array<any>) => {
-				const countries = countriesArray
-					.map((country) => {
-						return {
-							label: country.idd,
-							value: country.idd,
-              flagKey: country.a2
-						} as Country;
-					})
-					.filter((country) => country.label !== croatiaCountry.label);
-        countries.unshift(croatiaCountry);
-				setCountries(countries);
-			}
-		);
-	}, []);
-
-	useEffect(() => {
-		loadCountries();
-	}, [loadCountries]);
 
   useEffect(() => {
     validatePhones()
@@ -108,7 +71,7 @@ const PhoneInputList: React.FC<props> = (props) => {
   }
 
   const createOptionsWithFlags = () => {
-    return countries.map((country) => {
+    return props.countries.map((country) => {
       return {
         label: getFlagSVG(country) + " " + country.label,
         value: country.value
@@ -117,8 +80,8 @@ const PhoneInputList: React.FC<props> = (props) => {
   }
 
   const validatePhones = () => {
-    const validityChecks = props.phoneNumbers
-      .filter(phone => phone.countryCode === croatiaCountry.label)
+    const invalidityChecks = props.phoneNumbers
+      .filter(phone => phone.countryCode === croatiaContactInfoCountryObject.label)
       .map((phone) => {
         if (phone.phoneNumber === "") {
           return false;
@@ -130,7 +93,7 @@ const PhoneInputList: React.FC<props> = (props) => {
         return !valid;
       });
 
-    setSomeInvalidPhone(validityChecks.every(item => item === true));
+    setSomeInvalidPhone(invalidityChecks.filter(item => item === true).length > 0);
   }
 
   const handleChange = (index:number, e:any, property:string) => {
@@ -140,7 +103,7 @@ const PhoneInputList: React.FC<props> = (props) => {
   const displayAreaCode = (countryCode:string) => {
     let style = "area-code" ;
     
-    if (countryCode !== croatiaCountry.label) {
+    if (countryCode !== croatiaContactInfoCountryObject.label) {
       style += " hidden-select"
     }
 
@@ -149,7 +112,7 @@ const PhoneInputList: React.FC<props> = (props) => {
 
   const handlePhoneInputWidth = (countryCode:string) => {
     let style = "phone-number" ;
-    if (countryCode !== croatiaCountry.label) {
+    if (countryCode !== croatiaContactInfoCountryObject.label) {
       style += " stretch-phone-number"
     } 
 

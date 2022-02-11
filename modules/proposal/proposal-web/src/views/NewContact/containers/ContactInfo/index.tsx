@@ -5,7 +5,10 @@ import Addresses from "./components/molecules/Addresses";
 import ContactInfoForm from "./components/molecules/ContactInfoForm";
 import { Provider as ContactInfoProvider } from "react-redux";
 import { CREATE_NEW_CONTACT } from "../../../../constants/languageKeys";
-import { croatiaCountryObject } from "../../../../constants/contactConstants";
+import { 
+	mapToAddressCountries,
+  mapToContactInfoFormCountries
+ } from "../../../../shared/util/countryMappers";
 
 import store from "./contactStore";
 
@@ -21,16 +24,7 @@ const ContactInfo: React.FC = () => {
 				active: true
 			},
 			(countriesArray: Array<any>) => {
-				const countries = countriesArray
-					.map((country) => {
-						return {
-							label: country.nameCurrentValue,
-							value: country.countryId
-						};
-					})
-					.filter((country) => country.label !== "Croatia");
-				countries.unshift(croatiaCountryObject);
-				setCountries(countries);
+				setCountries(countriesArray);
 			}
 		);
 	}, []);
@@ -47,8 +41,8 @@ const ContactInfo: React.FC = () => {
 					{CREATE_NEW_CONTACT.SUBTITLE}
 				</p>
 				<BasicInfo />
-				{countries && <Addresses countries={countries} />}
-				<ContactInfoForm />
+				{countries && <Addresses countries={mapToAddressCountries(countries)} />}
+				{countries && <ContactInfoForm countries={mapToContactInfoFormCountries(countries)} />}
 			</Wrapper>
 		</ContactInfoProvider>
 	);
