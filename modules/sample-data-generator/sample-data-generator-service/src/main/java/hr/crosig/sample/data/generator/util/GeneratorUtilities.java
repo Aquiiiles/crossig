@@ -10,19 +10,24 @@ import com.liferay.portal.kernel.util.PortalUtil;
  */
 public class GeneratorUtilities {
 
-    /**
-     * Gets the default Service Context
-     * @param defaultUserId
-     * @return
-     * @throws PortalException
-     */
-    public static ServiceContext getDefaultServiceContext(long defaultUserId) throws PortalException {
-        ServiceContext serviceContext = new ServiceContext();
+	/**
+	 * Gets the default Service Context
+	 * @param defaultUserId
+	 * @return
+	 */
+	public static ServiceContext getDefaultServiceContext(long defaultUserId)
+		throws PortalException {
 
-        serviceContext.setCompanyId(PortalUtil.getDefaultCompanyId());
-        serviceContext.setScopeGroupId(CompanyLocalServiceUtil.getCompany(PortalUtil.getDefaultCompanyId()).getGroupId());
-        serviceContext.setUserId(defaultUserId);
+		ServiceContext serviceContext = new ServiceContext();
 
-        return serviceContext;
-    }
+		serviceContext.setCompanyId(PortalUtil.getDefaultCompanyId());
+		serviceContext.setScopeGroupId(
+			CompanyLocalServiceUtil.getCompany(
+				PortalUtil.getDefaultCompanyId()
+			).getGroupId());
+		serviceContext.setUserId(defaultUserId);
+
+		return serviceContext;
+	}
+
 }
