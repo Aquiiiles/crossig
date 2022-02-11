@@ -24,10 +24,12 @@ import getUnicodeFlagIcon from 'country-flag-icons/unicode'
 declare var Liferay: any;
 
 export interface PhoneNumber  {
+  type: string;
   countryCode: string;
   areaCode: string;
   phoneNumber: string;
 }
+
 interface props {
   phoneNumbers: Array<PhoneNumber>;
   handleChange: Function;
@@ -47,6 +49,15 @@ export const croatiaCountry = {
   value: "385",
   flagKey: "HR"
 } as Country;
+
+export const createEmptyPhoneNumber = (type:string) => {
+  return {
+    type: type,
+    areaCode: "",
+    countryCode: croatiaCountry.value,
+    phoneNumber: ""
+  } as PhoneNumber;
+};
 
 const PhoneInputList: React.FC<props> = (props) => {
 
@@ -83,6 +94,10 @@ const PhoneInputList: React.FC<props> = (props) => {
 	useEffect(() => {
 		loadCountries();
 	}, [loadCountries]);
+
+  useEffect(() => {
+    validatePhones()
+  }, [props.phoneNumbers]);
   
   const shouldDisableLink = () => {
     return props.phoneNumbers.length === MAXIMUM_MOBILE_PHONES;
@@ -101,34 +116,33 @@ const PhoneInputList: React.FC<props> = (props) => {
     });
   }
 
-  const isCroatianPhoneValid = (phoneNumber:string) => {
-    return phoneNumber.length >= 4 && phoneNumber.length <= 7;
-  }
-
   const validatePhones = () => {
-    setSomeInvalidPhone(false);
+    const validityChecks = props.phoneNumbers
+      .filter(phone => phone.countryCode === croatiaCountry.label)
+      .map((phone) => {
+        if (phone.phoneNumber === "") {
+          return false;
+        }
+  
+        let valid = phone.phoneNumber.length >= 4 && 
+                    phone.phoneNumber.length <= 7;
+  
+        return !valid;
+      });
 
-    props.phoneNumbers.forEach((phoneNumber) => {
-      if (phoneNumber.countryCode === croatiaCountry.label &&
-          !isCroatianPhoneValid(phoneNumber.phoneNumber)) {
-          setSomeInvalidPhone(true);
-          return;
-      }
-    });
+    setSomeInvalidPhone(validityChecks.every(item => item === true));
   }
 
-  const handleChange = (index:number, e:React.ChangeEvent, property:string) => {
+  const handleChange = (index:number, e:any, property:string) => {
     props.handleChange(index, e, property);
-    validatePhones();
   }
 
-  const displayAreaCode = (phoneNumber:PhoneNumber) => {
+  const displayAreaCode = (countryCode:string) => {
     let style = "area-code" ;
     
-    if (phoneNumber.countryCode !== croatiaCountry.label) {
+    if (countryCode !== croatiaCountry.label) {
       style += " hidden-select"
-      phoneNumber.areaCode = "";
-    } 
+    }
 
     return style;
   }
@@ -160,7 +174,7 @@ const PhoneInputList: React.FC<props> = (props) => {
                       <ClaySelect 
                         aria-label="Select Label"
                         id={`areaCodeSelect${index}`}
-                        className={displayAreaCode(phoneNumber)}
+                        className={displayAreaCode(phoneNumber.countryCode)}
                         onChange={e => handleChange(index, e, "areaCode")}
                         value={phoneNumber.areaCode}>
                           <ClaySelect.Option

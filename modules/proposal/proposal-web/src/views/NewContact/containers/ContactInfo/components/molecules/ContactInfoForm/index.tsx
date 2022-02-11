@@ -1,14 +1,14 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { useHistory } from "react-router-dom";
 import ClayForm from "@clayui/form";
 import CreateContactButton from "../../atoms/CreateContactButton";
 import EmailInputList from "../../atoms/EmailInputList";
 import FormSection from "../../../../../../../shared/atoms/FormSection";
-import PhoneInputList, { PhoneNumber, croatiaCountry } from "../../atoms/PhoneInputList";
+import PhoneInputList, { createEmptyPhoneNumber } from "../../atoms/PhoneInputList";
 import LinkWrapper from "../../atoms/LinkWrapper";
 import Row from "../../../../../../../shared/atoms/Row";
 import SubtitledLabel from "../../atoms/SubtitledLabel";
-import SubtitledSelect from "../../atoms/SubtitledSelect";
+import PhoneTypeSelect from "../../atoms/PhoneTypeSelect";
 import { ButtonWrapper } from "./styles";
 import {
   CONTACT_INFO_CANCEL,
@@ -19,55 +19,68 @@ import {
   CONTACT_INFO_MAIN_MOBILE_SUBTITLE,
   CONTACT_INFO_OTHER_EMAIL_ADDRESSES,
   CONTACT_INFO_OTHER_EMAIL_ADDRESSES_SUBTITLE,
-  CONTACT_INFO_OTHER_MOBILE_PHONES_FIXED,
-  CONTACT_INFO_OTHER_MOBILE_PHONES_MOBILE,
   CONTACT_INFO_PHONE_TYPE
 } from "../../../../../../../constants/languageKeys";
 import { 
+  FIXED,
   MAXIMUM_EMAIL_ADDRESSES,
-  MAXIMUM_MOBILE_PHONES
+  MAXIMUM_MOBILE_PHONES,
 } from "../../../../../constants/index";
 
-const ContactInfoFields: React.FC = () =>  {
-  const history = useHistory();
-  
-  const createEmptyPhoneNumber = () => {
-    return {
-      areaCode: "",
-      countryCode: croatiaCountry.value,
-      phoneNumber: ""
-    } as PhoneNumber;
-  };
+import { actions } from "./slice/contactInfoSlice";
+import { useContactDispatch, useContactSelector } from "../../../contactStore";
 
-  let [emailAddresses, setEmailAddresses] = useState([""]);
-  let [mobilePhones, setMobilePhones] = useState([createEmptyPhoneNumber()]);
+const ContactInfoForm: React.FC = () =>  {
+  const history = useHistory();
+  const dispatch = useContactDispatch();
+
+  const {
+		emailAddresses,
+    mobilePhones
+	} = useContactSelector((state) => state.contactInfo);
+
+  const {
+    setEmailAddresses,
+    setAreaCode,
+    setCountryCode,
+    setPhoneNumber,
+    setType,
+    setMobilePhones
+	} = actions;
 
   const handleEmailChange = (index:number, e:any) => {
-    let newArray = [...emailAddresses];
-    newArray[index] = e.target.value.toString();
-  
-    setEmailAddresses(newArray);
+    let currentEmails = [...emailAddresses];
+    currentEmails[index] = e.target.value.toString();
+
+    dispatch(setEmailAddresses(currentEmails));
   }
 
   const handlePhoneChange = (index:number, e:any, property:string) => {
-    let newArray = [...mobilePhones];
+    const value = e.target.value.toString();
 
     switch (property) {
       case "areaCode": {
-        newArray[index]["areaCode"] = e.target.value.toString();
+        dispatch(setAreaCode([index, value]));
         break;
       }
       case "countryCode": {
-        newArray[index]["countryCode"] = e.target.value.toString();
+        dispatch(setCountryCode([index, value]));
+
+        if (value === "385") {
+          dispatch(setAreaCode([index, ""]));
+        }
+
         break;
       }
       case "phoneNumber": {
-        newArray[index]["phoneNumber"] = e.target.value.toString();
+        dispatch(setPhoneNumber([index, value]));
+        break;
+      }
+      case "type": {
+        dispatch(setType([index, value]));
         break;
       }
     }
-
-    setMobilePhones(newArray);
   }
 
   const addEmailAddressInput = () => {
@@ -75,7 +88,7 @@ const ContactInfoFields: React.FC = () =>  {
 
     if (currentEmails.length < MAXIMUM_EMAIL_ADDRESSES) {
       currentEmails.push("");
-      setEmailAddresses(currentEmails);
+      dispatch(setEmailAddresses(currentEmails));
     }
   }
 
@@ -83,8 +96,8 @@ const ContactInfoFields: React.FC = () =>  {
     let currentMobilePhones = [...mobilePhones];
 
     if (currentMobilePhones.length < MAXIMUM_MOBILE_PHONES) {
-      currentMobilePhones.push(createEmptyPhoneNumber());
-      setMobilePhones(currentMobilePhones);
+      currentMobilePhones.push(createEmptyPhoneNumber(FIXED));
+      dispatch(setMobilePhones(currentMobilePhones));
     }
   }
 
@@ -102,12 +115,12 @@ const ContactInfoFields: React.FC = () =>  {
 
   const options = [
     {
-      label: CONTACT_INFO_OTHER_MOBILE_PHONES_FIXED,
-      value: "1"
+      label: "Fixed",
+      value: "fixed"
     },
     {
-      label: CONTACT_INFO_OTHER_MOBILE_PHONES_MOBILE,
-      value: "2"
+      label: "Mobile",
+      value: "mobile"
     }
   ];
 
@@ -143,11 +156,12 @@ const ContactInfoFields: React.FC = () =>  {
               padded={false}
             />
             {mobilePhones.slice(1).map((phone, index) => (
-              <SubtitledSelect
-                key={"phone-label-" + index}
-                index={index}
+              <PhoneTypeSelect
+                key={"phone-label-" + ++index}
+                index={++index}
                 title={CONTACT_INFO_PHONE_TYPE}
-                options={options}
+                handleChange={handlePhoneChange}
+                entity={mobilePhones}
                 />
             ))}
           </ClayForm.Group>
@@ -155,7 +169,7 @@ const ContactInfoFields: React.FC = () =>  {
             <ClayForm.Group>
               <PhoneInputList 
                 phoneNumbers={mobilePhones} 
-                handleChange={handlePhoneChange} 
+                handleChange={handlePhoneChange}
                 addPhoneInput={addMobilePhoneInput}
                 countryCodeOptions={[]} 
                 areaCodeOptions={[]}
@@ -177,4 +191,4 @@ const ContactInfoFields: React.FC = () =>  {
   );
 };
 
-export default ContactInfoFields;
+export default ContactInfoForm;
