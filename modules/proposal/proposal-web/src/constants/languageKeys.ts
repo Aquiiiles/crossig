@@ -14,12 +14,11 @@ export const CONTACT_INFO_MAIN_EMAIL_SUBTITLE = Liferay.Language.get('contact-in
 export const CONTACT_INFO_EMAIL_ADDRESS = Liferay.Language.get('contact-info-email-address');
 export const CONTACT_INFO_MAIN_MOBILE = Liferay.Language.get('contact-info-main-mobile');
 export const CONTACT_INFO_MAIN_MOBILE_SUBTITLE = Liferay.Language.get('contact-info-main-mobile-subtitle');
-export const CONTACT_INFO_MAIN_PHONE_TYPE = Liferay.Language.get('contact-info-main-phone-type');
 export const CONTACT_INFO_OTHER_EMAIL_ADDRESSES = Liferay.Language.get('contact-info-other-email-addresses');
 export const CONTACT_INFO_OTHER_EMAIL_ADDRESSES_SUBTITLE = Liferay.Language.get('contact-info-other-email-addresses-subtitle');
 export const CONTACT_INFO_OTHER_MOBILE_PHONES_FIXED = Liferay.Language.get('contact-info-other-mobile-phones-fixed');
 export const CONTACT_INFO_OTHER_MOBILE_PHONES_MOBILE = Liferay.Language.get('contact-info-other-mobile-phones-mobile');
-export const CONTACT_INFO_OTHER_MOBILE_PHONES_SUBTITLE = Liferay.Language.get('contact-info-other-mobile-phones-subtitle');
+export const CONTACT_INFO_PHONE_TYPE = Liferay.Language.get('contact-info-phone-type');
 export const CONTACT_INFO_INVALID_EMAIL_MESSAGE = Liferay.Language.get('contact-info-invalid-email-message');
 
 export const CONTACT_SEARCH_TITLE= Liferay.Language.get('contact-search-title');

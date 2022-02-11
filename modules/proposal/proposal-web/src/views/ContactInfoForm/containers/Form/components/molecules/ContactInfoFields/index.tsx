@@ -21,7 +21,7 @@ import {
   CONTACT_INFO_OTHER_EMAIL_ADDRESSES_SUBTITLE,
   CONTACT_INFO_OTHER_MOBILE_PHONES_FIXED,
   CONTACT_INFO_OTHER_MOBILE_PHONES_MOBILE,
-  CONTACT_INFO_OTHER_MOBILE_PHONES_SUBTITLE
+  CONTACT_INFO_PHONE_TYPE
 } from "../../../../../../../constants/languageKeys";
 import { 
   MAXIMUM_EMAIL_ADDRESSES,
@@ -100,10 +100,6 @@ const ContactInfoFields: React.FC = () =>  {
     return !(index == 0);
   }
 
-  const shouldDisplayOtherMobileSelect = () => {
-    return mobilePhones.length > 1;
-  }
-
   const options = [
     {
       label: CONTACT_INFO_OTHER_MOBILE_PHONES_FIXED,
@@ -114,6 +110,11 @@ const ContactInfoFields: React.FC = () =>  {
       value: "2"
     }
   ];
+
+  const teste = (index:number) => {
+    console.log(index)
+    return index % 2 != 0
+  }
 
   return (
       <Fragment>
@@ -146,12 +147,15 @@ const ContactInfoFields: React.FC = () =>  {
               subTitle={CONTACT_INFO_MAIN_MOBILE_SUBTITLE}
               padded={false}
             />
-            {shouldDisplayOtherMobileSelect() && 
-              <SubtitledSelect 
+            {mobilePhones.slice(1).map((phone, index) => (
+              <SubtitledSelect
+                key={"phone-label-" + index}
+                index={index}
+                title={CONTACT_INFO_PHONE_TYPE}
                 options={options}
-                subTitle={CONTACT_INFO_OTHER_MOBILE_PHONES_SUBTITLE}
-              />
-            }
+                padded={teste(index)}
+                />
+            ))}
           </ClayForm.Group>
           <Row>
             <ClayForm.Group>

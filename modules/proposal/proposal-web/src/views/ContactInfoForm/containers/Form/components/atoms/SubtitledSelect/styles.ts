@@ -4,15 +4,18 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: flex-end;
   flex-direction: column;
+  padding-top: 1.02rem;
 
-  .form-text {
-    width: 15rem;
-    display: flex;
-    justify-content: flex-end;
+  & select {
+    width: min-content;
+    color: ${props => props.theme.color.primary.links};
   }
 
-  .padded-select {
-    width: min-content;
-    margin-top: 2.02rem;
+  .form-control:focus {
+    color: ${props => props.theme.color.primary.links};
+  }
+
+  & label {
+    padding-right: 3.5rem;
   }
 `;

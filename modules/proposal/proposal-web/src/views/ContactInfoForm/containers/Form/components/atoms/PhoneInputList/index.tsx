@@ -1,4 +1,5 @@
 import React, {
+  Fragment,
   MouseEventHandler,
   useCallback,
   useEffect,
@@ -144,10 +145,10 @@ const PhoneInputList: React.FC<props> = (props) => {
 
   return (
     <StyledFormGroup>
-      <label>{CONTACT_INFO_PHONE_NUMBER}</label>
       <OrderedListWrapper>
         {props.phoneNumbers.map((phoneNumber, index) => {
           return <li key={`phoneInputList${index}`}>
+                    <label>{CONTACT_INFO_PHONE_NUMBER}</label>
                     <PhoneNumberWrapper>
                       <ClaySelectWithOption
                           id={`countryCodeSelect${index}`}

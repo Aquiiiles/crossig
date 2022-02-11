@@ -6,7 +6,6 @@ export const StyledFormGroup = styled(ClayForm.Group)`
   grid-template-columns: 80%;
   grid-auto-rows: auto;
   row-gap: 1rem;
-  }
 `;
 
 export const PhoneNumberWrapper = styled.li`
@@ -17,7 +16,7 @@ export const PhoneNumberWrapper = styled.li`
 
   & input {
     color: ${props => props.theme.color.primary.links};
-    width: 65%;
+    width: 60%;
   }
 
   option:disabled {
@@ -25,7 +24,7 @@ export const PhoneNumberWrapper = styled.li`
   }
 
   .country-code {
-    width: 15%;
+    width: 20%;
     color: ${props => props.theme.color.primary.links};
     border-radius: 0.25rem 0 0 0.25rem;
     border-right-color: white;
@@ -56,7 +55,7 @@ export const PhoneNumberWrapper = styled.li`
   }
 
   .stretch-phone-number {
-    width: 85%;
+    width: 80%;
   }
 `;
 
