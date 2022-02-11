@@ -7,25 +7,20 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
-
 import hr.crosig.sample.data.generator.api.UserDataGenerator;
 import hr.crosig.sample.data.generator.web.constants.CreateUserMVCActionConstants;
 import hr.crosig.sample.data.generator.web.constants.SampleDataGeneratorWebCommandNames;
 import hr.crosig.sample.data.generator.web.constants.SampleDataGeneratorWebPortletKeys;
 import hr.crosig.sample.data.generator.web.dto.UserDTO;
 import hr.crosig.sample.data.generator.web.enums.UserAttributeEnum;
-import hr.crosig.sample.data.generator.web.util.ActionUtilities;
 import hr.crosig.sample.data.generator.web.util.UserDTOUtilities;
-
-import java.sql.SQLException;
-
-import java.util.List;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
-
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @author marcelo.mazurky
@@ -96,12 +91,6 @@ public class CreateUserMVCActionCommand extends BaseMVCActionCommand {
 	private void _handleCreateUser(String usersJSON)
 		throws PortalException, SQLException {
 
-		// check if it was multiple users to create
-
-		boolean multipleUsers = ActionUtilities.isJsonArray(usersJSON);
-
-		if (multipleUsers) {
-
 			// gets the user map list from the users json
 
 			List<UserDTO> users = UserDTOUtilities.getUserDTOListFromJSONString(
@@ -113,17 +102,6 @@ public class CreateUserMVCActionCommand extends BaseMVCActionCommand {
 
 				_addRegularUser(user);
 			}
-		}
-		else {
-
-			// gets the user map from the users json
-
-			UserDTO user = UserDTOUtilities.getUserDTOFromJSONString(usersJSON);
-
-			// creates the user
-
-			_addRegularUser(user);
-		}
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

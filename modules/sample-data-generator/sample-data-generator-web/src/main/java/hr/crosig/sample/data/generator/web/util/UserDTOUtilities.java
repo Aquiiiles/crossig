@@ -18,26 +18,6 @@ import java.util.List;
 public class UserDTOUtilities {
 
 	/**
-	 * Gets User DTO from Json String
-	 *
-	 * @param json
-	 * @return
-	 */
-	public static UserDTO getUserDTOFromJSONString(String json) {
-		try {
-			LinkedTreeMap<String, Object> userMap = new Gson().fromJson(
-				json, LinkedTreeMap.class);
-
-			return _getUserDTOFromMap(userMap);
-		}
-		catch (Exception exception) {
-			_log.error(exception);
-
-			return null;
-		}
-	}
-
-	/**
 	 * Gets a User DTO List from Json String
 	 *
 	 * @param json
@@ -47,11 +27,19 @@ public class UserDTOUtilities {
 		List<UserDTO> userDTOList = new ArrayList<>();
 
 		try {
-			List<LinkedTreeMap<String, Object>> userMapList =
-				new Gson().fromJson(json, List.class);
+			if (ActionUtilities.isJsonArray(json)) {
+				List<LinkedTreeMap<String, Object>> userMapList =
+						new Gson().fromJson(json, List.class);
 
-			userMapList.forEach(
-				userMap -> userDTOList.add(_getUserDTOFromMap(userMap)));
+				userMapList.forEach(
+						userMap -> userDTOList.add(_getUserDTOFromMap(userMap)));
+			} else {
+				LinkedTreeMap<String, Object> userMap = new Gson().fromJson(
+						json, LinkedTreeMap.class);
+
+				userDTOList.add(_getUserDTOFromMap(userMap));
+			}
+
 		}
 		catch (Exception exception) {
 			_log.error(exception);
