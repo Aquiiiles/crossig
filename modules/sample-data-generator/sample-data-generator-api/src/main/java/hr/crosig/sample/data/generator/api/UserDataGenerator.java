@@ -15,6 +15,6 @@ public interface UserDataGenerator {
 			String password, String userGroupName)
 		throws PortalException, SQLException;
 
-	public void createUsers() throws SQLException, PortalException;
+	public void createUsers() throws PortalException, SQLException;
 
 }
