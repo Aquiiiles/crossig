@@ -1,5 +1,6 @@
 package hr.crosig.proposal.rest.application;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -9,7 +10,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
+import hr.crosig.proposal.rest.application.enums.InsuredRole;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
@@ -35,7 +38,16 @@ public class ProposalApplication extends Application {
 	@Path("/insured-roles")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Object> getInsuredRoleTypes() {
-		return null;
+	public Response getInsuredRoleTypes() {
+		Response.ResponseBuilder responseBuilder;
+
+		try {
+			List<InsuredRole> insuredRoles = Arrays.asList(InsuredRole.values());
+			responseBuilder = Response.ok().entity(insuredRoles);
+		} catch (Exception exception) {
+			responseBuilder = Response.serverError().entity(exception.getMessage());
+		}
+
+		return responseBuilder.build();
 	}
 }

@@ -1,4 +1,4 @@
-package hr.crosig.proposal.rest.enums;
+package hr.crosig.proposal.rest.application.enums;
 
 /**
  * @author victor.catanante
@@ -10,9 +10,5 @@ public enum InsuredRole {
 
     InsuredRole(String title) {
         this._title = title;
-    }
-    
-    public String getTitle() {
-        return _title;
     }
 }
