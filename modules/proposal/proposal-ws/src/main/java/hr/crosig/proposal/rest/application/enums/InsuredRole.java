@@ -4,11 +4,17 @@ package hr.crosig.proposal.rest.application.enums;
  * @author victor.catanante
  */
 public enum InsuredRole {
-    POLICY_HOLDER("Policy Holder"), INSURED("Insured"), PAYER("Payer");
 
-    private final String _title;
+	INSURED("Insured"), PAYER("Payer"), POLICY_HOLDER("Policy Holder");
 
-    InsuredRole(String title) {
-        this._title = title;
-    }
+	public String getTitle() {
+		return _title;
+	}
+
+	InsuredRole(String title) {
+		_title = title;
+	}
+
+	private final String _title;
+
 }

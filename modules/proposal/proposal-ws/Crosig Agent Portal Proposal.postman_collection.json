@@ -1,4 +1,39 @@
 {
+	"auth": {
+		"basic": [
+			{
+				"key": "password",
+				"type": "string",
+				"value": "test"
+			},
+			{
+				"key": "username",
+				"type": "string",
+				"value": "test@liferay.com"
+			}
+		],
+		"type": "basic"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"exec": [
+					""
+				],
+				"type": "text/javascript"
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"exec": [
+					""
+				],
+				"type": "text/javascript"
+			}
+		}
+	],
 	"info": {
 		"_postman_id": "8c7342ca-ae97-46a6-a200-c2c01bf5057e",
 		"name": "Crosig Agent Portal Proposal",
@@ -8,54 +43,21 @@
 		{
 			"name": "Get Insured Roles",
 			"request": {
+				"header": [
+				],
 				"method": "GET",
-				"header": [],
 				"url": {
-					"raw": "{{localURL}}proposal/-insured-roles",
 					"host": [
 						"{{localURL}}proposal"
 					],
 					"path": [
 						"insured-roles"
-					]
+					],
+					"raw": "{{localURL}}proposal/-insured-roles"
 				}
 			},
-			"response": []
-		}
-	],
-	"auth": {
-		"type": "basic",
-		"basic": [
-			{
-				"key": "password",
-				"value": "test",
-				"type": "string"
-			},
-			{
-				"key": "username",
-				"value": "test@liferay.com",
-				"type": "string"
-			}
-		]
-	},
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
+			"response": [
+			]
 		}
 	],
 	"variable": [
