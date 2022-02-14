@@ -1,4 +1,5 @@
-import React, {useEffect} from "react";
+/* eslint-disable @typescript-eslint/no-empty-function */
+import React, { useEffect } from "react";
 import SearchField from "./containers/SearchField";
 import {Content, Wrapper} from "./styles";
 import Stepper from "./containers/Stepper";
