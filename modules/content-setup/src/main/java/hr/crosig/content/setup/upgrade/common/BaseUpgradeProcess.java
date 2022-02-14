@@ -86,13 +86,13 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 		try {
 			long companyId = getDefaultCompanyId();
 
-			long defaultUserId = userLocalService.getDefaultUserId(companyId);
+			long userId = getAdminUserId(companyId);
 
 			roleLocalService.addRole(
-				defaultUserId, null, 0, roleName,
-				getDefaultLocaleMap(roleTitle),
-				getDefaultLocaleMap(roleDescription), roleType, null,
-				getDefaultServiceContext(companyId, defaultUserId));
+				userId, null, 0, roleName,
+				getMap(roleTitle),
+				getMap(roleDescription), roleType, null,
+				getDefaultServiceContext(companyId, userId));
 		}
 		catch (Exception exception) {
 			log.error(exception);
@@ -171,13 +171,6 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 		Company company = companyLocalService.getCompanyByWebId(webId);
 
 		return company.getCompanyId();
-	}
-
-	protected Map<Locale, String> getDefaultLocaleMap(String localeValue) {
-		Map<Locale, String> localeMap = new HashMap<>();
-		localeMap.put(LocaleUtil.getDefault(), localeValue);
-
-		return localeMap;
 	}
 
 	protected ServiceContext getDefaultServiceContext(
