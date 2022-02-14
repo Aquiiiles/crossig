@@ -1,6 +1,7 @@
 import Table from "./components/organisms/Table";
 import { SearchResultsHeader, Wrapper } from "./styles";
-import ClayForm, { ClaySelect } from "@clayui/form";
+import ClayForm, { ClaySelect, ClaySelectWithOption } from "@clayui/form";
+import { contactTypeOptions } from "../../../../constants/contactConstants";
 
 import * as constants from "./constants/searchResult";
 
@@ -34,9 +35,10 @@ const SearchResult: React.FC<props> = ({ data, loading }: props) => {
           <ClaySelect id="cityFilterField">
             <ClaySelect.Option key="City" label="City" value="City" />
           </ClaySelect>
-          <ClaySelect id="TypeFilterField">
-            <ClaySelect.Option key="Type" label="Type" value="Type" />
-          </ClaySelect>
+          <ClaySelectWithOption
+            id="TypeFilterField"
+            options={[{ label: "Type", value: "" }, ...contactTypeOptions]}
+          />
         </ClayForm.Group>
       </SearchResultsHeader>
       <Table
