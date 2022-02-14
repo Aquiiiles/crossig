@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import ClayTable from "@clayui/table";
+import TableRow from "../../atoms/TableRow";
 
 import * as types from "../../../types/searchResult";
 import * as constants from "../../../constants/searchResult";
@@ -11,22 +12,6 @@ interface props {
 }
 
 const Table: React.FC<props> = ({ inputData, loading, onTableSort }: props) => {
-  const types = {
-    Individual: "F",
-    "Self employed": "O",
-    "Legal entity": "P",
-  };
-
-  const formatDOB = (date: string): string => {
-    try {
-      const [year, month, day] = date.split("-");
-
-      return `${day}/${month}/${year}`;
-    } catch (error) {
-      return "";
-    }
-  };
-
   return (
     <ClayTable borderless>
       <ClayTable.Head>
@@ -96,29 +81,7 @@ const Table: React.FC<props> = ({ inputData, loading, onTableSort }: props) => {
       </ClayTable.Head>
       <ClayTable.Body>
         {inputData.map((item: types.responseType) => (
-          <ClayTable.Row>
-            <ClayTable.Cell headingTitle>
-              {item[constants.OIB_KEY]}
-            </ClayTable.Cell>
-            <ClayTable.Cell headingTitle>
-              {item[constants.SUB_KEY]}
-            </ClayTable.Cell>
-            <ClayTable.Cell headingTitle>
-              {formatDOB(item[constants.DOB_KEY])}
-            </ClayTable.Cell>
-            <ClayTable.Cell headingTitle>
-              {item[constants.NAME_KEY]}
-            </ClayTable.Cell>
-            <ClayTable.Cell headingTitle>
-              {item[constants.STREET_KEY]}
-            </ClayTable.Cell>
-            <ClayTable.Cell headingTitle>
-              {item[constants.CITY_KEY]}
-            </ClayTable.Cell>
-            <ClayTable.Cell headingTitle>
-              {types[item[constants.TYPE_KEY] as keyof typeof types]}
-            </ClayTable.Cell>
-          </ClayTable.Row>
+          <TableRow key={item.idValue} contact={item} />
         ))}
       </ClayTable.Body>
     </ClayTable>
