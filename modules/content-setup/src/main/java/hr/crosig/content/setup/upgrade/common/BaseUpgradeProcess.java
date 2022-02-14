@@ -173,14 +173,11 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 		return company.getCompanyId();
 	}
 
-	protected Map<Locale, String> getDefaultLocaleMap(String name) {
-		Map<Locale, String> nameMap = new HashMap<>();
+	protected Map<Locale, String> getDefaultLocaleMap(String localeValue) {
+		Map<Locale, String> localeMap = new HashMap<>();
+		localeMap.put(LocaleUtil.getDefault(), localeValue);
 
-		Locale locale = LocaleUtil.getDefault();
-
-		nameMap.put(locale, name);
-
-		return nameMap;
+		return localeMap;
 	}
 
 	protected ServiceContext getDefaultServiceContext(
