@@ -1,9 +1,11 @@
 package hr.crosig.contact.dto;
 
+import java.io.Serializable;
+
 /**
  * @author Guilherme Kfouri
  */
-public class CityDTO {
+public class CityDTO implements Serializable {
 
 	public String getBoxNumber() {
 		return boxNumber;

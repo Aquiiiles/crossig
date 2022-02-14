@@ -1,5 +1,7 @@
 package hr.crosig.contact.service.impl;
 
+import com.liferay.petra.string.StringPool;
+import com.liferay.portal.background.task.service.BackgroundTaskLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONException;
@@ -7,20 +9,27 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.CompanyConstants;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.util.PortalUtil;
 import hr.crosig.common.ws.exception.ServiceInvocationException;
 import hr.crosig.common.ws.idit.client.IDITWSClient;
 import hr.crosig.contact.constants.CityConstants;
-import hr.crosig.contact.constants.StreetConstants;
 import hr.crosig.contact.dto.CityDTO;
-import hr.crosig.contact.dto.StreetDTO;
+import hr.crosig.contact.scheduler.constants.SchedulerConstants;
 import hr.crosig.contact.service.CityLocalService;
 import hr.crosig.contact.service.IndexManagementLocalService;
 import hr.crosig.contact.service.StreetLocalService;
+import hr.crosig.contact.service.backgroundtask.CityUpdateBackgroundTaskExecutor;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 /**
@@ -82,24 +91,35 @@ public class IndexManagementLocalServiceImpl
 		cities.forEach(
 			city -> {
 				try {
-					String response = _iditwsClient.getStreetsByCityId(
-						city.getCityId()
-					).getContent();
+					Map<String, Serializable> contextMap = new HashMap<>();
 
-					List<StreetDTO> streets = _parseIDITStreetResponse(
-						response, city.getCityId());
+					contextMap.put("cityId", city.getCityId());
+					contextMap.put("cityName", city.getCityName());
 
-					_streetLocalService.addStreets(streets);
-
-					_log.info("Added " + streets.size() + " streets");
-				}
-				catch (ServiceInvocationException e) {
-					_log.error(
-						"Error trying to get streets from cityId: " +
-							city.getCityId(),
-						e);
+					_backgroundTaskLocalService.addBackgroundTask(
+							_getAdminUserId(), CompanyConstants.SYSTEM, StringPool.BLANK,
+							CityUpdateBackgroundTaskExecutor.class.getName(), contextMap,
+							new ServiceContext());
+				} catch (PortalException e) {
+					e.printStackTrace();
 				}
 			});
+	}
+
+	private long _getAdminUserId() {
+		final long companyId = PortalUtil.getDefaultCompanyId();
+
+		try {
+			return _userLocalService.getUser(
+					_userLocalService.getDefaultUserId(companyId)
+			).getUserId();
+		}
+		catch (PortalException portalException) {
+			_log.error(
+					SchedulerConstants.SCHEDULER_FAILED_WHEN_TRIGGERED,
+					portalException);
+		}
+		return 0L;
 	}
 
 	private CityDTO _parseCityDTO(JSONObject jsonObject) {
@@ -144,29 +164,11 @@ public class IndexManagementLocalServiceImpl
 		return objects;
 	}
 
-	private List<StreetDTO> _parseIDITStreetResponse(
-		String response, long cityId) {
-
-		Function<JSONObject, StreetDTO> mapper = streetJSON -> _parseStreetDTO(
-			streetJSON, cityId);
-
-		return _parseIDITResponse(response, mapper);
-	}
-
-	private StreetDTO _parseStreetDTO(JSONObject jsonObject, long cityId) {
-		StreetDTO streetDTO = new StreetDTO();
-
-		streetDTO.setStreetId(
-			jsonObject.getLong(StreetConstants.JSON_KEY_FOR_STREET_ID));
-		streetDTO.setStreetName(
-			jsonObject.getString(StreetConstants.JSON_KEY_FOR_STREET_NAME));
-		streetDTO.setCityId(cityId);
-
-		return streetDTO;
-	}
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		IndexManagementLocalServiceImpl.class);
+
+	@Reference
+	private BackgroundTaskLocalService _backgroundTaskLocalService;
 
 	@Reference
 	private CityLocalService _cityLocalService;
@@ -176,5 +178,8 @@ public class IndexManagementLocalServiceImpl
 
 	@Reference
 	private StreetLocalService _streetLocalService;
+
+	@Reference
+	private UserLocalService _userLocalService;
 
 }
