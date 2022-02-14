@@ -83,6 +83,8 @@ public class IndexManagementLocalServiceImpl
 	}
 
 	protected void populateStreets(List<CityDTO> cities) {
+		long userId = _getAdminUserId();
+
 		cities.forEach(
 			city -> {
 				try {
@@ -92,7 +94,7 @@ public class IndexManagementLocalServiceImpl
 					contextMap.put("cityName", city.getCityName());
 
 					_backgroundTaskLocalService.addBackgroundTask(
-						_getAdminUserId(), CompanyConstants.SYSTEM,
+						userId, CompanyConstants.SYSTEM,
 						StringPool.BLANK,
 						CityUpdateBackgroundTaskExecutor.class.getName(),
 						contextMap, new ServiceContext());
