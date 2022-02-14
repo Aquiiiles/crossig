@@ -37,7 +37,12 @@ const ContactSearch: React.FC = () => {
         <SearchField fetchSearchResultData={fetchSearchResultData} />
         {data != null ? (
           <>
-            <SearchResult data={data} loading={loading} />
+            <SearchResult
+              data={data}
+              loading={loading}
+              onCitySelection={console.info}
+              onTypeSelection={console.info}
+            />
             <LinkWrapper>
               <Link to="new_contact">{CONTACT_SEARCH_CREATE_NEW_CONTACT}</Link>
             </LinkWrapper>
