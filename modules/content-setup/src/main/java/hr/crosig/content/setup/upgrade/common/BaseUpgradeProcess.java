@@ -79,6 +79,26 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 		}
 	}
 
+	protected void addRole(
+		String roleName, String roleTitle, String roleDescription,
+		int roleType) {
+
+		try {
+			long companyId = getDefaultCompanyId();
+
+			long userId = getAdminUserId(companyId);
+
+			roleLocalService.addRole(
+				userId, null, 0, roleName,
+				getMap(roleTitle),
+				getMap(roleDescription), roleType, null,
+				getDefaultServiceContext(companyId, userId));
+		}
+		catch (Exception exception) {
+			log.error(exception);
+		}
+	}
+
 	protected Group addSite(
 			String name, String description, String friendlyURL, int type)
 		throws PortalException {
