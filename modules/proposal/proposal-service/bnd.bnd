@@ -1,0 +1,4 @@
+Bundle-Name: proposal-service
+Bundle-SymbolicName: proposal.service
+Bundle-Version: 1.0.0
+Export-Package: proposal.service.api
