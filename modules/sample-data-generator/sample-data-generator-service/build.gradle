@@ -1,6 +1,4 @@
 dependencies {
-	compileInclude group: "org.apache.commons", name: "commons-lang3", version: "3.12.0"
-
 	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
 	compileOnly project(":modules:content-setup")
 	compileOnly project(":modules:sample-data-generator:sample-data-generator-api")

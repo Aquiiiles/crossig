@@ -12,19 +12,14 @@ import com.liferay.portal.kernel.upgrade.util.UpgradeProcessUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
-
 import hr.crosig.content.setup.constants.ContentSetupConstants;
 import hr.crosig.sample.data.generator.api.UserDataGenerator;
 import hr.crosig.sample.data.generator.util.GeneratorUtilities;
-
-import java.sql.SQLException;
-
-import java.time.LocalDateTime;
-
-import org.apache.commons.lang3.StringUtils;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 /**
  * @author marcelo.mazurky
@@ -75,14 +70,6 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
 		long defaultUserId = _userLocalService.getDefaultUserId(
 			defaultCompanyId);
 
-		// gets the user group id by the user group name (if it was informed)
-
-		Long userGroupId = _getUserGroupId(userGroupName);
-
-		// gets the Agent Portal's Group Id
-
-		Long agentPortalGroupId = _getAgentPortalGroupId();
-
 		// calls the service to add the user
 
 		return _userLocalService.addUser(
@@ -98,10 +85,9 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
 			LocalDateTime.now(
 			).getYear(),
 			null,
-			(agentPortalGroupId != null) ? new long[] {agentPortalGroupId} :
-				new long[0],
+			_getAgentPortalGroupId(),
 			new long[0], new long[0],
-			(userGroupId != null) ? new long[] {userGroupId} : new long[0],
+			_getUserGroupId(userGroupName),
 			false, GeneratorUtilities.getDefaultServiceContext(defaultUserId));
 	}
 
@@ -109,7 +95,7 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
 	 * Gets the Agent Portal's Group Id
 	 * @return
 	 */
-	private Long _getAgentPortalGroupId() {
+	private long[] _getAgentPortalGroupId() {
 
 		// default company id
 
@@ -120,11 +106,7 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
 		Group group = GroupLocalServiceUtil.fetchGroup(
 			defaultCompanyId, ContentSetupConstants.AGENT_PORTAL_SITE_NAME);
 
-		if (group != null) {
-			return group.getGroupId();
-		}
-
-		return null;
+		return (group != null) ? new long[] {group.getGroupId()} : new long[0];
 	}
 
 	/**
@@ -132,11 +114,11 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
 	 * @param userGroupName
 	 * @return
 	 */
-	private Long _getUserGroupId(String userGroupName) throws PortalException {
+	private long[] _getUserGroupId(String userGroupName) throws PortalException {
 
 		// if the User Group Name was informed
 
-		if (StringUtils.isNotEmpty(userGroupName)) {
+		if (Validator.isNotNull(userGroupName)) {
 
 			// default company id
 
@@ -147,26 +129,14 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
 			UserGroup userGroup = _userGroupLocalService.fetchUserGroup(
 				defaultCompanyId, userGroupName);
 
-			// if it doesn't exist, creates a new User Group
-
 			if (Validator.isNull(userGroup)) {
-
-				// default user id
-
-				long defaultUserId = _userLocalService.getDefaultUserId(
-					defaultCompanyId);
-
-				// creates a new User Group
-
-				userGroup = _userGroupLocalService.addUserGroup(
-					defaultUserId, defaultCompanyId, userGroupName, null,
-					GeneratorUtilities.getDefaultServiceContext(defaultUserId));
+				throw new PortalException("User Group not found");
 			}
 
-			return userGroup.getUserGroupId();
+			return userGroup != null ? new long[] {userGroup.getUserGroupId()} : new long[0];
 		}
 
-		return null;
+		return new long[0];
 	}
 
 	/**
@@ -175,18 +145,18 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
 	 * @throws UserEmailAddressException.MustNotBeDuplicate
 	 */
 	private void _validateEmailAddress(String emailAddress)
-		throws UserEmailAddressException.MustNotBeDuplicate {
+			throws PortalException {
 
 		// gets the User by its Email Address
 
 		User user = _userLocalService.fetchUserByEmailAddress(
 			PortalUtil.getDefaultCompanyId(), emailAddress);
 
-		// if it was not found, throw a new Exception
-
 		if (Validator.isNotNull(user)) {
 			throw new UserEmailAddressException.MustNotBeDuplicate(
 				user.getUserId(), emailAddress);
+		} else if (!Validator.isEmailAddress(emailAddress)){
+			throw new PortalException("Invalid E-mail Address");
 		}
 	}
 
