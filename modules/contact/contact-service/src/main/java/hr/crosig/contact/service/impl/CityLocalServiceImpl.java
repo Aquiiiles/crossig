@@ -34,6 +34,7 @@ import com.liferay.portal.search.searcher.SearchRequestBuilder;
 import com.liferay.portal.search.searcher.SearchRequestBuilderFactory;
 import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.searcher.Searcher;
+
 import hr.crosig.contact.constants.CityConstants;
 import hr.crosig.contact.constants.CityMessages;
 import hr.crosig.contact.dto.CityDTO;
@@ -43,14 +44,15 @@ import hr.crosig.contact.model.impl.CityModelImpl;
 import hr.crosig.contact.model.impl.StreetModelImpl;
 import hr.crosig.contact.service.base.CityLocalServiceBaseImpl;
 import hr.crosig.contact.util.BulkHelper;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Guilherme Kfouri
@@ -131,7 +133,8 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 	public List<CityDTO> searchCitiesNamesByName(String cityName)
 		throws CityException {
 
-		return searchCitiesNamesByName(cityName, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+		return searchCitiesNamesByName(
+			cityName, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 
 	public List<CityDTO> searchCitiesNamesByName(
@@ -216,8 +219,10 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 
 				long cityId = doc.getLong(CityConstants.FIELD_CITY_ID);
 				String name = doc.getString(CityConstants.FIELD_CITY_NAME);
-				String postName = doc.getString(CityConstants.FIELD_CITY_POST_NAME);
-				String boxNumber = doc.getString(CityConstants.FIELD_CITY_BOX_NUMBER);
+				String postName = doc.getString(
+					CityConstants.FIELD_CITY_POST_NAME);
+				String boxNumber = doc.getString(
+					CityConstants.FIELD_CITY_BOX_NUMBER);
 
 				city.setCityId(cityId);
 				city.setCityName(name);
@@ -264,9 +269,9 @@ public class CityLocalServiceImpl extends CityLocalServiceBaseImpl {
 		long companyId = PortalUtil.getDefaultCompanyId();
 
 		_indexWriterHelper.reindex(
-			_userLocalService.getDefaultUserId(companyId),
-			"reindex", new long[] {companyId},
-			CityConstants.MODEL_CLASS_NAME, new HashMap<>());
+			_userLocalService.getDefaultUserId(companyId), "reindex",
+			new long[] {companyId}, CityConstants.MODEL_CLASS_NAME,
+			new HashMap<>());
 	}
 
 	@Reference
