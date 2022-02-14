@@ -19,6 +19,7 @@ export const CREATE_NEW_CONTACT = {
     ID_ADDRES : Liferay.Language.get('create-new-contact-id-address'),
     REGISTERED_OFFICE_ADDRESS : Liferay.Language.get('create-new-contact-registered-office-address'),
     DISPATCH_ADDRESS : Liferay.Language.get('create-new-contact-dispatch-address'),
+    NO_RESULTS_FOUND: Liferay.Language.get('create-new-contact-no-results-found'),
     FIELD: {
         CONTACT_TYPE: {
             INDIVIDUAL: Liferay.Language.get('create-new-contact-field-contact-type-individual'),

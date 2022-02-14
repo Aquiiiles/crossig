@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import ClayAutocomplete from "@clayui/autocomplete";
 import ClayDropDown from "@clayui/drop-down";
 import { MINIMUN_LENGTH_FOR_AUTOCOMPLETE_INPUT } from "../../../../../../../constants/contactConstants";
+import { CREATE_NEW_CONTACT } from "../../../../../../../constants/languageKeys";
 
 const AutoCompleteInput: React.FC<{
 	label: string;
@@ -115,6 +116,11 @@ const AutoCompleteInput: React.FC<{
 					}
 				>
 					<ClayDropDown.ItemList>
+						{(!filteredOptions || filteredOptions?.length === 0) && (
+							<ClayDropDown.Item className='disabled'>
+								{CREATE_NEW_CONTACT.NO_RESULTS_FOUND}
+							</ClayDropDown.Item>
+						)}
 						{filteredOptions &&
 							filteredOptions.map((item, index) => (
 								<ClayAutocomplete.Item
