@@ -14,6 +14,7 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
 import hr.crosig.content.setup.constants.ContentSetupConstants;
 import hr.crosig.sample.data.generator.api.UserDataGenerator;
+import hr.crosig.sample.data.generator.api.constants.UserDataConstants;
 import hr.crosig.sample.data.generator.util.GeneratorUtilities;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -158,6 +159,13 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
 		} else if (!Validator.isEmailAddress(emailAddress)){
 			throw new PortalException("Invalid E-mail Address");
 		}
+	}
+
+	public void createUsers() throws SQLException, PortalException {
+		// adds sample agent
+		_addUser(UserDataConstants.SAMPLE_AGENT_FIRST_NAME, UserDataConstants.SAMPLE_AGENT_LAST_NAME, UserDataConstants.SAMPLE_AGENT_EMAIL_ADDRESS, UserDataConstants.DEFAULT_USER_PASSWORD, UserDataConstants.USER_GROUP_AGENT_TYPE);
+		// adds sample manager
+		_addUser(UserDataConstants.SAMPLE_MANAGER_FIRST_NAME, UserDataConstants.SAMPLE_MANAGER_LAST_NAME, UserDataConstants.SAMPLE_MANAGER_EMAIL_ADDRESS, UserDataConstants.DEFAULT_USER_PASSWORD, UserDataConstants.USER_GROUP_MANAGER_TYPE);
 	}
 
 	@Reference

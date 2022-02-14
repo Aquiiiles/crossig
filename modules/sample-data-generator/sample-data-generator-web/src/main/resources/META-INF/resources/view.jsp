@@ -1,5 +1,4 @@
-<%@ page import="hr.crosig.sample.data.generator.web.constants.CreateUserMVCActionConstants" %><%@
-page import="hr.crosig.sample.data.generator.web.enums.UserAttributeEnum" %>
+<%@ page import="hr.crosig.sample.data.generator.web.constants.CreateUserMVCActionConstants" %>
 
 <%@ include file="/init.jsp" %>
 
@@ -10,17 +9,9 @@ page import="hr.crosig.sample.data.generator.web.enums.UserAttributeEnum" %>
 		action="${createUserURL}"
 		method="post"
 		name="createUserFm"
-		onSubmit='<%= "event.preventDefault(); " + liferayPortletResponse.getNamespace() + "createUsers('" + liferayPortletResponse.getNamespace() + "createUserFm');" %>'
-	>
-		<aui:input id="action" name="action" type="hidden" value="<%= CreateUserMVCActionConstants.CREATE_USERS %>" />
+		onSubmit='<%= "event.preventDefault(); " + liferayPortletResponse.getNamespace() + "createUsers('" + liferayPortletResponse.getNamespace() + "createUserFm');" %>'>
 
-		<aui:input
-			name="<%= CreateUserMVCActionConstants.USERS_JSON %>"
-			type="hidden"
-			value='<%=
-				"[" + "{" + UserAttributeEnum.FIRST_NAME + ":'John', " + UserAttributeEnum.LAST_NAME + ":'Agent', " + UserAttributeEnum.EMAIL_ADDRESS + ":'john.agent@mailinator.com'," + UserAttributeEnum.PASSWORD + ":" + CreateUserMVCActionConstants.DEFAULT_USER_PASSWORD + ", " + UserAttributeEnum.USER_GROUP_NAME + ":" + CreateUserMVCActionConstants.USER_GROUP_AGENT + "}," + "{" + UserAttributeEnum.FIRST_NAME + ":'Jack', " + UserAttributeEnum.LAST_NAME + ":'Manager', " + UserAttributeEnum.EMAIL_ADDRESS + ":'jack.manager@mailinator.com'," + UserAttributeEnum.PASSWORD + ":" + CreateUserMVCActionConstants.DEFAULT_USER_PASSWORD + ", " + UserAttributeEnum.USER_GROUP_NAME + ":" + CreateUserMVCActionConstants.USER_GROUP_MANAGER + "}" + "]"
-			%>'
-		/>
+		<aui:input id="action" name="action" type="hidden" value="<%= CreateUserMVCActionConstants.CREATE_USERS %>" />
 
 		<div class="row">
 			<div class="col-md-2">
