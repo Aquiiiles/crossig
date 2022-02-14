@@ -44,7 +44,9 @@ const SearchResult: React.FC<props> = ({ data, loading }: props) => {
       <Table
         loading={loading}
         inputData={formatedData}
-        onTableSort={() => {}}
+        onTableSort={({ sortType, sortingKey }) => {
+          console.log(sortingKey);
+        }}
       ></Table>
     </Wrapper>
   );
