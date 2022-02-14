@@ -17,6 +17,7 @@ const Table: React.FC<props> = ({ inputData, loading, onTableSort }: props) => {
       <ClayTable.Head>
         <ClayTable.Row>
           <ClayTable.Cell
+            style={{ cursor: "pointer" }}
             headingCell
             onClick={() =>
               onTableSort({ sortType: "DESC", sortingKey: constants.OIB_KEY })
@@ -25,6 +26,7 @@ const Table: React.FC<props> = ({ inputData, loading, onTableSort }: props) => {
             {constants.OIB_NAME}
           </ClayTable.Cell>
           <ClayTable.Cell
+            style={{ cursor: "pointer" }}
             headingCell
             onClick={() =>
               onTableSort({ sortType: "DESC", sortingKey: constants.SUB_KEY })
@@ -33,6 +35,7 @@ const Table: React.FC<props> = ({ inputData, loading, onTableSort }: props) => {
             {constants.SUB_NAME}
           </ClayTable.Cell>
           <ClayTable.Cell
+            style={{ cursor: "pointer" }}
             headingCell
             onClick={() =>
               onTableSort({ sortType: "DESC", sortingKey: constants.DOB_KEY })
@@ -41,6 +44,7 @@ const Table: React.FC<props> = ({ inputData, loading, onTableSort }: props) => {
             {constants.DOB_NAME}
           </ClayTable.Cell>
           <ClayTable.Cell
+            style={{ cursor: "pointer" }}
             expanded
             headingCell
             onClick={() =>
@@ -50,6 +54,7 @@ const Table: React.FC<props> = ({ inputData, loading, onTableSort }: props) => {
             {constants.NAME_NAME}
           </ClayTable.Cell>
           <ClayTable.Cell
+            style={{ cursor: "pointer" }}
             expanded
             headingCell
             onClick={() =>
@@ -62,6 +67,7 @@ const Table: React.FC<props> = ({ inputData, loading, onTableSort }: props) => {
             {constants.STREET_NAME}
           </ClayTable.Cell>
           <ClayTable.Cell
+            style={{ cursor: "pointer" }}
             headingCell
             onClick={() =>
               onTableSort({ sortType: "DESC", sortingKey: constants.CITY_KEY })
@@ -70,6 +76,7 @@ const Table: React.FC<props> = ({ inputData, loading, onTableSort }: props) => {
             {constants.CITY_NAME}
           </ClayTable.Cell>
           <ClayTable.Cell
+            style={{ cursor: "pointer" }}
             headingCell
             onClick={() =>
               onTableSort({ sortType: "DESC", sortingKey: constants.TYPE_KEY })
