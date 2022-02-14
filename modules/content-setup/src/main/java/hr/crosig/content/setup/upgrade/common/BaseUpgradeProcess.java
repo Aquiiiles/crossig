@@ -221,6 +221,27 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 			layout.getTypeSettings());
 	}
 
+	protected void addRole(String roleName, String roleTitle, String roleDescription, int roleType) {
+		try {
+			long companyId = getDefaultCompanyId();
+			long defaultUserId = userLocalService.getDefaultUserId(companyId);
+
+			roleLocalService.addRole(defaultUserId, null, 0, roleName, getDefaultLocaleMap(roleTitle), getDefaultLocaleMap(roleDescription), roleType , null, getDefaultServiceContext(companyId, defaultUserId));
+		} catch (Exception exception) {
+			log.error(exception);
+		}
+	}
+
+	protected Map<Locale, String> getDefaultLocaleMap(String name) {
+		Map<Locale, String> nameMap = new HashMap<>();
+
+		Locale locale = LocaleUtil.getDefault();
+
+		nameMap.put(locale, name);
+
+		return nameMap;
+	}
+
 	protected static final Log log = LogFactoryUtil.getLog(
 		BaseUpgradeProcess.class);
 

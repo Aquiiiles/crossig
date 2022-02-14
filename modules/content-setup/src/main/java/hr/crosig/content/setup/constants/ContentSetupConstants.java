@@ -37,4 +37,11 @@ public class ContentSetupConstants {
 
 	public static final String SALES_MANAGER_USER_GROUP = "Sales Manager";
 
+	public static final String VESSEL_ROLE_ALL = "VESSEL_ALL";
+
+	public static final String VESSEL_ROLE_SELL = "VESSEL_SELL";
+
+	public static final String VESSEL_ROLE_CREATE = "VESSEL_CREATE";
+
+	public static final String VESSEL_ROLE_UPDATE = "VESSEL_UPDATE";
 }
