@@ -1,0 +1,67 @@
+{
+	"info": {
+		"_postman_id": "8c7342ca-ae97-46a6-a200-c2c01bf5057e",
+		"name": "Crosig Agent Portal Proposal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Insured Roles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localURL}}proposal/-insured-roles",
+					"host": [
+						"{{localURL}}proposal"
+					],
+					"path": [
+						"insured-roles"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "test",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "test@liferay.com",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "localURL",
+			"value": "http://localhost:8080/o/agent-portal/"
+		}
+	]
+}
