@@ -35,6 +35,7 @@ export const CONTACT_SEARCH_CREATE_NEW_CONTACT= Liferay.Language.get('contact-se
 export const CONTACT_SEARCH_TABLE_VIEW_DETAILS= Liferay.Language.get('contact-search-table-view-details');
 export const CONTACT_SEARCH_TABLE_USE_CONTACT= Liferay.Language.get('contact-search-table-use-contact');
 export const CONTACT_SEARCH_RESULT_CONTACTS_FOUND= Liferay.Language.get('contact-search-result-contacts-found');
+export const CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND= Liferay.Language.get('contact-search-result-no-contacts-found');
 export const CREATE_NEW_CONTACT = {
     TITLE: Liferay.Language.get('create-new-contact-title'),
     SUBTITLE: Liferay.Language.get('create-new-contact-subtitle'),

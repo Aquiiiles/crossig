@@ -3,8 +3,12 @@ import Table from "./components/organisms/Table";
 import { SearchResultsHeader, Wrapper } from "./styles";
 import ClayForm, { ClaySelect, ClaySelectWithOption } from "@clayui/form";
 import ClayDropDown from "@clayui/drop-down";
+import ClayLoadingIndicator from "@clayui/loading-indicator";
 import { contactTypeOptions } from "../../../../constants/contactConstants";
-import { CONTACT_SEARCH_RESULT_CONTACTS_FOUND } from "../../../../constants/languageKeys";
+import {
+  CONTACT_SEARCH_RESULT_CONTACTS_FOUND,
+  CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND,
+} from "../../../../constants/languageKeys";
 
 import * as constants from "./constants/searchResult";
 
@@ -49,70 +53,78 @@ const SearchResult: React.FC<props> = ({
 
   return (
     <Wrapper>
-      <SearchResultsHeader>
-        <h6 className="h9">
-          {data.length} {CONTACT_SEARCH_RESULT_CONTACTS_FOUND}
-        </h6>
-        <ClayForm.Group>
-          <ClayDropDown
-            active={showCountryDropdown}
-            onActiveChange={setShowCountryDropdown}
-            trigger={
-              <div style={{ cursor: "pointer" }}>
-                <ClaySelect
-                  style={{ pointerEvents: "none" }}
-                  id="cityFilterField"
-                  value=""
-                >
-                  <ClaySelect.Option label="City" value="" />
-                </ClaySelect>
-              </div>
-            }
-          >
-            <ClayDropDown.Search
-              value={citySearch}
-              onChange={({ target: { value } }) => setCitySearch(value)}
-              placeholder="Search"
-              id="searchContactInput"
-            />
-            <ClayDropDown.Group>
-              {[
-                { name: "ULICA OTONA IVEKOVIĆA 60" },
-                { name: "TONŽINO 1" },
-                { name: "ULICA MIROSLAVA KRLEŽE 11" },
-              ]
-                .filter(city =>
-                  city.name.toLowerCase().includes(citySearch.toLowerCase())
-                )
-                .map(city => (
-                  <ClayDropDown.Item
-                    onClick={() => {
-                      onCitySelection(city.name);
-                      setShowCountryDropdown(false);
-                    }}
-                    key={city.name}
-                  >
-                    {city.name}
-                  </ClayDropDown.Item>
-                ))}
-            </ClayDropDown.Group>
-          </ClayDropDown>
-          <ClaySelectWithOption
-            id="TypeFilterField"
-            options={[{ label: "Type", value: "" }, ...contactTypeOptions]}
-            onChange={({ target: { value } }) => {
-              onTypeSelection(value);
+      {!loading ? (
+        <>
+          <SearchResultsHeader>
+            <h6 className="h9">
+              {data.length > 0
+                ? `${data.length} ${CONTACT_SEARCH_RESULT_CONTACTS_FOUND}`
+                : `${CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND}`}
+            </h6>
+            <ClayForm.Group>
+              <ClayDropDown
+                active={showCountryDropdown}
+                onActiveChange={setShowCountryDropdown}
+                trigger={
+                  <div style={{ cursor: "pointer" }}>
+                    <ClaySelect
+                      style={{ pointerEvents: "none" }}
+                      id="cityFilterField"
+                      value=""
+                    >
+                      <ClaySelect.Option label="City" value="" />
+                    </ClaySelect>
+                  </div>
+                }
+              >
+                <ClayDropDown.Search
+                  value={citySearch}
+                  onChange={({ target: { value } }) => setCitySearch(value)}
+                  placeholder="Search"
+                  id="searchContactInput"
+                />
+                <ClayDropDown.Group>
+                  {[
+                    { name: "ULICA OTONA IVEKOVIĆA 60" },
+                    { name: "TONŽINO 1" },
+                    { name: "ULICA MIROSLAVA KRLEŽE 11" },
+                  ]
+                    .filter(city =>
+                      city.name.toLowerCase().includes(citySearch.toLowerCase())
+                    )
+                    .map(city => (
+                      <ClayDropDown.Item
+                        onClick={() => {
+                          onCitySelection(city.name);
+                          setShowCountryDropdown(false);
+                        }}
+                        key={city.name}
+                      >
+                        {city.name}
+                      </ClayDropDown.Item>
+                    ))}
+                </ClayDropDown.Group>
+              </ClayDropDown>
+              <ClaySelectWithOption
+                id="TypeFilterField"
+                options={[{ label: "Type", value: "" }, ...contactTypeOptions]}
+                onChange={({ target: { value } }) => {
+                  onTypeSelection(value);
+                }}
+              />
+            </ClayForm.Group>
+          </SearchResultsHeader>
+          <Table
+            loading={loading}
+            inputData={formatedData}
+            onTableSort={({ sortType, sortingKey }) => {
+              console.log(sortingKey);
             }}
-          />
-        </ClayForm.Group>
-      </SearchResultsHeader>
-      <Table
-        loading={loading}
-        inputData={formatedData}
-        onTableSort={({ sortType, sortingKey }) => {
-          console.log(sortingKey);
-        }}
-      ></Table>
+          ></Table>
+        </>
+      ) : (
+        <ClayLoadingIndicator />
+      )}
     </Wrapper>
   );
 };

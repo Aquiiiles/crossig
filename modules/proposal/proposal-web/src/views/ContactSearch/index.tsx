@@ -18,6 +18,7 @@ const ContactSearch: React.FC = () => {
   const { state: searchResultData, fetchData: fetchSearchResultData } =
     useFetchData();
 
+  const idle = searchResultData.status === IDLE;
   const loading = searchResultData.status === PENDING;
   try {
     data = searchResultData.response.data[0].contactInListIVO;
@@ -35,10 +36,10 @@ const ContactSearch: React.FC = () => {
           {CONTACT_SEARCH_SUBTITLE}
         </p>
         <SearchField fetchSearchResultData={fetchSearchResultData} />
-        {data != null ? (
+        {!idle ? (
           <>
             <SearchResult
-              data={data}
+              data={data != null ? data : []}
               loading={loading}
               onCitySelection={console.info}
               onTypeSelection={console.info}
