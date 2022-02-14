@@ -32,6 +32,9 @@ export const CONTACT_SEARCH_FIELD_AREA_CODE= Liferay.Language.get('contact-searc
 export const CONTACT_SEARCH_FIELD_PHONE_NUMBER= Liferay.Language.get('contact-search-field-phone-number');
 export const CONTACT_SEARCH_FIELD_EMAIL_ADDRESS= Liferay.Language.get('contact-search-field-email-address');
 export const CONTACT_SEARCH_CREATE_NEW_CONTACT= Liferay.Language.get('contact-search-create-new-contact');
+export const CONTACT_SEARCH_TABLE_VIEW_DETAILS= Liferay.Language.get('contact-search-table-view-details');
+export const CONTACT_SEARCH_TABLE_USE_CONTACT= Liferay.Language.get('contact-search-table-use-contact');
+export const CONTACT_SEARCH_RESULT_CONTACTS_FOUND= Liferay.Language.get('contact-search-result-contacts-found');
 export const CREATE_NEW_CONTACT = {
     TITLE: Liferay.Language.get('create-new-contact-title'),
     SUBTITLE: Liferay.Language.get('create-new-contact-subtitle'),

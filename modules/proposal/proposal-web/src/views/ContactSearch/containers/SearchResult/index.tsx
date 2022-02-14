@@ -2,6 +2,7 @@ import Table from "./components/organisms/Table";
 import { SearchResultsHeader, Wrapper } from "./styles";
 import ClayForm, { ClaySelect, ClaySelectWithOption } from "@clayui/form";
 import { contactTypeOptions } from "../../../../constants/contactConstants";
+import { CONTACT_SEARCH_RESULT_CONTACTS_FOUND } from "../../../../constants/languageKeys";
 
 import * as constants from "./constants/searchResult";
 
@@ -30,10 +31,12 @@ const SearchResult: React.FC<props> = ({ data, loading }: props) => {
   return (
     <Wrapper>
       <SearchResultsHeader>
-        <h6 className="h9">{data.length} Contacts Found</h6>
+        <h6 className="h9">
+          {data.length} {CONTACT_SEARCH_RESULT_CONTACTS_FOUND}
+        </h6>
         <ClayForm.Group>
           <ClaySelect id="cityFilterField">
-            <ClaySelect.Option key="City" label="City" value="City" />
+            <ClaySelect.Option label="City" value="" />
           </ClaySelect>
           <ClaySelectWithOption
             id="TypeFilterField"

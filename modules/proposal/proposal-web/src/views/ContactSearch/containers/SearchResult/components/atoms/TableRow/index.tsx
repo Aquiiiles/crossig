@@ -2,6 +2,10 @@ import { useState } from "react";
 import ClayButton from "@clayui/button";
 import ClayTable from "@clayui/table";
 import { HoveringButtonGroup } from "./style";
+import {
+  CONTACT_SEARCH_TABLE_VIEW_DETAILS,
+  CONTACT_SEARCH_TABLE_USE_CONTACT,
+} from "../../../../../../../constants/languageKeys";
 
 import * as types from "../../../types/searchResult";
 import * as constants from "../../../constants/searchResult";
@@ -53,9 +57,11 @@ const TableRow: React.FC<props> = ({ contact }) => {
       {showButtons ? (
         <HoveringButtonGroup>
           <ClayButton displayType="secondary" className="ghost">
-            VIEW DETAILS
+            {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
           </ClayButton>
-          <ClayButton displayType="primary">USE CONTACT</ClayButton>
+          <ClayButton displayType="primary">
+            {CONTACT_SEARCH_TABLE_USE_CONTACT}
+          </ClayButton>
         </HoveringButtonGroup>
       ) : (
         <ClayTable.Cell headingTitle>
