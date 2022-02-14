@@ -1,20 +1,42 @@
 import React, { useState } from "react";
-import { FormSection, SectionSubTitle, Row } from "../../atoms";
+import {
+	AutocompleteInput,
+	FormSection,
+	Row,
+	SectionSubTitle
+} from "../../atoms";
 import ClayForm, {
 	ClayInput,
 	ClayCheckbox,
 	ClaySelectWithOption
 } from "@clayui/form";
-import { contactTypes } from "../../../../../../../constants/contactConstants";
+import {
+	contactTypes,
+	croatiaCountryObject
+} from "../../../../../../../constants/contactConstants";
 import { CREATE_NEW_CONTACT } from "../../../../../../../constants/languageKeys";
 import { useContactSelector } from "../../../contactStore";
 import { Line } from "./styles";
+import { searchCitiesByName, searchStreetsByCityIdAndName } from "./controller";
 
 const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
+	const [country, setCountry] = useState<string>(croatiaCountryObject.value);
+	const [dispatchCountry, setDispatchCountry] = useState<string>(
+		croatiaCountryObject.value
+	);
+	const [city, setCity] = useState<any>();
+	const [dispatchCity, setDispatchCity] = useState<any>();
 	const [sameAddress, setSameAdress] = useState(true);
+	const [postalCode, setPostalCode] = useState<string>();
+	const [dispatchPostalCode, setDispatchPostalCode] = useState<string>();
 	const { contactType } = useContactSelector(
 		(state: { basicInfo: any }) => state.basicInfo
 	);
+
+	const mainAddressInCroatia = country === croatiaCountryObject.value;
+
+	const dispatchAddressInCroatia =
+		dispatchCountry === croatiaCountryObject.value;
 
 	return (
 		<>
@@ -31,7 +53,12 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 				<Row half>
 					<ClayForm.Group>
 						<label htmlFor='country'>{CREATE_NEW_CONTACT.FIELD.COUNTRY}</label>
-						<ClaySelectWithOption id='country' options={countries} required />
+						<ClaySelectWithOption
+							id='country'
+							options={countries}
+							onChange={(event) => setCountry(event.target.value)}
+							required
+						/>
 					</ClayForm.Group>
 				</Row>
 
@@ -39,13 +66,15 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 					<ClayForm.Group>
 						<ClayInput.Group>
 							<ClayInput.GroupItem>
-								<label htmlFor='city'>{CREATE_NEW_CONTACT.FIELD.CITY}</label>
-
-								<ClayInput
-									id='city'
-									aria-required={true}
-									type='text'
-									required={true}
+								<AutocompleteInput
+									label={CREATE_NEW_CONTACT.FIELD.CITY}
+									id={"city"}
+									active={mainAddressInCroatia}
+									getOptions={searchCitiesByName}
+									setParentValue={setCity}
+									setPostalCode={setPostalCode}
+									isCity
+									disabled={false}
 								/>
 							</ClayInput.GroupItem>
 
@@ -54,18 +83,32 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 									{CREATE_NEW_CONTACT.FIELD.POSTAL_CODE}
 								</label>
 
-								<ClayInput id='postal-code' type='text' />
+								<ClayInput
+									id='postal-code'
+									type='text'
+									disabled={mainAddressInCroatia}
+									value={postalCode}
+								/>
 							</ClayInput.GroupItem>
 						</ClayInput.Group>
 					</ClayForm.Group>
 				</Row>
 
 				<ClayForm.Group>
-					<label htmlFor='street-address'>
-						{CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS}
-					</label>
-
-					<ClayInput id='street-address' type='text' required={true} />
+					<AutocompleteInput
+						label={CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS}
+						id={"street-addres"}
+						active={mainAddressInCroatia}
+						getOptions={searchStreetsByCityIdAndName(city)}
+						setParentValue={() => {
+							return;
+						}}
+						setPostalCode={() => {
+							return;
+						}}
+						isCity={false}
+						disabled={!postalCode}
+					/>
 				</ClayForm.Group>
 
 				<Row half>
@@ -97,6 +140,7 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 									id='dispatch-country'
 									options={countries}
 									required
+									onChange={(event) => setDispatchCountry(event.target.value)}
 								/>
 							</ClayForm.Group>
 						</Row>
@@ -105,15 +149,15 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 							<ClayForm.Group>
 								<ClayInput.Group>
 									<ClayInput.GroupItem>
-										<label htmlFor='dispatch-city'>
-											{CREATE_NEW_CONTACT.FIELD.CITY}
-										</label>
-
-										<ClayInput
-											id='dispatch-city'
-											aria-required={true}
-											type='text'
-											required={true}
+										<AutocompleteInput
+											label={CREATE_NEW_CONTACT.FIELD.CITY}
+											id={"dispatch-city"}
+											active={dispatchAddressInCroatia}
+											getOptions={searchCitiesByName}
+											setParentValue={setDispatchCity}
+											setPostalCode={setDispatchPostalCode}
+											isCity
+											disabled={false}
 										/>
 									</ClayInput.GroupItem>
 
@@ -122,18 +166,32 @@ const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
 											{CREATE_NEW_CONTACT.FIELD.POSTAL_CODE}
 										</label>
 
-										<ClayInput id='dispatch-postal-code' type='text' />
+										<ClayInput
+											id='dispatch-postal-code'
+											type='text'
+											disabled={dispatchAddressInCroatia}
+											value={dispatchPostalCode}
+										/>
 									</ClayInput.GroupItem>
 								</ClayInput.Group>
 							</ClayForm.Group>
 						</Row>
 
 						<ClayForm.Group>
-							<label htmlFor='dispatch-street-address'>
-								{CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS}
-							</label>
-
-							<ClayInput id='dispatch-street-address' type='text' />
+							<AutocompleteInput
+								label={CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS}
+								id={"dispatch-street-addres"}
+								active={dispatchAddressInCroatia}
+								getOptions={searchStreetsByCityIdAndName(dispatchCity)}
+								setParentValue={() => {
+									return;
+								}}
+								setPostalCode={() => {
+									return;
+								}}
+								isCity={false}
+								disabled={!dispatchPostalCode}
+							/>
 						</ClayForm.Group>
 
 						<Row half>
