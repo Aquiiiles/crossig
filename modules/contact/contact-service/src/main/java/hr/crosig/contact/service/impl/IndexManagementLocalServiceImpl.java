@@ -1,27 +1,30 @@
 package hr.crosig.contact.service.impl;
 
+import com.liferay.petra.string.StringPool;
+import com.liferay.portal.background.task.service.BackgroundTaskLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.json.JSONArray;
-import com.liferay.portal.kernel.json.JSONException;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.CompanyConstants;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.util.PortalUtil;
 import hr.crosig.common.ws.exception.ServiceInvocationException;
 import hr.crosig.common.ws.idit.client.IDITWSClient;
-import hr.crosig.contact.constants.CityConstants;
-import hr.crosig.contact.constants.StreetConstants;
 import hr.crosig.contact.dto.CityDTO;
-import hr.crosig.contact.dto.StreetDTO;
+import hr.crosig.contact.scheduler.constants.SchedulerConstants;
 import hr.crosig.contact.service.CityLocalService;
 import hr.crosig.contact.service.IndexManagementLocalService;
 import hr.crosig.contact.service.StreetLocalService;
+import hr.crosig.contact.service.backgroundtask.CityUpdateBackgroundTaskExecutor;
+import hr.crosig.contact.util.IDITUtil;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
-import java.util.function.Function;
+import java.util.Map;
 
 /**
  * @author victor.catanante
@@ -63,7 +66,7 @@ public class IndexManagementLocalServiceImpl
 			String response = _iditwsClient.getCities(
 			).getContent();
 
-			List<CityDTO> cities = _parseIDITCityResponse(response);
+			List<CityDTO> cities = IDITUtil.parseIDITCityResponse(response);
 
 			cities = _cityLocalService.addCities(cities);
 
@@ -71,102 +74,59 @@ public class IndexManagementLocalServiceImpl
 
 			return cities;
 		}
-		catch (ServiceInvocationException e) {
-			_log.error("Error trying to get cities", e);
+		catch (ServiceInvocationException serviceInvocationException) {
+			_log.error(
+				"Error trying to get cities", serviceInvocationException);
 
 			return null;
 		}
 	}
 
 	protected void populateStreets(List<CityDTO> cities) {
+		long userId = _getAdminUserId();
+
 		cities.forEach(
 			city -> {
 				try {
-					String response = _iditwsClient.getStreetsByCityId(
-						city.getCityId()
-					).getContent();
+					Map<String, Serializable> contextMap = new HashMap<>();
 
-					List<StreetDTO> streets = _parseIDITStreetResponse(
-						response, city.getCityId());
+					contextMap.put("cityId", city.getCityId());
+					contextMap.put("cityName", city.getCityName());
 
-					_streetLocalService.addStreets(streets);
-
-					_log.info("Added " + streets.size() + " streets");
+					_backgroundTaskLocalService.addBackgroundTask(
+						userId, CompanyConstants.SYSTEM,
+						StringPool.BLANK,
+						CityUpdateBackgroundTaskExecutor.class.getName(),
+						contextMap, new ServiceContext());
 				}
-				catch (ServiceInvocationException e) {
-					_log.error(
-						"Error trying to get streets from cityId: " +
-							city.getCityId(),
-						e);
+				catch (PortalException portalException) {
+					_log.error(portalException);
 				}
 			});
 	}
 
-	private CityDTO _parseCityDTO(JSONObject jsonObject) {
-		CityDTO cityDTO = new CityDTO();
-
-		cityDTO.setExternalCityId(
-			jsonObject.getLong(CityConstants.JSON_KEY_FOR_EXTERNAL_CITY_ID));
-		cityDTO.setZipCode(
-			jsonObject.getString(CityConstants.JSON_KEY_FOR_ZIP_CODE));
-		cityDTO.setBoxNumber(
-			jsonObject.getString(CityConstants.JSON_KEY_FOR_BOX_NUMBER));
-		cityDTO.setCityName(
-			jsonObject.getString(CityConstants.JSON_KEY_FOR_CITY_NAME));
-		cityDTO.setPostName(
-			jsonObject.getString(CityConstants.JSON_KEY_FOR_POST_NAME));
-
-		return cityDTO;
-	}
-
-	private List<CityDTO> _parseIDITCityResponse(String response) {
-		Function<JSONObject, CityDTO> mapper = this::_parseCityDTO;
-
-		return _parseIDITResponse(response, mapper);
-	}
-
-	private <T> List<T> _parseIDITResponse(
-		String response, Function<JSONObject, T> mapper) {
-
-		List<T> objects = new ArrayList<>();
+	private long _getAdminUserId() {
+		final long companyId = PortalUtil.getDefaultCompanyId();
 
 		try {
-			JSONArray jsonArray = JSONFactoryUtil.createJSONArray(response);
-
-			for (int i = 0; i < jsonArray.length(); i++) {
-				objects.add(mapper.apply(jsonArray.getJSONObject(i)));
-			}
+			return _userLocalService.getUser(
+				_userLocalService.getDefaultUserId(companyId)
+			).getUserId();
 		}
-		catch (JSONException jsonException) {
-			_log.error(jsonException);
+		catch (PortalException portalException) {
+			_log.error(
+				SchedulerConstants.SCHEDULER_FAILED_WHEN_TRIGGERED,
+				portalException);
 		}
 
-		return objects;
-	}
-
-	private List<StreetDTO> _parseIDITStreetResponse(
-		String response, long cityId) {
-
-		Function<JSONObject, StreetDTO> mapper = streetJSON -> _parseStreetDTO(
-			streetJSON, cityId);
-
-		return _parseIDITResponse(response, mapper);
-	}
-
-	private StreetDTO _parseStreetDTO(JSONObject jsonObject, long cityId) {
-		StreetDTO streetDTO = new StreetDTO();
-
-		streetDTO.setStreetId(
-			jsonObject.getLong(StreetConstants.JSON_KEY_FOR_STREET_ID));
-		streetDTO.setStreetName(
-			jsonObject.getString(StreetConstants.JSON_KEY_FOR_STREET_NAME));
-		streetDTO.setCityId(cityId);
-
-		return streetDTO;
+		return 0L;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		IndexManagementLocalServiceImpl.class);
+
+	@Reference
+	private BackgroundTaskLocalService _backgroundTaskLocalService;
 
 	@Reference
 	private CityLocalService _cityLocalService;
@@ -176,5 +136,8 @@ public class IndexManagementLocalServiceImpl
 
 	@Reference
 	private StreetLocalService _streetLocalService;
+
+	@Reference
+	private UserLocalService _userLocalService;
 
 }
