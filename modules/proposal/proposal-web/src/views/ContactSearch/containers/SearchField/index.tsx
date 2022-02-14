@@ -58,6 +58,7 @@ const SearchField: React.FC<props> = ({ fetchSearchResultData }: props) => {
       assetStreetName: street !== "" ? street : undefined,
       telephoneCountryCode: countryCode !== "" ? countryCode : undefined,
       telephonePrefix: areaCode !== "" ? areaCode : undefined,
+      email: email !== "" ? email : undefined,
     };
 
     fetchSearchResultData("POST", SEARCH_URL, {}, data);
