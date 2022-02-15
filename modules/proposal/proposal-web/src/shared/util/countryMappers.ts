@@ -1,4 +1,7 @@
-import { countryNames, countryCodes } from "../../constants/defaultCountryConfiguration";
+import {
+  countryNames,
+  countryCodes,
+} from "../../constants/defaultCountryConfiguration";
 
 import { Country } from "../../views/NewContact/containers/ContactInfo/components/atoms/PhoneInputList";
 
@@ -16,7 +19,7 @@ export const mapToCountryNames = (countriesArray: Array<any>) => {
   return countries;
 };
 
-export const mapToCountryCodeCountries = (countriesArray: Array<any>) => {
+export const mapToCountryCodes = (countriesArray: Array<any>) => {
   const countries = countriesArray
     .map((country) => {
       return {
@@ -25,9 +28,7 @@ export const mapToCountryCodeCountries = (countriesArray: Array<any>) => {
         flagKey: country.a2,
       } as Country;
     })
-    .filter(
-      (country) => country.label !== countryCodes.label
-    );
+    .filter((country) => country.label !== countryCodes.label);
   countries.unshift(countryCodes);
 
   return countries;

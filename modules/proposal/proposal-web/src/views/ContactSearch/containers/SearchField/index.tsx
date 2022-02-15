@@ -11,7 +11,7 @@ import {
   CONTACT_SEARCH_FIELD_NAME_OR_OIB,
   CONTACT_SEARCH_CREATE_NEW_CONTACT,
 } from "../../../../constants/languageKeys";
-import { mapToCountryCodeCountries } from "../../../../shared/util/countryMappers";
+import { mapToCountryCodes } from "../../../../shared/util/countryMappers";
 
 declare const Liferay: any;
 
@@ -82,7 +82,7 @@ const SearchField: React.FC = () => {
         alignElementRef={triggerElementRef}
         onSetActive={() => {}}
       >
-        <SearchFilters countries={mapToCountryCodeCountries(countries)} />
+        <SearchFilters countries={mapToCountryCodes(countries)} />
       </ClayDropDown.Menu>
       <div></div>
       <Link to="new_contact">{CONTACT_SEARCH_CREATE_NEW_CONTACT}</Link>

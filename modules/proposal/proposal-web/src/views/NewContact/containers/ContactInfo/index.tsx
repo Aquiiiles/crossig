@@ -7,7 +7,7 @@ import { Provider as ContactInfoProvider } from "react-redux";
 import { CREATE_NEW_CONTACT } from "../../../../constants/languageKeys";
 import {
   mapToCountryNames,
-  mapToCountryCodeCountries,
+  mapToCountryCodes,
 } from "../../../../shared/util/countryMappers";
 
 import store from "./contactStore";
@@ -15,7 +15,7 @@ import store from "./contactStore";
 declare const Liferay: any;
 
 const ContactInfo: React.FC = () => {
-	const [countries, setCountries] = useState([{}]);
+  const [countries, setCountries] = useState(null);
 
   const loadCountries = useCallback(() => {
     Liferay.Service(
@@ -23,7 +23,7 @@ const ContactInfo: React.FC = () => {
       {
         active: true,
       },
-      (countriesArray: Array<any>) => {
+      (countriesArray: any) => {
         setCountries(countriesArray);
       }
     );
@@ -42,7 +42,9 @@ const ContactInfo: React.FC = () => {
         </p>
         <BasicInfo />
         {countries && <Addresses countries={mapToCountryNames(countries)} />}
-        {countries && <ContactInfoForm countries={mapToCountryCodeCountries(countries)} />}
+        {countries && (
+          <ContactInfoForm countries={mapToCountryCodes(countries)} />
+        )}
       </Wrapper>
     </ContactInfoProvider>
   );

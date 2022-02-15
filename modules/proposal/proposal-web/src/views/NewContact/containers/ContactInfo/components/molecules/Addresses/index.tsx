@@ -15,7 +15,9 @@ import { useContactSelector } from "../../../contactStore";
 import { Line } from "./styles";
 import { searchCitiesByName, searchStreetsByCityIdAndName } from "./controller";
 
-const Addresses: React.FC<{ countries: { label: any; value: any; }[] }> = ({ countries }) => {
+const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
+  countries,
+}) => {
   const [country, setCountry] = useState<string>(countryNames.value);
   const [dispatchCountry, setDispatchCountry] = useState<string>(
     countryNames.value
@@ -31,8 +33,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any; }[] }> = ({ cou
 
   const mainAddressInCroatia = country === countryNames.value;
 
-  const dispatchAddressInCroatia =
-    dispatchCountry === countryNames.value;
+  const dispatchAddressInCroatia = dispatchCountry === countryNames.value;
 
   return (
     <>
@@ -52,7 +53,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any; }[] }> = ({ cou
             <ClaySelectWithOption
               id="country"
               options={countries}
-              onChange={event => setCountry(event.target.value)}
+              onChange={(event) => setCountry(event.target.value)}
               required
             />
           </ClayForm.Group>
@@ -121,7 +122,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any; }[] }> = ({ cou
 
         <ClayCheckbox
           checked={sameAddress}
-          onChange={() => setSameAdress(val => !val)}
+          onChange={() => setSameAdress((val) => !val)}
           label={CREATE_NEW_CONTACT.FIELD.DISPATCH_ADDRESS}
         />
 
@@ -136,7 +137,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any; }[] }> = ({ cou
                   id="dispatch-country"
                   options={countries}
                   required
-                  onChange={event => setDispatchCountry(event.target.value)}
+                  onChange={(event) => setDispatchCountry(event.target.value)}
                 />
               </ClayForm.Group>
             </Row>
