@@ -13,16 +13,13 @@ import {
   CONTACT_SEARCH_FIELD_PHONE_NUMBER,
   CONTACT_SEARCH_FIELD_STREET_ADDRESS,
 } from "../../../../../../../constants/languageKeys";
-import CountryCodeSelect from "../../../../../../../shared/atoms/CountryCodeSelect";
+import CountryCodeSelect from "../../../../../../../shared/atoms/contact/CountryCodeSelect";
 import { countryCodes as croatia } from "../../../../../../../constants/defaultCountryConfiguration";
-import { Country } from "../../../../../../../shared/types/index";
+import { Country } from "../../../../../../../shared/types/contact";
 import { useFetchData } from "../../../../../../../api/hooks/useFetchData";
 import { AREA_CODE_URL } from "../../../../../../../api/constants/routes";
-import {
-  useContactDispatch,
-  useContactSelector,
-} from "../../../../../../../redux/store";
 import { actions } from "../../../../../../../redux/searchFilterSlice";
+import { useContactDispatch, useContactSelector } from "../../../../../../../redux/store";
 
 type AreaCodeType = {
   area_name: string;

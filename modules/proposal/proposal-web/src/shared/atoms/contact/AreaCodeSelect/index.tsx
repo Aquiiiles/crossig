@@ -1,6 +1,6 @@
 import React, { ChangeEventHandler, useEffect } from "react";
-import { useFetchData } from "../../../api/hooks/useFetchData";
-import { AREA_CODE_URL } from "../../../api/constants/routes";
+import { useFetchData } from "../../../../api/hooks/useFetchData";
+import { AREA_CODE_URL } from "../../../../api/constants/routes";
 import { StyledSelect } from "./styles";
 import { ClaySelect } from "@clayui/form";
 

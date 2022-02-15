@@ -1,13 +1,9 @@
 import React, { Fragment, MouseEventHandler, useState } from "react";
 import { ClayInput } from "@clayui/form";
-import {
-  CONTACT_INFO_ADD_EMAIL_ADDRESS,
-  CONTACT_INFO_EMAIL_ADDRESS,
-  CONTACT_INFO_INVALID_EMAIL_MESSAGE,
-} from "../../../../../../../constants/languageKeys";
-import { MAXIMUM_EMAIL_ADDRESSES } from "../../../../../../../constants/contactConstants";
+import { CONTACT_INFO } from "../../../../constants/languageKeys";
 import LinkWrapper from "../LinkWrapper";
 import { StyledFormGroup, Error } from "./styles";
+import { MAXIMUM_EMAIL_ADDRESSES } from "../../../../constants/contactConstants";
 
 interface props {
   emails: Array<string>;
@@ -44,7 +40,7 @@ const EmailListInput: React.FC<props> = props => {
       {props.emails.map((email, index) => {
         return (
           <Fragment key={`emailFragmentInputKey${index}`}>
-            <label>{CONTACT_INFO_EMAIL_ADDRESS}</label>
+            <label>{CONTACT_INFO.EMAIL_ADDRESS}</label>
             <ClayInput
               key={`emailInputKey${index}`}
               id={`emailInput${index}`}
@@ -56,10 +52,10 @@ const EmailListInput: React.FC<props> = props => {
         );
       })}
       {hasSomeInvalidEmail && (
-        <Error>{CONTACT_INFO_INVALID_EMAIL_MESSAGE}</Error>
+        <Error>{CONTACT_INFO.INVALID_EMAIL_MESSAGE}</Error>
       )}
       <LinkWrapper
-        title={CONTACT_INFO_ADD_EMAIL_ADDRESS}
+        title={CONTACT_INFO.ADD_EMAIL_ADDRESS}
         handleClick={props.addEmailInput}
         disabled={shouldDisableLink()}
       />

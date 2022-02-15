@@ -1,11 +1,6 @@
 import React, { MouseEventHandler, useEffect, useState } from "react";
 import { ClayInput } from "@clayui/form";
-import {
-  CONTACT_INFO_ADD_MOBILE_PHONE,
-  CONTACT_INFO_PHONE_NUMBER,
-  CONTACT_INFO_PHONE_NUMBER_ERROR,
-} from "../../../../../../../constants/languageKeys";
-import { MAXIMUM_MOBILE_PHONES } from "../../../../../../../constants/contactConstants";
+import { CONTACT_INFO } from "../../../../constants/languageKeys";
 import {
   Error,
   OrderedListWrapper,
@@ -13,11 +8,11 @@ import {
   StyledFormGroup,
 } from "./styles";
 import LinkWrapper from "../LinkWrapper";
-import { countryCodes } from "../../../../../../../constants/defaultCountryConfiguration";
-
-import AreaCodeSelect from "../../../../../../../shared/atoms/AreaCodeSelect";
-import CountryCodeSelect from "../../../../../../../shared/atoms/CountryCodeSelect";
-import { PhoneNumber } from "../../../../../../../shared/types/index";
+import { countryCodes } from "../../../../constants/defaultCountryConfiguration";
+import AreaCodeSelect from "../../../atoms/contact/AreaCodeSelect";
+import CountryCodeSelect from "../../../atoms/contact/CountryCodeSelect";
+import { PhoneNumber } from "../../../types/contact";
+import { MAXIMUM_MOBILE_PHONES } from "../../../../constants/contactConstants";
 
 type propsType = {
   phoneNumbers: Array<PhoneNumber>;
@@ -45,8 +40,8 @@ const PhoneInputList: React.FC<propsType> = (props: propsType) => {
 
   const validatePhones = () => {
     const invalidityChecks = props.phoneNumbers
-      .filter(phone => phone.countryCode === countryCodes.label)
-      .map(phone => {
+      .filter((phone) => phone.countryCode === countryCodes.label)
+      .map((phone) => {
         if (phone.phoneNumber === "") {
           return false;
         }
@@ -58,7 +53,7 @@ const PhoneInputList: React.FC<propsType> = (props: propsType) => {
       });
 
     setSomeInvalidPhone(
-      invalidityChecks.filter(item => item === true).length > 0
+      invalidityChecks.filter((item) => item === true).length > 0
     );
   };
 
@@ -104,12 +99,12 @@ const PhoneInputList: React.FC<propsType> = (props: propsType) => {
         {props.phoneNumbers.map((phoneNumber, index) => {
           return (
             <li key={`phoneInputList${index}`}>
-              <label>{CONTACT_INFO_PHONE_NUMBER}</label>
+              <label>{CONTACT_INFO.PHONE_NUMBER}</label>
               <PhoneNumberWrapper>
                 <CountryCodeSelect
                   id={`countryCodeSelect${index}`}
                   className="country-code"
-                  handleChange={e => handleChange(index, e, "countryCode")}
+                  handleChange={(e) => handleChange(index, e, "countryCode")}
                   entity={phoneNumber.countryCode}
                   countries={props.countries}
                 />
@@ -119,14 +114,14 @@ const PhoneInputList: React.FC<propsType> = (props: propsType) => {
                   className={displayAreaCode(phoneNumber.countryCode)}
                   entity={phoneNumber.areaCode}
                   disabled={false}
-                  handleChange={e => handleChange(index, e, "areaCode")}
+                  handleChange={(e) => handleChange(index, e, "areaCode")}
                 />
 
                 <ClayInput
                   id={`phoneNumber${index}`}
                   className={handlePhoneInputWidth(phoneNumber.countryCode)}
                   type="number"
-                  onChange={e => handleChange(index, e, "phoneNumber")}
+                  onChange={(e) => handleChange(index, e, "phoneNumber")}
                   value={phoneNumber.phoneNumber}
                 />
               </PhoneNumberWrapper>
@@ -134,9 +129,9 @@ const PhoneInputList: React.FC<propsType> = (props: propsType) => {
           );
         })}
       </OrderedListWrapper>
-      {hasSomeInvalidPhone && <Error>{CONTACT_INFO_PHONE_NUMBER_ERROR}</Error>}
+      {hasSomeInvalidPhone && <Error>{CONTACT_INFO.PHONE_NUMBER_ERROR}</Error>}
       <LinkWrapper
-        title={CONTACT_INFO_ADD_MOBILE_PHONE}
+        title={CONTACT_INFO.ADD_MOBILE_PHONE}
         handleClick={props.addPhoneInput}
         disabled={shouldDisableLink()}
       />

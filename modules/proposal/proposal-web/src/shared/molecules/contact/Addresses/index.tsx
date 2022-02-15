@@ -1,23 +1,20 @@
 import React, { useEffect } from "react";
-import { AutocompleteInput } from "../../atoms";
-import SectionSubTitle from "../../atoms/SectionSubTitle";
-import FormSection from "../../../../../../../shared/atoms/FormSection";
-import Row from "../../../../../../../shared/atoms/Row";
+import AutocompleteInput from "../../../atoms/contact/AutocompleteInput";
+import SectionSubTitle from "../../../atoms/contact/SectionSubTitle";
+import FormSection from "../../../atoms/contact/FormSection";
+import Row from "../../../atoms/contact/Row";
 import ClayForm, {
   ClayInput,
   ClayCheckbox,
   ClaySelectWithOption,
 } from "@clayui/form";
-import { contactTypes } from "../../../../../../../constants/contactConstants";
-import { countryNames } from "../../../../../../../constants/defaultCountryConfiguration";
-import { CREATE_NEW_CONTACT } from "../../../../../../../constants/languageKeys";
-import {
-  useContactSelector,
-  useContactDispatch,
-} from "../../../../../../../redux/store";
-import { actions } from "../../../../../../../redux/addressSlice";
+import { contactTypes } from "../../../../constants/contactConstants";
+import { countryNames } from "../../../../constants/defaultCountryConfiguration";
+import { CREATE_NEW_CONTACT } from "../../../../constants/languageKeys";
+import { useContactDispatch, useContactSelector } from "../../../../redux/store";
 import { Line } from "./styles";
 import { searchCitiesByName, searchStreetsByCityIdAndName } from "./controller";
+import { actions } from "../../../../redux/addressesSlice";
 
 const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
   countries,
@@ -54,7 +51,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
         <SectionSubTitle
           subTitle={
             contactType === contactTypes.Individual
-              ? CREATE_NEW_CONTACT.ID_ADDRES
+              ? CREATE_NEW_CONTACT.ID_ADDRESS
               : CREATE_NEW_CONTACT.REGISTERED_OFFICE_ADDRESS
           }
         />

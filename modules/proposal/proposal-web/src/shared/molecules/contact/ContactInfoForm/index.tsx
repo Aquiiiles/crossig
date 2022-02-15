@@ -1,40 +1,29 @@
 import React, { Fragment } from "react";
 import { useHistory } from "react-router-dom";
 import ClayForm from "@clayui/form";
-import CreateContactButton from "../../atoms/CreateContactButton";
-import EmailInputList from "../../atoms/EmailInputList";
-import FormSection from "../../../../../../../shared/atoms/FormSection";
-import PhoneInputList, { Country } from "../../atoms/PhoneInputList";
-import LinkWrapper from "../../atoms/LinkWrapper";
-import Row from "../../../../../../../shared/atoms/Row";
-import SubtitledLabel from "../../atoms/SubtitledLabel";
-import PhoneTypeSelect from "../../atoms/PhoneTypeSelect";
-import { ButtonWrapper } from "./styles";
-import {
-  CONTACT_INFO_CANCEL,
-  CONTACT_INFO_TITLE,
-  CONTACT_INFO_MAIN_EMAIL,
-  CONTACT_INFO_MAIN_EMAIL_SUBTITLE,
-  CONTACT_INFO_MAIN_MOBILE,
-  CONTACT_INFO_MAIN_MOBILE_SUBTITLE,
-  CONTACT_INFO_OTHER_EMAIL_ADDRESSES,
-  CONTACT_INFO_OTHER_EMAIL_ADDRESSES_SUBTITLE,
-  CONTACT_INFO_PHONE_TYPE,
-} from "../../../../../../../constants/languageKeys";
+import EmailInputList from "../../../atoms/contact/EmailInputList";
+import FormSection from "../../../atoms/contact/FormSection";
+import PhoneInputList from "../../../atoms/contact/PhoneInputList";
+import LinkWrapper from "../../../atoms/contact/LinkWrapper";
+import Row from "../../../atoms/contact/Row";
+import SubtitledLabel from "../../../atoms/contact/SubtitledLabel";
+import PhoneTypeSelect from "../../../atoms/contact/PhoneTypeSelect";
+import { CONTACT_INFO } from "../../../../constants/languageKeys";
 import {
   FIXED,
   MAXIMUM_EMAIL_ADDRESSES,
   MAXIMUM_MOBILE_PHONES,
-} from "../../../../../../../constants/contactConstants";
-
-import { actions as contactInfoActions } from "../../../../../../../redux/contactInfoSlice";
-import { actions as basicInfoActions } from "../../../../../../../redux/basicInfoSlice";
-import { actions as addressActions } from "../../../../../../../redux/addressSlice";
+} from "../../../../constants/contactConstants";
+import { ButtonWrapper } from "./styles";
 import {
   useContactDispatch,
   useContactSelector,
-} from "../../../../../../../redux/store";
-import { createEmptyPhoneNumber } from "../../../../../../../shared/util/createEmptyPhoneNumber";
+} from "../../../../redux/store";
+import { Country } from "../../../types/contact";
+import { createEmptyPhoneNumber } from "../../../util/commonFunctions";
+import { actions as contactInfoActions } from "../../../../redux/contactInfoSlice";
+import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
+import { actions as addressActions } from "../../../../redux/addressSlice";
 
 const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
   countries,
@@ -43,7 +32,7 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
   const dispatch = useContactDispatch();
 
   const { emailAddresses, mobilePhones } = useContactSelector(
-    state => state.contactInfo
+    (state) => state.contactInfo
   );
 
   const {
@@ -110,14 +99,14 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
 
   const getEmailLabelTitle = (index: number) => {
     return index === 0
-      ? CONTACT_INFO_MAIN_EMAIL
-      : CONTACT_INFO_OTHER_EMAIL_ADDRESSES;
+      ? CONTACT_INFO.MAIN_EMAIL
+      : CONTACT_INFO.OTHER_EMAIL_ADDRESSES;
   };
 
   const getEmailLabelSubtitle = (index: number) => {
     return index === 0
-      ? CONTACT_INFO_MAIN_EMAIL_SUBTITLE
-      : CONTACT_INFO_OTHER_EMAIL_ADDRESSES_SUBTITLE;
+      ? CONTACT_INFO.MAIN_EMAIL_SUBTITLE
+      : CONTACT_INFO.OTHER_EMAIL_ADDRESSES_SUBTITLE;
   };
 
   const shouldPadEmailLabel = (index: number) => {
@@ -126,7 +115,7 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
 
   return (
     <Fragment>
-      <FormSection title={CONTACT_INFO_TITLE}>
+      <FormSection title={CONTACT_INFO.TITLE}>
         <ClayForm.Group>
           {emailAddresses.map((email, index) => (
             <SubtitledLabel
@@ -151,15 +140,15 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
       <FormSection>
         <ClayForm.Group>
           <SubtitledLabel
-            title={CONTACT_INFO_MAIN_MOBILE}
-            subTitle={CONTACT_INFO_MAIN_MOBILE_SUBTITLE}
+            title={CONTACT_INFO.MAIN_MOBILE}
+            subTitle={CONTACT_INFO.MAIN_MOBILE_SUBTITLE}
             padded={false}
           />
           {mobilePhones.slice(1).map((phone, index) => (
             <PhoneTypeSelect
               key={"phone-label-" + ++index}
               index={++index}
-              title={CONTACT_INFO_PHONE_TYPE}
+              title={CONTACT_INFO.PHONE_TYPE}
               handleChange={handlePhoneChange}
               entity={mobilePhones}
             />
@@ -179,16 +168,10 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
       </FormSection>
       <ButtonWrapper>
         <LinkWrapper
-          title={CONTACT_INFO_CANCEL}
-          handleClick={() => {
-            [basicInfoActions, addressActions, contactInfoActions].forEach(
-              action => dispatch(action["resetFields"]())
-            );
-            history.goBack();
-          }}
+          title={CONTACT_INFO.CANCEL}
+          handleClick={history.goBack}
           disabled={false}
         />
-        <CreateContactButton />
       </ButtonWrapper>
     </Fragment>
   );

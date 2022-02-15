@@ -1,28 +1,21 @@
-import React, { useEffect } from "react";
-import FormSection from "../../../../../../../shared/atoms/contact/FormSection";
-import Row from "../../../../../../../shared/atoms/contact/Row";
-import { CREATE_NEW_CONTACT } from "../../../../../../../constants/languageKeys";
+import React from "react";
+import FormSection from "../../../atoms/contact/FormSection";
+import Row from "../../../atoms/contact/Row";
+import { CREATE_NEW_CONTACT } from "../../../../constants/languageKeys";
 import ClayForm, {
   ClayInput,
   ClayCheckbox,
   ClaySelectWithOption,
 } from "@clayui/form";
-import { actions } from "../../../../../../../redux/basicInfoSlice";
+import { actions } from "../../../stores/contact/slices/basicInfo";
 import {
   useContactDispatch,
   useContactSelector,
-} from "../../../../../../../redux/store";
+} from "../../../stores/contact/contactStore";
 import {
   contactTypeOptions,
   contactTypes,
-} from "../../../../../../../constants/contactConstants";
-import { useFieldValidation, useJumpFocus } from "../../../../../hooks";
-import {
-  validateDay,
-  validateMonth,
-  validateYear,
-  validateOib,
-} from "./validators";
+} from "../../../../constants/contactConstants";
 
 const BasicInfo: React.FC = () => {
   const dispatch = useContactDispatch();
@@ -39,7 +32,7 @@ const BasicInfo: React.FC = () => {
     subsidiaryNumber,
   } = useContactSelector((state) => state.basicInfo);
   const {
-    setContactType,
+    setType,
     setFirstName,
     setLastName,
     setDateDay,
@@ -50,32 +43,8 @@ const BasicInfo: React.FC = () => {
     setCompanyName,
     setSubsidiaryNumber,
   } = actions;
-  const [dayRef, dayError, hasDayError] = useFieldValidation<HTMLInputElement>(
-    React.useCallback(
-      value => validateDay(value, dateMonth, dateYear),
-      [dateYear, dateMonth]
-    )
-  );
-  const [monthRef, monthError, hasMonthError] =
-    useFieldValidation<HTMLInputElement>(React.useCallback(validateMonth, []));
-  const [yearRef, yearError, hasYearError] =
-    useFieldValidation<HTMLInputElement>(React.useCallback(validateYear, []));
-  const [oibRef, oibError, hasOibError] = useFieldValidation<HTMLInputElement>(
-    React.useCallback(validateOib, [])
-  );
-  useJumpFocus(dateDay, "birthDateMonth", 2);
-  useJumpFocus(dateMonth, "birthDateYear", 2);
 
   const showIndividualFields = contactType === contactTypes.Individual;
-
-  useEffect(() => {
-    dispatch(setFirstName(""));
-    dispatch(setLastName(""));
-    dispatch(setDateDay(""));
-    dispatch(setDateMonth(""));
-    dispatch(setDateYear(""));
-    dispatch(setSubsidiaryNumber(""));
-  }, [contactType]);
 
   return (
     <FormSection title={CREATE_NEW_CONTACT.BASIC_INFO_TITLE}>
@@ -85,7 +54,7 @@ const BasicInfo: React.FC = () => {
           id="contactTypeInput"
           required
           value={contactType}
-          onChange={({ target: { value } }) => dispatch(setContactType(value))}
+          onChange={({ target: { value } }) => dispatch(setType(value))}
           options={contactTypeOptions}
         ></ClaySelectWithOption>
       </ClayForm.Group>
@@ -147,19 +116,12 @@ const BasicInfo: React.FC = () => {
         <ClayForm.Group>
           <ClayInput.Group>
             {showIndividualFields ? (
-              <ClayInput.GroupItem
-                className={
-                  hasDayError || hasMonthError || hasYearError
-                    ? "has-error"
-                    : ""
-                }
-              >
-                <label htmlFor="birthDateDay">
+              <ClayInput.GroupItem style={{ display: "block" }}>
+                <label htmlFor="dateOfBirthInput">
                   {CREATE_NEW_CONTACT.FIELD.BIRTH_DATE}
                 </label>
                 <div className="birth-date-group">
                   <ClayInput
-                    ref={dayRef}
                     required={showIndividualFields}
                     id="birthDateDay"
                     type="text"
@@ -170,7 +132,6 @@ const BasicInfo: React.FC = () => {
                     value={dateDay}
                   />
                   <ClayInput
-                    ref={monthRef}
                     required={showIndividualFields}
                     id="birthDateMonth"
                     type="text"
@@ -181,7 +142,6 @@ const BasicInfo: React.FC = () => {
                     value={dateMonth}
                   />
                   <ClayInput
-                    ref={yearRef}
                     required={showIndividualFields}
                     id="birthDateYear"
                     type="text"
@@ -192,16 +152,9 @@ const BasicInfo: React.FC = () => {
                     value={dateYear}
                   />
                 </div>
-                {hasDayError || hasMonthError || hasYearError ? (
-                  <ClayForm.FeedbackGroup>
-                    <ClayForm.FeedbackItem>{dayError}</ClayForm.FeedbackItem>
-                    <ClayForm.FeedbackItem>{monthError}</ClayForm.FeedbackItem>
-                    <ClayForm.FeedbackItem>{yearError}</ClayForm.FeedbackItem>
-                  </ClayForm.FeedbackGroup>
-                ) : null}
               </ClayInput.GroupItem>
             ) : null}
-            <ClayInput.GroupItem className={hasOibError ? "has-error" : ""}>
+            <ClayInput.GroupItem>
               <label htmlFor="oibInput">{CREATE_NEW_CONTACT.FIELD.OIB}</label>
               <ClayInput
                 required={foreignerStatus ? false : true}
@@ -209,13 +162,7 @@ const BasicInfo: React.FC = () => {
                 type="text"
                 onChange={({ target: { value } }) => dispatch(setOIB(value))}
                 value={oib}
-                ref={oibRef}
               />
-              {hasOibError ? (
-                <ClayForm.FeedbackGroup>
-                  <ClayForm.FeedbackItem>{oibError}</ClayForm.FeedbackItem>
-                </ClayForm.FeedbackGroup>
-              ) : null}
             </ClayInput.GroupItem>
           </ClayInput.Group>
         </ClayForm.Group>

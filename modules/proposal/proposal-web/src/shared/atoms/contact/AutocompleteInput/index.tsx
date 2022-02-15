@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ClayAutocomplete from "@clayui/autocomplete";
 import ClayDropDown from "@clayui/drop-down";
-import { MINIMUN_LENGTH_FOR_AUTOCOMPLETE_INPUT } from "../../../../../../../constants/contactConstants";
-import { CREATE_NEW_CONTACT } from "../../../../../../../constants/languageKeys";
+import { MINIMUN_LENGTH_FOR_AUTOCOMPLETE_INPUT } from "../../../../constants/contactConstants";
+import { CREATE_NEW_CONTACT } from "../../../../constants/languageKeys";
 
 const AutoCompleteInput: React.FC<{
   label: string;

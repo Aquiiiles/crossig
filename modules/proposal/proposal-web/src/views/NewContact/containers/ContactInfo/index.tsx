@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Wrapper } from "./style";
-import BasicInfo from "./components/molecules/BasicInfo";
-import Addresses from "./components/molecules/Addresses";
-import ContactInfoForm from "./components/molecules/ContactInfoForm";
+import BasicInfo from "../../../../shared/molecules/contact/BasicInfo";
+import Addresses from "../../../../shared/molecules/contact/Addresses";
+import ContactInfoForm from "../../../../shared/molecules/contact/ContactInfoForm";
+import { Provider as ContactInfoProvider } from "react-redux";
 import { CREATE_NEW_CONTACT } from "../../../../constants/languageKeys";
 import {
   mapToCountryNames,
@@ -14,6 +15,8 @@ import { emailListToData } from "./utils/emailUtils";
 import { phoneObjectToData } from "./utils/phoneUtils";
 import { useFetchData } from "../../../../api/hooks/useFetchData";
 import { CONTACT_URL } from "../../../../api/constants/routes";
+
+import { getInitialState } from "../../../../shared/stores/contact/contactStore";
 
 declare const Liferay: any;
 

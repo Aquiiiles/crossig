@@ -37,6 +37,7 @@ export const filterTypeOptions = [
 ];
 
 export const MINIMUN_LENGTH_FOR_AUTOCOMPLETE_INPUT = 2;
+
 export const MAXIMUM_EMAIL_ADDRESSES = 4;
 export const MAXIMUM_MOBILE_PHONES = 4;
 
