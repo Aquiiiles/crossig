@@ -17,9 +17,9 @@ const ContactSearch: React.FC = () => {
   let data = undefined;
   const { state: searchResultData, fetchData: fetchSearchResultData } =
     useFetchData();
-
   const idle = searchResultData.status === IDLE;
   const loading = searchResultData.status === PENDING;
+
   try {
     data = searchResultData.response.data[0].contactInListIVO;
   } catch (error) {
@@ -41,8 +41,7 @@ const ContactSearch: React.FC = () => {
             <SearchResult
               data={data != null ? data : []}
               loading={loading}
-              onCitySelection={console.info}
-              onTypeSelection={console.info}
+              fetchSearchResultData={fetchSearchResultData}
             />
             <LinkWrapper>
               <Link to="new_contact">{CONTACT_SEARCH_CREATE_NEW_CONTACT}</Link>

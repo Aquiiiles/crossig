@@ -9,6 +9,9 @@ import {
   CONTACT_SEARCH_RESULT_CONTACTS_FOUND,
   CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND,
 } from "../../../../constants/languageKeys";
+import { FetchDataFunction } from "../../../../api/hooks/useFetchData";
+import { useContactSelector } from "../../../../redux/store";
+import { SEARCH_URL } from "../../../../api/constants/routes";
 
 import * as constants from "./constants/searchResult";
 
@@ -17,18 +20,18 @@ import { providedDataType, responseType } from "./types/searchResult";
 interface props {
   data: Array<any>;
   loading: boolean;
-  onCitySelection: (city: string) => void;
-  onTypeSelection: (type: string) => void;
+  fetchSearchResultData: FetchDataFunction;
 }
 
 const SearchResult: React.FC<props> = ({
   data,
   loading,
-  onCitySelection,
-  onTypeSelection,
+  fetchSearchResultData,
 }: props) => {
   const [showCountryDropdown, setShowCountryDropdown] = useState(false);
   const [citySearch, setCitySearch] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedContactType, setSelectedContactType] = useState("");
   const formatedData = data.map((item: providedDataType) => {
     const responseObj: responseType = {
       [constants.OIB_KEY]: item[constants.OIB_KEY],
@@ -44,6 +47,25 @@ const SearchResult: React.FC<props> = ({
   const cities = new Set(
     data.map((item: providedDataType) => item["address"].split(",")[1].trim())
   );
+  const { firstName, street, countryCode, areaCode, phoneNumber, email } =
+    useContactSelector(state => state.searchFilter);
+
+  const fetchData = () => {
+    const data = {
+      finderKey: 1,
+      identifierType: 1000000,
+      identityNumber: /^\d+/.test(firstName) ? firstName : undefined,
+      name: /^[A-Za-z\s]+/.test(firstName) ? firstName : undefined,
+      cityName: selectedCity !== "" ? selectedCity : undefined,
+      assetStreetName: street !== "" ? street : undefined,
+      telephoneCountryCode: countryCode !== "" ? countryCode : undefined,
+      telephonePrefix: areaCode !== "" ? areaCode : undefined,
+      telephoneNumber: phoneNumber !== "" ? phoneNumber : undefined,
+      email: email !== "" ? email : undefined,
+    };
+
+    fetchSearchResultData("POST", SEARCH_URL, {}, data);
+  };
 
   useEffect(() => {
     if (showCountryDropdown) {
@@ -53,6 +75,10 @@ const SearchResult: React.FC<props> = ({
       setCitySearch("");
     }
   }, [showCountryDropdown]);
+
+  useEffect(() => {
+    fetchData();
+  }, [selectedCity, selectedContactType]);
 
   return (
     <Wrapper>
@@ -94,7 +120,7 @@ const SearchResult: React.FC<props> = ({
                     .map(city => (
                       <ClayDropDown.Item
                         onClick={() => {
-                          onCitySelection(city);
+                          setSelectedCity(city);
                           setShowCountryDropdown(false);
                         }}
                         key={city}
@@ -108,7 +134,7 @@ const SearchResult: React.FC<props> = ({
                 id="TypeFilterField"
                 options={[{ label: "Type", value: "" }, ...contactTypeOptions]}
                 onChange={({ target: { value } }) => {
-                  onTypeSelection(value);
+                  setSelectedContactType(value);
                 }}
               />
             </ClayForm.Group>

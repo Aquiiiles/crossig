@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import ClayForm, { ClayInput } from "@clayui/form";
+import ClayButton from "@clayui/button";
 import ClayDropDown from "@clayui/drop-down";
 import SearchFilters from "./components/molecules/SearchFilters";
 import ArrowButton from "./components/atoms/ArrowButton";
@@ -11,9 +12,13 @@ import {
   CONTACT_SEARCH_FIELD_NAME_OR_OIB,
   CONTACT_SEARCH_ACTION_BUTTON,
 } from "../../../../constants/languageKeys";
-import { SEARCH_URL } from "../../../../api/constants/routes";
-import { useContactSelector } from "../../../../redux/store";
+import {
+  useContactSelector,
+  useContactDispatch,
+} from "../../../../redux/store";
+import { actions } from "../../../../redux/searchFilterSlice";
 import { FetchDataFunction } from "../../../../api/hooks/useFetchData";
+import { SEARCH_URL } from "../../../../api/constants/routes";
 
 interface props {
   fetchSearchResultData: FetchDataFunction;
@@ -22,15 +27,16 @@ interface props {
 declare const Liferay: any;
 
 const SearchField: React.FC<props> = ({ fetchSearchResultData }: props) => {
+  const dispatch = useContactDispatch();
   const [disabled, setDisabled] = useState(false);
   const [expand, setExpand] = useState(false);
   const [fieldWidth, setFieldWidth] = useState(0);
-  const [name, setName] = useState("");
   const triggerElementRef = useRef<HTMLInputElement>(null);
   const menuElementRef = useRef<HTMLDivElement>(null);
   const [countries, setCountries] = useState<Array<any>>([]);
-  const { city, street, countryCode, areaCode, phoneNumber, email } =
+  const { firstName, areaCode, phoneNumber, email, city, street, countryCode } =
     useContactSelector(state => state.searchFilter);
+  const { setFirstName } = actions;
 
   const loadCountries = useCallback(() => {
     Liferay.Service(
@@ -52,8 +58,8 @@ const SearchField: React.FC<props> = ({ fetchSearchResultData }: props) => {
     const data = {
       finderKey: 1,
       identifierType: 1000000,
-      identityNumber: /^\d+/.test(name) ? name : undefined,
-      name: /^[A-Za-z\s]+/.test(name) ? name : undefined,
+      identityNumber: /^\d+/.test(firstName) ? firstName : undefined,
+      name: /^[A-Za-z\s]+/.test(firstName) ? firstName : undefined,
       cityName: city !== "" ? city : undefined,
       assetStreetName: street !== "" ? street : undefined,
       telephoneCountryCode: countryCode !== "" ? countryCode : undefined,
@@ -72,7 +78,7 @@ const SearchField: React.FC<props> = ({ fetchSearchResultData }: props) => {
   useEffect(() => {
     const emailRegex = /\S+@\S+\.\S+/;
     if (
-      name.length >= 3 ||
+      firstName.length >= 3 ||
       (phoneNumber.length > 0 && areaCode !== "") ||
       emailRegex.test(email)
     ) {
@@ -80,7 +86,7 @@ const SearchField: React.FC<props> = ({ fetchSearchResultData }: props) => {
     } else {
       setDisabled(true);
     }
-  }, [name, phoneNumber, email, areaCode]);
+  }, [firstName, phoneNumber, email, areaCode]);
   const fieldSize = { width: fieldWidth, maxWidth: fieldWidth };
 
   useEffect(() => {
@@ -100,8 +106,8 @@ const SearchField: React.FC<props> = ({ fetchSearchResultData }: props) => {
             id="basicInputText"
             type="text"
             ref={triggerElementRef}
-            value={name}
-            onChange={e => setName(e.target.value)}
+            value={firstName}
+            onChange={({ target: { value } }) => dispatch(setFirstName(value))}
           />
           <ArrowButton onClick={handleExpand} />
         </ClayForm.Group>

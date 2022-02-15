@@ -1,6 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
+  OIB: "",
+  firstName: "",
+  lastName: "",
   city: "",
   street: "",
   countryCode: "",
@@ -13,6 +16,15 @@ const searchFilterSlice = createSlice({
   name: "searchFilter",
   initialState,
   reducers: {
+    setOIB(state, action: PayloadAction<string>) {
+      state.OIB = action.payload;
+    },
+    setFirstName(state, action: PayloadAction<string>) {
+      state.firstName = action.payload;
+    },
+    setLastName(state, action: PayloadAction<string>) {
+      state.lastName = action.payload;
+    },
     setCity(state, action: PayloadAction<string>) {
       state.city = action.payload;
     },
