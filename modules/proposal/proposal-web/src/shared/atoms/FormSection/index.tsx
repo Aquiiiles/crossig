@@ -1,6 +1,7 @@
 import React from "react";
-import { FormGrid, SectionTitle } from "..";
-import { Wrapper } from "./style";
+import FormGrid from "../FormGrid";
+import SectionTitle from "../SectionTitle";
+import { Wrapper } from "./styles";
 
 interface props {
   title?: string;

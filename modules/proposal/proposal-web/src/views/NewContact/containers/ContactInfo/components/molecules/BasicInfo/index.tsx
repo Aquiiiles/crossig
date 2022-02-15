@@ -1,5 +1,6 @@
 import React from "react";
-import { Row, FormSection } from "../../atoms";
+import FormSection from "../../../../../../../shared/atoms/FormSection";
+import Row from "../../../../../../../shared/atoms/Row";
 import { CREATE_NEW_CONTACT } from "../../../../../../../constants/languageKeys";
 import ClayForm, {
 	ClayInput,
