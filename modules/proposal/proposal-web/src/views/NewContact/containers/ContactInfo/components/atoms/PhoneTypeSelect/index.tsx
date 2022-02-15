@@ -11,7 +11,7 @@ import { Wrapper } from "./styles";
 interface props {
   index: number;
   title: string;
-  handleChange: Function;
+  handleChange: (index: number, e: React.ChangeEvent, property: string) => void;
   entity: Array<PhoneNumber>;
 }
 
@@ -19,14 +19,14 @@ const getComponentId = (index: number) => {
   return "subtitled-select-" + index;
 };
 
-const PhoneTypeSelect: React.FC<props> = props => {
+const PhoneTypeSelect: React.FC<props> = (props) => {
   return (
     <Wrapper>
       <label htmlFor={getComponentId(props.index)}>{props.title}</label>
       <ClaySelect
         aria-label="Select Label"
         id={getComponentId(props.index)}
-        onChange={e => props.handleChange(props.index, e, "type")}
+        onChange={(e) => props.handleChange(props.index, e, "type")}
         value={props.entity[props.index].type}
       >
         <ClaySelect.Option

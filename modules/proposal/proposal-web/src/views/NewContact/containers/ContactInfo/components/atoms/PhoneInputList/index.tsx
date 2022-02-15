@@ -27,7 +27,7 @@ export interface PhoneNumber {
 
 type propsType = {
   phoneNumbers: Array<PhoneNumber>;
-  handleChange: Function;
+  handleChange: (index: number, e: React.ChangeEvent, property: string) => void;
   addPhoneInput: MouseEventHandler;
   countries: Array<Country>;
   areaCodeOptions: Array<any>;
@@ -60,31 +60,31 @@ const PhoneInputList: React.FC<propsType> = (props: propsType) => {
 
   const validatePhones = () => {
     const invalidityChecks = props.phoneNumbers
-      .filter(phone => phone.countryCode === countryCodes.label)
-      .map(phone => {
+      .filter((phone) => phone.countryCode === countryCodes.label)
+      .map((phone) => {
         if (phone.phoneNumber === "") {
           return false;
         }
 
-        let valid =
+        const valid =
           phone.phoneNumber.length >= 4 && phone.phoneNumber.length <= 7;
 
         return !valid;
       });
 
     setSomeInvalidPhone(
-      invalidityChecks.filter(item => item === true).length > 0
+      invalidityChecks.filter((item) => item === true).length > 0
     );
   };
 
-  const isCroatia = (index:number) => {
-    let phone = props.phoneNumbers[index];
+  const isCroatia = (index: number) => {
+    const phone = props.phoneNumbers[index];
     return phone.countryCode && phone.countryCode === countryCodes.value;
   };
 
-  const moreThanSevenNumbers = (e:any, property:string) => {
+  const moreThanSevenNumbers = (e: any, property: string) => {
     return property === "phoneNumber" && e.target.value.toString().length > 7;
-  }
+  };
 
   const handleChange = (index: number, e: any, property: string) => {
     if (isCroatia(index) && moreThanSevenNumbers(e, property)) {
@@ -124,7 +124,7 @@ const PhoneInputList: React.FC<propsType> = (props: propsType) => {
                 <CountryCodeSelect
                   id={`countryCodeSelect${index}`}
                   className="country-code"
-                  handleChange={e => handleChange(index, e, "countryCode")}
+                  handleChange={(e) => handleChange(index, e, "countryCode")}
                   entity={phoneNumber.countryCode}
                   countries={props.countries}
                 />
@@ -134,14 +134,14 @@ const PhoneInputList: React.FC<propsType> = (props: propsType) => {
                   className={displayAreaCode(phoneNumber.countryCode)}
                   entity={phoneNumber.areaCode}
                   disabled={false}
-                  handleChange={e => handleChange(index, e, "areaCode")}
+                  handleChange={(e) => handleChange(index, e, "areaCode")}
                 />
 
                 <ClayInput
                   id={`phoneNumber${index}`}
                   className={handlePhoneInputWidth(phoneNumber.countryCode)}
                   type="number"
-                  onChange={e => handleChange(index, e, "phoneNumber")}
+                  onChange={(e) => handleChange(index, e, "phoneNumber")}
                   value={phoneNumber.phoneNumber}
                 />
               </PhoneNumberWrapper>

@@ -13,7 +13,7 @@ import {
 } from "../../../../constants/languageKeys";
 import { mapToCountryCodeCountries } from "../../../../shared/util/countryMappers";
 
-declare var Liferay: any;
+declare const Liferay: any;
 
 const SearchField: React.FC = () => {
   const [name, setName] = useState("");
@@ -22,7 +22,7 @@ const SearchField: React.FC = () => {
   const [expand, setExpand] = useState(false);
   const [fieldWidth, setFieldWidth] = useState(0);
   const menuElementRef = useRef<HTMLDivElement>(null);
-  const [countries, setCountries] = useState<Array<Object>>([]);
+  const [countries, setCountries] = useState<Array<any>>([]);
 
   const loadCountries = useCallback(() => {
     Liferay.Service(

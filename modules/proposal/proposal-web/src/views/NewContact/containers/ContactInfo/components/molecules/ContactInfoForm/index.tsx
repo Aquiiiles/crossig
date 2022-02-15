@@ -40,7 +40,7 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
   const dispatch = useContactDispatch();
 
   const { emailAddresses, mobilePhones } = useContactSelector(
-    state => state.contactInfo
+    (state) => state.contactInfo
   );
 
   const {
@@ -53,7 +53,7 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
   } = actions;
 
   const handleEmailChange = (index: number, e: any) => {
-    let currentEmails = [...emailAddresses];
+    const currentEmails = [...emailAddresses];
     currentEmails[index] = e.target.value.toString();
 
     dispatch(setEmailAddresses(currentEmails));
@@ -88,7 +88,7 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
   };
 
   const addEmailAddressInput = () => {
-    let currentEmails = [...emailAddresses];
+    const currentEmails = [...emailAddresses];
 
     if (currentEmails.length < MAXIMUM_EMAIL_ADDRESSES) {
       currentEmails.push("");
@@ -97,7 +97,7 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
   };
 
   const addMobilePhoneInput = () => {
-    let currentMobilePhones = [...mobilePhones];
+    const currentMobilePhones = [...mobilePhones];
 
     if (currentMobilePhones.length < MAXIMUM_MOBILE_PHONES) {
       currentMobilePhones.push(createEmptyPhoneNumber(FIXED));
