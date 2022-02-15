@@ -82,72 +82,85 @@ const SearchResult: React.FC<props> = ({
     fetchData();
   }, [selectedCity, selectedContactType]);
 
+  const foundContacts = data.length > 0;
+
   return (
     <Wrapper>
       {!loading ? (
         <>
           <SearchResultsHeader>
             <h6 className="h9">
-              {data.length > 0
+              {foundContacts
                 ? `${data.length} ${CONTACT_SEARCH_RESULT_CONTACTS_FOUND}`
                 : `${CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND}`}
             </h6>
-            <ClayForm.Group>
-              <ClayDropDown
-                active={showCountryDropdown}
-                onActiveChange={setShowCountryDropdown}
-                trigger={
-                  <div style={{ cursor: "pointer" }}>
-                    <ClaySelect
-                      style={{ pointerEvents: "none" }}
-                      id="cityFilterField"
-                      value=""
-                    >
-                      <ClaySelect.Option label="City" value="" />
-                    </ClaySelect>
-                  </div>
-                }
-              >
-                <ClayDropDown.Search
-                  value={citySearch}
-                  onChange={({ target: { value } }) => setCitySearch(value)}
-                  placeholder="Search"
-                  id="searchContactInput"
-                />
-                <ClayDropDown.Group>
-                  {Array.from(cities)
-                    .filter(city =>
-                      city.toLowerCase().includes(citySearch.toLowerCase())
-                    )
-                    .map(city => (
-                      <ClayDropDown.Item
-                        onClick={() => {
-                          setSelectedCity(city);
-                          setShowCountryDropdown(false);
-                        }}
-                        key={city}
+            {foundContacts ? (
+              <ClayForm.Group>
+                <ClayDropDown
+                  active={showCountryDropdown}
+                  onActiveChange={setShowCountryDropdown}
+                  trigger={
+                    <div style={{ cursor: "pointer" }}>
+                      <ClaySelect
+                        style={{ pointerEvents: "none" }}
+                        id="cityFilterField"
+                        value=""
                       >
-                        {city}
-                      </ClayDropDown.Item>
-                    ))}
-                </ClayDropDown.Group>
-              </ClayDropDown>
-              <ClaySelectWithOption
-                id="TypeFilterField"
-                options={[{ label: "Type", value: "" }, ...contactTypeOptions]}
-                onChange={({ target: { value } }) => {
-                  setSelectedContactType(value);
-                }}
-              />
-            </ClayForm.Group>
+                        <ClaySelect.Option
+                          label={selectedCity !== "" ? selectedCity : "City"}
+                          value=""
+                        />
+                      </ClaySelect>
+                    </div>
+                  }
+                >
+                  <ClayDropDown.Search
+                    value={citySearch}
+                    onChange={({ target: { value } }) => setCitySearch(value)}
+                    placeholder="Search"
+                    id="searchContactInput"
+                  />
+                  <ClayDropDown.Group>
+                    {Array.from(cities)
+                      .filter(city =>
+                        city.toLowerCase().includes(citySearch.toLowerCase())
+                      )
+                      .map(city => (
+                        <ClayDropDown.Item
+                          onClick={() => {
+                            setSelectedCity(city);
+                            setShowCountryDropdown(false);
+                          }}
+                          key={city}
+                        >
+                          {city}
+                        </ClayDropDown.Item>
+                      ))}
+                  </ClayDropDown.Group>
+                </ClayDropDown>
+                <ClaySelectWithOption
+                  id="TypeFilterField"
+                  value={selectedContactType}
+                  options={[
+                    { label: "Type", value: "" },
+                    ...contactTypeOptions,
+                  ]}
+                  onChange={({ target: { value } }) => {
+                    setSelectedContactType(value);
+                  }}
+                />
+              </ClayForm.Group>
+            ) : null}
           </SearchResultsHeader>
-          <Table
-            loading={loading}
-            inputData={formatedData}
-            onTableSort={({ sortType, sortingKey }) => {
-              console.log(sortingKey);
-            }}
-          ></Table>
+          {foundContacts ? (
+            <Table
+              loading={loading}
+              inputData={formatedData}
+              onTableSort={({ sortType, sortingKey }) => {
+                console.log(sortingKey);
+              }}
+            ></Table>
+          ) : null}
         </>
       ) : (
         <ClayLoadingIndicator />
