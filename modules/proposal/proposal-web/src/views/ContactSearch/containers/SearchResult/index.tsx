@@ -62,6 +62,8 @@ const SearchResult: React.FC<props> = ({
       telephonePrefix: areaCode !== "" ? areaCode : undefined,
       telphoneNumber: phoneNumber !== "" ? phoneNumber : undefined,
       email: email !== "" ? email : undefined,
+      accountType:
+        selectedContactType !== "" ? Number(selectedContactType) : undefined,
     };
 
     fetchSearchResultData("POST", SEARCH_URL, {}, data);
