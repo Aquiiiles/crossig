@@ -20,5 +20,5 @@ export type providedDataType = {
   [constants.DOB_KEY]: string;
   [constants.NAME_KEY]: string;
   [constants.TYPE_KEY]: { desc: string; id: string };
-  addresses: Array<addressType>;
+  address: string;
 };

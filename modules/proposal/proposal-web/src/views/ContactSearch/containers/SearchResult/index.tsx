@@ -41,6 +41,9 @@ const SearchResult: React.FC<props> = ({
     };
     return responseObj;
   });
+  const cities = new Set(
+    data.map((item: providedDataType) => item["address"].split(",")[1].trim())
+  );
 
   useEffect(() => {
     if (showCountryDropdown) {
@@ -84,23 +87,19 @@ const SearchResult: React.FC<props> = ({
                   id="searchContactInput"
                 />
                 <ClayDropDown.Group>
-                  {[
-                    { name: "ULICA OTONA IVEKOVIĆA 60" },
-                    { name: "TONŽINO 1" },
-                    { name: "ULICA MIROSLAVA KRLEŽE 11" },
-                  ]
+                  {Array.from(cities)
                     .filter(city =>
-                      city.name.toLowerCase().includes(citySearch.toLowerCase())
+                      city.toLowerCase().includes(citySearch.toLowerCase())
                     )
                     .map(city => (
                       <ClayDropDown.Item
                         onClick={() => {
-                          onCitySelection(city.name);
+                          onCitySelection(city);
                           setShowCountryDropdown(false);
                         }}
-                        key={city.name}
+                        key={city}
                       >
-                        {city.name}
+                        {city}
                       </ClayDropDown.Item>
                     ))}
                 </ClayDropDown.Group>
