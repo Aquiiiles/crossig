@@ -9,8 +9,8 @@ const AutoCompleteInput: React.FC<{
   id: string;
   active: boolean;
   getOptions: (value: string) => any;
-  setParentValue: (value: any) => void;
-  setPostalCode: (value: any) => void;
+  setParentValue: (parentValue: string) => void;
+  setPostalCode: (postalCode: string) => void;
   isCity: boolean;
   disabled: boolean;
 }> = ({
