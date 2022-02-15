@@ -3,7 +3,7 @@
         text-align: left;
     }
 
-    input {
+    input[type=text] {
         font-size: 1.125rem;
         font-family: Crosig-Light;
         height: 3.4375rem;
@@ -31,19 +31,16 @@
         }
     }
 
-    input:hover {
+    input[type=text]:hover {
         box-shadow: none!important;
-        // border: none;
     }
 
-    input:focus {
+    input[type=text]:focus {
         box-shadow: none!important;
         opacity: 1!important;
         border-color: $color-action-active;
         color: $color-primary-inputs;
         pointer-events: none;
-        box-shadow: none;
-        // border: none;
     }
 
     textarea {
@@ -101,9 +98,9 @@
             border-color: $color-feedback-error;
         }
 
-        // &:hover {
-        //     opacity: 0.5;
-        // }
+        &:hover {
+            opacity: 0.5;
+        }
 
         &.disabled {
             background: $color-neutral-background;
@@ -177,87 +174,30 @@
         }
     }
 
-    .form-toggle {
-        .toggle-switch-check:empty ~ .toggle-switch-bar:after,
-        .toggle-switch-check:checked ~ .toggle-switch-bar:after {
-            height: 1.5rem;
-            width: 1.5rem;
-        }
-
-        border-radius: 0.625rem;
-
-        &.checked {
-            background: $color-primary-inputs;
-
-            &.hover {
-                background: $color-action-hover;
-            }
-
-            &.active {
-                background: $color-action-active;
-            }
-
-            &.disabled {
-                background: $color-toggle-checked-disabled;
-            }
-
-        }
-        
-        &.unchecked {
-            background: $color-action-disabled;
-
-            &.hover {
-                background: $color-neutral-grey;
-            }
-
-            &.active {
-                background: $color-toggle-unchecked-disabled;
-            }
-
-            &.disabled {
-                background: $color-neutral-divider-grey;
-            }
-
-        }
+    .toggle-switch-check:empty ~ .toggle-switch-bar:after,
+    .toggle-switch-check:checked ~ .toggle-switch-bar:after {
+        height: 1.5rem!important;
+        width: 1.5rem!important;
+        border-radius: 1rem !important;
+        margin: 0.25rem;
+        border: 0;
     }
 
-    .form-radio {
-        height: 2.125rem;
-        width: 2.125rem;
-        border-radius: 1rem;
+    .toggle-switch-check:checked ~ .toggle-switch-bar:before,
+    label:not(.toggle-switch) .toggle-switch:checked ~ .toggle-switch-bar:before,
+    .toggle-switch-check:empty ~ .toggle-switch-bar:before,
+    label:not(.toggle-switch) .toggle-switch:empty ~ .toggle-switch-bar:before {
+        height: 2rem!important;
+        width: 3.5rem!important;
+        border-radius: 0.625rem!important;
+        border: 0;
+    }
 
-        &.checked {
-            background: $color-action-active;
-            &.hover{
-                background: $color-action-hover;
-            }
-
-            &.active{
-                background: $color-action-active;
-            }
-
-            &.disabled{
-                background: $color-neutral-divider-grey;
-            }
-        }
-
-        &.unchecked {
-            background: $color-neutral-white;
-            border: 1px solid $color-neutral-grey-border;
-            &.hover{
-                background: $color-neutral-white;
-                border: 1px solid $color-neutral-divider-grey;
-            }
-
-            &.active{
-                background: $color-neutral-white;
-                border: 1px solid $color-action-active;
-            }
-
-            &.disabled{
-                background: $color-neutral-background;
-            }
-        }
+    .toggle-switch:checked {
+        background: $color-action-active;
+    }
+    .toggle-switch:empty {
+        background: $color-action-disabled;
 
     }
 

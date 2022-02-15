@@ -2,7 +2,7 @@ import React from "react";
 
 import InputText from "./components/atoms/InputText";
 import TextAreaInput from "./components/atoms/TextArea";
-// import CheckboxInput from "./components/atoms/Checkbox";
+import CheckboxInput from "./components/atoms/Checkbox";
 import ToggleInput from "./components/atoms/Toogle";
 import RadioInput from "./components/atoms/Radio";
 import SelectInput from "./components/atoms/Select";
@@ -48,7 +48,6 @@ const FormSample: React.FC = () => {
   return (
     <div>
       <h6>Botões</h6>
-      <hr />
       <ClayLayout.Row justify="center">
         <ClayLayout.Col size={4} style={colStyles}>
           <ButtonCrosig
@@ -166,94 +165,117 @@ const FormSample: React.FC = () => {
         
       <hr />
       <h6>Inputs</h6>
-      <hr />
-      <InputText
-        id="inputText"
-        label="Label"
-        defaultValue={propsForm.inputSample}
-        showFeedback={false}
-        labelHint=""
-        disabled={false}
-        placeholder="Input text"
-        feedbackMsg="Feedback message"
-        inputRef="input"
-        type="text"
-        required={true}
-        handleFieldChange={(id: string, fieldValue: any) => handleChanges(id, fieldValue)}
-        onClick={() => console.log("Go Team")}
-      />
-      <hr />
-      <TextAreaInput
-        id="inputTextArea"
-        label="Text Area"
-        defaultValue={propsForm.inputTextArea}
-        labelHint=""
-        disabled={false}
-        placeholder="Text area field"
-        showFeedback={true}
-        feedbackMsg="Feedback Message"
-        inputRef=""
-        type="text"
-        required={false}
-        handleFieldChange={(id: string, fieldValue: any) => handleChanges(id, fieldValue)}
-        onClick={() => console.log("Go Team")}
-      />
-      <hr />
-      <ToggleInput
-        id="toggleInput"
-        setToggle={false}
-        toggled={true}
-        label="Toggle"
-        showFeedback={true}
-        defaultValue="1"
-        labelHint=""
-        feedbackMsg="Selecione um"
-        disabled={false}
-        required={true}
-        handleFieldChange={(id: string, fieldValue: any) => handleChanges(id, fieldValue)}
-      />
-      <hr />
-      <hr />
-      <RadioInput
-        label="Radio Input"
-        id="radioInput"
-        options={propsForm.selectOptions}
-        showFeedback={false}
-        defaultValue="3"
-        labelHint=""
-        feedbackMsg=""
-        disabled={false}
-        required={true}
-        handleFieldChange={(id: string, fieldValue: any) => handleChanges(id, fieldValue)}
-      />
-      <SelectInput
-        label="Select Input"
-        id="selectInput"
-        options={propsForm.selectOptions}
-        showFeedback={false}
-        defaultValue=""
-        labelHint=""
-        feedbackMsg=""
-        disabled={false}
-        required={true}
-        handleFieldChange={(id: string, fieldValue: any) => handleChanges(id, fieldValue)}
-      />
-      <hr />
-      {/* <CheckboxInput
-        id="checkboxInput"
-        options={[1, 2, 3, 4, 5, 6]}
-        selectedValues={[1]}
-        showFeedback={false}
-        defaultValue="[]"
-        label="Checkbox"
-        labelHint=""
-        feedbackMsg=""
-        disabled={false}
-        required={true}
-        handleFieldChange={(id: string, fieldValue: any) => handleChanges(id, fieldValue)}
-      /> */}
-      < hr />
-      
+      <ClayLayout.Row justify="center">
+        <ClayLayout.Col size={4} style={colStyles}>
+          <InputText
+            id="inputText"
+            label="Label"
+            defaultValue={propsForm.inputSample}
+            showFeedback={false}
+            labelHint=""
+            disabled={false}
+            placeholder="Input text"
+            feedbackMsg="Feedback message"
+            inputRef="input"
+            type="text"
+            required={true}
+            handleFieldChange={(id: string, fieldValue: any) => handleChanges(id, fieldValue)}
+            onClick={() => console.log("Go Team")}
+          />
+        </ClayLayout.Col>
+      </ClayLayout.Row>
+
+      <ClayLayout.Row justify="center">
+        <ClayLayout.Col size={4} style={colStyles}>
+          <TextAreaInput
+            id="inputTextArea"
+            label="Text Area"
+            defaultValue={propsForm.inputTextArea}
+            labelHint=""
+            disabled={false}
+            placeholder="Text area field"
+            showFeedback={true}
+            feedbackMsg="Feedback Message"
+            inputRef=""
+            type="text"
+            required={false}
+            handleFieldChange={(id: string, fieldValue: any) => handleChanges(id, fieldValue)}
+            onClick={() => console.log("Go Team")}
+          />
+
+        </ClayLayout.Col>
+      </ClayLayout.Row>
+
+      <ClayLayout.Row justify="center">
+        <ClayLayout.Col size={4} style={colStyles}>
+          <ToggleInput
+            id="toggleInput"
+            setToggle={false}
+            toggled={true}
+            label="Toggle"
+            showFeedback={false}
+            defaultValue={false}
+            labelHint=""
+            feedbackMsg=""
+            disabled={false}
+            required={true}
+            handleFieldChange={(id: string, fieldValue: any) => handleChanges(id, fieldValue)}
+          />
+          
+        </ClayLayout.Col>
+      </ClayLayout.Row>
+
+      <ClayLayout.Row justify="center">
+        <ClayLayout.Col size={4} style={colStyles}>
+          <RadioInput
+            label="Radio Input"
+            id="radioInput"
+            options={propsForm.selectOptions}
+            showFeedback={false}
+            defaultValue="3"
+            labelHint=""
+            feedbackMsg=""
+            disabled={false}
+            required={true}
+            handleFieldChange={(id: string, fieldValue: any) => handleChanges(id, fieldValue)}
+          />
+        </ClayLayout.Col>
+      </ClayLayout.Row>
+
+      <ClayLayout.Row justify="center">
+        <ClayLayout.Col size={4} style={colStyles}>
+          <SelectInput
+            label="Select Input"
+            id="selectInput"
+            options={propsForm.selectOptions}
+            showFeedback={false}
+            defaultValue=""
+            labelHint=""
+            feedbackMsg=""
+            disabled={false}
+            required={true}
+            handleFieldChange={(id: string, fieldValue: any) => handleChanges(id, fieldValue)}
+          />
+        </ClayLayout.Col>
+      </ClayLayout.Row>
+
+      <ClayLayout.Row justify="center">
+        <ClayLayout.Col size={4} style={colStyles}>
+          {/* <CheckboxInput
+            id="checkboxInput"
+            options={[1, 2, 3, 4, 5, 6]}
+            selectedValues={[1]}
+            showFeedback={false}
+            defaultValue="[]"
+            label="Checkbox"
+            labelHint=""
+            feedbackMsg=""
+            disabled={false}
+            required={true}
+            handleFieldChange={(id: string, fieldValue: any) => handleChanges(id, fieldValue)}
+          /> */}
+        </ClayLayout.Col>
+      </ClayLayout.Row>
     </div>
   );
 };

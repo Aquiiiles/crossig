@@ -6,7 +6,7 @@ interface props {
   setToggle: boolean;
   toggled: boolean;
   showFeedback: boolean;
-  defaultValue: string;
+  defaultValue: boolean;
   label: string;
   labelHint: string;
   disabled: boolean;
@@ -23,11 +23,18 @@ const ToggleInput: React.FC<props> = ({
   labelHint,
   disabled,
   feedbackMsg,
-  required
+  handleFieldChange,
+  required,
 }: props) => {
 
 	let displayFeedback = showFeedback && !defaultValue;
-  const [toggled, setToggle] = useState(false);
+  const [toggled, setToggle] = useState(defaultValue);
+
+  const onChange = (e: boolean) => {
+    setToggle(e);
+    defaultValue = toggled;
+		handleFieldChange(id, toggled);
+	};
   
   return (
     <ClayForm.Group className={displayFeedback ? "has-error" : ""}>
@@ -40,11 +47,12 @@ const ToggleInput: React.FC<props> = ({
           {labelHint ? <small><i> {labelHint.toLowerCase()}</i></small> : ''}
         </label>
         <ClayToggle
-          onToggle={setToggle}
+          className="form-toggle"
+          onToggle={bool => onChange(bool)}
           toggled={toggled}
           disabled={disabled}
         />
-        </div>
+      </div>
       {displayFeedback && (
         <ClayForm.FeedbackGroup>
           <ClayForm.FeedbackItem>

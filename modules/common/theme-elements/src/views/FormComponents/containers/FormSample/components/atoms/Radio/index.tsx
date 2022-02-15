@@ -27,7 +27,6 @@ const RadioInput: React.FC<props> = ({
   handleFieldChange
 }: props) => {
 
-	// let displayFeedback = showFeedback && !defaultValue;
   const [value, setValue] = useState(defaultValue);
 
   const onChange = (fiedlValue: any) => {
