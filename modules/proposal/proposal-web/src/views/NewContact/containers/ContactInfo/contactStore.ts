@@ -3,12 +3,16 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import basicInfoReducer from "./components/molecules/BasicInfo/slice/basicInfoSlice";
 import contactinfoReducer from "./components/molecules/ContactInfoForm/slice/contactInfoSlice";
 
-const store = configureStore({
-  reducer: {
-    basicInfo: basicInfoReducer,
-    contactInfo: contactinfoReducer,
-  },
-});
+export const getInitialState = () => {
+  return configureStore({
+    reducer: {
+      basicInfo: basicInfoReducer,
+      contactInfo: contactinfoReducer,
+    },
+  });
+}
+
+const store = getInitialState();
 
 export type ContactRootState = ReturnType<typeof store.getState>;
 export type ContactDispatch = typeof store.dispatch;

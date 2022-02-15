@@ -10,7 +10,7 @@ import {
   mapToCountryCodes,
 } from "../../../../shared/util/countryMappers";
 
-import store from "./contactStore";
+import { getInitialState } from "./contactStore";
 
 declare const Liferay: any;
 
@@ -34,7 +34,7 @@ const ContactInfo: React.FC = () => {
   }, [loadCountries]);
 
   return (
-    <ContactInfoProvider store={store}>
+    <ContactInfoProvider store={getInitialState()}>
       <Wrapper id="ContactInfo-main-container">
         <h3>{CREATE_NEW_CONTACT.TITLE}</h3>
         <p style={{ marginBottom: "1.875rem" }}>
