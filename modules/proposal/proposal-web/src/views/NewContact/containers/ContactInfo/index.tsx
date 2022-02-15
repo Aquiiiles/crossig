@@ -8,10 +8,10 @@ import { croatiaCountryObject } from "../../../../constants/contactConstants";
 
 import store from "./contactStore";
 
-declare var Liferay: any;
+declare const Liferay: any;
 
 const ContactInfo: React.FC = () => {
-	const [countries, setCountries] = useState<Array<Object>>([]);
+	const [countries, setCountries] = useState<{ label: any; value: any; }[]>();
 
 	const loadCountries = useCallback(() => {
 		Liferay.Service(
@@ -46,7 +46,7 @@ const ContactInfo: React.FC = () => {
 					{CREATE_NEW_CONTACT.SUBTITLE}
 				</p>
 				<BasicInfo />
-				<Addresses countries={countries} />
+				{countries && <Addresses countries={countries} />}
 			</Wrapper>
 		</ContactInfoProvider>
 	);

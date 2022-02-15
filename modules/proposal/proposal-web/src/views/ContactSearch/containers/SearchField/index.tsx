@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React, { useEffect, useState, useRef, ReactElement } from "react";
 import {Link} from "react-router-dom";
 import ClayForm, { ClayInput } from "@clayui/form";

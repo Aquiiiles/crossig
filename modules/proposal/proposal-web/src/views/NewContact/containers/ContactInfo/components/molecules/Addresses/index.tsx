@@ -19,7 +19,7 @@ import { useContactSelector } from "../../../contactStore";
 import { Line } from "./styles";
 import { searchCitiesByName, searchStreetsByCityIdAndName } from "./controller";
 
-const Addresses: React.FC<{ countries: Array<Object> }> = ({ countries }) => {
+const Addresses: React.FC<{ countries: { label: any; value: any; }[] }> = ({ countries }) => {
 	const [country, setCountry] = useState<string>(croatiaCountryObject.value);
 	const [dispatchCountry, setDispatchCountry] = useState<string>(
 		croatiaCountryObject.value
