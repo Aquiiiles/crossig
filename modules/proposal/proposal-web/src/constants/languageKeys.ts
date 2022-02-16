@@ -40,6 +40,12 @@ export const CONTACT_SEARCH_TABLE_USE_CONTACT = Liferay.Language.get('contact-se
 export const CONTACT_SEARCH_RESULT_CONTACTS_FOUND = Liferay.Language.get('contact-search-result-contacts-found');
 export const CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND = Liferay.Language.get('contact-search-result-no-contacts-found');
 export const CONTACT_SEARCH_MORE_SEARCH_OPTIONS = Liferay.Language.get('contact-search-more-search-options');
+export const CONTACT_SEARCH_RESULT_EMAIL_NOT_VALIDATED= Liferay.Language.get('contact-search-result-email-not-validated');
+export const CONTACT_SEARCH_RESULT_EMAIL_VALIDATED= Liferay.Language.get('contact-search-result-email-validated');
+export const CONTACT_SEARCH_RESULT_PHONE_NOT_VALIDATED= Liferay.Language.get('contact-search-result-phone-not-validated');
+export const CONTACT_SEARCH_RESULT_PHONE_VALIDATED= Liferay.Language.get('contact-search-result-phone-validated');
+export const CONTACT_SEARCH_RESULT_AND= Liferay.Language.get('contact-search-result-and');
+
 export const CREATE_NEW_CONTACT = {
     TITLE: Liferay.Language.get('create-new-contact-title'),
     SUBTITLE: Liferay.Language.get('create-new-contact-subtitle'),

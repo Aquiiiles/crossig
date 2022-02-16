@@ -42,7 +42,7 @@ const TableRow: React.FC<props> = ({ contact }) => {
       onDoubleClick={console.info}
     >
       <ClayTable.Cell headingTitle>
-        <MissingInformationIcon emailValidation phoneValidation />
+        <MissingInformationIcon emailValidated phoneValidated={false} />
       </ClayTable.Cell>
       <ClayTable.Cell headingTitle>{contact[constants.OIB_KEY]}</ClayTable.Cell>
       <ClayTable.Cell headingTitle>{contact[constants.SUB_KEY]}</ClayTable.Cell>
