@@ -1,7 +1,9 @@
 dependencies {
-	compileOnly group: "javax.ws.rs", name: "javax.ws.rs-api"
-	compileOnly group: "org.osgi", name: "org.osgi.service.component.annotations"
-	compileOnly group: "org.osgi", name: "org.osgi.service.jaxrs"
+	compile group: "javax.ws.rs", name: "javax.ws.rs-api"
+	compile group: "org.osgi", name: "org.osgi.service.component.annotations"
+	compile group: "org.osgi", name: "org.osgi.service.jaxrs"
+	compile project(":modules:proposal:proposal-api")
+	compile group: "com.liferay.portal", name: "release.dxp.api"
 
 	testCompile group: "com.liferay.portal", name: "release.dxp.api"
 	testCompile group: "junit", name: "junit"
