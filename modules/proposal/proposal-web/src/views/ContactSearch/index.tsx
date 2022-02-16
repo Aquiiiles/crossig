@@ -29,27 +29,35 @@ const ContactSearch: React.FC = () => {
     { goToNextPage, goToPrevPage, goToPage },
     handleNewTotal,
   ] = usePagination(contactsLimit);
-  const { firstName, areaCode, phoneNumber, email, street, city, countryCode } =
-    useContactSelector(state => state.searchFilter);
+  const {
+    firstName,
+    areaCode,
+    phoneNumber,
+    email,
+    street,
+    city,
+    countryCode,
+    selectedContactType,
+    selectedCity,
+  } = useContactSelector(state => state.searchFilter);
   const idle = searchResultData.status === IDLE;
   const loading = searchResultData.status === PENDING;
 
-  const fetchData: FetchContactsFunction = ({ city, contactType }) => {
+  const fetchData: FetchContactsFunction = () => {
     const payload = {
       finderKey: 1,
       identifierType: 1000000,
       identityNumber: /^\d+/.test(firstName) ? firstName : undefined,
       name: /^[A-Za-z\s]+/.test(firstName) ? firstName : undefined,
-      cityName: city != null && city !== "" ? city : undefined,
+      cityName:
+        selectedCity !== "" ? selectedCity : city !== "" ? city : undefined,
       assetStreetName: street !== "" ? street : undefined,
       telephoneCountryCode: countryCode !== "" ? countryCode : undefined,
       telephonePrefix: areaCode !== "" ? areaCode : undefined,
       telphoneNumber: phoneNumber !== "" ? phoneNumber : undefined,
       email: email !== "" ? email : undefined,
       accountType:
-        contactType != null && contactType !== ""
-          ? Number(contactType)
-          : undefined,
+        selectedContactType !== "" ? Number(selectedContactType) : undefined,
     };
 
     const urlParams = new URLSearchParams({
@@ -67,6 +75,20 @@ const ContactSearch: React.FC = () => {
       handleNewTotal(result.length);
     }
   }, [searchResultData, handleNewTotal]);
+
+  useEffect(() => {
+    if (data.length !== 0) {
+      fetchData();
+    }
+  }, [currentPage]);
+
+  useEffect(() => {
+    if (currentPage === 1 && data.length !== 0) {
+      fetchData();
+    } else {
+      goToPage(1);
+    }
+  }, [selectedContactType, selectedCity]);
 
   return (
     <Wrapper>
@@ -86,6 +108,10 @@ const ContactSearch: React.FC = () => {
               fetchData={fetchData}
               paginationData={{
                 lowerRange: (currentPage - 1) * contactsLimit + 1,
+                upperRange: Math.min(
+                  (currentPage - 1) * contactsLimit + contactsLimit,
+                  data.length
+                ),
                 currentPage,
                 pages,
                 goToNextPage,

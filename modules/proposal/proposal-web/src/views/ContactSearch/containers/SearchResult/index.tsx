@@ -11,6 +11,11 @@ import {
   CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND,
 } from "../../../../constants/languageKeys";
 import { PageIndex } from "../../hooks/usePagination";
+import {
+  useContactSelector,
+  useContactDispatch,
+} from "../../../../redux/store";
+import { actions } from "../../../../redux/searchFilterSlice";
 
 import * as constants from "./constants/searchResult";
 
@@ -23,6 +28,7 @@ interface props {
   fetchData: FetchContactsFunction;
   paginationData: {
     lowerRange: number;
+    upperRange: number;
     currentPage: number;
     pages: Array<PageIndex>;
     goToNextPage: () => void;
@@ -38,10 +44,9 @@ const SearchResult: React.FC<props> = ({
   fetchData,
   paginationData,
 }: props) => {
+  const dispatch = useContactDispatch();
   const [showCountryDropdown, setShowCountryDropdown] = useState(false);
   const [citySearch, setCitySearch] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
-  const [selectedContactType, setSelectedContactType] = useState("");
   const formatedData = data.map((item: providedDataType) => {
     const responseObj: responseType = {
       [constants.OIB_KEY]: item[constants.OIB_KEY],
@@ -57,6 +62,10 @@ const SearchResult: React.FC<props> = ({
   const cities = new Set(
     data.map((item: providedDataType) => item["address"].split(",")[1].trim())
   );
+  const { selectedContactType, selectedCity } = useContactSelector(
+    state => state.searchFilter
+  );
+  const { setSelectedContactType, setSelectedCity } = actions;
 
   useEffect(() => {
     if (showCountryDropdown) {
@@ -113,7 +122,7 @@ const SearchResult: React.FC<props> = ({
                       .map(city => (
                         <ClayDropDown.Item
                           onClick={() => {
-                            setSelectedCity(city);
+                            dispatch(setSelectedCity(city));
                             setShowCountryDropdown(false);
                           }}
                           key={city}
@@ -131,7 +140,7 @@ const SearchResult: React.FC<props> = ({
                     ...contactTypeOptions,
                   ]}
                   onChange={({ target: { value } }) => {
-                    setSelectedContactType(value);
+                    dispatch(setSelectedContactType(value));
                   }}
                 />
               </ClayForm.Group>
@@ -148,7 +157,6 @@ const SearchResult: React.FC<props> = ({
               ></Table>
               <Pagination
                 paginationData={{
-                  upperRange: data.length,
                   total: data.length,
                   ...paginationData,
                 }}

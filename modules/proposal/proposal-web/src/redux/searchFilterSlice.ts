@@ -10,6 +10,8 @@ const initialState = {
   areaCode: "",
   phoneNumber: "",
   email: "",
+  selectedCity: "",
+  selectedContactType: "",
 };
 
 const searchFilterSlice = createSlice({
@@ -42,6 +44,12 @@ const searchFilterSlice = createSlice({
     },
     setEmail(state, action: PayloadAction<string>) {
       state.email = action.payload;
+    },
+    setSelectedCity(state, action: PayloadAction<string>) {
+      state.selectedCity = action.payload;
+    },
+    setSelectedContactType(state, action: PayloadAction<string>) {
+      state.selectedContactType = action.payload;
     },
     clearFilterValues(state) {
       state.city = "";

@@ -33,8 +33,9 @@ const SearchField: React.FC<props> = ({ fetchData }: props) => {
   const triggerElementRef = useRef<HTMLInputElement>(null);
   const menuElementRef = useRef<HTMLDivElement>(null);
   const [countries, setCountries] = useState<Array<any>>([]);
-  const { firstName, areaCode, phoneNumber, email, city, street, countryCode } =
-    useContactSelector(state => state.searchFilter);
+  const { firstName, phoneNumber, areaCode, email } = useContactSelector(
+    state => state.searchFilter
+  );
   const { setFirstName } = actions;
 
   const loadCountries = useCallback(() => {
