@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Table from "./components/organisms/Table";
+import Pagination from "./components/molecules/Pagination";
 import { SearchResultsHeader, Wrapper } from "./styles";
 import ClayForm, { ClaySelect, ClaySelectWithOption } from "@clayui/form";
 import ClayDropDown from "@clayui/drop-down";
@@ -9,24 +10,33 @@ import {
   CONTACT_SEARCH_RESULT_CONTACTS_FOUND,
   CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND,
 } from "../../../../constants/languageKeys";
-import { FetchDataFunction } from "../../../../api/hooks/useFetchData";
-import { useContactSelector } from "../../../../redux/store";
-import { SEARCH_URL } from "../../../../api/constants/routes";
+import { PageIndex } from "../../hooks/usePagination";
 
 import * as constants from "./constants/searchResult";
 
 import { providedDataType, responseType } from "./types/searchResult";
+import { FetchContactsFunction } from "../../types/fetchData";
 
 interface props {
   data: Array<any>;
   loading: boolean;
-  fetchSearchResultData: FetchDataFunction;
+  fetchData: FetchContactsFunction;
+  paginationData: {
+    lowerRange: number;
+    currentPage: number;
+    pages: Array<PageIndex>;
+    goToNextPage: () => void;
+    goToPrevPage: () => void;
+    goToPage: (pageIndex: PageIndex) => void;
+    handleNewTotal: (newTotal: number) => void;
+  };
 }
 
 const SearchResult: React.FC<props> = ({
   data,
   loading,
-  fetchSearchResultData,
+  fetchData,
+  paginationData,
 }: props) => {
   const [showCountryDropdown, setShowCountryDropdown] = useState(false);
   const [citySearch, setCitySearch] = useState("");
@@ -47,27 +57,6 @@ const SearchResult: React.FC<props> = ({
   const cities = new Set(
     data.map((item: providedDataType) => item["address"].split(",")[1].trim())
   );
-  const { firstName, street, countryCode, areaCode, phoneNumber, email } =
-    useContactSelector(state => state.searchFilter);
-
-  const fetchData = () => {
-    const data = {
-      finderKey: 1,
-      identifierType: 1000000,
-      identityNumber: /^\d+/.test(firstName) ? firstName : undefined,
-      name: /^[A-Za-z\s]+/.test(firstName) ? firstName : undefined,
-      cityName: selectedCity !== "" ? selectedCity : undefined,
-      assetStreetName: street !== "" ? street : undefined,
-      telephoneCountryCode: countryCode !== "" ? countryCode : undefined,
-      telephonePrefix: areaCode !== "" ? areaCode : undefined,
-      telphoneNumber: phoneNumber !== "" ? phoneNumber : undefined,
-      email: email !== "" ? email : undefined,
-      accountType:
-        selectedContactType !== "" ? Number(selectedContactType) : undefined,
-    };
-
-    fetchSearchResultData("POST", SEARCH_URL, {}, data);
-  };
 
   useEffect(() => {
     if (showCountryDropdown) {
@@ -77,10 +66,6 @@ const SearchResult: React.FC<props> = ({
       setCitySearch("");
     }
   }, [showCountryDropdown]);
-
-  useEffect(() => {
-    fetchData();
-  }, [selectedCity, selectedContactType]);
 
   const foundContacts = data.length > 0;
 
@@ -153,13 +138,22 @@ const SearchResult: React.FC<props> = ({
             ) : null}
           </SearchResultsHeader>
           {foundContacts ? (
-            <Table
-              loading={loading}
-              inputData={formatedData}
-              onTableSort={({ sortType, sortingKey }) => {
-                console.log(sortingKey);
-              }}
-            ></Table>
+            <>
+              <Table
+                loading={loading}
+                inputData={formatedData}
+                onTableSort={({ sortType, sortingKey }) => {
+                  console.log(sortingKey);
+                }}
+              ></Table>
+              <Pagination
+                paginationData={{
+                  upperRange: data.length,
+                  total: data.length,
+                  ...paginationData,
+                }}
+              />
+            </>
           ) : null}
         </>
       ) : (

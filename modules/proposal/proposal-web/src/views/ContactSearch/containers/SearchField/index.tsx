@@ -17,16 +17,15 @@ import {
   useContactDispatch,
 } from "../../../../redux/store";
 import { actions } from "../../../../redux/searchFilterSlice";
-import { FetchDataFunction } from "../../../../api/hooks/useFetchData";
-import { SEARCH_URL } from "../../../../api/constants/routes";
+import { FetchContactsFunction } from "../../types/fetchData";
 
 interface props {
-  fetchSearchResultData: FetchDataFunction;
+  fetchData: FetchContactsFunction;
 }
 
 declare const Liferay: any;
 
-const SearchField: React.FC<props> = ({ fetchSearchResultData }: props) => {
+const SearchField: React.FC<props> = ({ fetchData }: props) => {
   const dispatch = useContactDispatch();
   const [disabled, setDisabled] = useState(false);
   const [expand, setExpand] = useState(false);
@@ -53,23 +52,6 @@ const SearchField: React.FC<props> = ({ fetchSearchResultData }: props) => {
   useEffect(() => {
     loadCountries();
   }, [loadCountries]);
-
-  const fetchData = () => {
-    const data = {
-      finderKey: 1,
-      identifierType: 1000000,
-      identityNumber: /^\d+/.test(firstName) ? firstName : undefined,
-      name: /^[A-Za-z\s]+/.test(firstName) ? firstName : undefined,
-      cityName: city !== "" ? city : undefined,
-      assetStreetName: street !== "" ? street : undefined,
-      telephoneCountryCode: countryCode !== "" ? countryCode : undefined,
-      telephonePrefix: areaCode !== "" ? areaCode : undefined,
-      telphoneNumber: phoneNumber !== "" ? phoneNumber : undefined,
-      email: email !== "" ? email : undefined,
-    };
-
-    fetchSearchResultData("POST", SEARCH_URL, {}, data);
-  };
 
   const handleExpand = () => {
     setExpand(!expand);
@@ -114,7 +96,7 @@ const SearchField: React.FC<props> = ({ fetchSearchResultData }: props) => {
         <ClayButton
           displayType="primary"
           disabled={disabled}
-          onClick={fetchData}
+          onClick={() => fetchData()}
         >
           {CONTACT_SEARCH_ACTION_BUTTON}
         </ClayButton>
