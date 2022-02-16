@@ -1,3 +1,10 @@
 dependencies {
-	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
+	compile group: "com.liferay.portal", name: "release.dxp.api"
+	compile project(":modules:proposal:proposal-api")
 }
+
+buildService {
+	apiDir = "../proposal-api/src/main/java"
+}
+
+group = "hr.crosig.proposal"

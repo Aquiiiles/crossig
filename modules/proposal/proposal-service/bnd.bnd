@@ -1,4 +1,6 @@
-Bundle-Name: proposal-service
-Bundle-SymbolicName: proposal.service
+Bundle-Name: Crosig Agent Portal Proposal Service
+Bundle-SymbolicName: hr.crosig.proposal.service
 Bundle-Version: 1.0.0
-Export-Package: proposal.service.api
+Liferay-Require-SchemaVersion: 1.0.0
+Liferay-Service: true
+-dsannotations-options: inherit

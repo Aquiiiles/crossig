@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="false" default-lazy="false">
+	<import class="hr.crosig.proposal.model.Product" />
+	<import class="hr.crosig.proposal.model.ProductRole" />
+	<class name="hr.crosig.proposal.model.impl.ProductImpl" table="AP_Proposal_Product">
+		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="productId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="externalId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="hr.crosig.proposal.model.impl.ProductRoleImpl" table="AP_Proposal_ProductRole">
+		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="productRoleId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="productId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="roleId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+</hibernate-mapping>
