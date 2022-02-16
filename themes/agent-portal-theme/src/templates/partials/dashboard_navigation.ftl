@@ -1,5 +1,3 @@
-<!--
-
 <nav class="${nav_css_class}" id="navigation" role="navigation">
 	<div class="navigation-aside">
 		<div class="crosig-logo">
@@ -69,5 +67,3 @@
 		</div>
 	</div>
 </nav>
-
--->

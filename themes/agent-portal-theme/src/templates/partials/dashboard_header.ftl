@@ -8,4 +8,8 @@
 			</#if>
 		</div>		
 	</div>
+
+    <div>
+        <button class="btn btn-primary" onclick={location.href='/group/agent-portal/proposal'}>NEW PROPOSAL</button>
+    </div>
 </header>
