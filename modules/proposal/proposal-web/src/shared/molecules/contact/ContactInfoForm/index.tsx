@@ -18,7 +18,8 @@ import { ButtonWrapper } from "./styles";
 import {
   useContactDispatch,
   useContactSelector,
-} from "../../../../redux/store";
+} from "../../../../redux/store"
+import { actions } from "../../../stores/contact/slices/ContactInfo";
 import { Country } from "../../../types/contact";
 import { createEmptyPhoneNumber } from "../../../util/commonFunctions";
 import { actions as contactInfoActions } from "../../../../redux/contactInfoSlice";

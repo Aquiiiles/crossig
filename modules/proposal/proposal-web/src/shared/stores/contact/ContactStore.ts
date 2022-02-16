@@ -1,17 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import addressReducer from "./addressSlice";
-import basicInfoReducer from "./basicInfoSlice";
-import searchFilterReducer from "./searchFilterSlice";
-import contactInfoReducer from "./contactInfoSlice";
+import AddressesReducer from "./slices/Addresses";
+import BasicInfoReducer from "./slices/BasicInfo";
+import ContactInfoReducer from "./slices/ContactInfo";
 
 export const getInitialState = () => {
   return configureStore({
     reducer: {
-      searchFilter: searchFilterReducer,
-      basicInfo: basicInfoReducer,
-      address: addressReducer,
-      contactInfo: contactInfoReducer,
+      basicInfo: BasicInfoReducer,
+      addresses: AddressesReducer,
+      contactInfo: ContactInfoReducer,
     },
   });
 };

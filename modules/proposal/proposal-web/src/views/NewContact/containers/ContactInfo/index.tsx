@@ -16,7 +16,7 @@ import { phoneObjectToData } from "./utils/phoneUtils";
 import { useFetchData } from "../../../../api/hooks/useFetchData";
 import { CONTACT_URL } from "../../../../api/constants/routes";
 
-import { getInitialState } from "../../../../shared/stores/contact/contactStore";
+import { getInitialState } from "../../../../shared/stores/contact/ContactStore";
 
 declare const Liferay: any;
 

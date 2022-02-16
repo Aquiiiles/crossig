@@ -8,7 +8,6 @@ import {
   PENDING,
   REJECTED,
   RESOLVED,
-  SUCCESS_CODE,
 } from "../reducers/constants";
 
 import API from "../";

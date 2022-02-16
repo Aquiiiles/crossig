@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 declare const Liferay: any;
 
 export const CONTACT_INFO = {
@@ -52,10 +53,10 @@ export const CREATE_NEW_CONTACT = {
     SUBTITLE: Liferay.Language.get('create-new-contact-subtitle'),
     BASIC_INFO_TITLE: Liferay.Language.get('create-new-contact-basic-info-title'),
     TYPE: Liferay.Language.get('create-new-contact-type'),
-    ADDRESS_TITLE: Liferay.Language.get('create-new-contact-address-title'),
-    ID_ADDRES: Liferay.Language.get('create-new-contact-id-address'),
-    REGISTERED_OFFICE_ADDRESS: Liferay.Language.get('create-new-contact-registered-office-address'),
-    DISPATCH_ADDRESS: Liferay.Language.get('create-new-contact-dispatch-address'),
+    ADDRESS_TITLE : Liferay.Language.get('create-new-contact-address-title'),
+    ID_ADDRESS : Liferay.Language.get('create-new-contact-id-address'),
+    REGISTERED_OFFICE_ADDRESS : Liferay.Language.get('create-new-contact-registered-office-address'),
+    DISPATCH_ADDRESS : Liferay.Language.get('create-new-contact-dispatch-address'),
     NO_RESULTS_FOUND: Liferay.Language.get('create-new-contact-no-results-found'),
     FIELD: {
         CONTACT_TYPE: {

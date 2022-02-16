@@ -4,16 +4,18 @@ import ClayDropDown from "@clayui/drop-down";
 import { MINIMUN_LENGTH_FOR_AUTOCOMPLETE_INPUT } from "../../../../constants/contactConstants";
 import { CREATE_NEW_CONTACT } from "../../../../constants/languageKeys";
 
-const AutoCompleteInput: React.FC<{
+type props = {
   label: string;
   id: string;
   active: boolean;
   getOptions: (value: string) => any;
   setParentValue: (parentValue: string) => void;
-  setPostalCode: (postalCode: string) => void;
+  setPostalCode?: (postalCode: string) => void;
   isCity: boolean;
   disabled: boolean;
-}> = ({
+};
+
+const AutoCompleteInput: React.FC<props> = ({
   label,
   id,
   active,
@@ -22,7 +24,7 @@ const AutoCompleteInput: React.FC<{
   setPostalCode,
   isCity,
   disabled,
-}) => {
+}: props) => {
   const [value, setValue] = useState<string>("");
   const [options, setOptions] = useState<Array<any>>();
   const [filteredOptions, setFilteredOptions] = useState<Array<any>>();
@@ -97,8 +99,8 @@ const AutoCompleteInput: React.FC<{
       <ClayAutocomplete>
         <ClayAutocomplete.Input
           onChange={(event) => {
-            setValue(event.target.value);
-            setParentValue(event.target.value);
+            setValue(event.target.value.toString());
+            setParentValue(event.target.value.toString());
           }}
           value={value}
           id={id}
@@ -137,8 +139,9 @@ const AutoCompleteInput: React.FC<{
                   }
                   onClick={() => {
                     setValue(isCity ? item.cityName : item);
-                    setParentValue(item.cityId);
-                    setPostalCode(item.boxNumber || "boxNumber");
+                    setParentValue(isCity ? item.cityId : item);
+                    setPostalCode &&
+                      setPostalCode(item.boxNumber || "boxNumber");
                   }}
                 />
               ))}

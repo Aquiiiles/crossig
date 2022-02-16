@@ -1,6 +1,6 @@
 import { useRef, useLayoutEffect, useCallback } from "react";
 
-export const useSafeDispatch = (dispatch:any) => {
+export const useSafeDispatch = (dispatch:(...args:any) => void) => {
   const mountedRef = useRef(false);
 
   useLayoutEffect(() => {
