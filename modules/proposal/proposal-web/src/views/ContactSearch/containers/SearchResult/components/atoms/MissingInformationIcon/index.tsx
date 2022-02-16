@@ -2,6 +2,7 @@ import React from "react";
 import ClayIcon from "@clayui/icon";
 import spritemap from "@clayui/css/lib/images/icons/icons.svg";
 import { ClayTooltipProvider } from "@clayui/tooltip";
+import { Button } from "./styles";
 
 const MissingInformationIcon: React.FC<{
   emailValidation: boolean;
@@ -14,9 +15,9 @@ const MissingInformationIcon: React.FC<{
   return (
     <ClayTooltipProvider>
       {
-        <button className="btn-unstyled" title={validationMessage}>
-          <ClayIcon symbol="warning" spritemap={spritemap}/>
-        </button>
+        <Button title={validationMessage}>
+          <ClayIcon symbol="warning" spritemap={spritemap} />
+        </Button>
       }
     </ClayTooltipProvider>
   );
