@@ -81,7 +81,7 @@ const ContactSearch: React.FC = () => {
   };
 
   useEffect(() => {
-    let result = searchResultData.response.data[0]?.contactInListIVO;
+    const result = searchResultData.response.data[0]?.contactInListIVO;
     if (result != null) {
       setData(result);
       handleNewTotal(result.length);

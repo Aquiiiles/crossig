@@ -1,3 +1,4 @@
+import React from "react";
 import { Wrapper } from "./styles";
 import ClayPagination from "@clayui/pagination";
 import { PageIndex } from "../../../../../hooks/usePagination";

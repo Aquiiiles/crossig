@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "./components/organisms/Table";
 import Pagination from "./components/molecules/Pagination";
 import { SearchResultsHeader, Wrapper } from "./styles";
