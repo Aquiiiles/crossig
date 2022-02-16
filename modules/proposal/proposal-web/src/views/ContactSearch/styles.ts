@@ -3,9 +3,9 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
-  background-color: #f8f8f9;
+  background-color: ${props => props.theme.color.neutral.background};
   padding: 0;
-  padding-top: 78px;
+  padding-top: 4.875rem;
 `;
 
 export const LinkWrapper = styled.div`
