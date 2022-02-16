@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ClayButton from "@clayui/button";
 import ClayTable from "@clayui/table";
 import { HoveringButtonGroup } from "./style";
+import MissingInformationIcon from "../MissingInformationIcon";
 import {
   CONTACT_SEARCH_TABLE_VIEW_DETAILS,
   CONTACT_SEARCH_TABLE_USE_CONTACT,
@@ -40,6 +41,9 @@ const TableRow: React.FC<props> = ({ contact }) => {
       onMouseEnter={() => setShowButtons(true)}
       onDoubleClick={console.info}
     >
+      <ClayTable.Cell headingTitle>
+        <MissingInformationIcon emailValidation phoneValidation />
+      </ClayTable.Cell>
       <ClayTable.Cell headingTitle>{contact[constants.OIB_KEY]}</ClayTable.Cell>
       <ClayTable.Cell headingTitle>{contact[constants.SUB_KEY]}</ClayTable.Cell>
       <ClayTable.Cell headingTitle>

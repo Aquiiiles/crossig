@@ -43,6 +43,7 @@ const Table: React.FC<props> = ({ inputData, loading }: props) => {
     <ClayTable borderless>
       <ClayTable.Head>
         <ClayTable.Row>
+          <ClayTable.Cell headingCell />
           <ClayTable.Cell
             style={{ cursor: "pointer" }}
             headingCell
