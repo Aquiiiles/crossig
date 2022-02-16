@@ -94,50 +94,43 @@ const SearchField: React.FC<props> = ({
 
   return (
     <Wrapper>
-      <SearchWrapper>
-        <ClayForm.Group style={{ marginBottom: "0" }}>
-          <label className="body-small" htmlFor="oibInputText">
-            {CONTACT_SEARCH_FIELD_OIB}
-          </label>
-          <ClayInput
-            id="oibInputText"
-            type="text"
-            value={OIB}
-            onChange={({ target: { value } }) => dispatch(setOIB(value))}
-          />
-          <label className="body-small" htmlFor="lastNameInputText">
-            {CONTACT_SEARCH_FIELD_LAST_NAME_COMPANY_NAME_SE_NAME}
-          </label>
-          <ClayInput
-            id="lastNameInputText"
-            type="text"
-            value={lastName}
-            onChange={({ target: { value } }) => dispatch(setLastName(value))}
-          />
-          <label className="body-small" htmlFor="firstNameInputText">
-            {CONTACT_SEARCH_FIELD_FIRST_NAME}
-          </label>
-          <ClayInput
-            id="firstNameInputText"
-            type="text"
-            value={firstName}
-            onChange={({ target: { value } }) => dispatch(setFirstName(value))}
-          />
-        </ClayForm.Group>
-        <ClayButton
-          displayType="primary"
-          disabled={disabled}
-          onClick={() => {
-            if (currentPage === 1) {
-              fetchData();
-            } else {
-              goToPage(1);
-            }
-          }}
-        >
-          {CONTACT_SEARCH_ACTION_BUTTON}
-        </ClayButton>
-      </SearchWrapper>
+      <ClayForm.Group>
+        <ClayInput.Group>
+          <ClayInput.GroupItem>
+            <label htmlFor="oibInputText">{CONTACT_SEARCH_FIELD_OIB}</label>
+            <ClayInput
+              id="oibInputText"
+              type="text"
+              value={oib}
+              onChange={(e) => setOib(e.target.value)}
+            />
+          </ClayInput.GroupItem>
+          <ClayInput.GroupItem>
+            <label htmlFor="lastCompanySeNameInputText">{CONTACT_SEARCH_FIELD_LAST_NAME_COMPANY_NAME_SE_NAME}</label>
+            <ClayInput
+              id="lastCompanySeNameInputText"
+              type="text"
+              value={lastCompanySeName}
+              onChange={(e) => setLastCompanySeName(e.target.value)}
+            />
+          </ClayInput.GroupItem>
+          <ClayInput.GroupItem>
+            <label htmlFor="firstNameInputText">{CONTACT_SEARCH_FIELD_FIRST_NAME}</label>
+            <ClayInput
+              id="firstNameInputText"
+              type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </ClayInput.GroupItem>
+        </ClayInput.Group>
+      </ClayForm.Group>
+      <ClayForm.Group>
+        <ClayButton.Group>
+          <ClayButton displayType="primary" disabled={disabled} onClick={() => { }}>{CONTACT_SEARCH_BUTTON_SEARCH}</ClayButton>
+          <ClayButton displayType="link" ref={triggerElementRef} onClick={handleExpand}>{CONTACT_SEARCH_MORE_SEARCH_OPTIONS}</ClayButton>
+        </ClayButton.Group>
+      </ClayForm.Group>
       <ClayDropDown.Menu
         ref={menuElementRef}
         style={fieldSize}
