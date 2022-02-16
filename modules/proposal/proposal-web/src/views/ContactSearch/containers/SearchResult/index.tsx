@@ -9,6 +9,7 @@ import { contactTypeOptions } from "../../../../constants/contactConstants";
 import {
   CONTACT_SEARCH_RESULT_CONTACTS_FOUND,
   CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND,
+  CONTACT_RESULTS_TABLE,
 } from "../../../../constants/languageKeys";
 import { PageIndex } from "../../hooks/usePagination";
 import {
@@ -101,7 +102,11 @@ const SearchResult: React.FC<props> = ({
                         value=""
                       >
                         <ClaySelect.Option
-                          label={selectedCity !== "" ? selectedCity : "City"}
+                          label={
+                            selectedCity !== ""
+                              ? selectedCity
+                              : CONTACT_RESULTS_TABLE.HEADER.CITY
+                          }
                           value=""
                         />
                       </ClaySelect>
@@ -136,7 +141,7 @@ const SearchResult: React.FC<props> = ({
                   id="TypeFilterField"
                   value={selectedContactType}
                   options={[
-                    { label: "Type", value: "" },
+                    { label: CONTACT_RESULTS_TABLE.HEADER.TYPE, value: "" },
                     ...contactTypeOptions,
                   ]}
                   onChange={({ target: { value } }) => {

@@ -1,14 +1,16 @@
-export const OIB_NAME = "OIB";
+import { CONTACT_RESULTS_TABLE } from "../../../../../constants/languageKeys";
+
+export const OIB_NAME = CONTACT_RESULTS_TABLE.HEADER.OIB;
 export const OIB_KEY = "idValue";
-export const SUB_NAME = "Sub #";
+export const SUB_NAME = CONTACT_RESULTS_TABLE.HEADER.SUB;
 export const SUB_KEY = "sub";
-export const DOB_NAME = "DOB";
+export const DOB_NAME = CONTACT_RESULTS_TABLE.HEADER.DOB;
 export const DOB_KEY = "birthDate";
-export const NAME_NAME = "Name";
+export const NAME_NAME = CONTACT_RESULTS_TABLE.HEADER.NAME;
 export const NAME_KEY = "name";
-export const STREET_NAME = "Street";
+export const STREET_NAME = CONTACT_RESULTS_TABLE.HEADER.STREET;
 export const STREET_KEY = "street";
-export const CITY_NAME = "City";
+export const CITY_NAME = CONTACT_RESULTS_TABLE.HEADER.CITY;
 export const CITY_KEY = "city";
-export const TYPE_NAME = "Type";
+export const TYPE_NAME = CONTACT_RESULTS_TABLE.HEADER.TYPE;
 export const TYPE_KEY = "entityTypeVO";
