@@ -42,10 +42,8 @@ export const useFetchData = () => {
         const response = await API({ method, url, params, data });
 
         dispatch({ type: RESOLVED, response });
-        console.log("response", response);
       } catch (error) {
         dispatch({ type: REJECTED, error });
-        console.error("error", error);
       }
     },
     [dispatch]
