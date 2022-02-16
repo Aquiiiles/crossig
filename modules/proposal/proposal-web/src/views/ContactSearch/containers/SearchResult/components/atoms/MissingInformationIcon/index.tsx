@@ -15,18 +15,19 @@ const MissingInformationIcon: React.FC<{
   emailValidated: boolean;
   phoneValidated: boolean;
 }> = ({ emailValidated, phoneValidated }) => {
-  const validationMessage =
-    (emailValidated
+  const validationMessage = `${
+    emailValidated
       ? CONTACT_SEARCH_RESULT_EMAIL_VALIDATED
-      : CONTACT_SEARCH_RESULT_EMAIL_NOT_VALIDATED) +
-    CONTACT_SEARCH_RESULT_AND +
-    (phoneValidated
+      : CONTACT_SEARCH_RESULT_EMAIL_NOT_VALIDATED
+  } ${CONTACT_SEARCH_RESULT_AND} ${
+    phoneValidated
       ? CONTACT_SEARCH_RESULT_PHONE_VALIDATED
-      : CONTACT_SEARCH_RESULT_PHONE_NOT_VALIDATED);
+      : CONTACT_SEARCH_RESULT_PHONE_NOT_VALIDATED
+  }`;
 
   return (
     <>
-      {emailValidated && phoneValidated && (
+      {(!emailValidated || !phoneValidated) && (
         <ClayTooltipProvider>
           <Button title={validationMessage}>
             <ClayIcon symbol="warning" spritemap={spritemap} />
