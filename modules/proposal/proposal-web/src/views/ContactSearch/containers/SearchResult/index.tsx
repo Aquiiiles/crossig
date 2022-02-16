@@ -148,13 +148,7 @@ const SearchResult: React.FC<props> = ({
           </SearchResultsHeader>
           {foundContacts ? (
             <>
-              <Table
-                loading={loading}
-                inputData={formatedData}
-                onTableSort={({ sortType, sortingKey }) => {
-                  console.log(sortingKey);
-                }}
-              ></Table>
+              <Table loading={loading} inputData={formatedData}></Table>
               <Pagination
                 paginationData={{
                   total: data.length,

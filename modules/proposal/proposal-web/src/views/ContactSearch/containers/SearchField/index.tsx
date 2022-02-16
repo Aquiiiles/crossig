@@ -17,15 +17,21 @@ import {
   useContactDispatch,
 } from "../../../../redux/store";
 import { actions } from "../../../../redux/searchFilterSlice";
-import { FetchContactsFunction } from "../../types/fetchData";
+import { PageIndex } from "../../hooks/usePagination";
 
 interface props {
-  fetchData: FetchContactsFunction;
+  currentPage: number;
+  goToPage: (pageIndex: PageIndex) => void;
+  fetchData: () => void;
 }
 
 declare const Liferay: any;
 
-const SearchField: React.FC<props> = ({ fetchData }: props) => {
+const SearchField: React.FC<props> = ({
+  currentPage,
+  goToPage,
+  fetchData,
+}: props) => {
   const dispatch = useContactDispatch();
   const [disabled, setDisabled] = useState(false);
   const [expand, setExpand] = useState(false);
@@ -97,7 +103,13 @@ const SearchField: React.FC<props> = ({ fetchData }: props) => {
         <ClayButton
           displayType="primary"
           disabled={disabled}
-          onClick={() => fetchData()}
+          onClick={() => {
+            if (currentPage === 1) {
+              fetchData();
+            } else {
+              goToPage(1);
+            }
+          }}
         >
           {CONTACT_SEARCH_ACTION_BUTTON}
         </ClayButton>
@@ -112,7 +124,11 @@ const SearchField: React.FC<props> = ({ fetchData }: props) => {
       >
         <SearchFilters
           fetchData={() => {
-            fetchData();
+            if (currentPage === 1) {
+              fetchData();
+            } else {
+              goToPage(1);
+            }
             handleExpand();
           }}
           countries={mapToCountryCodes(countries)}

@@ -1,6 +1,13 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import ClayTable from "@clayui/table";
 import TableRow from "../../atoms/TableRow";
+import spritemap from "@clayui/css/lib/images/icons/icons.svg";
+import ClayIcon from "@clayui/icon";
+import {
+  useContactSelector,
+  useContactDispatch,
+} from "../../../../../../../redux/store";
+import { actions } from "../../../../../../../redux/searchFilterSlice";
 
 import * as types from "../../../types/searchResult";
 import * as constants from "../../../constants/searchResult";
@@ -8,10 +15,30 @@ import * as constants from "../../../constants/searchResult";
 interface props {
   inputData: Array<types.responseType>;
   loading: boolean;
-  onTableSort: (sortBy: { sortType: string; sortingKey: any }) => void;
 }
 
-const Table: React.FC<props> = ({ inputData, loading, onTableSort }: props) => {
+const Table: React.FC<props> = ({ inputData, loading }: props) => {
+  const dispatch = useContactDispatch();
+  const { sortedBy, sortOrder } = useContactSelector(
+    state => state.searchFilter
+  );
+  const { setSortedBy, setSortOrder } = actions;
+
+  const decideOrder = (sortBy: string) => {
+    if (sortBy === sortedBy) {
+      return sortOrder === "asc" ? "desc" : "asc";
+    } else {
+      return "desc";
+    }
+  };
+
+  const arrowIcon = (
+    <ClayIcon
+      spritemap={spritemap}
+      symbol={sortOrder === "asc" ? "order-arrow-up" : "order-arrow-down"}
+    />
+  );
+
   return (
     <ClayTable borderless>
       <ClayTable.Head>
@@ -19,70 +46,81 @@ const Table: React.FC<props> = ({ inputData, loading, onTableSort }: props) => {
           <ClayTable.Cell
             style={{ cursor: "pointer" }}
             headingCell
-            onClick={() =>
-              onTableSort({ sortType: "DESC", sortingKey: constants.OIB_KEY })
-            }
+            onClick={() => {
+              dispatch(setSortedBy(constants.OIB_KEY));
+              dispatch(setSortOrder(decideOrder(constants.OIB_KEY)));
+            }}
           >
             {constants.OIB_NAME}
+            {sortedBy === constants.OIB_KEY ? arrowIcon : null}
           </ClayTable.Cell>
           <ClayTable.Cell
             style={{ cursor: "pointer" }}
             headingCell
-            onClick={() =>
-              onTableSort({ sortType: "DESC", sortingKey: constants.SUB_KEY })
-            }
+            onClick={() => {
+              dispatch(setSortedBy(constants.SUB_KEY));
+              dispatch(setSortOrder(decideOrder(constants.SUB_KEY)));
+            }}
           >
             {constants.SUB_NAME}
+            {sortedBy === constants.SUB_KEY ? arrowIcon : null}
           </ClayTable.Cell>
           <ClayTable.Cell
             style={{ cursor: "pointer" }}
             headingCell
-            onClick={() =>
-              onTableSort({ sortType: "DESC", sortingKey: constants.DOB_KEY })
-            }
+            onClick={() => {
+              dispatch(setSortedBy(constants.DOB_KEY));
+              dispatch(setSortOrder(decideOrder(constants.DOB_KEY)));
+            }}
           >
             {constants.DOB_NAME}
+            {sortedBy === constants.DOB_KEY ? arrowIcon : null}
           </ClayTable.Cell>
           <ClayTable.Cell
             style={{ cursor: "pointer" }}
             expanded
             headingCell
-            onClick={() =>
-              onTableSort({ sortType: "DESC", sortingKey: constants.NAME_KEY })
-            }
+            onClick={() => {
+              dispatch(setSortedBy(constants.NAME_KEY));
+              dispatch(setSortOrder(decideOrder(constants.NAME_KEY)));
+            }}
           >
             {constants.NAME_NAME}
+            {sortedBy === constants.NAME_KEY ? arrowIcon : null}
           </ClayTable.Cell>
           <ClayTable.Cell
             style={{ cursor: "pointer" }}
             expanded
             headingCell
-            onClick={() =>
-              onTableSort({
-                sortType: "DESC",
-                sortingKey: constants.STREET_KEY,
-              })
-            }
+            onClick={() => {
+              dispatch(setSortedBy(constants.STREET_KEY));
+              dispatch(setSortOrder(decideOrder(constants.STREET_KEY)));
+            }}
           >
             {constants.STREET_NAME}
+            {sortedBy === constants.STREET_KEY ? arrowIcon : null}
           </ClayTable.Cell>
           <ClayTable.Cell
             style={{ cursor: "pointer" }}
             headingCell
-            onClick={() =>
-              onTableSort({ sortType: "DESC", sortingKey: constants.CITY_KEY })
-            }
+            onClick={() => {
+              dispatch(setSortedBy(constants.CITY_KEY));
+              dispatch(setSortOrder(decideOrder(constants.CITY_KEY)));
+            }}
           >
             {constants.CITY_NAME}
+            {sortedBy === constants.CITY_KEY ? arrowIcon : null}
           </ClayTable.Cell>
           <ClayTable.Cell
             style={{ cursor: "pointer" }}
             headingCell
-            onClick={() =>
-              onTableSort({ sortType: "DESC", sortingKey: constants.TYPE_KEY })
-            }
+            onClick={() => {
+              dispatch(setSortedBy(constants.TYPE_KEY));
+              dispatch(setSortOrder(decideOrder(constants.TYPE_KEY)));
+            }}
           >
             {constants.TYPE_NAME}
+            {sortedBy === constants.TYPE_KEY ? arrowIcon : null}
           </ClayTable.Cell>
         </ClayTable.Row>
       </ClayTable.Head>

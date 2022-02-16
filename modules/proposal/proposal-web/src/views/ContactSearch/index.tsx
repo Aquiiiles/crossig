@@ -39,6 +39,8 @@ const ContactSearch: React.FC = () => {
     countryCode,
     selectedContactType,
     selectedCity,
+    sortOrder,
+    sortedBy,
   } = useContactSelector(state => state.searchFilter);
   const idle = searchResultData.status === IDLE;
   const loading = searchResultData.status === PENDING;
@@ -63,9 +65,19 @@ const ContactSearch: React.FC = () => {
     const urlParams = new URLSearchParams({
       startIndex: ((currentPage - 1) * contactsLimit).toString(),
       count: contactsLimit.toString(),
+      sortBy: sortedBy,
+      sortOrder,
     }).toString();
 
     fetchSearchResultData("POST", `${SEARCH_URL}?${urlParams}`, {}, payload);
+  };
+
+  const fetchNewData = () => {
+    if (currentPage === 1 && data.length !== 0) {
+      fetchData();
+    } else {
+      goToPage(1);
+    }
   };
 
   useEffect(() => {
@@ -83,12 +95,12 @@ const ContactSearch: React.FC = () => {
   }, [currentPage]);
 
   useEffect(() => {
-    if (currentPage === 1 && data.length !== 0) {
-      fetchData();
-    } else {
-      goToPage(1);
-    }
+    fetchNewData();
   }, [selectedContactType, selectedCity]);
+
+  useEffect(() => {
+    fetchNewData();
+  }, [sortOrder, sortedBy]);
 
   return (
     <Wrapper>
@@ -99,7 +111,11 @@ const ContactSearch: React.FC = () => {
         <p className="body-small" style={{ marginBottom: "2.5rem" }}>
           {CONTACT_SEARCH_SUBTITLE}
         </p>
-        <SearchField fetchData={fetchData} />
+        <SearchField
+          currentPage={currentPage}
+          goToPage={goToPage}
+          fetchData={fetchData}
+        />
         {!idle ? (
           <>
             <SearchResult

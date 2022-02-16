@@ -12,6 +12,8 @@ const initialState = {
   email: "",
   selectedCity: "",
   selectedContactType: "",
+  sortedBy: "id",
+  sortOrder: "desc",
 };
 
 const searchFilterSlice = createSlice({
@@ -50,6 +52,12 @@ const searchFilterSlice = createSlice({
     },
     setSelectedContactType(state, action: PayloadAction<string>) {
       state.selectedContactType = action.payload;
+    },
+    setSortedBy(state, action: PayloadAction<string>) {
+      state.sortedBy = action.payload;
+    },
+    setSortOrder(state, action: PayloadAction<"asc" | "desc">) {
+      state.sortOrder = action.payload;
     },
     clearFilterValues(state) {
       state.city = "";
