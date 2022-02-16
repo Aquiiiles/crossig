@@ -11,6 +11,10 @@ import { Wrapper, SearchWrapper } from "./styles";
 import {
   CONTACT_SEARCH_FIELD_NAME_OR_OIB,
   CONTACT_SEARCH_ACTION_BUTTON,
+  CONTACT_SEARCH_FIELD_OIB,
+  CONTACT_SEARCH_FIELD_LAST_NAME_COMPANY_NAME_SE_NAME,
+  CONTACT_SEARCH_FIELD_FIRST_NAME,
+  CONTACT_SEARCH_MORE_SEARCH_OPTIONS
 } from "../../../../constants/languageKeys";
 import {
   useContactSelector,
@@ -18,7 +22,7 @@ import {
 } from "../../../../redux/store";
 import { actions } from "../../../../redux/searchFilterSlice";
 import { PageIndex } from "../../hooks/usePagination";
-import useOnClickOutside from "../../../../shared/hooks/useOnClickOutside";
+import { Console } from "console";
 
 interface props {
   currentPage: number;
@@ -37,19 +41,14 @@ const SearchField: React.FC<props> = ({
   const [disabled, setDisabled] = useState(false);
   const [expand, setExpand] = useState(false);
   const [fieldWidth, setFieldWidth] = useState(0);
-  const triggerElementRef = useRef<HTMLInputElement>(null);
+  const triggerElementRef = useRef<HTMLButtonElement>(null);
   const menuElementRef = useRef<HTMLDivElement>(null);
   const arrowButtonRef = useRef<HTMLButtonElement>(null);
   const [countries, setCountries] = useState<Array<any>>([]);
-  const { firstName, phoneNumber, areaCode, email } = useContactSelector(
+  const { firstName, OIB, lastName, phoneNumber, areaCode, email } = useContactSelector(
     state => state.searchFilter
   );
-  const { setFirstName } = actions;
-  useOnClickOutside<HTMLDivElement>(
-    menuElementRef,
-    useCallback(() => setExpand(false), []),
-    arrowButtonRef
-  );
+  const { setFirstName, setOIB, setLastName } = actions;
 
   const loadCountries = useCallback(() => {
     Liferay.Service(
@@ -73,8 +72,9 @@ const SearchField: React.FC<props> = ({
 
   useEffect(() => {
     const emailRegex = /\S+@\S+\.\S+/;
+
     if (
-      firstName.length >= 3 ||
+      (OIB.length >= 3 || lastName.length >= 3 || firstName.length >= 3) ||
       (phoneNumber.length > 0 && areaCode !== "") ||
       emailRegex.test(email)
     ) {
@@ -82,12 +82,13 @@ const SearchField: React.FC<props> = ({
     } else {
       setDisabled(true);
     }
-  }, [firstName, phoneNumber, email, areaCode]);
+  }, [firstName, OIB, lastName, phoneNumber, email, areaCode]);
   const fieldSize = { width: fieldWidth, maxWidth: fieldWidth };
+  const fieldWidthMultiplier = 3;
 
   useEffect(() => {
     if (triggerElementRef.current) {
-      setFieldWidth(triggerElementRef.current.offsetWidth);
+      setFieldWidth(triggerElementRef.current.offsetWidth * fieldWidthMultiplier);
     }
   }, [triggerElementRef]);
 
@@ -95,17 +96,33 @@ const SearchField: React.FC<props> = ({
     <Wrapper>
       <SearchWrapper>
         <ClayForm.Group style={{ marginBottom: "0" }}>
-          <label className="body-small" htmlFor="basicInputText">
-            {CONTACT_SEARCH_FIELD_NAME_OR_OIB}
+          <label className="body-small" htmlFor="oibInputText">
+            {CONTACT_SEARCH_FIELD_OIB}
           </label>
           <ClayInput
-            id="basicInputText"
+            id="oibInputText"
             type="text"
-            ref={triggerElementRef}
+            value={OIB}
+            onChange={({ target: { value } }) => dispatch(setOIB(value))}
+          />
+          <label className="body-small" htmlFor="lastNameInputText">
+            {CONTACT_SEARCH_FIELD_LAST_NAME_COMPANY_NAME_SE_NAME}
+          </label>
+          <ClayInput
+            id="lastNameInputText"
+            type="text"
+            value={lastName}
+            onChange={({ target: { value } }) => dispatch(setLastName(value))}
+          />
+          <label className="body-small" htmlFor="firstNameInputText">
+            {CONTACT_SEARCH_FIELD_FIRST_NAME}
+          </label>
+          <ClayInput
+            id="firstNameInputText"
+            type="text"
             value={firstName}
             onChange={({ target: { value } }) => dispatch(setFirstName(value))}
           />
-          <ArrowButton ref={arrowButtonRef} onClick={handleExpand} />
         </ClayForm.Group>
         <ClayButton
           displayType="primary"
@@ -126,7 +143,8 @@ const SearchField: React.FC<props> = ({
         style={fieldSize}
         active={expand}
         alignElementRef={triggerElementRef}
-        onSetActive={() => {}}
+        closeOnClickOutside
+        onSetActive={() => { }}
       >
         <SearchFilters
           fetchData={() => {
