@@ -68,7 +68,6 @@ public class ProposalApplication extends Application {
 		try {
 			List<ProductDTO> products = _productLocalService.getProductsByUserId(userId);
 
-		try {
 			responseBuilder = Response.ok(
 			).entity(
 				products
