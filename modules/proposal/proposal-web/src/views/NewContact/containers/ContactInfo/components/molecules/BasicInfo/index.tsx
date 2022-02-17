@@ -16,7 +16,7 @@ import {
   contactTypeOptions,
   contactTypes,
 } from "../../../../../../../constants/contactConstants";
-import useFieldValidation from "../../../../../hooks/useFieldValidation";
+import { useFieldValidation, useJumpFocus } from "../../../../../hooks";
 import {
   validateDay,
   validateMonth,
@@ -63,6 +63,8 @@ const BasicInfo: React.FC = () => {
   const [oibRef, oibError, hasOibError] = useFieldValidation<HTMLInputElement>(
     React.useCallback(validateOib, [])
   );
+  useJumpFocus(dateDay, "birthDateMonth", 2);
+  useJumpFocus(dateMonth, "birthDateYear", 2);
 
   const showIndividualFields = contactType === contactTypes.Individual;
 
