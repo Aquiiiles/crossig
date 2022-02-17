@@ -28,6 +28,7 @@ const ContactSearch: React.FC = () => {
     pages,
     { goToNextPage, goToPrevPage, goToPage },
     handleNewTotal,
+    totalPages,
   ] = usePagination(contactsLimit);
   const {
     firstName,
@@ -121,7 +122,6 @@ const ContactSearch: React.FC = () => {
             <SearchResult
               data={data}
               loading={loading}
-              fetchData={fetchData}
               paginationData={{
                 lowerRange: (currentPage - 1) * contactsLimit + 1,
                 upperRange: Math.min(
@@ -134,6 +134,7 @@ const ContactSearch: React.FC = () => {
                 goToPrevPage,
                 goToPage,
                 handleNewTotal,
+                totalPages,
               }}
             />
             <LinkWrapper>

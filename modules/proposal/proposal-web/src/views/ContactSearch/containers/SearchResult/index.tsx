@@ -26,7 +26,6 @@ import { FetchContactsFunction } from "../../types/fetchData";
 interface props {
   data: Array<any>;
   loading: boolean;
-  fetchData: FetchContactsFunction;
   paginationData: {
     lowerRange: number;
     upperRange: number;
@@ -36,13 +35,13 @@ interface props {
     goToPrevPage: () => void;
     goToPage: (pageIndex: PageIndex) => void;
     handleNewTotal: (newTotal: number) => void;
+    totalPages: () => number;
   };
 }
 
 const SearchResult: React.FC<props> = ({
   data,
   loading,
-  fetchData,
   paginationData,
 }: props) => {
   const dispatch = useContactDispatch();

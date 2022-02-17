@@ -13,6 +13,7 @@ interface props {
     goToNextPage: () => void;
     goToPrevPage: () => void;
     goToPage: (pageIndex: PageIndex) => void;
+    totalPages: () => number;
   };
 }
 
@@ -26,6 +27,7 @@ const Pagination: React.FC<props> = ({
     goToNextPage,
     goToPrevPage,
     goToPage,
+    totalPages,
   },
 }) => {
   return (
@@ -48,8 +50,15 @@ const Pagination: React.FC<props> = ({
             return <ClayPagination.Item>{page}</ClayPagination.Item>;
           }
         })}
-        <ClayPagination.Item onClick={goToPrevPage}>{"<"}</ClayPagination.Item>
-        <ClayPagination.Item onClick={goToNextPage}>{">"}</ClayPagination.Item>
+        <ClayPagination.Item disabled={currentPage <= 1} onClick={goToPrevPage}>
+          {"<"}
+        </ClayPagination.Item>
+        <ClayPagination.Item
+          disabled={currentPage >= totalPages()}
+          onClick={goToNextPage}
+        >
+          {">"}
+        </ClayPagination.Item>
       </ClayPagination>
     </Wrapper>
   );
