@@ -43,8 +43,8 @@ const TableRow: React.FC<props> = ({ contact }) => {
     >
       <ClayTable.Cell headingTitle>
         <MissingInformationIcon emailValidated phoneValidated={false} />
+        {contact[constants.OIB_KEY]}
       </ClayTable.Cell>
-      <ClayTable.Cell headingTitle>{contact[constants.OIB_KEY]}</ClayTable.Cell>
       <ClayTable.Cell headingTitle>{contact[constants.SUB_KEY]}</ClayTable.Cell>
       <ClayTable.Cell headingTitle>
         {formatDOB(contact[constants.DOB_KEY])}

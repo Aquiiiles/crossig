@@ -2,7 +2,7 @@ import React from "react";
 import ClayIcon from "@clayui/icon";
 import spritemap from "@clayui/css/lib/images/icons/icons.svg";
 import { ClayTooltipProvider } from "@clayui/tooltip";
-import { Button } from "./styles";
+import { Button, Wrapper } from "./styles";
 import {
   CONTACT_SEARCH_RESULT_EMAIL_NOT_VALIDATED,
   CONTACT_SEARCH_RESULT_EMAIL_VALIDATED,
@@ -28,11 +28,13 @@ const MissingInformationIcon: React.FC<{
   return (
     <>
       {(!emailValidated || !phoneValidated) && (
+        <Wrapper>
         <ClayTooltipProvider>
           <Button title={validationMessage}>
             <ClayIcon symbol="warning" spritemap={spritemap} />
           </Button>
         </ClayTooltipProvider>
+        </Wrapper>
       )}
     </>
   );

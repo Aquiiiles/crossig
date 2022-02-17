@@ -8,3 +8,8 @@ export const Button = styled.button`
   max-width: 100%;
   padding: 0;
 `
+
+export const Wrapper = styled.span`
+  float: left;
+  margin-right: 1rem;
+`
