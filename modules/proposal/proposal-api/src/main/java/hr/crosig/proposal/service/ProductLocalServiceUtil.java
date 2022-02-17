@@ -256,8 +256,8 @@ public class ProductLocalServiceUtil {
 		return getService().getProducts(start, end);
 	}
 
-	public static List<Product> getProducts(long roleId) {
-		return getService().getProducts(roleId);
+	public static List<Product> getProductsByRoleId(long roleId) {
+		return getService().getProductsByRoleId(roleId);
 	}
 
 	/**

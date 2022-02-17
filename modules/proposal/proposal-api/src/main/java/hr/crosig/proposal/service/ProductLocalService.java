@@ -239,7 +239,7 @@ public interface ProductLocalService
 	public List<Product> getProducts(int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Product> getProducts(long roleId);
+	public List<Product> getProductsByRoleId(long roleId);
 
 	/**
 	 * Returns the number of products.

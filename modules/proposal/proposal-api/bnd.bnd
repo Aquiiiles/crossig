@@ -1,9 +1,10 @@
 Bundle-Name: Crosig Agent Portal Proposal API
 Bundle-SymbolicName: hr.crosig.proposal.api
 Bundle-Version: 1.0.0
-Export-Package: hr.crosig.proposal.service,\
-                hr.crosig.proposal.model,\
-                hr.crosig.proposal.exception,\
-	            hr.crosig.proposal.service.persistence
+Export-Package:\
+	hr.crosig.proposal.service,\
+				hr.crosig.proposal.model,\
+				hr.crosig.proposal.exception,\
+			hr.crosig.proposal.service.persistence
 -check: EXPORTS
 -includeresource: META-INF/service.xml=../proposal-service/service.xml

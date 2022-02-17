@@ -1,7 +1,7 @@
 package hr.crosig.proposal.rest.application;
 
-import hr.crosig.proposal.model.Product;
 import hr.crosig.proposal.rest.application.enums.InsuredRole;
+import hr.crosig.proposal.service.ProductLocalService;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,7 +16,6 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import hr.crosig.proposal.service.ProductLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
@@ -29,8 +28,8 @@ import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 		JaxrsWhiteboardConstants.JAX_RS_APPLICATION_BASE + "=/agent-portal/proposal",
 		JaxrsWhiteboardConstants.JAX_RS_NAME + "=Proposal.Rest",
 		JaxrsWhiteboardConstants.JAX_RS_MEDIA_TYPE + "=application/json",
-		"auth.verifier.guest.allowed=true",
-		"liferay.access.control.disable=true"
+		"auth.verifier.guest.allowed=false",
+		"liferay.access.control.disable=false"
 	},
 	service = Application.class
 )
@@ -62,33 +61,32 @@ public class ProposalApplication extends Application {
 	}
 
 	@GET
-	@Path("/products/{roleId}")
+	@Path("/products/{userId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getProducts(@PathParam("roleId") long roleId) {
+	public Response getProducts(@PathParam("userId") long userId) {
 		Response.ResponseBuilder responseBuilder;
-		try {
-			List<Product> products = _productLocalService.getProducts(roleId);
 
+		try {
 			responseBuilder = Response.ok(
 			).entity(
-					products
+				_productLocalService.getProductsByRoleId(userId)
 			);
-		} catch (Exception exception) {
+		}
+		catch (Exception exception) {
 			responseBuilder = Response.serverError(
 			).entity(
-					exception.getMessage()
+				exception.getMessage()
 			);
-
 		}
+
 		return responseBuilder.build();
 	}
-
-	@Reference
-	protected ProductLocalService _productLocalService;
-
 
 	public Set<Object> getSingletons() {
 		return Collections.<Object>singleton(this);
 	}
+
+	@Reference
+	private ProductLocalService _productLocalService;
 
 }
