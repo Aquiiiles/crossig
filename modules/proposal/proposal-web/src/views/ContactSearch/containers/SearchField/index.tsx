@@ -18,6 +18,7 @@ import {
 } from "../../../../redux/store";
 import { actions } from "../../../../redux/searchFilterSlice";
 import { PageIndex } from "../../hooks/usePagination";
+import useOnClickOutside from "../../../../shared/hooks/useOnClickOutside";
 
 interface props {
   currentPage: number;
@@ -38,11 +39,17 @@ const SearchField: React.FC<props> = ({
   const [fieldWidth, setFieldWidth] = useState(0);
   const triggerElementRef = useRef<HTMLInputElement>(null);
   const menuElementRef = useRef<HTMLDivElement>(null);
+  const arrowButtonRef = useRef<HTMLButtonElement>(null);
   const [countries, setCountries] = useState<Array<any>>([]);
   const { firstName, phoneNumber, areaCode, email } = useContactSelector(
     state => state.searchFilter
   );
   const { setFirstName } = actions;
+  useOnClickOutside<HTMLDivElement>(
+    menuElementRef,
+    useCallback(() => setExpand(false), []),
+    arrowButtonRef
+  );
 
   const loadCountries = useCallback(() => {
     Liferay.Service(
@@ -98,7 +105,7 @@ const SearchField: React.FC<props> = ({
             value={firstName}
             onChange={({ target: { value } }) => dispatch(setFirstName(value))}
           />
-          <ArrowButton onClick={handleExpand} />
+          <ArrowButton ref={arrowButtonRef} onClick={handleExpand} />
         </ClayForm.Group>
         <ClayButton
           displayType="primary"
@@ -119,7 +126,6 @@ const SearchField: React.FC<props> = ({
         style={fieldSize}
         active={expand}
         alignElementRef={triggerElementRef}
-        closeOnClickOutside
         onSetActive={() => {}}
       >
         <SearchFilters
