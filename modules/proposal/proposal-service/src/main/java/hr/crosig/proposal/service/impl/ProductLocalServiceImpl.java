@@ -15,18 +15,20 @@
 package hr.crosig.proposal.service.impl;
 
 import com.liferay.portal.aop.AopService;
-
+import com.liferay.portal.kernel.model.Role;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import hr.crosig.proposal.model.Product;
 import hr.crosig.proposal.model.ProductRole;
 import hr.crosig.proposal.service.base.ProductLocalServiceBaseImpl;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.osgi.service.component.annotations.Component;
-
 /**
- * @author Brian Wing Shun Chan
+ * @author David Martini
  */
 @Component(
 	property = "model.class.name=hr.crosig.proposal.model.Product",
@@ -34,7 +36,20 @@ import org.osgi.service.component.annotations.Component;
 )
 public class ProductLocalServiceImpl extends ProductLocalServiceBaseImpl {
 
-	public List<Product> getProductsByRoleId(long roleId) {
+	public List<Product> getProductsByUserId(long userId) {
+		List<Role> userRoles = _roleLocalService.getUserRoles(userId);
+
+		return userRoles.stream(
+		).map(
+			role -> getProductsByRoleId(role.getRoleId())
+		).flatMap(
+			Collection::stream
+		).collect(
+			Collectors.toList()
+		);
+	}
+
+	protected List<Product> getProductsByRoleId(long roleId) {
 		List<ProductRole> list = productRolePersistence.findByRoleId(roleId);
 
 		return list.stream(
@@ -45,5 +60,8 @@ public class ProductLocalServiceImpl extends ProductLocalServiceBaseImpl {
 			Collectors.toList()
 		);
 	}
+
+	@Reference
+	private RoleLocalService _roleLocalService;
 
 }
