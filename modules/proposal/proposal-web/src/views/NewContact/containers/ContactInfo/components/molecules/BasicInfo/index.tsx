@@ -133,73 +133,80 @@ const BasicInfo: React.FC = () => {
         </Row>
       )}
       <Row half={!showIndividualFields}>
-        {showIndividualFields ? (
-          <ClayForm.Group
-            className={
-              hasDayError || hasMonthError || hasYearError ? "has-error" : ""
-            }
-          >
-            <label htmlFor="dateOfBirthInput">
-              {CREATE_NEW_CONTACT.FIELD.BIRTH_DATE}
-            </label>
-            <div className="birth-date-group">
-              <ClayInput
-                ref={dayRef}
-                required={showIndividualFields}
-                id="birthDateDay"
-                type="text"
-                onChange={({ target: { value } }) =>
-                  dispatch(setDateDay(value))
+        <ClayForm.Group>
+          <ClayInput.Group>
+            {showIndividualFields ? (
+              <ClayInput.GroupItem
+                className={
+                  hasDayError || hasMonthError || hasYearError
+                    ? "has-error"
+                    : ""
                 }
-                placeholder="DD"
-                value={dateDay}
-              />
-              <ClayInput
-                ref={monthRef}
-                required={showIndividualFields}
-                id="birthDateMonth"
-                type="text"
-                onChange={({ target: { value } }) =>
-                  dispatch(setDateMonth(value))
-                }
-                placeholder="MM"
-                value={dateMonth}
-              />
-              <ClayInput
-                ref={yearRef}
-                required={showIndividualFields}
-                id="birthDateYear"
-                type="text"
-                onChange={({ target: { value } }) =>
-                  dispatch(setDateYear(value))
-                }
-                value={dateYear}
-              />
-            </div>
-            {hasDayError || hasMonthError || hasYearError ? (
-              <ClayForm.FeedbackGroup>
-                <ClayForm.FeedbackItem>{dayError}</ClayForm.FeedbackItem>
-                <ClayForm.FeedbackItem>{monthError}</ClayForm.FeedbackItem>
-                <ClayForm.FeedbackItem>{yearError}</ClayForm.FeedbackItem>
-              </ClayForm.FeedbackGroup>
+              >
+                <label htmlFor="birthDateDay">
+                  {CREATE_NEW_CONTACT.FIELD.BIRTH_DATE}
+                </label>
+                <div className="birth-date-group">
+                  <ClayInput
+                    ref={dayRef}
+                    required={showIndividualFields}
+                    id="birthDateDay"
+                    type="text"
+                    onChange={({ target: { value } }) =>
+                      dispatch(setDateDay(value))
+                    }
+                    placeholder="DD"
+                    value={dateDay}
+                  />
+                  <ClayInput
+                    ref={monthRef}
+                    required={showIndividualFields}
+                    id="birthDateMonth"
+                    type="text"
+                    onChange={({ target: { value } }) =>
+                      dispatch(setDateMonth(value))
+                    }
+                    placeholder="MM"
+                    value={dateMonth}
+                  />
+                  <ClayInput
+                    ref={yearRef}
+                    required={showIndividualFields}
+                    id="birthDateYear"
+                    type="text"
+                    onChange={({ target: { value } }) =>
+                      dispatch(setDateYear(value))
+                    }
+                    placeholder="YYYY"
+                    value={dateYear}
+                  />
+                </div>
+                {hasDayError || hasMonthError || hasYearError ? (
+                  <ClayForm.FeedbackGroup>
+                    <ClayForm.FeedbackItem>{dayError}</ClayForm.FeedbackItem>
+                    <ClayForm.FeedbackItem>{monthError}</ClayForm.FeedbackItem>
+                    <ClayForm.FeedbackItem>{yearError}</ClayForm.FeedbackItem>
+                  </ClayForm.FeedbackGroup>
+                ) : null}
+              </ClayInput.GroupItem>
             ) : null}
-          </ClayForm.Group>
-        ) : null}
-        <ClayForm.Group className={hasOibError ? "has-error" : ""}>
-          <label htmlFor="oibInput">{CREATE_NEW_CONTACT.FIELD.OIB}</label>
-          <ClayInput
-            required={foreignerStatus ? false : true}
-            id="oibInput"
-            type="text"
-            onChange={({ target: { value } }) => dispatch(setOIB(value))}
-            value={oib}
-            ref={oibRef}
-          />
-          {hasOibError ? (
-            <ClayForm.FeedbackGroup>
-              <ClayForm.FeedbackItem>{oibError}</ClayForm.FeedbackItem>
-            </ClayForm.FeedbackGroup>
-          ) : null}
+            <ClayInput.GroupItem className={hasOibError ? "has-error" : ""}>
+              <label htmlFor="oibInput">{CREATE_NEW_CONTACT.FIELD.OIB}</label>
+              <ClayInput
+                required={foreignerStatus ? false : true}
+                id="oibInput"
+                type="text"
+                onChange={({ target: { value } }) => dispatch(setOIB(value))}
+                value={oib}
+                ref={oibRef}
+              />
+              {hasOibError ? (
+                <ClayForm.FeedbackGroup>
+                  <ClayForm.FeedbackItem>{oibError}</ClayForm.FeedbackItem>
+                </ClayForm.FeedbackGroup>
+              ) : null}
+            </ClayInput.GroupItem>
+          </ClayInput.Group>
         </ClayForm.Group>
       </Row>
       {!showIndividualFields ? (
