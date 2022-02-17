@@ -9,9 +9,7 @@ function App() {
 
       <div>
         <header>
-          <h1>
-            Typography
-          </h1>
+          <h1> Typography</h1>
         </header>
         <div className="text-left pt-5">
 

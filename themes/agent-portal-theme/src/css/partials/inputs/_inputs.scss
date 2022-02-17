@@ -201,6 +201,12 @@
 
     }
 
+    .custom-control-input:checked ~ .custom-control-label::before {
+        color: $color-neutral-white;
+        border-color: $color-action-active;
+        background-color: $color-action-active;
+    }
+
     .form-checkbox {
         height: 2.125rem;
         width: 2.125rem;
@@ -241,5 +247,6 @@
         }
 
     }
-
 }
+
+    

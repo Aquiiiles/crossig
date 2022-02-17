@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 import InputText from "./components/atoms/InputText";
 import TextAreaInput from "./components/atoms/TextArea";
-import CheckboxInput from "./components/atoms/Checkbox";
+import {ClayCheckbox} from '@clayui/form';
 import ToggleInput from "./components/atoms/Toogle";
 import RadioInput from "./components/atoms/Radio";
 import SelectInput from "./components/atoms/Select";
@@ -44,6 +44,8 @@ const FormSample: React.FC = () => {
   const handleChanges = (id: string, value: any) => {
     console.log("field:", id, " | value:", value);
   };
+
+  const [value, setValue] = useState(false);
 
   return (
     <div>
@@ -261,19 +263,12 @@ const FormSample: React.FC = () => {
 
       <ClayLayout.Row justify="center">
         <ClayLayout.Col size={4} style={colStyles}>
-          {/* <CheckboxInput
-            id="checkboxInput"
-            options={[1, 2, 3, 4, 5, 6]}
-            selectedValues={[1]}
-            showFeedback={false}
-            defaultValue="[]"
-            label="Checkbox"
-            labelHint=""
-            feedbackMsg=""
-            disabled={false}
-            required={true}
-            handleFieldChange={(id: string, fieldValue: any) => handleChanges(id, fieldValue)}
-          /> */}
+          <ClayCheckbox
+            aria-label="Aria label"
+            checked={value}
+            onChange={() => setValue(val => !val)}
+            label="Label for the checkbox"
+          />
         </ClayLayout.Col>
       </ClayLayout.Row>
     </div>
