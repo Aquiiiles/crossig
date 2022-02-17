@@ -1,4 +1,39 @@
 {
+	"auth": {
+		"basic": [
+			{
+				"key": "password",
+				"type": "string",
+				"value": "test"
+			},
+			{
+				"key": "username",
+				"type": "string",
+				"value": "test@liferay.com"
+			}
+		],
+		"type": "basic"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"exec": [
+					""
+				],
+				"type": "text/javascript"
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"exec": [
+					""
+				],
+				"type": "text/javascript"
+			}
+		}
+	],
 	"info": {
 		"_postman_id": "e14839a0-55e3-4668-9ce3-a30f66278e1d",
 		"name": "Crosig Agent Portal Contact",
@@ -8,62 +43,65 @@
 		{
 			"name": "Create Contact",
 			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
 				"body": {
 					"mode": "raw",
-					"raw": "  {\n    \"addresses\": [\n      {\n        \"zipCode\": \"32100\",\n        \"country\": {\n          \"id\": 51\n        },\n        \"apartmentNr\": \"222\",\n        \"addressType\": {\n          \"id\": 1000000\n        },\n        \"streetName\": \"ANTUNA MIHANOVIĆA\",\n        \"cityName\": \"VINKOVCI\",\n        \"houseNr\": \"1\",\n        \"isPreferredDeliveryAddress\": true\n      }\n    ],\n    \"entityType\": {\n         \"id\": 1\n    },\n    \"identifiers\": [\n        {\n            \"idType\": {\n                \"id\": 1000000\n            },\n            \"idValue\": \"36584978501\"\n        }\n    ],\n    \"dateOfBirth\": \"1979-02-03T00:00:00.000Z\",\n    \"firstName\": \"Leonardo\",\n    \"name\": \"Miyagi\",\n    \"middleName\": \"\"\n  }\n\n",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
-					}
+					},
+					"raw": "  {\n    \"addresses\": [\n      {\n        \"zipCode\": \"32100\",\n        \"country\": {\n          \"id\": 51\n        },\n        \"apartmentNr\": \"222\",\n        \"addressType\": {\n          \"id\": 1000000\n        },\n        \"streetName\": \"ANTUNA MIHANOVIĆA\",\n        \"cityName\": \"VINKOVCI\",\n        \"houseNr\": \"1\",\n        \"isPreferredDeliveryAddress\": true\n      }\n    ],\n    \"entityType\": {\n         \"id\": 1\n    },\n    \"identifiers\": [\n        {\n            \"idType\": {\n                \"id\": 1000000\n            },\n            \"idValue\": \"36584978501\"\n        }\n    ],\n    \"dateOfBirth\": \"1979-02-03T00:00:00.000Z\",\n    \"firstName\": \"Leonardo\",\n    \"name\": \"Miyagi\",\n    \"middleName\": \"\"\n  }\n\n"
 				},
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"method": "POST",
 				"url": {
-					"raw": "{{localURL}}contact",
 					"host": [
 						"{{localURL}}contact"
-					]
+					],
+					"raw": "{{localURL}}contact"
 				}
 			},
-			"response": []
+			"response": [
+			]
 		},
 		{
 			"name": "Update Contact",
 			"request": {
-				"method": "PUT",
-				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"addresses\": [\n    {\n      \"addressType\": {\n        \"id\": 1000000\n      },\n      \"apartmentNr\": \"222\",\n      \"cityName\": \"VINKOVCI\",\n      \"country\": {\n        \"id\": 51\n      },\n      \"houseNr\": \"1\",\n      \"isPreferredDeliveryAddress\": true,\n      \"streetName\": \"ANTUNA MIHANOVIĆA\",\n      \"zipCode\": \"32100\"\n    }\n  ],\n  \"dateOfBirth\": \"1979-02-03T00:00:00.000Z\",\n  \"emails\": [\n    {\n      \"email\": \"leonardo@email.com.br\",\n      \"emailType\": {\n        \"id\": 1\n      },\n      \"isPreferredDeliveryAddress\": true\n    }\n  ],\n  \"entityType\": {\n    \"id\": 1\n  },\n  \"firstName\": \"Leonardo\",\n  \"identifiers\": [\n    {\n      \"idType\": {\n        \"id\": 1000000\n      },\n      \"idValue\": \"36584978501\"\n    }\n  ],\n  \"middleName\": \"\",\n  \"name\": \"Miyagi\",\n  \"id\": 526332\n}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
-					}
+					},
+					"raw": "{\n  \"addresses\": [\n    {\n      \"addressType\": {\n        \"id\": 1000000\n      },\n      \"apartmentNr\": \"222\",\n      \"cityName\": \"VINKOVCI\",\n      \"country\": {\n        \"id\": 51\n      },\n      \"houseNr\": \"1\",\n      \"isPreferredDeliveryAddress\": true,\n      \"streetName\": \"ANTUNA MIHANOVIĆA\",\n      \"zipCode\": \"32100\"\n    }\n  ],\n  \"dateOfBirth\": \"1979-02-03T00:00:00.000Z\",\n  \"emails\": [\n    {\n      \"email\": \"leonardo@email.com.br\",\n      \"emailType\": {\n        \"id\": 1\n      },\n      \"isPreferredDeliveryAddress\": true\n    }\n  ],\n  \"entityType\": {\n    \"id\": 1\n  },\n  \"firstName\": \"Leonardo\",\n  \"identifiers\": [\n    {\n      \"idType\": {\n        \"id\": 1000000\n      },\n      \"idValue\": \"36584978501\"\n    }\n  ],\n  \"middleName\": \"\",\n  \"name\": \"Miyagi\",\n  \"id\": 526332\n}"
 				},
+				"header": [
+				],
+				"method": "PUT",
 				"url": {
-					"raw": "{{localURL}}contact",
 					"host": [
 						"{{localURL}}contact"
-					]
+					],
+					"raw": "{{localURL}}contact"
 				}
 			},
-			"response": []
+			"response": [
+			]
 		},
 		{
 			"name": "Get Cities",
 			"request": {
+				"header": [
+				],
 				"method": "GET",
-				"header": [],
 				"url": {
-					"raw": "{{localURL}}address/city?cityName=SOK",
 					"host": [
 						"{{localURL}}address"
 					],
@@ -75,18 +113,20 @@
 							"key": "cityName",
 							"value": "SOK"
 						}
-					]
+					],
+					"raw": "{{localURL}}address/city?cityName=SOK"
 				}
 			},
-			"response": []
+			"response": [
+			]
 		},
 		{
 			"name": "Get Streets by City",
 			"request": {
+				"header": [
+				],
 				"method": "GET",
-				"header": [],
 				"url": {
-					"raw": "{{localURL}}address/streets?cityId=4501&streetName=ULI",
 					"host": [
 						"{{localURL}}address"
 					],
@@ -102,155 +142,129 @@
 							"key": "streetName",
 							"value": "ULI"
 						}
-					]
+					],
+					"raw": "{{localURL}}address/streets?cityId=4501&streetName=ULI"
 				}
 			},
-			"response": []
+			"response": [
+			]
 		},
 		{
 			"name": "Get Area Codes",
 			"request": {
+				"header": [
+				],
 				"method": "GET",
-				"header": [],
 				"url": {
-					"raw": "{{localURL}}phone/area-code",
 					"host": [
 						"{{localURL}}phone"
 					],
 					"path": [
 						"area-code"
-					]
+					],
+					"raw": "{{localURL}}phone/area-code"
 				}
 			},
-			"response": []
+			"response": [
+			]
 		},
 		{
 			"name": "Mail Validation",
 			"request": {
-				"method": "POST",
-				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "[\n  {\n    \"email\":\"test@crosig.hr\",\n    \"emailType\": {\n        \"id\": 1\n    }\n  }\n]",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
-					}
+					},
+					"raw": "[\n  {\n    \"email\":\"test@crosig.hr\",\n    \"emailType\": {\n        \"id\": 1\n    }\n  }\n]"
 				},
+				"header": [
+				],
+				"method": "POST",
 				"url": {
-					"raw": "{{localURL}}contact/email/verification",
 					"host": [
 						"{{localURL}}contact"
 					],
 					"path": [
 						"email",
 						"verification"
-					]
+					],
+					"raw": "{{localURL}}contact/email/verification"
 				}
 			},
-			"response": []
+			"response": [
+			]
 		},
 		{
 			"name": "Phone Validation",
 			"request": {
-				"method": "POST",
-				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "[\n    {\n        \"telephoneNumber\": \"6457900\",\n        \"telephoneType\": {\n            \"id\": 1\n        }\n    }\n]",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
-					}
+					},
+					"raw": "[\n    {\n        \"telephoneNumber\": \"6457900\",\n        \"telephoneType\": {\n            \"id\": 1\n        }\n    }\n]"
 				},
+				"header": [
+				],
+				"method": "POST",
 				"url": {
-					"raw": "{{localURL}}contact/phone/verification",
 					"host": [
 						"{{localURL}}contact"
 					],
 					"path": [
 						"phone",
 						"verification"
-					]
+					],
+					"raw": "{{localURL}}contact/phone/verification"
 				}
 			},
-			"response": []
+			"response": [
+			]
 		},
 		{
 			"name": "Search Contact By OIB",
 			"request": {
 				"auth": {
-					"type": "basic",
 					"basic": [
 						{
 							"key": "password",
-							"value": "test",
-							"type": "string"
+							"type": "string",
+							"value": "test"
 						},
 						{
 							"key": "username",
-							"value": "test@liferay.com",
-							"type": "string"
+							"type": "string",
+							"value": "test@liferay.com"
 						}
-					]
+					],
+					"type": "basic"
 				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
 				"body": {
 					"mode": "raw",
 					"raw": "\n    {   \n        \"finderKey\": 1,\n        \"identityNumber\": \"36584978501\",\n        \"identifierType\": 1000000\n    }"
 				},
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"method": "POST",
 				"url": {
-					"raw": "{{localURL}}search",
 					"host": [
 						"{{localURL}}search"
-					]
+					],
+					"raw": "{{localURL}}search"
 				}
 			},
-			"response": []
-		}
-	],
-	"auth": {
-		"type": "basic",
-		"basic": [
-			{
-				"key": "password",
-				"value": "test",
-				"type": "string"
-			},
-			{
-				"key": "username",
-				"value": "test@liferay.com",
-				"type": "string"
-			}
-		]
-	},
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
+			"response": [
+			]
 		}
 	],
 	"variable": [

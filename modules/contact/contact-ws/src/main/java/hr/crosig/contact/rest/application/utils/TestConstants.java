@@ -7,9 +7,10 @@ import hr.crosig.contact.dto.EmailDTO;
 import hr.crosig.contact.dto.SearchDTO;
 import hr.crosig.contact.dto.TelephoneDTO;
 
-import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.ws.rs.core.Response;
 
 /**
  * @author marcelo.mazurky
@@ -19,10 +20,10 @@ public class TestConstants {
 	// api response constants
 
 	public static final int API_BAD_REQUEST_STATUS_CODE =
-			Response.Status.BAD_REQUEST.getStatusCode();
+		Response.Status.BAD_REQUEST.getStatusCode();
 
 	public static final String API_BAD_REQUEST_STATUS_CONTENT =
-			Response.Status.BAD_REQUEST.getReasonPhrase();
+		Response.Status.BAD_REQUEST.getReasonPhrase();
 
 	public static final int API_ERROR_STATUS_CODE =
 		Response.Status.INTERNAL_SERVER_ERROR.getStatusCode();
@@ -55,12 +56,9 @@ public class TestConstants {
 	public static final String VALID_STREET_NAME = "VUGRINŠČAK";
 
 	public static final List<CityDTO> validCity = new ArrayList<>();
-
 	public static final List<EmailDTO> validEmailRequest = new ArrayList<>();
-
 	public static final List<TelephoneDTO> validPhoneNumberRequest =
 		new ArrayList<>();
-
 	public static final List<String> validStreet = new ArrayList<>();
 
 }
