@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.Validator;
 
 import hr.crosig.common.ws.response.ServiceResponse;
 
@@ -26,6 +27,7 @@ public class ApplicationUtilities {
 
 	/**
 	 * Creates an Entity Json in String by an Entity Map
+	 *
 	 * @param entity
 	 * @return
 	 */
@@ -37,6 +39,7 @@ public class ApplicationUtilities {
 
 	/**
 	 * Creates an Entity Json in String by an Entity Object
+	 *
 	 * @param entity
 	 * @return
 	 */
@@ -50,6 +53,7 @@ public class ApplicationUtilities {
 
 	/**
 	 * Gets the Default HTTP Client
+	 *
 	 * @return
 	 */
 	public static synchronized Client getDefaultHttpClient() {
@@ -63,6 +67,7 @@ public class ApplicationUtilities {
 
 	/**
 	 * Handles the Error Response by Exception
+	 *
 	 * @param e
 	 * @return
 	 */
@@ -78,6 +83,7 @@ public class ApplicationUtilities {
 
 	/**
 	 * Handles Error Response by Status Code and Response
+	 *
 	 * @param statusCode
 	 * @param response
 	 * @return
@@ -85,17 +91,26 @@ public class ApplicationUtilities {
 	public static Response handleErrorResponse(
 		int statusCode, String response) {
 
+		if (Validator.isNotNull(response)) {
+			_log.error(response);
+		}
+
+		Response.Status status = Response.Status.fromStatusCode(statusCode);
+
+		String resp = (status != null) && (status.getReasonPhrase() != null) ?
+			status.getReasonPhrase() :
+				Response.Status.INTERNAL_SERVER_ERROR.getReasonPhrase();
+
 		return Response.status(
 			statusCode
 		).entity(
-			Response.Status.fromStatusCode(
-				statusCode
-			).getReasonPhrase()
+			resp
 		).build();
 	}
 
 	/**
 	 * Handles the Service Response
+	 *
 	 * @param serviceResponse
 	 * @return
 	 */
@@ -118,6 +133,7 @@ public class ApplicationUtilities {
 
 	/**
 	 * Handles the Success Response
+	 *
 	 * @param response
 	 * @return
 	 */
@@ -131,6 +147,7 @@ public class ApplicationUtilities {
 
 	/**
 	 * Configures the Json Mapper
+	 *
 	 * @return
 	 */
 	private static ObjectMapper _configureJsonMapper() {
