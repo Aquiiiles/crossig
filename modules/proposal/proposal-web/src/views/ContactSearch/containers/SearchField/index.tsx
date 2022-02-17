@@ -1,28 +1,55 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { useEffect, useState, useRef, useCallback } from "react";
-import {Link} from "react-router-dom";
 import ClayForm, { ClayInput } from "@clayui/form";
+import ClayButton from "@clayui/button";
 import ClayDropDown from "@clayui/drop-down";
 import SearchFilters from "./components/molecules/SearchFilters";
 import ArrowButton from "./components/atoms/ArrowButton";
-import SearchButton from "./components/atoms/SearchButton";
-import { Wrapper } from "./styles";
+import { mapToCountryCodes } from "../../../../shared/util/countryMappers";
+
+import { Wrapper, SearchWrapper } from "./styles";
 import {
   CONTACT_SEARCH_FIELD_NAME_OR_OIB,
-  CONTACT_SEARCH_CREATE_NEW_CONTACT,
+  CONTACT_SEARCH_ACTION_BUTTON,
 } from "../../../../constants/languageKeys";
-import { mapToCountryCodes } from "../../../../shared/util/countryMappers";
+import {
+  useContactSelector,
+  useContactDispatch,
+} from "../../../../redux/store";
+import { actions } from "../../../../redux/searchFilterSlice";
+import { PageIndex } from "../../hooks/usePagination";
+import useOnClickOutside from "../../../../shared/hooks/useOnClickOutside";
+
+interface props {
+  currentPage: number;
+  goToPage: (pageIndex: PageIndex) => void;
+  fetchData: () => void;
+}
 
 declare const Liferay: any;
 
-const SearchField: React.FC = () => {
-  const [name, setName] = useState("");
+const SearchField: React.FC<props> = ({
+  currentPage,
+  goToPage,
+  fetchData,
+}: props) => {
+  const dispatch = useContactDispatch();
   const [disabled, setDisabled] = useState(false);
-  const triggerElementRef = useRef<HTMLInputElement>(null);
   const [expand, setExpand] = useState(false);
   const [fieldWidth, setFieldWidth] = useState(0);
+  const triggerElementRef = useRef<HTMLInputElement>(null);
   const menuElementRef = useRef<HTMLDivElement>(null);
+  const arrowButtonRef = useRef<HTMLButtonElement>(null);
   const [countries, setCountries] = useState<Array<any>>([]);
+  const { firstName, phoneNumber, areaCode, email } = useContactSelector(
+    state => state.searchFilter
+  );
+  const { setFirstName } = actions;
+  useOnClickOutside<HTMLDivElement>(
+    menuElementRef,
+    useCallback(() => setExpand(false), []),
+    arrowButtonRef
+  );
 
   const loadCountries = useCallback(() => {
     Liferay.Service(
@@ -45,12 +72,17 @@ const SearchField: React.FC = () => {
   };
 
   useEffect(() => {
-    if (name.length > 0) {
+    const emailRegex = /\S+@\S+\.\S+/;
+    if (
+      firstName.length >= 3 ||
+      (phoneNumber.length > 0 && areaCode !== "") ||
+      emailRegex.test(email)
+    ) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [name]);
+  }, [firstName, phoneNumber, email, areaCode]);
   const fieldSize = { width: fieldWidth, maxWidth: fieldWidth };
 
   useEffect(() => {
@@ -61,20 +93,34 @@ const SearchField: React.FC = () => {
 
   return (
     <Wrapper>
-      <ClayForm.Group>
-        <label htmlFor="basicInputText">
-          {CONTACT_SEARCH_FIELD_NAME_OR_OIB}
-        </label>
-        <ClayInput
-          id="basicInputText"
-          type="text"
-          ref={triggerElementRef}
-          value={name}
-          onChange={e => setName(e.target.value)}
-        />
-        <SearchButton disabled={disabled} onClick={() => {}} />
-        <ArrowButton onClick={handleExpand} />
-      </ClayForm.Group>
+      <SearchWrapper>
+        <ClayForm.Group style={{ marginBottom: "0" }}>
+          <label className="body-small" htmlFor="basicInputText">
+            {CONTACT_SEARCH_FIELD_NAME_OR_OIB}
+          </label>
+          <ClayInput
+            id="basicInputText"
+            type="text"
+            ref={triggerElementRef}
+            value={firstName}
+            onChange={({ target: { value } }) => dispatch(setFirstName(value))}
+          />
+          <ArrowButton ref={arrowButtonRef} onClick={handleExpand} />
+        </ClayForm.Group>
+        <ClayButton
+          displayType="primary"
+          disabled={disabled}
+          onClick={() => {
+            if (currentPage === 1) {
+              fetchData();
+            } else {
+              goToPage(1);
+            }
+          }}
+        >
+          {CONTACT_SEARCH_ACTION_BUTTON}
+        </ClayButton>
+      </SearchWrapper>
       <ClayDropDown.Menu
         ref={menuElementRef}
         style={fieldSize}
@@ -82,10 +128,20 @@ const SearchField: React.FC = () => {
         alignElementRef={triggerElementRef}
         onSetActive={() => {}}
       >
-        <SearchFilters countries={mapToCountryCodes(countries)} />
+        <SearchFilters
+          fetchData={() => {
+            if (currentPage === 1) {
+              fetchData();
+            } else {
+              goToPage(1);
+            }
+            handleExpand();
+          }}
+          countries={mapToCountryCodes(countries)}
+          searchDisabled={disabled}
+        />
       </ClayDropDown.Menu>
       <div></div>
-      <Link to="new_contact">{CONTACT_SEARCH_CREATE_NEW_CONTACT}</Link>
     </Wrapper>
   );
 };

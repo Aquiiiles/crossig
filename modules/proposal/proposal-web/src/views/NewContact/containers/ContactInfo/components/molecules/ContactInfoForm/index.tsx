@@ -31,7 +31,10 @@ import {
 } from "../../../../../constants/index";
 
 import { actions } from "./slice/contactInfoSlice";
-import { useContactDispatch, useContactSelector } from "../../../contactStore";
+import {
+  useContactDispatch,
+  useContactSelector,
+} from "../../../../../../../redux/store";
 
 const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
   countries,
@@ -40,7 +43,7 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
   const dispatch = useContactDispatch();
 
   const { emailAddresses, mobilePhones } = useContactSelector(
-    (state) => state.contactInfo
+    state => state.contactInfo
   );
 
   const {

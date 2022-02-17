@@ -8,12 +8,15 @@ interface props {
   onClick: () => void;
 }
 
-const ArrowButton: React.FC<props> = ({  onClick }: props) => {
-  return (
-    <Button displayType={null} onClick={onClick}>
-      <ClayIcon symbol="angle-down" spritemap={spritemap} />
-    </Button>
-  );
-};
+const ArrowButton = React.forwardRef<HTMLButtonElement, props>(
+  ({ onClick }, ref) => {
+    return (
+      <Button ref={ref} displayType={null} onClick={onClick}>
+        <ClayIcon symbol="angle-down" spritemap={spritemap} />
+      </Button>
+    );
+  }
+);
+ArrowButton.displayName = "ArrowButton";
 
 export default ArrowButton;

@@ -11,7 +11,7 @@ import ClayForm, {
 import { contactTypes } from "../../../../../../../constants/contactConstants";
 import { countryNames } from "../../../../../../../constants/defaultCountryConfiguration";
 import { CREATE_NEW_CONTACT } from "../../../../../../../constants/languageKeys";
-import { useContactSelector } from "../../../contactStore";
+import { useContactSelector } from "../../../../../../../redux/store";
 import { Line } from "./styles";
 import { searchCitiesByName, searchStreetsByCityIdAndName } from "./controller";
 

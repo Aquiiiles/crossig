@@ -1,5 +1,8 @@
-import React from "react";
-import ClayForm, { ClayInput } from "@clayui/form";
+import React, { useEffect } from "react";
+import ClayForm, {
+  ClayInput,
+  ClaySelect,
+} from "@clayui/form";
 import ClayButton from "@clayui/button";
 import { ButtonsWrapper, InputWrappers, Wrapper } from "./styles";
 import {
@@ -10,39 +13,68 @@ import {
   CONTACT_SEARCH_FIELD_PHONE_NUMBER,
   CONTACT_SEARCH_FIELD_STREET_ADDRESS,
 } from "../../../../../../../constants/languageKeys";
-import AreaCodeSelect from "../../../../../../../shared/atoms/AreaCodeSelect";
 import CountryCodeSelect from "../../../../../../../shared/atoms/CountryCodeSelect";
 import { countryCodes as croatia } from "../../../../../../../constants/defaultCountryConfiguration";
 import { Country } from "../../../../../../../shared/types/index";
+import { useFetchData } from "../../../../../../../api/hooks/useFetchData";
+import { AREA_CODE_URL } from "../../../../../../../api/constants/routes";
+import {
+  useContactDispatch,
+  useContactSelector,
+} from "../../../../../../../redux/store";
+import { actions } from "../../../../../../../redux/searchFilterSlice";
 
-const SearchFilters: React.FC<{ countries: Array<Country> }> = ({
-  countries,
-}) => {
-  const [city, setCity] = React.useState("");
-  const [street, setStreet] = React.useState("");
-  const [countryCode, setCountryCode] = React.useState(croatia.label);
-  const [areaCode, setAreaCode] = React.useState("");
-  const [phoneNumber, setPhoneNumber] = React.useState("");
-  const [email, setEmail] = React.useState("");
-
-  const clearValues = () => {
-    setCity("");
-    setStreet("");
-    setCountryCode("");
-    setAreaCode("");
-    setPhoneNumber("");
-    setEmail("");
+type AreaCodeType = {
+  area_name: string;
+  area_code: number;
+};
+interface State {
+  status: string;
+  response: {
+    data: {
+      area_codes: Array<AreaCodeType>;
+    };
   };
+  statusMessage: string;
+  statusCode: string;
+}
+
+interface props {
+  fetchData: () => void;
+  searchDisabled: boolean;
+  countries: Array<Country>;
+}
+
+const SearchFilters: React.FC<props> = ({ countries, fetchData, searchDisabled }) => {
+  const { state, get: getAreaCode } = useFetchData();
+  const areaCodeData = state as State;
+
+  useEffect(() => {
+    getAreaCode(AREA_CODE_URL, {});
+  }, []);
+
+  const dispatch = useContactDispatch();
+  const { city, street, countryCode, areaCode, phoneNumber, email } =
+    useContactSelector(state => state.searchFilter);
+  const {
+    setCity,
+    setStreet,
+    setCountryCode,
+    setAreaCode,
+    setPhoneNumber,
+    setEmail,
+    clearFilterValues,
+  } = actions;
 
   const handleCountryCodeChange = (e: any) => {
-    setCountryCode(e.target.value);
+    dispatch(setCountryCode(e.target.value));
     if (e.target.value.toString() !== croatia.label) {
-      setAreaCode("");
+      dispatch(setAreaCode(""));
     }
   };
 
   const handleAreaCodeChange = (e: any) => {
-    setAreaCode(e.target.value);
+    dispatch(setAreaCode(e.target.value));
   };
 
   const disableAreaCode = () => {
@@ -62,7 +94,7 @@ const SearchFilters: React.FC<{ countries: Array<Country> }> = ({
         <ClayInput
           id="cityInput"
           type="text"
-          onChange={e => setCity(e.target.value.toString())}
+          onChange={({ target: { value } }) => dispatch(setCity(value))}
           value={city}
         />
       </ClayForm.Group>
@@ -73,15 +105,13 @@ const SearchFilters: React.FC<{ countries: Array<Country> }> = ({
         <ClayInput
           id="streetInput"
           type="text"
-          onChange={e => setStreet(e.target.value.toString())}
+          onChange={({ target: { value } }) => dispatch(setStreet(value))}
           value={street}
         />
       </ClayForm.Group>
       <InputWrappers>
         <ClayForm.Group>
-          <label htmlFor="countryInput">
-            {CONTACT_SEARCH_FIELD_COUNTRY_CODE}
-          </label>
+          <label htmlFor="countryInput">{CONTACT_SEARCH_FIELD_COUNTRY_CODE}</label>
           <CountryCodeSelect
             id={"countryInput"}
             className={""}
@@ -90,20 +120,29 @@ const SearchFilters: React.FC<{ countries: Array<Country> }> = ({
             handleChange={e => handleCountryCodeChange(e)}
           />
         </ClayForm.Group>
-
         <ClayForm.Group>
-          <label htmlFor="areaCodeInput">
-            {CONTACT_SEARCH_FIELD_AREA_CODE}
-          </label>
-          <AreaCodeSelect
-            id="areaCodeInput"
-            className={""}
-            disabled={disableAreaCode()}
-            entity={areaCode}
-            handleChange={e => handleAreaCodeChange(e)}
-          />
+          <label htmlFor="areaInput">{CONTACT_SEARCH_FIELD_AREA_CODE}</label>
+          {areaCodeData.response.data?.area_codes && (
+            <ClaySelect
+              aria-label={CONTACT_SEARCH_FIELD_AREA_CODE}
+              id="areaInput"
+              onChange={e => handleAreaCodeChange(e)}
+              value={areaCode}
+            >
+              <ClaySelect.Option label="Select" value="" />
+              {areaCodeData.response.data.area_codes.map(
+                (item: AreaCodeType) => (
+                  <ClaySelect.Option
+                    selected={areaCode === item.area_code.toString()}
+                    key={item.area_code}
+                    label={item.area_code.toString()}
+                    value={item.area_code}
+                  />
+                )
+              )}
+            </ClaySelect>
+          )}
         </ClayForm.Group>
-
         <ClayForm.Group>
           <label htmlFor="phoneNumber">
             {CONTACT_SEARCH_FIELD_PHONE_NUMBER}
@@ -111,7 +150,9 @@ const SearchFilters: React.FC<{ countries: Array<Country> }> = ({
           <ClayInput
             id="phoneNumber"
             type="text"
-            onChange={e => setPhoneNumber(e.target.value.toString())}
+            onChange={({ target: { value } }) =>
+              dispatch(setPhoneNumber(value))
+            }
             value={phoneNumber}
           />
         </ClayForm.Group>
@@ -121,18 +162,27 @@ const SearchFilters: React.FC<{ countries: Array<Country> }> = ({
         <ClayInput
           id="emailInput"
           type="text"
-          onChange={e => setEmail(e.target.value.toString())}
+          onChange={({ target: { value } }) => dispatch(setEmail(value))}
           value={email}
         />
       </ClayForm.Group>
       <ButtonsWrapper>
-        <ClayButton displayType="link" onClick={clearValues}>
+        <ClayButton
+          displayType="link"
+          onClick={() => dispatch(clearFilterValues())}
+        >
           Clear
         </ClayButton>
-        <ClayButton displayType="primary">Search</ClayButton>
+        <ClayButton
+          displayType="primary"
+          disabled={searchDisabled}
+          onClick={fetchData}
+        >
+          Search
+        </ClayButton>
       </ButtonsWrapper>
-    </Wrapper>
-  );
+      </Wrapper>
+    );
 };
 
 export default SearchFilters;

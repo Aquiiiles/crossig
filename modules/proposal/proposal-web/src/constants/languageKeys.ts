@@ -23,6 +23,7 @@ export const CONTACT_INFO_INVALID_EMAIL_MESSAGE = Liferay.Language.get('contact-
 
 export const CONTACT_SEARCH_TITLE= Liferay.Language.get('contact-search-title');
 export const CONTACT_SEARCH_SUBTITLE= Liferay.Language.get('contact-search-subtitle');
+export const CONTACT_SEARCH_ACTION_BUTTON= Liferay.Language.get('contact-search-action-button');
 export const CONTACT_SEARCH_FIELD_NAME_OR_OIB= Liferay.Language.get('contact-search-field-name-or-oib');
 export const CONTACT_SEARCH_FIELD_CITY= Liferay.Language.get('contact-search-field-city');
 export const CONTACT_SEARCH_FIELD_STREET_ADDRESS= Liferay.Language.get('contact-search-field-street-address');
@@ -31,6 +32,10 @@ export const CONTACT_SEARCH_FIELD_AREA_CODE= Liferay.Language.get('contact-searc
 export const CONTACT_SEARCH_FIELD_PHONE_NUMBER= Liferay.Language.get('contact-search-field-phone-number');
 export const CONTACT_SEARCH_FIELD_EMAIL_ADDRESS= Liferay.Language.get('contact-search-field-email-address');
 export const CONTACT_SEARCH_CREATE_NEW_CONTACT= Liferay.Language.get('contact-search-create-new-contact');
+export const CONTACT_SEARCH_TABLE_VIEW_DETAILS= Liferay.Language.get('contact-search-table-view-details');
+export const CONTACT_SEARCH_TABLE_USE_CONTACT= Liferay.Language.get('contact-search-table-use-contact');
+export const CONTACT_SEARCH_RESULT_CONTACTS_FOUND= Liferay.Language.get('contact-search-result-contacts-found');
+export const CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND= Liferay.Language.get('contact-search-result-no-contacts-found');
 export const CREATE_NEW_CONTACT = {
     TITLE: Liferay.Language.get('create-new-contact-title'),
     SUBTITLE: Liferay.Language.get('create-new-contact-subtitle'),
@@ -61,4 +66,15 @@ export const CREATE_NEW_CONTACT = {
         HOUSE_NUMBER : Liferay.Language.get('create-new-contact-field-house-number'),
         DISPATCH_ADDRESS : Liferay.Language.get('create-new-contact-field-dispatch-address'),
     },
+}
+export const CONTACT_RESULTS_TABLE = {
+    HEADER: {
+        OIB: Liferay.Language.get('contact-results-table-header-oib'),
+        SUB: Liferay.Language.get('contact-results-table-header-sub'),
+        DOB: Liferay.Language.get('contact-results-table-header-dob'),
+        NAME: Liferay.Language.get('contact-results-table-header-name'),
+        STREET: Liferay.Language.get('contact-results-table-header-street'),
+        CITY: Liferay.Language.get('contact-results-table-header-city'),
+        TYPE: Liferay.Language.get('contact-results-table-header-type'),
+    }
 }

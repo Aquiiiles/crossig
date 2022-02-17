@@ -12,6 +12,14 @@ import {
 } from "../reducers/constants";
 
 import API from "../";
+import { AxiosRequestConfig } from "axios";
+
+export type FetchDataFunction = (
+  method: NonNullable<AxiosRequestConfig["method"]>,
+  url: string,
+  params?: AxiosRequestConfig["params"],
+  data?: AxiosRequestConfig["data"]
+) => Promise<void>;
 
 const initialArgs = {
   status: IDLE,
@@ -27,18 +35,16 @@ export const useFetchData = () => {
 
   const dispatch = useSafeDispatch(unsafeDispatch);
 
-  const fetchData = useCallback(
-    async (url, params) => {
+  const fetchData: FetchDataFunction = useCallback(
+    async (method, url, params, data) => {
       dispatch({ type: PENDING });
-      API.post(url, params)
-        .then((response) => {
-          dispatch({ type: RESOLVED, response });
-          console.log("response", response);
-        })
-        .catch((error) => {
-          dispatch({ type: REJECTED, error });
-          console.log("error", error);
-        });
+      try {
+        const response = await API({ method, url, params, data });
+
+        dispatch({ type: RESOLVED, response });
+      } catch (error) {
+        dispatch({ type: REJECTED, error });
+      }
     },
     [dispatch]
   );
@@ -47,10 +53,10 @@ export const useFetchData = () => {
     (url, params) => {
       dispatch({ type: PENDING });
       API.get(url, params)
-        .then((response) => {
+        .then(response => {
           dispatch({ type: RESOLVED, response });
         })
-        .catch((error) => {
+        .catch(error => {
           dispatch({ type: REJECTED, error });
         });
     },
