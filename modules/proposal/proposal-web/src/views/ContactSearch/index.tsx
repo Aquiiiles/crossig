@@ -31,7 +31,9 @@ const ContactSearch: React.FC = () => {
     totalPages,
   ] = usePagination(contactsLimit);
   const {
+    OIB,
     firstName,
+    lastName,
     areaCode,
     phoneNumber,
     email,
@@ -50,8 +52,9 @@ const ContactSearch: React.FC = () => {
     const payload = {
       finderKey: 1,
       identifierType: 1000000,
-      identityNumber: /^\d+/.test(firstName) ? firstName : undefined,
-      name: /^[A-Za-z\s]+/.test(firstName) ? firstName : undefined,
+      identityNumber: /^\d+/.test(OIB) ? OIB : undefined,
+      firstName: /^[A-Za-z\s]+/.test(firstName) ? firstName : undefined,
+      name: /^[A-Za-z\s]+/.test(lastName) ? lastName : undefined,
       cityName:
         selectedCity !== "" ? selectedCity : city !== "" ? city : undefined,
       assetStreetName: street !== "" ? street : undefined,

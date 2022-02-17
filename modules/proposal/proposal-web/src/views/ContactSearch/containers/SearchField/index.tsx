@@ -4,12 +4,10 @@ import ClayForm, { ClayInput } from "@clayui/form";
 import ClayButton from "@clayui/button";
 import ClayDropDown from "@clayui/drop-down";
 import SearchFilters from "./components/molecules/SearchFilters";
-import ArrowButton from "./components/atoms/ArrowButton";
 import { mapToCountryCodes } from "../../../../shared/util/countryMappers";
 
 import { Wrapper, SearchWrapper } from "./styles";
 import {
-  CONTACT_SEARCH_FIELD_NAME_OR_OIB,
   CONTACT_SEARCH_ACTION_BUTTON,
   CONTACT_SEARCH_FIELD_OIB,
   CONTACT_SEARCH_FIELD_LAST_NAME_COMPANY_NAME_SE_NAME,
@@ -22,7 +20,7 @@ import {
 } from "../../../../redux/store";
 import { actions } from "../../../../redux/searchFilterSlice";
 import { PageIndex } from "../../hooks/usePagination";
-import { Console } from "console";
+import useOnClickOutside from "../../../../shared/hooks/useOnClickOutside";
 
 interface props {
   currentPage: number;
@@ -49,6 +47,11 @@ const SearchField: React.FC<props> = ({
     state => state.searchFilter
   );
   const { setFirstName, setOIB, setLastName } = actions;
+  useOnClickOutside<HTMLDivElement>(
+    menuElementRef,
+    useCallback(() => setExpand(false), []),
+    arrowButtonRef
+  );
 
   const loadCountries = useCallback(() => {
     Liferay.Service(
@@ -94,64 +97,83 @@ const SearchField: React.FC<props> = ({
 
   return (
     <Wrapper>
-      <ClayForm.Group>
-        <ClayInput.Group>
+      <SearchWrapper>
+        <ClayForm.Group style={{ marginBottom: "0" }}>
+          <ClayInput.Group>
           <ClayInput.GroupItem>
-            <label htmlFor="oibInputText">{CONTACT_SEARCH_FIELD_OIB}</label>
-            <ClayInput
-              id="oibInputText"
-              type="text"
-              value={oib}
-              onChange={(e) => setOib(e.target.value)}
-            />
-          </ClayInput.GroupItem>
-          <ClayInput.GroupItem>
-            <label htmlFor="lastCompanySeNameInputText">{CONTACT_SEARCH_FIELD_LAST_NAME_COMPANY_NAME_SE_NAME}</label>
-            <ClayInput
-              id="lastCompanySeNameInputText"
-              type="text"
-              value={lastCompanySeName}
-              onChange={(e) => setLastCompanySeName(e.target.value)}
-            />
-          </ClayInput.GroupItem>
-          <ClayInput.GroupItem>
-            <label htmlFor="firstNameInputText">{CONTACT_SEARCH_FIELD_FIRST_NAME}</label>
-            <ClayInput
-              id="firstNameInputText"
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-          </ClayInput.GroupItem>
-        </ClayInput.Group>
-      </ClayForm.Group>
-      <ClayForm.Group>
-        <ClayButton.Group>
-          <ClayButton displayType="primary" disabled={disabled} onClick={() => { }}>{CONTACT_SEARCH_BUTTON_SEARCH}</ClayButton>
-          <ClayButton displayType="link" ref={triggerElementRef} onClick={handleExpand}>{CONTACT_SEARCH_MORE_SEARCH_OPTIONS}</ClayButton>
-        </ClayButton.Group>
-      </ClayForm.Group>
-      <ClayDropDown.Menu
-        ref={menuElementRef}
-        style={fieldSize}
-        active={expand}
-        alignElementRef={triggerElementRef}
-        closeOnClickOutside
-        onSetActive={() => { }}
-      >
-        <SearchFilters
-          fetchData={() => {
-            if (currentPage === 1) {
-              fetchData();
-            } else {
-              goToPage(1);
-            }
-            handleExpand();
-          }}
-          countries={mapToCountryCodes(countries)}
-          searchDisabled={disabled}
-        />
-      </ClayDropDown.Menu>
+              <label className="body-small" htmlFor="oibInputText">
+                {CONTACT_SEARCH_FIELD_OIB}
+              </label>
+              <ClayInput
+                id="oibInputText"
+                type="text"
+                value={OIB}
+                onChange={({ target: { value } }) => dispatch(setOIB(value))}
+              />
+            </ClayInput.GroupItem>
+            <ClayInput.GroupItem>
+              <label className="body-small" htmlFor="lastNameInputText">
+                {CONTACT_SEARCH_FIELD_LAST_NAME_COMPANY_NAME_SE_NAME}
+              </label>
+              <ClayInput
+                id="lastNameInputText"
+                type="text"
+                value={lastName}
+                onChange={({ target: { value } }) => dispatch(setLastName(value))}
+              />
+            </ClayInput.GroupItem>
+            <ClayInput.GroupItem>
+              <label className="body-small" htmlFor="firstNameInputText">
+                {CONTACT_SEARCH_FIELD_FIRST_NAME}
+              </label>
+              <ClayInput
+                id="firstNameInputText"
+                type="text"
+                value={firstName}
+                onChange={({ target: { value } }) => dispatch(setFirstName(value))}
+              />
+            </ClayInput.GroupItem>
+          </ClayInput.Group>
+          <br></br>
+          <ClayButton.Group>
+            <ClayButton
+              displayType="primary"
+              disabled={disabled}
+              onClick={() => {
+                if (currentPage === 1) {
+                  fetchData();
+                } else {
+                  goToPage(1);
+                }
+              }}
+            >
+              {CONTACT_SEARCH_ACTION_BUTTON}
+            </ClayButton>
+            <ClayButton displayType="link" ref={triggerElementRef} onClick={handleExpand}>{CONTACT_SEARCH_MORE_SEARCH_OPTIONS}</ClayButton>
+          </ClayButton.Group>
+        </ClayForm.Group>
+        <ClayDropDown.Menu
+          ref={menuElementRef}
+          style={fieldSize}
+          active={expand}
+          alignElementRef={triggerElementRef}
+          closeOnClickOutside
+          onSetActive={() => { }}
+        >
+          <SearchFilters
+            fetchData={() => {
+              if (currentPage === 1) {
+                fetchData();
+              } else {
+                goToPage(1);
+              }
+              handleExpand();
+            }}
+            countries={mapToCountryCodes(countries)}
+            searchDisabled={disabled}
+          />
+        </ClayDropDown.Menu>
+      </SearchWrapper>
       <div></div>
     </Wrapper>
   );
