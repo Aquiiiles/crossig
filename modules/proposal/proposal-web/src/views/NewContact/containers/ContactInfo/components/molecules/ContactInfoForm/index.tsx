@@ -188,11 +188,7 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
           }}
           disabled={false}
         />
-        <CreateContactButton
-          handleClick={() => {
-            return;
-          }}
-        />
+        <CreateContactButton />
       </ButtonWrapper>
     </Fragment>
   );
