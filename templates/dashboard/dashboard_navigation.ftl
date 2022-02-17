@@ -1,5 +1,3 @@
-<!--
-
 <nav class="${nav_css_class}" id="navigation" role="navigation">
 	<div class="navigation-aside">
 		<div class="crosig-logo">
@@ -49,7 +47,7 @@
 					nav_item_layout = nav_item.getLayout()
 				/>
 
-				<#if nav_item.isSelected()>
+		<#include "${full_templates_path}/header.ftl" />		<#if nav_item.isSelected()>
 					<#assign
 						nav_item_attr_has_popup = "aria-haspopup='true'"
 						nav_item_css_class = "selected"
@@ -69,5 +67,3 @@
 		</div>
 	</div>
 </nav>
-
--->

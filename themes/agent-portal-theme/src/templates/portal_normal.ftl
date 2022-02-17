@@ -21,9 +21,7 @@
 <@liferay.control_menu />
 
 <div class="cap container-fluid" id="wrapper">
-	<#include "${full_templates_path}/header.ftl" />
-	<#include "${full_templates_path}/navigation.ftl" />
-
+	
 	<section id="content">
 		<h2 class="hide-accessible" role="heading" aria-level="1">${the_title}</h2>
 
