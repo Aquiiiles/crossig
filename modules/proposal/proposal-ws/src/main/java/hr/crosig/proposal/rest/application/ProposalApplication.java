@@ -1,12 +1,11 @@
 package hr.crosig.proposal.rest.application;
 
+import hr.crosig.proposal.dto.ProductDTO;
 import hr.crosig.proposal.rest.application.enums.InsuredRole;
 import hr.crosig.proposal.service.ProductLocalService;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -15,10 +14,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author victor.catanante
@@ -63,13 +62,15 @@ public class ProposalApplication extends Application {
 	@GET
 	@Path("/products/{userId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getProducts(@PathParam("userId") long userId) {
+	public Response getProductsByUserId(@PathParam("userId") long userId) {
 		Response.ResponseBuilder responseBuilder;
 
 		try {
+			List<ProductDTO> products = _productLocalService.getProductsByUserId(userId);
+
 			responseBuilder = Response.ok(
 			).entity(
-				_productLocalService.getProductsByRoleId(userId)
+				products
 			);
 		}
 		catch (Exception exception) {
@@ -83,7 +84,7 @@ public class ProposalApplication extends Application {
 	}
 
 	public Set<Object> getSingletons() {
-		return Collections.<Object>singleton(this);
+		return Collections.singleton(this);
 	}
 
 	@Reference

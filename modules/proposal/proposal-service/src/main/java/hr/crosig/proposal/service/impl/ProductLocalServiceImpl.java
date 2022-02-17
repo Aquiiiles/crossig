@@ -15,18 +15,21 @@
 package hr.crosig.proposal.service.impl;
 
 import com.liferay.portal.aop.AopService;
-
+import com.liferay.portal.kernel.model.Role;
+import com.liferay.portal.kernel.service.RoleLocalService;
+import hr.crosig.proposal.dto.ProductDTO;
 import hr.crosig.proposal.model.Product;
 import hr.crosig.proposal.model.ProductRole;
 import hr.crosig.proposal.service.base.ProductLocalServiceBaseImpl;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.osgi.service.component.annotations.Component;
-
 /**
- * @author Brian Wing Shun Chan
+ * @author David Martini
  */
 @Component(
 	property = "model.class.name=hr.crosig.proposal.model.Product",
@@ -34,16 +37,36 @@ import org.osgi.service.component.annotations.Component;
 )
 public class ProductLocalServiceImpl extends ProductLocalServiceBaseImpl {
 
-	public List<Product> getProductsByRoleId(long roleId) {
-		List<ProductRole> list = productRolePersistence.findByRoleId(roleId);
+	public List<ProductDTO> getProductsByUserId(long userId) {
+		List<Role> userRoles = _roleLocalService.getUserRoles(userId);
 
-		return list.stream(
+		return userRoles.stream(
 		).map(
-			productRole -> productLocalService.fetchProduct(
-				productRole.getProductId())
+			role -> getProductsByRoleId(role.getRoleId())
+		).flatMap(
+			Collection::stream
 		).collect(
 			Collectors.toList()
 		);
 	}
+
+	protected List<ProductDTO> getProductsByRoleId(long roleId) {
+		List<ProductRole> list = productRolePersistence.findByRoleId(roleId);
+
+		return list.stream(
+		).map(
+			productRole -> mapToProductDTO(
+				productLocalService.fetchProduct(productRole.getProductId()))
+		).collect(
+			Collectors.toList()
+		);
+	}
+
+	private ProductDTO mapToProductDTO(Product product) {
+		return new ProductDTO(product.getProductId(), product.getName(), product.getExternalId());
+	}
+
+	@Reference
+	private RoleLocalService _roleLocalService;
 
 }

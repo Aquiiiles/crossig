@@ -256,8 +256,10 @@ public class ProductLocalServiceUtil {
 		return getService().getProducts(start, end);
 	}
 
-	public static List<Product> getProductsByRoleId(long roleId) {
-		return getService().getProductsByRoleId(roleId);
+	public static List<hr.crosig.proposal.dto.ProductDTO> getProductsByUserId(
+		long userId) {
+
+		return getService().getProductsByUserId(userId);
 	}
 
 	/**

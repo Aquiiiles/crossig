@@ -277,10 +277,10 @@ public class ProductLocalServiceWrapper
 	}
 
 	@Override
-	public java.util.List<hr.crosig.proposal.model.Product> getProductsByRoleId(
-		long roleId) {
+	public java.util.List<hr.crosig.proposal.dto.ProductDTO>
+		getProductsByUserId(long userId) {
 
-		return _productLocalService.getProductsByRoleId(roleId);
+		return _productLocalService.getProductsByUserId(userId);
 	}
 
 	/**

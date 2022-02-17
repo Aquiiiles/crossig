@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import hr.crosig.proposal.dto.ProductDTO;
 import hr.crosig.proposal.model.Product;
 
 import java.io.Serializable;
@@ -239,7 +240,7 @@ public interface ProductLocalService
 	public List<Product> getProducts(int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Product> getProductsByRoleId(long roleId);
+	public List<ProductDTO> getProductsByUserId(long userId);
 
 	/**
 	 * Returns the number of products.

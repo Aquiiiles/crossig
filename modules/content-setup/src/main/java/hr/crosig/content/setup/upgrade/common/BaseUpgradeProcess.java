@@ -1,5 +1,6 @@
 package hr.crosig.content.setup.upgrade.common;
 
+import com.liferay.portal.kernel.exception.DuplicateRoleException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -33,6 +34,7 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Guilherme Kfouri
@@ -57,6 +59,16 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 			String pageName, String title, String description, String type,
 			Boolean hidden, String friendlyUrl, ServiceContext serviceContext)
 		throws PortalException {
+
+		Layout layout = layoutLocalService.fetchLayoutByFriendlyURL(
+			groupId, privatePage, friendlyUrl);
+
+		if (!Objects.isNull(layout)) {
+			log.info(
+				"Page with friendly url: " + friendlyUrl + " already exists");
+
+			return layout;
+		}
 
 		return layoutLocalService.addLayout(
 			userId, groupId, privatePage, parentLayoutId, pageName, title,
@@ -89,10 +101,12 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 			long userId = getAdminUserId(companyId);
 
 			roleLocalService.addRole(
-				userId, null, 0, roleName,
-				getMap(roleTitle),
+				userId, null, 0, roleName, getMap(roleTitle),
 				getMap(roleDescription), roleType, null,
 				getDefaultServiceContext(companyId, userId));
+		}
+		catch (DuplicateRoleException duplicateRoleException) {
+			log.info("Role: " + roleName + " already exists");
 		}
 		catch (Exception exception) {
 			log.error(exception);
