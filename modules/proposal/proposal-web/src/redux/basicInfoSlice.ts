@@ -56,6 +56,18 @@ const basicInfoSlice = createSlice({
     setSubsidiaryNumber(state, action: PayloadAction<string>) {
       state.subsidiaryNumber = action.payload;
     },
+    resetFields(state) {
+      state.companyName = initialState.companyName;
+      state.contactType = initialState.contactType;
+      state.dateDay = initialState.dateDay;
+      state.dateMonth = initialState.dateMonth;
+      state.dateYear = initialState.dateYear;
+      state.firstName = initialState.firstName;
+      state.foreignerStatus = initialState.foreignerStatus;
+      state.lastName = initialState.lastName;
+      state.oib = initialState.oib;
+      state.subsidiaryNumber = initialState.subsidiaryNumber;
+    },
   },
 });
 

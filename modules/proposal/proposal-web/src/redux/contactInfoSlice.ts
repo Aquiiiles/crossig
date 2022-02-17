@@ -44,6 +44,10 @@ const contactInfoSlice = createSlice({
     setMobilePhones(state, action: PayloadAction<Array<PhoneNumber>>) {
       state.mobilePhones = action.payload;
     },
+    resetFields(state) {
+      state.emailAddresses = initialState.emailAddresses;
+      state.mobilePhones = initialState.mobilePhones;
+    },
   },
 });
 

@@ -35,6 +35,15 @@ const addressSlice = createSlice({
     setDispatchPostalCode(state, action: PayloadAction<string>) {
       state.dispatchPostalCode = action.payload;
     },
+    resetFields(state) {
+      state.city = initialState.city;
+      state.country = initialState.country;
+      state.dispatchCity = initialState.dispatchCity;
+      state.dispatchCountry = initialState.dispatchCountry;
+      state.dispatchPostalCode = initialState.dispatchPostalCode;
+      state.isSameAddress = initialState.isSameAddress;
+      state.postalCode = initialState.postalCode;
+    },
   },
 });
 

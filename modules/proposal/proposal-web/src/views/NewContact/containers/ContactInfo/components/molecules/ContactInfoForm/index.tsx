@@ -27,7 +27,9 @@ import {
   MAXIMUM_MOBILE_PHONES,
 } from "../../../../../../../constants/contactConstants";
 
-import { actions } from "../../../../../../../redux/contactInfoSlice";
+import { actions as contactInfoActions } from "../../../../../../../redux/contactInfoSlice";
+import { actions as basicInfoActions } from "../../../../../../../redux/basicInfoSlice";
+import { actions as addressActions } from "../../../../../../../redux/addressSlice";
 import {
   useContactDispatch,
   useContactSelector,
@@ -51,7 +53,7 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
     setPhoneNumber,
     setType,
     setMobilePhones,
-  } = actions;
+  } = contactInfoActions;
 
   const handleEmailChange = (index: number, e: any) => {
     const currentEmails = [...emailAddresses];
@@ -178,7 +180,12 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
       <ButtonWrapper>
         <LinkWrapper
           title={CONTACT_INFO_CANCEL}
-          handleClick={history.goBack}
+          handleClick={() => {
+            [basicInfoActions, addressActions, contactInfoActions].forEach(
+              action => dispatch(action["resetFields"]())
+            );
+            history.goBack();
+          }}
           disabled={false}
         />
         <CreateContactButton
