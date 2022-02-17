@@ -118,6 +118,14 @@ const SearchResult: React.FC<props> = ({
                   id="searchContactInput"
                 />
                 <ClayDropDown.Group>
+                  <ClayDropDown.Item
+                    onClick={() => {
+                      dispatch(setSelectedCity(""));
+                      setShowCountryDropdown(false);
+                    }}
+                  >
+                    {CONTACT_RESULTS_TABLE.HEADER.CITY}
+                  </ClayDropDown.Item>
                   {Array.from(cities)
                     .filter(city =>
                       city.toLowerCase().includes(citySearch.toLowerCase())
