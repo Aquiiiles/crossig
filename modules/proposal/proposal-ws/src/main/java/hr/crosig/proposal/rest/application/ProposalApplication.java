@@ -1,5 +1,6 @@
 package hr.crosig.proposal.rest.application;
 
+import hr.crosig.proposal.dto.ProductDTO;
 import hr.crosig.proposal.rest.application.enums.InsuredRole;
 import hr.crosig.proposal.service.ProductLocalService;
 import org.osgi.service.component.annotations.Component;
@@ -65,7 +66,7 @@ public class ProposalApplication extends Application {
 		Response.ResponseBuilder responseBuilder;
 
 		try {
-			List<Product> products = _productLocalService.getProductsByUserId(userId);
+			List<ProductDTO> products = _productLocalService.getProductsByUserId(userId);
 
 		try {
 			responseBuilder = Response.ok(

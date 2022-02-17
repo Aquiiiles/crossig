@@ -17,17 +17,16 @@ package hr.crosig.proposal.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.service.RoleLocalService;
-
+import hr.crosig.proposal.dto.ProductDTO;
 import hr.crosig.proposal.model.Product;
 import hr.crosig.proposal.model.ProductRole;
 import hr.crosig.proposal.service.base.ProductLocalServiceBaseImpl;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author David Martini
@@ -38,7 +37,7 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class ProductLocalServiceImpl extends ProductLocalServiceBaseImpl {
 
-	public List<Product> getProductsByUserId(long userId) {
+	public List<ProductDTO> getProductsByUserId(long userId) {
 		List<Role> userRoles = _roleLocalService.getUserRoles(userId);
 
 		return userRoles.stream(
@@ -51,16 +50,20 @@ public class ProductLocalServiceImpl extends ProductLocalServiceBaseImpl {
 		);
 	}
 
-	protected List<Product> getProductsByRoleId(long roleId) {
+	protected List<ProductDTO> getProductsByRoleId(long roleId) {
 		List<ProductRole> list = productRolePersistence.findByRoleId(roleId);
 
 		return list.stream(
 		).map(
-			productRole -> productLocalService.fetchProduct(
-				productRole.getProductId())
+			productRole -> mapToProductDTO(
+				productLocalService.fetchProduct(productRole.getProductId()))
 		).collect(
 			Collectors.toList()
 		);
+	}
+
+	private ProductDTO mapToProductDTO(Product product) {
+		return new ProductDTO(product.getProductId(), product.getName(), product.getExternalId());
 	}
 
 	@Reference
