@@ -4,10 +4,7 @@ import ClayForm from "@clayui/form";
 import CreateContactButton from "../../atoms/CreateContactButton";
 import EmailInputList from "../../atoms/EmailInputList";
 import FormSection from "../../../../../../../shared/atoms/FormSection";
-import PhoneInputList, {
-  createEmptyPhoneNumber,
-  Country,
-} from "../../atoms/PhoneInputList";
+import PhoneInputList, { Country } from "../../atoms/PhoneInputList";
 import LinkWrapper from "../../atoms/LinkWrapper";
 import Row from "../../../../../../../shared/atoms/Row";
 import SubtitledLabel from "../../atoms/SubtitledLabel";
@@ -28,13 +25,14 @@ import {
   FIXED,
   MAXIMUM_EMAIL_ADDRESSES,
   MAXIMUM_MOBILE_PHONES,
-} from "../../../../../constants/index";
+} from "../../../../../../../constants/contactConstants";
 
-import { actions } from "./slice/contactInfoSlice";
+import { actions } from "../../../../../../../redux/contactInfoSlice";
 import {
   useContactDispatch,
   useContactSelector,
 } from "../../../../../../../redux/store";
+import { createEmptyPhoneNumber } from "../../../../../../../shared/util/createEmptyPhoneNumber";
 
 const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
   countries,
