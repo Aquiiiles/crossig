@@ -1,512 +1,512 @@
 {
-  "area_codes": [
-    {
-      "area_name": "Bakar",
-      "area_code": 1
-    },
-    {
-      "area_name": "Beli Manastir",
-      "area_code": 2
-    },
-    {
-      "area_name": "Belišće",
-      "area_code": 3
-    },
-    {
-      "area_name": "Benkovac",
-      "area_code": 4
-    },
-    {
-      "area_name": "Biograd na Moru",
-      "area_code": 5
-    },
-    {
-      "area_name": "Bjelovar",
-      "area_code": 6
-    },
-    {
-      "area_name": "Buje",
-      "area_code": 7
-    },
-    {
-      "area_name": "Buzet",
-      "area_code": 8
-    },
-    {
-      "area_name": "Čabar",
-      "area_code": 9
-    },
-    {
-      "area_name": "Čakovec",
-      "area_code": 10
-    },
-    {
-      "area_name": "Čazma",
-      "area_code": 11
-    },
-    {
-      "area_name": "Cres",
-      "area_code": 12
-    },
-    {
-      "area_name": "Crikvenica",
-      "area_code": 13
-    },
-    {
-      "area_name": "Đakovo",
-      "area_code": 14
-    },
-    {
-      "area_name": "Daruvar",
-      "area_code": 15
-    },
-    {
-      "area_name": "Delnice",
-      "area_code": 16
-    },
-    {
-      "area_name": "Donja Stubica",
-      "area_code": 17
-    },
-    {
-      "area_name": "Donji Miholjac",
-      "area_code": 18
-    },
-    {
-      "area_name": "Drniš",
-      "area_code": 19
-    },
-    {
-      "area_name": "Dubrovnik",
-      "area_code": 20
-    },
-    {
-      "area_name": "Duga Resa",
-      "area_code": 21
-    },
-    {
-      "area_name": "Dugo Selo",
-      "area_code": 22
-    },
-    {
-      "area_name": "Đurđevac",
-      "area_code": 23
-    },
-    {
-      "area_name": "Garešnica",
-      "area_code": 24
-    },
-    {
-      "area_name": "Glina",
-      "area_code": 25
-    },
-    {
-      "area_name": "Gospić",
-      "area_code": 26
-    },
-    {
-      "area_name": "Grubišno Polje",
-      "area_code": 27
-    },
-    {
-      "area_name": "Hrvatska Kostajnica",
-      "area_code": 28
-    },
-    {
-      "area_name": "Hvar",
-      "area_code": 29
-    },
-    {
-      "area_name": "Ilok",
-      "area_code": 30
-    },
-    {
-      "area_name": "Imotski",
-      "area_code": 31
-    },
-    {
-      "area_name": "Ivanec",
-      "area_code": 32
-    },
-    {
-      "area_name": "Ivanić-Grad",
-      "area_code": 33
-    },
-    {
-      "area_name": "Jastrebarsko",
-      "area_code": 34
-    },
-    {
-      "area_name": "Karlovac",
-      "area_code": 35
-    },
-    {
-      "area_name": "Kastav",
-      "area_code": 36
-    },
-    {
-      "area_name": "Kaštela",
-      "area_code": 37
-    },
-    {
-      "area_name": "Klanjec",
-      "area_code": 38
-    },
-    {
-      "area_name": "Knin",
-      "area_code": 39
-    },
-    {
-      "area_name": "Komiža",
-      "area_code": 40
-    },
-    {
-      "area_name": "Koprivnica",
-      "area_code": 41
-    },
-    {
-      "area_name": "Korčula",
-      "area_code": 42
-    },
-    {
-      "area_name": "Kraljevica",
-      "area_code": 43
-    },
-    {
-      "area_name": "Krapina",
-      "area_code": 44
-    },
-    {
-      "area_name": "Križevci",
-      "area_code": 45
-    },
-    {
-      "area_name": "Krk",
-      "area_code": 46
-    },
-    {
-      "area_name": "Kutina",
-      "area_code": 47
-    },
-    {
-      "area_name": "Kutjevo",
-      "area_code": 48
-    },
-    {
-      "area_name": "Labin",
-      "area_code": 49
-    },
-    {
-      "area_name": "Lepoglava",
-      "area_code": 50
-    },
-    {
-      "area_name": "Lipik",
-      "area_code": 51
-    },
-    {
-      "area_name": "Ludbreg",
-      "area_code": 52
-    },
-    {
-      "area_name": "Makarska",
-      "area_code": 53
-    },
-    {
-      "area_name": "Mali Lošinj",
-      "area_code": 54
-    },
-    {
-      "area_name": "Metković",
-      "area_code": 55
-    },
-    {
-      "area_name": "Mursko Središće",
-      "area_code": 56
-    },
-    {
-      "area_name": "Našice",
-      "area_code": 57
-    },
-    {
-      "area_name": "Nin",
-      "area_code": 58
-    },
-    {
-      "area_name": "Nova Gradiška",
-      "area_code": 59
-    },
-    {
-      "area_name": "Novalja",
-      "area_code": 60
-    },
-    {
-      "area_name": "Novi Marof",
-      "area_code": 61
-    },
-    {
-      "area_name": "Novi Vinodolski",
-      "area_code": 62
-    },
-    {
-      "area_name": "Novigrad",
-      "area_code": 63
-    },
-    {
-      "area_name": "Novska",
-      "area_code": 64
-    },
-    {
-      "area_name": "Obrovac",
-      "area_code": 65
-    },
-    {
-      "area_name": "Ogulin",
-      "area_code": 66
-    },
-    {
-      "area_name": "Omiš",
-      "area_code": 67
-    },
-    {
-      "area_name": "Opatija",
-      "area_code": 68
-    },
-    {
-      "area_name": "Opuzen",
-      "area_code": 69
-    },
-    {
-      "area_name": "Orahovica",
-      "area_code": 70
-    },
-    {
-      "area_name": "Oroslavje",
-      "area_code": 71
-    },
-    {
-      "area_name": "Osijek",
-      "area_code": 72
-    },
-    {
-      "area_name": "Otočac",
-      "area_code": 73
-    },
-    {
-      "area_name": "Otok",
-      "area_code": 74
-    },
-    {
-      "area_name": "Ozalj",
-      "area_code": 75
-    },
-    {
-      "area_name": "Pag",
-      "area_code": 76
-    },
-    {
-      "area_name": "Pakrac",
-      "area_code": 77
-    },
-    {
-      "area_name": "Pazin",
-      "area_code": 78
-    },
-    {
-      "area_name": "Petrinja",
-      "area_code": 79
-    },
-    {
-      "area_name": "Pleternica",
-      "area_code": 80
-    },
-    {
-      "area_name": "Ploče",
-      "area_code": 81
-    },
-    {
-      "area_name": "Poreč",
-      "area_code": 82
-    },
-    {
-      "area_name": "Požega",
-      "area_code": 83
-    },
-    {
-      "area_name": "Pregrada",
-      "area_code": 84
-    },
-    {
-      "area_name": "Prelog",
-      "area_code": 85
-    },
-    {
-      "area_name": "Pula",
-      "area_code": 86
-    },
-    {
-      "area_name": "Rab",
-      "area_code": 87
-    },
-    {
-      "area_name": "Ri,eka",
-      "area_code": 88
-    },
-    {
-      "area_name": "Rovinj",
-      "area_code": 89
-    },
-    {
-      "area_name": "Samobor",
-      "area_code": 90
-    },
-    {
-      "area_name": "Senj",
-      "area_code": 91
-    },
-    {
-      "area_name": "Šibenik",
-      "area_code": 92
-    },
-    {
-      "area_name": "Sinj",
-      "area_code": 93
-    },
-    {
-      "area_name": "Sisak",
-      "area_code": 94
-    },
-    {
-      "area_name": "Skradin",
-      "area_code": 95
-    },
-    {
-      "area_name": "Slatina",
-      "area_code": 96
-    },
-    {
-      "area_name": "Slavonski Brod",
-      "area_code": 97
-    },
-    {
-      "area_name": "Slunj",
-      "area_code": 98
-    },
-    {
-      "area_name": "Solin",
-      "area_code": 99
-    },
-    {
-      "area_name": "Split",
-      "area_code": 100
-    },
-    {
-      "area_name": "Stari Grad",
-      "area_code": 101
-    },
-    {
-      "area_name": "Supetar",
-      "area_code": 102
-    },
-    {
-      "area_name": "Sveta Nedelja",
-      "area_code": 103
-    },
-    {
-      "area_name": "Sveti Ivan Zelina",
-      "area_code": 104
-    },
-    {
-      "area_name": "Trilj",
-      "area_code": 105
-    },
-    {
-      "area_name": "Trogir",
-      "area_code": 106
-    },
-    {
-      "area_name": "Umag",
-      "area_code": 107
-    },
-    {
-      "area_name": "Valpovo",
-      "area_code": 108
-    },
-    {
-      "area_name": "Varaždin",
-      "area_code": 109
-    },
-    {
-      "area_name": "Varaždinske Toplice",
-      "area_code": 110
-    },
-    {
-      "area_name": "Velika Gorica",
-      "area_code": 111
-    },
-    {
-      "area_name": "Vinkovci",
-      "area_code": 112
-    },
-    {
-      "area_name": "Virovitica",
-      "area_code": 113
-    },
-    {
-      "area_name": "Vis",
-      "area_code": 114
-    },
-    {
-      "area_name": "Vodice",
-      "area_code": 115
-    },
-    {
-      "area_name": "Vodnjan",
-      "area_code": 116
-    },
-    {
-      "area_name": "Vrbovec",
-      "area_code": 117
-    },
-    {
-      "area_name": "Vrbovsko",
-      "area_code": 118
-    },
-    {
-      "area_name": "Vrgorac",
-      "area_code": 119
-    },
-    {
-      "area_name": "Vrlika",
-      "area_code": 120
-    },
-    {
-      "area_name": "Vukovar",
-      "area_code": 121
-    },
-    {
-      "area_name": "Zabok",
-      "area_code": 122
-    },
-    {
-      "area_name": "Zadar",
-      "area_code": 123
-    },
-    {
-      "area_name": "Zagreb",
-      "area_code": 124
-    },
-    {
-      "area_name": "Zaprešić",
-      "area_code": 125
-    },
-    {
-      "area_name": "Zlatar",
-      "area_code": 126
-    },
-    {
-      "area_name": "Županja",
-      "area_code": 127
-    }
-  ]
+	"area_codes": [
+		{
+			"area_code": 1,
+			"area_name": "Bakar"
+		},
+		{
+			"area_code": 2,
+			"area_name": "Beli Manastir"
+		},
+		{
+			"area_code": 3,
+			"area_name": "Belišće"
+		},
+		{
+			"area_code": 4,
+			"area_name": "Benkovac"
+		},
+		{
+			"area_code": 5,
+			"area_name": "Biograd na Moru"
+		},
+		{
+			"area_code": 6,
+			"area_name": "Bjelovar"
+		},
+		{
+			"area_code": 7,
+			"area_name": "Buje"
+		},
+		{
+			"area_code": 8,
+			"area_name": "Buzet"
+		},
+		{
+			"area_code": 9,
+			"area_name": "Čabar"
+		},
+		{
+			"area_code": 10,
+			"area_name": "Čakovec"
+		},
+		{
+			"area_code": 11,
+			"area_name": "Čazma"
+		},
+		{
+			"area_code": 12,
+			"area_name": "Cres"
+		},
+		{
+			"area_code": 13,
+			"area_name": "Crikvenica"
+		},
+		{
+			"area_code": 14,
+			"area_name": "Đakovo"
+		},
+		{
+			"area_code": 15,
+			"area_name": "Daruvar"
+		},
+		{
+			"area_code": 16,
+			"area_name": "Delnice"
+		},
+		{
+			"area_code": 17,
+			"area_name": "Donja Stubica"
+		},
+		{
+			"area_code": 18,
+			"area_name": "Donji Miholjac"
+		},
+		{
+			"area_code": 19,
+			"area_name": "Drniš"
+		},
+		{
+			"area_code": 20,
+			"area_name": "Dubrovnik"
+		},
+		{
+			"area_code": 21,
+			"area_name": "Duga Resa"
+		},
+		{
+			"area_code": 22,
+			"area_name": "Dugo Selo"
+		},
+		{
+			"area_code": 23,
+			"area_name": "Đurđevac"
+		},
+		{
+			"area_code": 24,
+			"area_name": "Garešnica"
+		},
+		{
+			"area_code": 25,
+			"area_name": "Glina"
+		},
+		{
+			"area_code": 26,
+			"area_name": "Gospić"
+		},
+		{
+			"area_code": 27,
+			"area_name": "Grubišno Polje"
+		},
+		{
+			"area_code": 28,
+			"area_name": "Hrvatska Kostajnica"
+		},
+		{
+			"area_code": 29,
+			"area_name": "Hvar"
+		},
+		{
+			"area_code": 30,
+			"area_name": "Ilok"
+		},
+		{
+			"area_code": 31,
+			"area_name": "Imotski"
+		},
+		{
+			"area_code": 32,
+			"area_name": "Ivanec"
+		},
+		{
+			"area_code": 33,
+			"area_name": "Ivanić-Grad"
+		},
+		{
+			"area_code": 34,
+			"area_name": "Jastrebarsko"
+		},
+		{
+			"area_code": 35,
+			"area_name": "Karlovac"
+		},
+		{
+			"area_code": 36,
+			"area_name": "Kastav"
+		},
+		{
+			"area_code": 37,
+			"area_name": "Kaštela"
+		},
+		{
+			"area_code": 38,
+			"area_name": "Klanjec"
+		},
+		{
+			"area_code": 39,
+			"area_name": "Knin"
+		},
+		{
+			"area_code": 40,
+			"area_name": "Komiža"
+		},
+		{
+			"area_code": 41,
+			"area_name": "Koprivnica"
+		},
+		{
+			"area_code": 42,
+			"area_name": "Korčula"
+		},
+		{
+			"area_code": 43,
+			"area_name": "Kraljevica"
+		},
+		{
+			"area_code": 44,
+			"area_name": "Krapina"
+		},
+		{
+			"area_code": 45,
+			"area_name": "Križevci"
+		},
+		{
+			"area_code": 46,
+			"area_name": "Krk"
+		},
+		{
+			"area_code": 47,
+			"area_name": "Kutina"
+		},
+		{
+			"area_code": 48,
+			"area_name": "Kutjevo"
+		},
+		{
+			"area_code": 49,
+			"area_name": "Labin"
+		},
+		{
+			"area_code": 50,
+			"area_name": "Lepoglava"
+		},
+		{
+			"area_code": 51,
+			"area_name": "Lipik"
+		},
+		{
+			"area_code": 52,
+			"area_name": "Ludbreg"
+		},
+		{
+			"area_code": 53,
+			"area_name": "Makarska"
+		},
+		{
+			"area_code": 54,
+			"area_name": "Mali Lošinj"
+		},
+		{
+			"area_code": 55,
+			"area_name": "Metković"
+		},
+		{
+			"area_code": 56,
+			"area_name": "Mursko Središće"
+		},
+		{
+			"area_code": 57,
+			"area_name": "Našice"
+		},
+		{
+			"area_code": 58,
+			"area_name": "Nin"
+		},
+		{
+			"area_code": 59,
+			"area_name": "Nova Gradiška"
+		},
+		{
+			"area_code": 60,
+			"area_name": "Novalja"
+		},
+		{
+			"area_code": 61,
+			"area_name": "Novi Marof"
+		},
+		{
+			"area_code": 62,
+			"area_name": "Novi Vinodolski"
+		},
+		{
+			"area_code": 63,
+			"area_name": "Novigrad"
+		},
+		{
+			"area_code": 64,
+			"area_name": "Novska"
+		},
+		{
+			"area_code": 65,
+			"area_name": "Obrovac"
+		},
+		{
+			"area_code": 66,
+			"area_name": "Ogulin"
+		},
+		{
+			"area_code": 67,
+			"area_name": "Omiš"
+		},
+		{
+			"area_code": 68,
+			"area_name": "Opatija"
+		},
+		{
+			"area_code": 69,
+			"area_name": "Opuzen"
+		},
+		{
+			"area_code": 70,
+			"area_name": "Orahovica"
+		},
+		{
+			"area_code": 71,
+			"area_name": "Oroslavje"
+		},
+		{
+			"area_code": 72,
+			"area_name": "Osijek"
+		},
+		{
+			"area_code": 73,
+			"area_name": "Otočac"
+		},
+		{
+			"area_code": 74,
+			"area_name": "Otok"
+		},
+		{
+			"area_code": 75,
+			"area_name": "Ozalj"
+		},
+		{
+			"area_code": 76,
+			"area_name": "Pag"
+		},
+		{
+			"area_code": 77,
+			"area_name": "Pakrac"
+		},
+		{
+			"area_code": 78,
+			"area_name": "Pazin"
+		},
+		{
+			"area_code": 79,
+			"area_name": "Petrinja"
+		},
+		{
+			"area_code": 80,
+			"area_name": "Pleternica"
+		},
+		{
+			"area_code": 81,
+			"area_name": "Ploče"
+		},
+		{
+			"area_code": 82,
+			"area_name": "Poreč"
+		},
+		{
+			"area_code": 83,
+			"area_name": "Požega"
+		},
+		{
+			"area_code": 84,
+			"area_name": "Pregrada"
+		},
+		{
+			"area_code": 85,
+			"area_name": "Prelog"
+		},
+		{
+			"area_code": 86,
+			"area_name": "Pula"
+		},
+		{
+			"area_code": 87,
+			"area_name": "Rab"
+		},
+		{
+			"area_code": 88,
+			"area_name": "Ri,eka"
+		},
+		{
+			"area_code": 89,
+			"area_name": "Rovinj"
+		},
+		{
+			"area_code": 90,
+			"area_name": "Samobor"
+		},
+		{
+			"area_code": 91,
+			"area_name": "Senj"
+		},
+		{
+			"area_code": 92,
+			"area_name": "Šibenik"
+		},
+		{
+			"area_code": 93,
+			"area_name": "Sinj"
+		},
+		{
+			"area_code": 94,
+			"area_name": "Sisak"
+		},
+		{
+			"area_code": 95,
+			"area_name": "Skradin"
+		},
+		{
+			"area_code": 96,
+			"area_name": "Slatina"
+		},
+		{
+			"area_code": 97,
+			"area_name": "Slavonski Brod"
+		},
+		{
+			"area_code": 98,
+			"area_name": "Slunj"
+		},
+		{
+			"area_code": 99,
+			"area_name": "Solin"
+		},
+		{
+			"area_code": 100,
+			"area_name": "Split"
+		},
+		{
+			"area_code": 101,
+			"area_name": "Stari Grad"
+		},
+		{
+			"area_code": 102,
+			"area_name": "Supetar"
+		},
+		{
+			"area_code": 103,
+			"area_name": "Sveta Nedelja"
+		},
+		{
+			"area_code": 104,
+			"area_name": "Sveti Ivan Zelina"
+		},
+		{
+			"area_code": 105,
+			"area_name": "Trilj"
+		},
+		{
+			"area_code": 106,
+			"area_name": "Trogir"
+		},
+		{
+			"area_code": 107,
+			"area_name": "Umag"
+		},
+		{
+			"area_code": 108,
+			"area_name": "Valpovo"
+		},
+		{
+			"area_code": 109,
+			"area_name": "Varaždin"
+		},
+		{
+			"area_code": 110,
+			"area_name": "Varaždinske Toplice"
+		},
+		{
+			"area_code": 111,
+			"area_name": "Velika Gorica"
+		},
+		{
+			"area_code": 112,
+			"area_name": "Vinkovci"
+		},
+		{
+			"area_code": 113,
+			"area_name": "Virovitica"
+		},
+		{
+			"area_code": 114,
+			"area_name": "Vis"
+		},
+		{
+			"area_code": 115,
+			"area_name": "Vodice"
+		},
+		{
+			"area_code": 116,
+			"area_name": "Vodnjan"
+		},
+		{
+			"area_code": 117,
+			"area_name": "Vrbovec"
+		},
+		{
+			"area_code": 118,
+			"area_name": "Vrbovsko"
+		},
+		{
+			"area_code": 119,
+			"area_name": "Vrgorac"
+		},
+		{
+			"area_code": 120,
+			"area_name": "Vrlika"
+		},
+		{
+			"area_code": 121,
+			"area_name": "Vukovar"
+		},
+		{
+			"area_code": 122,
+			"area_name": "Zabok"
+		},
+		{
+			"area_code": 123,
+			"area_name": "Zadar"
+		},
+		{
+			"area_code": 124,
+			"area_name": "Zagreb"
+		},
+		{
+			"area_code": 125,
+			"area_name": "Zaprešić"
+		},
+		{
+			"area_code": 126,
+			"area_name": "Zlatar"
+		},
+		{
+			"area_code": 127,
+			"area_name": "Županja"
+		}
+	]
 }
