@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { AutocompleteInput } from "../../atoms";
 import SectionSubTitle from "../../atoms/SectionSubTitle";
 import FormSection from "../../../../../../../shared/atoms/FormSection";
@@ -11,29 +11,46 @@ import ClayForm, {
 import { contactTypes } from "../../../../../../../constants/contactConstants";
 import { countryNames } from "../../../../../../../constants/defaultCountryConfiguration";
 import { CREATE_NEW_CONTACT } from "../../../../../../../constants/languageKeys";
-import { useContactSelector } from "../../../../../../../redux/store";
+import {
+  useContactSelector,
+  useContactDispatch,
+} from "../../../../../../../redux/store";
+import { actions } from "../../../../../../../redux/addressSlice";
 import { Line } from "./styles";
 import { searchCitiesByName, searchStreetsByCityIdAndName } from "./controller";
 
 const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
   countries,
 }) => {
-  const [country, setCountry] = useState<string>(countryNames.value);
-  const [dispatchCountry, setDispatchCountry] = useState<string>(
-    countryNames.value
-  );
-  const [city, setCity] = useState<any>();
-  const [dispatchCity, setDispatchCity] = useState<any>();
-  const [sameAddress, setSameAdress] = useState(true);
-  const [postalCode, setPostalCode] = useState<string>();
-  const [dispatchPostalCode, setDispatchPostalCode] = useState<string>();
-  const { contactType } = useContactSelector(
-    (state: { basicInfo: any }) => state.basicInfo
-  );
+  const dispatch = useContactDispatch();
+  const { contactType } = useContactSelector(state => state.basicInfo);
+  const {
+    country,
+    dispatchCountry,
+    city,
+    dispatchCity,
+    isSameAddress,
+    postalCode,
+    dispatchPostalCode,
+  } = useContactSelector(state => state.address);
+  const {
+    setCountry,
+    setDispatchCountry,
+    setCity,
+    setDispatchCity,
+    setIsSameAddress,
+    setPostalCode,
+    setDispatchPostalCode,
+  } = actions;
 
   const mainAddressInCroatia = country === countryNames.value;
 
   const dispatchAddressInCroatia = dispatchCountry === countryNames.value;
+
+  useEffect(() => {
+    dispatch(setCountry(countryNames.value));
+    dispatch(setDispatchCountry(countryNames.value));
+  }, []);
 
   return (
     <>
@@ -53,7 +70,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
             <ClaySelectWithOption
               id="country"
               options={countries}
-              onChange={(event) => setCountry(event.target.value)}
+              onChange={({ target: { value } }) => dispatch(setCountry(value))}
               required
             />
           </ClayForm.Group>
@@ -68,8 +85,8 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
                   id={"city"}
                   active={mainAddressInCroatia}
                   getOptions={searchCitiesByName}
-                  setParentValue={setCity}
-                  setPostalCode={setPostalCode}
+                  setParentValue={value => dispatch(setCity(value))}
+                  setPostalCode={value => dispatch(setPostalCode(value))}
                   isCity
                   disabled={false}
                 />
@@ -121,12 +138,12 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
         <SectionSubTitle subTitle={CREATE_NEW_CONTACT.DISPATCH_ADDRESS} />
 
         <ClayCheckbox
-          checked={sameAddress}
-          onChange={() => setSameAdress((val) => !val)}
+          checked={isSameAddress}
+          onChange={() => dispatch(setIsSameAddress(!isSameAddress))}
           label={CREATE_NEW_CONTACT.FIELD.DISPATCH_ADDRESS}
         />
 
-        {!sameAddress && (
+        {!isSameAddress && (
           <>
             <Row half>
               <ClayForm.Group>
@@ -137,7 +154,9 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
                   id="dispatch-country"
                   options={countries}
                   required
-                  onChange={(event) => setDispatchCountry(event.target.value)}
+                  onChange={({ target: { value } }) =>
+                    dispatch(setDispatchCountry(value))
+                  }
                 />
               </ClayForm.Group>
             </Row>
@@ -151,8 +170,10 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
                       id={"dispatch-city"}
                       active={dispatchAddressInCroatia}
                       getOptions={searchCitiesByName}
-                      setParentValue={setDispatchCity}
-                      setPostalCode={setDispatchPostalCode}
+                      setParentValue={value => dispatch(setDispatchCity(value))}
+                      setPostalCode={value =>
+                        dispatch(setDispatchPostalCode(value))
+                      }
                       isCity
                       disabled={false}
                     />
