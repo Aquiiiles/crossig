@@ -64,25 +64,6 @@ public class MockUtilitiesTest {
 	}
 
 	@Test
-	public void formatFileNameWithPathParam_pathFormattedWithoutParam()
-		throws IllegalAccessException, InvocationTargetException {
-
-		String pathFormattedWithoutParam = "get_contacts";
-		String mockFileNameWithParam =
-			"get_contacts_" + MockConstants.PATH_PARAM_PATTERN;
-
-		Method formatFileNameWithPathParamMethod = Whitebox.getMethod(
-			MockUtilities.class, "_formatFileNameWithPathParam", String.class,
-			String.class);
-
-		String expected = pathFormattedWithoutParam;
-		String result = (String)formatFileNameWithPathParamMethod.invoke(
-			null, pathFormattedWithoutParam, mockFileNameWithParam);
-
-		Assert.assertEquals(expected, result);
-	}
-
-	@Test
 	public void formatFileNameWithPathParam_invalidRequest()
 		throws IllegalAccessException, InvocationTargetException {
 
@@ -114,6 +95,25 @@ public class MockUtilitiesTest {
 		String expected = pathFormattedWithParam;
 		String result = (String)formatFileNameWithPathParamMethod.invoke(
 			null, pathFormattedWithParam, mockFileNameWithoutParam);
+
+		Assert.assertEquals(expected, result);
+	}
+
+	@Test
+	public void formatFileNameWithPathParam_pathFormattedWithoutParam()
+		throws IllegalAccessException, InvocationTargetException {
+
+		String pathFormattedWithoutParam = "get_contacts";
+		String mockFileNameWithParam =
+			"get_contacts_" + MockConstants.PATH_PARAM_PATTERN;
+
+		Method formatFileNameWithPathParamMethod = Whitebox.getMethod(
+			MockUtilities.class, "_formatFileNameWithPathParam", String.class,
+			String.class);
+
+		String expected = pathFormattedWithoutParam;
+		String result = (String)formatFileNameWithPathParamMethod.invoke(
+			null, pathFormattedWithoutParam, mockFileNameWithParam);
 
 		Assert.assertEquals(expected, result);
 	}
