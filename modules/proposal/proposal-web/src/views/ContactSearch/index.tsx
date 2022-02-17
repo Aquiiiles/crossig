@@ -74,7 +74,7 @@ const ContactSearch: React.FC = () => {
   };
 
   const fetchNewData = () => {
-    if (currentPage === 1 && data.length !== 0) {
+    if (currentPage === 1 && !idle) {
       fetchData();
     } else {
       goToPage(1);
@@ -90,7 +90,7 @@ const ContactSearch: React.FC = () => {
   }, [searchResultData, handleNewTotal]);
 
   useEffect(() => {
-    if (data.length !== 0) {
+    if (!idle) {
       fetchData();
     }
   }, [currentPage]);
