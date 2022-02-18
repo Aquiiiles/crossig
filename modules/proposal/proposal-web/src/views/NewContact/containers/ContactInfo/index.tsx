@@ -10,6 +10,7 @@ import {
 } from "../../../../shared/util/countryMappers";
 import { useContactSelector } from "../../../../redux/store";
 import { valuesToISOString } from "./utils/dateUtils";
+import { emailListToData } from "./utils/emailUtils";
 import { useFetchData } from "../../../../api/hooks/useFetchData";
 import { CONTACT_URL } from "../../../../api/constants/routes";
 
@@ -86,6 +87,8 @@ const ContactInfo: React.FC = () => {
       } else {
         addresses.push(address);
       }
+      console.info(contactInfoData.emailAddresses);
+      console.info(contactInfoData.mobilePhones);
 
       const payload = {
         dateOfBirth: valuesToISOString(dateDay, dateMonth, dateYear),
@@ -104,6 +107,7 @@ const ContactInfo: React.FC = () => {
           id: Number(basicInfoData.contactType),
         },
         addresses,
+        emails: emailListToData(contactInfoData.emailAddresses),
       };
 
       API("POST", CONTACT_URL, {}, payload);
