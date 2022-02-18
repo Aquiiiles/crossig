@@ -1,0 +1,252 @@
+.cap {
+    .form-group {
+        text-align: left;
+    }
+
+    input[type=text] {
+        font-size: 1.125rem;
+        font-family: Crosig-Light;
+        height: 3.4375rem;
+        border-radius: 0.75rem;
+        padding: 0.75rem 1rem;
+        border: 0.13rem solid $color-neutral-grey-border;
+        background: $color-neutral-white;
+        color: $color-primary-inputs;
+        justify-content: center;
+        display: flex;
+        flex-direction: row;
+        margin: 0.25rem 0rem;
+
+        &.error {
+            border-color: $color-feedback-error;
+        }
+
+        &:hover {
+            opacity: 0.5;
+        }
+
+        &.disabled {
+            background: $color-neutral-background;
+            color: $color-neutral-grey-text;
+        }
+    }
+
+    input[type=text]:hover {
+        box-shadow: none!important;
+    }
+
+    input[type=text]:focus {
+        box-shadow: none!important;
+        opacity: 1!important;
+        border-color: $color-action-active;
+        color: $color-primary-inputs;
+        pointer-events: none;
+    }
+
+    textarea {
+        font-size: 1.125rem;
+        font-family: Crosig-Light;
+        height: 3.4375rem;
+        border-radius: 0.75rem;
+        padding: 0.75rem 1rem;
+        border: 0.13rem solid $color-neutral-grey-border;
+        background: $color-neutral-white;
+        color: $color-primary-inputs;
+        justify-content: center;
+        display: flex;
+        flex-direction: row;
+        margin: 0.25rem 0rem;
+
+        &.error {
+            border-color: $color-feedback-error;
+        }
+
+        &:hover {
+            opacity: 0.5;
+        }
+
+        &.disabled {
+            background: $color-neutral-background;
+            color: $color-neutral-grey-text;
+        }
+    }
+
+    textarea:focus {
+        box-shadow: none!important;
+        opacity: 1!important;
+        border-color: $color-action-active;
+        color: $color-primary-inputs;
+        pointer-events: none;
+        box-shadow: none;
+    }
+
+    select {
+        font-size: 1.125rem;
+        font-family: Crosig-Light;
+        height: 3.4375rem;
+        border-radius: 0.75rem;
+        padding: 0.75rem 1rem;
+        border: 0.13rem solid $color-neutral-grey-border;
+        background: $color-neutral-white;
+        color: $color-primary-inputs;
+        justify-content: center;
+        display: flex;
+        flex-direction: row;
+        margin: 0.25rem 0rem;
+
+        &.error {
+            border-color: $color-feedback-error;
+        }
+
+        &:hover {
+            opacity: 0.5;
+        }
+
+        &.disabled {
+            background: $color-neutral-background;
+            color: $color-neutral-grey-text;
+        }
+    }
+
+    select:focus {
+        box-shadow: none!important;
+        opacity: 1!important;
+        border-color: $color-action-active;
+        color: $color-primary-inputs;
+        pointer-events: none;
+    }
+
+    label {
+        font-size: 1rem;
+        line-height: 1.5rem;
+        color: $color-neutral-black-label;
+        opacity: 0.8;
+        margin-bottom: 0;
+    }
+
+    .form-description-text {
+        font-family: CrosigSans-Regular;
+        font-size: 0.8125rem;
+        color: $color-neutral-grey-text;
+    }
+    
+    .form-feedback-text {
+        font-family: CrosigSans-Regular;
+        font-size: 0.8125rem;
+
+        &.success {
+            color: $color-feedback-success;
+        }
+        &.warning {
+            color: $color-feedback-warning;
+        }
+        &.danger {
+            color: $color-feedback-error;
+        }
+    }
+    
+    .form-mandatory-field {
+        font-family: CrosigSans-Regular;
+        font-size: 0.8125rem;
+        opacity: 0.8;
+        color: $color-feedback-error;
+    }
+
+    .form-select-box {
+        border: 2px solid $color-neutral-grey-border;
+        color: $color-neutral-grey-text;
+        border-radius: 0.75rem;
+
+    }
+
+    .toggle.label .checkbox-label .radio.label {
+        font-family: CrosigSans-Regular;
+        font-size: 0.875rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: $color-neutral-black-label;
+
+        &.vetical-label {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            transform: rotate(-90deg);
+        }
+    }
+
+    .toggle-switch-check:empty ~ .toggle-switch-bar:after,
+    .toggle-switch-check:checked ~ .toggle-switch-bar:after {
+        height: 1.5rem!important;
+        width: 1.5rem!important;
+        border-radius: 1rem !important;
+        margin: 0.25rem;
+        border: 0;
+    }
+
+    .toggle-switch-check:checked ~ .toggle-switch-bar:before,
+    label:not(.toggle-switch) .toggle-switch:checked ~ .toggle-switch-bar:before,
+    .toggle-switch-check:empty ~ .toggle-switch-bar:before,
+    label:not(.toggle-switch) .toggle-switch:empty ~ .toggle-switch-bar:before {
+        height: 2rem!important;
+        width: 3.5rem!important;
+        border-radius: 0.625rem!important;
+        border: 0;
+    }
+
+    .toggle-switch:checked {
+        background: $color-action-active;
+    }
+    .toggle-switch:empty {
+        background: $color-action-disabled;
+
+    }
+
+    .custom-control-input:checked ~ .custom-control-label::before {
+        color: $color-neutral-white;
+        border-color: $color-action-active;
+        background-color: $color-action-active;
+    }
+
+    .form-checkbox {
+        height: 2.125rem;
+        width: 2.125rem;
+        border-radius: 0.4375rem;
+
+        &.checked {
+            background: $color-action-active;
+
+            &.hover{
+                background: $color-action-hover;
+            }
+
+            &.active{
+                background: $color-action-active;
+            }
+
+            &.disabled{
+                background: $color-action-disabled;
+            }
+        }
+
+        &.unchecked {
+            background: $color-neutral-white;
+            border: 2px solid $color-neutral-grey-border;
+            &.hover{
+                background: $color-neutral-white;
+                border: 2px solid $color-neutral-divider-grey;
+            }
+
+            &.active{
+                background: $color-neutral-white;
+                border: 2px solid $color-action-active;
+            }
+
+            &.disabled{
+                background: $color-neutral-background;
+            }
+        }
+
+    }
+}
+
+    
