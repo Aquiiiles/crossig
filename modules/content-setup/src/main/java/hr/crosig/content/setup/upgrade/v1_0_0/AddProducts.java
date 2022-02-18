@@ -25,28 +25,23 @@ public class AddProducts extends BaseUpgradeProcess {
 	@Override
 	protected void doUpgrade() {
 		Product boat = addProduct(
-			ContentSetupConstants.PRODUCT_BOATS_NAME, 1L, true,
+			ContentSetupConstants.PRODUCT_BOATS_NAME, 0L, true,
 			ContentSetupConstants.PRODUCT_BOATS_DESCRIPTION,
 			ProductCategory.VESSEL.getTitle());
 
 		Product bigBoats = addProduct(
-			ContentSetupConstants.PRODUCT_BIG_BOATS_NAME, 2L, false,
+			ContentSetupConstants.PRODUCT_BIG_BOATS_NAME, 0L, false,
 			ContentSetupConstants.PRODUCT_BIG_BOATS_DESCRIPTION,
 			ProductCategory.VESSEL.getTitle());
 
 		Product boatInstitute = addProduct(
-			ContentSetupConstants.PRODUCT_BOAT_INSTITUTE_CLAUSE_NAME, 3L, false,
+			ContentSetupConstants.PRODUCT_BOAT_INSTITUTE_CLAUSE_NAME, 0L, false,
 			ContentSetupConstants.PRODUCT_BOAT_INSTITUTE_CLAUSE_DESCRIPTION,
 			ProductCategory.VESSEL.getTitle());
 
 		Product skipper = addProduct(
-			ContentSetupConstants.PRODUCT_SKIPPER_NAME, 4L, false,
-			ContentSetupConstants.PRODUCT_SKIPPER_DESCRIPTION,
-			ProductCategory.VESSEL.getTitle());
-
-		Product rentABoat = addProduct(
-			ContentSetupConstants.PRODUCT_RENT_A_BOAT_NAME, 5L, false,
-			ContentSetupConstants.PRODUCT_RENT_A_BOAT_DESCRIPTION,
+			ContentSetupConstants.PRODUCT_SKIPPER_RENT_BOAT_NAME, 0L, false,
+			ContentSetupConstants.PRODUCT_SKIPPER_RENT_BOAT_DESCRIPTION,
 			ProductCategory.VESSEL.getTitle());
 
 		try {
@@ -54,7 +49,6 @@ public class AddProducts extends BaseUpgradeProcess {
 			_addRelationshipToVesselAllAndSell(bigBoats.getProductId());
 			_addRelationshipToVesselAllAndSell(boatInstitute.getProductId());
 			_addRelationshipToVesselAllAndSell(skipper.getProductId());
-			_addRelationshipToVesselAllAndSell(rentABoat.getProductId());
 		}
 		catch (PortalException portalException) {
 			log.error(

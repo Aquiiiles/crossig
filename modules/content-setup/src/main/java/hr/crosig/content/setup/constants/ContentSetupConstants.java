@@ -46,15 +46,10 @@ public class ContentSetupConstants {
 
 	public static final String PRODUCT_BOATS_NAME = "Boats";
 
-	public static final String PRODUCT_RENT_A_BOAT_DESCRIPTION =
-		"Rent-a-Boat description";
+	public static final String PRODUCT_SKIPPER_RENT_BOAT_DESCRIPTION =
+		"Skipper & Rent-a-Boat description";
 
-	public static final String PRODUCT_RENT_A_BOAT_NAME = "Rent-a-Boat";
-
-	public static final String PRODUCT_SKIPPER_DESCRIPTION =
-		"Skipper description";
-
-	public static final String PRODUCT_SKIPPER_NAME = "Skipper";
+	public static final String PRODUCT_SKIPPER_RENT_BOAT_NAME = "Skipper & Rent-a-Boat";
 
 	public static final String PROPOSAL_URL = "/proposal";
 
