@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { Wrapper, ButtonWrapper } from "./styles";
 import BasicInfo from "../../../../shared/molecules/contact/BasicInfo";
 import Addresses from "../../../../shared/molecules/contact/Addresses";
@@ -115,7 +115,7 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
       const postalCode = dispatchAddress.zipCode;
       const street = dispatchAddress.streetName;
       const houseNumber = dispatchAddress.houseNr;
-  
+
       dispatch(addressesSetters.setDispatchCountry(country));
       dispatch(addressesSetters.setDispatchCity(city));
       dispatch(addressesSetters.setDispatchPostalCode(postalCode));
@@ -208,10 +208,22 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
 
   const handleUpdateContact = () => {
     const response = API.put(CONTACT_URL, createContactDTO());
+
     response.then((result) => {
       // message
     });
   };
+
+  const shouldDisableSaveChanges = () => {
+    let isLegalEntity = false;
+    store.subscribe(() => {
+      isLegalEntity = store.getState().basicInfo.contactType === contactTypes.Legal_Entity;
+    })
+
+    return isLegalEntity;
+  };
+
+  console.log(store.getState().basicInfo.contactType);
 
   return (
     <Wrapper id="update-contact-form-main-container">
@@ -242,6 +254,7 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
         <ContactButton
           handleClick={handleUpdateContact}
           label={UPDATE_CONTACT.SUBMIT_BUTTON}
+          disabled={shouldDisableSaveChanges()}
         />
       </ButtonWrapper>
     </Wrapper>
