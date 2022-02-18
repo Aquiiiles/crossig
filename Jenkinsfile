@@ -7,6 +7,9 @@ pipeline {
   }
 
   stages {
+    environment {
+      CI = 'false'
+    }
     stage('Build') {
       steps {
         sh './gradlew clean build'
