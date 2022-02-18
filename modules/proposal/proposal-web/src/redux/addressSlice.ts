@@ -25,10 +25,10 @@ const addressSlice = createSlice({
     setDispatchCountry(state, action: PayloadAction<string>) {
       state.country = action.payload;
     },
-    setCity(state, action: PayloadAction<number>) {
+    setCity(state, action: PayloadAction<any>) {
       state.city = action.payload;
     },
-    setDispatchCity(state, action: PayloadAction<number>) {
+    setDispatchCity(state, action: PayloadAction<any>) {
       state.dispatchCity = action.payload;
     },
     setIsSameAddress(state, action: PayloadAction<boolean>) {
