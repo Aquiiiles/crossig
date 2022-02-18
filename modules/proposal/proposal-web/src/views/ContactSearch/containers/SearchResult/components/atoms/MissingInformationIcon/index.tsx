@@ -5,10 +5,8 @@ import { ClayTooltipProvider } from "@clayui/tooltip";
 import { Button, Wrapper } from "./styles";
 import {
   CONTACT_SEARCH_RESULT_EMAIL_NOT_VALIDATED,
-  CONTACT_SEARCH_RESULT_EMAIL_VALIDATED,
   CONTACT_SEARCH_RESULT_PHONE_NOT_VALIDATED,
-  CONTACT_SEARCH_RESULT_PHONE_VALIDATED,
-  CONTACT_SEARCH_RESULT_AND,
+  CONTACT_SEARCH_RESULT_EMAIL_AND_PHONE_NOT_VALIDATED,
 } from "../../../../../../../constants/languageKeys";
 
 const MissingInformationIcon: React.FC<{
@@ -17,12 +15,12 @@ const MissingInformationIcon: React.FC<{
 }> = ({ mailValidated, phoneNumberValidated }) => {
   const validationMessage = `${
     mailValidated
-      ? CONTACT_SEARCH_RESULT_EMAIL_VALIDATED
-      : CONTACT_SEARCH_RESULT_EMAIL_NOT_VALIDATED
-  } ${CONTACT_SEARCH_RESULT_AND} ${
-    phoneNumberValidated
-      ? CONTACT_SEARCH_RESULT_PHONE_VALIDATED
-      : CONTACT_SEARCH_RESULT_PHONE_NOT_VALIDATED
+      ? phoneNumberValidated
+        ? ""
+        : CONTACT_SEARCH_RESULT_PHONE_NOT_VALIDATED
+      : phoneNumberValidated
+      ? CONTACT_SEARCH_RESULT_EMAIL_NOT_VALIDATED
+      : CONTACT_SEARCH_RESULT_EMAIL_AND_PHONE_NOT_VALIDATED
   }`;
 
   return (
