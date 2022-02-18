@@ -19,7 +19,9 @@
 				"phoneNr": "+385 98 837 8766",
 				"phoneType": 4,
 				"streetHouse": "ANTUNA MIHANOVIĆA 37",
-				"updateVersion": -1
+				"updateVersion": -1,
+				"mailValidated": false,
+				"phoneNumberValidated": true
 			},
 			{
 				"address": "ULICA MATE MERŠIĆA 36, 10000 ZAGREB, Croatia",
@@ -39,7 +41,9 @@
 				"phoneNr": "+385 98 230 0158",
 				"phoneType": 4,
 				"streetHouse": "ULICA MATE MERŠIĆA 36",
-				"updateVersion": -1
+				"updateVersion": -1,
+				"mailValidated": false,
+				"phoneNumberValidated": false
 			},
 			{
 				"address": "Anonimized 1, 10360 SESVETE, Croatia",
@@ -59,7 +63,9 @@
 				"phoneNr": "+385 98 777 777",
 				"phoneType": 4,
 				"streetHouse": "Anonimized 1, 10360",
-				"updateVersion": -1
+				"updateVersion": -1,
+				"mailValidated": true,
+				"phoneNumberValidated": true
 			},
 			{
 				"address": "VRH VISOKE 17E, 21000 SPLIT, Croatia",
@@ -79,7 +85,9 @@
 				"phoneNr": "+385 91 140 1813",
 				"phoneType": 4,
 				"streetHouse": "VRH VISOKE 17E, 21000",
-				"updateVersion": -1
+				"updateVersion": -1,
+				"mailValidated": true,
+				"phoneNumberValidated": false
 			},
 			{
 				"address": "ULICA SV. PETKA 1, 31000 OSIJEK, Croatia",
@@ -99,7 +107,9 @@
 				"phoneNr": "+385 91 442 3553",
 				"phoneType": 4,
 				"streetHouse": "ULICA SV. PETKA 1, 31000",
-				"updateVersion": -1
+				"updateVersion": -1,
+				"mailValidated": false,
+				"phoneNumberValidated": false
 			},
 			{
 				"address": "PRIJEKO 1, 20000 DUBROVNIK, Croatia",
@@ -119,7 +129,9 @@
 				"phoneNr": "+385 98 645 128",
 				"phoneType": 4,
 				"streetHouse": "PRIJEKO 1, 20000",
-				"updateVersion": -1
+				"updateVersion": -1,
+				"mailValidated": true,
+				"phoneNumberValidated": true
 			},
 			{
 				"address": "Anonimized 18, 42000 VARAŽDIN, Croatia",
@@ -139,7 +151,9 @@
 				"phoneNr": "+385 98 158 4728",
 				"phoneType": 4,
 				"streetHouse": "Anonimized 18, 42000",
-				"updateVersion": -1
+				"updateVersion": -1,
+				"mailValidated": false,
+				"phoneNumberValidated": true
 			},
 			{
 				"address": "Anonimized 6, 52100 PULA, Croatia",
@@ -159,7 +173,9 @@
 				"phoneNr": "+385 97 543 3146",
 				"phoneType": 4,
 				"streetHouse": "Anonimized 6, 52100",
-				"updateVersion": -1
+				"updateVersion": -1,
+				"mailValidated": false,
+				"phoneNumberValidated": true
 			},
 			{
 				"address": "ULICA BOKOKOTORSKOG USTANKA 1, 52100 PULA, Croatia",
@@ -179,7 +195,9 @@
 				"phoneNr": "+385 98 424 520",
 				"phoneType": 4,
 				"streetHouse": "ULICA BOKOKOTORSKOG USTANKA 1, 52100",
-				"updateVersion": -1
+				"updateVersion": -1,
+				"mailValidated": false,
+				"phoneNumberValidated": true
 			},
 			{
 				"address": "PETRINJSKA ULICA 14, 44000 SISAK, Croatia",
@@ -199,7 +217,9 @@
 				"phoneNr": "+385 91 614 6138",
 				"phoneType": 4,
 				"streetHouse": "PETRINJSKA ULICA 14, 44000",
-				"updateVersion": -1
+				"updateVersion": -1,
+				"mailValidated": false,
+				"phoneNumberValidated": true
 			},
 			{
 				"address": "HRASTJE PLEŠIVIČKO 1, 10450 JASTREBARSKO, HRASTJE PLEŠIVIČKO, Croatia",
@@ -219,7 +239,9 @@
 				"phoneNr": "+385 91 677 3644",
 				"phoneType": 4,
 				"streetHouse": "HRASTJE PLEŠIVIČKO 1, 10450",
-				"updateVersion": -1
+				"updateVersion": -1,
+				"mailValidated": false,
+				"phoneNumberValidated": true
 			},
 			{
 				"address": "Anonimized 1, 10431 SVETA NEDELJA, Croatia",
@@ -239,7 +261,9 @@
 				"phoneNr": "+385 91 651 1815",
 				"phoneType": 4,
 				"streetHouse": "Anonimized 1, 10431",
-				"updateVersion": -1
+				"updateVersion": -1,
+				"mailValidated": false,
+				"phoneNumberValidated": true
 			},
 			{
 				"address": "KALNIČKA 3, 31000 OSIJEK, Croatia",
@@ -259,7 +283,9 @@
 				"phoneNr": "+385 97 112 3456",
 				"phoneType": 4,
 				"streetHouse": "KALNIČKA 3, 31000",
-				"updateVersion": -1
+				"updateVersion": -1,
+				"mailValidated": true,
+				"phoneNumberValidated": true
 			},
 			{
 				"Updateversion": -1,
@@ -279,7 +305,9 @@
 				"name": "Antonić",
 				"phoneNr": "+385 92 332 2321",
 				"phoneType": 4,
-				"streetHouse": "Anonimized 10, 49000"
+				"streetHouse": "Anonimized 10, 49000",
+				"mailValidated": false,
+				"phoneNumberValidated": true
 			},
 			{
 				"address": "CELJSKA ULICA, 10000 ZAGREB, Croatia",
@@ -299,7 +327,9 @@
 				"phoneNr": "+385 91 517 1517",
 				"phoneType": 4,
 				"streetHouse": "CELJSKA ULICA, 10000",
-				"updateVersion": -1
+				"updateVersion": -1,
+				"mailValidated": true,
+				"phoneNumberValidated": true
 			},
 			{
 				"address": "ULICA MIROSLAVA KRLEŽE 11, 42223 VARAŽDINSKE TOPLICE, Croatia",
@@ -319,7 +349,9 @@
 				"phoneNr": "+385 95 732 2704",
 				"phoneType": 4,
 				"streetHouse": "ULICA MIROSLAVA KRLEŽE 11, 42223",
-				"updateVersion": -1
+				"updateVersion": -1,
+				"mailValidated": true,
+				"phoneNumberValidated": true
 			},
 			{
 				"address": "TONŽINO 1, 51000 RIJEKA, Croatia",
@@ -339,7 +371,9 @@
 				"phoneNr": "+385 91 410 1148",
 				"phoneType": 4,
 				"streetHouse": "TONŽINO 1, 51000",
-				"updateVersion": -1
+				"updateVersion": -1,
+				"mailValidated": true,
+				"phoneNumberValidated": true
 			},
 			{
 				"address": "ULICA OTONA IVEKOVIĆA 60, 10360 SESVETE, Croatia",
@@ -359,7 +393,9 @@
 				"phoneNr": "+385 97 527 1778",
 				"phoneType": 4,
 				"streetHouse": "ULICA OTONA IVEKOVIĆA 60, 10360",
-				"updateVersion": -1
+				"updateVersion": -1,
+				"mailValidated": true,
+				"phoneNumberValidated": true
 			},
 			{
 				"address": "ULICA FOJBON 1, 52100 PULA, Croatia",
@@ -379,7 +415,9 @@
 				"phoneNr": "+385 95 412 7640",
 				"phoneType": 4,
 				"streetHouse": "ULICA FOJBON 1, 52100",
-				"updateVersion": -1
+				"updateVersion": -1,
+				"mailValidated": false,
+				"phoneNumberValidated": false
 			},
 			{
 				"address": "Anonimized 23, 32000 VUKOVAR, Croatia",
@@ -399,7 +437,9 @@
 				"phoneNr": "+385 91 147 7200",
 				"phoneType": 4,
 				"streetHouse": "Anonimized 23, 32000",
-				"updateVersion": -1
+				"updateVersion": -1,
+				"mailValidated": true,
+				"phoneNumberValidated": true
 			},
 			{
 				"address": "Anonimized 1, 10000 ZAGREB, Croatia",
@@ -419,7 +459,9 @@
 				"phoneNr": "+ ",
 				"phoneType": 0,
 				"streetHouse": "Anonimized 1, 10000",
-				"updateVersion": -1
+				"updateVersion": -1,
+				"mailValidated": true,
+				"phoneNumberValidated": false
 			},
 			{
 				"address": "ULICA JOSIPA JELAČIĆA 1, 10430 SAMOBOR, Croatia",
@@ -439,7 +481,9 @@
 				"phoneNr": "+ ",
 				"phoneType": 0,
 				"streetHouse": "ULICA JOSIPA JELAČIĆA 1, 10430",
-				"updateVersion": -1
+				"updateVersion": -1,
+				"mailValidated": false,
+				"phoneNumberValidated": true
 			}
 		],
 		"id": -87476852
