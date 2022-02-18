@@ -47,6 +47,15 @@ public class ProductLocalServiceWrapper
 		return _productLocalService.addProduct(product);
 	}
 
+	@Override
+	public hr.crosig.proposal.model.Product addProduct(
+		String name, long externalId, boolean active, String description,
+		String category) {
+
+		return _productLocalService.addProduct(
+			name, externalId, active, description, category);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -256,6 +265,11 @@ public class ProductLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _productLocalService.getProduct(productId);
+	}
+
+	@Override
+	public hr.crosig.proposal.model.Product getProductByName(String name) {
+		return _productLocalService.getProductByName(name);
 	}
 
 	/**

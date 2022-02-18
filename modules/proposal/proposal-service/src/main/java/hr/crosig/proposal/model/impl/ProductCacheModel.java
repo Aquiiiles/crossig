@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+import java.util.Date;
+
 /**
  * The cache model class for representing Product in entity cache.
  *
@@ -59,14 +61,30 @@ public class ProductCacheModel implements CacheModel<Product>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{productId=");
 		sb.append(productId);
+		sb.append(", companyId=");
+		sb.append(companyId);
+		sb.append(", userId=");
+		sb.append(userId);
+		sb.append(", userName=");
+		sb.append(userName);
+		sb.append(", createDate=");
+		sb.append(createDate);
+		sb.append(", modifiedDate=");
+		sb.append(modifiedDate);
 		sb.append(", name=");
 		sb.append(name);
 		sb.append(", externalId=");
 		sb.append(externalId);
+		sb.append(", active=");
+		sb.append(active);
+		sb.append(", description=");
+		sb.append(description);
+		sb.append(", category=");
+		sb.append(category);
 		sb.append("}");
 
 		return sb.toString();
@@ -77,6 +95,29 @@ public class ProductCacheModel implements CacheModel<Product>, Externalizable {
 		ProductImpl productImpl = new ProductImpl();
 
 		productImpl.setProductId(productId);
+		productImpl.setCompanyId(companyId);
+		productImpl.setUserId(userId);
+
+		if (userName == null) {
+			productImpl.setUserName("");
+		}
+		else {
+			productImpl.setUserName(userName);
+		}
+
+		if (createDate == Long.MIN_VALUE) {
+			productImpl.setCreateDate(null);
+		}
+		else {
+			productImpl.setCreateDate(new Date(createDate));
+		}
+
+		if (modifiedDate == Long.MIN_VALUE) {
+			productImpl.setModifiedDate(null);
+		}
+		else {
+			productImpl.setModifiedDate(new Date(modifiedDate));
+		}
 
 		if (name == null) {
 			productImpl.setName("");
@@ -86,6 +127,21 @@ public class ProductCacheModel implements CacheModel<Product>, Externalizable {
 		}
 
 		productImpl.setExternalId(externalId);
+		productImpl.setActive(active);
+
+		if (description == null) {
+			productImpl.setDescription("");
+		}
+		else {
+			productImpl.setDescription(description);
+		}
+
+		if (category == null) {
+			productImpl.setCategory("");
+		}
+		else {
+			productImpl.setCategory(category);
+		}
 
 		productImpl.resetOriginalValues();
 
@@ -95,14 +151,39 @@ public class ProductCacheModel implements CacheModel<Product>, Externalizable {
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		productId = objectInput.readLong();
+
+		companyId = objectInput.readLong();
+
+		userId = objectInput.readLong();
+		userName = objectInput.readUTF();
+		createDate = objectInput.readLong();
+		modifiedDate = objectInput.readLong();
 		name = objectInput.readUTF();
 
 		externalId = objectInput.readLong();
+
+		active = objectInput.readBoolean();
+		description = objectInput.readUTF();
+		category = objectInput.readUTF();
 	}
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(productId);
+
+		objectOutput.writeLong(companyId);
+
+		objectOutput.writeLong(userId);
+
+		if (userName == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(userName);
+		}
+
+		objectOutput.writeLong(createDate);
+		objectOutput.writeLong(modifiedDate);
 
 		if (name == null) {
 			objectOutput.writeUTF("");
@@ -112,10 +193,34 @@ public class ProductCacheModel implements CacheModel<Product>, Externalizable {
 		}
 
 		objectOutput.writeLong(externalId);
+
+		objectOutput.writeBoolean(active);
+
+		if (description == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(description);
+		}
+
+		if (category == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(category);
+		}
 	}
 
 	public long productId;
+	public long companyId;
+	public long userId;
+	public String userName;
+	public long createDate;
+	public long modifiedDate;
 	public String name;
 	public long externalId;
+	public boolean active;
+	public String description;
+	public String category;
 
 }

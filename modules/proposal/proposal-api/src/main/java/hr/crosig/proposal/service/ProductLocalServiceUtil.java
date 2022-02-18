@@ -59,6 +59,14 @@ public class ProductLocalServiceUtil {
 		return getService().addProduct(product);
 	}
 
+	public static Product addProduct(
+		String name, long externalId, boolean active, String description,
+		String category) {
+
+		return getService().addProduct(
+			name, externalId, active, description, category);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -239,6 +247,10 @@ public class ProductLocalServiceUtil {
 	 */
 	public static Product getProduct(long productId) throws PortalException {
 		return getService().getProduct(productId);
+	}
+
+	public static Product getProductByName(String name) {
+		return getService().getProductByName(name);
 	}
 
 	/**

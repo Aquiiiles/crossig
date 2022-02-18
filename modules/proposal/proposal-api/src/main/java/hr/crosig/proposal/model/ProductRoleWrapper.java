@@ -17,6 +17,7 @@ package hr.crosig.proposal.model;
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +43,11 @@ public class ProductRoleWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("productRoleId", getProductRoleId());
+		attributes.put("companyId", getCompanyId());
+		attributes.put("userId", getUserId());
+		attributes.put("userName", getUserName());
+		attributes.put("createDate", getCreateDate());
+		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("productId", getProductId());
 		attributes.put("roleId", getRoleId());
 
@@ -56,6 +62,36 @@ public class ProductRoleWrapper
 			setProductRoleId(productRoleId);
 		}
 
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
+		}
+
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
+		}
+
+		Date createDate = (Date)attributes.get("createDate");
+
+		if (createDate != null) {
+			setCreateDate(createDate);
+		}
+
+		Date modifiedDate = (Date)attributes.get("modifiedDate");
+
+		if (modifiedDate != null) {
+			setModifiedDate(modifiedDate);
+		}
+
 		Long productId = (Long)attributes.get("productId");
 
 		if (productId != null) {
@@ -67,6 +103,36 @@ public class ProductRoleWrapper
 		if (roleId != null) {
 			setRoleId(roleId);
 		}
+	}
+
+	/**
+	 * Returns the company ID of this product role.
+	 *
+	 * @return the company ID of this product role
+	 */
+	@Override
+	public long getCompanyId() {
+		return model.getCompanyId();
+	}
+
+	/**
+	 * Returns the create date of this product role.
+	 *
+	 * @return the create date of this product role
+	 */
+	@Override
+	public Date getCreateDate() {
+		return model.getCreateDate();
+	}
+
+	/**
+	 * Returns the modified date of this product role.
+	 *
+	 * @return the modified date of this product role
+	 */
+	@Override
+	public Date getModifiedDate() {
+		return model.getModifiedDate();
 	}
 
 	/**
@@ -109,9 +175,69 @@ public class ProductRoleWrapper
 		return model.getRoleId();
 	}
 
+	/**
+	 * Returns the user ID of this product role.
+	 *
+	 * @return the user ID of this product role
+	 */
+	@Override
+	public long getUserId() {
+		return model.getUserId();
+	}
+
+	/**
+	 * Returns the user name of this product role.
+	 *
+	 * @return the user name of this product role
+	 */
+	@Override
+	public String getUserName() {
+		return model.getUserName();
+	}
+
+	/**
+	 * Returns the user uuid of this product role.
+	 *
+	 * @return the user uuid of this product role
+	 */
+	@Override
+	public String getUserUuid() {
+		return model.getUserUuid();
+	}
+
 	@Override
 	public void persist() {
 		model.persist();
+	}
+
+	/**
+	 * Sets the company ID of this product role.
+	 *
+	 * @param companyId the company ID of this product role
+	 */
+	@Override
+	public void setCompanyId(long companyId) {
+		model.setCompanyId(companyId);
+	}
+
+	/**
+	 * Sets the create date of this product role.
+	 *
+	 * @param createDate the create date of this product role
+	 */
+	@Override
+	public void setCreateDate(Date createDate) {
+		model.setCreateDate(createDate);
+	}
+
+	/**
+	 * Sets the modified date of this product role.
+	 *
+	 * @param modifiedDate the modified date of this product role
+	 */
+	@Override
+	public void setModifiedDate(Date modifiedDate) {
+		model.setModifiedDate(modifiedDate);
 	}
 
 	/**
@@ -152,6 +278,36 @@ public class ProductRoleWrapper
 	@Override
 	public void setRoleId(long roleId) {
 		model.setRoleId(roleId);
+	}
+
+	/**
+	 * Sets the user ID of this product role.
+	 *
+	 * @param userId the user ID of this product role
+	 */
+	@Override
+	public void setUserId(long userId) {
+		model.setUserId(userId);
+	}
+
+	/**
+	 * Sets the user name of this product role.
+	 *
+	 * @param userName the user name of this product role
+	 */
+	@Override
+	public void setUserName(String userName) {
+		model.setUserName(userName);
+	}
+
+	/**
+	 * Sets the user uuid of this product role.
+	 *
+	 * @param userUuid the user uuid of this product role
+	 */
+	@Override
+	public void setUserUuid(String userUuid) {
+		model.setUserUuid(userUuid);
 	}
 
 	@Override

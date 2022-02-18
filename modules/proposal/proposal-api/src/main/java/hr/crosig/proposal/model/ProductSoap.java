@@ -17,6 +17,7 @@ package hr.crosig.proposal.model;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,8 +34,16 @@ public class ProductSoap implements Serializable {
 		ProductSoap soapModel = new ProductSoap();
 
 		soapModel.setProductId(model.getProductId());
+		soapModel.setCompanyId(model.getCompanyId());
+		soapModel.setUserId(model.getUserId());
+		soapModel.setUserName(model.getUserName());
+		soapModel.setCreateDate(model.getCreateDate());
+		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setName(model.getName());
 		soapModel.setExternalId(model.getExternalId());
+		soapModel.setActive(model.isActive());
+		soapModel.setDescription(model.getDescription());
+		soapModel.setCategory(model.getCategory());
 
 		return soapModel;
 	}
@@ -96,6 +105,46 @@ public class ProductSoap implements Serializable {
 		_productId = productId;
 	}
 
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
+	}
+
+	public long getUserId() {
+		return _userId;
+	}
+
+	public void setUserId(long userId) {
+		_userId = userId;
+	}
+
+	public String getUserName() {
+		return _userName;
+	}
+
+	public void setUserName(String userName) {
+		_userName = userName;
+	}
+
+	public Date getCreateDate() {
+		return _createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		_createDate = createDate;
+	}
+
+	public Date getModifiedDate() {
+		return _modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		_modifiedDate = modifiedDate;
+	}
+
 	public String getName() {
 		return _name;
 	}
@@ -112,8 +161,44 @@ public class ProductSoap implements Serializable {
 		_externalId = externalId;
 	}
 
+	public boolean getActive() {
+		return _active;
+	}
+
+	public boolean isActive() {
+		return _active;
+	}
+
+	public void setActive(boolean active) {
+		_active = active;
+	}
+
+	public String getDescription() {
+		return _description;
+	}
+
+	public void setDescription(String description) {
+		_description = description;
+	}
+
+	public String getCategory() {
+		return _category;
+	}
+
+	public void setCategory(String category) {
+		_category = category;
+	}
+
 	private long _productId;
+	private long _companyId;
+	private long _userId;
+	private String _userName;
+	private Date _createDate;
+	private Date _modifiedDate;
 	private String _name;
 	private long _externalId;
+	private boolean _active;
+	private String _description;
+	private String _category;
 
 }

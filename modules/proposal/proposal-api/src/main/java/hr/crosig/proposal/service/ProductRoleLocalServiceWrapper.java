@@ -33,6 +33,11 @@ public class ProductRoleLocalServiceWrapper
 		_productRoleLocalService = productRoleLocalService;
 	}
 
+	@Override
+	public void addProductRole(long productId, long roleId) {
+		_productRoleLocalService.addProductRole(productId, roleId);
+	}
+
 	/**
 	 * Adds the product role to the database. Also notifies the appropriate model listeners.
 	 *

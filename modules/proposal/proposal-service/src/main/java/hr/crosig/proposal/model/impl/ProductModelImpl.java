@@ -18,10 +18,13 @@ import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 
@@ -67,8 +70,12 @@ public class ProductModelImpl
 	public static final String TABLE_NAME = "AP_Proposal_Product";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"productId", Types.BIGINT}, {"name", Types.VARCHAR},
-		{"externalId", Types.BIGINT}
+		{"productId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
+		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
+		{"name", Types.VARCHAR}, {"externalId", Types.BIGINT},
+		{"active_", Types.BOOLEAN}, {"description", Types.VARCHAR},
+		{"category", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -76,12 +83,20 @@ public class ProductModelImpl
 
 	static {
 		TABLE_COLUMNS_MAP.put("productId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("externalId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("active_", Types.BOOLEAN);
+		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("category", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table AP_Proposal_Product (productId LONG not null primary key,name VARCHAR(75) null,externalId LONG)";
+		"create table AP_Proposal_Product (productId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,externalId LONG,active_ BOOLEAN,description VARCHAR(75) null,category VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table AP_Proposal_Product";
@@ -98,8 +113,7 @@ public class ProductModelImpl
 	public static final String TX_MANAGER = "liferayTransactionManager";
 
 	/**
-	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
-	 *		#getColumnBitmask(String)}
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
 	public static final long NAME_COLUMN_BITMASK = 1L;
@@ -243,12 +257,38 @@ public class ProductModelImpl
 		attributeGetterFunctions.put("productId", Product::getProductId);
 		attributeSetterBiConsumers.put(
 			"productId", (BiConsumer<Product, Long>)Product::setProductId);
+		attributeGetterFunctions.put("companyId", Product::getCompanyId);
+		attributeSetterBiConsumers.put(
+			"companyId", (BiConsumer<Product, Long>)Product::setCompanyId);
+		attributeGetterFunctions.put("userId", Product::getUserId);
+		attributeSetterBiConsumers.put(
+			"userId", (BiConsumer<Product, Long>)Product::setUserId);
+		attributeGetterFunctions.put("userName", Product::getUserName);
+		attributeSetterBiConsumers.put(
+			"userName", (BiConsumer<Product, String>)Product::setUserName);
+		attributeGetterFunctions.put("createDate", Product::getCreateDate);
+		attributeSetterBiConsumers.put(
+			"createDate", (BiConsumer<Product, Date>)Product::setCreateDate);
+		attributeGetterFunctions.put("modifiedDate", Product::getModifiedDate);
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			(BiConsumer<Product, Date>)Product::setModifiedDate);
 		attributeGetterFunctions.put("name", Product::getName);
 		attributeSetterBiConsumers.put(
 			"name", (BiConsumer<Product, String>)Product::setName);
 		attributeGetterFunctions.put("externalId", Product::getExternalId);
 		attributeSetterBiConsumers.put(
 			"externalId", (BiConsumer<Product, Long>)Product::setExternalId);
+		attributeGetterFunctions.put("active", Product::getActive);
+		attributeSetterBiConsumers.put(
+			"active", (BiConsumer<Product, Boolean>)Product::setActive);
+		attributeGetterFunctions.put("description", Product::getDescription);
+		attributeSetterBiConsumers.put(
+			"description",
+			(BiConsumer<Product, String>)Product::setDescription);
+		attributeGetterFunctions.put("category", Product::getCategory);
+		attributeSetterBiConsumers.put(
+			"category", (BiConsumer<Product, String>)Product::setCategory);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -271,6 +311,103 @@ public class ProductModelImpl
 	}
 
 	@Override
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	@Override
+	public void setCompanyId(long companyId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_companyId = companyId;
+	}
+
+	@Override
+	public long getUserId() {
+		return _userId;
+	}
+
+	@Override
+	public void setUserId(long userId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_userId = userId;
+	}
+
+	@Override
+	public String getUserUuid() {
+		try {
+			User user = UserLocalServiceUtil.getUserById(getUserId());
+
+			return user.getUuid();
+		}
+		catch (PortalException portalException) {
+			return "";
+		}
+	}
+
+	@Override
+	public void setUserUuid(String userUuid) {
+	}
+
+	@Override
+	public String getUserName() {
+		if (_userName == null) {
+			return "";
+		}
+		else {
+			return _userName;
+		}
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_userName = userName;
+	}
+
+	@Override
+	public Date getCreateDate() {
+		return _createDate;
+	}
+
+	@Override
+	public void setCreateDate(Date createDate) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_createDate = createDate;
+	}
+
+	@Override
+	public Date getModifiedDate() {
+		return _modifiedDate;
+	}
+
+	public boolean hasSetModifiedDate() {
+		return _setModifiedDate;
+	}
+
+	@Override
+	public void setModifiedDate(Date modifiedDate) {
+		_setModifiedDate = true;
+
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_modifiedDate = modifiedDate;
+	}
+
+	@Override
 	public String getName() {
 		if (_name == null) {
 			return "";
@@ -289,6 +426,15 @@ public class ProductModelImpl
 		_name = name;
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
+	public String getOriginalName() {
+		return getColumnOriginalValue("name");
+	}
+
 	@Override
 	public long getExternalId() {
 		return _externalId;
@@ -301,6 +447,63 @@ public class ProductModelImpl
 		}
 
 		_externalId = externalId;
+	}
+
+	@Override
+	public boolean getActive() {
+		return _active;
+	}
+
+	@Override
+	public boolean isActive() {
+		return _active;
+	}
+
+	@Override
+	public void setActive(boolean active) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_active = active;
+	}
+
+	@Override
+	public String getDescription() {
+		if (_description == null) {
+			return "";
+		}
+		else {
+			return _description;
+		}
+	}
+
+	@Override
+	public void setDescription(String description) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_description = description;
+	}
+
+	@Override
+	public String getCategory() {
+		if (_category == null) {
+			return "";
+		}
+		else {
+			return _category;
+		}
+	}
+
+	@Override
+	public void setCategory(String category) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_category = category;
 	}
 
 	public long getColumnBitmask() {
@@ -330,7 +533,7 @@ public class ProductModelImpl
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(
-			0, Product.class.getName(), getPrimaryKey());
+			getCompanyId(), Product.class.getName(), getPrimaryKey());
 	}
 
 	@Override
@@ -360,8 +563,16 @@ public class ProductModelImpl
 		ProductImpl productImpl = new ProductImpl();
 
 		productImpl.setProductId(getProductId());
+		productImpl.setCompanyId(getCompanyId());
+		productImpl.setUserId(getUserId());
+		productImpl.setUserName(getUserName());
+		productImpl.setCreateDate(getCreateDate());
+		productImpl.setModifiedDate(getModifiedDate());
 		productImpl.setName(getName());
 		productImpl.setExternalId(getExternalId());
+		productImpl.setActive(isActive());
+		productImpl.setDescription(getDescription());
+		productImpl.setCategory(getCategory());
 
 		productImpl.resetOriginalValues();
 
@@ -430,6 +641,8 @@ public class ProductModelImpl
 	public void resetOriginalValues() {
 		_columnOriginalValues = Collections.emptyMap();
 
+		_setModifiedDate = false;
+
 		_columnBitmask = 0;
 	}
 
@@ -438,6 +651,36 @@ public class ProductModelImpl
 		ProductCacheModel productCacheModel = new ProductCacheModel();
 
 		productCacheModel.productId = getProductId();
+
+		productCacheModel.companyId = getCompanyId();
+
+		productCacheModel.userId = getUserId();
+
+		productCacheModel.userName = getUserName();
+
+		String userName = productCacheModel.userName;
+
+		if ((userName != null) && (userName.length() == 0)) {
+			productCacheModel.userName = null;
+		}
+
+		Date createDate = getCreateDate();
+
+		if (createDate != null) {
+			productCacheModel.createDate = createDate.getTime();
+		}
+		else {
+			productCacheModel.createDate = Long.MIN_VALUE;
+		}
+
+		Date modifiedDate = getModifiedDate();
+
+		if (modifiedDate != null) {
+			productCacheModel.modifiedDate = modifiedDate.getTime();
+		}
+		else {
+			productCacheModel.modifiedDate = Long.MIN_VALUE;
+		}
 
 		productCacheModel.name = getName();
 
@@ -448,6 +691,24 @@ public class ProductModelImpl
 		}
 
 		productCacheModel.externalId = getExternalId();
+
+		productCacheModel.active = isActive();
+
+		productCacheModel.description = getDescription();
+
+		String description = productCacheModel.description;
+
+		if ((description != null) && (description.length() == 0)) {
+			productCacheModel.description = null;
+		}
+
+		productCacheModel.category = getCategory();
+
+		String category = productCacheModel.category;
+
+		if ((category != null) && (category.length() == 0)) {
+			productCacheModel.category = null;
+		}
 
 		return productCacheModel;
 	}
@@ -540,10 +801,21 @@ public class ProductModelImpl
 	}
 
 	private long _productId;
+	private long _companyId;
+	private long _userId;
+	private String _userName;
+	private Date _createDate;
+	private Date _modifiedDate;
+	private boolean _setModifiedDate;
 	private String _name;
 	private long _externalId;
+	private boolean _active;
+	private String _description;
+	private String _category;
 
 	public <T> T getColumnValue(String columnName) {
+		columnName = _attributeNames.getOrDefault(columnName, columnName);
+
 		Function<Product, Object> function = _attributeGetterFunctions.get(
 			columnName);
 
@@ -571,8 +843,26 @@ public class ProductModelImpl
 		_columnOriginalValues = new HashMap<String, Object>();
 
 		_columnOriginalValues.put("productId", _productId);
+		_columnOriginalValues.put("companyId", _companyId);
+		_columnOriginalValues.put("userId", _userId);
+		_columnOriginalValues.put("userName", _userName);
+		_columnOriginalValues.put("createDate", _createDate);
+		_columnOriginalValues.put("modifiedDate", _modifiedDate);
 		_columnOriginalValues.put("name", _name);
 		_columnOriginalValues.put("externalId", _externalId);
+		_columnOriginalValues.put("active_", _active);
+		_columnOriginalValues.put("description", _description);
+		_columnOriginalValues.put("category", _category);
+	}
+
+	private static final Map<String, String> _attributeNames;
+
+	static {
+		Map<String, String> attributeNames = new HashMap<>();
+
+		attributeNames.put("active_", "active");
+
+		_attributeNames = Collections.unmodifiableMap(attributeNames);
 	}
 
 	private transient Map<String, Object> _columnOriginalValues;
@@ -588,9 +878,25 @@ public class ProductModelImpl
 
 		columnBitmasks.put("productId", 1L);
 
-		columnBitmasks.put("name", 2L);
+		columnBitmasks.put("companyId", 2L);
 
-		columnBitmasks.put("externalId", 4L);
+		columnBitmasks.put("userId", 4L);
+
+		columnBitmasks.put("userName", 8L);
+
+		columnBitmasks.put("createDate", 16L);
+
+		columnBitmasks.put("modifiedDate", 32L);
+
+		columnBitmasks.put("name", 64L);
+
+		columnBitmasks.put("externalId", 128L);
+
+		columnBitmasks.put("active_", 256L);
+
+		columnBitmasks.put("description", 512L);
+
+		columnBitmasks.put("category", 1024L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}
