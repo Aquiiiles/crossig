@@ -2,10 +2,14 @@ package hr.crosig.sample.data.generator.service;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.UserEmailAddressException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.UserGroup;
 import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.UserGroupLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.upgrade.util.UpgradeProcessUtil;
@@ -21,6 +25,9 @@ import org.osgi.service.component.annotations.Reference;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+
+import static hr.crosig.sample.data.generator.api.constants.UserDataConstants.SAMPLE_AGENT_SCOTT_EMAIL_ADDRESS;
+import static hr.crosig.sample.data.generator.api.constants.UserDataConstants.SAMPLE_MANAGER_JACK_EMAIL_ADDRESS;
 
 /**
  * @author marcelo.mazurky
@@ -59,37 +66,40 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
 	 */
 	private User _addUser(
 			String firstName, String lastName, String emailAddress,
-			String password, String userGroupName)
-		throws PortalException, SQLException {
+			String password, String userGroupName) {
+		try {
+			// default company id
 
-		// default company id
+			long defaultCompanyId = PortalUtil.getDefaultCompanyId();
 
-		long defaultCompanyId = PortalUtil.getDefaultCompanyId();
+			// default user id
 
-		// default user id
+			long defaultUserId = _userLocalService.getDefaultUserId(
+					defaultCompanyId);
 
-		long defaultUserId = _userLocalService.getDefaultUserId(
-			defaultCompanyId);
+			// calls the service to add the user
 
-		// calls the service to add the user
-
-		return _userLocalService.addUser(
-			defaultUserId, defaultCompanyId, false, password, password, true,
-			null, emailAddress,
-			LocaleUtil.fromLanguageId(
-				UpgradeProcessUtil.getDefaultLanguageId(defaultCompanyId)),
-			firstName, null, lastName, -1, -1, true,
-			LocalDateTime.now(
-			).getMonthValue() - 1,
-			LocalDateTime.now(
-			).getDayOfMonth(),
-			LocalDateTime.now(
-			).getYear(),
-			null,
-			_getAgentPortalGroupId(),
-			new long[0], new long[0],
-			_getUserGroupId(userGroupName),
-			false, GeneratorUtilities.getDefaultServiceContext(defaultUserId));
+			return _userLocalService.addUser(
+					defaultUserId, defaultCompanyId, false, password, password, true,
+					null, emailAddress,
+					LocaleUtil.fromLanguageId(
+							UpgradeProcessUtil.getDefaultLanguageId(defaultCompanyId)),
+					firstName, null, lastName, -1, -1, true,
+					LocalDateTime.now(
+					).getMonthValue() - 1,
+					LocalDateTime.now(
+					).getDayOfMonth(),
+					LocalDateTime.now(
+					).getYear(),
+					null,
+					_getAgentPortalGroupId(),
+					new long[0], new long[0],
+					_getUserGroupId(userGroupName),
+					false, GeneratorUtilities.getDefaultServiceContext(defaultUserId));
+		} catch (Exception exception) {
+			_log.error(exception);
+			return null;
+		}
 	}
 
 	/**
@@ -161,11 +171,44 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
 		}
 	}
 
-	public void createUsers() throws SQLException, PortalException {
+	/**
+	 * Adds a Role to a User
+	 * @param roleName
+	 * @param userEmailAddress
+	 */
+	private void _addRoleToUser(String roleName, String userEmailAddress) {
+		try {
+			// default company id
+			long defaultCompanyId = PortalUtil.getDefaultCompanyId();
+
+			// gets the role
+			Role role = _roleLocalService.getRole(defaultCompanyId, roleName);
+
+			// gets the user
+			User user = _userLocalService.getUserByEmailAddress(defaultCompanyId, userEmailAddress);
+
+			// adds the role to the user
+			_userLocalService.addRoleUser(role.getRoleId(), user.getUserId());
+		} catch (Exception exception) {
+			_log.error(exception);
+		}
+	}
+
+	public void createUsers() {
 		// adds sample agent
-		_addUser(UserDataConstants.SAMPLE_AGENT_FIRST_NAME, UserDataConstants.SAMPLE_AGENT_LAST_NAME, UserDataConstants.SAMPLE_AGENT_EMAIL_ADDRESS, UserDataConstants.DEFAULT_USER_PASSWORD, UserDataConstants.USER_GROUP_AGENT_TYPE);
+		_addUser(UserDataConstants.SAMPLE_AGENT_JOHN_FIRST_NAME, UserDataConstants.DEFAULT_AGENT_LAST_NAME, UserDataConstants.SAMPLE_AGENT_JOHN_EMAIL_ADDRESS, UserDataConstants.DEFAULT_USER_PASSWORD, UserDataConstants.USER_GROUP_AGENT_TYPE);
+
 		// adds sample manager
-		_addUser(UserDataConstants.SAMPLE_MANAGER_FIRST_NAME, UserDataConstants.SAMPLE_MANAGER_LAST_NAME, UserDataConstants.SAMPLE_MANAGER_EMAIL_ADDRESS, UserDataConstants.DEFAULT_USER_PASSWORD, UserDataConstants.USER_GROUP_MANAGER_TYPE);
+		_addUser(UserDataConstants.SAMPLE_MANAGER_JACK_FIRST_NAME, UserDataConstants.DEFAULT_MANAGER_LAST_NAME, SAMPLE_MANAGER_JACK_EMAIL_ADDRESS, UserDataConstants.DEFAULT_USER_PASSWORD, UserDataConstants.USER_GROUP_MANAGER_TYPE);
+
+		// adds VESSEL_ALL role to the sample manager
+		_addRoleToUser(ContentSetupConstants.VESSEL_ROLE_ALL, SAMPLE_MANAGER_JACK_EMAIL_ADDRESS);
+
+		// adds another sample agent
+		_addUser(UserDataConstants.SAMPLE_AGENT_SCOTT_FIRST_NAME, UserDataConstants.DEFAULT_AGENT_LAST_NAME, UserDataConstants.SAMPLE_AGENT_SCOTT_EMAIL_ADDRESS, UserDataConstants.DEFAULT_USER_PASSWORD, UserDataConstants.USER_GROUP_AGENT_TYPE);
+
+		// adds VESSEL_SELL role to the sample agent
+		_addRoleToUser(ContentSetupConstants.VESSEL_ROLE_SELL, SAMPLE_AGENT_SCOTT_EMAIL_ADDRESS);
 	}
 
 	@Reference
@@ -173,5 +216,11 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
 
 	@Reference
 	private UserLocalService _userLocalService;
+
+	@Reference
+	private RoleLocalService _roleLocalService;
+
+	private static final Log _log = LogFactoryUtil.getLog(
+			UserDataGeneratorImpl.class);
 
 }
