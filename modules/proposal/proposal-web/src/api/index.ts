@@ -7,7 +7,6 @@ interface CommonHeaderProperties extends HeadersDefaults {
 }
 
 const API = axios.create({
-  baseURL: "/o/agent-portal",
   params: {
     p_auth: Liferay.authToken,
   },

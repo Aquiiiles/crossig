@@ -19,7 +19,6 @@ type propsType = {
   handleChange: (index: number, e: React.ChangeEvent, property: string) => void;
   addPhoneInput: MouseEventHandler;
   countries: Array<Country>;
-  areaCodeOptions: Array<any>;
 };
 export interface Country {
   label: string;

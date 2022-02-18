@@ -7,11 +7,11 @@ import ClayForm, {
   ClayCheckbox,
   ClaySelectWithOption,
 } from "@clayui/form";
-import { actions } from "../../../stores/contact/slices/BasicInfo";
+import { actions } from "../../../../redux/basicInfoSlice";
 import {
   useContactDispatch,
   useContactSelector,
-} from "../../../stores/contact/ContactStore";
+} from "../../../../redux/store";
 import {
   contactTypeOptions,
   contactTypes,

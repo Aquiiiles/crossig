@@ -10,7 +10,7 @@ export function fetchDataReducer(state: { response: any; }, action: { type: any;
     }
     case RESOLVED: {
       const { status : statusCode } = action.response;
-      const status = statusCode === SUCCESS_CODE ? RESOLVED : REJECTED;
+      const status = statusCode.toString().substr(0,1) === "2" ? RESOLVED : REJECTED;
       return {
         ...state,
         response: { ...state.response, ...action.response },

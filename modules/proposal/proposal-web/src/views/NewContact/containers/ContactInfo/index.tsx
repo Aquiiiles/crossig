@@ -3,7 +3,6 @@ import { Wrapper } from "./style";
 import BasicInfo from "../../../../shared/molecules/contact/BasicInfo";
 import Addresses from "../../../../shared/molecules/contact/Addresses";
 import ContactInfoForm from "../../../../shared/molecules/contact/ContactInfoForm";
-import { Provider as ContactInfoProvider } from "react-redux";
 import { CREATE_NEW_CONTACT } from "../../../../constants/languageKeys";
 import {
   mapToCountryNames,
@@ -16,33 +15,27 @@ import { phoneObjectToData } from "./utils/phoneUtils";
 import { useFetchData } from "../../../../api/hooks/useFetchData";
 import { CONTACT_URL } from "../../../../api/constants/routes";
 
-import { getInitialState } from "../../../../shared/stores/contact/ContactStore";
-
-declare const Liferay: any;
+import { getActiveCountries } from "../../../../api/services/liferay";
+import { createContactStore } from "../../../../redux/store";
 
 const ContactInfo: React.FC = () => {
-  const basicInfoData = useContactSelector(state => state.basicInfo);
-  const addressData = useContactSelector(state => state.address);
-  const contactInfoData = useContactSelector(state => state.contactInfo);
+  const basicInfoData = useContactSelector((state) => state.basicInfo);
+  const addressData = useContactSelector((state) => state.addresses);
+  const contactInfoData = useContactSelector((state) => state.contactInfo);
   const { fetchData: API } = useFetchData();
-  const [countries, setCountries] = useState(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const [countries, setCountries] = useState<Array<any> | null>(null);
 
-  const loadCountries = useCallback(() => {
-    Liferay.Service(
-      "/country/get-countries",
-      {
-        active: true,
-      },
-      (countriesArray: any) => {
-        setCountries(countriesArray);
-      }
-    );
+  useEffect(() => {
+    const activeCountries = getActiveCountries();
+    if (activeCountries) {
+      setCountries(activeCountries);
+    }
   }, []);
 
   useEffect(() => {
-    loadCountries();
-  }, [loadCountries]);
+    createContactStore();
+  }, []);
 
   const hasFormErrors = () => {
     if (formRef.current) {
@@ -128,9 +121,9 @@ const ContactInfo: React.FC = () => {
 
   return (
     <Wrapper
-      id="ContactInfo-main-container"
+      id="contact-info-main-container"
       ref={formRef}
-      onSubmit={event => {
+      onSubmit={(event) => {
         event.preventDefault();
         createContact();
       }}

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { WritableDraft } from "immer/dist/internal";
-import { Address } from "../../../types/contact";
-import { countryNames } from "../../../../constants/defaultCountryConfiguration";
+import { Address } from "../shared/types/contact";
+import { countryNames } from "../constants/defaultCountryConfiguration";
 
 const blankAddress = {
   country: countryNames.value,
@@ -12,29 +12,31 @@ const blankAddress = {
 } as Address;
 
 const initialState = {
-  idAddress: blankAddress,
+  mainAddress: blankAddress,
   dispatchAddress: blankAddress,
   areAddressesEqual: true,
 };
 
 type StateType = {
-  idAddress: Address;
+  mainAddress: Address;
   dispatchAddress: Address;
   areAddressesEqual: boolean;
 };
 
 const shouldSetMainAddress = (action: PayloadAction<[string, string]>) => {
-  return "idAddress" === action.payload[0];
+  return MAIN_ADDRESS === action.payload[0];
 };
 
 const getStateReference = (
   state: WritableDraft<StateType>,
   action: PayloadAction<[string, any]>
 ) => {
-  return shouldSetMainAddress(action) ? state.idAddress : state.dispatchAddress;
+  return shouldSetMainAddress(action)
+    ? state.mainAddress
+    : state.dispatchAddress;
 };
 
-const AddressesSlice = createSlice({
+const addressesSlice = createSlice({
   name: "addresses",
   initialState,
   reducers: {
@@ -56,7 +58,7 @@ const AddressesSlice = createSlice({
     toggleEqualAddresses(state) {
       state.areAddressesEqual = !state.areAddressesEqual;
       if (state.areAddressesEqual) {
-        state.dispatchAddress = state.idAddress;
+        state.dispatchAddress = state.mainAddress;
       } else {
         state.dispatchAddress = blankAddress;
       }
@@ -64,6 +66,8 @@ const AddressesSlice = createSlice({
   },
 });
 
-export const actions = AddressesSlice.actions;
+export const actions = addressesSlice.actions;
+export const MAIN_ADDRESS = "mainAddress";
+export const DISPATCH_ADDRESS = "dispatchAddress";
 
-export default AddressesSlice.reducer;
+export default addressesSlice.reducer;

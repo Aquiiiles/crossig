@@ -1,10 +1,8 @@
 import React, { Fragment } from "react";
-import { useHistory } from "react-router-dom";
 import ClayForm from "@clayui/form";
 import EmailInputList from "../../../atoms/contact/EmailInputList";
 import FormSection from "../../../atoms/contact/FormSection";
 import PhoneInputList from "../../../atoms/contact/PhoneInputList";
-import LinkWrapper from "../../../atoms/contact/LinkWrapper";
 import Row from "../../../atoms/contact/Row";
 import SubtitledLabel from "../../../atoms/contact/SubtitledLabel";
 import PhoneTypeSelect from "../../../atoms/contact/PhoneTypeSelect";
@@ -14,17 +12,18 @@ import {
   MAXIMUM_EMAIL_ADDRESSES,
   MAXIMUM_MOBILE_PHONES,
 } from "../../../../constants/contactConstants";
-import { ButtonWrapper } from "./styles";
 import {
   useContactDispatch,
   useContactSelector,
-} from "../../../../redux/store"
-import { actions } from "../../../stores/contact/slices/ContactInfo";
+} from "../../../../redux/store";
+import { actions } from "../../../../redux/contactInfoSlice";
 import { Country } from "../../../types/contact";
 import { createEmptyPhoneNumber } from "../../../util/commonFunctions";
 import { actions as contactInfoActions } from "../../../../redux/contactInfoSlice";
 import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
 import { actions as addressActions } from "../../../../redux/addressSlice";
+import LinkWrapper from "../../../atoms/contact/LinkWrapper";
+import { useHistory } from "react-router-dom";
 
 const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
   countries,
@@ -118,7 +117,7 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
     <Fragment>
       <FormSection title={CONTACT_INFO.TITLE}>
         <ClayForm.Group>
-          {emailAddresses.map((email, index) => (
+          {emailAddresses.map((_email, index) => (
             <SubtitledLabel
               key={"email-label-" + index}
               title={getEmailLabelTitle(index)}
@@ -162,18 +161,15 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
               handleChange={handlePhoneChange}
               addPhoneInput={addMobilePhoneInput}
               countries={countries}
-              areaCodeOptions={[]}
             />
           </ClayForm.Group>
         </Row>
       </FormSection>
-      <ButtonWrapper>
         <LinkWrapper
           title={CONTACT_INFO.CANCEL}
           handleClick={history.goBack}
           disabled={false}
         />
-      </ButtonWrapper>
     </Fragment>
   );
 };

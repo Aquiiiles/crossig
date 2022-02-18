@@ -8,6 +8,7 @@ export const CONTACT_INFO = {
   CANCEL: Liferay.Language.get('contact-info-cancel'),
   COUNTRY_CODE: Liferay.Language.get('contact-info-country-code'),
   CREATE_CONTACT: Liferay.Language.get('contact-info-create-contact'),
+  UPDATE_CONTACT: Liferay.Language.get('contact-info-update-contact'),
   PHONE_NUMBER: Liferay.Language.get('contact-info-phone-number'),
   PHONE_NUMBER_ERROR: Liferay.Language.get('contact-info-phone-number-error'),
   TITLE: Liferay.Language.get('contact-info-title'),
@@ -79,6 +80,7 @@ export const CREATE_NEW_CONTACT = {
         DISPATCH_ADDRESS: Liferay.Language.get('create-new-contact-field-dispatch-address'),
     },
 }
+
 export const CONTACT_RESULTS_TABLE = {
     HEADER: {
         OIB: Liferay.Language.get('contact-results-table-header-oib'),
@@ -91,8 +93,8 @@ export const CONTACT_RESULTS_TABLE = {
     }
 }
 
-
 export const UPDATE_CONTACT = {
   TITLE: Liferay.Language.get("update-contact-title"),
   SUBTITLE: Liferay.Language.get("update-contact-subtitle"),
+  SUBMIT_BUTTON: Liferay.Language.get("update-contact-submit-button")
 }

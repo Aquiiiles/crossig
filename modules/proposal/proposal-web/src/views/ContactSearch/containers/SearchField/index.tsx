@@ -5,14 +5,14 @@ import ClayButton from "@clayui/button";
 import ClayDropDown from "@clayui/drop-down";
 import SearchFilters from "./components/molecules/SearchFilters";
 import { mapToCountryCodes } from "../../../../shared/util/countryMappers";
-
+import { getActiveCountries } from "../../../../api/services/liferay";
 import { Wrapper, SearchWrapper } from "./styles";
 import {
   CONTACT_SEARCH_ACTION_BUTTON,
   CONTACT_SEARCH_FIELD_OIB,
   CONTACT_SEARCH_FIELD_LAST_NAME_COMPANY_NAME_SE_NAME,
   CONTACT_SEARCH_FIELD_FIRST_NAME,
-  CONTACT_SEARCH_MORE_SEARCH_OPTIONS
+  CONTACT_SEARCH_MORE_SEARCH_OPTIONS,
 } from "../../../../constants/languageKeys";
 import {
   useContactSelector,
@@ -21,6 +21,9 @@ import {
 import { actions } from "../../../../redux/searchFilterSlice";
 import { PageIndex } from "../../hooks/usePagination";
 import useOnClickOutside from "../../../../shared/hooks/useOnClickOutside";
+import { useFetchData } from "../../../../api/hooks/useFetchData";
+import { COUNTRIES_URL } from "../../../../api/constants/routes";
+import { RESOLVED } from "../../../../api/reducers/constants";
 
 interface props {
   currentPage: number;
@@ -28,13 +31,12 @@ interface props {
   fetchData: () => void;
 }
 
-declare const Liferay: any;
-
 const SearchField: React.FC<props> = ({
   currentPage,
   goToPage,
   fetchData,
 }: props) => {
+  const { state, get } = useFetchData();
   const dispatch = useContactDispatch();
   const [disabled, setDisabled] = useState(false);
   const [expand, setExpand] = useState(false);
@@ -42,32 +44,29 @@ const SearchField: React.FC<props> = ({
   const triggerElementRef = useRef<HTMLButtonElement>(null);
   const menuElementRef = useRef<HTMLDivElement>(null);
   const arrowButtonRef = useRef<HTMLButtonElement>(null);
-  const [countries, setCountries] = useState<Array<any>>([]);
-  const { firstName, OIB, lastName, phoneNumber, areaCode, email } = useContactSelector(
-    state => state.searchFilter
-  );
+
+  const { firstName, OIB, lastName, phoneNumber, areaCode, email } =
+    useContactSelector((state) => state.searchFilter);
+
+  const [countries, setCountries] = useState<Array<any> | null>(null);
+
   const { setFirstName, setOIB, setLastName } = actions;
+
   useOnClickOutside<HTMLDivElement>(
     menuElementRef,
     useCallback(() => setExpand(false), []),
     arrowButtonRef
   );
 
-  const loadCountries = useCallback(() => {
-    Liferay.Service(
-      "/country/get-countries",
-      {
-        active: true,
-      },
-      (countriesArray: Array<any>) => {
-        setCountries(countriesArray);
-      }
-    );
+  useEffect(() => {
+    get(COUNTRIES_URL);
   }, []);
 
   useEffect(() => {
-    loadCountries();
-  }, [loadCountries]);
+    if (state.status === RESOLVED) {
+      setCountries(state.response.data);
+    }
+  });
 
   const handleExpand = () => {
     setExpand(!expand);
@@ -77,7 +76,9 @@ const SearchField: React.FC<props> = ({
     const emailRegex = /\S+@\S+\.\S+/;
 
     if (
-      (OIB.length >= 3 || lastName.length >= 3 || firstName.length >= 3) ||
+      OIB.length >= 3 ||
+      lastName.length >= 3 ||
+      firstName.length >= 3 ||
       (phoneNumber.length > 0 && areaCode !== "") ||
       emailRegex.test(email)
     ) {
@@ -91,7 +92,9 @@ const SearchField: React.FC<props> = ({
 
   useEffect(() => {
     if (triggerElementRef.current) {
-      setFieldWidth(triggerElementRef.current.offsetWidth * fieldWidthMultiplier);
+      setFieldWidth(
+        triggerElementRef.current.offsetWidth * fieldWidthMultiplier
+      );
     }
   }, [triggerElementRef]);
 
@@ -100,7 +103,7 @@ const SearchField: React.FC<props> = ({
       <SearchWrapper>
         <ClayForm.Group style={{ marginBottom: "0" }}>
           <ClayInput.Group>
-          <ClayInput.GroupItem>
+            <ClayInput.GroupItem>
               <label className="body-small" htmlFor="oibInputText">
                 {CONTACT_SEARCH_FIELD_OIB}
               </label>
@@ -119,7 +122,9 @@ const SearchField: React.FC<props> = ({
                 id="lastNameInputText"
                 type="text"
                 value={lastName}
-                onChange={({ target: { value } }) => dispatch(setLastName(value))}
+                onChange={({ target: { value } }) =>
+                  dispatch(setLastName(value))
+                }
               />
             </ClayInput.GroupItem>
             <ClayInput.GroupItem>
@@ -130,7 +135,9 @@ const SearchField: React.FC<props> = ({
                 id="firstNameInputText"
                 type="text"
                 value={firstName}
-                onChange={({ target: { value } }) => dispatch(setFirstName(value))}
+                onChange={({ target: { value } }) =>
+                  dispatch(setFirstName(value))
+                }
               />
             </ClayInput.GroupItem>
           </ClayInput.Group>
@@ -149,7 +156,13 @@ const SearchField: React.FC<props> = ({
             >
               {CONTACT_SEARCH_ACTION_BUTTON}
             </ClayButton>
-            <ClayButton displayType="link" ref={triggerElementRef} onClick={handleExpand}>{CONTACT_SEARCH_MORE_SEARCH_OPTIONS}</ClayButton>
+            <ClayButton
+              displayType="link"
+              ref={triggerElementRef}
+              onClick={handleExpand}
+            >
+              {CONTACT_SEARCH_MORE_SEARCH_OPTIONS}
+            </ClayButton>
           </ClayButton.Group>
         </ClayForm.Group>
         <ClayDropDown.Menu
@@ -157,21 +170,22 @@ const SearchField: React.FC<props> = ({
           style={fieldSize}
           active={expand}
           alignElementRef={triggerElementRef}
-          closeOnClickOutside
-          onSetActive={() => { }}
+          onSetActive={() => {}}
         >
-          <SearchFilters
-            fetchData={() => {
-              if (currentPage === 1) {
-                fetchData();
-              } else {
-                goToPage(1);
-              }
-              handleExpand();
-            }}
-            countries={mapToCountryCodes(countries)}
-            searchDisabled={disabled}
-          />
+          {countries && (
+            <SearchFilters
+              fetchData={() => {
+                if (currentPage === 1) {
+                  fetchData();
+                } else {
+                  goToPage(1);
+                }
+                handleExpand();
+              }}
+              countries={mapToCountryCodes(countries)}
+              searchDisabled={disabled}
+            />
+          )}
         </ClayDropDown.Menu>
       </SearchWrapper>
       <div></div>

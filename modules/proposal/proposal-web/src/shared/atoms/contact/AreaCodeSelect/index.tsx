@@ -42,7 +42,7 @@ const AreaCodeSelect: React.FC<propsType> = (props: propsType) => {
   const areaCodeData = state as State;
 
   useEffect(() => {
-    getAreaCodes(AREA_CODE_URL, {});
+    getAreaCodes(AREA_CODE_URL);
   }, []);
 
   useEffect(() => {

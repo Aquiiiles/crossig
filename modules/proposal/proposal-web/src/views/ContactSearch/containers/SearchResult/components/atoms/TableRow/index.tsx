@@ -10,6 +10,9 @@ import {
 
 import * as types from "../../../types/searchResult";
 import * as constants from "../../../constants/searchResult";
+import { useFetchData } from "../../../../../../../api/hooks/useFetchData";
+import { CONTACT_URL } from "../../../../../../../api/constants/routes";
+import { useHistory } from "react-router-dom";
 
 interface props {
   contact: types.responseType;
@@ -17,6 +20,8 @@ interface props {
 
 const TableRow: React.FC<props> = ({ contact }) => {
   const [showButtons, setShowButtons] = useState(false);
+  const { state, fetchData: fetchContact } = useFetchData();
+  const history = useHistory();
 
   const types = {
     Individual: "F",
@@ -33,6 +38,13 @@ const TableRow: React.FC<props> = ({ contact }) => {
       return "";
     }
   };
+
+  const openUpdateContact=(oib: string)=>{
+    history.push({
+      pathname: "/update_contact",
+      state: oib,
+    });
+  }
 
   return (
     <ClayTable.Row
@@ -66,7 +78,10 @@ const TableRow: React.FC<props> = ({ contact }) => {
           <ClayButton displayType="secondary" className="ghost">
             {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
           </ClayButton>
-          <ClayButton displayType="primary">
+          <ClayButton
+            displayType="primary"
+            onClick={() => openUpdateContact(contact[constants.OIB_KEY])}
+          >
             {CONTACT_SEARCH_TABLE_USE_CONTACT}
           </ClayButton>
         </HoveringButtonGroup>
