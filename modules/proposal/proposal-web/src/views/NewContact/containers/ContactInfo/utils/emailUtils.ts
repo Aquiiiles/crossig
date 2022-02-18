@@ -8,6 +8,7 @@ type EmailData = {
 type Emails = EmailData[];
 
 export const emailListToData = (emails: string[]): Emails => {
+  if (emails[0] === "") return [];
   return emails.map((email, index) => {
     return {
       email,

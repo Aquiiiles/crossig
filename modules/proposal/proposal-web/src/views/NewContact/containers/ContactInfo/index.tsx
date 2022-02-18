@@ -11,6 +11,7 @@ import {
 import { useContactSelector } from "../../../../redux/store";
 import { valuesToISOString } from "./utils/dateUtils";
 import { emailListToData } from "./utils/emailUtils";
+import { phoneObjectToData } from "./utils/phoneUtils";
 import { useFetchData } from "../../../../api/hooks/useFetchData";
 import { CONTACT_URL } from "../../../../api/constants/routes";
 
@@ -54,6 +55,7 @@ const ContactInfo: React.FC = () => {
   const createContact = () => {
     if (!hasFormErrors()) {
       const { dateDay, dateMonth, dateYear } = basicInfoData;
+      const { contactType } = basicInfoData;
       const address = {
         zipCode: addressData.postalCode,
         country: {
@@ -91,9 +93,15 @@ const ContactInfo: React.FC = () => {
       console.info(contactInfoData.mobilePhones);
 
       const payload = {
-        dateOfBirth: valuesToISOString(dateDay, dateMonth, dateYear),
+        dateOfBirth:
+          contactType === "1"
+            ? valuesToISOString(dateDay, dateMonth, dateYear)
+            : undefined,
         firstName: basicInfoData.firstName,
-        name: basicInfoData.lastName,
+        name:
+          contactType === "1"
+            ? basicInfoData.lastName
+            : basicInfoData.companyName,
         middleName: "",
         identifiers: [
           {
@@ -108,6 +116,7 @@ const ContactInfo: React.FC = () => {
         },
         addresses,
         emails: emailListToData(contactInfoData.emailAddresses),
+        telephones: phoneObjectToData(contactInfoData.mobilePhones),
       };
 
       API("POST", CONTACT_URL, {}, payload);

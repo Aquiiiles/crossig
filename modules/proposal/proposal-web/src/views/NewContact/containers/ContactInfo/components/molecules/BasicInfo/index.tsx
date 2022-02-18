@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FormSection from "../../../../../../../shared/atoms/FormSection";
 import Row from "../../../../../../../shared/atoms/Row";
 import { CREATE_NEW_CONTACT } from "../../../../../../../constants/languageKeys";
@@ -67,6 +67,15 @@ const BasicInfo: React.FC = () => {
   useJumpFocus(dateMonth, "birthDateYear", 2);
 
   const showIndividualFields = contactType === contactTypes.Individual;
+
+  useEffect(() => {
+    dispatch(setFirstName(""));
+    dispatch(setLastName(""));
+    dispatch(setDateDay(""));
+    dispatch(setDateMonth(""));
+    dispatch(setDateYear(""));
+    dispatch(setSubsidiaryNumber(""));
+  }, [contactType]);
 
   return (
     <FormSection title={CREATE_NEW_CONTACT.BASIC_INFO_TITLE}>
