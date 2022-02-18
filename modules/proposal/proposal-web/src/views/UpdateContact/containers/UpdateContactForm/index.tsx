@@ -12,11 +12,7 @@ import {
   mapToCountryCodes,
 } from "../../../../shared/util/countryMappers";
 import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
-import {
-  actions as addressesSetters,
-  MAIN_ADDRESS,
-  DISPATCH_ADDRESS,
-} from "../../../../redux/addressesSlice";
+import { actions as addressesSetters } from "../../../../redux/addressesSlice";
 import { actions as contactInfoSetters } from "../../../../redux/contactInfoSlice";
 import store, { useContactDispatch } from "../../../../redux/store";
 import { PhoneNumber } from "../../../../shared/types/contact";
@@ -92,30 +88,43 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
     dispatch(contactInfoSetters.setMobilePhones(mobilePhones));
   };
 
-  // const setAddressFields = (addressType: string) => {
-  //   const address = data.addresses[0];
-  //   const country = [addressType, address.country.desc] as [string, string];
-  //   const city = [addressType, address.cityId] as [string, number];
-  //   const postalCode = [addressType, address.zipCode] as [string, string];
-  //   const street = [addressType, address.streetName] as [string, string];
-  //   const houseNumber = [addressType, address.houseNr] as [string, string];
+  const setAddressFields = () => {
+    const address = data.addresses[0];
+    const isSameAddress = address.isPreferredDeliveryAddress;
+    addressesSetters.setIsSameAddress(isSameAddress);
 
-  //   dispatch(addressesSetters.setCountry(country));
-  //   dispatch(addressesSetters.setCity(city));
-  //   dispatch(addressesSetters.setPostalCode(postalCode));
-  //   dispatch(addressesSetters.setStreet(street));
-  //   dispatch(addressesSetters.setHouseNumber(houseNumber));
-  // };
+    const country = address.country.desc;
+    const city = parseInt(address.cityId);
+    const postalCode = address.zipCode;
+    const street = address.streetName;
+    const houseNumber = address.houseNr;
+
+    dispatch(addressesSetters.setCountry(country));
+    dispatch(addressesSetters.setCity(city));
+    dispatch(addressesSetters.setPostalCode(postalCode));
+    dispatch(addressesSetters.setStreet(street));
+    dispatch(addressesSetters.setHouseNumber(houseNumber));
+
+    if (!isSameAddress) {
+      const dispatchAddress = data.addresses[1];
+
+      const country = dispatchAddress.country.desc;
+      const city = parseInt(dispatchAddress.cityId);
+      const postalCode = dispatchAddress.zipCode;
+      const street = dispatchAddress.streetName;
+      const houseNumber = dispatchAddress.houseNr;
+  
+      dispatch(addressesSetters.setDispatchCountry(country));
+      dispatch(addressesSetters.setDispatchCity(city));
+      dispatch(addressesSetters.setDispatchPostalCode(postalCode));
+      dispatch(addressesSetters.setDispatchStreet(street));
+      dispatch(addressesSetters.setDispatchHouseNumber(houseNumber));
+    }
+  };
 
   useEffect(() => {
     setBasicInfoFields();
-    // setAddressFields(MAIN_ADDRESS);
-
-    // if (!areAddressesEqual()) {
-    //   dispatch(addressesSetters.toggleEqualAddresses());
-    //   setAddressFields(DISPATCH_ADDRESS);
-    // }
-
+    setAddressFields();
     setContactInfoFields();
   }, []);
 
