@@ -4,6 +4,7 @@ Bundle-Version: 1.0.0
 Export-Package:\
 	hr.crosig.proposal.service,\
 			hr.crosig.proposal.dto,\
+			hr.crosig.proposal.enums,\
 			hr.crosig.proposal.model,\
 			hr.crosig.proposal.exception,\
 			hr.crosig.proposal.service.persistence

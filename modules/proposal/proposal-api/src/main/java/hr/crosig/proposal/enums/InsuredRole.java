@@ -1,4 +1,4 @@
-package hr.crosig.proposal.rest.application.enums;
+package hr.crosig.proposal.enums;
 
 /**
  * @author victor.catanante

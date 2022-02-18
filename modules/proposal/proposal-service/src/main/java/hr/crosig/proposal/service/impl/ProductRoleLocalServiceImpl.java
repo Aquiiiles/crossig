@@ -16,12 +16,13 @@ package hr.crosig.proposal.service.impl;
 
 import com.liferay.portal.aop.AopService;
 
+import hr.crosig.proposal.model.ProductRole;
 import hr.crosig.proposal.service.base.ProductRoleLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Guilherme Kfouri
  */
 @Component(
 	property = "model.class.name=hr.crosig.proposal.model.ProductRole",
@@ -29,4 +30,15 @@ import org.osgi.service.component.annotations.Component;
 )
 public class ProductRoleLocalServiceImpl
 	extends ProductRoleLocalServiceBaseImpl {
+
+	public void addProductRole(long productId, long roleId) {
+		ProductRole productRole = productRoleLocalService.createProductRole(
+			counterLocalService.increment(ProductRole.class.getName()));
+
+		productRole.setProductId(productId);
+		productRole.setRoleId(roleId);
+
+		productRoleLocalService.updateProductRole(productRole);
+	}
+
 }

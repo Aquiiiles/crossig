@@ -18,10 +18,13 @@ import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -68,8 +71,10 @@ public class ProductRoleModelImpl
 	public static final String TABLE_NAME = "AP_Proposal_ProductRole";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"productRoleId", Types.BIGINT}, {"productId", Types.BIGINT},
-		{"roleId", Types.BIGINT}
+		{"productRoleId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
+		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
+		{"productId", Types.BIGINT}, {"roleId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -77,12 +82,17 @@ public class ProductRoleModelImpl
 
 	static {
 		TABLE_COLUMNS_MAP.put("productRoleId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("productId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("roleId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table AP_Proposal_ProductRole (productRoleId LONG not null primary key,productId LONG,roleId LONG)";
+		"create table AP_Proposal_ProductRole (productRoleId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,productId LONG,roleId LONG)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table AP_Proposal_ProductRole";
@@ -255,6 +265,26 @@ public class ProductRoleModelImpl
 		attributeSetterBiConsumers.put(
 			"productRoleId",
 			(BiConsumer<ProductRole, Long>)ProductRole::setProductRoleId);
+		attributeGetterFunctions.put("companyId", ProductRole::getCompanyId);
+		attributeSetterBiConsumers.put(
+			"companyId",
+			(BiConsumer<ProductRole, Long>)ProductRole::setCompanyId);
+		attributeGetterFunctions.put("userId", ProductRole::getUserId);
+		attributeSetterBiConsumers.put(
+			"userId", (BiConsumer<ProductRole, Long>)ProductRole::setUserId);
+		attributeGetterFunctions.put("userName", ProductRole::getUserName);
+		attributeSetterBiConsumers.put(
+			"userName",
+			(BiConsumer<ProductRole, String>)ProductRole::setUserName);
+		attributeGetterFunctions.put("createDate", ProductRole::getCreateDate);
+		attributeSetterBiConsumers.put(
+			"createDate",
+			(BiConsumer<ProductRole, Date>)ProductRole::setCreateDate);
+		attributeGetterFunctions.put(
+			"modifiedDate", ProductRole::getModifiedDate);
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			(BiConsumer<ProductRole, Date>)ProductRole::setModifiedDate);
 		attributeGetterFunctions.put("productId", ProductRole::getProductId);
 		attributeSetterBiConsumers.put(
 			"productId",
@@ -281,6 +311,103 @@ public class ProductRoleModelImpl
 		}
 
 		_productRoleId = productRoleId;
+	}
+
+	@Override
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	@Override
+	public void setCompanyId(long companyId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_companyId = companyId;
+	}
+
+	@Override
+	public long getUserId() {
+		return _userId;
+	}
+
+	@Override
+	public void setUserId(long userId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_userId = userId;
+	}
+
+	@Override
+	public String getUserUuid() {
+		try {
+			User user = UserLocalServiceUtil.getUserById(getUserId());
+
+			return user.getUuid();
+		}
+		catch (PortalException portalException) {
+			return "";
+		}
+	}
+
+	@Override
+	public void setUserUuid(String userUuid) {
+	}
+
+	@Override
+	public String getUserName() {
+		if (_userName == null) {
+			return "";
+		}
+		else {
+			return _userName;
+		}
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_userName = userName;
+	}
+
+	@Override
+	public Date getCreateDate() {
+		return _createDate;
+	}
+
+	@Override
+	public void setCreateDate(Date createDate) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_createDate = createDate;
+	}
+
+	@Override
+	public Date getModifiedDate() {
+		return _modifiedDate;
+	}
+
+	public boolean hasSetModifiedDate() {
+		return _setModifiedDate;
+	}
+
+	@Override
+	public void setModifiedDate(Date modifiedDate) {
+		_setModifiedDate = true;
+
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_modifiedDate = modifiedDate;
 	}
 
 	@Override
@@ -347,7 +474,7 @@ public class ProductRoleModelImpl
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(
-			0, ProductRole.class.getName(), getPrimaryKey());
+			getCompanyId(), ProductRole.class.getName(), getPrimaryKey());
 	}
 
 	@Override
@@ -377,6 +504,11 @@ public class ProductRoleModelImpl
 		ProductRoleImpl productRoleImpl = new ProductRoleImpl();
 
 		productRoleImpl.setProductRoleId(getProductRoleId());
+		productRoleImpl.setCompanyId(getCompanyId());
+		productRoleImpl.setUserId(getUserId());
+		productRoleImpl.setUserName(getUserName());
+		productRoleImpl.setCreateDate(getCreateDate());
+		productRoleImpl.setModifiedDate(getModifiedDate());
 		productRoleImpl.setProductId(getProductId());
 		productRoleImpl.setRoleId(getRoleId());
 
@@ -449,6 +581,8 @@ public class ProductRoleModelImpl
 	public void resetOriginalValues() {
 		_columnOriginalValues = Collections.emptyMap();
 
+		_setModifiedDate = false;
+
 		_columnBitmask = 0;
 	}
 
@@ -458,6 +592,36 @@ public class ProductRoleModelImpl
 			new ProductRoleCacheModel();
 
 		productRoleCacheModel.productRoleId = getProductRoleId();
+
+		productRoleCacheModel.companyId = getCompanyId();
+
+		productRoleCacheModel.userId = getUserId();
+
+		productRoleCacheModel.userName = getUserName();
+
+		String userName = productRoleCacheModel.userName;
+
+		if ((userName != null) && (userName.length() == 0)) {
+			productRoleCacheModel.userName = null;
+		}
+
+		Date createDate = getCreateDate();
+
+		if (createDate != null) {
+			productRoleCacheModel.createDate = createDate.getTime();
+		}
+		else {
+			productRoleCacheModel.createDate = Long.MIN_VALUE;
+		}
+
+		Date modifiedDate = getModifiedDate();
+
+		if (modifiedDate != null) {
+			productRoleCacheModel.modifiedDate = modifiedDate.getTime();
+		}
+		else {
+			productRoleCacheModel.modifiedDate = Long.MIN_VALUE;
+		}
 
 		productRoleCacheModel.productId = getProductId();
 
@@ -554,6 +718,12 @@ public class ProductRoleModelImpl
 	}
 
 	private long _productRoleId;
+	private long _companyId;
+	private long _userId;
+	private String _userName;
+	private Date _createDate;
+	private Date _modifiedDate;
+	private boolean _setModifiedDate;
 	private long _productId;
 	private long _roleId;
 
@@ -585,6 +755,11 @@ public class ProductRoleModelImpl
 		_columnOriginalValues = new HashMap<String, Object>();
 
 		_columnOriginalValues.put("productRoleId", _productRoleId);
+		_columnOriginalValues.put("companyId", _companyId);
+		_columnOriginalValues.put("userId", _userId);
+		_columnOriginalValues.put("userName", _userName);
+		_columnOriginalValues.put("createDate", _createDate);
+		_columnOriginalValues.put("modifiedDate", _modifiedDate);
 		_columnOriginalValues.put("productId", _productId);
 		_columnOriginalValues.put("roleId", _roleId);
 	}
@@ -602,9 +777,19 @@ public class ProductRoleModelImpl
 
 		columnBitmasks.put("productRoleId", 1L);
 
-		columnBitmasks.put("productId", 2L);
+		columnBitmasks.put("companyId", 2L);
 
-		columnBitmasks.put("roleId", 4L);
+		columnBitmasks.put("userId", 4L);
+
+		columnBitmasks.put("userName", 8L);
+
+		columnBitmasks.put("createDate", 16L);
+
+		columnBitmasks.put("modifiedDate", 32L);
+
+		columnBitmasks.put("productId", 64L);
+
+		columnBitmasks.put("roleId", 128L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

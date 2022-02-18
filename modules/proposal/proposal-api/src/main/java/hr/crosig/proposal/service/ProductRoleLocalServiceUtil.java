@@ -44,6 +44,9 @@ public class ProductRoleLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>hr.crosig.proposal.service.impl.ProductRoleLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static void addProductRole(long productId, long roleId) {
+		getService().addProductRole(productId, roleId);
+	}
 
 	/**
 	 * Adds the product role to the database. Also notifies the appropriate model listeners.

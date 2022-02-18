@@ -15,7 +15,11 @@
 package hr.crosig.proposal.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.model.AuditedModel;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.ShardedModel;
+
+import java.util.Date;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -31,7 +35,8 @@ import org.osgi.annotation.versioning.ProviderType;
  * @generated
  */
 @ProviderType
-public interface ProductModel extends BaseModel<Product> {
+public interface ProductModel
+	extends AuditedModel, BaseModel<Product>, ShardedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -68,6 +73,103 @@ public interface ProductModel extends BaseModel<Product> {
 	public void setProductId(long productId);
 
 	/**
+	 * Returns the company ID of this product.
+	 *
+	 * @return the company ID of this product
+	 */
+	@Override
+	public long getCompanyId();
+
+	/**
+	 * Sets the company ID of this product.
+	 *
+	 * @param companyId the company ID of this product
+	 */
+	@Override
+	public void setCompanyId(long companyId);
+
+	/**
+	 * Returns the user ID of this product.
+	 *
+	 * @return the user ID of this product
+	 */
+	@Override
+	public long getUserId();
+
+	/**
+	 * Sets the user ID of this product.
+	 *
+	 * @param userId the user ID of this product
+	 */
+	@Override
+	public void setUserId(long userId);
+
+	/**
+	 * Returns the user uuid of this product.
+	 *
+	 * @return the user uuid of this product
+	 */
+	@Override
+	public String getUserUuid();
+
+	/**
+	 * Sets the user uuid of this product.
+	 *
+	 * @param userUuid the user uuid of this product
+	 */
+	@Override
+	public void setUserUuid(String userUuid);
+
+	/**
+	 * Returns the user name of this product.
+	 *
+	 * @return the user name of this product
+	 */
+	@AutoEscape
+	@Override
+	public String getUserName();
+
+	/**
+	 * Sets the user name of this product.
+	 *
+	 * @param userName the user name of this product
+	 */
+	@Override
+	public void setUserName(String userName);
+
+	/**
+	 * Returns the create date of this product.
+	 *
+	 * @return the create date of this product
+	 */
+	@Override
+	public Date getCreateDate();
+
+	/**
+	 * Sets the create date of this product.
+	 *
+	 * @param createDate the create date of this product
+	 */
+	@Override
+	public void setCreateDate(Date createDate);
+
+	/**
+	 * Returns the modified date of this product.
+	 *
+	 * @return the modified date of this product
+	 */
+	@Override
+	public Date getModifiedDate();
+
+	/**
+	 * Sets the modified date of this product.
+	 *
+	 * @param modifiedDate the modified date of this product
+	 */
+	@Override
+	public void setModifiedDate(Date modifiedDate);
+
+	/**
 	 * Returns the name of this product.
 	 *
 	 * @return the name of this product
@@ -95,5 +197,56 @@ public interface ProductModel extends BaseModel<Product> {
 	 * @param externalId the external ID of this product
 	 */
 	public void setExternalId(long externalId);
+
+	/**
+	 * Returns the active of this product.
+	 *
+	 * @return the active of this product
+	 */
+	public boolean getActive();
+
+	/**
+	 * Returns <code>true</code> if this product is active.
+	 *
+	 * @return <code>true</code> if this product is active; <code>false</code> otherwise
+	 */
+	public boolean isActive();
+
+	/**
+	 * Sets whether this product is active.
+	 *
+	 * @param active the active of this product
+	 */
+	public void setActive(boolean active);
+
+	/**
+	 * Returns the description of this product.
+	 *
+	 * @return the description of this product
+	 */
+	@AutoEscape
+	public String getDescription();
+
+	/**
+	 * Sets the description of this product.
+	 *
+	 * @param description the description of this product
+	 */
+	public void setDescription(String description);
+
+	/**
+	 * Returns the category of this product.
+	 *
+	 * @return the category of this product
+	 */
+	@AutoEscape
+	public String getCategory();
+
+	/**
+	 * Sets the category of this product.
+	 *
+	 * @param category the category of this product
+	 */
+	public void setCategory(String category);
 
 }

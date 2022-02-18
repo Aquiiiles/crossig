@@ -31,6 +31,27 @@ public class ContentSetupConstants {
 
 	public static final String MANAGER_USER_GROUP = "Manager";
 
+	public static final String PRODUCT_BIG_BOATS_DESCRIPTION =
+		"Big Boats description";
+
+	public static final String PRODUCT_BIG_BOATS_NAME = "Big Boats";
+
+	public static final String PRODUCT_BOAT_INSTITUTE_CLAUSE_DESCRIPTION =
+		"Boat Institute Clause description";
+
+	public static final String PRODUCT_BOAT_INSTITUTE_CLAUSE_NAME =
+		"Boat Institute Clause";
+
+	public static final String PRODUCT_BOATS_DESCRIPTION = "Boats description";
+
+	public static final String PRODUCT_BOATS_NAME = "Boats";
+
+	public static final String PRODUCT_SKIPPER_RENT_BOAT_DESCRIPTION =
+		"Skipper & Rent-a-Boat description";
+
+	public static final String PRODUCT_SKIPPER_RENT_BOAT_NAME =
+		"Skipper & Rent-a-Boat";
+
 	public static final String PROPOSAL_URL = "/proposal";
 
 	public static final String REGIONAL_MANAGER_USER_GROUP = "Regional Manager";

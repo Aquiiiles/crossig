@@ -76,6 +76,10 @@ public interface ProductLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public Product addProduct(Product product);
 
+	public Product addProduct(
+		String name, long externalId, boolean active, String description,
+		String category);
+
 	/**
 	 * @throws PortalException
 	 */
@@ -224,6 +228,9 @@ public interface ProductLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Product getProduct(long productId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Product getProductByName(String name);
 
 	/**
 	 * Returns a range of all the products.

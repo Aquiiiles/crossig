@@ -14,7 +14,12 @@
 
 package hr.crosig.proposal.model;
 
+import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.model.AuditedModel;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.ShardedModel;
+
+import java.util.Date;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -30,7 +35,8 @@ import org.osgi.annotation.versioning.ProviderType;
  * @generated
  */
 @ProviderType
-public interface ProductRoleModel extends BaseModel<ProductRole> {
+public interface ProductRoleModel
+	extends AuditedModel, BaseModel<ProductRole>, ShardedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -65,6 +71,103 @@ public interface ProductRoleModel extends BaseModel<ProductRole> {
 	 * @param productRoleId the product role ID of this product role
 	 */
 	public void setProductRoleId(long productRoleId);
+
+	/**
+	 * Returns the company ID of this product role.
+	 *
+	 * @return the company ID of this product role
+	 */
+	@Override
+	public long getCompanyId();
+
+	/**
+	 * Sets the company ID of this product role.
+	 *
+	 * @param companyId the company ID of this product role
+	 */
+	@Override
+	public void setCompanyId(long companyId);
+
+	/**
+	 * Returns the user ID of this product role.
+	 *
+	 * @return the user ID of this product role
+	 */
+	@Override
+	public long getUserId();
+
+	/**
+	 * Sets the user ID of this product role.
+	 *
+	 * @param userId the user ID of this product role
+	 */
+	@Override
+	public void setUserId(long userId);
+
+	/**
+	 * Returns the user uuid of this product role.
+	 *
+	 * @return the user uuid of this product role
+	 */
+	@Override
+	public String getUserUuid();
+
+	/**
+	 * Sets the user uuid of this product role.
+	 *
+	 * @param userUuid the user uuid of this product role
+	 */
+	@Override
+	public void setUserUuid(String userUuid);
+
+	/**
+	 * Returns the user name of this product role.
+	 *
+	 * @return the user name of this product role
+	 */
+	@AutoEscape
+	@Override
+	public String getUserName();
+
+	/**
+	 * Sets the user name of this product role.
+	 *
+	 * @param userName the user name of this product role
+	 */
+	@Override
+	public void setUserName(String userName);
+
+	/**
+	 * Returns the create date of this product role.
+	 *
+	 * @return the create date of this product role
+	 */
+	@Override
+	public Date getCreateDate();
+
+	/**
+	 * Sets the create date of this product role.
+	 *
+	 * @param createDate the create date of this product role
+	 */
+	@Override
+	public void setCreateDate(Date createDate);
+
+	/**
+	 * Returns the modified date of this product role.
+	 *
+	 * @return the modified date of this product role
+	 */
+	@Override
+	public Date getModifiedDate();
+
+	/**
+	 * Sets the modified date of this product role.
+	 *
+	 * @param modifiedDate the modified date of this product role
+	 */
+	@Override
+	public void setModifiedDate(Date modifiedDate);
 
 	/**
 	 * Returns the product ID of this product role.

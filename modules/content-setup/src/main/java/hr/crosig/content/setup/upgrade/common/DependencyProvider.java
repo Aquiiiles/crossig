@@ -1,5 +1,6 @@
 package hr.crosig.content.setup.upgrade.common;
 
+import com.liferay.counter.kernel.service.CounterLocalService;
 import com.liferay.portal.kernel.model.Portlet;
 import com.liferay.portal.kernel.module.framework.ModuleServiceLifecycle;
 import com.liferay.portal.kernel.service.CompanyLocalService;
@@ -10,6 +11,9 @@ import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.UserGroupLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.PrefsProps;
+
+import hr.crosig.proposal.service.ProductLocalService;
+import hr.crosig.proposal.service.ProductRoleLocalService;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -24,6 +28,9 @@ public class DependencyProvider {
 	public CompanyLocalService companyLocalService;
 
 	@Reference
+	public CounterLocalService counterLocalService;
+
+	@Reference
 	public GroupLocalService groupLocalService;
 
 	@Reference
@@ -34,6 +41,12 @@ public class DependencyProvider {
 
 	@Reference
 	public PrefsProps prefsProps;
+
+	@Reference
+	public ProductLocalService productLocalService;
+
+	@Reference
+	public ProductRoleLocalService productRoleLocalService;
 
 	@Reference
 	public RoleLocalService roleLocalService;

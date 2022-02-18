@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+import java.util.Date;
+
 /**
  * The cache model class for representing ProductRole in entity cache.
  *
@@ -61,10 +63,20 @@ public class ProductRoleCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(17);
 
 		sb.append("{productRoleId=");
 		sb.append(productRoleId);
+		sb.append(", companyId=");
+		sb.append(companyId);
+		sb.append(", userId=");
+		sb.append(userId);
+		sb.append(", userName=");
+		sb.append(userName);
+		sb.append(", createDate=");
+		sb.append(createDate);
+		sb.append(", modifiedDate=");
+		sb.append(modifiedDate);
 		sb.append(", productId=");
 		sb.append(productId);
 		sb.append(", roleId=");
@@ -79,6 +91,30 @@ public class ProductRoleCacheModel
 		ProductRoleImpl productRoleImpl = new ProductRoleImpl();
 
 		productRoleImpl.setProductRoleId(productRoleId);
+		productRoleImpl.setCompanyId(companyId);
+		productRoleImpl.setUserId(userId);
+
+		if (userName == null) {
+			productRoleImpl.setUserName("");
+		}
+		else {
+			productRoleImpl.setUserName(userName);
+		}
+
+		if (createDate == Long.MIN_VALUE) {
+			productRoleImpl.setCreateDate(null);
+		}
+		else {
+			productRoleImpl.setCreateDate(new Date(createDate));
+		}
+
+		if (modifiedDate == Long.MIN_VALUE) {
+			productRoleImpl.setModifiedDate(null);
+		}
+		else {
+			productRoleImpl.setModifiedDate(new Date(modifiedDate));
+		}
+
 		productRoleImpl.setProductId(productId);
 		productRoleImpl.setRoleId(roleId);
 
@@ -91,6 +127,13 @@ public class ProductRoleCacheModel
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		productRoleId = objectInput.readLong();
 
+		companyId = objectInput.readLong();
+
+		userId = objectInput.readLong();
+		userName = objectInput.readUTF();
+		createDate = objectInput.readLong();
+		modifiedDate = objectInput.readLong();
+
 		productId = objectInput.readLong();
 
 		roleId = objectInput.readLong();
@@ -100,12 +143,31 @@ public class ProductRoleCacheModel
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(productRoleId);
 
+		objectOutput.writeLong(companyId);
+
+		objectOutput.writeLong(userId);
+
+		if (userName == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(userName);
+		}
+
+		objectOutput.writeLong(createDate);
+		objectOutput.writeLong(modifiedDate);
+
 		objectOutput.writeLong(productId);
 
 		objectOutput.writeLong(roleId);
 	}
 
 	public long productRoleId;
+	public long companyId;
+	public long userId;
+	public String userName;
+	public long createDate;
+	public long modifiedDate;
 	public long productId;
 	public long roleId;
 

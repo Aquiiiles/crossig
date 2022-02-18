@@ -10,10 +10,21 @@
 
 		<column name="productId" primary="true" type="long" />
 
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
 		<!-- Other fields -->
 
 		<column name="name" type="String" />
 		<column name="externalId" type="long" />
+		<column name="active" type="boolean" />
+		<column name="description" type="String" />
+		<column name="category" type="String" />
 
 		<!-- Order -->
 
@@ -21,6 +32,11 @@
 			<order-column name="name" />
 		</order>
 
+		<!-- Finder -->
+
+		<finder name="Name" return-type="Product">
+			<finder-column name="name" />
+		</finder>
 	</entity>
 	<entity local-service="true" name="ProductRole" remote-service="false" uuid="false">
 
@@ -28,10 +44,17 @@
 
 		<column name="productRoleId" primary="true" type="long" />
 
-		<column name="productId" type="long" />
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
 
 		<!-- Other fields -->
 
+		<column name="productId" type="long" />
 		<column name="roleId" type="long" />
 
 		<finder name="RoleId" return-type="Collection">

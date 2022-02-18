@@ -121,6 +121,62 @@ public class ProductUtil {
 	}
 
 	/**
+	 * Returns the product where name = &#63; or throws a <code>NoSuchProductException</code> if it could not be found.
+	 *
+	 * @param name the name
+	 * @return the matching product
+	 * @throws NoSuchProductException if a matching product could not be found
+	 */
+	public static Product findByName(String name)
+		throws hr.crosig.proposal.exception.NoSuchProductException {
+
+		return getPersistence().findByName(name);
+	}
+
+	/**
+	 * Returns the product where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param name the name
+	 * @return the matching product, or <code>null</code> if a matching product could not be found
+	 */
+	public static Product fetchByName(String name) {
+		return getPersistence().fetchByName(name);
+	}
+
+	/**
+	 * Returns the product where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param name the name
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching product, or <code>null</code> if a matching product could not be found
+	 */
+	public static Product fetchByName(String name, boolean useFinderCache) {
+		return getPersistence().fetchByName(name, useFinderCache);
+	}
+
+	/**
+	 * Removes the product where name = &#63; from the database.
+	 *
+	 * @param name the name
+	 * @return the product that was removed
+	 */
+	public static Product removeByName(String name)
+		throws hr.crosig.proposal.exception.NoSuchProductException {
+
+		return getPersistence().removeByName(name);
+	}
+
+	/**
+	 * Returns the number of products where name = &#63;.
+	 *
+	 * @param name the name
+	 * @return the number of matching products
+	 */
+	public static int countByName(String name) {
+		return getPersistence().countByName(name);
+	}
+
+	/**
 	 * Caches the product in the entity cache if it is enabled.
 	 *
 	 * @param product the product

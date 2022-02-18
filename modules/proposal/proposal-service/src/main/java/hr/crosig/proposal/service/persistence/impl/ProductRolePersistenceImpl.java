@@ -28,6 +28,9 @@ import com.liferay.portal.kernel.dao.orm.SessionFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.MapUtil;
@@ -49,6 +52,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -687,6 +691,8 @@ public class ProductRolePersistenceImpl
 		productRole.setNew(true);
 		productRole.setPrimaryKey(productRoleId);
 
+		productRole.setCompanyId(CompanyThreadLocal.getCompanyId());
+
 		return productRole;
 	}
 
@@ -797,6 +803,30 @@ public class ProductRolePersistenceImpl
 
 		ProductRoleModelImpl productRoleModelImpl =
 			(ProductRoleModelImpl)productRole;
+
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
+		Date date = new Date();
+
+		if (isNew && (productRole.getCreateDate() == null)) {
+			if (serviceContext == null) {
+				productRole.setCreateDate(date);
+			}
+			else {
+				productRole.setCreateDate(serviceContext.getCreateDate(date));
+			}
+		}
+
+		if (!productRoleModelImpl.hasSetModifiedDate()) {
+			if (serviceContext == null) {
+				productRole.setModifiedDate(date);
+			}
+			else {
+				productRole.setModifiedDate(
+					serviceContext.getModifiedDate(date));
+			}
+		}
 
 		Session session = null;
 

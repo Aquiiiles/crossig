@@ -1,7 +1,7 @@
 package hr.crosig.proposal.rest.application;
 
 import hr.crosig.proposal.dto.ProductDTO;
-import hr.crosig.proposal.rest.application.enums.InsuredRole;
+import hr.crosig.proposal.enums.InsuredRole;
 import hr.crosig.proposal.service.ProductLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
