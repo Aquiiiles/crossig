@@ -208,6 +208,7 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
 
   const handleUpdateContact = () => {
     const response = API.put(CONTACT_URL, createContactDTO());
+    window.scrollTo(0, 0);
 
     response.then((result) => {
       // message
