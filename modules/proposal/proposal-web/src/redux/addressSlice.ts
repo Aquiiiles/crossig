@@ -1,13 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { countryNames } from "../constants/defaultCountryConfiguration";
 
 const initialState = {
-  country: "",
-  dispatchCountry: "",
+  country: countryNames.value,
+  dispatchCountry: countryNames.value,
   city: 0,
   dispatchCity: 0,
   isSameAddress: true,
   postalCode: "",
   dispatchPostalCode: "",
+  street: "",
+  dispatchStreet: "",
+  houseNumber: "",
+  dispatchHouseNumber: "",
 };
 
 const addressSlice = createSlice({
@@ -35,6 +40,18 @@ const addressSlice = createSlice({
     setDispatchPostalCode(state, action: PayloadAction<string>) {
       state.dispatchPostalCode = action.payload;
     },
+    setStreet(state, action: PayloadAction<string>) {
+      state.street = action.payload;
+    },
+    setDispatchStreet(state, action: PayloadAction<string>) {
+      state.dispatchStreet = action.payload;
+    },
+    setHouseNumber(state, action: PayloadAction<string>) {
+      state.houseNumber = action.payload;
+    },
+    setDispatchHouseNumber(state, action: PayloadAction<string>) {
+      state.dispatchHouseNumber = action.payload;
+    },
     resetFields(state) {
       state.city = initialState.city;
       state.country = initialState.country;
@@ -43,6 +60,11 @@ const addressSlice = createSlice({
       state.dispatchPostalCode = initialState.dispatchPostalCode;
       state.isSameAddress = initialState.isSameAddress;
       state.postalCode = initialState.postalCode;
+      state.street = initialState.street;
+      state.dispatchStreet = initialState.dispatchStreet;
+      state.dispatchPostalCode = initialState.dispatchPostalCode;
+      state.houseNumber = initialState.houseNumber;
+      state.dispatchHouseNumber = initialState.dispatchHouseNumber;
     },
   },
 });

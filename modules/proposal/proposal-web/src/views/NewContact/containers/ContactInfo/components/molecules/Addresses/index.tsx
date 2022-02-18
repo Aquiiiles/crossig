@@ -47,11 +47,6 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
 
   const dispatchAddressInCroatia = dispatchCountry === countryNames.value;
 
-  useEffect(() => {
-    dispatch(setCountry(countryNames.value));
-    dispatch(setDispatchCountry(countryNames.value));
-  }, []);
-
   return (
     <>
       <Line />
