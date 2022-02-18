@@ -17,16 +17,18 @@ package hr.crosig.proposal.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.service.RoleLocalService;
+
 import hr.crosig.proposal.dto.ProductDTO;
 import hr.crosig.proposal.model.Product;
 import hr.crosig.proposal.model.ProductRole;
 import hr.crosig.proposal.service.base.ProductLocalServiceBaseImpl;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author David Martini
@@ -36,6 +38,10 @@ import java.util.stream.Collectors;
 	service = AopService.class
 )
 public class ProductLocalServiceImpl extends ProductLocalServiceBaseImpl {
+
+	public Product getProductByName(String name) {
+		return productPersistence.fetchByName(name);
+	}
 
 	public List<ProductDTO> getProductsByUserId(long userId) {
 		List<Role> userRoles = _roleLocalService.getUserRoles(userId);
@@ -63,7 +69,8 @@ public class ProductLocalServiceImpl extends ProductLocalServiceBaseImpl {
 	}
 
 	private ProductDTO mapToProductDTO(Product product) {
-		return new ProductDTO(product.getProductId(), product.getName(), product.getExternalId());
+		return new ProductDTO(
+			product.getProductId(), product.getName(), product.getExternalId());
 	}
 
 	@Reference
