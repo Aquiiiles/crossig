@@ -33,7 +33,6 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 
 import hr.crosig.proposal.model.Product;
-import hr.crosig.proposal.model.ProductRole;
 import hr.crosig.proposal.service.ProductLocalService;
 import hr.crosig.proposal.service.ProductRoleLocalService;
 
@@ -104,34 +103,12 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 		String name, long externalId, boolean active, String description,
 		String category) {
 
-		Product product = productLocalService.getProductByName(name);
-
-		if (!Objects.isNull(product)) {
-			log.info("Product with name: " + name + " already exists");
-
-			return product;
-		}
-
-		product = productLocalService.createProduct(
-			counterLocalService.increment(Product.class.getName()));
-
-		product.setName(name);
-		product.setExternalId(externalId);
-		product.setActive(active);
-		product.setDescription(description);
-		product.setCategory(category);
-
-		return productLocalService.updateProduct(product);
+		return productLocalService.addProduct(
+			name, externalId, active, description, category);
 	}
 
 	protected void addProductRole(long productId, long roleId) {
-		ProductRole productRole = productRoleLocalService.createProductRole(
-			counterLocalService.increment(ProductRole.class.getName()));
-
-		productRole.setProductId(productId);
-		productRole.setRoleId(roleId);
-
-		productRoleLocalService.updateProductRole(productRole);
+		productRoleLocalService.addProductRole(productId, roleId);
 	}
 
 	protected void addRole(
