@@ -33,7 +33,9 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 
 import hr.crosig.proposal.model.Product;
+import hr.crosig.proposal.model.ProductRole;
 import hr.crosig.proposal.service.ProductLocalService;
+import hr.crosig.proposal.service.ProductRoleLocalService;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -57,6 +59,7 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 		prefsProps = dependencyProvider.prefsProps;
 		layoutSetLocalService = dependencyProvider.layoutSetLocalService;
 		productLocalService = dependencyProvider.productLocalService;
+		productRoleLocalService = dependencyProvider.productRoleLocalService;
 		counterLocalService = dependencyProvider.counterLocalService;
 	}
 
@@ -119,6 +122,16 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 		product.setCategory(category);
 
 		return productLocalService.updateProduct(product);
+	}
+
+	protected void addProductRole(long productId, long roleId) {
+		ProductRole productRole = productRoleLocalService.createProductRole(
+			counterLocalService.increment(ProductRole.class.getName()));
+
+		productRole.setProductId(productId);
+		productRole.setRoleId(roleId);
+
+		productRoleLocalService.updateProductRole(productRole);
 	}
 
 	protected void addRole(
@@ -298,6 +311,7 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 	protected PermissionChecker originalPermissionChecker;
 	protected PrefsProps prefsProps;
 	protected ProductLocalService productLocalService;
+	protected ProductRoleLocalService productRoleLocalService;
 	protected RoleLocalService roleLocalService;
 	protected UserGroupLocalService userGroupLocalService;
 	protected UserLocalService userLocalService;

@@ -13,6 +13,7 @@ import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.PrefsProps;
 
 import hr.crosig.proposal.service.ProductLocalService;
+import hr.crosig.proposal.service.ProductRoleLocalService;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -43,6 +44,9 @@ public class DependencyProvider {
 
 	@Reference
 	public ProductLocalService productLocalService;
+
+	@Reference
+	public ProductRoleLocalService productRoleLocalService;
 
 	@Reference
 	public RoleLocalService roleLocalService;
