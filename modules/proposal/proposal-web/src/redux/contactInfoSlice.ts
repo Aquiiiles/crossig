@@ -1,9 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { MOBILE } from "../../../../../../constants";
-import {
-  PhoneNumber,
-  createEmptyPhoneNumber,
-} from "../../../atoms/PhoneInputList";
+import { MOBILE } from "../constants/contactConstants";
+import { PhoneNumber } from "../shared/types";
+import { createEmptyPhoneNumber } from "../shared/util/createEmptyPhoneNumber";
 
 const initialState = {
   emailAddresses: [""],
@@ -45,6 +43,10 @@ const contactInfoSlice = createSlice({
     },
     setMobilePhones(state, action: PayloadAction<Array<PhoneNumber>>) {
       state.mobilePhones = action.payload;
+    },
+    resetFields(state) {
+      state.emailAddresses = initialState.emailAddresses;
+      state.mobilePhones = initialState.mobilePhones;
     },
   },
 });

@@ -18,33 +18,33 @@ const basicInfoSlice = createSlice({
   name: "basicInfo",
   initialState,
   reducers: {
-    setType(state, action: PayloadAction<string>) {
+    setContactType(state, action: PayloadAction<string>) {
       state.contactType = action.payload;
     },
     setFirstName(state, action: PayloadAction<string>) {
-      state.firstName = action.payload;
+      state.firstName = action.payload.replaceAll(/\d/g, "");
     },
     setLastName(state, action: PayloadAction<string>) {
-      state.lastName = action.payload;
+      state.lastName = action.payload.replaceAll(/\d/g, "");
     },
     setDateDay(state, action: PayloadAction<string>) {
-      if (!isNaN(Number(action.payload)) && action.payload.length <= 2) {
-        state.dateDay = action.payload;
+      if (action.payload.length <= 2) {
+        state.dateDay = action.payload.replaceAll(/\D/g, "");
       }
     },
     setDateMonth(state, action: PayloadAction<string>) {
-      if (!isNaN(Number(action.payload)) && action.payload.length <= 2) {
-        state.dateMonth = action.payload;
+      if (action.payload.length <= 2) {
+        state.dateMonth = action.payload.replaceAll(/\D/g, "");
       }
     },
     setDateYear(state, action: PayloadAction<string>) {
-      if (!isNaN(Number(action.payload)) && action.payload.length <= 4) {
-        state.dateYear = action.payload;
+      if (action.payload.length <= 4) {
+        state.dateYear = action.payload.replaceAll(/\D/g, "");
       }
     },
     setOIB(state, action: PayloadAction<string>) {
-      if (!isNaN(Number(action.payload)) && action.payload.length <= 11) {
-        state.oib = action.payload;
+      if (action.payload.length <= 11) {
+        state.oib = action.payload.replaceAll(/\D/g, "");
       }
     },
     toggleForeignerStatus(state) {
@@ -55,6 +55,18 @@ const basicInfoSlice = createSlice({
     },
     setSubsidiaryNumber(state, action: PayloadAction<string>) {
       state.subsidiaryNumber = action.payload;
+    },
+    resetFields(state) {
+      state.companyName = initialState.companyName;
+      state.contactType = initialState.contactType;
+      state.dateDay = initialState.dateDay;
+      state.dateMonth = initialState.dateMonth;
+      state.dateYear = initialState.dateYear;
+      state.firstName = initialState.firstName;
+      state.foreignerStatus = initialState.foreignerStatus;
+      state.lastName = initialState.lastName;
+      state.oib = initialState.oib;
+      state.subsidiaryNumber = initialState.subsidiaryNumber;
     },
   },
 });

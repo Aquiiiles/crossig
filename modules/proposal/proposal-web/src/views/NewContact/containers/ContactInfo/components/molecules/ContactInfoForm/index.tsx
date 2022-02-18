@@ -4,10 +4,7 @@ import ClayForm from "@clayui/form";
 import CreateContactButton from "../../atoms/CreateContactButton";
 import EmailInputList from "../../atoms/EmailInputList";
 import FormSection from "../../../../../../../shared/atoms/FormSection";
-import PhoneInputList, {
-  createEmptyPhoneNumber,
-  Country,
-} from "../../atoms/PhoneInputList";
+import PhoneInputList, { Country } from "../../atoms/PhoneInputList";
 import LinkWrapper from "../../atoms/LinkWrapper";
 import Row from "../../../../../../../shared/atoms/Row";
 import SubtitledLabel from "../../atoms/SubtitledLabel";
@@ -28,13 +25,16 @@ import {
   FIXED,
   MAXIMUM_EMAIL_ADDRESSES,
   MAXIMUM_MOBILE_PHONES,
-} from "../../../../../constants/index";
+} from "../../../../../../../constants/contactConstants";
 
-import { actions } from "./slice/contactInfoSlice";
+import { actions as contactInfoActions } from "../../../../../../../redux/contactInfoSlice";
+import { actions as basicInfoActions } from "../../../../../../../redux/basicInfoSlice";
+import { actions as addressActions } from "../../../../../../../redux/addressSlice";
 import {
   useContactDispatch,
   useContactSelector,
 } from "../../../../../../../redux/store";
+import { createEmptyPhoneNumber } from "../../../../../../../shared/util/createEmptyPhoneNumber";
 
 const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
   countries,
@@ -53,7 +53,7 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
     setPhoneNumber,
     setType,
     setMobilePhones,
-  } = actions;
+  } = contactInfoActions;
 
   const handleEmailChange = (index: number, e: any) => {
     const currentEmails = [...emailAddresses];
@@ -180,14 +180,15 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
       <ButtonWrapper>
         <LinkWrapper
           title={CONTACT_INFO_CANCEL}
-          handleClick={history.goBack}
+          handleClick={() => {
+            [basicInfoActions, addressActions, contactInfoActions].forEach(
+              action => dispatch(action["resetFields"]())
+            );
+            history.goBack();
+          }}
           disabled={false}
         />
-        <CreateContactButton
-          handleClick={() => {
-            return;
-          }}
-        />
+        <CreateContactButton />
       </ButtonWrapper>
     </Fragment>
   );

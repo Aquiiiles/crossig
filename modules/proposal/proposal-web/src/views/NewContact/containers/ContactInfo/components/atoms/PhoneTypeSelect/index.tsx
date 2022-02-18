@@ -4,8 +4,8 @@ import {
   CONTACT_INFO_OTHER_MOBILE_PHONES_FIXED,
   CONTACT_INFO_OTHER_MOBILE_PHONES_MOBILE,
 } from "../../../../../../../constants/languageKeys";
-import { FIXED, MOBILE } from "../../../../../constants";
-import { PhoneNumber } from "../PhoneInputList";
+import { FIXED, MOBILE } from "../../../../../../../constants/contactConstants";
+import { PhoneNumber } from "../../../../../../../shared/types";
 import { Wrapper } from "./styles";
 
 interface props {
@@ -19,14 +19,14 @@ const getComponentId = (index: number) => {
   return "subtitled-select-" + index;
 };
 
-const PhoneTypeSelect: React.FC<props> = (props) => {
+const PhoneTypeSelect: React.FC<props> = props => {
   return (
     <Wrapper>
       <label htmlFor={getComponentId(props.index)}>{props.title}</label>
       <ClaySelect
         aria-label="Select Label"
         id={getComponentId(props.index)}
-        onChange={(e) => props.handleChange(props.index, e, "type")}
+        onChange={e => props.handleChange(props.index, e, "type")}
         value={props.entity[props.index].type}
       >
         <ClaySelect.Option

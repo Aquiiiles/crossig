@@ -5,7 +5,7 @@ import {
   CONTACT_INFO_EMAIL_ADDRESS,
   CONTACT_INFO_INVALID_EMAIL_MESSAGE,
 } from "../../../../../../../constants/languageKeys";
-import { MAXIMUM_EMAIL_ADDRESSES } from "../../../../../constants/index";
+import { MAXIMUM_EMAIL_ADDRESSES } from "../../../../../../../constants/contactConstants";
 import LinkWrapper from "../LinkWrapper";
 import { StyledFormGroup, Error } from "./styles";
 
@@ -15,7 +15,7 @@ interface props {
   addEmailInput: MouseEventHandler;
 }
 
-const EmailListInput: React.FC<props> = (props) => {
+const EmailListInput: React.FC<props> = props => {
   const [hasSomeInvalidEmail, setSomeInvalidEmail] = useState(false);
 
   const shouldDisableLink = () => {
@@ -26,7 +26,7 @@ const EmailListInput: React.FC<props> = (props) => {
     setSomeInvalidEmail(false);
     const regex = /\S+@\S+\.\S+/;
 
-    props.emails.forEach((email) => {
+    props.emails.forEach(email => {
       if (!regex.test(email)) {
         setSomeInvalidEmail(true);
         return;
@@ -49,7 +49,7 @@ const EmailListInput: React.FC<props> = (props) => {
               key={`emailInputKey${index}`}
               id={`emailInput${index}`}
               type="text"
-              onChange={(e) => handleChange(index, e)}
+              onChange={e => handleChange(index, e)}
               value={email.toString()}
             />
           </Fragment>

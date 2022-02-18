@@ -1,13 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import contactinfoReducer from "../views/NewContact/containers/ContactInfo/components/molecules/ContactInfoForm/slice/contactInfoSlice";
+import contactinfoReducer from "./contactInfoSlice";
 import basicInfoReducer from "./basicInfoSlice";
 import searchFilterReducer from "./searchFilterSlice";
+import addressReducer from "./addressSlice";
 
 const store = configureStore({
   reducer: {
-    basicInfo: basicInfoReducer,
     searchFilter: searchFilterReducer,
+    basicInfo: basicInfoReducer,
+    address: addressReducer,
     contactInfo: contactinfoReducer,
   },
 });

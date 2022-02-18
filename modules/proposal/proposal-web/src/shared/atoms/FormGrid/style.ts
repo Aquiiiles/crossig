@@ -16,6 +16,7 @@ export const Wrapper = styled.div`
   }
 
   & .birth-date-group {
+    width: 100%;
     display: grid;
     grid-template-columns: 0.5fr 0.5fr 1fr;
     column-gap: 1rem;
