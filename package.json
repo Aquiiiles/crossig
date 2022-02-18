@@ -4,8 +4,7 @@
         "packages": [
             "themes/agent-portal-theme",
             "modules/common/theme-elements",
-            "modules/proposal/proposal-web",
-            "modules/contact/contact-web/build.liferay/jar"
+            "modules/proposal/proposal-web"
         ]
     },
     "dependencies": {
