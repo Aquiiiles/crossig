@@ -31,3 +31,9 @@ export const SearchResultsHeader = styled.div`
     margin-bottom: 0;
   }
 `;
+
+export const Error = styled.small`
+  font-size: 14px;
+  color: ${props => props.theme.color.feedback.error};
+  font-weight: bold;
+`;

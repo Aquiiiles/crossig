@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Table from "./components/organisms/Table";
 import Pagination from "./components/molecules/Pagination";
-import { SearchResultsHeader, Wrapper } from "./styles";
+import { SearchResultsHeader, Wrapper, Error } from "./styles";
 import ClayForm, { ClaySelect, ClaySelectWithOption } from "@clayui/form";
 import ClayDropDown from "@clayui/drop-down";
 import ClayLoadingIndicator from "@clayui/loading-indicator";
@@ -9,7 +9,8 @@ import { contactTypeOptions } from "../../../../constants/contactConstants";
 import {
   CONTACT_SEARCH_RESULT_CONTACTS_FOUND,
   CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND,
-  CONTACT_RESULTS_TABLE,
+  CONTACT_SEARCH_RESULT_TOO_MANY_SEARCH_RESULTS,
+  CONTACT_RESULTS_TABLE
 } from "../../../../constants/languageKeys";
 import { PageIndex } from "../../hooks/usePagination";
 import {
@@ -36,13 +37,15 @@ interface props {
     goToPage: (pageIndex: PageIndex) => void;
     handleNewTotal: (newTotal: number) => void;
     totalPages: () => number;
-  };
+  },
+  contactsTotalLimit: number;
 }
 
 const SearchResult: React.FC<props> = ({
   data,
   loading,
   paginationData,
+  contactsTotalLimit
 }: props) => {
   const dispatch = useContactDispatch();
   const [showCountryDropdown, setShowCountryDropdown] = useState(false);
@@ -83,7 +86,7 @@ const SearchResult: React.FC<props> = ({
 
   return (
     <Wrapper>
-      {!loading ? (
+      {!loading && data.length <= contactsTotalLimit ? (
         <>
           <SearchResultsHeader>
             <h6 className="h9">
@@ -171,7 +174,7 @@ const SearchResult: React.FC<props> = ({
             </>
           ) : null}
         </>
-      ) : (
+      ) : data.length > contactsTotalLimit ? <h6 className="h9">{CONTACT_SEARCH_RESULT_TOO_MANY_SEARCH_RESULTS}</h6> : (
         <ClayLoadingIndicator />
       )}
     </Wrapper>
