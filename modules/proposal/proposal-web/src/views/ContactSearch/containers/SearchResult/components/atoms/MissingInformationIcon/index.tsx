@@ -12,28 +12,28 @@ import {
 } from "../../../../../../../constants/languageKeys";
 
 const MissingInformationIcon: React.FC<{
-  emailValidated: boolean;
-  phoneValidated: boolean;
-}> = ({ emailValidated, phoneValidated }) => {
+  mailValidated: boolean;
+  phoneNumberValidated: boolean;
+}> = ({ mailValidated, phoneNumberValidated }) => {
   const validationMessage = `${
-    emailValidated
+    mailValidated
       ? CONTACT_SEARCH_RESULT_EMAIL_VALIDATED
       : CONTACT_SEARCH_RESULT_EMAIL_NOT_VALIDATED
   } ${CONTACT_SEARCH_RESULT_AND} ${
-    phoneValidated
+    phoneNumberValidated
       ? CONTACT_SEARCH_RESULT_PHONE_VALIDATED
       : CONTACT_SEARCH_RESULT_PHONE_NOT_VALIDATED
   }`;
 
   return (
     <>
-      {(!emailValidated || !phoneValidated) && (
+      {(!mailValidated || !phoneNumberValidated) && (
         <Wrapper>
-        <ClayTooltipProvider>
-          <Button title={validationMessage}>
-            <ClayIcon symbol="warning" spritemap={spritemap} />
-          </Button>
-        </ClayTooltipProvider>
+          <ClayTooltipProvider>
+            <Button title={validationMessage}>
+              <ClayIcon symbol="warning" spritemap={spritemap} />
+            </Button>
+          </ClayTooltipProvider>
         </Wrapper>
       )}
     </>
