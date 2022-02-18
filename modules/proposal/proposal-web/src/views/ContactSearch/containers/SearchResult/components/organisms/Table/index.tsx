@@ -8,6 +8,7 @@ import {
   useContactDispatch,
 } from "../../../../../../../redux/store";
 import { actions } from "../../../../../../../redux/searchFilterSlice";
+import { ResultsTable, Span } from "./styles";
 
 import * as types from "../../../types/searchResult";
 import * as constants from "../../../constants/searchResult";
@@ -40,7 +41,7 @@ const Table: React.FC<props> = ({ inputData, loading }: props) => {
   );
 
   return (
-    <ClayTable borderless>
+    <ResultsTable borderless>
       <ClayTable.Head>
         <ClayTable.Row>
           <ClayTable.Cell
@@ -51,6 +52,7 @@ const Table: React.FC<props> = ({ inputData, loading }: props) => {
               dispatch(setSortOrder(decideOrder(constants.OIB_KEY)));
             }}
           >
+            <Span />
             {constants.OIB_NAME}
             {sortedBy === constants.OIB_KEY ? arrowIcon : null}
           </ClayTable.Cell>
@@ -129,7 +131,7 @@ const Table: React.FC<props> = ({ inputData, loading }: props) => {
           <TableRow key={item.idValue} contact={item} />
         ))}
       </ClayTable.Body>
-    </ClayTable>
+    </ResultsTable>
   );
 };
 

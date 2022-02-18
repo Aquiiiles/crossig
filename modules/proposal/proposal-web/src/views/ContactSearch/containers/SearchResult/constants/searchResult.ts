@@ -14,3 +14,5 @@ export const CITY_NAME = CONTACT_RESULTS_TABLE.HEADER.CITY;
 export const CITY_KEY = "city";
 export const TYPE_NAME = CONTACT_RESULTS_TABLE.HEADER.TYPE;
 export const TYPE_KEY = "entityTypeVO";
+export const MAIL_VALIDATED_KEY = "mailValidated";
+export const PHONE_NUMBER_VALIDATED_KEY = "phoneNumberValidated";

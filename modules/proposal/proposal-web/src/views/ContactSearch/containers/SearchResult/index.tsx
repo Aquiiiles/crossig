@@ -56,6 +56,9 @@ const SearchResult: React.FC<props> = ({
       [constants.STREET_KEY]: "",
       [constants.CITY_KEY]: "",
       [constants.TYPE_KEY]: item[constants.TYPE_KEY].desc,
+      [constants.MAIL_VALIDATED_KEY]: item[constants.MAIL_VALIDATED_KEY],
+      [constants.PHONE_NUMBER_VALIDATED_KEY]:
+        item[constants.PHONE_NUMBER_VALIDATED_KEY],
     };
     return responseObj;
   });
@@ -63,7 +66,7 @@ const SearchResult: React.FC<props> = ({
     data.map((item: providedDataType) => item["address"].split(",")[1].trim())
   );
   const { selectedContactType, selectedCity } = useContactSelector(
-    state => state.searchFilter
+    (state) => state.searchFilter
   );
   const { setSelectedContactType, setSelectedCity } = actions;
 
@@ -127,10 +130,10 @@ const SearchResult: React.FC<props> = ({
                     {CONTACT_RESULTS_TABLE.HEADER.CITY}
                   </ClayDropDown.Item>
                   {Array.from(cities)
-                    .filter(city =>
+                    .filter((city) =>
                       city.toLowerCase().includes(citySearch.toLowerCase())
                     )
-                    .map(city => (
+                    .map((city) => (
                       <ClayDropDown.Item
                         onClick={() => {
                           dispatch(setSelectedCity(city));

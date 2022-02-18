@@ -13,6 +13,7 @@
     "@clayui/loading-indicator": "^3.40.0",
     "@clayui/pagination": "^3.46.0",
     "@clayui/table": "^3.40.0",
+    "@clayui/tooltip": "^3.45.0",
     "@reduxjs/toolkit": "^1.7.2",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
