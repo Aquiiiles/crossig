@@ -50,7 +50,7 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
     const actions = basicInfoActions;
 
     const type = data.entityType.id.toString();
-    dispatch(actions.setType(type));
+    dispatch(actions.setContactType(type));
 
     if (contactTypes.Individual === type) {
       dispatch(actions.setFirstName(data.firstName));
