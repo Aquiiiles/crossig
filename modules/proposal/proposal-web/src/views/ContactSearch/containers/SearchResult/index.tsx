@@ -174,7 +174,7 @@ const SearchResult: React.FC<props> = ({
             </>
           ) : null}
         </>
-      ) : data.length > contactsTotalLimit ? <Error>{CONTACT_SEARCH_RESULT_TOO_MANY_SEARCH_RESULTS}</Error> : (
+      ) : data.length > contactsTotalLimit ? <h6 className="h9">{CONTACT_SEARCH_RESULT_TOO_MANY_SEARCH_RESULTS}</h6> : (
         <ClayLoadingIndicator />
       )}
     </Wrapper>
