@@ -39,6 +39,7 @@ export const CONTACT_SEARCH_TABLE_VIEW_DETAILS = Liferay.Language.get('contact-s
 export const CONTACT_SEARCH_TABLE_USE_CONTACT = Liferay.Language.get('contact-search-table-use-contact');
 export const CONTACT_SEARCH_RESULT_CONTACTS_FOUND = Liferay.Language.get('contact-search-result-contacts-found');
 export const CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND = Liferay.Language.get('contact-search-result-no-contacts-found');
+export const CONTACT_SEARCH_RESULT_TOO_MANY_SEARCH_RESULTS = Liferay.Language.get('contact-search-result-too-many-search-results');
 export const CONTACT_SEARCH_MORE_SEARCH_OPTIONS = Liferay.Language.get('contact-search-more-search-options');
 export const CONTACT_SEARCH_RESULT_EMAIL_NOT_VALIDATED= Liferay.Language.get('contact-search-result-email-not-validated');
 export const CONTACT_SEARCH_RESULT_PHONE_NOT_VALIDATED= Liferay.Language.get('contact-search-result-phone-not-validated');

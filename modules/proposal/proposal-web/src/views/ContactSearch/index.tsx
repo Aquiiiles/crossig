@@ -18,6 +18,7 @@ import { useContactSelector } from "../../redux/store";
 import { FetchContactsFunction } from "./types/fetchData";
 
 const contactsLimit = 20;
+const contactsTotalResultLimit = 100;
 
 const ContactSearch: React.FC = () => {
   const [data, setData] = useState([]);
@@ -139,10 +140,16 @@ const ContactSearch: React.FC = () => {
                 handleNewTotal,
                 totalPages,
               }}
+              contactsTotalLimit={contactsTotalResultLimit}
             />
-            <LinkWrapper>
-              <Link to="new_contact">{CONTACT_SEARCH_CREATE_NEW_CONTACT}</Link>
-            </LinkWrapper>
+            {data.length <= contactsTotalResultLimit ? (
+              <>
+                <LinkWrapper>
+                  <Link to="new_contact">{CONTACT_SEARCH_CREATE_NEW_CONTACT}</Link>
+                </LinkWrapper>
+              </>) : (
+              <EmptySpace />
+            )}
           </>
         ) : (
           <EmptySpace />
