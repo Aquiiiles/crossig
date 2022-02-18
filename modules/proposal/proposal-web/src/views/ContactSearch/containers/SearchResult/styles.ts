@@ -33,6 +33,7 @@ export const SearchResultsHeader = styled.div`
 `;
 
 export const Error = styled.small`
-  font-size: 13px;
+  font-size: 14px;
   color: ${props => props.theme.color.feedback.error};
+  font-weight: bold;
 `;
