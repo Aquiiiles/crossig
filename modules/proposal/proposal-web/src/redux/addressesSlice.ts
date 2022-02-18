@@ -8,6 +8,7 @@ const initialState = {
   country: countryNames.value,
   dispatchCountry: countryNames.value,
   city: 0,
+  cityName: "",
   dispatchCity: 0,
   isSameAddress: true,
   postalCode: "",
@@ -30,6 +31,9 @@ const addressSlice = createSlice({
     },
     setCity(state, action: PayloadAction<number>) {
       state.city = action.payload;
+    },
+    setCityName(state, action: PayloadAction<string>) {
+      state.cityName = action.payload;
     },
     setDispatchCity(state, action: PayloadAction<number>) {
       state.dispatchCity = action.payload;
@@ -57,6 +61,7 @@ const addressSlice = createSlice({
     },
     resetFields(state) {
       state.city = initialState.city;
+      state.cityName = initialState.cityName;
       state.country = initialState.country;
       state.dispatchCity = initialState.dispatchCity;
       state.dispatchCountry = initialState.dispatchCountry;

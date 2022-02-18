@@ -27,11 +27,13 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
   const { contactType } = useContactSelector(
     (state: { basicInfo: any }) => state.basicInfo
   );
+  
 
   const {
     country,
     dispatchCountry,
     city,
+    cityName,
     dispatchCity,
     street,
     dispatchStreet,
@@ -44,6 +46,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
   const {
     setCountry,
     setDispatchCountry,
+    setCityName,
     setCity,
     setDispatchCity,
     setStreet,
@@ -100,6 +103,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
                   setPostalCode={(value) => dispatch(setPostalCode(value))}
                   isCity
                   disabled={false}
+                  selectedValue={cityName}
                 />
               </ClayInput.GroupItem>
 

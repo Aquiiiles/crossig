@@ -13,6 +13,7 @@ type props = {
   setPostalCode?: (postalCode: string) => void;
   isCity: boolean;
   disabled: boolean;
+  selectedValue?: string;
 };
 
 const AutoCompleteInput: React.FC<props> = ({
@@ -24,8 +25,9 @@ const AutoCompleteInput: React.FC<props> = ({
   setPostalCode,
   isCity,
   disabled,
+  selectedValue,
 }: props) => {
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>(selectedValue || "");
   const [options, setOptions] = useState<Array<any>>();
   const [filteredOptions, setFilteredOptions] = useState<Array<any>>();
   const [showAutocomplete, setShowAutocomplete] = useState<boolean>(false);
