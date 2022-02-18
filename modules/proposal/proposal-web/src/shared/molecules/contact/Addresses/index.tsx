@@ -15,11 +15,7 @@ import {
   useContactDispatch,
   useContactSelector,
 } from "../../../../redux/store";
-import {
-  actions,
-  MAIN_ADDRESS,
-  DISPATCH_ADDRESS,
-} from "../../../../redux/addressesSlice";
+import { actions } from "../../../../redux/addressesSlice";
 import { Line } from "./styles";
 import { searchCitiesByName, searchStreetsByCityIdAndName } from "./controller";
 
@@ -27,24 +23,36 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
   countries,
 }) => {
   const dispatch = useContactDispatch();
-  const { contactType } = useContactSelector((state) => state.basicInfo);
+
+  const { contactType } = useContactSelector(
+    (state: { basicInfo: any }) => state.basicInfo
+  );
+
   const {
     country,
     dispatchCountry,
     city,
     dispatchCity,
+    street,
+    dispatchStreet,
     isSameAddress,
     postalCode,
     dispatchPostalCode,
+    houseNumber,
+    dispatchHouseNumber,
   } = useContactSelector((state) => state.addresses);
   const {
     setCountry,
     setDispatchCountry,
     setCity,
     setDispatchCity,
+    setStreet,
+    setDispatchStreet,
     setIsSameAddress,
     setPostalCode,
     setDispatchPostalCode,
+    setHouseNumber,
+    setDispatchHouseNumber,
   } = actions;
 
   const isMainAddressInCroatia = () => {
@@ -102,7 +110,10 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
 
                 <ClayInput
                   id="postal-code"
-                  type="text"
+                  type="number"
+                  onChange={(value) =>
+                    dispatch(setPostalCode(value.toString()))
+                  }
                   disabled={isMainAddressInCroatia()}
                   value={postalCode}
                 />
@@ -117,9 +128,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
               id={"street-address-autocomplete"}
               active={isMainAddressInCroatia()}
               getOptions={searchStreetsByCityIdAndName(city)}
-              setParentValue={() => {
-                return;
-              }}
+              setParentValue={(value) => dispatch(setStreet(value))}
               isCity={false}
               disabled={!postalCode}
             />
@@ -129,7 +138,12 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
                 {CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS}
               </label>
 
-              <ClayInput id="street-address-input" type="text" />
+              <ClayInput
+                id="street-address-input"
+                type="text"
+                onChange={(e) => dispatch(setStreet(e.target.value.toString()))}
+                value={street}
+              />
             </>
           )}
         </ClayForm.Group>
@@ -139,8 +153,14 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
             <label htmlFor="house-number">
               {CREATE_NEW_CONTACT.FIELD.HOUSE_NUMBER}
             </label>
-
-            <ClayInput id="house-number" type="text" />
+            <ClayInput
+              id="house-number"
+              type="number"
+              onChange={(e) =>
+                dispatch(setHouseNumber(e.target.value.toString()))
+              }
+              value={houseNumber}
+            />
           </ClayForm.Group>
         </Row>
 
@@ -197,8 +217,11 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
 
                     <ClayInput
                       id="dispatch-postal-code"
-                      type="text"
+                      type="number"
                       disabled={isDispatchAddressInCroatia()}
+                      onChange={(value) =>
+                        dispatch(setDispatchPostalCode(value.toString()))
+                      }
                       value={dispatchPostalCode}
                     />
                   </ClayInput.GroupItem>
@@ -213,9 +236,9 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
                   id={"dispatch-street-address-autocomplete"}
                   active={isDispatchAddressInCroatia()}
                   getOptions={searchStreetsByCityIdAndName(dispatchCity)}
-                  setParentValue={() => {
-                    return;
-                  }}
+                  setParentValue={(value) =>
+                    dispatch(setDispatchStreet(value.toString()))
+                  }
                   isCity={false}
                   disabled={!dispatchPostalCode}
                 />
@@ -225,7 +248,14 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
                     {CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS}
                   </label>
 
-                  <ClayInput id="street-dispatch-address-input" type="text" />
+                  <ClayInput
+                    id="street-dispatch-address-input"
+                    type="text"
+                    onChange={(e) =>
+                      dispatch(setDispatchStreet(e.target.value.toString()))
+                    }
+                    value={dispatchStreet}
+                  />
                 </>
               )}
             </ClayForm.Group>
@@ -235,8 +265,14 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
                 <label htmlFor="dispatch-house-number">
                   {CREATE_NEW_CONTACT.FIELD.HOUSE_NUMBER}
                 </label>
-
-                <ClayInput id="dispatch-house-number" type="text" />
+                <ClayInput
+                  id="dispatch-house-number"
+                  type="text"
+                  onChange={(e) =>
+                    dispatch(setDispatchHouseNumber(e.target.value.toString()))
+                  }
+                  value={dispatchHouseNumber}
+                />
               </ClayForm.Group>
             </Row>
           </>

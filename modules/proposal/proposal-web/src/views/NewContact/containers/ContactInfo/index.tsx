@@ -12,11 +12,11 @@ import { useContactSelector } from "../../../../redux/store";
 import { valuesToISOString } from "./utils/dateUtils";
 import { emailListToData } from "./utils/emailUtils";
 import { phoneObjectToData } from "./utils/phoneUtils";
-import { useFetchData } from "../../../../api/hooks/useFetchData";
 import { CONTACT_URL } from "../../../../api/constants/routes";
-
-import { getActiveCountries } from "../../../../api/services/liferay";
 import { createContactStore } from "../../../../redux/store";
+import { COUNTRIES_URL } from "../../../../api/constants/routes";
+import { useFetchData } from "../../../../api/hooks/useFetchData";
+import { RESOLVED } from "../../../../api/reducers/constants";
 
 const ContactInfo: React.FC = () => {
   const basicInfoData = useContactSelector((state) => state.basicInfo);
@@ -24,14 +24,18 @@ const ContactInfo: React.FC = () => {
   const contactInfoData = useContactSelector((state) => state.contactInfo);
   const { fetchData: API } = useFetchData();
   const formRef = useRef<HTMLFormElement>(null);
+  const { state, get } = useFetchData();
   const [countries, setCountries] = useState<Array<any> | null>(null);
 
   useEffect(() => {
-    const activeCountries = getActiveCountries();
-    if (activeCountries) {
-      setCountries(activeCountries);
-    }
+    get(COUNTRIES_URL);
   }, []);
+
+  useEffect(() => {
+    if (state.status === RESOLVED) {
+      setCountries(state.response.data);
+    }
+  });
 
   useEffect(() => {
     createContactStore();

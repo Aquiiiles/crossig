@@ -1,73 +1,77 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { WritableDraft } from "immer/dist/internal";
-import { Address } from "../shared/types/contact";
 import { countryNames } from "../constants/defaultCountryConfiguration";
 
-const blankAddress = {
-  country: countryNames.value,
-  city: 0,
-  postalCode: "",
-  street: "",
-  houseNumber: "",
-} as Address;
+export const MAIN_ADDRESS = "mainAddress";
+export const DISPATCH_ADDRESS = "dispatchAddress";
 
 const initialState = {
-  mainAddress: blankAddress,
-  dispatchAddress: blankAddress,
-  areAddressesEqual: true,
+  country: countryNames.value,
+  dispatchCountry: countryNames.value,
+  city: 0,
+  dispatchCity: 0,
+  isSameAddress: true,
+  postalCode: "",
+  dispatchPostalCode: "",
+  street: "",
+  dispatchStreet: "",
+  houseNumber: "",
+  dispatchHouseNumber: "",
 };
 
-type StateType = {
-  mainAddress: Address;
-  dispatchAddress: Address;
-  areAddressesEqual: boolean;
-};
-
-const shouldSetMainAddress = (action: PayloadAction<[string, string]>) => {
-  return MAIN_ADDRESS === action.payload[0];
-};
-
-const getStateReference = (
-  state: WritableDraft<StateType>,
-  action: PayloadAction<[string, any]>
-) => {
-  return shouldSetMainAddress(action)
-    ? state.mainAddress
-    : state.dispatchAddress;
-};
-
-const addressesSlice = createSlice({
-  name: "addresses",
+const addressSlice = createSlice({
+  name: "address",
   initialState,
   reducers: {
-    setCountry(state, action: PayloadAction<[string, string]>) {
-      getStateReference(state, action).country = action.payload[1];
+    setCountry(state, action: PayloadAction<string>) {
+      state.country = action.payload;
     },
-    setCity(state, action: PayloadAction<[string, number]>) {
-      getStateReference(state, action).city = action.payload[1];
+    setDispatchCountry(state, action: PayloadAction<string>) {
+      state.country = action.payload;
     },
-    setPostalCode(state, action: PayloadAction<[string, string]>) {
-      getStateReference(state, action).postalCode = action.payload[1];
+    setCity(state, action: PayloadAction<number>) {
+      state.city = action.payload;
     },
-    setStreet(state, action: PayloadAction<[string, string]>) {
-      getStateReference(state, action).street = action.payload[1];
+    setDispatchCity(state, action: PayloadAction<number>) {
+      state.dispatchCity = action.payload;
     },
-    setHouseNumber(state, action: PayloadAction<[string, string]>) {
-      getStateReference(state, action).houseNumber = action.payload[1];
+    setStreet(state, action: PayloadAction<string>) {
+      state.street = action.payload;
     },
-    toggleEqualAddresses(state) {
-      state.areAddressesEqual = !state.areAddressesEqual;
-      if (state.areAddressesEqual) {
-        state.dispatchAddress = state.mainAddress;
-      } else {
-        state.dispatchAddress = blankAddress;
-      }
+    setDispatchStreet(state, action: PayloadAction<string>) {
+      state.dispatchStreet = action.payload;
+    },
+    setIsSameAddress(state, action: PayloadAction<boolean>) {
+      state.isSameAddress = action.payload;
+    },
+    setPostalCode(state, action: PayloadAction<string>) {
+      state.postalCode = action.payload;
+    },
+    setDispatchPostalCode(state, action: PayloadAction<string>) {
+      state.dispatchPostalCode = action.payload;
+    },
+    setHouseNumber(state, action: PayloadAction<string>) {
+      state.houseNumber = action.payload;
+    },
+    setDispatchHouseNumber(state, action: PayloadAction<string>) {
+      state.dispatchHouseNumber = action.payload;
+    },
+    resetFields(state) {
+      state.city = initialState.city;
+      state.country = initialState.country;
+      state.dispatchCity = initialState.dispatchCity;
+      state.dispatchCountry = initialState.dispatchCountry;
+      state.dispatchPostalCode = initialState.dispatchPostalCode;
+      state.isSameAddress = initialState.isSameAddress;
+      state.postalCode = initialState.postalCode;
+      state.street = initialState.street;
+      state.dispatchStreet = initialState.dispatchStreet;
+      state.dispatchPostalCode = initialState.dispatchPostalCode;
+      state.houseNumber = initialState.houseNumber;
+      state.dispatchHouseNumber = initialState.dispatchHouseNumber;
     },
   },
 });
 
-export const actions = addressesSlice.actions;
-export const MAIN_ADDRESS = "mainAddress";
-export const DISPATCH_ADDRESS = "dispatchAddress";
+export const actions = addressSlice.actions;
 
-export default addressesSlice.reducer;
+export default addressSlice.reducer;

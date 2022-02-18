@@ -19,33 +19,32 @@ import {
 } from "../../../../redux/addressesSlice";
 import { actions as contactInfoSetters } from "../../../../redux/contactInfoSlice";
 import store, { useContactDispatch } from "../../../../redux/store";
-import { getActiveCountries } from "../../../../api/services/liferay";
 import { PhoneNumber } from "../../../../shared/types/contact";
 import { contactTypes } from "../../../../constants/contactConstants";
 import LinkWrapper from "../../../../shared/atoms/contact/LinkWrapper";
 import ContactButton from "../../../../shared/atoms/contact/ContactButton";
 import API from "../../../../api";
-import { CONTACT_URL } from "../../../../api/constants/routes";
+import { CONTACT_URL, COUNTRIES_URL } from "../../../../api/constants/routes";
+import { useFetchData } from "../../../../api/hooks/useFetchData";
+import { RESOLVED } from "../../../../api/reducers/constants";
 
 const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
   contactResponse,
 }) => {
   const dispatch = useContactDispatch();
   const data = contactResponse[0];
-  // const [countries, setCountries] = useState<Array<any> | null>(null);
+  const { state, get } = useFetchData();
+  const [countries, setCountries] = useState<Array<any> | null>(null);
 
-  // useEffect(() => {
-  //   const activeCountries = getActiveCountries();
-  //   if (activeCountries) {
-  //     setCountries(activeCountries);
-  //   }
-  // }, []);
+  useEffect(() => {
+    get(COUNTRIES_URL);
+  }, []);
 
-  const countries = getActiveCountries();
-
-  const areAddressesEqual = () => {
-    return data.addresses[0].isPreferredDeliveryAddress;
-  };
+  useEffect(() => {
+    if (state.status === RESOLVED) {
+      setCountries(state.response.data);
+    }
+  });
 
   const setBasicInfoFields = () => {
     const actions = basicInfoActions;
@@ -93,29 +92,29 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
     dispatch(contactInfoSetters.setMobilePhones(mobilePhones));
   };
 
-  const setAddressFields = (addressType: string) => {
-    const address = data.addresses[0];
-    const country = [addressType, address.country.desc] as [string, string];
-    const city = [addressType, address.cityId] as [string, number];
-    const postalCode = [addressType, address.zipCode] as [string, string];
-    const street = [addressType, address.streetName] as [string, string];
-    const houseNumber = [addressType, address.houseNr] as [string, string];
+  // const setAddressFields = (addressType: string) => {
+  //   const address = data.addresses[0];
+  //   const country = [addressType, address.country.desc] as [string, string];
+  //   const city = [addressType, address.cityId] as [string, number];
+  //   const postalCode = [addressType, address.zipCode] as [string, string];
+  //   const street = [addressType, address.streetName] as [string, string];
+  //   const houseNumber = [addressType, address.houseNr] as [string, string];
 
-    dispatch(addressesSetters.setCountry(country));
-    dispatch(addressesSetters.setCity(city));
-    dispatch(addressesSetters.setPostalCode(postalCode));
-    dispatch(addressesSetters.setStreet(street));
-    dispatch(addressesSetters.setHouseNumber(houseNumber));
-  };
+  //   dispatch(addressesSetters.setCountry(country));
+  //   dispatch(addressesSetters.setCity(city));
+  //   dispatch(addressesSetters.setPostalCode(postalCode));
+  //   dispatch(addressesSetters.setStreet(street));
+  //   dispatch(addressesSetters.setHouseNumber(houseNumber));
+  // };
 
   useEffect(() => {
     setBasicInfoFields();
-    setAddressFields(MAIN_ADDRESS);
+    // setAddressFields(MAIN_ADDRESS);
 
-    if (!areAddressesEqual()) {
-      dispatch(addressesSetters.toggleEqualAddresses());
-      setAddressFields(DISPATCH_ADDRESS);
-    }
+    // if (!areAddressesEqual()) {
+    //   dispatch(addressesSetters.toggleEqualAddresses());
+    //   setAddressFields(DISPATCH_ADDRESS);
+    // }
 
     setContactInfoFields();
   }, []);
