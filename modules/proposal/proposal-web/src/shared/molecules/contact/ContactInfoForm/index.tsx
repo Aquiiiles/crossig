@@ -165,11 +165,6 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
           </ClayForm.Group>
         </Row>
       </FormSection>
-        <LinkWrapper
-          title={CONTACT_INFO.CANCEL}
-          handleClick={history.goBack}
-          disabled={false}
-        />
     </Fragment>
   );
 };

@@ -23,10 +23,12 @@ import API from "../../../../api";
 import { CONTACT_URL, COUNTRIES_URL } from "../../../../api/constants/routes";
 import { useFetchData } from "../../../../api/hooks/useFetchData";
 import { RESOLVED } from "../../../../api/reducers/constants";
+import { useHistory } from "react-router-dom";
 
 const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
   contactResponse,
 }) => {
+  const history = useHistory();
   const dispatch = useContactDispatch();
   const data = contactResponse[0];
   const { state, get } = useFetchData();
@@ -233,7 +235,7 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
         <LinkWrapper
           title={CONTACT_INFO.CANCEL}
           handleClick={() => {
-            return;
+            history.goBack();
           }}
           disabled={false}
         />
