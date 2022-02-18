@@ -1,6 +1,6 @@
 package hr.crosig.proposal.rest.application.utils;
 
-import hr.crosig.proposal.rest.application.enums.InsuredRole;
+import hr.crosig.proposal.enums.InsuredRole;
 
 import java.util.Arrays;
 import java.util.List;

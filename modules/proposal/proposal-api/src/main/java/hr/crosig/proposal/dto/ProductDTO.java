@@ -2,6 +2,9 @@ package hr.crosig.proposal.dto;
 
 import java.io.Serializable;
 
+/**
+ * @author Guilherme Kfouri
+ */
 public class ProductDTO implements Serializable {
 
 	public ProductDTO(long productId, String name, long externalId) {

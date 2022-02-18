@@ -1,5 +1,6 @@
 package hr.crosig.content.setup.upgrade.common;
 
+import com.liferay.counter.kernel.service.CounterLocalService;
 import com.liferay.portal.kernel.exception.DuplicateRoleException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -31,6 +32,9 @@ import com.liferay.portal.kernel.util.PrefsProps;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 
+import hr.crosig.proposal.model.Product;
+import hr.crosig.proposal.service.ProductLocalService;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -52,6 +56,8 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 		roleLocalService = dependencyProvider.roleLocalService;
 		prefsProps = dependencyProvider.prefsProps;
 		layoutSetLocalService = dependencyProvider.layoutSetLocalService;
+		productLocalService = dependencyProvider.productLocalService;
+		counterLocalService = dependencyProvider.counterLocalService;
 	}
 
 	protected Layout addPage(
@@ -89,6 +95,30 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 		catch (Exception exception) {
 			log.error(exception);
 		}
+	}
+
+	protected Product addProduct(
+		String name, long externalId, boolean active, String description,
+		String category) {
+
+		Product product = productLocalService.getProductByName(name);
+
+		if (!Objects.isNull(product)) {
+			log.info("Product with name: " + name + " already exists");
+
+			return product;
+		}
+
+		product = productLocalService.createProduct(
+			counterLocalService.increment(Product.class.getName()));
+
+		product.setName(name);
+		product.setExternalId(externalId);
+		product.setActive(active);
+		product.setDescription(description);
+		product.setCategory(category);
+
+		return productLocalService.updateProduct(product);
 	}
 
 	protected void addRole(
@@ -259,6 +289,7 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 		BaseUpgradeProcess.class);
 
 	protected CompanyLocalService companyLocalService;
+	protected CounterLocalService counterLocalService;
 	protected final DependencyProvider dependencyProvider;
 	protected GroupLocalService groupLocalService;
 	protected LayoutLocalService layoutLocalService;
@@ -266,6 +297,7 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 	protected String originalName;
 	protected PermissionChecker originalPermissionChecker;
 	protected PrefsProps prefsProps;
+	protected ProductLocalService productLocalService;
 	protected RoleLocalService roleLocalService;
 	protected UserGroupLocalService userGroupLocalService;
 	protected UserLocalService userLocalService;
