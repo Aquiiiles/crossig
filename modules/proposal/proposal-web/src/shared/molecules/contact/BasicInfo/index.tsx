@@ -19,10 +19,17 @@ import {
 
 type propsType = {
   operation: string;
+  enableSave?: () => void;
 };
 
-const BasicInfo: React.FC<propsType> = (props:propsType) => {
-  const dispatch = useContactDispatch();
+const BasicInfo: React.FC<propsType> = ({ enableSave , operation}: propsType) => {
+  const dispatcher = useContactDispatch();
+
+  const dispatch = (action: any) => {
+    enableSave && enableSave();
+    dispatcher(action);
+  };
+
   const {
     contactType,
     firstName,
@@ -59,7 +66,7 @@ const BasicInfo: React.FC<propsType> = (props:propsType) => {
   };
 
   const isUpdate = () => {
-    return props.operation === "update";
+    return operation === "update";
   }
 
   return (
@@ -203,6 +210,9 @@ const BasicInfo: React.FC<propsType> = (props:propsType) => {
               type="text"
               value={subsidiaryNumber}
               disabled={isUpdate()}
+              onChange={({ target: { value } }) =>
+                dispatch(setSubsidiaryNumber(value))
+              }
             />
           </ClayForm.Group>
         </Row>

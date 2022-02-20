@@ -20,15 +20,29 @@ import {
 import { Country } from "../../../types/contact";
 import { createEmptyPhoneNumber } from "../../../util/commonFunctions";
 import { actions as contactInfoActions } from "../../../../redux/contactInfoSlice";
+import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
+import { actions as addressActions } from "../../../../redux/addressSlice";
+import LinkWrapper from "../../../atoms/contact/LinkWrapper";
+import { useHistory } from "react-router-dom";
 
 type propsType = {
   countries: Array<Country>,
   operation: string,
+  enableSave?: () => void
 }
 
-const ContactInfoForm: React.FC<propsType> = (props:propsType) => {
-  const dispatch = useContactDispatch();
+const ContactInfoForm: React.FC<propsType> = ({
+  countries,
+  enableSave,
+  operation,
+}:propsType) => {
+  const history = useHistory();
+  const dispatcher = useContactDispatch();
 
+  const dispatch = (action: any) => {
+    enableSave && enableSave();
+    dispatcher(action);
+  };
   const { emailAddresses, mobilePhones } = useContactSelector(
     (state) => state.contactInfo
   );
@@ -125,7 +139,7 @@ const ContactInfoForm: React.FC<propsType> = (props:propsType) => {
   };
 
   const isUpdate = () => {
-    return props.operation === "update";
+    return operation === "update";
   }
 
   return (
@@ -178,7 +192,7 @@ const ContactInfoForm: React.FC<propsType> = (props:propsType) => {
               phoneNumbers={mobilePhones}
               handleChange={handlePhoneChange}
               addPhoneInput={addMobilePhoneInput}
-              countries={props.countries}
+              countries={countries}
               disableLink={isLegalEntity() && isUpdate()}
               disableInput={isLegalEntity() && isUpdate()}
             />

@@ -14,9 +14,10 @@ import {
   mapToCountryCodes,
 } from "../../../../shared/util/countryMappers";
 import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
-import { actions as addressesActions } from "../../../../redux/addressesSlice";
-import { actions as contactInfoActions } from "../../../../redux/contactInfoSlice";
-import store, { useContactDispatch } from "../../../../redux/store";
+import { actions as addressesSetters } from "../../../../redux/addressesSlice";
+import { actions as contactInfoSetters } from "../../../../redux/contactInfoSlice";
+import store, { useContactDispatch , useContactSelector}  from "../../../../redux/store";
+import { PhoneNumber } from "../../../../shared/types/contact";
 import { contactTypes } from "../../../../constants/contactConstants";
 import LinkWrapper from "../../../../shared/atoms/contact/LinkWrapper";
 import ContactButton from "../../../../shared/atoms/contact/ContactButton";
@@ -42,6 +43,8 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
   const data = contactResponse[0];
   const { state, get } = useFetchData();
   const [countries, setCountries] = useState<Array<any> | null>(null);
+  const [enabledButton, setEnabledButton] = useState(false);
+  const [isLegalEntity, setIsLegalEntity] = useState(data.entityType.id.toString() === contactTypes.Legal_Entity);
 
   const [showModal, setShowModal] = useState(false);
   const [isUpdateSuccessful, setUpdateSuccess] = useState(false);
@@ -58,8 +61,8 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
 
   useEffect(() => {
     setBasicInfoFields(data, dispatch, basicInfoActions);
-    setAddressFields(data, dispatch, addressesActions);
-    setContactInfoFields(data, dispatch, contactInfoActions);
+    setAddressFields(data, dispatch, addressesSetters);
+    setContactInfoFields(data, dispatch, contactInfoSetters);
   }, []);
 
   const createContactDTO = () => {
@@ -80,12 +83,7 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
       return;
     });
   };
-
-  const isLegalEntity = () => {
-    const contactType = data.entityType.id.toString();
-    return contactType === contactTypes.Legal_Entity;
-  };
-
+  
   return (
     <Wrapper id="update-contact-form-main-container">
       {showModal && isUpdateSuccessful && (
@@ -103,12 +101,13 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
       )}
       <h3>{UPDATE_CONTACT.TITLE}</h3>
       <p className="subtitle">{UPDATE_CONTACT.SUBTITLE}</p>
-      <BasicInfo key="update-contact-basic-info" operation="update" />
+      <BasicInfo key="update-contact-basic-info" operation="update" enableSave={()=>{ setEnabledButton(true)}} />
       {countries && (
         <Addresses
           countries={mapToCountryNames(countries)}
           key="update-contact-addresses"
           operation="update"
+          enableSave={()=>{ setEnabledButton(true)}}
         />
       )}
       {countries && (
@@ -116,6 +115,7 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
           countries={mapToCountryCodes(countries)}
           key="update-contact-contact-info"
           operation="update"
+          enableSave={()=>{ setEnabledButton(true)}}
         />
       )}
 
@@ -123,12 +123,12 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
         <LinkWrapper
           title={CONTACT_INFO.CANCEL}
           handleClick={() => {
-            [basicInfoActions, addressesActions, contactInfoActions].forEach(
+            [basicInfoActions, addressesSetters, contactInfoSetters].forEach(
               (action) => dispatch(action["resetFields"]())
             );
             history.push("/");
           }}
-          disabled={isLegalEntity()}
+          disabled={false}
         />
         <ClayButton.Group spaced>
           <ContactButton
@@ -136,12 +136,12 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
               return;
             }}
             label={UPDATE_CONTACT.USE_CONTACT}
-            disabled={isLegalEntity()}
+            disabled={!isLegalEntity}
           />
           <ContactButton
             handleClick={handleUpdateContact}
             label={UPDATE_CONTACT.SUBMIT_BUTTON}
-            disabled={isLegalEntity()}
+            disabled={!enabledButton && !isLegalEntity}
           />
         </ClayButton.Group>
       </ButtonWrapper>

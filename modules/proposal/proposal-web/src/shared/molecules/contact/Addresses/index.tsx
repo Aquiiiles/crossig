@@ -18,14 +18,20 @@ import {
 import { actions } from "../../../../redux/addressesSlice";
 import { Line } from "./styles";
 import { searchCitiesByName, searchStreetsByCityIdAndName } from "./controller";
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 
 type propsType = {
+  enableSave?: () => void;
   countries: { label: any; value: any }[];
   operation: string;
 };
 
-const Addresses: React.FC<propsType> = (props: propsType) => {
-  const dispatch = useContactDispatch();
+const Addresses: React.FC<propsType> = ({ countries, enableSave, operation }: propsType) => {
+  const dispatcher = useContactDispatch();
+  const dispatch = (action: any) => {
+    enableSave && enableSave();
+    dispatcher(action);
+  };
 
   const { contactType } = useContactSelector(
     (state: { basicInfo: any }) => state.basicInfo
@@ -73,7 +79,7 @@ const Addresses: React.FC<propsType> = (props: propsType) => {
   };
 
   const isUpdate = () => {
-    return props.operation === "update";
+    return operation === "update";
   };
   return (
     <>
@@ -92,7 +98,7 @@ const Addresses: React.FC<propsType> = (props: propsType) => {
             <label htmlFor="country">{CREATE_NEW_CONTACT.FIELD.COUNTRY}</label>
             <ClaySelectWithOption
               id="country"
-              options={props.countries}
+              options={countries}
               onChange={({ target: { value } }) => dispatch(setCountry(value))}
               required
               disabled={isLegalEntity() && isUpdate()}
@@ -200,7 +206,7 @@ const Addresses: React.FC<propsType> = (props: propsType) => {
                 </label>
                 <ClaySelectWithOption
                   id="dispatch-country"
-                  options={props.countries}
+                  options={countries}
                   required
                   onChange={({ target: { value } }) =>
                     dispatch(setDispatchCountry(value))
