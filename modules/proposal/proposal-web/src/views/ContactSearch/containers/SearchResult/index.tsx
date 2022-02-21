@@ -5,12 +5,12 @@ import { SearchResultsHeader, Wrapper, Error } from "./styles";
 import ClayForm, { ClaySelect, ClaySelectWithOption } from "@clayui/form";
 import ClayDropDown from "@clayui/drop-down";
 import ClayLoadingIndicator from "@clayui/loading-indicator";
-import { contactTypeOptions } from "../../../../constants/contactConstants";
+import { filterTypeOptions } from "../../../../constants/contactConstants";
 import {
   CONTACT_SEARCH_RESULT_CONTACTS_FOUND,
   CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND,
   CONTACT_SEARCH_RESULT_TOO_MANY_SEARCH_RESULTS,
-  CONTACT_RESULTS_TABLE
+  CONTACT_RESULTS_TABLE,
 } from "../../../../constants/languageKeys";
 import { PageIndex } from "../../hooks/usePagination";
 import {
@@ -37,7 +37,7 @@ interface props {
     goToPage: (pageIndex: PageIndex) => void;
     handleNewTotal: (newTotal: number) => void;
     totalPages: () => number;
-  },
+  };
   contactsTotalLimit: number;
 }
 
@@ -45,7 +45,7 @@ const SearchResult: React.FC<props> = ({
   data,
   loading,
   paginationData,
-  contactsTotalLimit
+  contactsTotalLimit,
 }: props) => {
   const dispatch = useContactDispatch();
   const [showCountryDropdown, setShowCountryDropdown] = useState(false);
@@ -65,6 +65,7 @@ const SearchResult: React.FC<props> = ({
     };
     return responseObj;
   });
+  const [filteredData, setFilteredData] = useState(formatedData);
   const cities = new Set(
     data.map((item: providedDataType) => item["address"].split(",")[1].trim())
   );
@@ -82,16 +83,26 @@ const SearchResult: React.FC<props> = ({
     }
   }, [showCountryDropdown]);
 
-  const foundContacts = data.length > 0;
+  useEffect(() => {
+    setFilteredData(
+      selectedContactType
+        ? formatedData.filter(
+            (item) => item[constants.TYPE_KEY] === selectedContactType
+          )
+        : formatedData
+    );
+  }, [selectedContactType, data]);
+
+  const foundContacts = filteredData.length > 0;
 
   return (
     <Wrapper>
-      {!loading && data.length <= contactsTotalLimit ? (
+      {!loading && filteredData.length <= contactsTotalLimit ? (
         <>
           <SearchResultsHeader>
             <h6 className="h9">
               {foundContacts
-                ? `${data.length} ${CONTACT_SEARCH_RESULT_CONTACTS_FOUND}`
+                ? `${filteredData.length} ${CONTACT_SEARCH_RESULT_CONTACTS_FOUND}`
                 : `${CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND}`}
             </h6>
             <ClayForm.Group>
@@ -154,7 +165,7 @@ const SearchResult: React.FC<props> = ({
                 value={selectedContactType}
                 options={[
                   { label: CONTACT_RESULTS_TABLE.HEADER.TYPE, value: "" },
-                  ...contactTypeOptions,
+                  ...filterTypeOptions,
                 ]}
                 onChange={({ target: { value } }) => {
                   dispatch(setSelectedContactType(value));
@@ -164,17 +175,19 @@ const SearchResult: React.FC<props> = ({
           </SearchResultsHeader>
           {foundContacts ? (
             <>
-              <Table loading={loading} inputData={formatedData}></Table>
+              <Table loading={loading} inputData={filteredData}></Table>
               <Pagination
                 paginationData={{
-                  total: data.length,
+                  total: filteredData.length,
                   ...paginationData,
                 }}
               />
             </>
           ) : null}
         </>
-      ) : data.length > contactsTotalLimit ? <h6 className="h9">{CONTACT_SEARCH_RESULT_TOO_MANY_SEARCH_RESULTS}</h6> : (
+      ) : filteredData.length > contactsTotalLimit ? (
+        <h6 className="h9">{CONTACT_SEARCH_RESULT_TOO_MANY_SEARCH_RESULTS}</h6>
+      ) : (
         <ClayLoadingIndicator />
       )}
     </Wrapper>

@@ -21,6 +21,21 @@ export const contactTypeOptions = [
   },
 ];
 
+export const filterTypeOptions = [
+  {
+    label: CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.INDIVIDUAL,
+    value: "Individual",
+  },
+  {
+    label: CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.SELF_EMPLOYED,
+    value: "Legal Entity",
+  },
+  {
+    label: CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.LEGAL_ENTITY,
+    value: "Self Employed",
+  },
+];
+
 export const MINIMUN_LENGTH_FOR_AUTOCOMPLETE_INPUT = 2;
 export const MAXIMUM_EMAIL_ADDRESSES = 4;
 export const MAXIMUM_MOBILE_PHONES = 4;
