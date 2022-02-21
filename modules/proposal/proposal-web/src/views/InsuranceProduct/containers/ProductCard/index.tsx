@@ -1,28 +1,32 @@
 import React from "react";
 import { Wrapper, ProductInfoWrapper } from "./style";
 import ClayButton from "@clayui/button";
+import { Product } from "../../types/product";
+
+type ProductProps = Product & {
+  icon: React.ReactNode;
+  description: string;
+  disabled?: boolean;
+};
 
 interface props {
-  product: {
-    icon: React.ReactNode;
-    name: string;
-    description: string;
-  };
-  onProductSelection: (productName: string) => void;
+  product: ProductProps;
+  onProductSelection: (product: ProductProps) => void;
 }
 
-const ProductCard: React.FC<props> = ({
-  product: { icon, name, description },
-  onProductSelection,
-}) => {
+const ProductCard: React.FC<props> = ({ product, onProductSelection }) => {
   return (
     <Wrapper>
-      {icon}
+      {product.icon}
       <ProductInfoWrapper>
-        <h6 className="h10">{name}</h6>
-        <p>{description}</p>
+        <h6 className="h10">{product.name}</h6>
+        <p>{product.description}</p>
       </ProductInfoWrapper>
-      <ClayButton onClick={() => onProductSelection(name)}>SELECT</ClayButton>
+      {product.disabled ? null : (
+        <ClayButton onClick={() => onProductSelection(product)}>
+          SELECT
+        </ClayButton>
+      )}
     </Wrapper>
   );
 };

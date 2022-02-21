@@ -18,8 +18,17 @@ export const Products = styled.div`
   grid-template-columns: 0.25fr 1fr 0.25fr;
   grid-auto-rows: auto;
   row-gap: 1.25rem;
+  margin-bottom: 12.3125rem;
 
   & > * {
     grid-column-start: 2;
   }
+`;
+
+export const LinkWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid ${props => props.theme.color.neutral.dividerGrey};
+  padding: 3.125rem 0 2.8125rem 0;
 `;
