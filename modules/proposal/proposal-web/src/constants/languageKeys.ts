@@ -97,5 +97,7 @@ export const UPDATE_CONTACT = {
   TITLE: Liferay.Language.get("update-contact-title"),
   SUBTITLE: Liferay.Language.get("update-contact-subtitle"),
   SUBMIT_BUTTON: Liferay.Language.get("update-contact-submit-button"),
+  SUCCESS: Liferay.Language.get("update-contact-update-success"),
+  FAILURE: Liferay.Language.get("update-contact-update-failure"),
   USE_CONTACT: Liferay.Language.get("update-contact-use-contact")
 }

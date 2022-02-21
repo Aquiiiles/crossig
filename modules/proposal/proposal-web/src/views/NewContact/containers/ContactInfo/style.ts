@@ -6,3 +6,9 @@ export const Wrapper = styled.form`
   box-shadow: rgb(0 0 0 / 10%) 0px 2px 5px;
   border-radius: 12px;
 `;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;

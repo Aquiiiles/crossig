@@ -1,14 +1,20 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { Wrapper } from "./style";
+import { ButtonWrapper, Wrapper } from "./style";
 import BasicInfo from "../../../../shared/molecules/contact/BasicInfo";
 import Addresses from "../../../../shared/molecules/contact/Addresses";
 import ContactInfoForm from "../../../../shared/molecules/contact/ContactInfoForm";
-import { CREATE_NEW_CONTACT } from "../../../../constants/languageKeys";
+import {
+  CONTACT_INFO,
+  CREATE_NEW_CONTACT,
+} from "../../../../constants/languageKeys";
 import {
   mapToCountryNames,
   mapToCountryCodes,
 } from "../../../../shared/util/countryMappers";
-import { useContactSelector } from "../../../../redux/store";
+import {
+  useContactDispatch,
+  useContactSelector,
+} from "../../../../redux/store";
 import { valuesToISOString } from "./utils/dateUtils";
 import { emailListToData } from "./utils/emailUtils";
 import { phoneObjectToData } from "./utils/phoneUtils";
@@ -17,6 +23,12 @@ import { createContactStore } from "../../../../redux/store";
 import { COUNTRIES_URL } from "../../../../api/constants/routes";
 import { useFetchData } from "../../../../api/hooks/useFetchData";
 import { RESOLVED } from "../../../../api/reducers/constants";
+import LinkWrapper from "../../../../shared/atoms/contact/LinkWrapper";
+import ContactButton from "../../../../shared/atoms/contact/ContactButton";
+import { useHistory } from "react-router-dom";
+import { actions as contactInfoActions } from "../../../../redux/contactInfoSlice";
+import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
+import { actions as addressesActions } from "../../../../redux/addressesSlice";
 
 const ContactInfo: React.FC = () => {
   const basicInfoData = useContactSelector((state) => state.basicInfo);
@@ -26,6 +38,9 @@ const ContactInfo: React.FC = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const { state, get } = useFetchData();
   const [countries, setCountries] = useState<Array<any> | null>(null);
+
+  const history = useHistory();
+  const dispatch = useContactDispatch();
 
   useEffect(() => {
     get(COUNTRIES_URL);
@@ -145,6 +160,22 @@ const ContactInfo: React.FC = () => {
           operation="create"
         />
       )}
+      <ButtonWrapper>
+        <LinkWrapper
+          title={CONTACT_INFO.CANCEL}
+          handleClick={() => {
+            [basicInfoActions, addressesActions, contactInfoActions].forEach(
+              (action) => dispatch(action["resetFields"]())
+            );
+            history.goBack();
+          }}
+          disabled={false}
+        />
+        <ContactButton
+          handleClick={createContact}
+          label={CONTACT_INFO.CREATE_CONTACT}
+        />
+      </ButtonWrapper>
     </Wrapper>
   );
 };

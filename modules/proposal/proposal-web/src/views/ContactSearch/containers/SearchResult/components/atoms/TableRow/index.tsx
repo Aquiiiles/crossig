@@ -20,7 +20,6 @@ interface props {
 
 const TableRow: React.FC<props> = ({ contact }) => {
   const [showButtons, setShowButtons] = useState(false);
-  const { state, fetchData: fetchContact } = useFetchData();
   const history = useHistory();
 
   const types = {
@@ -39,12 +38,12 @@ const TableRow: React.FC<props> = ({ contact }) => {
     }
   };
 
-  const openUpdateContact=(oib: string)=>{
+  const openUpdateContact = (oib: string) => {
     history.push({
       pathname: "/update_contact",
       state: oib,
     });
-  }
+  };
 
   return (
     <ClayTable.Row
@@ -75,13 +74,14 @@ const TableRow: React.FC<props> = ({ contact }) => {
       </ClayTable.Cell>
       {showButtons ? (
         <HoveringButtonGroup>
-          <ClayButton displayType="secondary" className="ghost">
-            {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
-          </ClayButton>
           <ClayButton
-            displayType="primary"
+            displayType="secondary"
+            className="ghost"
             onClick={() => openUpdateContact(contact[constants.OIB_KEY])}
           >
+            {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
+          </ClayButton>
+          <ClayButton displayType="primary">
             {CONTACT_SEARCH_TABLE_USE_CONTACT}
           </ClayButton>
         </HoveringButtonGroup>
