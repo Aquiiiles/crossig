@@ -15,36 +15,41 @@
 package hr.crosig.proposal.service.impl;
 
 import com.liferay.portal.aop.AopService;
+
 import hr.crosig.proposal.dto.InsuredRoleDTO;
 import hr.crosig.proposal.model.InsuredRole;
 import hr.crosig.proposal.service.base.InsuredRoleLocalServiceBaseImpl;
-import org.osgi.service.component.annotations.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Brian Wing Shun Chan
  */
 @Component(
-        property = "model.class.name=hr.crosig.proposal.model.InsuredRole",
-        service = AopService.class
+	property = "model.class.name=hr.crosig.proposal.model.InsuredRole",
+	service = AopService.class
 )
 public class InsuredRoleLocalServiceImpl
-        extends InsuredRoleLocalServiceBaseImpl {
+	extends InsuredRoleLocalServiceBaseImpl {
 
+	public List<InsuredRoleDTO> getAllInsuredRole() {
+		List<InsuredRole> list = insuredRolePersistence.findAll();
 
-    public List<InsuredRoleDTO> getAllInsuredRole() {
-        List<InsuredRole> list = insuredRolePersistence.findAll();
+		return list.stream(
+		).map(
+			insuredRole -> mapToInsuredRoleDTO(insuredRole)
+		).collect(
+			Collectors.toList()
+		);
+	}
 
-        return list.stream(
-        ).map(
-                insuredRole -> mapToInsuredRoleDTO(insuredRole)).collect(
-                Collectors.toList()
-        );
-    }
+	private InsuredRoleDTO mapToInsuredRoleDTO(InsuredRole insuredRole) {
+		return new InsuredRoleDTO(
+			insuredRole.getInsuredRoleId(), insuredRole.getTitle(),
+			insuredRole.getName(), insuredRole.getExternalId());
+	}
 
-    private InsuredRoleDTO mapToInsuredRoleDTO(InsuredRole insuredRole) {
-        return new InsuredRoleDTO(insuredRole.getInsuredRoleId(), insuredRole.getTitle(), insuredRole.getName(), insuredRole.getExternalId());
-    }
 }

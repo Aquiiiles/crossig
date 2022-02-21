@@ -1,88 +1,88 @@
 <?xml version="1.0"?>
 <!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.3.0//EN"
-        "http://www.liferay.com/dtd/liferay-service-builder_7_3_0.dtd">
+		"http://www.liferay.com/dtd/liferay-service-builder_7_3_0.dtd">
 
 <service-builder dependency-injector="ds" package-path="hr.crosig.proposal">
-    <namespace>AP_Proposal</namespace>
-    <entity local-service="true" name="Product" remote-service="false" uuid="false">
+	<namespace>AP_Proposal</namespace>
+	<entity local-service="true" name="Product" remote-service="false" uuid="false">
 
-        <!-- PK fields -->
+		<!-- PK fields -->
 
-        <column name="productId" primary="true" type="long"/>
+		<column name="productId" primary="true" type="long" />
 
-        <!-- Audit fields -->
+		<!-- Audit fields -->
 
-        <column name="companyId" type="long"/>
-        <column name="userId" type="long"/>
-        <column name="userName" type="String"/>
-        <column name="createDate" type="Date"/>
-        <column name="modifiedDate" type="Date"/>
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
 
-        <!-- Other fields -->
+		<!-- Other fields -->
 
-        <column name="name" type="String"/>
-        <column name="externalId" type="long"/>
-        <column name="active" type="boolean"/>
-        <column name="description" type="String"/>
-        <column name="category" type="String"/>
+		<column name="name" type="String" />
+		<column name="externalId" type="long" />
+		<column name="active" type="boolean" />
+		<column name="description" type="String" />
+		<column name="category" type="String" />
 
-        <!-- Order -->
+		<!-- Order -->
 
-        <order by="asc">
-            <order-column name="name"/>
-        </order>
+		<order by="asc">
+			<order-column name="name" />
+		</order>
 
-        <!-- Finder -->
+		<!-- Finder -->
 
-        <finder name="Name" return-type="Product">
-            <finder-column name="name"/>
-        </finder>
-    </entity>
-    <entity local-service="true" name="ProductRole" remote-service="false" uuid="false">
+		<finder name="Name" return-type="Product">
+			<finder-column name="name" />
+		</finder>
+	</entity>
+	<entity local-service="true" name="ProductRole" remote-service="false" uuid="false">
 
-        <!-- PK fields -->
+		<!-- PK fields -->
 
-        <column name="productRoleId" primary="true" type="long"/>
+		<column name="productRoleId" primary="true" type="long" />
 
-        <!-- Audit fields -->
+		<!-- Audit fields -->
 
-        <column name="companyId" type="long"/>
-        <column name="userId" type="long"/>
-        <column name="userName" type="String"/>
-        <column name="createDate" type="Date"/>
-        <column name="modifiedDate" type="Date"/>
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
 
-        <!-- Other fields -->
+		<!-- Other fields -->
 
-        <column name="productId" type="long"/>
-        <column name="roleId" type="long"/>
+		<column name="productId" type="long" />
+		<column name="roleId" type="long" />
 
-        <finder name="RoleId" return-type="Collection">
-            <finder-column name="roleId"/>
-        </finder>
-    </entity>
-    <entity local-service="true" name="InsuredRole" remote-service="false" uuid="false">
+		<finder name="RoleId" return-type="Collection">
+			<finder-column name="roleId" />
+		</finder>
+	</entity>
+	<entity local-service="true" name="InsuredRole" remote-service="false" uuid="false">
 
-        <!-- PK fields -->
+		<!-- PK fields -->
 
-        <column name="InsuredRoleId" primary="true" type="long"/>
+		<column name="InsuredRoleId" primary="true" type="long" />
 
-        <!-- Audit fields -->
+		<!-- Audit fields -->
 
-        <column name="companyId" type="long"/>
-        <column name="userId" type="long"/>
-        <column name="userName" type="String"/>
-        <column name="createDate" type="Date"/>
-        <column name="modifiedDate" type="Date"/>
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
 
-        <!-- Other fields -->
+		<!-- Other fields -->
 
-        <column name="title" type="String"/>
-        <column name="name" type="String"/>
-        <column name="externalId" type="String"/>
+		<column name="title" type="String" />
+		<column name="name" type="String" />
+		<column name="externalId" type="String" />
 
-        <finder name="InsuredRoleId" return-type="InsuredRole">
-            <finder-column name="InsuredRoleId"/>
-        </finder>
-    </entity>
+		<finder name="InsuredRoleId" return-type="InsuredRole">
+			<finder-column name="InsuredRoleId" />
+		</finder>
+	</entity>
 </service-builder>

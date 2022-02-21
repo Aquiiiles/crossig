@@ -37,7 +37,7 @@ public class ProposalApplication extends Application {
     @GET
     @Path("/insured-roles")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getInsuredRole() {
+    public Response getInsuredRoles() {
         Response.ResponseBuilder responseBuilder;
         try {
             List<InsuredRoleDTO> insuredRole = _insuredRoleLocalService.getAllInsuredRole();
