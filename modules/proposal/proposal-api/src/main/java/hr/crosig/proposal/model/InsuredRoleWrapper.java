@@ -17,6 +17,7 @@ package hr.crosig.proposal.model;
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +43,11 @@ public class InsuredRoleWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("InsuredRoleId", getInsuredRoleId());
+		attributes.put("companyId", getCompanyId());
+		attributes.put("userId", getUserId());
+		attributes.put("userName", getUserName());
+		attributes.put("createDate", getCreateDate());
+		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("title", getTitle());
 		attributes.put("name", getName());
 		attributes.put("externalId", getExternalId());
@@ -55,6 +61,36 @@ public class InsuredRoleWrapper
 
 		if (InsuredRoleId != null) {
 			setInsuredRoleId(InsuredRoleId);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
+		}
+
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
+		}
+
+		Date createDate = (Date)attributes.get("createDate");
+
+		if (createDate != null) {
+			setCreateDate(createDate);
+		}
+
+		Date modifiedDate = (Date)attributes.get("modifiedDate");
+
+		if (modifiedDate != null) {
+			setModifiedDate(modifiedDate);
 		}
 
 		String title = (String)attributes.get("title");
@@ -77,6 +113,26 @@ public class InsuredRoleWrapper
 	}
 
 	/**
+	 * Returns the company ID of this insured role.
+	 *
+	 * @return the company ID of this insured role
+	 */
+	@Override
+	public long getCompanyId() {
+		return model.getCompanyId();
+	}
+
+	/**
+	 * Returns the create date of this insured role.
+	 *
+	 * @return the create date of this insured role
+	 */
+	@Override
+	public Date getCreateDate() {
+		return model.getCreateDate();
+	}
+
+	/**
 	 * Returns the external ID of this insured role.
 	 *
 	 * @return the external ID of this insured role
@@ -94,6 +150,16 @@ public class InsuredRoleWrapper
 	@Override
 	public long getInsuredRoleId() {
 		return model.getInsuredRoleId();
+	}
+
+	/**
+	 * Returns the modified date of this insured role.
+	 *
+	 * @return the modified date of this insured role
+	 */
+	@Override
+	public Date getModifiedDate() {
+		return model.getModifiedDate();
 	}
 
 	/**
@@ -126,9 +192,59 @@ public class InsuredRoleWrapper
 		return model.getTitle();
 	}
 
+	/**
+	 * Returns the user ID of this insured role.
+	 *
+	 * @return the user ID of this insured role
+	 */
+	@Override
+	public long getUserId() {
+		return model.getUserId();
+	}
+
+	/**
+	 * Returns the user name of this insured role.
+	 *
+	 * @return the user name of this insured role
+	 */
+	@Override
+	public String getUserName() {
+		return model.getUserName();
+	}
+
+	/**
+	 * Returns the user uuid of this insured role.
+	 *
+	 * @return the user uuid of this insured role
+	 */
+	@Override
+	public String getUserUuid() {
+		return model.getUserUuid();
+	}
+
 	@Override
 	public void persist() {
 		model.persist();
+	}
+
+	/**
+	 * Sets the company ID of this insured role.
+	 *
+	 * @param companyId the company ID of this insured role
+	 */
+	@Override
+	public void setCompanyId(long companyId) {
+		model.setCompanyId(companyId);
+	}
+
+	/**
+	 * Sets the create date of this insured role.
+	 *
+	 * @param createDate the create date of this insured role
+	 */
+	@Override
+	public void setCreateDate(Date createDate) {
+		model.setCreateDate(createDate);
 	}
 
 	/**
@@ -149,6 +265,16 @@ public class InsuredRoleWrapper
 	@Override
 	public void setInsuredRoleId(long InsuredRoleId) {
 		model.setInsuredRoleId(InsuredRoleId);
+	}
+
+	/**
+	 * Sets the modified date of this insured role.
+	 *
+	 * @param modifiedDate the modified date of this insured role
+	 */
+	@Override
+	public void setModifiedDate(Date modifiedDate) {
+		model.setModifiedDate(modifiedDate);
 	}
 
 	/**
@@ -179,6 +305,36 @@ public class InsuredRoleWrapper
 	@Override
 	public void setTitle(String title) {
 		model.setTitle(title);
+	}
+
+	/**
+	 * Sets the user ID of this insured role.
+	 *
+	 * @param userId the user ID of this insured role
+	 */
+	@Override
+	public void setUserId(long userId) {
+		model.setUserId(userId);
+	}
+
+	/**
+	 * Sets the user name of this insured role.
+	 *
+	 * @param userName the user name of this insured role
+	 */
+	@Override
+	public void setUserName(String userName) {
+		model.setUserName(userName);
+	}
+
+	/**
+	 * Sets the user uuid of this insured role.
+	 *
+	 * @param userUuid the user uuid of this insured role
+	 */
+	@Override
+	public void setUserUuid(String userUuid) {
+		model.setUserUuid(userUuid);
 	}
 
 	@Override

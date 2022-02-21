@@ -18,10 +18,13 @@ import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -68,8 +71,11 @@ public class InsuredRoleModelImpl
 	public static final String TABLE_NAME = "AP_Proposal_InsuredRole";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"InsuredRoleId", Types.BIGINT}, {"title", Types.VARCHAR},
-		{"name", Types.VARCHAR}, {"externalId", Types.VARCHAR}
+		{"InsuredRoleId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
+		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
+		{"title", Types.VARCHAR}, {"name", Types.VARCHAR},
+		{"externalId", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -77,13 +83,18 @@ public class InsuredRoleModelImpl
 
 	static {
 		TABLE_COLUMNS_MAP.put("InsuredRoleId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("title", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("externalId", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table AP_Proposal_InsuredRole (InsuredRoleId LONG not null primary key,title VARCHAR(75) null,name VARCHAR(75) null,externalId VARCHAR(75) null)";
+		"create table AP_Proposal_InsuredRole (InsuredRoleId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,title VARCHAR(75) null,name VARCHAR(75) null,externalId VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table AP_Proposal_InsuredRole";
@@ -249,6 +260,26 @@ public class InsuredRoleModelImpl
 		attributeSetterBiConsumers.put(
 			"InsuredRoleId",
 			(BiConsumer<InsuredRole, Long>)InsuredRole::setInsuredRoleId);
+		attributeGetterFunctions.put("companyId", InsuredRole::getCompanyId);
+		attributeSetterBiConsumers.put(
+			"companyId",
+			(BiConsumer<InsuredRole, Long>)InsuredRole::setCompanyId);
+		attributeGetterFunctions.put("userId", InsuredRole::getUserId);
+		attributeSetterBiConsumers.put(
+			"userId", (BiConsumer<InsuredRole, Long>)InsuredRole::setUserId);
+		attributeGetterFunctions.put("userName", InsuredRole::getUserName);
+		attributeSetterBiConsumers.put(
+			"userName",
+			(BiConsumer<InsuredRole, String>)InsuredRole::setUserName);
+		attributeGetterFunctions.put("createDate", InsuredRole::getCreateDate);
+		attributeSetterBiConsumers.put(
+			"createDate",
+			(BiConsumer<InsuredRole, Date>)InsuredRole::setCreateDate);
+		attributeGetterFunctions.put(
+			"modifiedDate", InsuredRole::getModifiedDate);
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			(BiConsumer<InsuredRole, Date>)InsuredRole::setModifiedDate);
 		attributeGetterFunctions.put("title", InsuredRole::getTitle);
 		attributeSetterBiConsumers.put(
 			"title", (BiConsumer<InsuredRole, String>)InsuredRole::setTitle);
@@ -288,6 +319,103 @@ public class InsuredRoleModelImpl
 	public long getOriginalInsuredRoleId() {
 		return GetterUtil.getLong(
 			this.<Long>getColumnOriginalValue("InsuredRoleId"));
+	}
+
+	@Override
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	@Override
+	public void setCompanyId(long companyId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_companyId = companyId;
+	}
+
+	@Override
+	public long getUserId() {
+		return _userId;
+	}
+
+	@Override
+	public void setUserId(long userId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_userId = userId;
+	}
+
+	@Override
+	public String getUserUuid() {
+		try {
+			User user = UserLocalServiceUtil.getUserById(getUserId());
+
+			return user.getUuid();
+		}
+		catch (PortalException portalException) {
+			return "";
+		}
+	}
+
+	@Override
+	public void setUserUuid(String userUuid) {
+	}
+
+	@Override
+	public String getUserName() {
+		if (_userName == null) {
+			return "";
+		}
+		else {
+			return _userName;
+		}
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_userName = userName;
+	}
+
+	@Override
+	public Date getCreateDate() {
+		return _createDate;
+	}
+
+	@Override
+	public void setCreateDate(Date createDate) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_createDate = createDate;
+	}
+
+	@Override
+	public Date getModifiedDate() {
+		return _modifiedDate;
+	}
+
+	public boolean hasSetModifiedDate() {
+		return _setModifiedDate;
+	}
+
+	@Override
+	public void setModifiedDate(Date modifiedDate) {
+		_setModifiedDate = true;
+
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_modifiedDate = modifiedDate;
 	}
 
 	@Override
@@ -374,7 +502,7 @@ public class InsuredRoleModelImpl
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(
-			0, InsuredRole.class.getName(), getPrimaryKey());
+			getCompanyId(), InsuredRole.class.getName(), getPrimaryKey());
 	}
 
 	@Override
@@ -404,6 +532,11 @@ public class InsuredRoleModelImpl
 		InsuredRoleImpl insuredRoleImpl = new InsuredRoleImpl();
 
 		insuredRoleImpl.setInsuredRoleId(getInsuredRoleId());
+		insuredRoleImpl.setCompanyId(getCompanyId());
+		insuredRoleImpl.setUserId(getUserId());
+		insuredRoleImpl.setUserName(getUserName());
+		insuredRoleImpl.setCreateDate(getCreateDate());
+		insuredRoleImpl.setModifiedDate(getModifiedDate());
 		insuredRoleImpl.setTitle(getTitle());
 		insuredRoleImpl.setName(getName());
 		insuredRoleImpl.setExternalId(getExternalId());
@@ -477,6 +610,8 @@ public class InsuredRoleModelImpl
 	public void resetOriginalValues() {
 		_columnOriginalValues = Collections.emptyMap();
 
+		_setModifiedDate = false;
+
 		_columnBitmask = 0;
 	}
 
@@ -486,6 +621,36 @@ public class InsuredRoleModelImpl
 			new InsuredRoleCacheModel();
 
 		insuredRoleCacheModel.InsuredRoleId = getInsuredRoleId();
+
+		insuredRoleCacheModel.companyId = getCompanyId();
+
+		insuredRoleCacheModel.userId = getUserId();
+
+		insuredRoleCacheModel.userName = getUserName();
+
+		String userName = insuredRoleCacheModel.userName;
+
+		if ((userName != null) && (userName.length() == 0)) {
+			insuredRoleCacheModel.userName = null;
+		}
+
+		Date createDate = getCreateDate();
+
+		if (createDate != null) {
+			insuredRoleCacheModel.createDate = createDate.getTime();
+		}
+		else {
+			insuredRoleCacheModel.createDate = Long.MIN_VALUE;
+		}
+
+		Date modifiedDate = getModifiedDate();
+
+		if (modifiedDate != null) {
+			insuredRoleCacheModel.modifiedDate = modifiedDate.getTime();
+		}
+		else {
+			insuredRoleCacheModel.modifiedDate = Long.MIN_VALUE;
+		}
 
 		insuredRoleCacheModel.title = getTitle();
 
@@ -602,6 +767,12 @@ public class InsuredRoleModelImpl
 	}
 
 	private long _InsuredRoleId;
+	private long _companyId;
+	private long _userId;
+	private String _userName;
+	private Date _createDate;
+	private Date _modifiedDate;
+	private boolean _setModifiedDate;
 	private String _title;
 	private String _name;
 	private String _externalId;
@@ -634,6 +805,11 @@ public class InsuredRoleModelImpl
 		_columnOriginalValues = new HashMap<String, Object>();
 
 		_columnOriginalValues.put("InsuredRoleId", _InsuredRoleId);
+		_columnOriginalValues.put("companyId", _companyId);
+		_columnOriginalValues.put("userId", _userId);
+		_columnOriginalValues.put("userName", _userName);
+		_columnOriginalValues.put("createDate", _createDate);
+		_columnOriginalValues.put("modifiedDate", _modifiedDate);
 		_columnOriginalValues.put("title", _title);
 		_columnOriginalValues.put("name", _name);
 		_columnOriginalValues.put("externalId", _externalId);
@@ -652,11 +828,21 @@ public class InsuredRoleModelImpl
 
 		columnBitmasks.put("InsuredRoleId", 1L);
 
-		columnBitmasks.put("title", 2L);
+		columnBitmasks.put("companyId", 2L);
 
-		columnBitmasks.put("name", 4L);
+		columnBitmasks.put("userId", 4L);
 
-		columnBitmasks.put("externalId", 8L);
+		columnBitmasks.put("userName", 8L);
+
+		columnBitmasks.put("createDate", 16L);
+
+		columnBitmasks.put("modifiedDate", 32L);
+
+		columnBitmasks.put("title", 64L);
+
+		columnBitmasks.put("name", 128L);
+
+		columnBitmasks.put("externalId", 256L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

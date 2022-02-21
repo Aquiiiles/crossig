@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+import java.util.Date;
+
 /**
  * The cache model class for representing InsuredRole in entity cache.
  *
@@ -61,10 +63,20 @@ public class InsuredRoleCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(9);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{InsuredRoleId=");
 		sb.append(InsuredRoleId);
+		sb.append(", companyId=");
+		sb.append(companyId);
+		sb.append(", userId=");
+		sb.append(userId);
+		sb.append(", userName=");
+		sb.append(userName);
+		sb.append(", createDate=");
+		sb.append(createDate);
+		sb.append(", modifiedDate=");
+		sb.append(modifiedDate);
 		sb.append(", title=");
 		sb.append(title);
 		sb.append(", name=");
@@ -81,6 +93,29 @@ public class InsuredRoleCacheModel
 		InsuredRoleImpl insuredRoleImpl = new InsuredRoleImpl();
 
 		insuredRoleImpl.setInsuredRoleId(InsuredRoleId);
+		insuredRoleImpl.setCompanyId(companyId);
+		insuredRoleImpl.setUserId(userId);
+
+		if (userName == null) {
+			insuredRoleImpl.setUserName("");
+		}
+		else {
+			insuredRoleImpl.setUserName(userName);
+		}
+
+		if (createDate == Long.MIN_VALUE) {
+			insuredRoleImpl.setCreateDate(null);
+		}
+		else {
+			insuredRoleImpl.setCreateDate(new Date(createDate));
+		}
+
+		if (modifiedDate == Long.MIN_VALUE) {
+			insuredRoleImpl.setModifiedDate(null);
+		}
+		else {
+			insuredRoleImpl.setModifiedDate(new Date(modifiedDate));
+		}
 
 		if (title == null) {
 			insuredRoleImpl.setTitle("");
@@ -111,6 +146,13 @@ public class InsuredRoleCacheModel
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		InsuredRoleId = objectInput.readLong();
+
+		companyId = objectInput.readLong();
+
+		userId = objectInput.readLong();
+		userName = objectInput.readUTF();
+		createDate = objectInput.readLong();
+		modifiedDate = objectInput.readLong();
 		title = objectInput.readUTF();
 		name = objectInput.readUTF();
 		externalId = objectInput.readUTF();
@@ -119,6 +161,20 @@ public class InsuredRoleCacheModel
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(InsuredRoleId);
+
+		objectOutput.writeLong(companyId);
+
+		objectOutput.writeLong(userId);
+
+		if (userName == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(userName);
+		}
+
+		objectOutput.writeLong(createDate);
+		objectOutput.writeLong(modifiedDate);
 
 		if (title == null) {
 			objectOutput.writeUTF("");
@@ -143,6 +199,11 @@ public class InsuredRoleCacheModel
 	}
 
 	public long InsuredRoleId;
+	public long companyId;
+	public long userId;
+	public String userName;
+	public long createDate;
+	public long modifiedDate;
 	public String title;
 	public String name;
 	public String externalId;

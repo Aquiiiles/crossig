@@ -28,6 +28,9 @@ import com.liferay.portal.kernel.dao.orm.SessionFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.MapUtil;
@@ -51,6 +54,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -428,6 +432,8 @@ public class InsuredRolePersistenceImpl
 		insuredRole.setNew(true);
 		insuredRole.setPrimaryKey(InsuredRoleId);
 
+		insuredRole.setCompanyId(CompanyThreadLocal.getCompanyId());
+
 		return insuredRole;
 	}
 
@@ -538,6 +544,30 @@ public class InsuredRolePersistenceImpl
 
 		InsuredRoleModelImpl insuredRoleModelImpl =
 			(InsuredRoleModelImpl)insuredRole;
+
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
+		Date date = new Date();
+
+		if (isNew && (insuredRole.getCreateDate() == null)) {
+			if (serviceContext == null) {
+				insuredRole.setCreateDate(date);
+			}
+			else {
+				insuredRole.setCreateDate(serviceContext.getCreateDate(date));
+			}
+		}
+
+		if (!insuredRoleModelImpl.hasSetModifiedDate()) {
+			if (serviceContext == null) {
+				insuredRole.setModifiedDate(date);
+			}
+			else {
+				insuredRole.setModifiedDate(
+					serviceContext.getModifiedDate(date));
+			}
+		}
 
 		Session session = null;
 

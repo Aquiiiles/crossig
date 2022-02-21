@@ -1,5 +1,10 @@
 create table AP_Proposal_InsuredRole (
 	InsuredRoleId LONG not null primary key,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
 	title VARCHAR(75) null,
 	name VARCHAR(75) null,
 	externalId VARCHAR(75) null
