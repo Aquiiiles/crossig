@@ -20,8 +20,8 @@ const TableRow: React.FC<props> = ({ contact }) => {
 
   const types = {
     Individual: "F",
-    "Self employed": "O",
-    "Legal entity": "P",
+    "Self Employed": "O",
+    "Legal Entity": "P",
   };
 
   const formatDOB = (date: string): string => {
