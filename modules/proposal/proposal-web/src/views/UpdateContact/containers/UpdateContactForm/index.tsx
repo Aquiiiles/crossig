@@ -188,7 +188,7 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
             [basicInfoActions, addressesSetters, contactInfoSetters].forEach(
               (action) => dispatch(action["resetFields"]())
             );
-            history.push("/");
+            history.replace({ pathname: "/", state: { doSearch: true } });
           }}
           disabled={false}
         />
