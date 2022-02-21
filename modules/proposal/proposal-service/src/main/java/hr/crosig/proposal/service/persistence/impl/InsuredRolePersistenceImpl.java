@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
 import com.liferay.portal.kernel.dao.orm.Query;
+import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.SessionFactory;
@@ -33,6 +34,8 @@ import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.ProxyUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 
 import hr.crosig.proposal.exception.NoSuchInsuredRoleException;
 import hr.crosig.proposal.model.InsuredRole;
@@ -45,7 +48,9 @@ import hr.crosig.proposal.service.persistence.impl.constants.AP_ProposalPersiste
 import java.io.Serializable;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -92,6 +97,218 @@ public class InsuredRolePersistenceImpl
 	private FinderPath _finderPathWithPaginationFindAll;
 	private FinderPath _finderPathWithoutPaginationFindAll;
 	private FinderPath _finderPathCountAll;
+	private FinderPath _finderPathFetchByInsuredRoleId;
+	private FinderPath _finderPathCountByInsuredRoleId;
+
+	/**
+	 * Returns the insured role where InsuredRoleId = &#63; or throws a <code>NoSuchInsuredRoleException</code> if it could not be found.
+	 *
+	 * @param InsuredRoleId the insured role ID
+	 * @return the matching insured role
+	 * @throws NoSuchInsuredRoleException if a matching insured role could not be found
+	 */
+	@Override
+	public InsuredRole findByInsuredRoleId(long InsuredRoleId)
+		throws NoSuchInsuredRoleException {
+
+		InsuredRole insuredRole = fetchByInsuredRoleId(InsuredRoleId);
+
+		if (insuredRole == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("InsuredRoleId=");
+			sb.append(InsuredRoleId);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchInsuredRoleException(sb.toString());
+		}
+
+		return insuredRole;
+	}
+
+	/**
+	 * Returns the insured role where InsuredRoleId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param InsuredRoleId the insured role ID
+	 * @return the matching insured role, or <code>null</code> if a matching insured role could not be found
+	 */
+	@Override
+	public InsuredRole fetchByInsuredRoleId(long InsuredRoleId) {
+		return fetchByInsuredRoleId(InsuredRoleId, true);
+	}
+
+	/**
+	 * Returns the insured role where InsuredRoleId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param InsuredRoleId the insured role ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching insured role, or <code>null</code> if a matching insured role could not be found
+	 */
+	@Override
+	public InsuredRole fetchByInsuredRoleId(
+		long InsuredRoleId, boolean useFinderCache) {
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {InsuredRoleId};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByInsuredRoleId, finderArgs, this);
+		}
+
+		if (result instanceof InsuredRole) {
+			InsuredRole insuredRole = (InsuredRole)result;
+
+			if (InsuredRoleId != insuredRole.getInsuredRoleId()) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_INSUREDROLE_WHERE);
+
+			sb.append(_FINDER_COLUMN_INSUREDROLEID_INSUREDROLEID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(InsuredRoleId);
+
+				List<InsuredRole> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByInsuredRoleId, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {InsuredRoleId};
+							}
+
+							_log.warn(
+								"InsuredRolePersistenceImpl.fetchByInsuredRoleId(long, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					InsuredRole insuredRole = list.get(0);
+
+					result = insuredRole;
+
+					cacheResult(insuredRole);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (InsuredRole)result;
+		}
+	}
+
+	/**
+	 * Removes the insured role where InsuredRoleId = &#63; from the database.
+	 *
+	 * @param InsuredRoleId the insured role ID
+	 * @return the insured role that was removed
+	 */
+	@Override
+	public InsuredRole removeByInsuredRoleId(long InsuredRoleId)
+		throws NoSuchInsuredRoleException {
+
+		InsuredRole insuredRole = findByInsuredRoleId(InsuredRoleId);
+
+		return remove(insuredRole);
+	}
+
+	/**
+	 * Returns the number of insured roles where InsuredRoleId = &#63;.
+	 *
+	 * @param InsuredRoleId the insured role ID
+	 * @return the number of matching insured roles
+	 */
+	@Override
+	public int countByInsuredRoleId(long InsuredRoleId) {
+		FinderPath finderPath = _finderPathCountByInsuredRoleId;
+
+		Object[] finderArgs = new Object[] {InsuredRoleId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_INSUREDROLE_WHERE);
+
+			sb.append(_FINDER_COLUMN_INSUREDROLEID_INSUREDROLEID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(InsuredRoleId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_INSUREDROLEID_INSUREDROLEID_2 =
+		"insuredRole.InsuredRoleId = ?";
 
 	public InsuredRolePersistenceImpl() {
 		setModelClass(InsuredRole.class);
@@ -109,6 +326,10 @@ public class InsuredRolePersistenceImpl
 	public void cacheResult(InsuredRole insuredRole) {
 		entityCache.putResult(
 			InsuredRoleImpl.class, insuredRole.getPrimaryKey(), insuredRole);
+
+		finderCache.putResult(
+			_finderPathFetchByInsuredRoleId,
+			new Object[] {insuredRole.getInsuredRoleId()}, insuredRole);
 	}
 
 	private int _valueObjectFinderCacheListThreshold;
@@ -181,6 +402,17 @@ public class InsuredRolePersistenceImpl
 		for (Serializable primaryKey : primaryKeys) {
 			entityCache.removeResult(InsuredRoleImpl.class, primaryKey);
 		}
+	}
+
+	protected void cacheUniqueFindersCache(
+		InsuredRoleModelImpl insuredRoleModelImpl) {
+
+		Object[] args = new Object[] {insuredRoleModelImpl.getInsuredRoleId()};
+
+		finderCache.putResult(
+			_finderPathCountByInsuredRoleId, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByInsuredRoleId, args, insuredRoleModelImpl, false);
 	}
 
 	/**
@@ -288,6 +520,25 @@ public class InsuredRolePersistenceImpl
 	public InsuredRole updateImpl(InsuredRole insuredRole) {
 		boolean isNew = insuredRole.isNew();
 
+		if (!(insuredRole instanceof InsuredRoleModelImpl)) {
+			InvocationHandler invocationHandler = null;
+
+			if (ProxyUtil.isProxyClass(insuredRole.getClass())) {
+				invocationHandler = ProxyUtil.getInvocationHandler(insuredRole);
+
+				throw new IllegalArgumentException(
+					"Implement ModelWrapper in insuredRole proxy " +
+						invocationHandler.getClass());
+			}
+
+			throw new IllegalArgumentException(
+				"Implement ModelWrapper in custom InsuredRole implementation " +
+					insuredRole.getClass());
+		}
+
+		InsuredRoleModelImpl insuredRoleModelImpl =
+			(InsuredRoleModelImpl)insuredRole;
+
 		Session session = null;
 
 		try {
@@ -307,7 +558,10 @@ public class InsuredRolePersistenceImpl
 			closeSession(session);
 		}
 
-		entityCache.putResult(InsuredRoleImpl.class, insuredRole, false, true);
+		entityCache.putResult(
+			InsuredRoleImpl.class, insuredRoleModelImpl, false, true);
+
+		cacheUniqueFindersCache(insuredRoleModelImpl);
 
 		if (isNew) {
 			insuredRole.setNew(false);
@@ -594,6 +848,16 @@ public class InsuredRolePersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
 			new String[0], new String[0], false);
 
+		_finderPathFetchByInsuredRoleId = _createFinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByInsuredRoleId",
+			new String[] {Long.class.getName()}, new String[] {"InsuredRoleId"},
+			true);
+
+		_finderPathCountByInsuredRoleId = _createFinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByInsuredRoleId",
+			new String[] {Long.class.getName()}, new String[] {"InsuredRoleId"},
+			false);
+
 		_setInsuredRoleUtilPersistence(this);
 	}
 
@@ -665,13 +929,22 @@ public class InsuredRolePersistenceImpl
 	private static final String _SQL_SELECT_INSUREDROLE =
 		"SELECT insuredRole FROM InsuredRole insuredRole";
 
+	private static final String _SQL_SELECT_INSUREDROLE_WHERE =
+		"SELECT insuredRole FROM InsuredRole insuredRole WHERE ";
+
 	private static final String _SQL_COUNT_INSUREDROLE =
 		"SELECT COUNT(insuredRole) FROM InsuredRole insuredRole";
+
+	private static final String _SQL_COUNT_INSUREDROLE_WHERE =
+		"SELECT COUNT(insuredRole) FROM InsuredRole insuredRole WHERE ";
 
 	private static final String _ORDER_BY_ENTITY_ALIAS = "insuredRole.";
 
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY =
 		"No InsuredRole exists with the primary key ";
+
+	private static final String _NO_SUCH_ENTITY_WITH_KEY =
+		"No InsuredRole exists with the key {";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		InsuredRolePersistenceImpl.class);

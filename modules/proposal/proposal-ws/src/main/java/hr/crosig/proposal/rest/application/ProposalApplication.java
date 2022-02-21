@@ -36,12 +36,12 @@ import java.util.Set;
 public class ProposalApplication extends Application {
 
     @GET
-    @Path("/insured-roles/{insuredRoleId}")
+    @Path("/insured-roles")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getInsuredRole(@PathParam("insuredRoleId") long insuredRoleId) {
+    public Response getInsuredRole() {
         Response.ResponseBuilder responseBuilder;
         try {
-            List<InsuredRoleDTO> insuredRole = _insuredRoleLocalService.getInsuredRole(insuredRoleId);
+            List<InsuredRoleDTO> insuredRole = _insuredRoleLocalService.getAllInsuredRole();
 
             responseBuilder = Response.ok(
             ).entity(
@@ -54,8 +54,9 @@ public class ProposalApplication extends Application {
                     exception.getMessage()
             );
         }
-
+        return responseBuilder.build();
     }
+
 
     @GET
     @Path("/products/{userId}")
