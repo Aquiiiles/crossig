@@ -180,7 +180,7 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
     const state = store.getState().addresses;
 
     const address = {
-      city: state.city,
+      cityId: state.city,
       cityName: state.cityName,
       country: { desc: state.country },
       zipCode: state.postalCode,
@@ -248,21 +248,28 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
     });
   };
 
+  const isLegalEntity = () => {
+    const contactType = data.entityType.id.toString();
+    return contactType === contactTypes.Legal_Entity;
+  };
+
   return (
     <Wrapper id="update-contact-form-main-container">
       <h3>{UPDATE_CONTACT.TITLE}</h3>
       <p className="subtitle">{UPDATE_CONTACT.SUBTITLE}</p>
-      <BasicInfo key="update-contact-basic-info" />
+      <BasicInfo key="update-contact-basic-info" operation="update" />
       {countries && (
         <Addresses
           countries={mapToCountryNames(countries)}
           key="update-contact-addresses"
+          operation="update"
         />
       )}
       {countries && (
         <ContactInfoForm
           countries={mapToCountryCodes(countries)}
           key="update-contact-contact-info"
+          operation="update"
         />
       )}
 
@@ -272,17 +279,19 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
           handleClick={() => {
             history.goBack();
           }}
-          disabled={false}
+          disabled={isLegalEntity()}
         />
         <ContactButton
           handleClick={() => {
             return;
           }}
           label={UPDATE_CONTACT.USE_CONTACT}
+          disabled={isLegalEntity()}
         />
         <ContactButton
           handleClick={handleUpdateContact}
           label={UPDATE_CONTACT.SUBMIT_BUTTON}
+          disabled={isLegalEntity()}
         />
       </ButtonWrapper>
     </Wrapper>

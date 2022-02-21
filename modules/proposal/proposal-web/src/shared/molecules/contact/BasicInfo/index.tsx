@@ -17,7 +17,11 @@ import {
   contactTypes,
 } from "../../../../constants/contactConstants";
 
-const BasicInfo: React.FC = () => {
+type propsType = {
+  operation: string;
+};
+
+const BasicInfo: React.FC<propsType> = (props:propsType) => {
   const dispatch = useContactDispatch();
   const {
     contactType,
@@ -46,6 +50,18 @@ const BasicInfo: React.FC = () => {
 
   const showIndividualFields = contactType === contactTypes.Individual;
 
+  const isLegalEntity = () => {
+    return contactType === contactTypes.Legal_Entity;
+  };
+
+  const isIndividual = () => {
+    return contactType === contactTypes.Individual;
+  };
+
+  const isUpdate = () => {
+    return props.operation === "update";
+  }
+
   return (
     <FormSection title={CREATE_NEW_CONTACT.BASIC_INFO_TITLE}>
       <ClayForm.Group>
@@ -56,6 +72,7 @@ const BasicInfo: React.FC = () => {
           value={contactType}
           onChange={({ target: { value } }) => dispatch(setContactType(value))}
           options={contactTypeOptions}
+          disabled={isLegalEntity() && isUpdate()}
         ></ClaySelectWithOption>
       </ClayForm.Group>
       {showIndividualFields ? (
@@ -74,6 +91,8 @@ const BasicInfo: React.FC = () => {
                     dispatch(setFirstName(value))
                   }
                   value={firstName}
+                  
+                  disabled={isIndividual() && isUpdate()}
                 />
               </ClayInput.GroupItem>
 
@@ -108,6 +127,7 @@ const BasicInfo: React.FC = () => {
                 dispatch(setCompanyName(value))
               }
               value={companyName}
+              disabled={isLegalEntity() && isUpdate()}
             />
           </ClayForm.Group>
         </Row>
@@ -130,6 +150,7 @@ const BasicInfo: React.FC = () => {
                     }
                     placeholder="DD"
                     value={dateDay}
+                    disabled={isIndividual() && isUpdate()}
                   />
                   <ClayInput
                     required={showIndividualFields}
@@ -140,6 +161,7 @@ const BasicInfo: React.FC = () => {
                     }
                     placeholder="MM"
                     value={dateMonth}
+                    disabled={isIndividual() && isUpdate()}
                   />
                   <ClayInput
                     required={showIndividualFields}
@@ -150,6 +172,7 @@ const BasicInfo: React.FC = () => {
                     }
                     placeholder="YYYY"
                     value={dateYear}
+                    disabled={isIndividual() && isUpdate()}
                   />
                 </div>
               </ClayInput.GroupItem>
@@ -162,6 +185,7 @@ const BasicInfo: React.FC = () => {
                 type="text"
                 onChange={({ target: { value } }) => dispatch(setOIB(value))}
                 value={oib}
+                disabled={isUpdate()}
               />
             </ClayInput.GroupItem>
           </ClayInput.Group>
@@ -174,11 +198,11 @@ const BasicInfo: React.FC = () => {
               {CREATE_NEW_CONTACT.FIELD.SUBSIDIARY_NUMBER}
             </label>
             <ClayInput
-              disabled
               required={!showIndividualFields}
               id="subsidiaryNumber"
               type="text"
               value={subsidiaryNumber}
+              disabled={isUpdate()}
             />
           </ClayForm.Group>
         </Row>
@@ -189,6 +213,7 @@ const BasicInfo: React.FC = () => {
           label={CREATE_NEW_CONTACT.FIELD.FOREIGNER_STATUS}
           checked={foreignerStatus}
           onChange={() => dispatch(toggleForeignerStatus())}
+          disabled={isLegalEntity() && isUpdate()}
         />
       </Row>
     </FormSection>

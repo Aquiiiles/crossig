@@ -11,6 +11,14 @@ public class AddressDTO {
 		return addressType;
 	}
 
+	public String getCityId() {
+		return cityId;
+	}
+
+	public void setCityId(String cityId) {
+		this.cityId = cityId;
+	}
+
 	public String getApartmentNr() {
 		return apartmentNr;
 	}
@@ -145,6 +153,7 @@ public class AddressDTO {
 	@Size(max = 100, min = 1)
 	private String cityName;
 
+	private String cityId;
 	private CountryDTO country;
 	private String countyName;
 	private String districtName;

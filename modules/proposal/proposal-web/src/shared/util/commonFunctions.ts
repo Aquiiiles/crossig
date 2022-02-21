@@ -9,3 +9,13 @@ export const createEmptyPhoneNumber = (type: string) => {
     phoneNumber: "",
   } as PhoneNumber;
 };
+
+export const shouldDisableInput = (props:any) => {
+  let shouldDisable = false;
+
+  if (props.disableInput) {
+    shouldDisable = props.disableInput
+  }
+
+  return shouldDisable;
+};

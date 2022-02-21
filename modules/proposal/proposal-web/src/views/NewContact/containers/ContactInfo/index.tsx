@@ -89,8 +89,6 @@ const ContactInfo: React.FC = () => {
       } else {
         addresses.push(address);
       }
-      console.info(contactInfoData.emailAddresses);
-      console.info(contactInfoData.mobilePhones);
 
       const payload = {
         dateOfBirth:
@@ -134,10 +132,18 @@ const ContactInfo: React.FC = () => {
     >
       <h3>{CREATE_NEW_CONTACT.TITLE}</h3>
       <p style={{ marginBottom: "1.875rem" }}>{CREATE_NEW_CONTACT.SUBTITLE}</p>
-      <BasicInfo />
-      {countries && <Addresses countries={mapToCountryNames(countries)} />}
+      <BasicInfo operation="create" />
       {countries && (
-        <ContactInfoForm countries={mapToCountryCodes(countries)} />
+        <Addresses
+          countries={mapToCountryNames(countries)}
+          operation="create"
+        />
+      )}
+      {countries && (
+        <ContactInfoForm
+          countries={mapToCountryCodes(countries)}
+          operation="create"
+        />
       )}
     </Wrapper>
   );

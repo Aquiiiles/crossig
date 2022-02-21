@@ -19,15 +19,17 @@ import { actions } from "../../../../redux/addressesSlice";
 import { Line } from "./styles";
 import { searchCitiesByName, searchStreetsByCityIdAndName } from "./controller";
 
-const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
-  countries,
-}) => {
+type propsType = {
+  countries: { label: any; value: any }[];
+  operation: string;
+};
+
+const Addresses: React.FC<propsType> = (props: propsType) => {
   const dispatch = useContactDispatch();
 
   const { contactType } = useContactSelector(
     (state: { basicInfo: any }) => state.basicInfo
   );
-  
 
   const {
     country,
@@ -47,8 +49,6 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
   const {
     setCountry,
     setDispatchCountry,
-    setCityName,
-    setDispatchCityName,
     setCity,
     setDispatchCity,
     setStreet,
@@ -68,6 +68,13 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
     return dispatchCountry === countryNames.value;
   };
 
+  const isLegalEntity = () => {
+    return contactType === contactTypes.Legal_Entity;
+  };
+
+  const isUpdate = () => {
+    return props.operation === "update";
+  };
   return (
     <>
       <Line />
@@ -85,9 +92,10 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
             <label htmlFor="country">{CREATE_NEW_CONTACT.FIELD.COUNTRY}</label>
             <ClaySelectWithOption
               id="country"
-              options={countries}
+              options={props.countries}
               onChange={({ target: { value } }) => dispatch(setCountry(value))}
               required
+              disabled={isLegalEntity() && isUpdate()}
             />
           </ClayForm.Group>
         </Row>
@@ -104,7 +112,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
                   setParentValue={(value) => dispatch(setCity(parseInt(value)))}
                   setPostalCode={(value) => dispatch(setPostalCode(value))}
                   isCity
-                  disabled={false}
+                  disabled={isLegalEntity() && isUpdate()}
                   selectedValue={cityName}
                 />
               </ClayInput.GroupItem>
@@ -120,7 +128,9 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
                   onChange={(value) =>
                     dispatch(setPostalCode(value.toString()))
                   }
-                  disabled={isMainAddressInCroatia()}
+                  disabled={
+                    isMainAddressInCroatia() || (isLegalEntity() && isUpdate())
+                  }
                   value={postalCode}
                 />
               </ClayInput.GroupItem>
@@ -136,7 +146,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
               getOptions={searchStreetsByCityIdAndName(city)}
               setParentValue={(value) => dispatch(setStreet(value))}
               isCity={false}
-              disabled={!postalCode}
+              disabled={!postalCode || (isLegalEntity() && isUpdate())}
             />
           ) : (
             <>
@@ -149,6 +159,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
                 type="text"
                 onChange={(e) => dispatch(setStreet(e.target.value.toString()))}
                 value={street}
+                disabled={isLegalEntity() && isUpdate()}
               />
             </>
           )}
@@ -166,6 +177,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
                 dispatch(setHouseNumber(e.target.value.toString()))
               }
               value={houseNumber}
+              disabled={isLegalEntity() && isUpdate()}
             />
           </ClayForm.Group>
         </Row>
@@ -176,6 +188,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
           checked={isSameAddress}
           onChange={() => dispatch(setIsSameAddress(!isSameAddress))}
           label={CREATE_NEW_CONTACT.FIELD.DISPATCH_ADDRESS}
+          disabled={isLegalEntity() && isUpdate()}
         />
 
         {!isSameAddress && (
@@ -187,11 +200,12 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
                 </label>
                 <ClaySelectWithOption
                   id="dispatch-country"
-                  options={countries}
+                  options={props.countries}
                   required
                   onChange={({ target: { value } }) =>
                     dispatch(setDispatchCountry(value))
                   }
+                  disabled={isLegalEntity() && isUpdate()}
                 />
               </ClayForm.Group>
             </Row>
@@ -212,7 +226,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
                         dispatch(setDispatchPostalCode(value))
                       }
                       isCity
-                      disabled={false}
+                      disabled={isLegalEntity() && isUpdate()}
                       selectedValue={dispatchCityName}
                     />
                   </ClayInput.GroupItem>
@@ -225,7 +239,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
                     <ClayInput
                       id="dispatch-postal-code"
                       type="number"
-                      disabled={isDispatchAddressInCroatia()}
+                      disabled={isDispatchAddressInCroatia() || (isLegalEntity() && isUpdate())}
                       onChange={(value) =>
                         dispatch(setDispatchPostalCode(value.toString()))
                       }
@@ -247,7 +261,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
                     dispatch(setDispatchStreet(value.toString()))
                   }
                   isCity={false}
-                  disabled={!dispatchPostalCode}
+                  disabled={!dispatchPostalCode || (isLegalEntity() && isUpdate())}
                 />
               ) : (
                 <>
@@ -262,6 +276,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
                       dispatch(setDispatchStreet(e.target.value.toString()))
                     }
                     value={dispatchStreet}
+                    disabled={isLegalEntity() && isUpdate()}
                   />
                 </>
               )}
@@ -279,6 +294,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
                     dispatch(setDispatchHouseNumber(e.target.value.toString()))
                   }
                   value={dispatchHouseNumber}
+                  disabled={isLegalEntity() && isUpdate()}
                 />
               </ClayForm.Group>
             </Row>

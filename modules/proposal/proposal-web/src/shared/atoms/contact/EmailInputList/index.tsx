@@ -4,12 +4,14 @@ import { CONTACT_INFO } from "../../../../constants/languageKeys";
 import LinkWrapper from "../LinkWrapper";
 import { StyledFormGroup, Error } from "./styles";
 import { MAXIMUM_EMAIL_ADDRESSES } from "../../../../constants/contactConstants";
+import { shouldDisableInput } from "../../../util/commonFunctions";
 
 interface props {
   emails: Array<string>;
   handleChange: (index: number, e: React.ChangeEvent) => void;
   addEmailInput: MouseEventHandler;
   disableLink?: boolean;
+  disableInput?: boolean;
 }
 
 const EmailListInput: React.FC<props> = (props) => {
@@ -53,6 +55,7 @@ const EmailListInput: React.FC<props> = (props) => {
               type="text"
               onChange={(e) => handleChange(index, e)}
               value={email.toString()}
+              disabled={shouldDisableInput(props)}
             />
           </Fragment>
         );

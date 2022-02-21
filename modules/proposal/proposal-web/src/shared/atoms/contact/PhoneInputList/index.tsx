@@ -13,6 +13,7 @@ import AreaCodeSelect from "../../../atoms/contact/AreaCodeSelect";
 import CountryCodeSelect from "../../../atoms/contact/CountryCodeSelect";
 import { PhoneNumber } from "../../../types/contact";
 import { MAXIMUM_MOBILE_PHONES } from "../../../../constants/contactConstants";
+import { shouldDisableInput } from "../../../util/commonFunctions";
 
 type propsType = {
   phoneNumbers: Array<PhoneNumber>;
@@ -20,6 +21,7 @@ type propsType = {
   addPhoneInput: MouseEventHandler;
   countries: Array<Country>;
   disableLink?: boolean;
+  disableInput?: boolean;
 };
 export interface Country {
   label: string;
@@ -43,6 +45,7 @@ const PhoneInputList: React.FC<propsType> = (props: propsType) => {
 
     return valid;
   };
+
   const validatePhones = () => {
     const invalidityChecks = props.phoneNumbers
       .filter((phone) => phone.countryCode === countryCodes.label)
@@ -112,13 +115,14 @@ const PhoneInputList: React.FC<propsType> = (props: propsType) => {
                   handleChange={(e) => handleChange(index, e, "countryCode")}
                   entity={phoneNumber.countryCode}
                   countries={props.countries}
+                  disabled={shouldDisableInput(props)}
                 />
 
                 <AreaCodeSelect
                   id={`areaCodeSelect${index}`}
                   className={displayAreaCode(phoneNumber.countryCode)}
                   entity={phoneNumber.areaCode}
-                  disabled={false}
+                  disabled={shouldDisableInput(props)}
                   handleChange={(e) => handleChange(index, e, "areaCode")}
                 />
 
@@ -128,6 +132,7 @@ const PhoneInputList: React.FC<propsType> = (props: propsType) => {
                   type="number"
                   onChange={(e) => handleChange(index, e, "phoneNumber")}
                   value={phoneNumber.phoneNumber}
+                  disabled={shouldDisableInput(props)}
                 />
               </PhoneNumberWrapper>
             </li>

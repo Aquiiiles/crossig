@@ -8,6 +8,7 @@ interface propsType {
   countries: Array<Country>;
   entity: any;
   handleChange: ChangeEventHandler;
+  disabled?: boolean;
 }
 
 export interface Country {
@@ -37,6 +38,7 @@ const CountryCodeSelect: React.FC<propsType> = (props: propsType) => {
       onChange={props.handleChange}
       options={createOptionsWithFlags()}
       value={props.entity}
+      disabled={props.disabled}
     />
   );
 };
