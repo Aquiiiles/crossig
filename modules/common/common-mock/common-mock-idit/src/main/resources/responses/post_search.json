@@ -14,14 +14,14 @@
 				"id": 457348,
 				"idValue": null,
 				"isLinkedBC": true,
+				"mailValidated": false,
 				"middleName": null,
 				"name": "Antonić",
 				"phoneNr": "+385 98 837 8766",
+				"phoneNumberValidated": true,
 				"phoneType": 4,
 				"streetHouse": "ANTUNA MIHANOVIĆA 37",
-				"updateVersion": -1,
-				"mailValidated": false,
-				"phoneNumberValidated": true
+				"updateVersion": -1
 			},
 			{
 				"address": "ULICA MATE MERŠIĆA 36, 10000 ZAGREB, Croatia",
@@ -36,14 +36,14 @@
 				"id": 504355,
 				"idValue": null,
 				"isLinkedBC": true,
+				"mailValidated": false,
 				"middleName": null,
 				"name": "Antonić",
 				"phoneNr": "+385 98 230 0158",
+				"phoneNumberValidated": false,
 				"phoneType": 4,
 				"streetHouse": "ULICA MATE MERŠIĆA 36",
-				"updateVersion": -1,
-				"mailValidated": false,
-				"phoneNumberValidated": false
+				"updateVersion": -1
 			},
 			{
 				"address": "Anonimized 1, 10360 SESVETE, Croatia",
@@ -58,14 +58,14 @@
 				"id": 324513,
 				"idValue": null,
 				"isLinkedBC": true,
+				"mailValidated": true,
 				"middleName": null,
 				"name": "Antonić",
 				"phoneNr": "+385 98 777 777",
+				"phoneNumberValidated": true,
 				"phoneType": 4,
 				"streetHouse": "Anonimized 1, 10360",
-				"updateVersion": -1,
-				"mailValidated": true,
-				"phoneNumberValidated": true
+				"updateVersion": -1
 			},
 			{
 				"address": "VRH VISOKE 17E, 21000 SPLIT, Croatia",
@@ -80,14 +80,14 @@
 				"id": 435233,
 				"idValue": "99010313563",
 				"isLinkedBC": true,
+				"mailValidated": true,
 				"middleName": null,
 				"name": "Antonić",
 				"phoneNr": "+385 91 140 1813",
+				"phoneNumberValidated": false,
 				"phoneType": 4,
 				"streetHouse": "VRH VISOKE 17E, 21000",
-				"updateVersion": -1,
-				"mailValidated": true,
-				"phoneNumberValidated": false
+				"updateVersion": -1
 			},
 			{
 				"address": "ULICA SV. PETKA 1, 31000 OSIJEK, Croatia",
@@ -102,14 +102,14 @@
 				"id": 447873,
 				"idValue": null,
 				"isLinkedBC": true,
+				"mailValidated": false,
 				"middleName": null,
 				"name": "Antonić",
 				"phoneNr": "+385 91 442 3553",
+				"phoneNumberValidated": false,
 				"phoneType": 4,
 				"streetHouse": "ULICA SV. PETKA 1, 31000",
-				"updateVersion": -1,
-				"mailValidated": false,
-				"phoneNumberValidated": false
+				"updateVersion": -1
 			},
 			{
 				"address": "PRIJEKO 1, 20000 DUBROVNIK, Croatia",
@@ -124,14 +124,14 @@
 				"id": 371596,
 				"idValue": null,
 				"isLinkedBC": true,
+				"mailValidated": true,
 				"middleName": null,
 				"name": "Antonić",
 				"phoneNr": "+385 98 645 128",
+				"phoneNumberValidated": true,
 				"phoneType": 4,
 				"streetHouse": "PRIJEKO 1, 20000",
-				"updateVersion": -1,
-				"mailValidated": true,
-				"phoneNumberValidated": true
+				"updateVersion": -1
 			},
 			{
 				"address": "Anonimized 18, 42000 VARAŽDIN, Croatia",
@@ -146,14 +146,14 @@
 				"id": 397452,
 				"idValue": null,
 				"isLinkedBC": true,
+				"mailValidated": false,
 				"middleName": null,
 				"name": "Antonić",
 				"phoneNr": "+385 98 158 4728",
+				"phoneNumberValidated": true,
 				"phoneType": 4,
 				"streetHouse": "Anonimized 18, 42000",
-				"updateVersion": -1,
-				"mailValidated": false,
-				"phoneNumberValidated": true
+				"updateVersion": -1
 			},
 			{
 				"address": "Anonimized 6, 52100 PULA, Croatia",
@@ -168,14 +168,14 @@
 				"id": 483597,
 				"idValue": null,
 				"isLinkedBC": true,
+				"mailValidated": false,
 				"middleName": null,
 				"name": "Antonić",
 				"phoneNr": "+385 97 543 3146",
+				"phoneNumberValidated": true,
 				"phoneType": 4,
 				"streetHouse": "Anonimized 6, 52100",
-				"updateVersion": -1,
-				"mailValidated": false,
-				"phoneNumberValidated": true
+				"updateVersion": -1
 			},
 			{
 				"address": "ULICA BOKOKOTORSKOG USTANKA 1, 52100 PULA, Croatia",
@@ -190,14 +190,14 @@
 				"id": 405610,
 				"idValue": "99010096481",
 				"isLinkedBC": true,
+				"mailValidated": false,
 				"middleName": null,
 				"name": "Antonić",
 				"phoneNr": "+385 98 424 520",
+				"phoneNumberValidated": true,
 				"phoneType": 4,
 				"streetHouse": "ULICA BOKOKOTORSKOG USTANKA 1, 52100",
-				"updateVersion": -1,
-				"mailValidated": false,
-				"phoneNumberValidated": true
+				"updateVersion": -1
 			},
 			{
 				"address": "PETRINJSKA ULICA 14, 44000 SISAK, Croatia",
@@ -212,14 +212,14 @@
 				"id": 484874,
 				"idValue": null,
 				"isLinkedBC": true,
+				"mailValidated": false,
 				"middleName": null,
 				"name": "Antonić",
 				"phoneNr": "+385 91 614 6138",
+				"phoneNumberValidated": true,
 				"phoneType": 4,
 				"streetHouse": "PETRINJSKA ULICA 14, 44000",
-				"updateVersion": -1,
-				"mailValidated": false,
-				"phoneNumberValidated": true
+				"updateVersion": -1
 			},
 			{
 				"address": "HRASTJE PLEŠIVIČKO 1, 10450 JASTREBARSKO, HRASTJE PLEŠIVIČKO, Croatia",
@@ -234,14 +234,14 @@
 				"id": 414871,
 				"idValue": "99010087138",
 				"isLinkedBC": true,
+				"mailValidated": false,
 				"middleName": null,
 				"name": "Antonić",
 				"phoneNr": "+385 91 677 3644",
+				"phoneNumberValidated": true,
 				"phoneType": 4,
 				"streetHouse": "HRASTJE PLEŠIVIČKO 1, 10450",
-				"updateVersion": -1,
-				"mailValidated": false,
-				"phoneNumberValidated": true
+				"updateVersion": -1
 			},
 			{
 				"address": "Anonimized 1, 10431 SVETA NEDELJA, Croatia",
@@ -256,14 +256,14 @@
 				"id": 371540,
 				"idValue": "99010015468",
 				"isLinkedBC": true,
+				"mailValidated": false,
 				"middleName": null,
 				"name": "Antonić",
 				"phoneNr": "+385 91 651 1815",
+				"phoneNumberValidated": true,
 				"phoneType": 4,
 				"streetHouse": "Anonimized 1, 10431",
-				"updateVersion": -1,
-				"mailValidated": false,
-				"phoneNumberValidated": true
+				"updateVersion": -1
 			},
 			{
 				"address": "KALNIČKA 3, 31000 OSIJEK, Croatia",
@@ -278,14 +278,14 @@
 				"id": 455316,
 				"idValue": null,
 				"isLinkedBC": true,
+				"mailValidated": true,
 				"middleName": null,
 				"name": "Antonić",
 				"phoneNr": "+385 97 112 3456",
+				"phoneNumberValidated": true,
 				"phoneType": 4,
 				"streetHouse": "KALNIČKA 3, 31000",
-				"updateVersion": -1,
-				"mailValidated": true,
-				"phoneNumberValidated": true
+				"updateVersion": -1
 			},
 			{
 				"Updateversion": -1,
@@ -301,13 +301,13 @@
 				"id": 409971,
 				"idValue": null,
 				"isLinkedBC": true,
+				"mailValidated": false,
 				"middleName": null,
 				"name": "Antonić",
 				"phoneNr": "+385 92 332 2321",
+				"phoneNumberValidated": true,
 				"phoneType": 4,
-				"streetHouse": "Anonimized 10, 49000",
-				"mailValidated": false,
-				"phoneNumberValidated": true
+				"streetHouse": "Anonimized 10, 49000"
 			},
 			{
 				"address": "CELJSKA ULICA, 10000 ZAGREB, Croatia",
@@ -322,14 +322,14 @@
 				"id": 290076,
 				"idValue": "2299901",
 				"isLinkedBC": true,
+				"mailValidated": true,
 				"middleName": null,
 				"name": "Antonić",
 				"phoneNr": "+385 91 517 1517",
+				"phoneNumberValidated": true,
 				"phoneType": 4,
 				"streetHouse": "CELJSKA ULICA, 10000",
-				"updateVersion": -1,
-				"mailValidated": true,
-				"phoneNumberValidated": true
+				"updateVersion": -1
 			},
 			{
 				"address": "ULICA MIROSLAVA KRLEŽE 11, 42223 VARAŽDINSKE TOPLICE, Croatia",
@@ -344,14 +344,14 @@
 				"id": 515647,
 				"idValue": null,
 				"isLinkedBC": true,
+				"mailValidated": true,
 				"middleName": null,
 				"name": "Antonić",
 				"phoneNr": "+385 95 732 2704",
+				"phoneNumberValidated": true,
 				"phoneType": 4,
 				"streetHouse": "ULICA MIROSLAVA KRLEŽE 11, 42223",
-				"updateVersion": -1,
-				"mailValidated": true,
-				"phoneNumberValidated": true
+				"updateVersion": -1
 			},
 			{
 				"address": "TONŽINO 1, 51000 RIJEKA, Croatia",
@@ -366,14 +366,14 @@
 				"id": 318652,
 				"idValue": null,
 				"isLinkedBC": true,
+				"mailValidated": true,
 				"middleName": null,
 				"name": "Antonić",
 				"phoneNr": "+385 91 410 1148",
+				"phoneNumberValidated": true,
 				"phoneType": 4,
 				"streetHouse": "TONŽINO 1, 51000",
-				"updateVersion": -1,
-				"mailValidated": true,
-				"phoneNumberValidated": true
+				"updateVersion": -1
 			},
 			{
 				"address": "ULICA OTONA IVEKOVIĆA 60, 10360 SESVETE, Croatia",
@@ -388,14 +388,14 @@
 				"id": 349470,
 				"idValue": null,
 				"isLinkedBC": true,
+				"mailValidated": true,
 				"middleName": null,
 				"name": "ANTONIĆ",
 				"phoneNr": "+385 97 527 1778",
+				"phoneNumberValidated": true,
 				"phoneType": 4,
 				"streetHouse": "ULICA OTONA IVEKOVIĆA 60, 10360",
-				"updateVersion": -1,
-				"mailValidated": true,
-				"phoneNumberValidated": true
+				"updateVersion": -1
 			},
 			{
 				"address": "ULICA FOJBON 1, 52100 PULA, Croatia",
@@ -410,14 +410,14 @@
 				"id": 503322,
 				"idValue": null,
 				"isLinkedBC": true,
+				"mailValidated": false,
 				"middleName": null,
 				"name": "Antonić",
 				"phoneNr": "+385 95 412 7640",
+				"phoneNumberValidated": false,
 				"phoneType": 4,
 				"streetHouse": "ULICA FOJBON 1, 52100",
-				"updateVersion": -1,
-				"mailValidated": false,
-				"phoneNumberValidated": false
+				"updateVersion": -1
 			},
 			{
 				"address": "Anonimized 23, 32000 VUKOVAR, Croatia",
@@ -432,14 +432,14 @@
 				"id": 412920,
 				"idValue": null,
 				"isLinkedBC": true,
+				"mailValidated": true,
 				"middleName": null,
 				"name": "Antonić",
 				"phoneNr": "+385 91 147 7200",
+				"phoneNumberValidated": true,
 				"phoneType": 4,
 				"streetHouse": "Anonimized 23, 32000",
-				"updateVersion": -1,
-				"mailValidated": true,
-				"phoneNumberValidated": true
+				"updateVersion": -1
 			},
 			{
 				"address": "Anonimized 1, 10000 ZAGREB, Croatia",
@@ -454,14 +454,14 @@
 				"id": 186958,
 				"idValue": "080194588",
 				"isLinkedBC": true,
+				"mailValidated": true,
 				"middleName": null,
 				"name": "ANTONIĆ društvo s ograničenom odgovornošću za usluge obrade podataka",
 				"phoneNr": "+ ",
+				"phoneNumberValidated": false,
 				"phoneType": 0,
 				"streetHouse": "Anonimized 1, 10000",
-				"updateVersion": -1,
-				"mailValidated": true,
-				"phoneNumberValidated": false
+				"updateVersion": -1
 			},
 			{
 				"address": "ULICA JOSIPA JELAČIĆA 1, 10430 SAMOBOR, Croatia",
@@ -476,14 +476,14 @@
 				"id": 307105,
 				"idValue": "19947507964",
 				"isLinkedBC": true,
+				"mailValidated": false,
 				"middleName": null,
 				"name": "ANTONIĆ-INŽENJERING inženjering, građevinarstvo, trgovina i turizam, d.o.o.",
 				"phoneNr": "+ ",
+				"phoneNumberValidated": true,
 				"phoneType": 0,
 				"streetHouse": "ULICA JOSIPA JELAČIĆA 1, 10430",
-				"updateVersion": -1,
-				"mailValidated": false,
-				"phoneNumberValidated": true
+				"updateVersion": -1
 			}
 		],
 		"id": -87476852

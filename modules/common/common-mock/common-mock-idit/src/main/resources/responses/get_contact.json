@@ -10,8 +10,8 @@
 				"apartmentNr": "0000",
 				"blockNr": "blockNr",
 				"buildingName": "buildingName",
-				"cityName": "cityName",
 				"cityId": "0",
+				"cityName": "cityName",
 				"country": {
 					"desc": "Croatia",
 					"extCode": "1222",
@@ -69,12 +69,12 @@
 			"id": 1
 		},
 		"firstName": "Homer",
+		"foreignCitizen": true,
 		"gender": {
 			"desc": "genderDesc",
 			"extCode": "extCodeGender",
 			"id": 1
 		},
-		"foreignCitizen": true,
 		"identifiers": [
 			{
 				"country": {
@@ -139,10 +139,10 @@
 					"id": 1
 				},
 				"isPreferredDeliveryAddress": true,
+				"telephoneAreaCode": "1",
 				"telephoneExtension": "telephoneExtension",
 				"telephoneNumber": "1234567",
 				"telephonePrefix": "1",
-				"telephoneAreaCode": "1",
 				"telephoneType": {
 					"desc": "descTelephone",
 					"extCode": "extCodeTelephone",
