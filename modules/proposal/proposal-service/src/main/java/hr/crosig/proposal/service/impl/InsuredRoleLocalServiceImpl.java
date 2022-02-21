@@ -15,17 +15,10 @@
 package hr.crosig.proposal.service.impl;
 
 import com.liferay.portal.aop.AopService;
-
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.service.RoleLocalService;
 import hr.crosig.proposal.dto.InsuredRoleDTO;
-import hr.crosig.proposal.exception.NoSuchInsuredRoleException;
 import hr.crosig.proposal.model.InsuredRole;
 import hr.crosig.proposal.service.base.InsuredRoleLocalServiceBaseImpl;
-
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,14 +34,12 @@ public class InsuredRoleLocalServiceImpl
         extends InsuredRoleLocalServiceBaseImpl {
 
 
-    public List<InsuredRoleDTO> getInsuredRole(long insuredRoleId) throws NoSuchInsuredRoleException {
-        List<InsuredRole> list = insuredRolePersistence.(insuredRoleId);
+    public List<InsuredRoleDTO> getAllInsuredRole() {
+        List<InsuredRole> list = insuredRolePersistence.findAll();
 
         return list.stream(
         ).map(
-                insuredRole -> mapToInsuredRoleDTO(
-                        insuredRoleLocalService.fetchInsuredRole(insuredRole.getInsuredRoleId()))
-        ).collect(
+                insuredRole -> mapToInsuredRoleDTO(insuredRole)).collect(
                 Collectors.toList()
         );
     }
@@ -56,7 +47,4 @@ public class InsuredRoleLocalServiceImpl
     private InsuredRoleDTO mapToInsuredRoleDTO(InsuredRole insuredRole) {
         return new InsuredRoleDTO(insuredRole.getInsuredRoleId(), insuredRole.getTitle(), insuredRole.getName(), insuredRole.getExternalId());
     }
-
-    @Reference
-    private RoleLocalService _roleLocalService;
 }
