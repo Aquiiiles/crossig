@@ -73,11 +73,14 @@ const Addresses: React.FC<propsType> = ({
   } = actions;
 
   const isMainAddressInCroatia = () => {
-    return country === countryNames.value;
+    return country === countryNames.value || country === countryNames.label;
   };
 
   const isDispatchAddressInCroatia = () => {
-    return dispatchCountry === countryNames.value;
+    return (
+      dispatchCountry === countryNames.value ||
+      dispatchCountry === countryNames.label
+    );
   };
 
   const isLegalEntity = () => {
@@ -149,9 +152,9 @@ const Addresses: React.FC<propsType> = ({
                 <ClayInput
                   id="postal-code"
                   type="number"
-                  onChange={(value) =>
+                  onChange={(e) =>
                     dispatch(
-                      setPostalCode(value.toString()),
+                      setPostalCode(e.target.value.toString()),
                       CREATE_NEW_CONTACT.FIELD.POSTAL_CODE
                     )
                   }
@@ -201,7 +204,6 @@ const Addresses: React.FC<propsType> = ({
             </>
           )}
         </ClayForm.Group>
-
         <Row half>
           <ClayForm.Group>
             <label htmlFor="house-number">
@@ -297,9 +299,9 @@ const Addresses: React.FC<propsType> = ({
                         isDispatchAddressInCroatia() ||
                         (isLegalEntity() && isUpdate())
                       }
-                      onChange={(value) =>
+                      onChange={(e) =>
                         dispatch(
-                          setDispatchPostalCode(value.toString()),
+                          setDispatchPostalCode(e.target.value.toString()),
                           CREATE_NEW_CONTACT.FIELD.POSTAL_CODE
                         )
                       }

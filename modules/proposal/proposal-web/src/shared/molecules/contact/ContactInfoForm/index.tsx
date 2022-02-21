@@ -20,9 +20,6 @@ import {
 import { Country } from "../../../types/contact";
 import { createEmptyPhoneNumber } from "../../../util/commonFunctions";
 import { actions as contactInfoActions } from "../../../../redux/contactInfoSlice";
-import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
-import { actions as addressActions } from "../../../../redux/addressSlice";
-import LinkWrapper from "../../../atoms/contact/LinkWrapper";
 import { useHistory } from "react-router-dom";
 
 type propsType = {

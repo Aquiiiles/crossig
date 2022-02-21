@@ -28,7 +28,7 @@ const addressSlice = createSlice({
       state.country = action.payload;
     },
     setDispatchCountry(state, action: PayloadAction<string>) {
-      state.country = action.payload;
+      state.dispatchCountry = action.payload;
     },
     setCity(state, action: PayloadAction<number>) {
       state.city = action.payload;
