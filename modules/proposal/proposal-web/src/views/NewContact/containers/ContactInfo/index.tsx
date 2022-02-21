@@ -34,11 +34,9 @@ import ClayForm from "@clayui/form";
 import { useHistory } from "react-router-dom";
 import { SUCCESS_CODE } from "../../../../api/reducers/constants";
 
-declare const Liferay: any;
-
 const ContactInfo: React.FC = () => {
   const basicInfoData = useContactSelector((state) => state.basicInfo);
-  const addressData = useContactSelector((state) => state.address);
+  const addressData = useContactSelector((state) => state.addresses);
   const contactInfoData = useContactSelector((state) => state.contactInfo);
   const { state: contactState, fetchData: API } = useFetchData();
   const { state, get } = useFetchData();

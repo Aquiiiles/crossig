@@ -1,5 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-declare const Liferay: any;
+declare const Liferay: {
+  Language: {
+    get: (languageKey: string) => string;
+  }
+};
 
 export const CONTACT_INFO = {
   ADD_EMAIL_ADDRESS: Liferay.Language.get('contact-info-add-email-address'),
@@ -120,5 +123,21 @@ export const VALIDATOR_MESSAGE = {
     INVALID_LENGTH: Liferay.Language.get("validator-message-oib-invalid-length"),
     INVALID_CHARACTERS: Liferay.Language.get("validator-message-oib-invalid-characters"),
     INVALID: Liferay.Language.get("validator-message-oib-invalid"),
+  }
+}
+
+export const INSURANCE_PRODUCT = {
+  TITLE: Liferay.Language.get('insurance-product-title'),
+  SUBTITLE: Liferay.Language.get('insurance-product-subtitle'),
+  LINK_BACK: Liferay.Language.get('insurance-product-link-back'),
+  BUTTON_CONTINUE: Liferay.Language.get('insurance-product-button-continue'),
+  PRODUCT: {
+    SELECT: Liferay.Language.get('insurance-product-product-select'),
+  },
+  BANNER: {
+    CONTACT: Liferay.Language.get('insurance-product-banner-contact'),
+    CREATED_SUCCESSFULLY: Liferay.Language.get('insurance-product-banner-contact-created-successfully'),
+    VERIFICATION_LINK_HAS_BEEN_SENT: Liferay.Language.get('insurance-product-banner-verification-link-has-been-sent'),
+    AND: Liferay.Language.get('insurance-product-banner-and'),
   }
 }

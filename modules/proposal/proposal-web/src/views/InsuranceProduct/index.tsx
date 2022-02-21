@@ -9,6 +9,7 @@ import useProductState from "./hooks/useProductState";
 import { useContactSelector } from "../../redux/store";
 import useQueryParams from "../../shared/hooks/useQueryParams";
 import SuccessBanner from "./containers/SuccessBanner";
+import { INSURANCE_PRODUCT } from "../../constants/languageKeys";
 
 const InsuranceProduct: React.FC = () => {
   const [products] = useProductState();
@@ -43,9 +44,9 @@ const InsuranceProduct: React.FC = () => {
             }}
           />
         ) : null}
-        <h5>Insurance Product</h5>
+        <h5>{INSURANCE_PRODUCT.TITLE}</h5>
         <p className="body-small" style={{ marginBottom: "2.5rem" }}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, iste!
+          {INSURANCE_PRODUCT.SUBTITLE}
         </p>
         <Products>
           {products.map(product => (
@@ -64,9 +65,9 @@ const InsuranceProduct: React.FC = () => {
           ))}
         </Products>
         <LinkWrapper>
-          <Link to="/">{"< Back"}</Link>
+          <Link to="/">{INSURANCE_PRODUCT.LINK_BACK}</Link>
           <ClayButton displayType="primary" disabled>
-            CONTINUE
+            {INSURANCE_PRODUCT.BUTTON_CONTINUE}
           </ClayButton>
         </LinkWrapper>
       </Content>

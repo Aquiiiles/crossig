@@ -2,6 +2,7 @@ import React from "react";
 import { Wrapper, ProductInfoWrapper } from "./style";
 import ClayButton from "@clayui/button";
 import { Product } from "../../types/product";
+import { INSURANCE_PRODUCT } from "../../../../constants/languageKeys";
 
 type ProductProps = Product & {
   icon: React.ReactNode;
@@ -24,7 +25,7 @@ const ProductCard: React.FC<props> = ({ product, onProductSelection }) => {
       </ProductInfoWrapper>
       {product.disabled ? null : (
         <ClayButton onClick={() => onProductSelection(product)}>
-          SELECT
+          {INSURANCE_PRODUCT.PRODUCT.SELECT}
         </ClayButton>
       )}
     </Wrapper>
