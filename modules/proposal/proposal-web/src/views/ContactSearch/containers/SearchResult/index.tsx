@@ -56,8 +56,8 @@ const SearchResult: React.FC<props> = ({
       [constants.SUB_KEY]: "",
       [constants.DOB_KEY]: item[constants.DOB_KEY],
       [constants.NAME_KEY]: item[constants.NAME_KEY],
-      [constants.STREET_KEY]: "",
-      [constants.CITY_KEY]: "",
+      [constants.STREET_KEY]: item[constants.STREET_KEY],
+      [constants.CITY_KEY]: item[constants.CITY_KEY],
       [constants.TYPE_KEY]: item[constants.TYPE_KEY].desc,
       [constants.MAIL_VALIDATED_KEY]: item[constants.MAIL_VALIDATED_KEY],
       [constants.PHONE_NUMBER_VALIDATED_KEY]:
