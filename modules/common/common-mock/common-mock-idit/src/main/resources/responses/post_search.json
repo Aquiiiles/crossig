@@ -95,7 +95,7 @@
 				"birthDate": "1957-12-25",
 				"city": "Osijek",
 				"entityTypeVO": {
-					"desc": "Individual",
+					"desc": "Self Employed",
 					"id": 1
 				},
 				"fName": "Bozidar",
@@ -117,7 +117,7 @@
 				"birthDate": "1961-04-13",
 				"city": "Dubrovnik",
 				"entityTypeVO": {
-					"desc": "Individual",
+					"desc": "Legal Entity",
 					"id": 1
 				},
 				"fName": "Antun",
@@ -139,7 +139,7 @@
 				"birthDate": "1984-05-14",
 				"city": "Varaždin",
 				"entityTypeVO": {
-					"desc": "Individual",
+					"desc": "Legal Entity",
 					"id": 1
 				},
 				"fName": "Franko",
@@ -161,7 +161,7 @@
 				"birthDate": "1997-07-22",
 				"city": "Pula",
 				"entityTypeVO": {
-					"desc": "Individual",
+					"desc": "Legal Entity",
 					"id": 1
 				},
 				"fName": "Mirjana",
@@ -205,7 +205,7 @@
 				"birthDate": "1997-08-02",
 				"city": "Sisak",
 				"entityTypeVO": {
-					"desc": "Individual",
+					"desc": "Self Employed",
 					"id": 1
 				},
 				"fName": "Matea",
@@ -447,7 +447,7 @@
 				"birthDate": null,
 				"city": "Zagreb",
 				"entityTypeVO": {
-					"desc": "Legal entity",
+					"desc": "Legal Entity",
 					"id": 101
 				},
 				"fName": null,
@@ -469,7 +469,7 @@
 				"birthDate": null,
 				"city": "Samobor",
 				"entityTypeVO": {
-					"desc": "Legal entity",
+					"desc": "Legal Entity",
 					"id": 101
 				},
 				"fName": null,
