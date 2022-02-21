@@ -13,11 +13,11 @@ export const contactTypeOptions = [
   },
   {
     label: CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.SELF_EMPLOYED,
-    value: contactTypes.Legal_Entity,
+    value: contactTypes.Self_Employed,
   },
   {
     label: CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.LEGAL_ENTITY,
-    value: contactTypes.Self_Employed,
+    value: contactTypes.Legal_Entity,
   },
 ];
 

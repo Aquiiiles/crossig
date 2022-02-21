@@ -8,6 +8,7 @@ import SubtitledLabel from "../../../atoms/contact/SubtitledLabel";
 import PhoneTypeSelect from "../../../atoms/contact/PhoneTypeSelect";
 import { CONTACT_INFO } from "../../../../constants/languageKeys";
 import {
+  contactTypes,
   FIXED,
   MAXIMUM_EMAIL_ADDRESSES,
   MAXIMUM_MOBILE_PHONES,
@@ -28,12 +29,13 @@ import { useHistory } from "react-router-dom";
 const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
   countries,
 }) => {
-  const history = useHistory();
   const dispatch = useContactDispatch();
 
   const { emailAddresses, mobilePhones } = useContactSelector(
     (state) => state.contactInfo
   );
+
+  const { contactType } = useContactSelector((state) => state.basicInfo);
 
   const {
     setEmailAddresses,
@@ -82,7 +84,10 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
   const addEmailAddressInput = () => {
     const currentEmails = [...emailAddresses];
 
-    if (currentEmails.length < MAXIMUM_EMAIL_ADDRESSES) {
+    const shouldAddInput =
+      currentEmails.length < MAXIMUM_EMAIL_ADDRESSES && !shouldDisableLink();
+
+    if (shouldAddInput) {
       currentEmails.push("");
       dispatch(setEmailAddresses(currentEmails));
     }
@@ -91,7 +96,11 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
   const addMobilePhoneInput = () => {
     const currentMobilePhones = [...mobilePhones];
 
-    if (currentMobilePhones.length < MAXIMUM_MOBILE_PHONES) {
+    const shouldAddInput =
+      currentMobilePhones.length < MAXIMUM_MOBILE_PHONES &&
+      !shouldDisableLink();
+
+    if (shouldAddInput) {
       currentMobilePhones.push(createEmptyPhoneNumber(FIXED));
       dispatch(setMobilePhones(currentMobilePhones));
     }
@@ -113,6 +122,10 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
     return !(index === 0);
   };
 
+  const shouldDisableLink = () => {
+    return contactType === contactTypes.Legal_Entity;
+  };
+
   return (
     <Fragment>
       <FormSection title={CONTACT_INFO.TITLE}>
@@ -132,6 +145,7 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
               emails={emailAddresses}
               handleChange={handleEmailChange}
               addEmailInput={addEmailAddressInput}
+              disableLink={shouldDisableLink()}
             />
           </ClayForm.Group>
         </Row>
@@ -161,6 +175,7 @@ const ContactInfoForm: React.FC<{ countries: Array<Country> }> = ({
               handleChange={handlePhoneChange}
               addPhoneInput={addMobilePhoneInput}
               countries={countries}
+              disableLink={shouldDisableLink()}
             />
           </ClayForm.Group>
         </Row>

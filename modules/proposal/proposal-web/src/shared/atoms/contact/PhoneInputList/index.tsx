@@ -19,6 +19,7 @@ type propsType = {
   handleChange: (index: number, e: React.ChangeEvent, property: string) => void;
   addPhoneInput: MouseEventHandler;
   countries: Array<Country>;
+  disableLink?: boolean;
 };
 export interface Country {
   label: string;
@@ -34,9 +35,14 @@ const PhoneInputList: React.FC<propsType> = (props: propsType) => {
   }, [props.phoneNumbers]);
 
   const shouldDisableLink = () => {
-    return props.phoneNumbers.length === MAXIMUM_MOBILE_PHONES;
-  };
+    let valid = props.phoneNumbers.length === MAXIMUM_MOBILE_PHONES;
 
+    if (props.disableLink) {
+      valid = valid || props.disableLink;
+    }
+
+    return valid;
+  };
   const validatePhones = () => {
     const invalidityChecks = props.phoneNumbers
       .filter((phone) => phone.countryCode === countryCodes.label)

@@ -8,7 +8,7 @@ interface props {
   handleClick: MouseEventHandler;
 }
 
-const LinkWrapper: React.FC<props> = props => {
+const LinkWrapper: React.FC<props> = (props) => {
   return (
     <Wrapper>
       <ClayLink

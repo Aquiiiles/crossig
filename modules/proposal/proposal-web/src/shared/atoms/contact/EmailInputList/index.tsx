@@ -9,20 +9,26 @@ interface props {
   emails: Array<string>;
   handleChange: (index: number, e: React.ChangeEvent) => void;
   addEmailInput: MouseEventHandler;
+  disableLink?: boolean;
 }
 
-const EmailListInput: React.FC<props> = props => {
+const EmailListInput: React.FC<props> = (props) => {
   const [hasSomeInvalidEmail, setSomeInvalidEmail] = useState(false);
 
   const shouldDisableLink = () => {
-    return props.emails.length === MAXIMUM_EMAIL_ADDRESSES;
+    let valid = props.emails.length === MAXIMUM_EMAIL_ADDRESSES;
+    if (props.disableLink) {
+      valid = valid || props.disableLink;
+    }
+
+    return valid;
   };
 
   const validateEmails = () => {
     setSomeInvalidEmail(false);
     const regex = /\S+@\S+\.\S+/;
 
-    props.emails.forEach(email => {
+    props.emails.forEach((email) => {
       if (!regex.test(email)) {
         setSomeInvalidEmail(true);
         return;
@@ -45,7 +51,7 @@ const EmailListInput: React.FC<props> = props => {
               key={`emailInputKey${index}`}
               id={`emailInput${index}`}
               type="text"
-              onChange={e => handleChange(index, e)}
+              onChange={(e) => handleChange(index, e)}
               value={email.toString()}
             />
           </Fragment>

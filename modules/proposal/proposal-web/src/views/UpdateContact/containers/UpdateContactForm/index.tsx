@@ -215,17 +215,6 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
     });
   };
 
-  const shouldDisableSaveChanges = () => {
-    let isLegalEntity = false;
-    store.subscribe(() => {
-      isLegalEntity = store.getState().basicInfo.contactType === contactTypes.Legal_Entity;
-    })
-
-    return isLegalEntity;
-  };
-
-  console.log(store.getState().basicInfo.contactType);
-
   return (
     <Wrapper id="update-contact-form-main-container">
       <h3>{UPDATE_CONTACT.TITLE}</h3>
@@ -255,7 +244,6 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
         <ContactButton
           handleClick={handleUpdateContact}
           label={UPDATE_CONTACT.SUBMIT_BUTTON}
-          disabled={shouldDisableSaveChanges()}
         />
       </ButtonWrapper>
     </Wrapper>
