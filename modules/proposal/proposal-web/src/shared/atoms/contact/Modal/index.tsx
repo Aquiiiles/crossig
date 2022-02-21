@@ -5,7 +5,7 @@ import spritemap from "@clayui/css/lib/images/icons/icons.svg";
 
 type propsType = {
   title: string;
-  body: string;
+  body: React.ReactNode;
   lastButtonTitle?: string;
   lastButtonAction?: () => void;
 };
@@ -34,7 +34,7 @@ const Modal: React.FC<propsType> = (props: propsType) => {
         >
           <ClayModal.Header>{props.title}</ClayModal.Header>
           <ClayModal.Body>
-            <p>{props.body}</p>
+            {props.body}
           </ClayModal.Body>
           {props.lastButtonAction && (
             <ClayModal.Footer

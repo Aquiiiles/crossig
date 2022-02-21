@@ -20,14 +20,16 @@ import {
 type propsType = {
   operation: string;
   enableSave?: () => void;
+  setUpdatedValues?: (value: string) => void;
 };
 
-const BasicInfo: React.FC<propsType> = ({ enableSave , operation}: propsType) => {
+const BasicInfo: React.FC<propsType> = ({ enableSave , operation, setUpdatedValues}: propsType) => {
   const dispatcher = useContactDispatch();
 
-  const dispatch = (action: any) => {
+  const dispatch = (action: any,updatedValue : string) => {
     enableSave && enableSave();
     dispatcher(action);
+    setUpdatedValues && setUpdatedValues(updatedValue );
   };
 
   const {
@@ -77,7 +79,7 @@ const BasicInfo: React.FC<propsType> = ({ enableSave , operation}: propsType) =>
           id="contactTypeInput"
           required
           value={contactType}
-          onChange={({ target: { value } }) => dispatch(setContactType(value))}
+          onChange={({ target: { value } }) => dispatch(setContactType(value),CREATE_NEW_CONTACT.TYPE)}
           options={contactTypeOptions}
           disabled={isLegalEntity() && isUpdate()}
         ></ClaySelectWithOption>
@@ -95,7 +97,7 @@ const BasicInfo: React.FC<propsType> = ({ enableSave , operation}: propsType) =>
                   id="firstNameInput"
                   type="text"
                   onChange={({ target: { value } }) =>
-                    dispatch(setFirstName(value))
+                    dispatch(setFirstName(value),CREATE_NEW_CONTACT.FIELD.FIRST_NAME)
                   }
                   value={firstName}
                   
@@ -112,7 +114,7 @@ const BasicInfo: React.FC<propsType> = ({ enableSave , operation}: propsType) =>
                   id="lastNameInput"
                   type="text"
                   onChange={({ target: { value } }) =>
-                    dispatch(setLastName(value))
+                    dispatch(setLastName(value),CREATE_NEW_CONTACT.FIELD.LAST_NAME)
                   }
                   value={lastName}
                 />
@@ -131,7 +133,7 @@ const BasicInfo: React.FC<propsType> = ({ enableSave , operation}: propsType) =>
               id="companyName"
               type="text"
               onChange={({ target: { value } }) =>
-                dispatch(setCompanyName(value))
+                dispatch(setCompanyName(value),CREATE_NEW_CONTACT.FIELD.COMPANY_NAME)
               }
               value={companyName}
               disabled={isLegalEntity() && isUpdate()}
@@ -153,7 +155,7 @@ const BasicInfo: React.FC<propsType> = ({ enableSave , operation}: propsType) =>
                     id="birthDateDay"
                     type="text"
                     onChange={({ target: { value } }) =>
-                      dispatch(setDateDay(value))
+                      dispatch(setDateDay(value),"Birth Day")
                     }
                     placeholder="DD"
                     value={dateDay}
@@ -164,7 +166,7 @@ const BasicInfo: React.FC<propsType> = ({ enableSave , operation}: propsType) =>
                     id="birthDateMonth"
                     type="text"
                     onChange={({ target: { value } }) =>
-                      dispatch(setDateMonth(value))
+                      dispatch(setDateMonth(value),"Birth Month")
                     }
                     placeholder="MM"
                     value={dateMonth}
@@ -175,7 +177,7 @@ const BasicInfo: React.FC<propsType> = ({ enableSave , operation}: propsType) =>
                     id="birthDateYear"
                     type="text"
                     onChange={({ target: { value } }) =>
-                      dispatch(setDateYear(value))
+                      dispatch(setDateYear(value), "Birth Year")
                     }
                     placeholder="YYYY"
                     value={dateYear}
@@ -190,7 +192,7 @@ const BasicInfo: React.FC<propsType> = ({ enableSave , operation}: propsType) =>
                 required={foreignerStatus ? false : true}
                 id="oibInput"
                 type="text"
-                onChange={({ target: { value } }) => dispatch(setOIB(value))}
+                onChange={({ target: { value } }) => dispatch(setOIB(value),CREATE_NEW_CONTACT.FIELD.OIB)}
                 value={oib}
                 disabled={isUpdate()}
               />
@@ -211,7 +213,7 @@ const BasicInfo: React.FC<propsType> = ({ enableSave , operation}: propsType) =>
               value={subsidiaryNumber}
               disabled={isUpdate()}
               onChange={({ target: { value } }) =>
-                dispatch(setSubsidiaryNumber(value))
+                dispatch(setSubsidiaryNumber(value),CREATE_NEW_CONTACT.FIELD.SUBSIDIARY_NUMBER)
               }
             />
           </ClayForm.Group>
@@ -222,7 +224,7 @@ const BasicInfo: React.FC<propsType> = ({ enableSave , operation}: propsType) =>
           aria-label={CREATE_NEW_CONTACT.FIELD.FOREIGNER_STATUS}
           label={CREATE_NEW_CONTACT.FIELD.FOREIGNER_STATUS}
           checked={foreignerStatus}
-          onChange={() => dispatch(toggleForeignerStatus())}
+          onChange={() => dispatch(toggleForeignerStatus(),CREATE_NEW_CONTACT.FIELD.FOREIGNER_STATUS)}
           disabled={isLegalEntity() && isUpdate()}
         />
       </Row>

@@ -23,17 +23,20 @@ type propsType = {
   enableSave?: () => void;
   countries: { label: any; value: any }[];
   operation: string;
+  setUpdatedValues?: (value: string) => void;
 };
 
 const Addresses: React.FC<propsType> = ({
   countries,
   enableSave,
   operation,
+  setUpdatedValues,
 }: propsType) => {
   const dispatcher = useContactDispatch();
-  const dispatch = (action: any) => {
+  const dispatch = (action: any, updatedValue: string) => {
     enableSave && enableSave();
     dispatcher(action);
+    setUpdatedValues && setUpdatedValues(updatedValue);
   };
 
   const { contactType } = useContactSelector(
@@ -102,7 +105,9 @@ const Addresses: React.FC<propsType> = ({
             <ClaySelectWithOption
               id="country"
               options={countries}
-              onChange={({ target: { value } }) => dispatch(setCountry(value))}
+              onChange={({ target: { value } }) =>
+                dispatch(setCountry(value), CREATE_NEW_CONTACT.FIELD.COUNTRY)
+              }
               required
               disabled={isLegalEntity() && isUpdate()}
             />
@@ -118,8 +123,18 @@ const Addresses: React.FC<propsType> = ({
                   id={"city"}
                   active={isMainAddressInCroatia()}
                   getOptions={searchCitiesByName}
-                  setParentValue={(value) => dispatch(setCity(parseInt(value)))}
-                  setPostalCode={(value) => dispatch(setPostalCode(value))}
+                  setParentValue={(value) =>
+                    dispatch(
+                      setCity(parseInt(value)),
+                      CREATE_NEW_CONTACT.FIELD.CITY
+                    )
+                  }
+                  setPostalCode={(value) =>
+                    dispatch(
+                      setPostalCode(value),
+                      CREATE_NEW_CONTACT.FIELD.POSTAL_CODE
+                    )
+                  }
                   isCity
                   disabled={isLegalEntity() && isUpdate()}
                   selectedValue={cityName}
@@ -135,7 +150,10 @@ const Addresses: React.FC<propsType> = ({
                   id="postal-code"
                   type="number"
                   onChange={(value) =>
-                    dispatch(setPostalCode(value.toString()))
+                    dispatch(
+                      setPostalCode(value.toString()),
+                      CREATE_NEW_CONTACT.FIELD.POSTAL_CODE
+                    )
                   }
                   disabled={
                     isMainAddressInCroatia() || (isLegalEntity() && isUpdate())
@@ -153,7 +171,12 @@ const Addresses: React.FC<propsType> = ({
               id={"street-address-autocomplete"}
               active={isMainAddressInCroatia()}
               getOptions={searchStreetsByCityIdAndName(city)}
-              setParentValue={(value) => dispatch(setStreet(value))}
+              setParentValue={(value) =>
+                dispatch(
+                  setStreet(value),
+                  CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS
+                )
+              }
               isCity={false}
               disabled={!postalCode || (isLegalEntity() && isUpdate())}
             />
@@ -166,7 +189,12 @@ const Addresses: React.FC<propsType> = ({
               <ClayInput
                 id="street-address-input"
                 type="text"
-                onChange={(e) => dispatch(setStreet(e.target.value.toString()))}
+                onChange={(e) =>
+                  dispatch(
+                    setStreet(e.target.value.toString()),
+                    CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS
+                  )
+                }
                 value={street}
                 disabled={isLegalEntity() && isUpdate()}
               />
@@ -183,7 +211,10 @@ const Addresses: React.FC<propsType> = ({
               id="house-number"
               type="number"
               onChange={(e) =>
-                dispatch(setHouseNumber(e.target.value.toString()))
+                dispatch(
+                  setHouseNumber(e.target.value.toString()),
+                  CREATE_NEW_CONTACT.FIELD.HOUSE_NUMBER
+                )
               }
               value={houseNumber}
               disabled={isLegalEntity() && isUpdate()}
@@ -195,7 +226,12 @@ const Addresses: React.FC<propsType> = ({
 
         <ClayCheckbox
           checked={isSameAddress}
-          onChange={() => dispatch(setIsSameAddress(!isSameAddress))}
+          onChange={() =>
+            dispatch(
+              setIsSameAddress(!isSameAddress),
+              CREATE_NEW_CONTACT.FIELD.DISPATCH_ADDRESS
+            )
+          }
           label={CREATE_NEW_CONTACT.FIELD.DISPATCH_ADDRESS}
           disabled={isLegalEntity() && isUpdate()}
         />
@@ -212,7 +248,10 @@ const Addresses: React.FC<propsType> = ({
                   options={countries}
                   required
                   onChange={({ target: { value } }) =>
-                    dispatch(setDispatchCountry(value))
+                    dispatch(
+                      setDispatchCountry(value),
+                      CREATE_NEW_CONTACT.FIELD.COUNTRY
+                    )
                   }
                   disabled={isLegalEntity() && isUpdate()}
                 />
@@ -229,10 +268,16 @@ const Addresses: React.FC<propsType> = ({
                       active={isDispatchAddressInCroatia()}
                       getOptions={searchCitiesByName}
                       setParentValue={(value) =>
-                        dispatch(setDispatchCity(parseInt(value)))
+                        dispatch(
+                          setDispatchCity(parseInt(value)),
+                          CREATE_NEW_CONTACT.FIELD.CITY
+                        )
                       }
                       setPostalCode={(value) =>
-                        dispatch(setDispatchPostalCode(value))
+                        dispatch(
+                          setDispatchPostalCode(value),
+                          CREATE_NEW_CONTACT.FIELD.POSTAL_CODE
+                        )
                       }
                       isCity
                       disabled={isLegalEntity() && isUpdate()}
@@ -253,7 +298,10 @@ const Addresses: React.FC<propsType> = ({
                         (isLegalEntity() && isUpdate())
                       }
                       onChange={(value) =>
-                        dispatch(setDispatchPostalCode(value.toString()))
+                        dispatch(
+                          setDispatchPostalCode(value.toString()),
+                          CREATE_NEW_CONTACT.FIELD.POSTAL_CODE
+                        )
                       }
                       value={dispatchPostalCode}
                     />
@@ -270,7 +318,10 @@ const Addresses: React.FC<propsType> = ({
                   active={isDispatchAddressInCroatia()}
                   getOptions={searchStreetsByCityIdAndName(dispatchCity)}
                   setParentValue={(value) =>
-                    dispatch(setDispatchStreet(value.toString()))
+                    dispatch(
+                      setDispatchStreet(value.toString()),
+                      CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS
+                    )
                   }
                   isCity={false}
                   disabled={
@@ -287,7 +338,10 @@ const Addresses: React.FC<propsType> = ({
                     id="street-dispatch-address-input"
                     type="text"
                     onChange={(e) =>
-                      dispatch(setDispatchStreet(e.target.value.toString()))
+                      dispatch(
+                        setDispatchStreet(e.target.value.toString()),
+                        CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS
+                      )
                     }
                     value={dispatchStreet}
                     disabled={isLegalEntity() && isUpdate()}
@@ -305,7 +359,10 @@ const Addresses: React.FC<propsType> = ({
                   id="dispatch-house-number"
                   type="text"
                   onChange={(e) =>
-                    dispatch(setDispatchHouseNumber(e.target.value.toString()))
+                    dispatch(
+                      setDispatchHouseNumber(e.target.value.toString()),
+                      CREATE_NEW_CONTACT.FIELD.HOUSE_NUMBER
+                    )
                   }
                   value={dispatchHouseNumber}
                   disabled={isLegalEntity() && isUpdate()}

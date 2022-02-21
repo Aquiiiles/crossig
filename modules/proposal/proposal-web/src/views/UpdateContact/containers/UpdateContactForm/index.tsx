@@ -49,7 +49,11 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
 
   const [showModal, setShowModal] = useState(false);
   const [isUpdateSuccessful, setUpdateSuccess] = useState(false);
-  const { contactType } = useContactSelector((state) => state.basicInfo);
+  const [updatedValues, setUpdatedValues] = useState<string[]>([]);
+
+  const { contactType, firstName, lastName, companyName } = useContactSelector(
+    (state) => state.basicInfo
+  );
 
   useEffect(() => {
     get(COUNTRIES_URL);
@@ -93,12 +97,42 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
       });
   };
 
+  const successMessage = () => {
+    return (
+      <>
+        <p>{UPDATE_CONTACT.SUCCESS}</p>
+        <p>
+          {updatedValues.map((value: string, index: number) => {
+            return <span key={index}>{value!=="" && index>0 && ", "}{value}</span>;
+          })}
+
+          {updatedValues.length > 0 && (
+            <span style={{marginLeft:5}}>
+              {" "}updated for{" "}
+              {contactType === contactTypes.Individual
+                ? firstName + " " + lastName
+                : companyName}
+            </span>
+          )}
+        </p>
+      </>
+    );
+  };
+
+  const handleUpdatedValues = (value: string) => {
+    const prevValues = [...updatedValues];
+    const valueUpdated = prevValues.includes(value);
+    if (!valueUpdated) {
+      setUpdatedValues([...prevValues, value]);
+    }
+  };
+
   return (
     <Wrapper id="update-contact-form-main-container">
       {showModal && isUpdateSuccessful && (
         <Modal
           title={UPDATE_CONTACT.TITLE}
-          body={UPDATE_CONTACT.SUCCESS}
+          body={successMessage()}
           lastButtonTitle={UPDATE_CONTACT.USE_CONTACT}
           lastButtonAction={() => {
             return;
@@ -116,6 +150,7 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
         enableSave={() => {
           setEnabledButton(true);
         }}
+        setUpdatedValues={handleUpdatedValues}
       />
       {countries && (
         <Addresses
@@ -125,6 +160,7 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
           enableSave={() => {
             setEnabledButton(true);
           }}
+          setUpdatedValues={handleUpdatedValues}
         />
       )}
       {countries && (
@@ -135,6 +171,7 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
           enableSave={() => {
             setEnabledButton(true);
           }}
+          setUpdatedValues={handleUpdatedValues}
         />
       )}
 
