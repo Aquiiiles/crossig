@@ -10,6 +10,7 @@
 				"apartmentNr": "0000",
 				"blockNr": "blockNr",
 				"buildingName": "buildingName",
+				"cityId": "0",
 				"cityName": "cityName",
 				"country": {
 					"desc": "Croatia",
@@ -19,7 +20,7 @@
 				"countyName": "Croatia",
 				"districtName": "district test",
 				"entranceNr": "entraceNr",
-				"houseNr": "houseNr",
+				"houseNr": "1234",
 				"isPreferredDeliveryAddress": true,
 				"pob": "pob",
 				"provinceName": "provinceName",
@@ -68,6 +69,7 @@
 			"id": 1
 		},
 		"firstName": "Homer",
+		"foreignCitizen": true,
 		"gender": {
 			"desc": "genderDesc",
 			"extCode": "extCodeGender",
@@ -85,7 +87,7 @@
 					"extCode": "idTypeExt",
 					"id": 1
 				},
-				"idValue": "idValue",
+				"idValue": "123",
 				"issueDate": "2022-02-03T13:01:08.588Z",
 				"issuePlace": "issuePlace",
 				"serialNumber": "serialNumber"
@@ -116,6 +118,7 @@
 		"subscriptions": [
 			{
 				"brandCompanyCode": "brandCompanyCode",
+				"companyName": "companyName",
 				"subscriptionStatus": {
 					"desc": "BrandDesc",
 					"extCode": "extCodeBrand",
@@ -131,18 +134,19 @@
 		"telephones": [
 			{
 				"countryDialCode": {
-					"desc": "extCodePrefixDesc",
+					"desc": "385",
 					"extCode": "extCodePrefix",
 					"id": 1
 				},
 				"isPreferredDeliveryAddress": true,
+				"telephoneAreaCode": "1",
 				"telephoneExtension": "telephoneExtension",
-				"telephoneNumber": "telephoneNumber",
-				"telephonePrefix": "telephonePrefix",
+				"telephoneNumber": "1234567",
+				"telephonePrefix": "1",
 				"telephoneType": {
 					"desc": "descTelephone",
 					"extCode": "extCodeTelephone",
-					"id": 0
+					"id": 1
 				}
 			}
 		],

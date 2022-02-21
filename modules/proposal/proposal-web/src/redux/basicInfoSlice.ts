@@ -14,8 +14,8 @@ const initialState = {
   subsidiaryNumber: "",
 };
 
-const basicInfoSlice = createSlice({
-  name: "basicInfo",
+const BasicInfo = createSlice({
+  name: "BasicInfo",
   initialState,
   reducers: {
     setContactType(state, action: PayloadAction<string>) {
@@ -50,6 +50,9 @@ const basicInfoSlice = createSlice({
     toggleForeignerStatus(state) {
       state.foreignerStatus = !state.foreignerStatus;
     },
+    setForeignerStatus(state, action: PayloadAction<boolean>) {
+      state.foreignerStatus = action.payload;
+    },
     setCompanyName(state, action: PayloadAction<string>) {
       state.companyName = action.payload;
     },
@@ -71,6 +74,6 @@ const basicInfoSlice = createSlice({
   },
 });
 
-export const actions = basicInfoSlice.actions;
+export const actions = BasicInfo.actions;
 
-export default basicInfoSlice.reducer;
+export default BasicInfo.reducer;

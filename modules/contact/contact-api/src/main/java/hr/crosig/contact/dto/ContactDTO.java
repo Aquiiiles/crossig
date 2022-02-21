@@ -11,6 +11,14 @@ public class ContactDTO {
 		return addresses;
 	}
 
+	public Boolean getForeignCitizen() {
+		return foreignCitizen;
+	}
+
+	public void setForeignCitizen(Boolean foreignCitizen) {
+		this.foreignCitizen = foreignCitizen;
+	}
+
 	public ChannelTypeDTO getChannelType() {
 		return channelType;
 	}
@@ -177,6 +185,7 @@ public class ContactDTO {
 	private EntityTypeDTO entityType;
 	private FamilyStatusDTO familyStatus;
 	private String firstName;
+	private Boolean foreignCitizen;
 	private GenderDTO gender;
 	private String id;
 	private List<IdentifierDTO> identifiers;

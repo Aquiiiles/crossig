@@ -16,6 +16,7 @@ import usePagination from "./hooks/usePagination";
 import { SEARCH_URL } from "../../api/constants/routes";
 import { useContactSelector } from "../../redux/store";
 import { FetchContactsFunction } from "./types/fetchData";
+import { initialState } from "../../redux/searchFilterSlice";
 
 const contactsLimit = 20;
 const contactsTotalResultLimit = 100;
@@ -31,6 +32,7 @@ const ContactSearch: React.FC = () => {
     handleNewTotal,
     totalPages,
   ] = usePagination(contactsLimit);
+  const filterState=  useContactSelector(state => state.searchFilter);
   const {
     OIB,
     firstName,
@@ -45,9 +47,15 @@ const ContactSearch: React.FC = () => {
     selectedCity,
     sortOrder,
     sortedBy,
-  } = useContactSelector(state => state.searchFilter);
+  } = filterState;
   const idle = searchResultData.status === IDLE;
   const loading = searchResultData.status === PENDING;
+
+  useEffect(()=>{
+    if(filterState !== initialState){
+      fetchData();
+    }
+  },[]);
 
   const fetchData: FetchContactsFunction = () => {
     const payload = {

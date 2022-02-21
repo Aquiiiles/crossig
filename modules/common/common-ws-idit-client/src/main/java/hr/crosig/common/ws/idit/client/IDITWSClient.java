@@ -1,9 +1,11 @@
 package hr.crosig.common.ws.idit.client;
 
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.util.Validator;
 
 import hr.crosig.common.ws.RestAPIServiceInvoker;
 import hr.crosig.common.ws.RestAPIServiceInvokerFactory;
@@ -70,6 +72,22 @@ public class IDITWSClient {
 		return invoker.post(ServiceProviderType.IDIT, "/search", jsonRequest);
 	}
 
+	private String _getContactExtNumber(JSONObject contact) {
+		JSONArray identifiers = contact.getJSONArray("identifiers");
+
+		String extNumber = StringPool.BLANK;
+
+		if (Validator.isNotNull(identifiers)) {
+			JSONObject identifier = identifiers.getJSONObject(0);
+
+			if (Validator.isNotNull(identifier)) {
+				extNumber = identifier.getString("idValue");
+			}
+		}
+
+		return extNumber;
+	}
+
 	public ServiceResponse updateContact(String jsonRequest)
 		throws ServiceInvocationException {
 
@@ -78,7 +96,7 @@ public class IDITWSClient {
 		try {
 			JSONObject contact = JSONFactoryUtil.createJSONObject(jsonRequest);
 
-			contactIditId = contact.getString("id");
+			contactIditId = _getContactExtNumber(contact);
 		}
 		catch (JSONException jsonException) {
 			throw new ServiceInvocationException(

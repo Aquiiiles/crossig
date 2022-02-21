@@ -3,7 +3,7 @@ import {
   countryCodes,
 } from "../../constants/defaultCountryConfiguration";
 
-import { Country } from "../../views/NewContact/containers/ContactInfo/components/atoms/PhoneInputList";
+import { Country } from "../types/contact";
 
 export const mapToCountryNames = (countriesArray: Array<any>) => {
   const countries = countriesArray

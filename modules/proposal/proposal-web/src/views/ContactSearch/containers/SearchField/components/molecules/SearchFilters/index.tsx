@@ -1,8 +1,5 @@
 import React, { useEffect } from "react";
-import ClayForm, {
-  ClayInput,
-  ClaySelect,
-} from "@clayui/form";
+import ClayForm, { ClayInput, ClaySelect } from "@clayui/form";
 import ClayButton from "@clayui/button";
 import { ButtonsWrapper, InputWrappers, Wrapper } from "./styles";
 import {
@@ -13,16 +10,17 @@ import {
   CONTACT_SEARCH_FIELD_PHONE_NUMBER,
   CONTACT_SEARCH_FIELD_STREET_ADDRESS,
 } from "../../../../../../../constants/languageKeys";
-import CountryCodeSelect from "../../../../../../../shared/atoms/CountryCodeSelect";
+import CountryCodeSelect from "../../../../../../../shared/atoms/contact/CountryCodeSelect";
 import { countryCodes as croatia } from "../../../../../../../constants/defaultCountryConfiguration";
-import { Country } from "../../../../../../../shared/types/index";
+import { Country } from "../../../../../../../shared/types/contact";
 import { useFetchData } from "../../../../../../../api/hooks/useFetchData";
 import { AREA_CODE_URL } from "../../../../../../../api/constants/routes";
+import { actions } from "../../../../../../../redux/searchFilterSlice";
 import {
   useContactDispatch,
   useContactSelector,
 } from "../../../../../../../redux/store";
-import { actions } from "../../../../../../../redux/searchFilterSlice";
+import AreaCodeSelect from "../../../../../../../shared/atoms/contact/AreaCodeSelect";
 
 type AreaCodeType = {
   area_name: string;
@@ -45,17 +43,21 @@ interface props {
   countries: Array<Country>;
 }
 
-const SearchFilters: React.FC<props> = ({ countries, fetchData, searchDisabled }) => {
-  const { state, get: getAreaCode } = useFetchData();
+const SearchFilters: React.FC<props> = ({
+  countries,
+  fetchData,
+  searchDisabled,
+}) => {
+  const { state, get: getAreaCodes } = useFetchData();
   const areaCodeData = state as State;
 
   useEffect(() => {
-    getAreaCode(AREA_CODE_URL, {});
+    getAreaCodes(AREA_CODE_URL);
   }, []);
 
   const dispatch = useContactDispatch();
   const { city, street, countryCode, areaCode, phoneNumber, email } =
-    useContactSelector(state => state.searchFilter);
+    useContactSelector((state) => state.searchFilter);
   const {
     setCity,
     setStreet,
@@ -111,37 +113,28 @@ const SearchFilters: React.FC<props> = ({ countries, fetchData, searchDisabled }
       </ClayForm.Group>
       <InputWrappers>
         <ClayForm.Group>
-          <label htmlFor="countryInput">{CONTACT_SEARCH_FIELD_COUNTRY_CODE}</label>
+          <label htmlFor="countryInput">
+            {CONTACT_SEARCH_FIELD_COUNTRY_CODE}
+          </label>
           <CountryCodeSelect
             id={"countryInput"}
             className={""}
             countries={countries}
             entity={countryCode}
-            handleChange={e => handleCountryCodeChange(e)}
+            handleChange={(e) => handleCountryCodeChange(e)}
           />
         </ClayForm.Group>
         <ClayForm.Group>
-          <label htmlFor="areaInput">{CONTACT_SEARCH_FIELD_AREA_CODE}</label>
-          {areaCodeData.response.data?.area_codes && (
-            <ClaySelect
-              aria-label={CONTACT_SEARCH_FIELD_AREA_CODE}
-              id="areaInput"
-              onChange={e => handleAreaCodeChange(e)}
-              value={areaCode}
-            >
-              <ClaySelect.Option label="Select" value="" />
-              {areaCodeData.response.data.area_codes.map(
-                (item: AreaCodeType) => (
-                  <ClaySelect.Option
-                    selected={areaCode === item.area_code.toString()}
-                    key={item.area_code}
-                    label={item.area_code.toString()}
-                    value={item.area_code}
-                  />
-                )
-              )}
-            </ClaySelect>
-          )}
+          <label htmlFor="areaCodeInput">
+            {CONTACT_SEARCH_FIELD_AREA_CODE}
+          </label>
+          <AreaCodeSelect
+            id="areaCodeInput"
+            className={""}
+            disabled={disableAreaCode()}
+            entity={areaCode}
+            handleChange={(e) => handleAreaCodeChange(e)}
+          />
         </ClayForm.Group>
         <ClayForm.Group>
           <label htmlFor="phoneNumber">
@@ -181,8 +174,8 @@ const SearchFilters: React.FC<props> = ({ countries, fetchData, searchDisabled }
           Search
         </ClayButton>
       </ButtonsWrapper>
-      </Wrapper>
-    );
+    </Wrapper>
+  );
 };
 
 export default SearchFilters;

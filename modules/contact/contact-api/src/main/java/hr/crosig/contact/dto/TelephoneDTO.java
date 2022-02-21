@@ -11,6 +11,14 @@ public class TelephoneDTO {
 		return countryDialCode;
 	}
 
+	public String getTelephoneAreaCode() {
+		return telephoneAreaCode;
+	}
+
+	public void setTelephoneAreaCode(String telephoneAreaCode) {
+		this.telephoneAreaCode = telephoneAreaCode;
+	}
+
 	public boolean getIsPreferredDeliveryAddress() {
 		return isPreferredDeliveryAddress;
 	}
@@ -59,6 +67,7 @@ public class TelephoneDTO {
 
 	private CountryDialCodeDTO countryDialCode;
 	private boolean isPreferredDeliveryAddress;
+	private String telephoneAreaCode;
 	private String telephoneExtension;
 
 	@Pattern(regexp = "/^[+][(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s./0-9]$")

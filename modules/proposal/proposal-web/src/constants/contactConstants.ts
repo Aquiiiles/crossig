@@ -13,11 +13,11 @@ export const contactTypeOptions = [
   },
   {
     label: CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.SELF_EMPLOYED,
-    value: contactTypes.Legal_Entity,
+    value: contactTypes.Self_Employed,
   },
   {
     label: CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.LEGAL_ENTITY,
-    value: contactTypes.Self_Employed,
+    value: contactTypes.Legal_Entity,
   },
 ];
 
@@ -37,6 +37,7 @@ export const filterTypeOptions = [
 ];
 
 export const MINIMUN_LENGTH_FOR_AUTOCOMPLETE_INPUT = 2;
+
 export const MAXIMUM_EMAIL_ADDRESSES = 4;
 export const MAXIMUM_MOBILE_PHONES = 4;
 

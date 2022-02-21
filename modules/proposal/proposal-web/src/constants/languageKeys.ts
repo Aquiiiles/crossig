@@ -1,25 +1,29 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 declare const Liferay: any;
 
-export const CONTACT_INFO_ADD_EMAIL_ADDRESS = Liferay.Language.get('contact-info-add-email-address');
-export const CONTACT_INFO_ADD_MOBILE_PHONE = Liferay.Language.get('contact-info-add-mobile-phone');
-export const CONTACT_INFO_AREA_CODE = Liferay.Language.get('contact-info-area-code');
-export const CONTACT_INFO_CANCEL = Liferay.Language.get('contact-info-cancel');
-export const CONTACT_INFO_COUNTRY_CODE = Liferay.Language.get('contact-info-country-code');
-export const CONTACT_INFO_CREATE_CONTACT = Liferay.Language.get('contact-info-create-contact');
-export const CONTACT_INFO_PHONE_NUMBER = Liferay.Language.get('contact-info-phone-number');
-export const CONTACT_INFO_PHONE_NUMBER_ERROR = Liferay.Language.get('contact-info-phone-number-error');
-export const CONTACT_INFO_TITLE = Liferay.Language.get('contact-info-title');
-export const CONTACT_INFO_MAIN_EMAIL = Liferay.Language.get('contact-info-main-email');
-export const CONTACT_INFO_MAIN_EMAIL_SUBTITLE = Liferay.Language.get('contact-info-main-email-subtitle');
-export const CONTACT_INFO_EMAIL_ADDRESS = Liferay.Language.get('contact-info-email-address');
-export const CONTACT_INFO_MAIN_MOBILE = Liferay.Language.get('contact-info-main-mobile');
-export const CONTACT_INFO_MAIN_MOBILE_SUBTITLE = Liferay.Language.get('contact-info-main-mobile-subtitle');
-export const CONTACT_INFO_OTHER_EMAIL_ADDRESSES = Liferay.Language.get('contact-info-other-email-addresses');
-export const CONTACT_INFO_OTHER_EMAIL_ADDRESSES_SUBTITLE = Liferay.Language.get('contact-info-other-email-addresses-subtitle');
-export const CONTACT_INFO_OTHER_MOBILE_PHONES_FIXED = Liferay.Language.get('contact-info-other-mobile-phones-fixed');
-export const CONTACT_INFO_OTHER_MOBILE_PHONES_MOBILE = Liferay.Language.get('contact-info-other-mobile-phones-mobile');
-export const CONTACT_INFO_PHONE_TYPE = Liferay.Language.get('contact-info-phone-type');
-export const CONTACT_INFO_INVALID_EMAIL_MESSAGE = Liferay.Language.get('contact-info-invalid-email-message');
+export const CONTACT_INFO = {
+  ADD_EMAIL_ADDRESS: Liferay.Language.get('contact-info-add-email-address'),
+  ADD_MOBILE_PHONE: Liferay.Language.get('contact-info-add-mobile-phone'),
+  AREA_CODE: Liferay.Language.get('contact-info-area-code'),
+  CANCEL: Liferay.Language.get('contact-info-cancel'),
+  COUNTRY_CODE: Liferay.Language.get('contact-info-country-code'),
+  CREATE_CONTACT: Liferay.Language.get('contact-info-create-contact'),
+  UPDATE_CONTACT: Liferay.Language.get('contact-info-update-contact'),
+  PHONE_NUMBER: Liferay.Language.get('contact-info-phone-number'),
+  PHONE_NUMBER_ERROR: Liferay.Language.get('contact-info-phone-number-error'),
+  TITLE: Liferay.Language.get('contact-info-title'),
+  MAIN_EMAIL: Liferay.Language.get('contact-info-main-email'),
+  MAIN_EMAIL_SUBTITLE: Liferay.Language.get('contact-info-main-email-subtitle'),
+  EMAIL_ADDRESS: Liferay.Language.get('contact-info-email-address'),
+  MAIN_MOBILE: Liferay.Language.get('contact-info-main-mobile'),
+  MAIN_MOBILE_SUBTITLE: Liferay.Language.get('contact-info-main-mobile-subtitle'),
+  OTHER_EMAIL_ADDRESSES: Liferay.Language.get('contact-info-other-email-addresses'),
+  OTHER_EMAIL_ADDRESSES_SUBTITLE: Liferay.Language.get('contact-info-other-email-addresses-subtitle'),
+  OTHER_MOBILE_PHONES_FIXED: Liferay.Language.get('contact-info-other-mobile-phones-fixed'),
+  OTHER_MOBILE_PHONES_MOBILE: Liferay.Language.get('contact-info-other-mobile-phones-mobile'),
+  PHONE_TYPE: Liferay.Language.get('contact-info-phone-type'),
+  INVALID_EMAIL_MESSAGE: Liferay.Language.get('contact-info-invalid-email-message')
+}
 
 export const CONTACT_SEARCH_TITLE = Liferay.Language.get('contact-search-title');
 export const CONTACT_SEARCH_SUBTITLE = Liferay.Language.get('contact-search-subtitle');
@@ -50,10 +54,10 @@ export const CREATE_NEW_CONTACT = {
     SUBTITLE: Liferay.Language.get('create-new-contact-subtitle'),
     BASIC_INFO_TITLE: Liferay.Language.get('create-new-contact-basic-info-title'),
     TYPE: Liferay.Language.get('create-new-contact-type'),
-    ADDRESS_TITLE: Liferay.Language.get('create-new-contact-address-title'),
-    ID_ADDRES: Liferay.Language.get('create-new-contact-id-address'),
-    REGISTERED_OFFICE_ADDRESS: Liferay.Language.get('create-new-contact-registered-office-address'),
-    DISPATCH_ADDRESS: Liferay.Language.get('create-new-contact-dispatch-address'),
+    ADDRESS_TITLE : Liferay.Language.get('create-new-contact-address-title'),
+    ID_ADDRESS : Liferay.Language.get('create-new-contact-id-address'),
+    REGISTERED_OFFICE_ADDRESS : Liferay.Language.get('create-new-contact-registered-office-address'),
+    DISPATCH_ADDRESS : Liferay.Language.get('create-new-contact-dispatch-address'),
     NO_RESULTS_FOUND: Liferay.Language.get('create-new-contact-no-results-found'),
     FIELD: {
         CONTACT_TYPE: {
@@ -76,6 +80,7 @@ export const CREATE_NEW_CONTACT = {
         DISPATCH_ADDRESS: Liferay.Language.get('create-new-contact-field-dispatch-address'),
     },
 }
+
 export const CONTACT_RESULTS_TABLE = {
     HEADER: {
         OIB: Liferay.Language.get('contact-results-table-header-oib'),
@@ -86,4 +91,13 @@ export const CONTACT_RESULTS_TABLE = {
         CITY: Liferay.Language.get('contact-results-table-header-city'),
         TYPE: Liferay.Language.get('contact-results-table-header-type'),
     }
+}
+
+export const UPDATE_CONTACT = {
+  TITLE: Liferay.Language.get("update-contact-title"),
+  SUBTITLE: Liferay.Language.get("update-contact-subtitle"),
+  SUBMIT_BUTTON: Liferay.Language.get("update-contact-submit-button"),
+  SUCCESS: Liferay.Language.get("update-contact-update-success"),
+  FAILURE: Liferay.Language.get("update-contact-update-failure"),
+  USE_CONTACT: Liferay.Language.get("update-contact-use-contact")
 }

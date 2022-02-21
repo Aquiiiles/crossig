@@ -8,7 +8,6 @@ import {
   PENDING,
   REJECTED,
   RESOLVED,
-  SUCCESS_CODE,
 } from "../reducers/constants";
 
 import API from "../";
@@ -40,7 +39,6 @@ export const useFetchData = () => {
       dispatch({ type: PENDING });
       try {
         const response = await API({ method, url, params, data });
-
         dispatch({ type: RESOLVED, response });
       } catch (error) {
         dispatch({ type: REJECTED, error });
@@ -50,9 +48,9 @@ export const useFetchData = () => {
   );
 
   const get = useCallback(
-    (url, params) => {
+    (url) => {
       dispatch({ type: PENDING });
-      API.get(url, params)
+      API.get(url)
         .then(response => {
           dispatch({ type: RESOLVED, response });
         })
@@ -63,5 +61,19 @@ export const useFetchData = () => {
     [dispatch]
   );
 
-  return { state, fetchData, dispatch, get };
+  const put = useCallback(
+    (url, params) => {
+      dispatch({ type: PENDING });
+      API.put(url, params)
+        .then(response => {
+          dispatch({ type: RESOLVED, response });
+        })
+        .catch(error => {
+          dispatch({ type: REJECTED, error });
+        });
+    },
+    [dispatch]
+  );
+
+  return { state, fetchData, dispatch, get, put };
 };

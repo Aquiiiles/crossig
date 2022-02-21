@@ -11,6 +11,22 @@ public class SubscriptionDTO {
 		return brandCompanyCode;
 	}
 
+	public String getSubsidiaryNumber() {
+		return subsidiaryNumber;
+	}
+
+	public void setSubsidiaryNumber(String subsidiaryNumber) {
+		this.subsidiaryNumber = subsidiaryNumber;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
 	public SubscriptionStatusDTO getSubscriptionStatus() {
 		return subscriptionStatus;
 	}
@@ -35,7 +51,8 @@ public class SubscriptionDTO {
 
 	@Size(max = 100, min = 1)
 	private String brandCompanyCode;
-
+	private String companyName;
+	private String subsidiaryNumber;
 	private SubscriptionStatusDTO subscriptionStatus;
 	private SubscriptionTypeDTO subscriptionType;
 

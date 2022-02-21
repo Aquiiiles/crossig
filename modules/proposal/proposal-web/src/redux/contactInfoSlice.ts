@@ -1,15 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { MOBILE } from "../constants/contactConstants";
-import { PhoneNumber } from "../shared/types";
-import { createEmptyPhoneNumber } from "../shared/util/createEmptyPhoneNumber";
+import { PhoneNumber } from "../shared/types/contact";
+import { createEmptyPhoneNumber } from "../shared/util/commonFunctions";
 
 const initialState = {
   emailAddresses: [""],
   mobilePhones: [createEmptyPhoneNumber(MOBILE)],
 };
 
-const contactInfoSlice = createSlice({
-  name: "contactInfo",
+const ContactInfo = createSlice({
+  name: "ContactInfo",
   initialState,
   reducers: {
     setEmailAddresses(state, action: PayloadAction<Array<string>>) {
@@ -51,6 +51,6 @@ const contactInfoSlice = createSlice({
   },
 });
 
-export const actions = contactInfoSlice.actions;
+export const actions = ContactInfo.actions;
 
-export default contactInfoSlice.reducer;
+export default ContactInfo.reducer;
