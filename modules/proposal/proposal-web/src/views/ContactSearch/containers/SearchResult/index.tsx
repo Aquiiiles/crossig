@@ -66,9 +66,8 @@ const SearchResult: React.FC<props> = ({
     return responseObj;
   });
   const [filteredData, setFilteredData] = useState(formatedData);
-  const cities = new Set(
-    data.map((item: providedDataType) => item["address"].split(",")[1].trim())
-  );
+
+  const cities = new Set(data.map((item: providedDataType) => item["city"]));
   const { selectedContactType, selectedCity } = useContactSelector(
     (state) => state.searchFilter
   );
@@ -101,6 +100,7 @@ const SearchResult: React.FC<props> = ({
         <>
           <SearchResultsHeader>
             <h6 className="h9">
+              abl
               {foundContacts
                 ? `${filteredData.length} ${CONTACT_SEARCH_RESULT_CONTACTS_FOUND}`
                 : `${CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND}`}
@@ -113,7 +113,7 @@ const SearchResult: React.FC<props> = ({
                   <div style={{ cursor: "pointer" }}>
                     <ClaySelect
                       style={{ pointerEvents: "none" }}
-                      id="cityFilterField"
+                      id="cityFiltablerField"
                       value=""
                     >
                       <ClaySelect.Option
