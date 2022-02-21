@@ -34,7 +34,7 @@ const Modal: React.FC<propsType> = (props: propsType) => {
         >
           <ClayModal.Header>{props.title}</ClayModal.Header>
           <ClayModal.Body>
-            <h1>{props.body}</h1>
+            <p>{props.body}</p>
           </ClayModal.Body>
           {props.lastButtonAction && (
             <ClayModal.Footer

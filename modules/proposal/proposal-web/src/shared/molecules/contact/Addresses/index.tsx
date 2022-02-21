@@ -18,7 +18,6 @@ import {
 import { actions } from "../../../../redux/addressesSlice";
 import { Line } from "./styles";
 import { searchCitiesByName, searchStreetsByCityIdAndName } from "./controller";
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 
 type propsType = {
   enableSave?: () => void;
@@ -26,7 +25,11 @@ type propsType = {
   operation: string;
 };
 
-const Addresses: React.FC<propsType> = ({ countries, enableSave, operation }: propsType) => {
+const Addresses: React.FC<propsType> = ({
+  countries,
+  enableSave,
+  operation,
+}: propsType) => {
   const dispatcher = useContactDispatch();
   const dispatch = (action: any) => {
     enableSave && enableSave();
@@ -245,7 +248,10 @@ const Addresses: React.FC<propsType> = ({ countries, enableSave, operation }: pr
                     <ClayInput
                       id="dispatch-postal-code"
                       type="number"
-                      disabled={isDispatchAddressInCroatia() || (isLegalEntity() && isUpdate())}
+                      disabled={
+                        isDispatchAddressInCroatia() ||
+                        (isLegalEntity() && isUpdate())
+                      }
                       onChange={(value) =>
                         dispatch(setDispatchPostalCode(value.toString()))
                       }
@@ -267,7 +273,9 @@ const Addresses: React.FC<propsType> = ({ countries, enableSave, operation }: pr
                     dispatch(setDispatchStreet(value.toString()))
                   }
                   isCity={false}
-                  disabled={!dispatchPostalCode || (isLegalEntity() && isUpdate())}
+                  disabled={
+                    !dispatchPostalCode || (isLegalEntity() && isUpdate())
+                  }
                 />
               ) : (
                 <>

@@ -16,8 +16,10 @@ import {
 import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
 import { actions as addressesSetters } from "../../../../redux/addressesSlice";
 import { actions as contactInfoSetters } from "../../../../redux/contactInfoSlice";
-import store, { useContactDispatch , useContactSelector}  from "../../../../redux/store";
-import { PhoneNumber } from "../../../../shared/types/contact";
+import store, {
+  useContactDispatch,
+  useContactSelector,
+} from "../../../../redux/store";
 import { contactTypes } from "../../../../constants/contactConstants";
 import LinkWrapper from "../../../../shared/atoms/contact/LinkWrapper";
 import ContactButton from "../../../../shared/atoms/contact/ContactButton";
@@ -44,10 +46,10 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
   const { state, get } = useFetchData();
   const [countries, setCountries] = useState<Array<any> | null>(null);
   const [enabledButton, setEnabledButton] = useState(false);
-  const [isLegalEntity, setIsLegalEntity] = useState(data.entityType.id.toString() === contactTypes.Legal_Entity);
 
   const [showModal, setShowModal] = useState(false);
   const [isUpdateSuccessful, setUpdateSuccess] = useState(false);
+  const { contactType } = useContactSelector((state) => state.basicInfo);
 
   useEffect(() => {
     get(COUNTRIES_URL);
@@ -72,18 +74,25 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
     return { ...basicInfoDTO, ...addressesDTO, ...contactInfoDTO };
   };
 
+  const isLegalEntity = () => {
+    return contactType === contactTypes.Legal_Entity;
+  };
+
   const handleUpdateContact = () => {
     const response = API.put(CONTACT_URL, createContactDTO());
     window.scrollTo(0, 0);
 
-    setUpdateSuccess(true);
-    setShowModal(true);
-
-    response.then((result) => {
-      return;
-    });
+    response
+      .then(() => {
+        setUpdateSuccess(true);
+        setShowModal(true);
+      })
+      .catch(() => {
+        setUpdateSuccess(false);
+        setShowModal(true);
+      });
   };
-  
+
   return (
     <Wrapper id="update-contact-form-main-container">
       {showModal && isUpdateSuccessful && (
@@ -101,13 +110,21 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
       )}
       <h3>{UPDATE_CONTACT.TITLE}</h3>
       <p className="subtitle">{UPDATE_CONTACT.SUBTITLE}</p>
-      <BasicInfo key="update-contact-basic-info" operation="update" enableSave={()=>{ setEnabledButton(true)}} />
+      <BasicInfo
+        key="update-contact-basic-info"
+        operation="update"
+        enableSave={() => {
+          setEnabledButton(true);
+        }}
+      />
       {countries && (
         <Addresses
           countries={mapToCountryNames(countries)}
           key="update-contact-addresses"
           operation="update"
-          enableSave={()=>{ setEnabledButton(true)}}
+          enableSave={() => {
+            setEnabledButton(true);
+          }}
         />
       )}
       {countries && (
@@ -115,7 +132,9 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
           countries={mapToCountryCodes(countries)}
           key="update-contact-contact-info"
           operation="update"
-          enableSave={()=>{ setEnabledButton(true)}}
+          enableSave={() => {
+            setEnabledButton(true);
+          }}
         />
       )}
 
@@ -136,12 +155,12 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
               return;
             }}
             label={UPDATE_CONTACT.USE_CONTACT}
-            disabled={!isLegalEntity}
+            disabled={isLegalEntity()}
           />
           <ContactButton
             handleClick={handleUpdateContact}
             label={UPDATE_CONTACT.SUBMIT_BUTTON}
-            disabled={!enabledButton && !isLegalEntity}
+            disabled={!enabledButton && !isLegalEntity()}
           />
         </ClayButton.Group>
       </ButtonWrapper>
