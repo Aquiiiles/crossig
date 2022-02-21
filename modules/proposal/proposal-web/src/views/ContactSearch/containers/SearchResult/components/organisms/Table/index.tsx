@@ -21,7 +21,7 @@ interface props {
 const Table: React.FC<props> = ({ inputData, loading }: props) => {
   const dispatch = useContactDispatch();
   const { sortedBy, sortOrder } = useContactSelector(
-    state => state.searchFilter
+    (state) => state.searchFilter
   );
   const { setSortedBy, setSortOrder } = actions;
 
