@@ -72,5 +72,9 @@
         <column name="title" type="String"/>
         <column name="name" type="String"/>
         <column name="externalId" type="String"/>
+
+        <finder name="InsuredRoleId" return-type="InsuredRole">
+            <finder-column name="InsuredRoleId"/>
+        </finder>
     </entity>
 </service-builder>

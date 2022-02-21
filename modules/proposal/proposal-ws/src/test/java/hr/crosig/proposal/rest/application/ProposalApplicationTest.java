@@ -22,7 +22,7 @@ public class ProposalApplicationTest {
 
 	@Test
 	public void getInsuredRoles_ApiSuccess() {
-		Response response = _proposalApplication.getInsuredRoleTypes();
+		Response response = _proposalApplication.getInsuredRole();
 
 		Assert.assertEquals(
 			TestConstants.API_SUCCESS_STATUS_CODE, response.getStatus());

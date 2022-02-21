@@ -1,7 +1,8 @@
 package hr.crosig.proposal.rest.application;
 
+import hr.crosig.proposal.dto.InsuredRoleDTO;
 import hr.crosig.proposal.dto.ProductDTO;
-import hr.crosig.proposal.enums.InsuredRole;
+import hr.crosig.proposal.service.InsuredRoleLocalService;
 import hr.crosig.proposal.service.ProductLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -23,71 +24,70 @@ import java.util.Set;
  * @author victor.catanante
  */
 @Component(
-	property = {
-		JaxrsWhiteboardConstants.JAX_RS_APPLICATION_BASE + "=/agent-portal/proposal",
-		JaxrsWhiteboardConstants.JAX_RS_NAME + "=Proposal.Rest",
-		JaxrsWhiteboardConstants.JAX_RS_MEDIA_TYPE + "=application/json",
-		"auth.verifier.guest.allowed=false",
-		"liferay.access.control.disable=false"
-	},
-	service = Application.class
+        property = {
+                JaxrsWhiteboardConstants.JAX_RS_APPLICATION_BASE + "=/agent-portal/proposal",
+                JaxrsWhiteboardConstants.JAX_RS_NAME + "=Proposal.Rest",
+                JaxrsWhiteboardConstants.JAX_RS_MEDIA_TYPE + "=application/json",
+                "auth.verifier.guest.allowed=false",
+                "liferay.access.control.disable=false"
+        },
+        service = Application.class
 )
 public class ProposalApplication extends Application {
 
-	@GET
-	@Path("/insured-roles")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getInsuredRoleTypes() {
-		Response.ResponseBuilder responseBuilder;
+    @GET
+    @Path("/insured-roles/{insuredRoleId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getInsuredRole(@PathParam("insuredRoleId") long insuredRoleId) {
+        Response.ResponseBuilder responseBuilder;
+        try {
+            List<InsuredRoleDTO> insuredRole = _insuredRoleLocalService.getInsuredRole(insuredRoleId);
 
-		try {
-			List<InsuredRole> insuredRoles = Arrays.asList(
-				InsuredRole.values());
+            responseBuilder = Response.ok(
+            ).entity(
+                    insuredRole
+            );
+        } catch (
+                Exception exception) {
+            responseBuilder = Response.serverError(
+            ).entity(
+                    exception.getMessage()
+            );
+        }
 
-			responseBuilder = Response.ok(
-			).entity(
-				insuredRoles
-			);
-		}
-		catch (Exception exception) {
-			responseBuilder = Response.serverError(
-			).entity(
-				exception.getMessage()
-			);
-		}
+    }
 
-		return responseBuilder.build();
-	}
+    @GET
+    @Path("/products/{userId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProductsByUserId(@PathParam("userId") long userId) {
+        Response.ResponseBuilder responseBuilder;
 
-	@GET
-	@Path("/products/{userId}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getProductsByUserId(@PathParam("userId") long userId) {
-		Response.ResponseBuilder responseBuilder;
+        try {
+            List<ProductDTO> products = _productLocalService.getProductsByUserId(userId);
 
-		try {
-			List<ProductDTO> products = _productLocalService.getProductsByUserId(userId);
+            responseBuilder = Response.ok(
+            ).entity(
+                    products
+            );
+        } catch (Exception exception) {
+            responseBuilder = Response.serverError(
+            ).entity(
+                    exception.getMessage()
+            );
+        }
 
-			responseBuilder = Response.ok(
-			).entity(
-				products
-			);
-		}
-		catch (Exception exception) {
-			responseBuilder = Response.serverError(
-			).entity(
-				exception.getMessage()
-			);
-		}
+        return responseBuilder.build();
+    }
 
-		return responseBuilder.build();
-	}
+    public Set<Object> getSingletons() {
+        return Collections.singleton(this);
+    }
 
-	public Set<Object> getSingletons() {
-		return Collections.singleton(this);
-	}
+    @Reference
+    private InsuredRoleLocalService _insuredRoleLocalService;
 
-	@Reference
-	private ProductLocalService _productLocalService;
+    @Reference
+    private ProductLocalService _productLocalService;
 
 }
