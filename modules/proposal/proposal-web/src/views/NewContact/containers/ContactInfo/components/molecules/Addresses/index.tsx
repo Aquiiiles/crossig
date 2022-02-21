@@ -80,7 +80,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
                   id={"city"}
                   active={mainAddressInCroatia}
                   getOptions={searchCitiesByName}
-                  setParentValue={value => dispatch(setCity(value))}
+                  setParentValue={value => dispatch(setCity(parseInt(value)))}
                   setPostalCode={value => dispatch(setPostalCode(value))}
                   isCity
                   disabled={false}
@@ -165,7 +165,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
                       id={"dispatch-city"}
                       active={dispatchAddressInCroatia}
                       getOptions={searchCitiesByName}
-                      setParentValue={value => dispatch(setDispatchCity(value))}
+                      setParentValue={value => dispatch(setDispatchCity(parseInt(value)))}
                       setPostalCode={value =>
                         dispatch(setDispatchPostalCode(value))
                       }
