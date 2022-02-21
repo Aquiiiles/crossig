@@ -96,5 +96,6 @@ export const CONTACT_RESULTS_TABLE = {
 export const UPDATE_CONTACT = {
   TITLE: Liferay.Language.get("update-contact-title"),
   SUBTITLE: Liferay.Language.get("update-contact-subtitle"),
-  SUBMIT_BUTTON: Liferay.Language.get("update-contact-submit-button")
+  SUBMIT_BUTTON: Liferay.Language.get("update-contact-submit-button"),
+  USE_CONTACT: Liferay.Language.get("update-contact-use-contact")
 }

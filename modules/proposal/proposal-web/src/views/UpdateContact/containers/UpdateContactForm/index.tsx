@@ -97,12 +97,14 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
 
     const country = address.country.desc;
     const city = parseInt(address.cityId);
+    const cityName = address.cityName;
     const postalCode = address.zipCode;
     const street = address.streetName;
     const houseNumber = address.houseNr;
 
     dispatch(addressesSetters.setCountry(country));
     dispatch(addressesSetters.setCity(city));
+    dispatch(addressesSetters.setCityName(cityName));
     dispatch(addressesSetters.setPostalCode(postalCode));
     dispatch(addressesSetters.setStreet(street));
     dispatch(addressesSetters.setHouseNumber(houseNumber));
@@ -174,6 +176,36 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
     return payload;
   };
 
+  const createAddressesDTO = () => {
+    const state = store.getState().addresses;
+
+    const address = {
+      city: state.city,
+      cityName: state.cityName,
+      country: { desc: state.country },
+      zipCode: state.postalCode,
+      streetName: state.street,
+      houseNr: state.houseNumber,
+      isPreferredDeliveryAddress: state.isSameAddress,
+    };
+
+    if (state.isSameAddress) {
+      return { addresses: [address] };
+    }
+
+    const dispatchAddress = {
+      city: state.dispatchCity,
+      cityName: state.dispatchCityName,
+      country: { desc: state.dispatchCountry },
+      zipCode: state.dispatchPostalCode,
+      streetName: state.dispatchStreet,
+      houseNr: state.dispatchHouseNumber,
+      isPreferredDeliveryAddress: !state.isSameAddress,
+    };
+
+    return { addresses: [address, dispatchAddress] };
+  };
+
   const createContactInfoDTO = () => {
     const state = store.getState().contactInfo;
 
@@ -202,8 +234,9 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
 
   const createContactDTO = () => {
     const basicInfoDTO = createBasicInfoDTO();
+    const addressesDTO = createAddressesDTO();
     const contactInfoDTO = createContactInfoDTO();
-    return { ...basicInfoDTO, ...contactInfoDTO };
+    return { ...basicInfoDTO, ...addressesDTO, ...contactInfoDTO };
   };
 
   const handleUpdateContact = () => {
@@ -240,6 +273,12 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
             history.goBack();
           }}
           disabled={false}
+        />
+        <ContactButton
+          handleClick={() => {
+            return;
+          }}
+          label={UPDATE_CONTACT.USE_CONTACT}
         />
         <ContactButton
           handleClick={handleUpdateContact}

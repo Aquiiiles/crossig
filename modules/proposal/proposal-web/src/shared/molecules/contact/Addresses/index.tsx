@@ -33,8 +33,9 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
     country,
     dispatchCountry,
     city,
-    cityName,
     dispatchCity,
+    cityName,
+    dispatchCityName,
     street,
     dispatchStreet,
     isSameAddress,
@@ -47,6 +48,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
     setCountry,
     setDispatchCountry,
     setCityName,
+    setDispatchCityName,
     setCity,
     setDispatchCity,
     setStreet,
@@ -211,6 +213,7 @@ const Addresses: React.FC<{ countries: { label: any; value: any }[] }> = ({
                       }
                       isCity
                       disabled={false}
+                      selectedValue={dispatchCityName}
                     />
                   </ClayInput.GroupItem>
 
