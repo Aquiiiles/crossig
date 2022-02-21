@@ -103,12 +103,18 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
         <p>{UPDATE_CONTACT.SUCCESS}</p>
         <p>
           {updatedValues.map((value: string, index: number) => {
-            return <span key={index}>{value!=="" && index>0 && ", "}{value}</span>;
+            return (
+              <span key={index}>
+                {value !== "" && index > 0 && ", "}
+                {value}
+              </span>
+            );
           })}
 
           {updatedValues.length > 0 && (
-            <span style={{marginLeft:5}}>
-              {" "}updated for{" "}
+            <span style={{ marginLeft: 5 }}>
+              {" "}
+              updated for{" "}
               {contactType === contactTypes.Individual
                 ? firstName + " " + lastName
                 : companyName}
@@ -186,20 +192,44 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
           }}
           disabled={false}
         />
-        <ClayButton.Group spaced>
-          <ContactButton
-            handleClick={() => {
-              return;
-            }}
-            label={UPDATE_CONTACT.USE_CONTACT}
-            disabled={isLegalEntity()}
-          />
-          <ContactButton
-            handleClick={handleUpdateContact}
-            label={UPDATE_CONTACT.SUBMIT_BUTTON}
-            disabled={!enabledButton && !isLegalEntity()}
-          />
-        </ClayButton.Group>
+        {!isLegalEntity() && (
+          <ClayButton.Group spaced>
+            <ContactButton
+              handleClick={() => {
+                return;
+              }}
+              label={UPDATE_CONTACT.USE_CONTACT}
+              disabled={isLegalEntity()}
+            />
+            <ContactButton
+              handleClick={handleUpdateContact}
+              label={UPDATE_CONTACT.SUBMIT_BUTTON}
+              disabled={isLegalEntity()}
+            />
+          </ClayButton.Group>
+        )}
+
+        {isLegalEntity() && (
+          <ClayButton.Group spaced>
+            <span className="link-small">
+              {UPDATE_CONTACT.EDIT_LEGAL_ENTITY}
+            </span>
+
+            <span>
+              <LinkWrapper
+                title={UPDATE_CONTACT.CREATE_A_TASK}
+                handleClick={() => {
+                  return;
+                }}
+                disabled={false}
+              />
+            </span>
+
+            <span className="link-small">
+              {UPDATE_CONTACT.BACKOFFICE_WILL_GET_NOTIFIED}
+            </span>
+          </ClayButton.Group>
+        )}
       </ButtonWrapper>
     </Wrapper>
   );
