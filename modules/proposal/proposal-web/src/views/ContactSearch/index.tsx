@@ -142,14 +142,9 @@ const ContactSearch: React.FC = () => {
               }}
               contactsTotalLimit={contactsTotalResultLimit}
             />
-            {data.length <= contactsTotalResultLimit ? (
-              <>
-                <LinkWrapper>
-                  <Link to="new_contact">{CONTACT_SEARCH_CREATE_NEW_CONTACT}</Link>
-                </LinkWrapper>
-              </>) : (
-              <EmptySpace />
-            )}
+            <LinkWrapper>
+              <Link to="new_contact">{CONTACT_SEARCH_CREATE_NEW_CONTACT}</Link>
+            </LinkWrapper>
           </>
         ) : (
           <EmptySpace />
