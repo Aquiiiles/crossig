@@ -1,9 +1,10 @@
-import { ValidatorFunction } from "../../../../../../hooks/useFieldValidation";
+import { ValidatorFunction } from "../hooks/useFieldValidation";
+import { VALIDATOR_MESSAGE } from "../../constants/languageKeys";
 
 const validateOib: ValidatorFunction = value => {
   if (value.length < 11) return;
-  if (value.length > 11) return "OIB length is invalid.";
-  if (isNaN(Number(value))) return "Invalid characters in OIB.";
+  if (value.length > 11) return VALIDATOR_MESSAGE.OIB.INVALID_LENGTH;
+  if (isNaN(Number(value))) return VALIDATOR_MESSAGE.OIB.INVALID_CHARACTERS;
 
   const firstDigit = Number(value.charAt(0));
   let result = firstDigit + 10;
@@ -30,7 +31,7 @@ const validateOib: ValidatorFunction = value => {
     return;
   }
 
-  return "Invalid OIB.";
+  return VALIDATOR_MESSAGE.OIB.INVALID;
 };
 
 export { validateOib };

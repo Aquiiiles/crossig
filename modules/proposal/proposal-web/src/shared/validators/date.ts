@@ -1,4 +1,6 @@
-import { ValidatorFunction } from "../../../../../../hooks/useFieldValidation";
+import { ValidatorFunction } from "../hooks/useFieldValidation";
+import { VALIDATOR_MESSAGE } from "../../constants/languageKeys";
+
 type ValidatorFunctionDay = (
   value: Parameters<ValidatorFunction>[0],
   dateMonth: string,
@@ -13,24 +15,22 @@ const validateDay: ValidatorFunctionDay = (value, dateMonth, dateYear) => {
   const year = Number(dateYear);
   if (value === "") return;
   if (isLeapYear(year) && Number(dateMonth) === 2 && number > 29)
-    return "Please enter a valid birth-date from 1 to 29.";
+    return VALIDATOR_MESSAGE.INVALID_BIRTH_DAY_FEB.LEAP_YEAR;
   if (!isLeapYear(year) && Number(dateMonth) === 2 && number > 28)
-    return "Please enter a valid birth-date from 1 to 28";
-  if (number < 1 || number > 31)
-    return "Please enter a valid birth-date from 1 to 31.";
+    return VALIDATOR_MESSAGE.INVALID_BIRTH_DAY_FEB.NO_LEAP_YEAR;
+  if (number < 1 || number > 31) return VALIDATOR_MESSAGE.INVALID_BIRTH_DAY;
 };
 
 const validateMonth: ValidatorFunction = value => {
   const number = Number(value);
   if (value === "") return;
-  if (number < 1 || number > 12)
-    return "Please enter a valid birth-month from 1 to 12.";
+  if (number < 1 || number > 12) return VALIDATOR_MESSAGE.INVALID_BIRTH_MONTH;
 };
 
 const validateYear: ValidatorFunction = value => {
   const number = Number(value);
   if (value === "") return;
-  if (number < 1) return "Please enter a valid birth-year.";
+  if (number < 1) return VALIDATOR_MESSAGE.INVALID_BIRTH_YEAR;
 };
 
 export { validateDay, validateMonth, validateYear };
