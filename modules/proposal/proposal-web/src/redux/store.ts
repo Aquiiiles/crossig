@@ -1,9 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import basicInfoReducer from "./basicInfoSlice";
 import searchFilterReducer from "./searchFilterSlice";
-import contactInfoReducer from "./contactInfoSlice";
-import addressesReducer from "./addressesSlice";
+
+import basicInfoReducer, {
+  actions as basicInfoActions,
+} from "./basicInfoSlice";
+
+import contactInfoReducer, {
+  actions as contactInfoActions,
+} from "./contactInfoSlice";
+
+import addressesReducer, {
+  actions as addressesActions,
+} from "./addressesSlice";
 
 export const createContactStore = () => {
   return configureStore({
@@ -24,5 +33,12 @@ export type ContactDispatch = typeof store.dispatch;
 export const useContactDispatch = () => useDispatch<ContactDispatch>();
 export const useContactSelector: TypedUseSelectorHook<ContactRootState> =
   useSelector;
+
+export const resetState = () => {
+  const dispatch = useContactDispatch();
+  dispatch(basicInfoActions.resetFields());
+  dispatch(contactInfoActions.resetFields());
+  dispatch(addressesActions.resetFields());
+};
 
 export default store;

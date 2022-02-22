@@ -17,6 +17,7 @@ import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
 import { actions as addressesSetters } from "../../../../redux/addressesSlice";
 import { actions as contactInfoSetters } from "../../../../redux/contactInfoSlice";
 import store, {
+  resetState,
   useContactDispatch,
   useContactSelector,
 } from "../../../../redux/store";
@@ -185,9 +186,7 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
         <LinkWrapper
           title={CONTACT_INFO.CANCEL}
           handleClick={() => {
-            [basicInfoActions, addressesSetters, contactInfoSetters].forEach(
-              (action) => dispatch(action["resetFields"]())
-            );
+            resetState();
             history.replace({ pathname: "/", state: { doSearch: true } });
           }}
           disabled={false}

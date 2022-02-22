@@ -1,10 +1,11 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Content, Wrapper } from "./styles";
 import UpdateContactForm from "./containers/UpdateContactForm";
 import { useLocation } from "react-router-dom";
 import { useFetchData } from "../../api/hooks/useFetchData";
 import { CONTACT_URL } from "../../api/constants/routes";
 import { RESOLVED } from "../../api/reducers/constants";
+import { resetState } from "../../redux/store";
 
 const hasValidResponse = (contactResponse: any) => {
   return (
@@ -18,15 +19,17 @@ const hasValidResponse = (contactResponse: any) => {
 };
 
 const UpdateContact: React.FC = () => {
+  resetState();
+
   const { state, get } = useFetchData();
   const location = useLocation();
   const oib = location.state;
 
-  useEffect(()=>{
-    if(oib ){
+  useEffect(() => {
+    if (oib) {
       get(`${CONTACT_URL}/${oib}`);
     }
-  },[oib]);
+  }, [oib]);
 
   return (
     <Wrapper>

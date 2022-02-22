@@ -12,6 +12,7 @@ import {
   mapToCountryCodes,
 } from "../../../../shared/util/countryMappers";
 import {
+  resetState,
   useContactDispatch,
   useContactSelector,
 } from "../../../../redux/store";
@@ -164,9 +165,7 @@ const ContactInfo: React.FC = () => {
         <LinkWrapper
           title={CONTACT_INFO.CANCEL}
           handleClick={() => {
-            [basicInfoActions, addressesActions, contactInfoActions].forEach(
-              (action) => dispatch(action["resetFields"]())
-            );
+            resetState();
             history.replace({ pathname: "/", state: { doSearch: true } });
           }}
           disabled={false}
