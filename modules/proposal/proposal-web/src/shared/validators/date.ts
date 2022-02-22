@@ -1,4 +1,4 @@
-import { ValidatorFunction } from "../../../../../../hooks/useFieldValidation";
+import { ValidatorFunction } from "../hooks/useFieldValidation";
 type ValidatorFunctionDay = (
   value: Parameters<ValidatorFunction>[0],
   dateMonth: string,

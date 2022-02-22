@@ -1,4 +1,4 @@
-import { ValidatorFunction } from "../../../../../../hooks/useFieldValidation";
+import { ValidatorFunction } from "../hooks/useFieldValidation";
 
 const validateOib: ValidatorFunction = value => {
   if (value.length < 11) return;
