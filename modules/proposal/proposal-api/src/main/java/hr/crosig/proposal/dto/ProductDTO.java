@@ -7,10 +7,24 @@ import java.io.Serializable;
  */
 public class ProductDTO implements Serializable {
 
-	public ProductDTO(long productId, String name, long externalId) {
+	public ProductDTO(
+		boolean active, String category, String description, long productId,
+		String name, long externalId) {
+
+		this.active = active;
+		this.category = category;
+		this.description = description;
 		this.productId = productId;
 		this.name = name;
 		this.externalId = externalId;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 
 	public long getExternalId() {
@@ -25,6 +39,22 @@ public class ProductDTO implements Serializable {
 		return productId;
 	}
 
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public void setExternalId(long externalId) {
 		this.externalId = externalId;
 	}
@@ -37,6 +67,9 @@ public class ProductDTO implements Serializable {
 		this.productId = productId;
 	}
 
+	private boolean active;
+	private String category;
+	private String description;
 	private long externalId;
 	private String name;
 	private long productId;

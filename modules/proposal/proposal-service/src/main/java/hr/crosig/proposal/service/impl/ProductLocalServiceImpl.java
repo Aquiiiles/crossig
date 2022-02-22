@@ -19,19 +19,17 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.service.RoleLocalService;
-
 import hr.crosig.proposal.dto.ProductDTO;
 import hr.crosig.proposal.model.Product;
 import hr.crosig.proposal.model.ProductRole;
 import hr.crosig.proposal.service.base.ProductLocalServiceBaseImpl;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author David Martini
@@ -88,16 +86,29 @@ public class ProductLocalServiceImpl extends ProductLocalServiceBaseImpl {
 
 		return list.stream(
 		).map(
-			productRole -> mapToProductDTO(
-				productLocalService.fetchProduct(productRole.getProductId()))
+			productRole -> getProductIfActive(productRole.getProductId())
+		).filter(
+			product -> !Objects.isNull(product)
 		).collect(
 			Collectors.toList()
 		);
 	}
 
+	private ProductDTO getProductIfActive(long productId) {
+		Product product = productLocalService.fetchProduct(productId);
+
+		if (product.isActive()) {
+			return mapToProductDTO(product);
+		}
+
+		return null;
+	}
+
 	private ProductDTO mapToProductDTO(Product product) {
 		return new ProductDTO(
-			product.getProductId(), product.getName(), product.getExternalId());
+			product.getActive(), product.getCategory(),
+			product.getDescription(), product.getProductId(), product.getName(),
+			product.getExternalId());
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
