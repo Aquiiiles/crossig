@@ -167,7 +167,7 @@ const ContactInfo: React.FC = () => {
             [basicInfoActions, addressesActions, contactInfoActions].forEach(
               (action) => dispatch(action["resetFields"]())
             );
-            history.goBack();
+            history.replace({ pathname: "/", state: { doSearch: true } });
           }}
           disabled={false}
         />

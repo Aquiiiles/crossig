@@ -100,7 +100,6 @@ const SearchResult: React.FC<props> = ({
         <>
           <SearchResultsHeader>
             <h6 className="h9">
-              abl
               {foundContacts
                 ? `${filteredData.length} ${CONTACT_SEARCH_RESULT_CONTACTS_FOUND}`
                 : `${CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND}`}

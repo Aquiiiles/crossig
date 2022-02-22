@@ -10,7 +10,7 @@ import {
 import { useFetchData } from "../../api/hooks/useFetchData";
 import SearchResult from "./containers/SearchResult";
 import { PENDING, IDLE } from "../../api/reducers/constants";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { CONTACT_SEARCH_CREATE_NEW_CONTACT } from "../../constants/languageKeys";
 import usePagination from "./hooks/usePagination";
 import { SEARCH_URL } from "../../api/constants/routes";
@@ -18,11 +18,16 @@ import { useContactSelector } from "../../redux/store";
 import { FetchContactsFunction } from "./types/fetchData";
 import { initialState } from "../../redux/searchFilterSlice";
 
+interface stateType {
+  doSearch: boolean;
+}
+
 const contactsLimit = 20;
 const contactsTotalResultLimit = 100;
 
 const ContactSearch: React.FC = () => {
   const [data, setData] = useState([]);
+  const location = useLocation<stateType>();
   const { state: searchResultData, fetchData: fetchSearchResultData } =
     useFetchData();
   const [
@@ -32,7 +37,7 @@ const ContactSearch: React.FC = () => {
     handleNewTotal,
     totalPages,
   ] = usePagination(contactsLimit);
-  const filterState=  useContactSelector(state => state.searchFilter);
+  const filterState = useContactSelector((state) => state.searchFilter);
   const {
     OIB,
     firstName,
@@ -51,11 +56,11 @@ const ContactSearch: React.FC = () => {
   const idle = searchResultData.status === IDLE;
   const loading = searchResultData.status === PENDING;
 
-  useEffect(()=>{
-    if(filterState !== initialState){
+  useEffect(() => {
+    if (filterState !== initialState) {
       fetchData();
     }
-  },[]);
+  }, []);
 
   const fetchData: FetchContactsFunction = () => {
     const payload = {
@@ -114,6 +119,12 @@ const ContactSearch: React.FC = () => {
   useEffect(() => {
     fetchNewData();
   }, [sortOrder, sortedBy]);
+
+  useEffect(() => {
+    if (location.state?.doSearch) {
+      fetchData();
+    }
+  }, []);
 
   return (
     <Wrapper>
