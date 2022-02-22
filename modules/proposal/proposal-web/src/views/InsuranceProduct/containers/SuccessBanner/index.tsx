@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import ClayAlert from "@clayui/alert";
 import { contactTypes } from "../../../../constants/contactConstants";
 import { useContactDispatch } from "../../../../redux/store";
-import { actions as addressInfoActions } from "../../../../redux/addressSlice";
+import { actions as addressInfoActions } from "../../../../redux/addressesSlice";
 import { actions as contactInfoActions } from "../../../../redux/contactInfoSlice";
 import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
 import { INSURANCE_PRODUCT } from "../../../../constants/languageKeys";
+import { Banner } from "./style";
 
 interface props {
   contact: {
@@ -78,7 +78,7 @@ const SuccessBanner: React.FC<props> = ({ contact }) => {
   }, []);
 
   if (showBanner) {
-    return <ClayAlert displayType="info">{message()}</ClayAlert>;
+    return <Banner>{message()}</Banner>;
   } else {
     return null;
   }
