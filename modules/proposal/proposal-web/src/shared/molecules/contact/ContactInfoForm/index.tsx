@@ -20,6 +20,7 @@ import {
 import { Country } from "../../../types/contact";
 import { createEmptyPhoneNumber } from "../../../util/commonFunctions";
 import { actions as contactInfoActions } from "../../../../redux/contactInfoSlice";
+import { StyledLabelFormGroup, StyledPhoneTypeFormGroup } from "./styles";
 
 type propsType = {
   countries: Array<Country>;
@@ -94,8 +95,9 @@ const ContactInfoForm: React.FC<propsType> = ({
   const addEmailAddressInput = () => {
     const currentEmails = [...emailAddresses];
 
+    const legalEntityUpdate = isLegalEntity() && isUpdate();
     const shouldAddInput =
-      currentEmails.length < MAXIMUM_EMAIL_ADDRESSES && !isLegalEntity();
+      currentEmails.length < MAXIMUM_EMAIL_ADDRESSES && !legalEntityUpdate;
 
     if (shouldAddInput) {
       currentEmails.push("");
@@ -106,8 +108,9 @@ const ContactInfoForm: React.FC<propsType> = ({
   const addMobilePhoneInput = () => {
     const currentMobilePhones = [...mobilePhones];
 
+    const legalEntityUpdate = isLegalEntity() && isUpdate();
     const shouldAddInput =
-      currentMobilePhones.length < MAXIMUM_MOBILE_PHONES && !isLegalEntity();
+      currentMobilePhones.length < MAXIMUM_MOBILE_PHONES && !legalEntityUpdate;
 
     if (shouldAddInput) {
       currentMobilePhones.push(createEmptyPhoneNumber(FIXED));
@@ -127,10 +130,6 @@ const ContactInfoForm: React.FC<propsType> = ({
       : CONTACT_INFO.OTHER_EMAIL_ADDRESSES_SUBTITLE;
   };
 
-  const shouldPadEmailLabel = (index: number) => {
-    return !(index === 0);
-  };
-
   const isLegalEntity = () => {
     return contactType === contactTypes.Legal_Entity;
   };
@@ -142,23 +141,22 @@ const ContactInfoForm: React.FC<propsType> = ({
   return (
     <Fragment>
       <FormSection title={CONTACT_INFO.TITLE}>
-        <ClayForm.Group>
+        <StyledLabelFormGroup>
           {emailAddresses.map((_email, index) => (
             <SubtitledLabel
               key={"email-label-" + index}
               title={getEmailLabelTitle(index)}
               subTitle={getEmailLabelSubtitle(index)}
-              padded={shouldPadEmailLabel(index)}
             />
           ))}
-        </ClayForm.Group>
+        </StyledLabelFormGroup>
         <Row>
           <ClayForm.Group>
             <EmailInputList
               emails={emailAddresses}
               handleChange={handleEmailChange}
               addEmailInput={addEmailAddressInput}
-              disableLink={isLegalEntity()}
+              disableLink={isLegalEntity() && isUpdate()}
               disableInput={isLegalEntity() && isUpdate()}
             />
           </ClayForm.Group>
@@ -166,11 +164,10 @@ const ContactInfoForm: React.FC<propsType> = ({
       </FormSection>
 
       <FormSection>
-        <ClayForm.Group>
+        <StyledPhoneTypeFormGroup>
           <SubtitledLabel
             title={CONTACT_INFO.MAIN_MOBILE}
             subTitle={CONTACT_INFO.MAIN_MOBILE_SUBTITLE}
-            padded={false}
           />
           {mobilePhones.slice(1).map((_phone, index) => (
             <PhoneTypeSelect
@@ -182,7 +179,7 @@ const ContactInfoForm: React.FC<propsType> = ({
               disableInput={isLegalEntity() && isUpdate()}
             />
           ))}
-        </ClayForm.Group>
+        </StyledPhoneTypeFormGroup>
         <Row>
           <ClayForm.Group>
             <PhoneInputList
