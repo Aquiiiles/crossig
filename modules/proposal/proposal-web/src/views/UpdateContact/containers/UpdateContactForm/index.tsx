@@ -246,7 +246,7 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
             <ContactButton
               handleClick={handleUpdateContact}
               label={UPDATE_CONTACT.SUBMIT_BUTTON}
-              disabled={!enabledButton && !isLegalEntity()}
+              disabled={!enabledButton || isLegalEntity()}
             />
             {!isLegalEntity() && (
               <ContactButton
