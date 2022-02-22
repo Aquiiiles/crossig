@@ -14,8 +14,4 @@ export const Wrapper = styled.div`
   .form-control:focus {
     color: ${props => props.theme.color.primary.links};
   }
-
-  & label {
-    padding-right: 3.5rem;
-  }
 `;

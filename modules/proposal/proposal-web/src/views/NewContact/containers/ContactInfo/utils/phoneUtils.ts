@@ -2,7 +2,7 @@ type RawPhoneObject = {
   areaCode: string;
   countryCode: string;
   phoneNumber: string;
-  type: string;
+  type: number;
 };
 
 type Phone = {
@@ -27,7 +27,7 @@ export const phoneObjectToData = (phones: RawPhoneObject[]): Phone[] => {
       isPreferredDeliveryAddress: index === 0,
       telephoneNumber: `${phone.areaCode}${phone.phoneNumber}`,
       telephoneType: {
-        id: phone.type === "fixed" ? 0 : 1,
+        id: phone.type,
       },
     };
   });

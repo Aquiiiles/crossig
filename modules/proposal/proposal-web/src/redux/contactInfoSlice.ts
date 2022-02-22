@@ -35,7 +35,7 @@ const ContactInfo = createSlice({
       newState[index].phoneNumber = action.payload[1];
       state.mobilePhones = newState;
     },
-    setType(state, action: PayloadAction<[number, string]>) {
+    setType(state, action: PayloadAction<[number, number]>) {
       const index = action.payload[0];
       const newState = [...state.mobilePhones];
       newState[index].type = action.payload[1];

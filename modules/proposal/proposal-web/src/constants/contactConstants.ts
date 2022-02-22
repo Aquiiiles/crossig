@@ -41,5 +41,5 @@ export const MINIMUN_LENGTH_FOR_AUTOCOMPLETE_INPUT = 2;
 export const MAXIMUM_EMAIL_ADDRESSES = 4;
 export const MAXIMUM_MOBILE_PHONES = 4;
 
-export const FIXED = "fixed";
-export const MOBILE = "mobile";
+export const FIXED = 1;
+export const MOBILE = 2;

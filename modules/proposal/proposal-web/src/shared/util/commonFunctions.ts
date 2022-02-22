@@ -1,7 +1,7 @@
 import { PhoneNumber } from "../types/contact";
 import { countryCodes } from "../../constants/defaultCountryConfiguration";
 
-export const createEmptyPhoneNumber = (type: string) => {
+export const createEmptyPhoneNumber = (type: number) => {
   return {
     type: type,
     areaCode: "",
