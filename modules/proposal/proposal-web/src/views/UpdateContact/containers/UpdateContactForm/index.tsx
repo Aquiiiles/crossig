@@ -238,7 +238,7 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
           <ClayButton.Group spaced>
             <ContactButton
               handleClick={() => {
-                return;
+                history.push("/product");
               }}
               label={UPDATE_CONTACT.USE_CONTACT}
               disabled={false}

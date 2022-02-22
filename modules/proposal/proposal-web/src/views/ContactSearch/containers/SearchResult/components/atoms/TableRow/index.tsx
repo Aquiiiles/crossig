@@ -50,7 +50,7 @@ const TableRow: React.FC<props> = ({ contact }) => {
       style={{ position: "relative" }}
       onMouseLeave={() => setShowButtons(false)}
       onMouseEnter={() => setShowButtons(true)}
-      onDoubleClick={console.info}
+      onDoubleClick={() => history.push("/product")}
     >
       <ClayTable.Cell headingTitle>
         <MissingInformationIcon
@@ -81,7 +81,10 @@ const TableRow: React.FC<props> = ({ contact }) => {
           >
             {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
           </ClayButton>
-          <ClayButton displayType="primary">
+          <ClayButton
+            displayType="primary"
+            onClick={() => history.push("/product")}
+          >
             {CONTACT_SEARCH_TABLE_USE_CONTACT}
           </ClayButton>
         </HoveringButtonGroup>
