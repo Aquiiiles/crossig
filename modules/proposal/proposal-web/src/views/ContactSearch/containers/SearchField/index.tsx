@@ -143,19 +143,21 @@ const SearchField: React.FC<props> = ({
           </ClayInput.Group>
           <br></br>
           <ClayButton.Group>
-            <ClayButton
-              displayType="primary"
-              disabled={disabled}
-              onClick={() => {
-                if (currentPage === 1) {
-                  fetchData();
-                } else {
-                  goToPage(1);
-                }
-              }}
-            >
-              {CONTACT_SEARCH_ACTION_BUTTON}
-            </ClayButton>
+            <span>
+              <ClayButton
+                displayType="primary"
+                disabled={disabled}
+                onClick={() => {
+                  if (currentPage === 1) {
+                    fetchData();
+                  } else {
+                    goToPage(1);
+                  }
+                }}
+              >
+                {CONTACT_SEARCH_ACTION_BUTTON}
+              </ClayButton>
+            </span>
             <ClayButton
               displayType="link"
               ref={triggerElementRef}
