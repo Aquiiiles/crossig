@@ -54,7 +54,7 @@ const BasicInfo: React.FC<propsType> = ({
     foreignerStatus,
     companyName,
     subsidiaryNumber,
-  } = useContactSelector(state => state.basicInfo);
+  } = useContactSelector((state) => state.basicInfo);
   const {
     setContactType,
     setFirstName,
@@ -84,7 +84,7 @@ const BasicInfo: React.FC<propsType> = ({
 
   const [dayRef, dayError, hasDayError] = useFieldValidation<HTMLInputElement>(
     React.useCallback(
-      value => validateDay(value, dateMonth, dateYear),
+      (value) => validateDay(value, dateMonth, dateYear),
 
       [dateYear, dateMonth]
     )
@@ -115,7 +115,7 @@ const BasicInfo: React.FC<propsType> = ({
             dispatch(setContactType(value), CREATE_NEW_CONTACT.TYPE)
           }
           options={contactTypeOptions}
-          disabled={isLegalEntity() && isUpdate()}
+          disabled={isUpdate()}
         ></ClaySelectWithOption>
       </ClayForm.Group>
       {showIndividualFields ? (
