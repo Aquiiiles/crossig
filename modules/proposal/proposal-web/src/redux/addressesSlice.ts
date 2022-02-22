@@ -68,6 +68,7 @@ const addressSlice = createSlice({
       state.cityName = initialState.cityName;
       state.country = initialState.country;
       state.dispatchCity = initialState.dispatchCity;
+      state.dispatchCityName = initialState.dispatchCityName;
       state.dispatchCountry = initialState.dispatchCountry;
       state.dispatchPostalCode = initialState.dispatchPostalCode;
       state.isSameAddress = initialState.isSameAddress;
