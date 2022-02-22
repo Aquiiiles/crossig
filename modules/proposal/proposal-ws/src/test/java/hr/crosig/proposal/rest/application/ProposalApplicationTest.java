@@ -4,14 +4,13 @@ import hr.crosig.proposal.dto.InsuredRoleDTO;
 import hr.crosig.proposal.rest.application.utils.TestConstants;
 import hr.crosig.proposal.service.InsuredRoleLocalService;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.reflect.Whitebox;
 
 import javax.ws.rs.core.Response;
 import java.util.Collections;
@@ -25,37 +24,24 @@ import java.util.Collections;
 @RunWith(PowerMockRunner.class)
 public class ProposalApplicationTest {
 
-    @Before
-    public void setUp() {
-        _injectMocks();
-    }
-
-    private void _injectMocks() {
-        Whitebox.setInternalState(
-                _proposalApplication, "_insuredRoleLocalService", _insuredRoleLocalService);
-    }
-
     @Test
     public void getInsuredRoles_ApiSuccess() {
 
-        Mockito.when(_insuredRoleLocalService.getAllInsuredRole()).thenReturn(Collections.singletonList(createInsuredRoleMock()));
+        Mockito.when(_insuredRoleLocalService.getAllInsuredRole()).thenReturn(Collections.singletonList(_insuredRoleDTO));
 
         Response response = _proposalApplication.getInsuredRoles();
 
         Assert.assertEquals(
                 TestConstants.API_SUCCESS_STATUS_CODE, response.getStatus());
-        Assert.assertEquals(Collections.singletonList(createInsuredRoleMock()), response.getEntity());
+        Assert.assertEquals(Collections.singletonList(_insuredRoleDTO), response.getEntity());
     }
 
-    private InsuredRoleDTO createInsuredRoleMock(){
-        InsuredRoleDTO insuredRoleDTO = new InsuredRoleDTO(
-                1,"titleTest","nameTest","externalId"
-        );
-        return insuredRoleDTO;
-    }
-
+    @InjectMocks
     private final ProposalApplication _proposalApplication =
             new ProposalApplication();
+
+    @Mock
+    private InsuredRoleDTO _insuredRoleDTO;
 
     @Mock
     private InsuredRoleLocalService _insuredRoleLocalService;
