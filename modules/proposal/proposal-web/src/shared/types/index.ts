@@ -5,7 +5,7 @@ export interface Country {
 }
 
 export interface PhoneNumber {
-  type: string;
+  type: number;
   countryCode: string;
   areaCode: string;
   phoneNumber: string;

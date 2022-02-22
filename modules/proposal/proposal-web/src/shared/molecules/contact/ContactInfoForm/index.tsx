@@ -20,7 +20,6 @@ import {
 import { Country } from "../../../types/contact";
 import { createEmptyPhoneNumber } from "../../../util/commonFunctions";
 import { actions as contactInfoActions } from "../../../../redux/contactInfoSlice";
-import { useHistory } from "react-router-dom";
 
 type propsType = {
   countries: Array<Country>;
@@ -35,7 +34,6 @@ const ContactInfoForm: React.FC<propsType> = ({
   operation,
   setUpdatedValues,
 }: propsType) => {
-  const history = useHistory();
   const dispatcher = useContactDispatch();
 
   const dispatch = (action: any, updatedValue: string) => {
@@ -62,7 +60,7 @@ const ContactInfoForm: React.FC<propsType> = ({
     const currentEmails = [...emailAddresses];
     currentEmails[index] = e.target.value.toString();
 
-    dispatch(setEmailAddresses(currentEmails),CONTACT_INFO.EMAIL_ADDRESS);
+    dispatch(setEmailAddresses(currentEmails), CONTACT_INFO.EMAIL_ADDRESS);
   };
 
   const handlePhoneChange = (index: number, e: any, property: string) => {
@@ -70,24 +68,24 @@ const ContactInfoForm: React.FC<propsType> = ({
 
     switch (property) {
       case "areaCode": {
-        dispatch(setAreaCode([index, value]),CONTACT_INFO.PHONE_NUMBER);
+        dispatch(setAreaCode([index, value]), CONTACT_INFO.PHONE_NUMBER);
         break;
       }
       case "countryCode": {
-        dispatch(setCountryCode([index, value]),CONTACT_INFO.PHONE_NUMBER);
+        dispatch(setCountryCode([index, value]), CONTACT_INFO.PHONE_NUMBER);
 
         if (value === "385") {
-          dispatch(setAreaCode([index, ""]),CONTACT_INFO.PHONE_NUMBER);
+          dispatch(setAreaCode([index, ""]), CONTACT_INFO.PHONE_NUMBER);
         }
 
         break;
       }
       case "phoneNumber": {
-        dispatch(setPhoneNumber([index, value]),CONTACT_INFO.PHONE_NUMBER);
+        dispatch(setPhoneNumber([index, value]), CONTACT_INFO.PHONE_NUMBER);
         break;
       }
       case "type": {
-        dispatch(setType([index, value]),CONTACT_INFO.PHONE_NUMBER);
+        dispatch(setType([index, value]), CONTACT_INFO.PHONE_NUMBER);
         break;
       }
     }
@@ -101,7 +99,7 @@ const ContactInfoForm: React.FC<propsType> = ({
 
     if (shouldAddInput) {
       currentEmails.push("");
-      dispatch(setEmailAddresses(currentEmails),CONTACT_INFO.EMAIL_ADDRESS);
+      dispatch(setEmailAddresses(currentEmails), CONTACT_INFO.EMAIL_ADDRESS);
     }
   };
 
@@ -113,7 +111,7 @@ const ContactInfoForm: React.FC<propsType> = ({
 
     if (shouldAddInput) {
       currentMobilePhones.push(createEmptyPhoneNumber(FIXED));
-      dispatch(setMobilePhones(currentMobilePhones),CONTACT_INFO.PHONE_NUMBER);
+      dispatch(setMobilePhones(currentMobilePhones), CONTACT_INFO.PHONE_NUMBER);
     }
   };
 

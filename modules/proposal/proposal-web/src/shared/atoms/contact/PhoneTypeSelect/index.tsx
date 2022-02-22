@@ -31,13 +31,13 @@ const PhoneTypeSelect: React.FC<props> = (props) => {
       >
         <ClaySelect.Option
           selected
-          key={FIXED + "-" + props.index}
+          key={"fixed" + "-" + props.index}
           label={CONTACT_INFO.OTHER_MOBILE_PHONES_FIXED}
           value={FIXED}
         />
         <ClaySelect.Option
           selected
-          key={MOBILE + "-" + props.index}
+          key={"mobile" + "-" + props.index}
           label={CONTACT_INFO.OTHER_MOBILE_PHONES_MOBILE}
           value={MOBILE}
         />
