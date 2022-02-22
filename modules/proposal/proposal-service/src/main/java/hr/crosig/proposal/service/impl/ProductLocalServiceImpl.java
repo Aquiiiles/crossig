@@ -86,11 +86,22 @@ public class ProductLocalServiceImpl extends ProductLocalServiceBaseImpl {
 
 		return list.stream(
 		).map(
-			productRole -> mapToProductDTO(
-				productLocalService.fetchProduct(productRole.getProductId()))
+			productRole -> getProductIfActive(productRole.getProductId())
+		).filter(
+			product -> !Objects.isNull(product)
 		).collect(
 			Collectors.toList()
 		);
+	}
+
+	private ProductDTO getProductIfActive(long productId) {
+		Product product = productLocalService.fetchProduct(productId);
+
+		if (product.isActive()) {
+			return mapToProductDTO(product);
+		}
+
+		return null;
 	}
 
 	private ProductDTO mapToProductDTO(Product product) {
