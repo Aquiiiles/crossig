@@ -192,22 +192,22 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
           }}
           disabled={false}
         />
-        {!isLegalEntity() && (
-          <ClayButton.Group spaced>
-            <ContactButton
-              handleClick={() => {
-                return;
-              }}
-              label={UPDATE_CONTACT.USE_CONTACT}
-              disabled={isLegalEntity()}
-            />
+        <ClayButton.Group spaced>
+          <ContactButton
+            handleClick={() => {
+              return;
+            }}
+            label={UPDATE_CONTACT.USE_CONTACT}
+            disabled={false}
+          />
+          {!isLegalEntity() && (
             <ContactButton
               handleClick={handleUpdateContact}
               label={UPDATE_CONTACT.SUBMIT_BUTTON}
               disabled={isLegalEntity()}
             />
-          </ClayButton.Group>
-        )}
+          )}
+        </ClayButton.Group>
 
         {isLegalEntity() ? (
           <ClayButton.Group spaced>
