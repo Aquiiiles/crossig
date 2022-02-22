@@ -46,7 +46,8 @@ const SuccessBanner: React.FC<props> = ({ contact }) => {
       optionalMessage = `${INSURANCE_PRODUCT.BANNER.VERIFICATION_LINK_HAS_BEEN_SENT}`;
 
       if (contact.mainEmail && contact.mainMobile) {
-        optionalMessage = `${optionalMessage} ${contact.mainEmail} ${INSURANCE_PRODUCT.BANNER.AND} ${contact.mainMobile}.`;
+        const phone = `+${contact.mainMobile.countryCode} ${contact.mainMobile.areaCode} ${contact.mainMobile.number}`;
+        optionalMessage = `${optionalMessage} ${contact.mainEmail} ${INSURANCE_PRODUCT.BANNER.AND} ${phone}.`;
       } else if (contact.mainEmail) {
         optionalMessage = `${optionalMessage} ${contact.mainEmail}.`;
       } else if (contact.mainMobile) {
