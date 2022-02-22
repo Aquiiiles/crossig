@@ -209,7 +209,7 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
           </ClayButton.Group>
         )}
 
-        {isLegalEntity() && (
+        {isLegalEntity() ? (
           <ClayButton.Group spaced>
             <span className="link-small">
               {UPDATE_CONTACT.EDIT_LEGAL_ENTITY}
@@ -227,6 +227,18 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
 
             <span className="link-small">
               {UPDATE_CONTACT.BACKOFFICE_WILL_GET_NOTIFIED}
+            </span>
+          </ClayButton.Group>
+        ) : (
+          <ClayButton.Group spaced>
+            <span>
+              <LinkWrapper
+                title={UPDATE_CONTACT.CREATE_A_TASK}
+                handleClick={() => {
+                  return;
+                }}
+                disabled={false}
+              />
             </span>
           </ClayButton.Group>
         )}
