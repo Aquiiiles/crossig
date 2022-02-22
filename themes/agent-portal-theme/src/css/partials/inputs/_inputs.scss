@@ -43,6 +43,47 @@
         pointer-events: none;
     }
 
+    input[type=number] {
+        font-size: 1.125rem;
+        font-family: CrosigRavniBrojevi-Light;
+        height: 3.4375rem;
+        border-radius: 0.75rem;
+        padding: 0.75rem 1rem;
+        border: 0.13rem solid $color-neutral-grey-border;
+        background: $color-neutral-white;
+        color: $color-primary-inputs;
+        justify-content: center;
+        display: flex;
+        flex-direction: row;
+        margin: 0.25rem 0rem;
+
+        &.error {
+            border-color: $color-feedback-error;
+        }
+
+        &:hover {
+            opacity: 0.5;
+        }
+
+        &.disabled {
+            background: $color-neutral-background;
+            color: $color-neutral-grey-text;
+        }
+    }
+
+    input[type=number]:hover {
+        box-shadow: none!important;
+    }
+
+    input[type=number]:focus {
+        box-shadow: none!important;
+        opacity: 1!important;
+        border-color: $color-action-active;
+        color: $color-primary-inputs;
+        pointer-events: none;
+    }
+    
+
     textarea {
         font-size: 1.125rem;
         font-family: Crosig-Light;
