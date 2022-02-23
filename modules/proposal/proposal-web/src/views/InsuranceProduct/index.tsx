@@ -77,9 +77,6 @@ const InsuranceProduct: React.FC = () => {
           <Link to={{ pathname: "/", state: { doSearch: true } }}>
             {INSURANCE_PRODUCT.LINK_BACK}
           </Link>
-          <ClayButton displayType="primary" disabled>
-            {INSURANCE_PRODUCT.BUTTON_CONTINUE}
-          </ClayButton>
         </LinkWrapper>
       </Content>
     </Wrapper>
