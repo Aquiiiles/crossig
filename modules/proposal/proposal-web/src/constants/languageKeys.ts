@@ -65,6 +65,7 @@ export const CREATE_NEW_CONTACT = {
     CREATE_LEGAL_ENTITY: Liferay.Language.get('create-new-contact-create-legal-entity'),
     SUBMIT_BUTTON: Liferay.Language.get('create-new-contact-submit-button'),
     BACKOFFICE_NOTIFICATION: Liferay.Language.get('create-new-contact-backoffice-notification'),
+    CREATE_CONTACT_FAILURE: Liferay.Language.get('create-new-contact-create-contact-failure'),
     FIELD: {
         CONTACT_TYPE: {
             INDIVIDUAL: Liferay.Language.get('create-new-contact-field-contact-type-individual'),
