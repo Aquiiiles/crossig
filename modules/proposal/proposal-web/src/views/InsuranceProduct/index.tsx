@@ -6,20 +6,18 @@ import productIcon from "../../assets/productIcon.png";
 import ClayButton from "@clayui/button";
 import { Link } from "react-router-dom";
 import useProductState from "./hooks/useProductState";
-import { useContactSelector } from "../../redux/store";
-import useQueryParams from "../../shared/hooks/useQueryParams";
 import SuccessBanner from "./containers/SuccessBanner";
 import { INSURANCE_PRODUCT } from "../../constants/languageKeys";
 
 const InsuranceProduct: React.FC = () => {
-  const [products] = useProductState();
-  const query = useQueryParams();
-  const {
-    basicInfo: { firstName, lastName, companyName, contactType },
-    contactInfo: { emailAddresses, mobilePhones },
-  } = useContactSelector(state => state);
-  const hasEmailData = emailAddresses[0] !== "";
-  const hasPhoneData = mobilePhones[0].phoneNumber !== "";
+  const [
+    products,
+    query,
+    { firstName, lastName, companyName, contactType },
+    { emailAddresses, mobilePhones },
+    hasEmailData,
+    hasPhoneData,
+  ] = useProductState();
 
   return (
     <Wrapper>
@@ -49,20 +47,31 @@ const InsuranceProduct: React.FC = () => {
           {INSURANCE_PRODUCT.SUBTITLE}
         </p>
         <Products>
-          {products.map(product => (
-            <ProductCard
-              key={product.productId}
-              product={{
-                ...product,
-                icon: (
-                  <img src={productIcon} alt={`Icon for ${product.name}`} />
-                ),
-                description:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, eaque?",
-              }}
-              onProductSelection={product => true}
-            />
-          ))}
+          {products.map((category, categoryIndex) =>
+            category.map((product, productIndex) => (
+              <>
+                {productIndex === 0 ? (
+                  <h6
+                    style={
+                      categoryIndex > 0 ? { marginTop: "2rem" } : undefined
+                    }
+                  >
+                    {product.category}
+                  </h6>
+                ) : null}
+                <ProductCard
+                  key={product.productId}
+                  product={{
+                    ...product,
+                    icon: (
+                      <img src={productIcon} alt={`Icon for ${product.name}`} />
+                    ),
+                  }}
+                  onProductSelection={(product) => true}
+                />
+              </>
+            ))
+          )}
         </Products>
         <LinkWrapper>
           <Link to={{ pathname: "/", state: { doSearch: true } }}>

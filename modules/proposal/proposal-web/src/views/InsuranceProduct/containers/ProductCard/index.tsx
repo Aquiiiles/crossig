@@ -6,8 +6,6 @@ import { INSURANCE_PRODUCT } from "../../../../constants/languageKeys";
 
 type ProductProps = Product & {
   icon: React.ReactNode;
-  description: string;
-  disabled?: boolean;
 };
 
 interface props {
@@ -23,11 +21,11 @@ const ProductCard: React.FC<props> = ({ product, onProductSelection }) => {
         <h6 className="h10">{product.name}</h6>
         <p>{product.description}</p>
       </ProductInfoWrapper>
-      {product.disabled ? null : (
+      {product.active ? (
         <ClayButton onClick={() => onProductSelection(product)}>
           {INSURANCE_PRODUCT.PRODUCT.SELECT}
         </ClayButton>
-      )}
+      ) : null}
     </Wrapper>
   );
 };
