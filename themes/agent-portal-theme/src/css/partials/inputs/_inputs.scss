@@ -80,7 +80,7 @@
         border-color: $color-action-active;
         color: $color-primary-inputs;
     }
-    
+
 
     textarea {
         font-size: 1.125rem;
@@ -159,6 +159,13 @@
         color: $color-neutral-black-label;
         opacity: 0.8;
         margin-bottom: 0;
+
+        &.required:after {
+            content: "*";
+            position: relative;
+            left: 5px;
+            color: $color-feedback-error;
+        }
     }
 
     .form-description-text {
@@ -166,7 +173,7 @@
         font-size: 0.8125rem;
         color: $color-neutral-grey-text;
     }
-    
+
     .form-feedback-text {
         font-family: CrosigSans-Regular;
         font-size: 0.8125rem;
@@ -181,7 +188,7 @@
             color: $color-feedback-error;
         }
     }
-    
+
     .form-mandatory-field {
         font-family: CrosigSans-Regular;
         font-size: 0.8125rem;
@@ -286,4 +293,4 @@
     }
 }
 
-    
+
