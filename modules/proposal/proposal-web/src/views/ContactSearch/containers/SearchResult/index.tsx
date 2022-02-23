@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Table from "./components/organisms/Table";
 import Pagination from "./components/molecules/Pagination";
-import { SearchResultsHeader, Wrapper, Error } from "./styles";
+import { SearchResultsHeader, Wrapper } from "./styles";
 import ClayForm, { ClaySelect, ClaySelectWithOption } from "@clayui/form";
 import ClayDropDown from "@clayui/drop-down";
 import ClayLoadingIndicator from "@clayui/loading-indicator";
@@ -22,7 +22,6 @@ import { actions } from "../../../../redux/searchFilterSlice";
 import * as constants from "./constants/searchResult";
 
 import { providedDataType, responseType } from "./types/searchResult";
-import { FetchContactsFunction } from "../../types/fetchData";
 
 interface props {
   data: Array<any>;
@@ -83,14 +82,33 @@ const SearchResult: React.FC<props> = ({
   }, [showCountryDropdown]);
 
   useEffect(() => {
-    setFilteredData(
-      selectedContactType
-        ? formatedData.filter(
-            (item) => item[constants.TYPE_KEY] === selectedContactType
-          )
-        : formatedData
-    );
-  }, [selectedContactType, data]);
+    setFilteredData(formatedData.filter(getDataPredicate()));
+  }, [selectedCity, selectedContactType, data]);
+
+  const getDataPredicate = () => {
+    let predicate = (_item: responseType) => true;
+
+    if (selectedContactType) {
+      predicate = (item: responseType) =>
+        item[constants.TYPE_KEY] === selectedContactType;
+    }
+
+    if (selectedCity) {
+      predicate = (item: responseType) =>
+        item[constants.CITY_KEY] === selectedCity;
+    }
+
+    if (selectedContactType && selectedCity) {
+      predicate = (item: responseType) => {
+        return (
+          item[constants.TYPE_KEY] === selectedContactType &&
+          item[constants.CITY_KEY] === selectedCity
+        );
+      };
+    }
+
+    return predicate;
+  };
 
   const foundContacts = filteredData.length > 0;
 

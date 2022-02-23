@@ -10,8 +10,6 @@ import {
 
 import * as types from "../../../types/searchResult";
 import * as constants from "../../../constants/searchResult";
-import { useFetchData } from "../../../../../../../api/hooks/useFetchData";
-import { CONTACT_URL } from "../../../../../../../api/constants/routes";
 import { useHistory } from "react-router-dom";
 
 interface props {

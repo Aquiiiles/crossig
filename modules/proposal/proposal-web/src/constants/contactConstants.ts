@@ -28,11 +28,11 @@ export const filterTypeOptions = [
   },
   {
     label: CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.SELF_EMPLOYED,
-    value: "Legal Entity",
+    value: "Self Employed",
   },
   {
     label: CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.LEGAL_ENTITY,
-    value: "Self Employed",
+    value: "Legal Entity",
   },
 ];
 
