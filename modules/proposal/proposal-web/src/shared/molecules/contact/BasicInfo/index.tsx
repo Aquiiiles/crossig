@@ -106,7 +106,9 @@ const BasicInfo: React.FC<propsType> = ({
   return (
     <FormSection title={CREATE_NEW_CONTACT.BASIC_INFO_TITLE}>
       <ClayForm.Group>
-        <label htmlFor="contactTypeInput">{CREATE_NEW_CONTACT.TYPE}</label>
+        <label className="required" htmlFor="contactTypeInput">
+          {CREATE_NEW_CONTACT.TYPE}
+        </label>
         <ClaySelectWithOption
           id="contactTypeInput"
           required
@@ -123,7 +125,10 @@ const BasicInfo: React.FC<propsType> = ({
           <ClayForm.Group>
             <ClayInput.Group>
               <ClayInput.GroupItem>
-                <label htmlFor="firstNameInput">
+                <label
+                  className={showIndividualFields ? "required" : ""}
+                  htmlFor="firstNameInput"
+                >
                   {CREATE_NEW_CONTACT.FIELD.FIRST_NAME}
                 </label>
                 <ClayInput
@@ -142,7 +147,10 @@ const BasicInfo: React.FC<propsType> = ({
               </ClayInput.GroupItem>
 
               <ClayInput.GroupItem>
-                <label htmlFor="lastNameInput">
+                <label
+                  className={showIndividualFields ? "required" : ""}
+                  htmlFor="lastNameInput"
+                >
                   {CREATE_NEW_CONTACT.FIELD.LAST_NAME}
                 </label>
                 <ClayInput
@@ -164,7 +172,10 @@ const BasicInfo: React.FC<propsType> = ({
       ) : (
         <Row>
           <ClayForm.Group>
-            <label htmlFor="companyName">
+            <label
+              className={!showIndividualFields ? "required" : ""}
+              htmlFor="companyName"
+            >
               {CREATE_NEW_CONTACT.FIELD.COMPANY_NAME}
             </label>
             <ClayInput
@@ -194,7 +205,10 @@ const BasicInfo: React.FC<propsType> = ({
                     : ""
                 }
               >
-                <label htmlFor="birthDateDay">
+                <label
+                  className={showIndividualFields ? "required" : ""}
+                  htmlFor="birthDateDay"
+                >
                   {CREATE_NEW_CONTACT.FIELD.BIRTH_DATE}
                 </label>
                 <div className="birth-date-group">
@@ -245,7 +259,12 @@ const BasicInfo: React.FC<propsType> = ({
               </ClayInput.GroupItem>
             ) : null}
             <ClayInput.GroupItem className={hasOibError ? "has-error" : ""}>
-              <label htmlFor="oibInput">{CREATE_NEW_CONTACT.FIELD.OIB}</label>
+              <label
+                className={foreignerStatus ? "" : "required"}
+                htmlFor="oibInput"
+              >
+                {CREATE_NEW_CONTACT.FIELD.OIB}
+              </label>
               <ClayInput
                 required={foreignerStatus ? false : true}
                 id="oibInput"
@@ -269,7 +288,10 @@ const BasicInfo: React.FC<propsType> = ({
       {!showIndividualFields ? (
         <Row half>
           <ClayForm.Group>
-            <label htmlFor="subsidiaryNumber">
+            <label
+              className={!showIndividualFields ? "required" : ""}
+              htmlFor="subsidiaryNumber"
+            >
               {CREATE_NEW_CONTACT.FIELD.SUBSIDIARY_NUMBER}
             </label>
             <ClayInput

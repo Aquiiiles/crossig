@@ -104,7 +104,9 @@ const Addresses: React.FC<propsType> = ({
 
         <Row half>
           <ClayForm.Group>
-            <label htmlFor="country">{CREATE_NEW_CONTACT.FIELD.COUNTRY}</label>
+            <label className="required" htmlFor="country">
+              {CREATE_NEW_CONTACT.FIELD.COUNTRY}
+            </label>
             <ClaySelectWithOption
               id="country"
               options={countries}
@@ -141,6 +143,7 @@ const Addresses: React.FC<propsType> = ({
                   isCity
                   disabled={isLegalEntity() && isUpdate()}
                   selectedValue={cityName}
+                  required
                 />
               </ClayInput.GroupItem>
 
@@ -182,10 +185,11 @@ const Addresses: React.FC<propsType> = ({
               }
               isCity={false}
               disabled={!postalCode || (isLegalEntity() && isUpdate())}
+              required
             />
           ) : (
             <>
-              <label htmlFor="street-address-input">
+              <label className="required" htmlFor="street-address-input">
                 {CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS}
               </label>
 
@@ -200,13 +204,14 @@ const Addresses: React.FC<propsType> = ({
                 }
                 value={street}
                 disabled={isLegalEntity() && isUpdate()}
+                required
               />
             </>
           )}
         </ClayForm.Group>
         <Row half>
           <ClayForm.Group>
-            <label htmlFor="house-number">
+            <label className="required" htmlFor="house-number">
               {CREATE_NEW_CONTACT.FIELD.HOUSE_NUMBER}
             </label>
             <ClayInput
@@ -220,6 +225,7 @@ const Addresses: React.FC<propsType> = ({
               }
               value={houseNumber}
               disabled={isLegalEntity() && isUpdate()}
+              required
             />
           </ClayForm.Group>
         </Row>
@@ -242,7 +248,7 @@ const Addresses: React.FC<propsType> = ({
           <>
             <Row half>
               <ClayForm.Group>
-                <label htmlFor="dispatch-country">
+                <label className="required" htmlFor="dispatch-country">
                   {CREATE_NEW_CONTACT.FIELD.COUNTRY}
                 </label>
                 <ClaySelectWithOption
@@ -284,6 +290,7 @@ const Addresses: React.FC<propsType> = ({
                       isCity
                       disabled={isLegalEntity() && isUpdate()}
                       selectedValue={dispatchCityName}
+                      required
                     />
                   </ClayInput.GroupItem>
 
@@ -329,6 +336,7 @@ const Addresses: React.FC<propsType> = ({
                   disabled={
                     !dispatchPostalCode || (isLegalEntity() && isUpdate())
                   }
+                  required
                 />
               ) : (
                 <>
@@ -354,7 +362,7 @@ const Addresses: React.FC<propsType> = ({
 
             <Row half>
               <ClayForm.Group>
-                <label htmlFor="dispatch-house-number">
+                <label className="required" htmlFor="dispatch-house-number">
                   {CREATE_NEW_CONTACT.FIELD.HOUSE_NUMBER}
                 </label>
                 <ClayInput
@@ -368,6 +376,7 @@ const Addresses: React.FC<propsType> = ({
                   }
                   value={dispatchHouseNumber}
                   disabled={isLegalEntity() && isUpdate()}
+                  required
                 />
               </ClayForm.Group>
             </Row>
