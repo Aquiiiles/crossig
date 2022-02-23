@@ -22,7 +22,6 @@ import { actions } from "../../../../redux/searchFilterSlice";
 import * as constants from "./constants/searchResult";
 
 import { providedDataType, responseType } from "./types/searchResult";
-import { FetchContactsFunction } from "../../types/fetchData";
 
 interface props {
   data: Array<any>;
