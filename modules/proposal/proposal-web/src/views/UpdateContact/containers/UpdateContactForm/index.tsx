@@ -83,14 +83,6 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
     return contactType === contactTypes.Legal_Entity;
   };
 
-  useEffect(() => {
-    if (showModal) {
-      setTimeout(() => {
-        setShowModal(false);
-      }, 3000);
-    }
-  }, [showModal]);
-
   const handleUpdateContact = () => {
     const response = API.put(CONTACT_URL, createContactDTO());
     window.scrollTo(0, 0);
@@ -144,19 +136,26 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
 
   return (
     <Wrapper id="update-contact-form-main-container">
-      {showModal && isUpdateSuccessful && (
-        <Modal
-          title={UPDATE_CONTACT.TITLE}
-          body={successMessage()}
-          lastButtonTitle={UPDATE_CONTACT.USE_CONTACT}
-          lastButtonAction={() => {
-            return;
-          }}
-        />
-      )}
-      {showModal && !isUpdateSuccessful && (
-        <Modal title={UPDATE_CONTACT.TITLE} body={UPDATE_CONTACT.FAILURE} />
-      )}
+      <Modal
+        visible={showModal && isUpdateSuccessful}
+        onClose={() => setShowModal(false)}
+        title={UPDATE_CONTACT.TITLE}
+        body={successMessage()}
+        lastButtonTitle={UPDATE_CONTACT.USE_CONTACT}
+        lastButtonAction={() => {
+          return;
+        }}
+        timeOut={5000}
+      />
+
+      <Modal
+        visible={showModal && !isUpdateSuccessful}
+        onClose={() => setShowModal(false)}
+        title={UPDATE_CONTACT.TITLE}
+        body={UPDATE_CONTACT.FAILURE}
+        timeOut={5000}
+      />
+
       <h3>{UPDATE_CONTACT.TITLE}</h3>
       <p className="subtitle">{UPDATE_CONTACT.SUBTITLE}</p>
       <BasicInfo
