@@ -29,6 +29,7 @@ import org.osgi.service.component.annotations.Reference;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -71,24 +72,31 @@ public class ProductLocalServiceImpl extends ProductLocalServiceBaseImpl {
 	public List<ProductDTO> getProductsByUserId(long userId) {
 		List<Role> userRoles = _roleLocalService.getUserRoles(userId);
 
-		return userRoles.stream(
+		Set<Long> productIds = userRoles.stream(
 		).map(
-			role -> getProductsByRoleId(role.getRoleId())
+			userRole -> getProductIdsByRoleId(userRole.getRoleId())
 		).flatMap(
 			Collection::stream
+		).collect(
+			Collectors.toSet()
+		);
+
+		return productIds.stream(
+		).map(
+			this::getProductIfActive
+		).filter(
+			product -> !Objects.isNull(product)
 		).collect(
 			Collectors.toList()
 		);
 	}
 
-	protected List<ProductDTO> getProductsByRoleId(long roleId) {
+	protected List<Long> getProductIdsByRoleId(long roleId) {
 		List<ProductRole> list = productRolePersistence.findByRoleId(roleId);
 
 		return list.stream(
 		).map(
-			productRole -> getProductIfActive(productRole.getProductId())
-		).filter(
-			product -> !Objects.isNull(product)
+			ProductRole::getProductId
 		).collect(
 			Collectors.toList()
 		);
