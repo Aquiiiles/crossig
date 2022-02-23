@@ -1,6 +1,6 @@
 import ClayButton from "@clayui/button";
 import ClayModal, { useModal } from "@clayui/modal";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import spritemap from "@clayui/css/lib/images/icons/icons.svg";
 
 type propsType = {
@@ -8,13 +8,37 @@ type propsType = {
   body: React.ReactNode;
   lastButtonTitle?: string;
   lastButtonAction?: () => void;
+  timeOut?: number;
+  visible: boolean;
+  onClose: () => void;
 };
 
 const Modal: React.FC<propsType> = (props: propsType) => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const { observer, onClose } = useModal({
-    onClose: () => setVisible(false),
+    onClose: () => { setVisible(false), props.onClose() },
   });
+
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    if (visible && props.timeOut) {
+      timeout = setTimeout(() => {
+        onClose();
+      }, props.timeOut);
+    }
+    return () => {
+      timeout && clearTimeout(timeout);
+    }
+  }, [visible,props.timeOut]);
+
+  useEffect(() => {
+    if (props.visible) {
+      setVisible(true);
+    }else{
+      setVisible(false);
+    }
+  }, [props.visible]);
 
   const buttonAction = () => {
     if (props.lastButtonAction) {
