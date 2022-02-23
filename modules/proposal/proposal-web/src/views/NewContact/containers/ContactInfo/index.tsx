@@ -26,24 +26,26 @@ import { useFetchData } from "../../../../api/hooks/useFetchData";
 import { RESOLVED } from "../../../../api/reducers/constants";
 import LinkWrapper from "../../../../shared/atoms/contact/LinkWrapper";
 import ContactButton from "../../../../shared/atoms/contact/ContactButton";
-import { useHistory } from "react-router-dom";
 import { actions as contactInfoActions } from "../../../../redux/contactInfoSlice";
 import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
 import { actions as addressesActions } from "../../../../redux/addressesSlice";
 import { contactTypes } from "../../../../constants/contactConstants";
 import ClayForm from "@clayui/form";
+import { useHistory } from "react-router-dom";
+import { SUCCESS_CODE } from "../../../../api/reducers/constants";
 
 const ContactInfo: React.FC = () => {
   const basicInfoData = useContactSelector((state) => state.basicInfo);
   const addressData = useContactSelector((state) => state.addresses);
   const contactInfoData = useContactSelector((state) => state.contactInfo);
-  const { fetchData: API } = useFetchData();
-  const formRef = useRef<HTMLFormElement>(null);
+  const { state: contactState, fetchData: API } = useFetchData();
   const { state, get } = useFetchData();
   const [countries, setCountries] = useState<Array<any> | null>(null);
   const { contactType } = useContactSelector((state) => state.basicInfo);
 
+  const formRef = useRef<HTMLFormElement>(null);
   const history = useHistory();
+
   const dispatch = useContactDispatch();
 
   useEffect(() => {
@@ -143,6 +145,12 @@ const ContactInfo: React.FC = () => {
       API("POST", CONTACT_URL, {}, payload);
     }
   };
+
+  useEffect(() => {
+    if (contactState.response?.status === Number(SUCCESS_CODE)) {
+      history.push("/product?success=true");
+    }
+  }, [contactState]);
 
   return (
     <Wrapper
