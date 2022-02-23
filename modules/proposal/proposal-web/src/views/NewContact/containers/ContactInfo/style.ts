@@ -10,5 +10,13 @@ export const Wrapper = styled.form`
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+
+  .standard-wrapper {
+    align-items:center;
+  }
+
+  .legal-entity-form {
+    justify-items: end;
+    display: grid;
+  }
 `;

@@ -59,6 +59,9 @@ export const CREATE_NEW_CONTACT = {
     REGISTERED_OFFICE_ADDRESS : Liferay.Language.get('create-new-contact-registered-office-address'),
     DISPATCH_ADDRESS : Liferay.Language.get('create-new-contact-dispatch-address'),
     NO_RESULTS_FOUND: Liferay.Language.get('create-new-contact-no-results-found'),
+    CREATE_LEGAL_ENTITY: Liferay.Language.get('create-new-contact-create-legal-entity'),
+    SUBMIT_BUTTON: Liferay.Language.get('create-new-contact-submit-button'),
+    BACKOFFICE_NOTIFICATION: Liferay.Language.get('create-new-contact-backoffice-notification'),
     FIELD: {
         CONTACT_TYPE: {
             INDIVIDUAL: Liferay.Language.get('create-new-contact-field-contact-type-individual'),

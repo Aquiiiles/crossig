@@ -302,6 +302,7 @@ const BasicInfo: React.FC<propsType> = ({
           disabled={isLegalEntity() && isUpdate()}
         />
       </Row>
+      {isLegalEntity() && <p>{CREATE_NEW_CONTACT.CREATE_LEGAL_ENTITY}</p>}
     </FormSection>
   );
 };

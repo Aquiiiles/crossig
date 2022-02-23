@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ButtonWrapper, Wrapper } from "./style";
 import BasicInfo from "../../../../shared/molecules/contact/BasicInfo";
 import Addresses from "../../../../shared/molecules/contact/Addresses";
@@ -30,6 +30,8 @@ import { useHistory } from "react-router-dom";
 import { actions as contactInfoActions } from "../../../../redux/contactInfoSlice";
 import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
 import { actions as addressesActions } from "../../../../redux/addressesSlice";
+import { contactTypes } from "../../../../constants/contactConstants";
+import ClayForm from "@clayui/form";
 
 const ContactInfo: React.FC = () => {
   const basicInfoData = useContactSelector((state) => state.basicInfo);
@@ -39,6 +41,7 @@ const ContactInfo: React.FC = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const { state, get } = useFetchData();
   const [countries, setCountries] = useState<Array<any> | null>(null);
+  const { contactType } = useContactSelector((state) => state.basicInfo);
 
   const history = useHistory();
   const dispatch = useContactDispatch();
@@ -56,6 +59,10 @@ const ContactInfo: React.FC = () => {
   useEffect(() => {
     createContactStore();
   }, []);
+
+  const isLegalEntity = () => {
+    return contactType === contactTypes.Legal_Entity;
+  };
 
   const hasFormErrors = () => {
     if (formRef.current) {
@@ -161,7 +168,7 @@ const ContactInfo: React.FC = () => {
           operation="create"
         />
       )}
-      <ButtonWrapper>
+      <ButtonWrapper className={isLegalEntity() ? "standard-wrapper" : ""}>
         <LinkWrapper
           title={CONTACT_INFO.CANCEL}
           handleClick={() => {
@@ -170,10 +177,24 @@ const ContactInfo: React.FC = () => {
           }}
           disabled={false}
         />
-        <ContactButton
-          handleClick={createContact}
-          label={CONTACT_INFO.CREATE_CONTACT}
-        />
+        {isLegalEntity() ? (
+          <ClayForm.Group
+            className={isLegalEntity() ? "legal-entity-form" : ""}
+          >
+            <ContactButton
+              handleClick={() => {
+                return;
+              }}
+              label={CREATE_NEW_CONTACT.SUBMIT_BUTTON}
+            />
+            <div>{CREATE_NEW_CONTACT.BACKOFFICE_NOTIFICATION}</div>
+          </ClayForm.Group>
+        ) : (
+          <ContactButton
+            handleClick={createContact}
+            label={CONTACT_INFO.CREATE_CONTACT}
+          />
+        )}
       </ButtonWrapper>
     </Wrapper>
   );
