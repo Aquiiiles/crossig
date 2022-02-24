@@ -28,6 +28,10 @@ import { SUCCESS_CODE } from "../../../../api/reducers/constants";
 import { useHistory } from "react-router-dom";
 import { contactTypes } from "../../../../constants/contactConstants";
 import Modal from "../../../../shared/atoms/contact/Modal";
+import { actions as contactInfoActions } from "../../../../redux/contactInfoSlice";
+import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
+import { actions as addressesActions } from "../../../../redux/addressesSlice";
+import useFormState from "../../../../shared/hooks/useFormState";
 
 const ContactInfo: React.FC = () => {
   const basicInfoData = useContactSelector((state) => state.basicInfo);
@@ -40,6 +44,11 @@ const ContactInfo: React.FC = () => {
   const { contactType } = useContactSelector((state) => state.basicInfo);
   const [showModal, setShowModal] = useState(false);
   const [isCreateSuccessful, setCreateSuccess] = useState(false);
+  const [canSubmit] = useFormState([
+    ...Object.values(basicInfoData),
+    ...Object.values(addressData),
+  ]);
+
   const history = useHistory();
 
   useEffect(() => {
@@ -210,6 +219,7 @@ const ContactInfo: React.FC = () => {
           </ClayForm.Group>
         ) : (
           <ContactButton
+            disabled={!canSubmit}
             handleClick={createContact}
             label={CONTACT_INFO.CREATE_CONTACT}
           />
