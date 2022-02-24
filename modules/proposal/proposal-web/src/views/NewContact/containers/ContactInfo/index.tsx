@@ -12,7 +12,10 @@ import {
   mapToCountryCodes,
 } from "../../../../shared/util/countryMappers";
 import API from "../../../../api";
-import { resetState, useContactSelector } from "../../../../redux/store";
+import {
+  useContactSelector,
+  useContactDispatch,
+} from "../../../../redux/store";
 import { valuesToISOString } from "./utils/dateUtils";
 import { emailListToData } from "./utils/emailUtils";
 import { phoneObjectToData } from "./utils/phoneUtils";
@@ -34,6 +37,7 @@ import { actions as addressesActions } from "../../../../redux/addressesSlice";
 import useFormState from "../../../../shared/hooks/useFormState";
 
 const ContactInfo: React.FC = () => {
+  const dispatch = useContactDispatch();
   const basicInfoData = useContactSelector((state) => state.basicInfo);
   const addressData = useContactSelector((state) => state.addresses);
   const contactInfoData = useContactSelector((state) => state.contactInfo);
@@ -201,6 +205,9 @@ const ContactInfo: React.FC = () => {
         <LinkWrapper
           title={CONTACT_INFO.CANCEL}
           handleClick={() => {
+            [basicInfoActions, addressesActions, contactInfoActions].forEach(
+              (action) => dispatch(action["resetFields"]())
+            );
             history.replace({ pathname: "/", state: { doSearch: true } });
           }}
           disabled={false}
