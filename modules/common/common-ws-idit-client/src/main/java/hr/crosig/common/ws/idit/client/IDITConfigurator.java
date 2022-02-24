@@ -25,10 +25,9 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	configurationPid = IDITConfiguration.IDIT_CONFIGURATION_ID,
-	immediate = true, service = ServiceConnectionProvider.class,
-	property = {
-		CommonConfigurationConstants.CONNECTION_PROVIDER_IMPLEMENTATION + "=true",
-	}
+	immediate = true,
+	property = CommonConfigurationConstants.CONNECTION_PROVIDER_IMPLEMENTATION + "=true",
+	service = ServiceConnectionProvider.class
 )
 public class IDITConfigurator implements ServiceConnectionProvider {
 
