@@ -25,7 +25,7 @@ public class ContentSetupConstants {
 
 	public static final String HOME_URL = "/web/agent-portal";
 
-	public static final String LANDING_PAGE_URL = "/group/agent-portal";
+	public static final String LANDING_PAGE_URL = "/group/agent-portal/proposal";
 
 	public static final String LAYOUT_1_COLUMN = "1_column";
 

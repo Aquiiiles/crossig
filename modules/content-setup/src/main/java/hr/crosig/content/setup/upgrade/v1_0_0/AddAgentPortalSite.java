@@ -4,6 +4,7 @@ import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.GroupConstants;
 
+import com.liferay.portal.kernel.util.PropsKeys;
 import hr.crosig.content.setup.constants.ContentSetupConstants;
 import hr.crosig.content.setup.upgrade.common.BaseUpgradeProcess;
 import hr.crosig.content.setup.upgrade.common.DependencyProvider;
@@ -39,8 +40,13 @@ public class AddAgentPortalSite extends BaseUpgradeProcess {
 			companyId);
 
 		portletPreferences.setValue(
-			"default.landing.page.path",
+			PropsKeys.DEFAULT_LANDING_PAGE_PATH,
 			ContentSetupConstants.LANDING_PAGE_URL);
+
+		portletPreferences.setValue(
+			PropsKeys.DEFAULT_LOGOUT_PAGE_PATH,
+			ContentSetupConstants.HOME_URL);
+
 		portletPreferences.store();
 	}
 
