@@ -11,11 +11,8 @@ import {
   mapToCountryNames,
   mapToCountryCodes,
 } from "../../../../shared/util/countryMappers";
-import {
-  resetState,
-  useContactDispatch,
-  useContactSelector,
-} from "../../../../redux/store";
+import API from "../../../../api";
+import { resetState, useContactSelector } from "../../../../redux/store";
 import { valuesToISOString } from "./utils/dateUtils";
 import { emailListToData } from "./utils/emailUtils";
 import { phoneObjectToData } from "./utils/phoneUtils";
@@ -26,27 +23,24 @@ import { useFetchData } from "../../../../api/hooks/useFetchData";
 import { RESOLVED } from "../../../../api/reducers/constants";
 import LinkWrapper from "../../../../shared/atoms/contact/LinkWrapper";
 import ContactButton from "../../../../shared/atoms/contact/ContactButton";
-import { actions as contactInfoActions } from "../../../../redux/contactInfoSlice";
-import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
-import { actions as addressesActions } from "../../../../redux/addressesSlice";
-import { contactTypes } from "../../../../constants/contactConstants";
 import ClayForm from "@clayui/form";
-import { useHistory } from "react-router-dom";
 import { SUCCESS_CODE } from "../../../../api/reducers/constants";
+import { useHistory } from "react-router-dom";
+import { contactTypes } from "../../../../constants/contactConstants";
+import Modal from "../../../../shared/atoms/contact/Modal";
 
 const ContactInfo: React.FC = () => {
   const basicInfoData = useContactSelector((state) => state.basicInfo);
   const addressData = useContactSelector((state) => state.addresses);
   const contactInfoData = useContactSelector((state) => state.contactInfo);
-  const { state: contactState, fetchData: API } = useFetchData();
+  const { state: contactState } = useFetchData();
+  const formRef = useRef<HTMLFormElement>(null);
   const { state, get } = useFetchData();
   const [countries, setCountries] = useState<Array<any> | null>(null);
   const { contactType } = useContactSelector((state) => state.basicInfo);
-
-  const formRef = useRef<HTMLFormElement>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [isCreateSuccessful, setCreateSuccess] = useState(false);
   const history = useHistory();
-
-  const dispatch = useContactDispatch();
 
   useEffect(() => {
     get(COUNTRIES_URL);
@@ -142,7 +136,17 @@ const ContactInfo: React.FC = () => {
         telephones: phoneObjectToData(contactInfoData.mobilePhones),
       };
 
-      API("POST", CONTACT_URL, {}, payload);
+      const response = API.post(CONTACT_URL, payload);
+      window.scrollTo(0, 0);
+
+      response
+        .then(() => {
+          setCreateSuccess(true);
+        })
+        .catch(() => {
+          setCreateSuccess(false);
+          setShowModal(true);
+        });
     }
   };
 
@@ -161,6 +165,14 @@ const ContactInfo: React.FC = () => {
         createContact();
       }}
     >
+      <Modal
+        visible={showModal && !isCreateSuccessful}
+        onClose={() => setShowModal(false)}
+        title={CREATE_NEW_CONTACT.TITLE}
+        body={CREATE_NEW_CONTACT.CREATE_CONTACT_FAILURE}
+        timeOut={5000}
+      />
+
       <h3>{CREATE_NEW_CONTACT.TITLE}</h3>
       <p style={{ marginBottom: "1.875rem" }}>{CREATE_NEW_CONTACT.SUBTITLE}</p>
       <BasicInfo operation="create" />
