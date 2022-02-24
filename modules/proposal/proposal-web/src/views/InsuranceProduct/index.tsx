@@ -1,13 +1,12 @@
 import React from "react";
-import { Wrapper, Content, Products, LinkWrapper } from "./styles";
+import { Wrapper, Content, Products } from "./styles";
 import Stepper from "../ContactSearch/containers/Stepper";
 import ProductCard from "./containers/ProductCard";
 import productIcon from "../../assets/productIcon.png";
-import ClayButton from "@clayui/button";
-import { Link } from "react-router-dom";
 import useProductState from "./hooks/useProductState";
 import SuccessBanner from "./containers/SuccessBanner";
 import { INSURANCE_PRODUCT } from "../../constants/languageKeys";
+import BackBtn from "../../shared/atoms/BackBtn";
 
 const InsuranceProduct: React.FC = () => {
   const [
@@ -73,11 +72,7 @@ const InsuranceProduct: React.FC = () => {
             ))
           )}
         </Products>
-        <LinkWrapper>
-          <Link to={{ pathname: "/", state: { doSearch: true } }}>
-            {INSURANCE_PRODUCT.LINK_BACK}
-          </Link>
-        </LinkWrapper>
+        <BackBtn pathname="/" state={{ doSearch: true }} />
       </Content>
     </Wrapper>
   );

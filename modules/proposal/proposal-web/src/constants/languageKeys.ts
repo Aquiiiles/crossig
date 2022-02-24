@@ -131,8 +131,6 @@ export const VALIDATOR_MESSAGE = {
 export const INSURANCE_PRODUCT = {
   TITLE: Liferay.Language.get('insurance-product-title'),
   SUBTITLE: Liferay.Language.get('insurance-product-subtitle'),
-  LINK_BACK: Liferay.Language.get('insurance-product-link-back'),
-  BUTTON_CONTINUE: Liferay.Language.get('insurance-product-button-continue'),
   PRODUCT: {
     SELECT: Liferay.Language.get('insurance-product-product-select'),
   },
@@ -142,4 +140,9 @@ export const INSURANCE_PRODUCT = {
     VERIFICATION_LINK_HAS_BEEN_SENT: Liferay.Language.get('insurance-product-banner-verification-link-has-been-sent'),
     AND: Liferay.Language.get('insurance-product-banner-and'),
   }
+}
+
+export const PROPOSAL = {
+  LINK_BACK: Liferay.Language.get('proposal-link-back'),
+  BUTTON_CONTINUE: Liferay.Language.get('proposal-button-continue'),
 }
