@@ -11,10 +11,10 @@ export type ValidatorFunction = (
  * If a string is returned it gets set as the error message that the user sees, if undefined is returned the error is cleared.
  * @returns A ref to attach onto the input to watch for value changes; The error message; A boolean set to true if there is a current error.
  */
-export default function useFieldValidation<
-  RefElementType extends HTMLInputElement
->(validator: ValidatorFunction) {
-  const ref = React.useRef<RefElementType>(null);
+export default function useFieldValidation(
+  value: string,
+  validator: ValidatorFunction
+) {
   const [errorMessage, setErrorMessage] = React.useState("");
   const [hasError, setHasError] = React.useState(false);
 
@@ -31,10 +31,8 @@ export default function useFieldValidation<
       }
     };
 
-    if (ref.current) {
-      validate(ref.current.value);
-    }
-  }, [ref.current?.value, ref, validator]);
+    validate(value);
+  }, [value, validator]);
 
-  return [ref, errorMessage, hasError] as const;
+  return [errorMessage, hasError] as const;
 }

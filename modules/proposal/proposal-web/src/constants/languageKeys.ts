@@ -124,7 +124,8 @@ export const VALIDATOR_MESSAGE = {
     INVALID_LENGTH: Liferay.Language.get("validator-message-oib-invalid-length"),
     INVALID_CHARACTERS: Liferay.Language.get("validator-message-oib-invalid-characters"),
     INVALID: Liferay.Language.get("validator-message-oib-invalid"),
-  }
+  },
+  REQUIRED_FIELD_LEFT_EMPTY: Liferay.Language.get("validator-message-required-field-left-empty"),
 }
 
 export const INSURANCE_PRODUCT = {
