@@ -1,92 +1,93 @@
 .cap {
-    font-family: CrosigSans-Regular;
+	font-family: CrosigSans-Regular;
+	background-color: rgb(242, 243, 244);
 
-    h1 {
-        font-size: 4.75rem;
-        font-family: Crosig-Bold;
-    }
+	h1 {
+		font-size: 4.75rem;
+		font-family: Crosig-Bold;
+	}
 
-    h2 {
-        font-size: 3.75rem;
-        font-family: Crosig-Bold;
-    }
+	h2 {
+		font-size: 3.75rem;
+		font-family: Crosig-Bold;
+	}
 
-    h3 {
-        font-size: 2.875rem;
-        font-family: Crosig-Bold;
-    }
+	h3 {
+		font-size: 2.875rem;
+		font-family: Crosig-Bold;
+	}
 
-    h4 {
-        font-size: 2.125rem;
-        font-family: Crosig-Bold;
-    }
+	h4 {
+		font-size: 2.125rem;
+		font-family: Crosig-Bold;
+	}
 
-    h5 {
-        font-size: 2.125rem;
-        font-family: CrosigSans-Bold;
-    }
-    
-    h6 {
-        font-size: 1.625rem;
-        font-family: Crosig-Bold;
-    }
+	h5 {
+		font-size: 2.125rem;
+		font-family: CrosigSans-Bold;
+	}
 
-    .h7 {
-        font-size: 1.5rem;
-        font-family: CrosigSans-Bold;
-    }
+	h6 {
+		font-size: 1.625rem;
+		font-family: Crosig-Bold;
+	}
 
-    .h8 {
-        font-size: 1.25rem;
-        font-family: Crosig-Bold;
-    }
+	.h7 {
+		font-size: 1.5rem;
+		font-family: CrosigSans-Bold;
+	}
 
-    .h9 {
-        font-size: 1.25rem;
-        font-family: CrosigSans-Bold;
-    }
+	.h8 {
+		font-size: 1.25rem;
+		font-family: Crosig-Bold;
+	}
 
-    .h10 {
-        font-size: 1rem;
-        font-family: CrosigSans-Bold;
-    }
+	.h9 {
+		font-size: 1.25rem;
+		font-family: CrosigSans-Bold;
+	}
 
-    input[type=text] {
-        font-size: 1.125rem;
-        font-family: Crosig-Light;
-    }
-    
-    input[type=number] {
-        font-size: 1.125rem;
-        font-family: CrosigRavniBrojevi-Light;
-    }
+	.h10 {
+		font-size: 1rem;
+		font-family: CrosigSans-Bold;
+	}
 
-    a {
-        font-size: 1.0625rem;
-        font-family: CrosigSans-Regular;
-    }
+	input[type="text"] {
+		font-size: 1.125rem;
+		font-family: Crosig-Light;
+	}
 
-    .body-large {
-        font-size: 1.25rem;
-        font-family: Crosig-Light;
-    }
+	input[type="number"] {
+		font-size: 1.125rem;
+		font-family: CrosigRavniBrojevi-Light;
+	}
 
-    .body-small {
-        font-size: 1rem;
-        font-family: Crosig-Light;
-    }
+	a {
+		font-size: 1.0625rem;
+		font-family: CrosigSans-Regular;
+	}
 
-    .body-label {
-        font-size: 1rem;
-        font-family: Crosig-Light;
-    }
+	.body-large {
+		font-size: 1.25rem;
+		font-family: Crosig-Light;
+	}
 
-    .helper-text {
-        font-size: 0.8125rem;
-        font-family: Crosig-Light;
-    }
+	.body-small {
+		font-size: 1rem;
+		font-family: Crosig-Light;
+	}
 
-    .straight-numbers {
-        font-family: CrosigRavniBrojevi-Light;
-    }
+	.body-label {
+		font-size: 1rem;
+		font-family: Crosig-Light;
+	}
+
+	.helper-text {
+		font-size: 0.8125rem;
+		font-family: Crosig-Light;
+	}
+
+	.straight-numbers {
+		font-family: CrosigRavniBrojevi-Light;
+	}
 }
