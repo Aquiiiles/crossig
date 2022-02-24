@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import AutocompleteInput from "../../../atoms/contact/AutocompleteInput";
 import SectionSubTitle from "../../../atoms/contact/SectionSubTitle";
 import FormSection from "../../../atoms/contact/FormSection";
@@ -18,6 +18,7 @@ import {
 import { actions } from "../../../../redux/addressesSlice";
 import { Line } from "./styles";
 import { searchCitiesByName, searchStreetsByCityIdAndName } from "./controller";
+import useRequiredField from "../../../hooks/useRequiredField";
 
 type propsType = {
   enableSave?: () => void;
@@ -90,6 +91,28 @@ const Addresses: React.FC<propsType> = ({
   const isUpdate = () => {
     return operation === "update";
   };
+
+  const [registerRequiredCity, cityWarn, hasCityWarn] = useRequiredField(
+    city,
+    true
+  );
+  const [registerRequiredAddress, addressWarn, hasAddressWarn] =
+    useRequiredField(street, true);
+  const [registerRequiredHouseNumber, houseNumberWarn, hasHouseNumberWarn] =
+    useRequiredField(houseNumber, true);
+  const [registerRequiredDispatchCity, dispatchCityWarn, hasDispatchCityWarn] =
+    useRequiredField(dispatchCity, true);
+  const [
+    registerRequiredDispatchAddress,
+    dispatchAddressWarn,
+    hasDispatchAddressWarn,
+  ] = useRequiredField(dispatchStreet, true);
+  const [
+    registerRequiredDispatchHouseNumber,
+    dispatchHouseNumberWarn,
+    hasDispatchHouseNumberWarn,
+  ] = useRequiredField(dispatchHouseNumber, true);
+
   return (
     <>
       <Line />
@@ -122,17 +145,14 @@ const Addresses: React.FC<propsType> = ({
         <Row>
           <ClayForm.Group>
             <ClayInput.Group>
-              <ClayInput.GroupItem>
+              <ClayInput.GroupItem className={hasCityWarn ? "has-warning" : ""}>
                 <AutocompleteInput
                   label={CREATE_NEW_CONTACT.FIELD.CITY}
                   id={"city"}
                   active={isMainAddressInCroatia()}
                   getOptions={searchCitiesByName}
                   setParentValue={(value) =>
-                    dispatch(
-                      setCity(parseInt(value)),
-                      CREATE_NEW_CONTACT.FIELD.CITY
-                    )
+                    dispatch(setCity(value), CREATE_NEW_CONTACT.FIELD.CITY)
                   }
                   setPostalCode={(value) =>
                     dispatch(
@@ -143,8 +163,13 @@ const Addresses: React.FC<propsType> = ({
                   isCity
                   disabled={isLegalEntity() && isUpdate()}
                   selectedValue={cityName}
-                  required
+                  {...registerRequiredCity}
                 />
+                {hasCityWarn ? (
+                  <ClayForm.FeedbackGroup>
+                    <ClayForm.FeedbackItem>{cityWarn}</ClayForm.FeedbackItem>
+                  </ClayForm.FeedbackGroup>
+                ) : null}
               </ClayInput.GroupItem>
 
               <ClayInput.GroupItem>
@@ -170,13 +195,13 @@ const Addresses: React.FC<propsType> = ({
             </ClayInput.Group>
           </ClayForm.Group>
         </Row>
-        <ClayForm.Group>
+        <ClayForm.Group className={hasAddressWarn ? "has-warning" : ""}>
           {isMainAddressInCroatia() ? (
             <AutocompleteInput
               label={CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS}
               id={"street-address-autocomplete"}
               active={isMainAddressInCroatia()}
-              getOptions={searchStreetsByCityIdAndName(city)}
+              getOptions={searchStreetsByCityIdAndName(parseInt(city))}
               setParentValue={(value) =>
                 dispatch(
                   setStreet(value),
@@ -185,7 +210,7 @@ const Addresses: React.FC<propsType> = ({
               }
               isCity={false}
               disabled={!postalCode || (isLegalEntity() && isUpdate())}
-              required
+              {...registerRequiredAddress}
             />
           ) : (
             <>
@@ -204,13 +229,18 @@ const Addresses: React.FC<propsType> = ({
                 }
                 value={street}
                 disabled={isLegalEntity() && isUpdate()}
-                required
+                {...registerRequiredAddress}
               />
             </>
           )}
+          {hasAddressWarn ? (
+            <ClayForm.FeedbackGroup>
+              <ClayForm.FeedbackItem>{addressWarn}</ClayForm.FeedbackItem>
+            </ClayForm.FeedbackGroup>
+          ) : null}
         </ClayForm.Group>
         <Row half>
-          <ClayForm.Group>
+          <ClayForm.Group className={hasHouseNumberWarn ? "has-warning" : ""}>
             <label className="required" htmlFor="house-number">
               {CREATE_NEW_CONTACT.FIELD.HOUSE_NUMBER}
             </label>
@@ -225,8 +255,13 @@ const Addresses: React.FC<propsType> = ({
               }
               value={houseNumber}
               disabled={isLegalEntity() && isUpdate()}
-              required
+              {...registerRequiredHouseNumber}
             />
+            {hasHouseNumberWarn ? (
+              <ClayForm.FeedbackGroup>
+                <ClayForm.FeedbackItem>{houseNumberWarn}</ClayForm.FeedbackItem>
+              </ClayForm.FeedbackGroup>
+            ) : null}
           </ClayForm.Group>
         </Row>
 
@@ -269,7 +304,9 @@ const Addresses: React.FC<propsType> = ({
             <Row>
               <ClayForm.Group>
                 <ClayInput.Group>
-                  <ClayInput.GroupItem>
+                  <ClayInput.GroupItem
+                    className={hasDispatchCityWarn ? "has-warning" : ""}
+                  >
                     <AutocompleteInput
                       label={CREATE_NEW_CONTACT.FIELD.CITY}
                       id={"dispatch-city"}
@@ -277,7 +314,7 @@ const Addresses: React.FC<propsType> = ({
                       getOptions={searchCitiesByName}
                       setParentValue={(value) =>
                         dispatch(
-                          setDispatchCity(parseInt(value)),
+                          setDispatchCity(value),
                           CREATE_NEW_CONTACT.FIELD.CITY
                         )
                       }
@@ -290,8 +327,15 @@ const Addresses: React.FC<propsType> = ({
                       isCity
                       disabled={isLegalEntity() && isUpdate()}
                       selectedValue={dispatchCityName}
-                      required
+                      {...registerRequiredDispatchCity}
                     />
+                    {hasDispatchCityWarn ? (
+                      <ClayForm.FeedbackGroup>
+                        <ClayForm.FeedbackItem>
+                          {dispatchCityWarn}
+                        </ClayForm.FeedbackItem>
+                      </ClayForm.FeedbackGroup>
+                    ) : null}
                   </ClayInput.GroupItem>
 
                   <ClayInput.GroupItem>
@@ -319,13 +363,17 @@ const Addresses: React.FC<propsType> = ({
               </ClayForm.Group>
             </Row>
 
-            <ClayForm.Group>
+            <ClayForm.Group
+              className={hasDispatchAddressWarn ? "has-warning" : ""}
+            >
               {isDispatchAddressInCroatia() ? (
                 <AutocompleteInput
                   label={CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS}
                   id={"dispatch-street-address-autocomplete"}
                   active={isDispatchAddressInCroatia()}
-                  getOptions={searchStreetsByCityIdAndName(dispatchCity)}
+                  getOptions={searchStreetsByCityIdAndName(
+                    parseInt(dispatchCity)
+                  )}
                   setParentValue={(value) =>
                     dispatch(
                       setDispatchStreet(value.toString()),
@@ -336,7 +384,7 @@ const Addresses: React.FC<propsType> = ({
                   disabled={
                     !dispatchPostalCode || (isLegalEntity() && isUpdate())
                   }
-                  required
+                  {...registerRequiredDispatchAddress}
                 />
               ) : (
                 <>
@@ -355,13 +403,23 @@ const Addresses: React.FC<propsType> = ({
                     }
                     value={dispatchStreet}
                     disabled={isLegalEntity() && isUpdate()}
+                    {...registerRequiredDispatchAddress}
                   />
                 </>
               )}
+              {hasDispatchAddressWarn ? (
+                <ClayForm.FeedbackGroup>
+                  <ClayForm.FeedbackItem>
+                    {dispatchAddressWarn}
+                  </ClayForm.FeedbackItem>
+                </ClayForm.FeedbackGroup>
+              ) : null}
             </ClayForm.Group>
 
             <Row half>
-              <ClayForm.Group>
+              <ClayForm.Group
+                className={hasDispatchHouseNumberWarn ? "has-warning" : ""}
+              >
                 <label className="required" htmlFor="dispatch-house-number">
                   {CREATE_NEW_CONTACT.FIELD.HOUSE_NUMBER}
                 </label>
@@ -376,8 +434,15 @@ const Addresses: React.FC<propsType> = ({
                   }
                   value={dispatchHouseNumber}
                   disabled={isLegalEntity() && isUpdate()}
-                  required
+                  {...registerRequiredDispatchHouseNumber}
                 />
+                {hasDispatchHouseNumberWarn ? (
+                  <ClayForm.FeedbackGroup>
+                    <ClayForm.FeedbackItem>
+                      {dispatchHouseNumberWarn}
+                    </ClayForm.FeedbackItem>
+                  </ClayForm.FeedbackGroup>
+                ) : null}
               </ClayForm.Group>
             </Row>
           </>
