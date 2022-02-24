@@ -51,6 +51,7 @@ const SearchResult: React.FC<props> = ({
   const [citySearch, setCitySearch] = useState("");
   const formatedData = data.map((item: providedDataType) => {
     const responseObj: responseType = {
+      [constants.EXT_NUMBER_KEY]: item[constants.EXT_NUMBER_KEY],
       [constants.OIB_KEY]: item[constants.OIB_KEY],
       [constants.SUB_KEY]: "",
       [constants.DOB_KEY]: item[constants.DOB_KEY],

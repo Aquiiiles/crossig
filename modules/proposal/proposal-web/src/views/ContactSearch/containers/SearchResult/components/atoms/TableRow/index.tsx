@@ -36,10 +36,10 @@ const TableRow: React.FC<props> = ({ contact }) => {
     }
   };
 
-  const openUpdateContact = (oib: string) => {
+  const openUpdateContact = (extNumber: number) => {
     history.push({
       pathname: "/update_contact",
-      state: oib,
+      state: extNumber,
     });
   };
 
@@ -75,7 +75,7 @@ const TableRow: React.FC<props> = ({ contact }) => {
           <ClayButton
             displayType="secondary"
             className="ghost"
-            onClick={() => openUpdateContact(contact[constants.OIB_KEY])}
+            onClick={() => openUpdateContact(contact[constants.EXT_NUMBER_KEY])}
           >
             {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
           </ClayButton>

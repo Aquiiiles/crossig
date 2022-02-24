@@ -23,13 +23,13 @@ const UpdateContact: React.FC = () => {
 
   const { state, get } = useFetchData();
   const location = useLocation();
-  const oib = location.state;
+  const extNumber = location.state;
 
   useEffect(() => {
-    if (oib) {
-      get(`${CONTACT_URL}/${oib}`);
+    if (extNumber) {
+      get(`${CONTACT_URL}/${extNumber}`);
     }
-  }, [oib]);
+  }, [extNumber]);
 
   return (
     <Wrapper>
