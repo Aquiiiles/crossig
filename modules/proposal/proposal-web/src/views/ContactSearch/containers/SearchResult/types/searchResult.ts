@@ -1,6 +1,7 @@
 import * as constants from "../constants/searchResult";
 
 export type responseType = {
+  [constants.EXT_NUMBER_KEY]: number;
   [constants.OIB_KEY]: string;
   [constants.SUB_KEY]: string;
   [constants.DOB_KEY]: string;
@@ -18,6 +19,7 @@ export type addressType = {
 };
 
 export type providedDataType = {
+  [constants.EXT_NUMBER_KEY]: number;
   [constants.CITY_KEY]: string;
   [constants.OIB_KEY]: string;
   [constants.DOB_KEY]: string;

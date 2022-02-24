@@ -192,7 +192,6 @@ const ContactInfo: React.FC = () => {
         <LinkWrapper
           title={CONTACT_INFO.CANCEL}
           handleClick={() => {
-            resetState();
             history.replace({ pathname: "/", state: { doSearch: true } });
           }}
           disabled={false}

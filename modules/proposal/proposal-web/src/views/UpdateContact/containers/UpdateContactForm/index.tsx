@@ -193,7 +193,6 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
         <LinkWrapper
           title={CONTACT_INFO.CANCEL}
           handleClick={() => {
-            resetState();
             history.replace({ pathname: "/", state: { doSearch: true } });
           }}
           disabled={false}
