@@ -5,6 +5,7 @@ import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import hr.crosig.common.configuration.LiferayConnectionConfiguration;
 import hr.crosig.common.configuration.OAuthGrantType;
 import hr.crosig.common.configuration.ServiceSource;
+import hr.crosig.common.configuration.constants.CommonConfigurationConstants;
 import hr.crosig.common.ws.ServiceConnectionProvider;
 import hr.crosig.common.ws.ServiceProviderType;
 
@@ -12,7 +13,6 @@ import java.util.Collections;
 import java.util.Map;
 
 import hr.crosig.common.ws.ServiceRegistrator;
-import hr.crosig.common.ws.service.registrator.ServiceRegistratorImpl;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -22,7 +22,11 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	configurationPid = LiferayConnectionConfiguration.LIFERAY_CONNECTION,
-	immediate = true
+	immediate = true,
+	service = ServiceConnectionProvider.class,
+	property = {
+		CommonConfigurationConstants.CONNECTION_PROVIDER_IMPLEMENTATION + "=true",
+	}
 )
 public class LiferayServiceConnectionProvider
 	implements ServiceConnectionProvider {
