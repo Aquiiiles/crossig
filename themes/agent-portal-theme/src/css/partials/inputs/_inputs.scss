@@ -146,6 +146,10 @@
         }
     }
 
+    select:disabled {
+        background-color: $color-action-disabled-default;
+    }
+
     select:focus {
         box-shadow: none!important;
         opacity: 1!important;

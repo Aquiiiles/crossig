@@ -1,4 +1,28 @@
 .cap {
+    button:disabled {
+        background: $color-action-disabled;
+        border-color: $color-action-disabled;
+        pointer-events: none;
+
+        &.solid {
+            background: $color-action-disabled;
+            border: none;
+        }
+        
+        &.ghost {
+            border: 2px solid $color-action-disabled;
+            background: $color-neutral-white;
+            color: $color-action-disabled;
+            border-color: $color-action-disabled;
+        }
+        
+        &.borderless {
+            background: $color-neutral-white;
+            border: none;
+            color: $color-action-disabled;
+        }
+    }
+
     button:hover {
         box-shadow: none!important;
     }

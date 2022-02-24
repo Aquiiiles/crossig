@@ -174,20 +174,22 @@ const SearchField: React.FC<props> = ({
           alignElementRef={triggerElementRef}
           onSetActive={() => {}}
         >
-          {countries && (
-            <SearchFilters
-              fetchData={() => {
-                if (currentPage === 1) {
-                  fetchData();
-                } else {
-                  goToPage(1);
-                }
-                handleExpand();
-              }}
-              countries={mapToCountryCodes(countries)}
-              searchDisabled={disabled}
-            />
-          )}
+          <div className="cap">
+            {countries && (
+              <SearchFilters
+                fetchData={() => {
+                  if (currentPage === 1) {
+                    fetchData();
+                  } else {
+                    goToPage(1);
+                  }
+                  handleExpand();
+                }}
+                countries={mapToCountryCodes(countries)}
+                searchDisabled={disabled}
+              />
+            )}
+          </div>
         </ClayDropDown.Menu>
       </SearchWrapper>
       <div></div>
