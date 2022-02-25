@@ -90,13 +90,13 @@ export const CREATE_NEW_CONTACT = {
 
 export const CONTACT_RESULTS_TABLE = {
     HEADER: {
-        OIB: Liferay.Language.get('contact-results-table-header-oib'),
-        SUB: Liferay.Language.get('contact-results-table-header-sub'),
-        DOB: Liferay.Language.get('contact-results-table-header-dob'),
-        NAME: Liferay.Language.get('contact-results-table-header-name'),
-        STREET: Liferay.Language.get('contact-results-table-header-street'),
-        CITY: Liferay.Language.get('contact-results-table-header-city'),
-        TYPE: Liferay.Language.get('contact-results-table-header-type'),
+      OIB: Liferay.Language.get('contact-results-table-header-oib'),
+      SUB: Liferay.Language.get('contact-results-table-header-sub'),
+      DOB: Liferay.Language.get('contact-results-table-header-dob'),
+      NAME: Liferay.Language.get('contact-results-table-header-name'),
+      STREET: Liferay.Language.get('contact-results-table-header-street'),
+      CITY: Liferay.Language.get('contact-results-table-header-city'),
+      TYPE: Liferay.Language.get('contact-results-table-header-type'),
     }
 }
 
@@ -145,4 +145,19 @@ export const INSURANCE_PRODUCT = {
 export const PROPOSAL = {
   LINK_BACK: Liferay.Language.get('proposal-link-back'),
   BUTTON_CONTINUE: Liferay.Language.get('proposal-button-continue'),
+}
+
+export const ROLES_ON_POLICY = {
+  TITLE: Liferay.Language.get('roles-on-policy-title'),
+  SUBTITLE: Liferay.Language.get('roles-on-policy-subtitle'),
+  INSURED_ROLE_MISSING: Liferay.Language.get('roles-on-policy-insured-role-missing'),
+}
+
+export const ROLES_TABLE = {
+  HEADER:{
+    OIB: Liferay.Language.get('roles-table-header-oib'),
+    SUB: Liferay.Language.get('roles-table-header-sub'),
+    NAME: Liferay.Language.get('roles-table-header-name'),
+    ROLES: Liferay.Language.get('roles-table-header-roles'),
+  }
 }
