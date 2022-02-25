@@ -7,39 +7,41 @@ import java.io.Serializable;
  */
 public class CoveragePlanDTO implements Serializable {
 
-    private Long coveragePlanId;
-    private String name;
-    private String description;
-    private String category;
+	public String getCategory() {
+		return category;
+	}
 
-    public Long getCoveragePlanId() {
-        return coveragePlanId;
-    }
+	public Long getCoveragePlanId() {
+		return coveragePlanId;
+	}
 
-    public void setCoveragePlanId(Long coveragePlanId) {
-        this.coveragePlanId = coveragePlanId;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getDescription() {
-        return description;
-    }
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setCoveragePlanId(Long coveragePlanId) {
+		this.coveragePlanId = coveragePlanId;
+	}
 
-    public String getCategory() {
-        return category;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	private String category;
+	private Long coveragePlanId;
+	private String description;
+	private String name;
+
 }
