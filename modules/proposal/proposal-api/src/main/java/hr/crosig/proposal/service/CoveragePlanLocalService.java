@@ -75,6 +75,10 @@ public interface CoveragePlanLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public CoveragePlan addCoveragePlan(CoveragePlan coveragePlan);
 
+	public CoveragePlan addCoveragePlan(
+			String name, String category, String description)
+		throws PortalException;
+
 	/**
 	 * Creates a new coverage plan with the primary key. Does not add the coverage plan to the database.
 	 *
@@ -207,6 +211,9 @@ public interface CoveragePlanLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CoveragePlan getCoveragePlan(long coveragePlanId)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CoveragePlan getCoveragePlanByName(String name);
 
 	/**
 	 * Returns a range of all the coverage plans.

@@ -16,9 +16,17 @@ package hr.crosig.proposal.service.impl;
 
 import com.liferay.portal.aop.AopService;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import hr.crosig.proposal.model.CoveragePlan;
+import hr.crosig.proposal.model.Product;
+import hr.crosig.proposal.model.impl.CoveragePlanImpl;
 import hr.crosig.proposal.service.base.CoveragePlanLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
+
+import java.util.Objects;
 
 /**
  * @author Brian Wing Shun Chan
@@ -29,4 +37,30 @@ import org.osgi.service.component.annotations.Component;
 )
 public class CoveragePlanLocalServiceImpl
 	extends CoveragePlanLocalServiceBaseImpl {
+
+	public CoveragePlan addCoveragePlan(String name, String category, String description) throws PortalException {
+		CoveragePlan coveragePlan = getCoveragePlanByName(name);
+
+		if (!Objects.isNull(coveragePlan)) {
+			_log.info("CoveragePlan with name: " + name + " already exists.");
+
+			return coveragePlan;
+		}
+
+		coveragePlan = coveragePlanLocalService.createCoveragePlan(
+				counterLocalService.increment(CoveragePlan.class.getName()));
+
+		coveragePlan.setName(name);
+		coveragePlan.setCategory(category);
+		coveragePlan.setDescription(description);
+
+		return updateCoveragePlan(coveragePlan);
+	}
+
+	public CoveragePlan getCoveragePlanByName(String name) {
+		return coveragePlanPersistence.fetchByName(name);
+	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+			CoveragePlanLocalServiceImpl.class);
 }

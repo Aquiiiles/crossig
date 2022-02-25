@@ -59,6 +59,13 @@ public class CoveragePlanLocalServiceUtil {
 		return getService().addCoveragePlan(coveragePlan);
 	}
 
+	public static CoveragePlan addCoveragePlan(
+			String name, String category, String description)
+		throws PortalException {
+
+		return getService().addCoveragePlan(name, category, description);
+	}
+
 	/**
 	 * Creates a new coverage plan with the primary key. Does not add the coverage plan to the database.
 	 *
@@ -218,6 +225,10 @@ public class CoveragePlanLocalServiceUtil {
 		throws PortalException {
 
 		return getService().getCoveragePlan(coveragePlanId);
+	}
+
+	public static CoveragePlan getCoveragePlanByName(String name) {
+		return getService().getCoveragePlanByName(name);
 	}
 
 	/**

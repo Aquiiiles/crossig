@@ -50,6 +50,15 @@ public class CoveragePlanLocalServiceWrapper
 		return _coveragePlanLocalService.addCoveragePlan(coveragePlan);
 	}
 
+	@Override
+	public hr.crosig.proposal.model.CoveragePlan addCoveragePlan(
+			String name, String category, String description)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _coveragePlanLocalService.addCoveragePlan(
+			name, category, description);
+	}
+
 	/**
 	 * Creates a new coverage plan with the primary key. Does not add the coverage plan to the database.
 	 *
@@ -238,6 +247,13 @@ public class CoveragePlanLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _coveragePlanLocalService.getCoveragePlan(coveragePlanId);
+	}
+
+	@Override
+	public hr.crosig.proposal.model.CoveragePlan getCoveragePlanByName(
+		String name) {
+
+		return _coveragePlanLocalService.getCoveragePlanByName(name);
 	}
 
 	/**
