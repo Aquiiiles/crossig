@@ -28,7 +28,7 @@ const Table: React.FC = () => {
     [constants.NAME_KEY]: "firstName + lastName",
     [constants.OIB_KEY]: "oib",
     [constants.SUB_KEY]: "subsidiaryNumber",
-    [constants.ROLES_KEY]: ["Policy Holder"],
+    [constants.ROLES_KEY]: ["Insured"],
   };
 
   const decideOrder = (sortBy: string) => {
