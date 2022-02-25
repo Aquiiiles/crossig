@@ -5,12 +5,4 @@ export const ResultsTable = styled(ClayTable)`
   td {
     cursor: pointer;
   }
-
-  th:first-child {
-    margin-left: 1rem;
-  }
-`;
-
-export const Span = styled.span`
-  margin-left: 2rem;
 `;

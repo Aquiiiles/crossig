@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Stepper from "../ContactSearch/containers/Stepper";
-import { Wrapper } from "./styles";
+import { Wrapper, Buttons} from "./styles";
 import BackBtn from "../../shared/atoms/BackBtn";
 import ContinueBtn from "../../shared/atoms/ContinueBtn";
 import Table from "./containers/Table"
@@ -12,18 +12,20 @@ const RolesOnPolicy: React.FC = () => {
   return (
     <Wrapper>
       <Stepper />
-      <h5>{ROLES_ON_POLICY.TITLE}</h5>;
+      <h5>{ROLES_ON_POLICY.TITLE}</h5>
       <p className="body-small" style={{ marginBottom: "2.5rem" }}>
         {ROLES_ON_POLICY.SUBTITLE}
       </p>
       <Table />
-      <BackBtn pathname="/product" state={{ doSearch: true }} />
-      <ContinueBtn
-        disabled={hasInsuredRole}
-        onClick={() => {
-          return;
-        }}
-      />
+      <Buttons>
+        <BackBtn pathname="/product" state={{ doSearch: true }} />
+        <ContinueBtn
+          disabled={hasInsuredRole}
+          onClick={() => {
+            return;
+          }}
+        />
+      </Buttons>
       {!hasInsuredRole && <p>{ROLES_ON_POLICY.INSURED_ROLE_MISSING}</p>}
     </Wrapper>
   );

@@ -14,7 +14,7 @@ const App: React.FC = () => {
         <Route path="/product">
           <InsuranceProduct />
         </Route>
-        <Route path="/product/roles">
+        <Route path="/roles">
           <RolesOnPolicy />
         </Route>
         <Route path="/new_contact">

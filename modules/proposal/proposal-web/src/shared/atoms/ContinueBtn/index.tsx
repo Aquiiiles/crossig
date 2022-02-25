@@ -8,7 +8,7 @@ const ContinueBtn: React.FC<{ disabled: boolean; onClick: () => void }> = ({
 }) => {
   return (
     <ClayButton displayType="primary" disabled={disabled} onClick={onClick}>
-      - {PROPOSAL.BUTTON_CONTINUE}-{" "}
+      {PROPOSAL.BUTTON_CONTINUE}
     </ClayButton>
   );
 };

@@ -8,7 +8,7 @@ import {
   useContactDispatch,
 } from "../../../../redux/store";
 import { actions } from "../../../../redux/searchFilterSlice";
-import { ResultsTable, Span } from "./styles";
+import { ResultsTable } from "./styles";
 
 import * as types from "../../constants/types";
 import * as constants from "../../constants/constants";
@@ -25,11 +25,11 @@ const Table: React.FC = () => {
   );
 
   const contact = {
-    [constants.NAME_KEY] : firstName + lastName,
-    [constants.OIB_KEY]: oib,
-    [constants.SUB_KEY]: subsidiaryNumber,
-    [constants.ROLES_KEY]: []
-  }
+    [constants.NAME_KEY]: "firstName + lastName",
+    [constants.OIB_KEY]: "oib",
+    [constants.SUB_KEY]: "subsidiaryNumber",
+    [constants.ROLES_KEY]: ["Policy Holder"],
+  };
 
   const decideOrder = (sortBy: string) => {
     if (sortBy === sortedBy) {
@@ -58,7 +58,6 @@ const Table: React.FC = () => {
               dispatch(setSortOrder(decideOrder(constants.OIB_KEY)));
             }}
           >
-            <Span />
             {constants.OIB_NAME}
             {sortedBy === constants.OIB_KEY ? arrowIcon : null}
           </ClayTable.Cell>

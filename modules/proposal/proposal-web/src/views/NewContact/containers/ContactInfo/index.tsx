@@ -164,6 +164,7 @@ const ContactInfo: React.FC = () => {
   };
 
   useEffect(() => {
+    console.log(contactState);
     if (contactState.response?.status === Number(SUCCESS_CODE)) {
       history.push("/product?success=true");
     }

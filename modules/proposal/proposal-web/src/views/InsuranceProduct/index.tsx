@@ -1,5 +1,5 @@
 import React from "react";
-import { Wrapper, Content, Products } from "./styles";
+import { Wrapper, Content, Products, Footer } from "./styles";
 import Stepper from "../ContactSearch/containers/Stepper";
 import ProductCard from "./containers/ProductCard";
 import productIcon from "../../assets/productIcon.png";
@@ -72,7 +72,9 @@ const InsuranceProduct: React.FC = () => {
             ))
           )}
         </Products>
-        <BackBtn pathname="/" state={{ doSearch: true }} />
+        <Footer>
+          <BackBtn pathname="/" state={{ doSearch: true }} />
+        </Footer>
       </Content>
     </Wrapper>
   );
