@@ -85,4 +85,28 @@
 			<finder-column name="InsuredRoleId" />
 		</finder>
 	</entity>
+	<entity local-service="true" name="CoveragePlan" remote-service="false" uuid="false">
+
+		<!-- PK fields -->
+
+		<column name="coveragePlanId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="name" type="String" />
+		<column name="description" type="String" />
+		<column name="category" type="String" />
+
+		<finder name="Name" return-type="CoveragePlan">
+			<finder-column name="name" />
+		</finder>
+	</entity>
 </service-builder>
