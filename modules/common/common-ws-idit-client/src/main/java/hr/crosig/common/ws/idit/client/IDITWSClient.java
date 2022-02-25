@@ -72,22 +72,6 @@ public class IDITWSClient {
 		return invoker.post(ServiceProviderType.IDIT, "/search", jsonRequest);
 	}
 
-	private String _getContactExtNumber(JSONObject contact) {
-		JSONArray identifiers = contact.getJSONArray("identifiers");
-
-		String extNumber = StringPool.BLANK;
-
-		if (Validator.isNotNull(identifiers)) {
-			JSONObject identifier = identifiers.getJSONObject(0);
-
-			if (Validator.isNotNull(identifier)) {
-				extNumber = identifier.getString("idValue");
-			}
-		}
-
-		return extNumber;
-	}
-
 	public ServiceResponse updateContact(String jsonRequest)
 		throws ServiceInvocationException {
 
@@ -131,6 +115,22 @@ public class IDITWSClient {
 		return invoker.post(
 			ServiceProviderType.IDIT, "/customer/v3/ifs/confirm/mobilePhones",
 			jsonRequest);
+	}
+
+	private String _getContactExtNumber(JSONObject contact) {
+		JSONArray identifiers = contact.getJSONArray("identifiers");
+
+		String extNumber = StringPool.BLANK;
+
+		if (Validator.isNotNull(identifiers)) {
+			JSONObject identifier = identifiers.getJSONObject(0);
+
+			if (Validator.isNotNull(identifier)) {
+				extNumber = identifier.getString("idValue");
+			}
+		}
+
+		return extNumber;
 	}
 
 	@Reference

@@ -25,7 +25,10 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Leonardo Miyagi
  */
-@Component(immediate = true, property = "source=EXTERNAL", service = RestAPIServiceInvoker.class)
+@Component(
+	immediate = true, property = "source=EXTERNAL",
+	service = RestAPIServiceInvoker.class
+)
 public class RestAPIServiceInvokerImpl implements RestAPIServiceInvoker {
 
 	@Override
@@ -119,8 +122,15 @@ public class RestAPIServiceInvokerImpl implements RestAPIServiceInvoker {
 				"Authorization", String.format("Bearer %s", token.getToken()));
 		}
 
-		if (AuthType.CUSTOM.getType().equals(provider.getAuthType())) {
-			provider.getCustomHeaders().forEach((key, value) -> options.addHeader(key, value));
+		if (AuthType.CUSTOM.getType(
+			).equals(
+				provider.getAuthType()
+			)) {
+
+			provider.getCustomHeaders(
+			).forEach(
+				(key, value) -> options.addHeader(key, value)
+			);
 		}
 	}
 

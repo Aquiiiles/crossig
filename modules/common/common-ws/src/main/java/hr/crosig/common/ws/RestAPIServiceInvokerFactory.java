@@ -7,5 +7,7 @@ import hr.crosig.common.ws.exception.ServiceInvocationException;
  */
 public interface RestAPIServiceInvokerFactory {
 
-    public RestAPIServiceInvoker getInvoker(ServiceProviderType serviceProvider) throws ServiceInvocationException;
+	public RestAPIServiceInvoker getInvoker(ServiceProviderType serviceProvider)
+		throws ServiceInvocationException;
+
 }

@@ -12,11 +12,11 @@ public interface RestAPIServiceInvoker {
 		throws ServiceInvocationException;
 
 	public ServiceResponse post(
-            ServiceProviderType provider, String path, String payload)
+			ServiceProviderType provider, String path, String payload)
 		throws ServiceInvocationException;
 
 	public ServiceResponse put(
-            ServiceProviderType provider, String path, String payload)
+			ServiceProviderType provider, String path, String payload)
 		throws ServiceInvocationException;
 
 }
