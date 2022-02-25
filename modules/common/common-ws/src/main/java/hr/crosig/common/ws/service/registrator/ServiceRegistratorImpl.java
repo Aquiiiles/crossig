@@ -3,7 +3,6 @@ package hr.crosig.common.ws.service.registrator;
 import com.liferay.osgi.service.tracker.collections.list.ServiceTrackerList;
 import com.liferay.osgi.service.tracker.collections.list.ServiceTrackerListFactory;
 
-import hr.crosig.common.configuration.constants.CommonConfigurationConstants;
 import hr.crosig.common.ws.ServiceConnectionProvider;
 import hr.crosig.common.ws.ServiceProviderType;
 import hr.crosig.common.ws.ServiceRegistrator;
@@ -58,15 +57,7 @@ public class ServiceRegistratorImpl implements ServiceRegistrator {
 			(event.getType() == ServiceEvent.MODIFIED) ||
 			(event.getType() == ServiceEvent.REGISTERED);
 
-		String implementationProperty = (String)event.getServiceReference(
-		).getProperty(
-			CommonConfigurationConstants.CONNECTION_PROVIDER_IMPLEMENTATION
-		);
-
-		Boolean connectionProvider = Boolean.parseBoolean(
-			implementationProperty);
-
-		if (connectionProvider && modifiedOrRegistered) {
+		if (modifiedOrRegistered) {
 			ServiceTrackerList
 				<ServiceConnectionProvider, ServiceConnectionProvider> tracker =
 					ServiceTrackerListFactory.open(

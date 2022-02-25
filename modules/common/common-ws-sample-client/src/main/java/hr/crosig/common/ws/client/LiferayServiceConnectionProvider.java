@@ -5,7 +5,6 @@ import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import hr.crosig.common.configuration.LiferayConnectionConfiguration;
 import hr.crosig.common.configuration.OAuthGrantType;
 import hr.crosig.common.configuration.ServiceSource;
-import hr.crosig.common.configuration.constants.CommonConfigurationConstants;
 import hr.crosig.common.ws.ServiceConnectionProvider;
 import hr.crosig.common.ws.ServiceProviderType;
 import hr.crosig.common.ws.ServiceRegistrator;
@@ -23,7 +22,6 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	configurationPid = LiferayConnectionConfiguration.LIFERAY_CONNECTION,
 	immediate = true,
-	property = CommonConfigurationConstants.CONNECTION_PROVIDER_IMPLEMENTATION + "=true",
 	service = ServiceConnectionProvider.class
 )
 public class LiferayServiceConnectionProvider

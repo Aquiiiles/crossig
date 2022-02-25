@@ -7,7 +7,6 @@ import hr.crosig.common.configuration.AuthType;
 import hr.crosig.common.configuration.IDITConfiguration;
 import hr.crosig.common.configuration.OAuthGrantType;
 import hr.crosig.common.configuration.ServiceSource;
-import hr.crosig.common.configuration.constants.CommonConfigurationConstants;
 import hr.crosig.common.ws.ServiceConnectionProvider;
 import hr.crosig.common.ws.ServiceProviderType;
 import hr.crosig.common.ws.ServiceRegistrator;
@@ -26,7 +25,6 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	configurationPid = IDITConfiguration.IDIT_CONFIGURATION_ID,
 	immediate = true,
-	property = CommonConfigurationConstants.CONNECTION_PROVIDER_IMPLEMENTATION + "=true",
 	service = ServiceConnectionProvider.class
 )
 public class IDITConfigurator implements ServiceConnectionProvider {
