@@ -1,7 +1,9 @@
 package hr.crosig.proposal.rest.application;
 
+import hr.crosig.proposal.dto.CoveragePlanDTO;
 import hr.crosig.proposal.dto.InsuredRoleDTO;
 import hr.crosig.proposal.dto.ProductDTO;
+import hr.crosig.proposal.service.CoveragePlanLocalService;
 import hr.crosig.proposal.service.InsuredRoleLocalService;
 import hr.crosig.proposal.service.ProductLocalService;
 import org.osgi.service.component.annotations.Component;
@@ -80,9 +82,36 @@ public class ProposalApplication extends Application {
         return responseBuilder.build();
     }
 
+    @GET
+    @Path("/coverage-plans")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllCoveragePlans() {
+        Response.ResponseBuilder responseBuilder;
+
+        try {
+            List<CoveragePlanDTO> coveragePlans = _coveragePlanLocalService.getAllCoveragePlans();
+
+            responseBuilder = Response.ok(
+            ).entity(
+                coveragePlans
+            );
+        } catch (Exception exception) {
+            responseBuilder = Response.serverError(
+            ).entity(
+                    exception.getMessage()
+            );
+        }
+
+        return responseBuilder.build();
+    }
+
+
     public Set<Object> getSingletons() {
         return Collections.singleton(this);
     }
+
+    @Reference
+    private CoveragePlanLocalService _coveragePlanLocalService;
 
     @Reference
     private InsuredRoleLocalService _insuredRoleLocalService;

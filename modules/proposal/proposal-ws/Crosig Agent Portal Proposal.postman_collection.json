@@ -29,6 +29,23 @@
 				"header": []
 			},
 			"response": []
+		},
+		{
+			"name": "Get All Coverage Plans",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localURL}}proposal/coverage-plans",
+					"host": [
+						"{{localURL}}proposal"
+					],
+					"path": [
+						"coverage-plans"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {

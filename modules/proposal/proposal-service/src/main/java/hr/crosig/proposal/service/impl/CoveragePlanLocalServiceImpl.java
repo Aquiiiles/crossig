@@ -19,14 +19,16 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import hr.crosig.proposal.dto.CoveragePlanDTO;
 import hr.crosig.proposal.model.CoveragePlan;
-import hr.crosig.proposal.model.Product;
-import hr.crosig.proposal.model.impl.CoveragePlanImpl;
 import hr.crosig.proposal.service.base.CoveragePlanLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Brian Wing Shun Chan
@@ -59,6 +61,21 @@ public class CoveragePlanLocalServiceImpl
 
 	public CoveragePlan getCoveragePlanByName(String name) {
 		return coveragePlanPersistence.fetchByName(name);
+	}
+
+	public List<CoveragePlanDTO>  getAllCoveragePlans() {
+		return coveragePlanPersistence.findAll().stream().map(coveragePlan -> _mapToCoveragePlanDTO(coveragePlan)).collect(Collectors.toList());
+	}
+
+	private CoveragePlanDTO _mapToCoveragePlanDTO(CoveragePlan coveragePlan) {
+		CoveragePlanDTO coveragePlanDTO = new CoveragePlanDTO();
+
+		coveragePlanDTO.setCoveragePlanId(coveragePlan.getCoveragePlanId());
+		coveragePlanDTO.setName(coveragePlan.getName());
+		coveragePlanDTO.setDescription(coveragePlan.getDescription());
+		coveragePlanDTO.setCategory(coveragePlan.getCategory());
+
+		return coveragePlanDTO;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

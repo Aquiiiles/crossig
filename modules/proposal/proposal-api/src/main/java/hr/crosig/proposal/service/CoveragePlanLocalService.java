@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import hr.crosig.proposal.dto.CoveragePlanDTO;
 import hr.crosig.proposal.model.CoveragePlan;
 
 import java.io.Serializable;
@@ -200,6 +201,9 @@ public interface CoveragePlanLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CoveragePlanDTO> getAllCoveragePlans();
 
 	/**
 	 * Returns the coverage plan with the primary key.
