@@ -21,8 +21,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	configurationPid = LiferayConnectionConfiguration.LIFERAY_CONNECTION,
-	immediate = true,
-	service = ServiceConnectionProvider.class
+	immediate = true, service = ServiceConnectionProvider.class
 )
 public class LiferayServiceConnectionProvider
 	implements ServiceConnectionProvider {
