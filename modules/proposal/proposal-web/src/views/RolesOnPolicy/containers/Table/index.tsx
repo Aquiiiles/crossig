@@ -46,6 +46,8 @@ const Table: React.FC = () => {
     />
   );
 
+  const roleOptions = ["Insured", "Payer"];
+
   return (
     <ResultsTable borderless>
       <ClayTable.Head>
@@ -99,7 +101,7 @@ const Table: React.FC = () => {
         </ClayTable.Row>
       </ClayTable.Head>
       <ClayTable.Body>
-        <TableRow key={1} contact={contact} />
+        <TableRow key={1} contact={contact} roleOptions={roleOptions}/>
       </ClayTable.Body>
     </ResultsTable>
   );

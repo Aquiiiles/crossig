@@ -1,15 +1,25 @@
 import React from "react";
-import {Wrapper} from "./styles";
+import { Wrapper } from "./styles";
+import ClayIcon from "@clayui/icon";
+import spritemap from "@clayui/css/lib/images/icons/icons.svg";
 
 interface roleItem {
-  title: string,
-  removable: boolean
+  title: string;
+  removable: boolean;
+  removeRole: () => void;
 }
 
-const RoleItem: React.FC<roleItem> = ({ title, removable }) => {
+const RoleItem: React.FC<roleItem> = ({ title, removable, removeRole }) => {
   return (
     <Wrapper>
-      <p>{title}{removable && " x"}</p>
+      <p onClick={removeRole}>
+        {title === "+" ? <ClayIcon symbol="plus" spritemap={spritemap} /> : title}
+        {removable && (
+          <>
+            {"  "} <ClayIcon symbol="times" spritemap={spritemap} />
+          </>
+        )}
+      </p>
     </Wrapper>
   );
 };
