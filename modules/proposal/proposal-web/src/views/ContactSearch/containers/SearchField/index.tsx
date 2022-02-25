@@ -98,6 +98,14 @@ const SearchField: React.FC<props> = ({
     }
   }, [triggerElementRef]);
 
+  const numbersOnly = (number: any) => {
+    return number.replace(/\D/g, '');
+  };
+
+  const lettersOnly = (string: any) => {
+    return string.replace(/[^a-zA-Z]+/g, '');
+  };
+
   return (
     <Wrapper>
       <SearchWrapper>
@@ -110,8 +118,9 @@ const SearchField: React.FC<props> = ({
               <ClayInput
                 id="oibInputText"
                 type="text"
+                className="straight-numbers"
                 value={OIB}
-                onChange={({ target: { value } }) => dispatch(setOIB(value))}
+                onChange={({ target: { value } }) => dispatch(setOIB(numbersOnly(value)))}
               />
             </ClayInput.GroupItem>
             <ClayInput.GroupItem>
@@ -122,6 +131,7 @@ const SearchField: React.FC<props> = ({
                 id="lastNameInputText"
                 type="text"
                 value={lastName}
+                className="straight-numbers"
                 onChange={({ target: { value } }) =>
                   dispatch(setLastName(value))
                 }
@@ -136,7 +146,7 @@ const SearchField: React.FC<props> = ({
                 type="text"
                 value={firstName}
                 onChange={({ target: { value } }) =>
-                  dispatch(setFirstName(value))
+                  dispatch(setFirstName(lettersOnly(value)))
                 }
               />
             </ClayInput.GroupItem>

@@ -89,6 +89,14 @@ const SearchFilters: React.FC<props> = ({
     }
   };
 
+  const numbersOnly = (number: any) => {
+    return number.replace(/\D/g, '');
+  };
+
+  const lettersOnly = (string: any) => {
+    return string.replace(/[0-9]/g, '');
+  };
+
   return (
     <Wrapper>
       <ClayForm.Group>
@@ -143,8 +151,9 @@ const SearchFilters: React.FC<props> = ({
           <ClayInput
             id="phoneNumber"
             type="text"
+            className="straight-numbers"
             onChange={({ target: { value } }) =>
-              dispatch(setPhoneNumber(value))
+              dispatch(setPhoneNumber(numbersOnly(value)))
             }
             value={phoneNumber}
           />
