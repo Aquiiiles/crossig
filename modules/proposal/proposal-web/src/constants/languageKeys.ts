@@ -166,3 +166,13 @@ export const ROLES_TABLE = {
     ROLES: Liferay.Language.get('roles-table-header-roles'),
   }
 }
+
+export const STEPPER_STEP_NAME = {
+  "1": Liferay.Language.get('stepper-step-name-1'),
+  "2": Liferay.Language.get('stepper-step-name-2'),
+  "3": Liferay.Language.get('stepper-step-name-3'),
+  "4": Liferay.Language.get('stepper-step-name-4'),
+  "5": Liferay.Language.get('stepper-step-name-5'),
+  "6": Liferay.Language.get('stepper-step-name-6'),
+  "7": Liferay.Language.get('stepper-step-name-7'),
+}
