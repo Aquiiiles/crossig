@@ -1,6 +1,6 @@
 import React from "react";
 import { Wrapper, Content, Products, Footer } from "./styles";
-import Stepper from "../ContactSearch/containers/Stepper";
+import Stepper from "../../shared/molecules/Stepper";
 import ProductCard from "./containers/ProductCard";
 import productIcon from "../../assets/productIcon.png";
 import useProductState from "./hooks/useProductState";
@@ -22,7 +22,7 @@ const InsuranceProduct: React.FC = () => {
 
   return (
     <Wrapper>
-      <Stepper />
+      <Stepper currentStep={2} />
 
       <Content>
         {query.get("success") ? (

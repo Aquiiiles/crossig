@@ -23,7 +23,7 @@ export const LinkWrapper = styled.div`
 export const Content = styled.div<Props>`
   flex: 1;
   padding: ${(props) =>
-    props.embedded ? "0" : "1.25rem 3.5rem 1.25rem 3.75rem"};
+    props.embedded ? "0" : " 6.25rem 3.5rem 1.25rem 3.75rem"};
 `;
 
 export const EmptySpace = styled.div`

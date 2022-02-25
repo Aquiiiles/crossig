@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import SearchField from "./containers/SearchField";
 import { Content, Wrapper, LinkWrapper, EmptySpace } from "./styles";
-import Stepper from "./containers/Stepper";
+import Stepper from "../../shared/molecules/Stepper";
 import {
   CONTACT_SEARCH_SUBTITLE,
   CONTACT_SEARCH_TITLE,
@@ -128,7 +128,7 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
 
   return (
     <Wrapper embedded={embedded}>
-      {embedded ? <Stepper /> : null}
+      {embedded ? <Stepper currentStep={1} /> : null}
 
       <Content embedded={embedded}>
         <h5>{CONTACT_SEARCH_TITLE}</h5>
