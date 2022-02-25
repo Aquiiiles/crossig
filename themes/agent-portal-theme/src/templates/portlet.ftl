@@ -2,7 +2,7 @@
 	portlet_display = portletDisplay
 
 	portlet_back_url = htmlUtil.escapeHREF(portlet_display.getURLBack())
-	portlet_content_css_class = "portlet-content"
+	portlet_content_css_class = ""
 	portlet_display_name = htmlUtil.escape(portlet_display.getPortletDisplayName())
 	portlet_display_root_portlet_id = htmlUtil.escapeAttribute(portlet_display.getRootPortletId())
 	portlet_id = htmlUtil.escapeAttribute(portlet_display.getId())
