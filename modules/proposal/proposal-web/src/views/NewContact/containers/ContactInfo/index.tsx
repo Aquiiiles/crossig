@@ -12,7 +12,10 @@ import {
   mapToCountryCodes,
 } from "../../../../shared/util/countryMappers";
 import API from "../../../../api";
-import { resetState, useContactSelector } from "../../../../redux/store";
+import {
+  useContactSelector,
+  useContactDispatch,
+} from "../../../../redux/store";
 import { valuesToISOString } from "./utils/dateUtils";
 import { emailListToData } from "./utils/emailUtils";
 import { phoneObjectToData } from "./utils/phoneUtils";
@@ -28,8 +31,13 @@ import { SUCCESS_CODE } from "../../../../api/reducers/constants";
 import { useHistory } from "react-router-dom";
 import { contactTypes } from "../../../../constants/contactConstants";
 import Modal from "../../../../shared/atoms/contact/Modal";
+import { actions as contactInfoActions } from "../../../../redux/contactInfoSlice";
+import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
+import { actions as addressesActions } from "../../../../redux/addressesSlice";
+import useFormState from "../../../../shared/hooks/useFormState";
 
 const ContactInfo: React.FC = () => {
+  const dispatch = useContactDispatch();
   const basicInfoData = useContactSelector((state) => state.basicInfo);
   const addressData = useContactSelector((state) => state.addresses);
   const contactInfoData = useContactSelector((state) => state.contactInfo);
@@ -40,6 +48,11 @@ const ContactInfo: React.FC = () => {
   const { contactType } = useContactSelector((state) => state.basicInfo);
   const [showModal, setShowModal] = useState(false);
   const [isCreateSuccessful, setCreateSuccess] = useState(false);
+  const [canSubmit] = useFormState([
+    ...Object.values(basicInfoData),
+    ...Object.values(addressData),
+  ]);
+
   const history = useHistory();
 
   useEffect(() => {
@@ -192,6 +205,9 @@ const ContactInfo: React.FC = () => {
         <LinkWrapper
           title={CONTACT_INFO.CANCEL}
           handleClick={() => {
+            [basicInfoActions, addressesActions, contactInfoActions].forEach(
+              (action) => dispatch(action["resetFields"]())
+            );
             history.replace({ pathname: "/", state: { doSearch: true } });
           }}
           disabled={false}
@@ -210,6 +226,7 @@ const ContactInfo: React.FC = () => {
           </ClayForm.Group>
         ) : (
           <ContactButton
+            disabled={!canSubmit}
             handleClick={createContact}
             label={CONTACT_INFO.CREATE_CONTACT}
           />

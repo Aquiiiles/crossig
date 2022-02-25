@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import FormSection from "../../../atoms/contact/FormSection";
 import Row from "../../../atoms/contact/Row";
 import { CREATE_NEW_CONTACT } from "../../../../constants/languageKeys";
@@ -23,6 +23,7 @@ import {
   validateYear,
 } from "../../../validators/date";
 import { validateOib } from "../../../validators/oib";
+import useRequiredField from "../../../hooks/useRequiredField";
 
 type propsType = {
   operation: string;
@@ -82,20 +83,24 @@ const BasicInfo: React.FC<propsType> = ({
     return operation === "update";
   };
 
-  const [dayRef, dayError, hasDayError] = useFieldValidation<HTMLInputElement>(
+  const [dayError, hasDayError] = useFieldValidation(
+    dateDay,
     React.useCallback(
       (value) => validateDay(value, dateMonth, dateYear),
 
       [dateYear, dateMonth]
     )
   );
-  const [monthRef, monthError, hasMonthError] =
-    useFieldValidation<HTMLInputElement>(React.useCallback(validateMonth, []));
-
-  const [yearRef, yearError, hasYearError] =
-    useFieldValidation<HTMLInputElement>(React.useCallback(validateYear, []));
-
-  const [oibRef, oibError, hasOibError] = useFieldValidation<HTMLInputElement>(
+  const [monthError, hasMonthError] = useFieldValidation(
+    dateMonth,
+    React.useCallback(validateMonth, [])
+  );
+  const [yearError, hasYearError] = useFieldValidation(
+    dateYear,
+    React.useCallback(validateYear, [])
+  );
+  const [oibError, hasOibError] = useFieldValidation(
+    oib,
     React.useCallback(validateOib, [])
   );
 
@@ -103,10 +108,42 @@ const BasicInfo: React.FC<propsType> = ({
 
   useJumpFocus(dateMonth, "birthDateYear", 2);
 
+  const [registerRequiredName, nameWarn, hasNameWarn] = useRequiredField(
+    firstName,
+    showIndividualFields
+  );
+  const [registerRequiredLastName, lastNameWarn, hasLastNameWarn] =
+    useRequiredField(lastName, showIndividualFields);
+  const [registerRequiredOib, oibWarn, hasOibWarn] = useRequiredField(
+    oib,
+    !foreignerStatus
+  );
+  const [registerRequiredDay, dayWarn, hasDayWarn] = useRequiredField(
+    dateDay,
+    showIndividualFields
+  );
+  const [registerRequiredMonth, monthWarn, hasMonthWarn] = useRequiredField(
+    dateMonth,
+    showIndividualFields
+  );
+  const [registerRequiredYear, yearWarn, hasYearWarn] = useRequiredField(
+    dateYear,
+    showIndividualFields
+  );
+  const [registerRequiredCompanyName, companyNameWarn, hasCompanyNameWarn] =
+    useRequiredField(companyName, !showIndividualFields);
+  const [
+    registerRequiredSubsidiaryNumber,
+    subsidiaryNumberWarn,
+    hasSubsidiaryNumberWarn,
+  ] = useRequiredField(subsidiaryNumber, !showIndividualFields);
+
   return (
     <FormSection title={CREATE_NEW_CONTACT.BASIC_INFO_TITLE}>
       <ClayForm.Group>
-        <label htmlFor="contactTypeInput">{CREATE_NEW_CONTACT.TYPE}</label>
+        <label className="required" htmlFor="contactTypeInput">
+          {CREATE_NEW_CONTACT.TYPE}
+        </label>
         <ClaySelectWithOption
           id="contactTypeInput"
           required
@@ -122,12 +159,14 @@ const BasicInfo: React.FC<propsType> = ({
         <Row>
           <ClayForm.Group>
             <ClayInput.Group>
-              <ClayInput.GroupItem>
-                <label htmlFor="firstNameInput">
+              <ClayInput.GroupItem className={hasNameWarn ? "has-warning" : ""}>
+                <label
+                  className={showIndividualFields ? "required" : ""}
+                  htmlFor="firstNameInput"
+                >
                   {CREATE_NEW_CONTACT.FIELD.FIRST_NAME}
                 </label>
                 <ClayInput
-                  required={showIndividualFields}
                   id="firstNameInput"
                   type="text"
                   onChange={({ target: { value } }) =>
@@ -138,15 +177,25 @@ const BasicInfo: React.FC<propsType> = ({
                   }
                   value={firstName}
                   disabled={isIndividual() && isUpdate()}
+                  {...registerRequiredName}
                 />
+                {hasNameWarn ? (
+                  <ClayForm.FeedbackGroup>
+                    <ClayForm.FeedbackItem>{nameWarn}</ClayForm.FeedbackItem>
+                  </ClayForm.FeedbackGroup>
+                ) : null}
               </ClayInput.GroupItem>
 
-              <ClayInput.GroupItem>
-                <label htmlFor="lastNameInput">
+              <ClayInput.GroupItem
+                className={hasLastNameWarn ? "has-warning" : ""}
+              >
+                <label
+                  className={showIndividualFields ? "required" : ""}
+                  htmlFor="lastNameInput"
+                >
                   {CREATE_NEW_CONTACT.FIELD.LAST_NAME}
                 </label>
                 <ClayInput
-                  required={showIndividualFields}
                   id="lastNameInput"
                   type="text"
                   onChange={({ target: { value } }) =>
@@ -155,20 +204,31 @@ const BasicInfo: React.FC<propsType> = ({
                       CREATE_NEW_CONTACT.FIELD.LAST_NAME
                     )
                   }
+                  {...registerRequiredLastName}
                   value={lastName}
                 />
+                {hasLastNameWarn ? (
+                  <ClayForm.FeedbackGroup>
+                    <ClayForm.FeedbackItem>
+                      {lastNameWarn}
+                    </ClayForm.FeedbackItem>
+                  </ClayForm.FeedbackGroup>
+                ) : null}
               </ClayInput.GroupItem>
             </ClayInput.Group>
           </ClayForm.Group>
         </Row>
       ) : (
         <Row>
-          <ClayForm.Group>
-            <label htmlFor="companyName">
+          <ClayForm.Group className={hasCompanyNameWarn ? "has-warning" : ""}>
+            <label
+              className={!showIndividualFields ? "required" : ""}
+              htmlFor="companyName"
+            >
               {CREATE_NEW_CONTACT.FIELD.COMPANY_NAME}
             </label>
             <ClayInput
-              required={!showIndividualFields}
+              {...registerRequiredCompanyName}
               id="companyName"
               type="text"
               onChange={({ target: { value } }) =>
@@ -180,6 +240,11 @@ const BasicInfo: React.FC<propsType> = ({
               value={companyName}
               disabled={isLegalEntity() && isUpdate()}
             />
+            {hasCompanyNameWarn ? (
+              <ClayForm.FeedbackGroup>
+                <ClayForm.FeedbackItem>{companyNameWarn}</ClayForm.FeedbackItem>
+              </ClayForm.FeedbackGroup>
+            ) : null}
           </ClayForm.Group>
         </Row>
       )}
@@ -188,19 +253,22 @@ const BasicInfo: React.FC<propsType> = ({
           <ClayInput.Group>
             {showIndividualFields ? (
               <ClayInput.GroupItem
-                className={
+                className={`${
                   hasDayError || hasMonthError || hasYearError
                     ? "has-error"
                     : ""
-                }
+                } ${
+                  hasDayWarn || hasMonthWarn || hasYearWarn ? "has-warning" : ""
+                }`}
               >
-                <label htmlFor="birthDateDay">
+                <label
+                  className={showIndividualFields ? "required" : ""}
+                  htmlFor="birthDateDay"
+                >
                   {CREATE_NEW_CONTACT.FIELD.BIRTH_DATE}
                 </label>
                 <div className="birth-date-group">
                   <ClayInput
-                    ref={dayRef}
-                    required={showIndividualFields}
                     id="birthDateDay"
                     type="text"
                     onChange={({ target: { value } }) =>
@@ -209,10 +277,9 @@ const BasicInfo: React.FC<propsType> = ({
                     placeholder="DD"
                     value={dateDay}
                     disabled={isIndividual() && isUpdate()}
+                    {...registerRequiredDay}
                   />
                   <ClayInput
-                    ref={monthRef}
-                    required={showIndividualFields}
                     id="birthDateMonth"
                     type="text"
                     onChange={({ target: { value } }) =>
@@ -221,10 +288,9 @@ const BasicInfo: React.FC<propsType> = ({
                     placeholder="MM"
                     value={dateMonth}
                     disabled={isIndividual() && isUpdate()}
+                    {...registerRequiredMonth}
                   />
                   <ClayInput
-                    ref={yearRef}
-                    required={showIndividualFields}
                     id="birthDateYear"
                     type="text"
                     onChange={({ target: { value } }) =>
@@ -233,10 +299,25 @@ const BasicInfo: React.FC<propsType> = ({
                     placeholder="YYYY"
                     value={dateYear}
                     disabled={isIndividual() && isUpdate()}
+                    {...registerRequiredYear}
                   />
                 </div>
-                {hasDayError || hasMonthError || hasYearError ? (
+                {hasDayError ||
+                hasMonthError ||
+                hasYearError ||
+                hasDayWarn ||
+                hasMonthWarn ||
+                hasYearWarn ? (
                   <ClayForm.FeedbackGroup>
+                    <ClayForm.FeedbackItem>
+                      {dayWarn !== ""
+                        ? dayWarn
+                        : monthWarn !== ""
+                        ? monthWarn
+                        : yearWarn !== ""
+                        ? yearWarn
+                        : ""}
+                    </ClayForm.FeedbackItem>
                     <ClayForm.FeedbackItem>{dayError}</ClayForm.FeedbackItem>
                     <ClayForm.FeedbackItem>{monthError}</ClayForm.FeedbackItem>
                     <ClayForm.FeedbackItem>{yearError}</ClayForm.FeedbackItem>
@@ -244,10 +325,18 @@ const BasicInfo: React.FC<propsType> = ({
                 ) : null}
               </ClayInput.GroupItem>
             ) : null}
-            <ClayInput.GroupItem className={hasOibError ? "has-error" : ""}>
-              <label htmlFor="oibInput">{CREATE_NEW_CONTACT.FIELD.OIB}</label>
+            <ClayInput.GroupItem
+              className={`${hasOibError ? "has-error" : ""} ${
+                hasOibWarn ? "has-warning" : ""
+              }`}
+            >
+              <label
+                className={foreignerStatus ? "" : "required"}
+                htmlFor="oibInput"
+              >
+                {CREATE_NEW_CONTACT.FIELD.OIB}
+              </label>
               <ClayInput
-                required={foreignerStatus ? false : true}
                 id="oibInput"
                 type="text"
                 onChange={({ target: { value } }) =>
@@ -255,11 +344,16 @@ const BasicInfo: React.FC<propsType> = ({
                 }
                 value={oib}
                 disabled={isUpdate()}
-                ref={oibRef}
+                {...registerRequiredOib}
               />
-              {hasOibError ? (
+              {hasOibWarn || hasOibError ? (
                 <ClayForm.FeedbackGroup>
-                  <ClayForm.FeedbackItem>{oibError}</ClayForm.FeedbackItem>
+                  {hasOibWarn ? (
+                    <ClayForm.FeedbackItem>{oibWarn}</ClayForm.FeedbackItem>
+                  ) : null}
+                  {hasOibError ? (
+                    <ClayForm.FeedbackItem>{oibError}</ClayForm.FeedbackItem>
+                  ) : null}
                 </ClayForm.FeedbackGroup>
               ) : null}
             </ClayInput.GroupItem>
@@ -268,8 +362,13 @@ const BasicInfo: React.FC<propsType> = ({
       </Row>
       {!showIndividualFields ? (
         <Row half>
-          <ClayForm.Group>
-            <label htmlFor="subsidiaryNumber">
+          <ClayForm.Group
+            className={hasSubsidiaryNumberWarn ? "has-warning" : ""}
+          >
+            <label
+              className={!showIndividualFields ? "required" : ""}
+              htmlFor="subsidiaryNumber"
+            >
               {CREATE_NEW_CONTACT.FIELD.SUBSIDIARY_NUMBER}
             </label>
             <ClayInput
@@ -285,6 +384,13 @@ const BasicInfo: React.FC<propsType> = ({
                 )
               }
             />
+            {hasSubsidiaryNumberWarn ? (
+              <ClayForm.FeedbackGroup>
+                <ClayForm.FeedbackItem>
+                  {subsidiaryNumberWarn}
+                </ClayForm.FeedbackItem>
+              </ClayForm.FeedbackGroup>
+            ) : null}
           </ClayForm.Group>
         </Row>
       ) : null}

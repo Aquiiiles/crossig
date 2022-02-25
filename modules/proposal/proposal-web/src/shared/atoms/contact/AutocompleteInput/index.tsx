@@ -13,7 +13,10 @@ type props = {
   setPostalCode?: (postalCode: string) => void;
   isCity: boolean;
   disabled: boolean;
+  onFocus?: (event: React.FocusEvent<HTMLInputElement, Element>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement, Element>) => void;
   selectedValue?: string;
+  required?: boolean;
 };
 
 const AutoCompleteInput: React.FC<props> = ({
@@ -24,8 +27,11 @@ const AutoCompleteInput: React.FC<props> = ({
   setParentValue,
   setPostalCode,
   isCity,
+  onFocus,
+  onBlur,
   disabled,
   selectedValue,
+  required,
 }: props) => {
   const [value, setValue] = useState<string>(selectedValue || "");
   const [options, setOptions] = useState<Array<any>>();
@@ -97,7 +103,9 @@ const AutoCompleteInput: React.FC<props> = ({
 
   return (
     <>
-      <label htmlFor={id}>{label}</label>
+      <label className={required ? "required" : ""} htmlFor={id}>
+        {label}
+      </label>
       <ClayAutocomplete>
         <ClayAutocomplete.Input
           onChange={(event) => {
@@ -106,10 +114,15 @@ const AutoCompleteInput: React.FC<props> = ({
           }}
           value={value}
           id={id}
-          onFocus={() => setShowAutocomplete(true)}
+          onFocus={(e) => {
+            setShowAutocomplete(true);
+            onFocus && onFocus(e);
+          }}
+          onBlur={onBlur}
           ref={dropdownRef}
           autoComplete="off"
           disabled={disabled}
+          required={required}
         />
         <ClayAutocomplete.DropDown
           active={
