@@ -24,6 +24,8 @@ import useOnClickOutside from "../../../../shared/hooks/useOnClickOutside";
 import { useFetchData } from "../../../../api/hooks/useFetchData";
 import { COUNTRIES_URL } from "../../../../api/constants/routes";
 import { RESOLVED } from "../../../../api/reducers/constants";
+import { numbersOnly } from "../../../../shared/util/commonFunctions";
+import { lettersOnly } from "../../../../shared/util/commonFunctions";
 
 interface props {
   currentPage: number;
@@ -97,14 +99,6 @@ const SearchField: React.FC<props> = ({
       );
     }
   }, [triggerElementRef]);
-
-  const numbersOnly = (number: any) => {
-    return number.replace(/\D/g, '');
-  };
-
-  const lettersOnly = (string: any) => {
-    return string.replace(/[^a-zA-Z]+/g, '');
-  };
 
   return (
     <Wrapper>
