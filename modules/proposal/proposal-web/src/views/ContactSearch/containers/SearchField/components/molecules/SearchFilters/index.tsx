@@ -16,11 +16,13 @@ import { Country } from "../../../../../../../shared/types/contact";
 import { useFetchData } from "../../../../../../../api/hooks/useFetchData";
 import { AREA_CODE_URL } from "../../../../../../../api/constants/routes";
 import { actions } from "../../../../../../../redux/searchFilterSlice";
+import { numbersOnly } from "../../../../../../../shared/util/commonFunctions";
 import {
   useContactDispatch,
   useContactSelector,
 } from "../../../../../../../redux/store";
 import AreaCodeSelect from "../../../../../../../shared/atoms/contact/AreaCodeSelect";
+
 
 type AreaCodeType = {
   area_name: string;
@@ -143,8 +145,9 @@ const SearchFilters: React.FC<props> = ({
           <ClayInput
             id="phoneNumber"
             type="text"
+            className="straight-numbers"
             onChange={({ target: { value } }) =>
-              dispatch(setPhoneNumber(value))
+              dispatch(setPhoneNumber(numbersOnly(value)))
             }
             value={phoneNumber}
           />

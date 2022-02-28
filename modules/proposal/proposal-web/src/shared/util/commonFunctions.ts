@@ -19,3 +19,11 @@ export const shouldDisableInput = (props:any) => {
 
   return shouldDisable;
 };
+
+export const numbersOnly = (value: string) => {
+  return value.replace(/\D/g, '');
+};
+
+export const lettersOnly = (value: string) => {
+  return value.replace(/[^a-zA-Z]+/g, '');
+};
