@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import Stepper from "../ContactSearch/containers/Stepper";
 import { Wrapper, Buttons} from "./styles";
 import BackBtn from "../../shared/atoms/BackBtn";
 import ContinueBtn from "../../shared/atoms/ContinueBtn";
 import Table from "./containers/Table"
 import { ROLES_ON_POLICY } from "../../constants/languageKeys";
+import {
+  useContactSelector,
+} from "../../redux/store";
 
 const RolesOnPolicy: React.FC = () => {
-  const [hasInsuredRole, setHasInsuredRole] = useState(true);
+  const { contactsInPolicy } = useContactSelector((state) => state.contactsInPolicy);
+  const hasInsuredRole = contactsInPolicy.filter(contact => contact.contactRoles.includes("Insured")).length > 0;
 
   return (
     <Wrapper>
@@ -20,7 +24,7 @@ const RolesOnPolicy: React.FC = () => {
       <Buttons>
         <BackBtn pathname="/product" state={{ doSearch: true }} />
         <ContinueBtn
-          disabled={hasInsuredRole}
+          disabled={!hasInsuredRole}
           onClick={() => {
             return;
           }}

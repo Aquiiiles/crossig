@@ -17,4 +17,4 @@ export const TYPE_NAME = CONTACT_RESULTS_TABLE.HEADER.TYPE;
 export const TYPE_KEY = "entityTypeVO";
 export const MAIL_VALIDATED_KEY = "mailValidated";
 export const PHONE_NUMBER_VALIDATED_KEY = "phoneNumberValidated";
-export const ROLES_KEY = "roles";
+export const ROLES_KEY = "contactRoles";

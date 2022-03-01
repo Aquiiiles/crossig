@@ -24,7 +24,9 @@ const Table: React.FC = () => {
     (state) => state.basicInfo
   );
 
-  const { roles } = useContactSelector((state) => state.roles);
+  const { contactsInPolicy } = useContactSelector(
+    (state) => state.contactsInPolicy
+  );
 
   const contact = {
     [constants.NAME_KEY]: "firstName + lastName",
@@ -55,7 +57,6 @@ const Table: React.FC = () => {
       <ClayTable.Head>
         <ClayTable.Row>
           <ClayTable.Cell
-            style={{ cursor: "pointer" }}
             headingCell
             onClick={() => {
               dispatch(setSortedBy(constants.OIB_KEY));
@@ -66,7 +67,6 @@ const Table: React.FC = () => {
             {sortedBy === constants.OIB_KEY ? arrowIcon : null}
           </ClayTable.Cell>
           <ClayTable.Cell
-            style={{ cursor: "pointer" }}
             headingCell
             onClick={() => {
               dispatch(setSortedBy(constants.SUB_KEY));
@@ -77,7 +77,6 @@ const Table: React.FC = () => {
             {sortedBy === constants.SUB_KEY ? arrowIcon : null}
           </ClayTable.Cell>
           <ClayTable.Cell
-            style={{ cursor: "pointer" }}
             expanded
             headingCell
             onClick={() => {
@@ -89,7 +88,6 @@ const Table: React.FC = () => {
             {sortedBy === constants.NAME_KEY ? arrowIcon : null}
           </ClayTable.Cell>
           <ClayTable.Cell
-            style={{ cursor: "pointer" }}
             expanded
             headingCell
             onClick={() => {
@@ -103,9 +101,19 @@ const Table: React.FC = () => {
         </ClayTable.Row>
       </ClayTable.Head>
       <ClayTable.Body>
-        <TableRow key={1} contact={contact} roleOptions={roleOptions} />
-        {roles.map((role, index) => (
-          <TableRow key={index + 2} contact={role} roleOptions={roleOptions} />
+        <TableRow
+          key={0}
+          contact={contact}
+          roleOptions={roleOptions}
+          policyHolder={true}
+        />
+        {contactsInPolicy.map((contact, index) => (
+          <TableRow
+            key={index + 1}
+            contact={contact}
+            roleOptions={roleOptions}
+            policyHolder={false}
+          />
         ))}
         <AddRoleRow />
       </ClayTable.Body>

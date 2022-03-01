@@ -6,10 +6,15 @@ import { Wrapper } from "./styles";
 interface rolesItens {
   policyHolder: boolean;
   roleOptions: Array<string>;
+  initialRoles: Array<string>;
 }
 
-const RolesItens: React.FC<rolesItens> = ({ policyHolder, roleOptions }) => {
-  const [roles, setRoles] = useState(["Insured"]);
+const RolesItens: React.FC<rolesItens> = ({
+  policyHolder,
+  roleOptions,
+  initialRoles,
+}) => {
+  const [roles, setRoles] = useState(initialRoles);
 
   return (
     <Wrapper>

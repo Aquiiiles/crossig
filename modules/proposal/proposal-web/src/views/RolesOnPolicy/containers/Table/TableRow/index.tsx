@@ -9,9 +9,10 @@ import * as constants from "../../../constants/constants";
 interface props {
   contact: types.roleType;
   roleOptions: Array<string>;
+  policyHolder: boolean;
 }
 
-const TableRow: React.FC<props> = ({ contact, roleOptions }) => {
+const TableRow: React.FC<props> = ({ contact, roleOptions, policyHolder }) => {
   return (
     <Row>
       <ClayTable.Cell headingTitle>{contact[constants.OIB_KEY]}</ClayTable.Cell>
@@ -21,8 +22,9 @@ const TableRow: React.FC<props> = ({ contact, roleOptions }) => {
       </ClayTable.Cell>
       <ClayTable.Cell headingTitle>
         <RolesItens
-          policyHolder={true}
+          policyHolder={policyHolder}
           roleOptions={roleOptions}
+          initialRoles={contact.contactRoles}
         />
       </ClayTable.Cell>
     </Row>

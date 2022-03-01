@@ -7,4 +7,4 @@ export const SUB_KEY = "sub";
 export const NAME_NAME = ROLES_TABLE.HEADER.NAME;
 export const NAME_KEY = "name";
 export const ROLES_NAME = ROLES_TABLE.HEADER.ROLES;
-export const ROLES_KEY = "roles";
+export const ROLES_KEY = "contactRoles";

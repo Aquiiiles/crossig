@@ -9,7 +9,7 @@ import {
   CONTACT_SEARCH_TABLE_ADD_TO_POLICY,
 } from "../../../../../../../constants/languageKeys";
 import { useContactDispatch } from "../../../../../../../redux/store";
-import { actions } from "../../../../../../../redux/rolesSlice";
+import { actions } from "../../../../../../../redux/contactsInPolicySlice";
 
 import * as types from "../../../types/searchResult";
 import * as constants from "../../../constants/searchResult";

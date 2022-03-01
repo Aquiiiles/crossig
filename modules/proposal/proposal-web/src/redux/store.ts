@@ -14,7 +14,7 @@ import addressesReducer, {
   actions as addressesActions,
 } from "./addressesSlice";
 
-import rolesReducer from "./rolesSlice";
+import contactsInPolicyReducer from "./contactsInPolicySlice";
 
 export const createContactStore = () => {
   return configureStore({
@@ -23,7 +23,7 @@ export const createContactStore = () => {
       addresses: addressesReducer,
       searchFilter: searchFilterReducer,
       contactInfo: contactInfoReducer,
-      roles: rolesReducer,
+      contactsInPolicy: contactsInPolicyReducer,
     },
   });
 };

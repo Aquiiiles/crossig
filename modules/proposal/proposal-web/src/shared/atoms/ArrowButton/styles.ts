@@ -7,9 +7,5 @@ interface Props {
 
 export const Button = styled(ClayButton)<Props>`
   transition: all 0.4s ease;
-  transform: ${props => props.angleUp ? "rotate(180)" : ""}
-
-  & svg {
-    pointer-events: none;
-  }
+  transform: ${(props) => (props.angleUp ? "rotate(180deg)" : "")};
 `;
