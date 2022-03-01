@@ -11,5 +11,9 @@ export const Wrapper = styled.div`
   p {
     margin-bottom: 0;
     color: ${(props) => props.theme.color.neutral.white};
+
+    &.not-title {
+      cursor: pointer;
+    }
   }
 `;

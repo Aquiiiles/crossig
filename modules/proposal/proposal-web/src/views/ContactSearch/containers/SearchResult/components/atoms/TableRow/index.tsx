@@ -6,7 +6,10 @@ import MissingInformationIcon from "../MissingInformationIcon";
 import {
   CONTACT_SEARCH_TABLE_VIEW_DETAILS,
   CONTACT_SEARCH_TABLE_USE_CONTACT,
+  CONTACT_SEARCH_TABLE_ADD_TO_POLICY,
 } from "../../../../../../../constants/languageKeys";
+import { useContactDispatch } from "../../../../../../../redux/store";
+import { actions } from "../../../../../../../redux/rolesSlice";
 
 import * as types from "../../../types/searchResult";
 import * as constants from "../../../constants/searchResult";
@@ -14,11 +17,15 @@ import { useHistory } from "react-router-dom";
 
 interface props {
   contact: types.responseType;
+  embedded: boolean;
 }
 
-const TableRow: React.FC<props> = ({ contact }) => {
+const TableRow: React.FC<props> = ({ contact, embedded }) => {
   const [showButtons, setShowButtons] = useState(false);
   const history = useHistory();
+
+  const dispatch = useContactDispatch();
+  const { addRole } = actions;
 
   const types = {
     Individual: "F",
@@ -79,12 +86,30 @@ const TableRow: React.FC<props> = ({ contact }) => {
           >
             {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
           </ClayButton>
-          <ClayButton
-            displayType="primary"
-            onClick={() => history.push("/product")}
-          >
-            {CONTACT_SEARCH_TABLE_USE_CONTACT}
-          </ClayButton>
+          {embedded ? (
+            <ClayButton
+              displayType="primary"
+              onClick={() =>
+                dispatch(
+                  addRole({
+                    [constants.OIB_KEY]: contact[constants.OIB_KEY],
+                    [constants.SUB_KEY]: contact[constants.SUB_KEY],
+                    [constants.NAME_KEY]: contact[constants.NAME_KEY],
+                    [constants.ROLES_KEY]: [],
+                  })
+                )
+              }
+            >
+              {CONTACT_SEARCH_TABLE_ADD_TO_POLICY}
+            </ClayButton>
+          ) : (
+            <ClayButton
+              displayType="primary"
+              onClick={() => history.push("/product")}
+            >
+              {CONTACT_SEARCH_TABLE_USE_CONTACT}
+            </ClayButton>
+          )}
         </HoveringButtonGroup>
       ) : (
         <ClayTable.Cell headingTitle>

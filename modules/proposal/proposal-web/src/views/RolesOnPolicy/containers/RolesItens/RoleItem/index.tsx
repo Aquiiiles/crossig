@@ -10,9 +10,11 @@ interface roleItem {
 }
 
 const RoleItem: React.FC<roleItem> = ({ title, removable, removeRole }) => {
+  const isNotTitle = (title === "+" || removable);
+
   return (
     <Wrapper>
-      <p onClick={removeRole}>
+      <p onClick={removeRole} className={isNotTitle ? "not-title" : ""}>
         {title === "+" ? <ClayIcon symbol="plus" spritemap={spritemap} /> : title}
         {removable && (
           <>

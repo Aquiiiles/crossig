@@ -44,6 +44,7 @@ export const CONTACT_SEARCH_FIELD_EMAIL_ADDRESS = Liferay.Language.get('contact-
 export const CONTACT_SEARCH_CREATE_NEW_CONTACT = Liferay.Language.get('contact-search-create-new-contact');
 export const CONTACT_SEARCH_TABLE_VIEW_DETAILS = Liferay.Language.get('contact-search-table-view-details');
 export const CONTACT_SEARCH_TABLE_USE_CONTACT = Liferay.Language.get('contact-search-table-use-contact');
+export const CONTACT_SEARCH_TABLE_ADD_TO_POLICY = Liferay.Language.get('contact-search-table-add-to-policy');
 export const CONTACT_SEARCH_RESULT_CONTACTS_FOUND = Liferay.Language.get('contact-search-result-contacts-found');
 export const CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND = Liferay.Language.get('contact-search-result-no-contacts-found');
 export const CONTACT_SEARCH_RESULT_TOO_MANY_SEARCH_RESULTS = Liferay.Language.get('contact-search-result-too-many-search-results');

@@ -1,6 +1,7 @@
 import React from "react";
 import ClayTable from "@clayui/table";
 import TableRow from "./TableRow";
+import AddRoleRow from "./AddRoleRow";
 import spritemap from "@clayui/css/lib/images/icons/icons.svg";
 import ClayIcon from "@clayui/icon";
 import {
@@ -10,7 +11,6 @@ import {
 import { actions } from "../../../../redux/searchFilterSlice";
 import { ResultsTable } from "./styles";
 
-import * as types from "../../constants/types";
 import * as constants from "../../constants/constants";
 
 const Table: React.FC = () => {
@@ -23,6 +23,8 @@ const Table: React.FC = () => {
   const { firstName, lastName, oib, subsidiaryNumber } = useContactSelector(
     (state) => state.basicInfo
   );
+
+  const { roles } = useContactSelector((state) => state.roles);
 
   const contact = {
     [constants.NAME_KEY]: "firstName + lastName",
@@ -101,7 +103,11 @@ const Table: React.FC = () => {
         </ClayTable.Row>
       </ClayTable.Head>
       <ClayTable.Body>
-        <TableRow key={1} contact={contact} roleOptions={roleOptions}/>
+        <TableRow key={1} contact={contact} roleOptions={roleOptions} />
+        {roles.map((role, index) => (
+          <TableRow key={index + 2} contact={role} roleOptions={roleOptions} />
+        ))}
+        <AddRoleRow />
       </ClayTable.Body>
     </ResultsTable>
   );

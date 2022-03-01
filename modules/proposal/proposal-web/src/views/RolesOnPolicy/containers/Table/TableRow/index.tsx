@@ -13,7 +13,7 @@ interface props {
 
 const TableRow: React.FC<props> = ({ contact, roleOptions }) => {
   return (
-    <Row style={{ position: "relative" }}>
+    <Row>
       <ClayTable.Cell headingTitle>{contact[constants.OIB_KEY]}</ClayTable.Cell>
       <ClayTable.Cell headingTitle>{contact[constants.SUB_KEY]}</ClayTable.Cell>
       <ClayTable.Cell headingTitle>

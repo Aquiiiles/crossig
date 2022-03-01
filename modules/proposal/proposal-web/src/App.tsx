@@ -24,7 +24,7 @@ const App: React.FC = () => {
           <UpdateContact />
         </Route>
         <Route path="/">
-          <ContactSearch />
+          <ContactSearch embedded={false} />
         </Route>
       </Switch>
     </Router>
