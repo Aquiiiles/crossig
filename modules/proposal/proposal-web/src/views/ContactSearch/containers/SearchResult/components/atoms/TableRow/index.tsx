@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import ClayButton from "@clayui/button";
 import ClayTable from "@clayui/table";
 import { HoveringButtonGroup } from "./style";
@@ -13,7 +14,7 @@ import { actions } from "../../../../../../../redux/contactsInPolicySlice";
 
 import * as types from "../../../types/searchResult";
 import * as constants from "../../../constants/searchResult";
-import { useHistory } from "react-router-dom";
+import { ROLES_ON_POLICY } from "../../../../../../../constants/languageKeys";
 
 interface props {
   contact: types.responseType;
@@ -105,7 +106,15 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
           ) : (
             <ClayButton
               displayType="primary"
-              onClick={() => history.push("/product")}
+              onClick={() => {
+                addContact({
+                  [constants.OIB_KEY]: contact[constants.OIB_KEY],
+                  [constants.SUB_KEY]: contact[constants.SUB_KEY],
+                  [constants.NAME_KEY]: contact[constants.NAME_KEY],
+                  [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
+                });
+                history.push("/product");
+              }}
             >
               {CONTACT_SEARCH_TABLE_USE_CONTACT}
             </ClayButton>

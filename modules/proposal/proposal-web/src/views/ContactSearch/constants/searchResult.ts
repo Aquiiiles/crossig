@@ -1,4 +1,4 @@
-import { CONTACT_RESULTS_TABLE } from "../../../../../constants/languageKeys";
+import { CONTACT_RESULTS_TABLE } from "../../../constants/languageKeys";
 
 export const EXT_NUMBER_KEY = "id";
 export const OIB_NAME = CONTACT_RESULTS_TABLE.HEADER.OIB;

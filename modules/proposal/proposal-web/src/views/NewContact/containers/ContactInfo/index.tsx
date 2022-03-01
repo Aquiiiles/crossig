@@ -1,40 +1,43 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import { ButtonWrapper, Wrapper } from "./style";
 import BasicInfo from "../../../../shared/molecules/contact/BasicInfo";
 import Addresses from "../../../../shared/molecules/contact/Addresses";
 import ContactInfoForm from "../../../../shared/molecules/contact/ContactInfoForm";
-import {
-  CONTACT_INFO,
-  CREATE_NEW_CONTACT,
-} from "../../../../constants/languageKeys";
+import LinkWrapper from "../../../../shared/atoms/contact/LinkWrapper";
+import ContactButton from "../../../../shared/atoms/contact/ContactButton";
+import Modal from "../../../../shared/atoms/contact/Modal";
+import useFormState from "../../../../shared/hooks/useFormState";
 import {
   mapToCountryNames,
   mapToCountryCodes,
 } from "../../../../shared/util/countryMappers";
-import API from "../../../../api";
+import {
+  CONTACT_INFO,
+  CREATE_NEW_CONTACT,
+  ROLES_ON_POLICY,
+} from "../../../../constants/languageKeys";
+import { contactTypes } from "../../../../constants/contactConstants";
 import {
   useContactSelector,
   useContactDispatch,
 } from "../../../../redux/store";
-import { valuesToISOString } from "./utils/dateUtils";
-import { emailListToData } from "./utils/emailUtils";
-import { phoneObjectToData } from "./utils/phoneUtils";
-import { CONTACT_URL } from "../../../../api/constants/routes";
+import { actions as contactsInPolicyActions } from "../../../../redux/contactsInPolicySlice";
 import { createContactStore } from "../../../../redux/store";
-import { COUNTRIES_URL } from "../../../../api/constants/routes";
-import { useFetchData } from "../../../../api/hooks/useFetchData";
-import { RESOLVED } from "../../../../api/reducers/constants";
-import LinkWrapper from "../../../../shared/atoms/contact/LinkWrapper";
-import ContactButton from "../../../../shared/atoms/contact/ContactButton";
-import ClayForm from "@clayui/form";
-import { SUCCESS_CODE } from "../../../../api/reducers/constants";
-import { useHistory } from "react-router-dom";
-import { contactTypes } from "../../../../constants/contactConstants";
-import Modal from "../../../../shared/atoms/contact/Modal";
 import { actions as contactInfoActions } from "../../../../redux/contactInfoSlice";
 import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
 import { actions as addressesActions } from "../../../../redux/addressesSlice";
-import useFormState from "../../../../shared/hooks/useFormState";
+import { valuesToISOString } from "./utils/dateUtils";
+import { emailListToData } from "./utils/emailUtils";
+import { phoneObjectToData } from "./utils/phoneUtils";
+import API from "../../../../api";
+import { CONTACT_URL } from "../../../../api/constants/routes";
+import { COUNTRIES_URL } from "../../../../api/constants/routes";
+import { useFetchData } from "../../../../api/hooks/useFetchData";
+import { RESOLVED } from "../../../../api/reducers/constants";
+import { SUCCESS_CODE } from "../../../../api/reducers/constants";
+import ClayForm from "@clayui/form";
+import * as constants from "../../../ContactSearch/constants/searchResult";
 
 const ContactInfo: React.FC = () => {
   const dispatch = useContactDispatch();
@@ -155,6 +158,13 @@ const ContactInfo: React.FC = () => {
       response
         .then(() => {
           setCreateSuccess(true);
+          contactsInPolicyActions.addContact({
+            [constants.OIB_KEY]: basicInfoData.oib,
+            [constants.SUB_KEY]: basicInfoData.subsidiaryNumber,
+            [constants.NAME_KEY]:
+              basicInfoData.firstName + basicInfoData.lastName,
+            [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
+          });
         })
         .catch(() => {
           setCreateSuccess(false);
@@ -164,7 +174,6 @@ const ContactInfo: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log(contactState);
     if (contactState.response?.status === Number(SUCCESS_CODE)) {
       history.push("/product?success=true");
     }
