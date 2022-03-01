@@ -9,8 +9,20 @@ const ContactsInPolicy = createSlice({
   name: "ContactsInPolicy",
   initialState,
   reducers: {
-    addRole(state, action: PayloadAction<roleType>) {
+    addContact(state, action: PayloadAction<roleType>) {
       state.contactsInPolicy = [...state.contactsInPolicy, action.payload];
+    },
+    addRole(state, action: PayloadAction<[number, string]>) {
+      const index = action.payload[0];
+      const newState = [...state.contactsInPolicy];
+      newState[index].contactRoles.push(action.payload[1]);
+      state.contactsInPolicy = newState;
+    },
+    removeRole(state, action: PayloadAction<[number, string]>) {
+      const index = action.payload[0];
+      const newState = [...state.contactsInPolicy];
+      newState[index].contactRoles = newState[index].contactRoles.filter((role) => role != action.payload[1]);
+      state.contactsInPolicy = newState;
     },
     resetFields(state) {
       state.contactsInPolicy = initialState.contactsInPolicy;

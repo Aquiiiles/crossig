@@ -4,8 +4,10 @@ import ContactSearch from "../../../../ContactSearch";
 import ArrowButton from "../../../../../shared/atoms/ArrowButton";
 import ClayTableCell from "@clayui/table/lib/Cell";
 
-const AddRoleRow: React.FC = () => {
-  const [showLookup, setShowLookup] = useState(false);
+const AddRoleRow: React.FC<{ hasInsuredRole: boolean }> = ({
+  hasInsuredRole,
+}) => {
+  const [showLookup, setShowLookup] = useState(!hasInsuredRole);
 
   return (
     <>

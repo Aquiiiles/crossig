@@ -9,31 +9,22 @@ import {
   useContactDispatch,
 } from "../../../../redux/store";
 import { actions } from "../../../../redux/searchFilterSlice";
+import { actions as contactActions } from "../../../../redux/contactsInPolicySlice";
 import { ResultsTable } from "./styles";
 
 import * as constants from "../../constants/constants";
 
-const Table: React.FC = () => {
+const Table: React.FC<{ hasInsuredRole: boolean }> = ({ hasInsuredRole }) => {
   const dispatch = useContactDispatch();
   const { sortedBy, sortOrder } = useContactSelector(
     (state) => state.searchFilter
   );
   const { setSortedBy, setSortOrder } = actions;
 
-  const { firstName, lastName, oib, subsidiaryNumber } = useContactSelector(
-    (state) => state.basicInfo
-  );
-
   const { contactsInPolicy } = useContactSelector(
     (state) => state.contactsInPolicy
   );
-
-  const contact = {
-    [constants.NAME_KEY]: "firstName + lastName",
-    [constants.OIB_KEY]: "oib",
-    [constants.SUB_KEY]: "subsidiaryNumber",
-    [constants.ROLES_KEY]: ["Insured"],
-  };
+  const { addRole, removeRole } = contactActions;
 
   const decideOrder = (sortBy: string) => {
     if (sortBy === sortedBy) {
@@ -101,21 +92,17 @@ const Table: React.FC = () => {
         </ClayTable.Row>
       </ClayTable.Head>
       <ClayTable.Body>
-        <TableRow
-          key={0}
-          contact={contact}
-          roleOptions={roleOptions}
-          policyHolder={true}
-        />
         {contactsInPolicy.map((contact, index) => (
           <TableRow
-            key={index + 1}
+            key={index}
             contact={contact}
             roleOptions={roleOptions}
-            policyHolder={false}
+            policyHolder={index === 0}
+            addRole={(title: string) => dispatch(addRole([index, title]))}
+            removeRole={(title: string) => dispatch(removeRole([index, title]))}
           />
         ))}
-        <AddRoleRow />
+        <AddRoleRow hasInsuredRole={hasInsuredRole} />
       </ClayTable.Body>
     </ResultsTable>
   );

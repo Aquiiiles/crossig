@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
+  span {
+    padding-top: 0.5rem;
+    padding-right: 1rem;
+  }
 `;
 
 export const Buttons = styled.div`

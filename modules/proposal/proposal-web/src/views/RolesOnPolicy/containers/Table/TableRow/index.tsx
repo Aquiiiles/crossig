@@ -10,9 +10,17 @@ interface props {
   contact: types.roleType;
   roleOptions: Array<string>;
   policyHolder: boolean;
+  addRole: (title: string) => void;
+  removeRole: (title: string) => void;
 }
 
-const TableRow: React.FC<props> = ({ contact, roleOptions, policyHolder }) => {
+const TableRow: React.FC<props> = ({
+  contact,
+  roleOptions,
+  policyHolder,
+  addRole,
+  removeRole,
+}) => {
   return (
     <Row>
       <ClayTable.Cell headingTitle>{contact[constants.OIB_KEY]}</ClayTable.Cell>
@@ -24,7 +32,9 @@ const TableRow: React.FC<props> = ({ contact, roleOptions, policyHolder }) => {
         <RolesItens
           policyHolder={policyHolder}
           roleOptions={roleOptions}
-          initialRoles={contact.contactRoles}
+          roles={contact.contactRoles}
+          addRole={addRole}
+          removeRole={removeRole}
         />
       </ClayTable.Cell>
     </Row>

@@ -25,7 +25,7 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
   const history = useHistory();
 
   const dispatch = useContactDispatch();
-  const { addRole } = actions;
+  const { addContact } = actions;
 
   const types = {
     Individual: "F",
@@ -91,7 +91,7 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
               displayType="primary"
               onClick={() =>
                 dispatch(
-                  addRole({
+                  addContact({
                     [constants.OIB_KEY]: contact[constants.OIB_KEY],
                     [constants.SUB_KEY]: contact[constants.SUB_KEY],
                     [constants.NAME_KEY]: contact[constants.NAME_KEY],

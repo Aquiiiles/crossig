@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import RoleItem from "./RoleItem";
 import AddRoleItem from "./AddRoleItem";
 import { Wrapper } from "./styles";
@@ -6,16 +6,18 @@ import { Wrapper } from "./styles";
 interface rolesItens {
   policyHolder: boolean;
   roleOptions: Array<string>;
-  initialRoles: Array<string>;
+  roles: Array<string>;
+  addRole: (title: string) => void;
+  removeRole: (title: string) => void;
 }
 
 const RolesItens: React.FC<rolesItens> = ({
   policyHolder,
   roleOptions,
-  initialRoles,
+  roles,
+  addRole,
+  removeRole,
 }) => {
-  const [roles, setRoles] = useState(initialRoles);
-
   return (
     <Wrapper>
       {policyHolder && (
@@ -32,16 +34,14 @@ const RolesItens: React.FC<rolesItens> = ({
           key={index}
           title={role}
           removable={true}
-          removeRole={() =>
-            setRoles(roles.filter((roleItem) => roleItem != role))
-          }
+          removeRole={() => removeRole(role)}
         />
       ))}
       <AddRoleItem
         roleOptions={roleOptions.filter(
           (roleOption) => !roles.includes(roleOption)
         )}
-        addRole={(title: string) => setRoles([...roles, title])}
+        addRole={(title: string) => addRole(title)}
       />
     </Wrapper>
   );
