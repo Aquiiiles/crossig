@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import RoleItem from "../RoleItem";
 import ClayDropDown from "@clayui/drop-down";
+import { ROLES_ON_POLICY } from "../../../../../constants/languageKeys";
 
 const AddRoleItem: React.FC<{
   roleOptions: Array<string>;
@@ -39,7 +40,9 @@ const AddRoleItem: React.FC<{
             </ClayDropDown.Item>
           ))
         ) : (
-          <ClayDropDown.Item disabled>No more options</ClayDropDown.Item>
+          <ClayDropDown.Item disabled>
+            {ROLES_ON_POLICY.NO_OPTIONS}
+          </ClayDropDown.Item>
         )}
       </ClayDropDown.ItemList>
     </ClayDropDown>

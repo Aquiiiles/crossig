@@ -152,6 +152,10 @@ export const ROLES_ON_POLICY = {
   TITLE: Liferay.Language.get('roles-on-policy-title'),
   SUBTITLE: Liferay.Language.get('roles-on-policy-subtitle'),
   INSURED_ROLE_MISSING: Liferay.Language.get('roles-on-policy-insured-role-missing'),
+  ADD_ROLE: Liferay.Language.get('roles-on-policy-add-role'),
+  NO_OPTIONS: Liferay.Language.get('roles-on-policy-no-options'),
+  POLICY_HOLDER: Liferay.Language.get('roles-on-policy-policy-holder'),
+  INSURED: Liferay.Language.get('roles-on-policy-insured'),
 }
 
 export const ROLES_TABLE = {

@@ -2,6 +2,7 @@ import React from "react";
 import RoleItem from "./RoleItem";
 import AddRoleItem from "./AddRoleItem";
 import { Wrapper } from "./styles";
+import { ROLES_ON_POLICY } from "../../../../constants/languageKeys";
 
 interface rolesItens {
   policyHolder: boolean;
@@ -22,7 +23,7 @@ const RolesItens: React.FC<rolesItens> = ({
     <Wrapper>
       {policyHolder && (
         <RoleItem
-          title={"Policy Holder"}
+          title={ROLES_ON_POLICY.POLICY_HOLDER}
           removable={false}
           removeRole={() => {
             return;

@@ -13,7 +13,7 @@ const RolesOnPolicy: React.FC = () => {
   );
   const hasInsuredRole =
     contactsInPolicy.filter((contact) =>
-      contact.contactRoles.includes("Insured")
+      contact.contactRoles.includes(ROLES_ON_POLICY.INSURED)
     ).length > 0;
 
   return (
