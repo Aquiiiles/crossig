@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import ClayTable from "@clayui/table";
-import ClayButton from "@clayui/button";
-import { Row, HoveringButtonGroup } from "./styles";
+import { Row, ViewDetailsBtn, Wrapper } from "./styles";
 import RolesItens from "../../RolesItens";
 import { CONTACT_SEARCH_TABLE_VIEW_DETAILS } from "../../../../../constants/languageKeys";
 
@@ -24,7 +23,7 @@ const TableRow: React.FC<props> = ({
   addRole,
   removeRole,
 }) => {
-  const [showButtons, setShowButtons] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
   const history = useHistory();
 
   const openUpdateContact = (extNumber: number) => {
@@ -36,24 +35,14 @@ const TableRow: React.FC<props> = ({
 
   return (
     <Row
-      onMouseLeave={() => setShowButtons(false)}
-      onMouseEnter={() => setShowButtons(true)}
+      onMouseLeave={() => setShowDetails(false)}
+      onMouseEnter={() => setShowDetails(true)}
     >
       <ClayTable.Cell>{contact[constants.OIB_KEY] || "0"}</ClayTable.Cell>
-      <ClayTable.Cell>{contact[constants.SUB_KEY || "0"]}</ClayTable.Cell>
-      <ClayTable.Cell>{contact[constants.NAME_KEY || "-"]}</ClayTable.Cell>
-      {showButtons ? (
-        <HoveringButtonGroup>
-          <ClayButton
-            displayType="secondary"
-            className="ghost"
-            onClick={() => openUpdateContact(contact[constants.EXT_NUMBER_KEY])}
-          >
-            {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
-          </ClayButton>
-        </HoveringButtonGroup>
-      ) : (
-        <ClayTable.Cell>
+      <ClayTable.Cell>{contact[constants.SUB_KEY] || "0"}</ClayTable.Cell>
+      <ClayTable.Cell>{contact[constants.NAME_KEY] || "-"}</ClayTable.Cell>
+      <ClayTable.Cell>
+        <Wrapper>
           <RolesItens
             policyHolder={policyHolder}
             roleOptions={roleOptions}
@@ -61,8 +50,19 @@ const TableRow: React.FC<props> = ({
             addRole={addRole}
             removeRole={removeRole}
           />
-        </ClayTable.Cell>
-      )}
+          {showDetails ? (
+            <ViewDetailsBtn
+              displayType="secondary"
+              className="ghost"
+              onClick={() =>
+                openUpdateContact(contact[constants.EXT_NUMBER_KEY])
+              }
+            >
+              {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
+            </ViewDetailsBtn>
+          ) : null}
+        </Wrapper>
+      </ClayTable.Cell>
     </Row>
   );
 };
