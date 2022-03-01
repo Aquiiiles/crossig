@@ -8,13 +8,13 @@ import {
   CONTACT_SEARCH_TABLE_VIEW_DETAILS,
   CONTACT_SEARCH_TABLE_USE_CONTACT,
   CONTACT_SEARCH_TABLE_ADD_TO_POLICY,
+  ROLES_ON_POLICY
 } from "../../../../../../../constants/languageKeys";
 import { useContactDispatch } from "../../../../../../../redux/store";
 import { actions } from "../../../../../../../redux/contactsInPolicySlice";
 
 import * as types from "../../../types/searchResult";
-import * as constants from "../../../constants/searchResult";
-import { ROLES_ON_POLICY } from "../../../../../../../constants/languageKeys";
+import * as constants from "../../../../../constants/searchResult";
 
 interface props {
   contact: types.responseType;
@@ -93,6 +93,7 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
               onClick={() =>
                 dispatch(
                   addContact({
+                    [constants.EXT_NUMBER_KEY]: contact[constants.EXT_NUMBER_KEY],
                     [constants.OIB_KEY]: contact[constants.OIB_KEY],
                     [constants.SUB_KEY]: contact[constants.SUB_KEY],
                     [constants.NAME_KEY]: contact[constants.NAME_KEY],
@@ -108,6 +109,7 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
               displayType="primary"
               onClick={() => {
                 addContact({
+                  [constants.EXT_NUMBER_KEY]: contact[constants.EXT_NUMBER_KEY],
                   [constants.OIB_KEY]: contact[constants.OIB_KEY],
                   [constants.SUB_KEY]: contact[constants.SUB_KEY],
                   [constants.NAME_KEY]: contact[constants.NAME_KEY],

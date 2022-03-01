@@ -1,15 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { roleType } from "../views/RolesOnPolicy/constants/types";
+import { contactInPolicy } from "../views/RolesOnPolicy/constants/types";
 
 const initialState = {
-  contactsInPolicy: new Array<roleType>(),
+  contactsInPolicy: new Array<contactInPolicy>(),
 };
 
 const ContactsInPolicy = createSlice({
   name: "ContactsInPolicy",
   initialState,
   reducers: {
-    addContact(state, action: PayloadAction<roleType>) {
+    addContact(state, action: PayloadAction<contactInPolicy>) {
       state.contactsInPolicy = [...state.contactsInPolicy, action.payload];
     },
     addRole(state, action: PayloadAction<[number, string]>) {

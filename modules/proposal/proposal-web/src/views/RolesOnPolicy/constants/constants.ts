@@ -1,5 +1,6 @@
 import { ROLES_TABLE } from "../../../constants/languageKeys";
 
+export const EXT_NUMBER_KEY = "id";
 export const OIB_NAME = ROLES_TABLE.HEADER.OIB;
 export const OIB_KEY = "idValue";
 export const SUB_NAME = ROLES_TABLE.HEADER.SUB;

@@ -19,7 +19,7 @@ import {
 } from "../../../../redux/store";
 import { actions } from "../../../../redux/searchFilterSlice";
 
-import * as constants from "./constants/searchResult";
+import * as constants from "../../constants/searchResult";
 
 import { providedDataType, responseType } from "./types/searchResult";
 

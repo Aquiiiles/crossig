@@ -40,9 +40,10 @@ import {
 } from "./util";
 import * as constants from "../../../ContactSearch/constants/searchResult";
 
-const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
-  contactResponse,
-}) => {
+const UpdateContactForm: React.FC<{
+  contactResponse: any;
+  extNumber: unknown;
+}> = ({ contactResponse, extNumber }) => {
   const history = useHistory();
   const dispatch = useContactDispatch();
   const basicInfoData = useContactSelector((state) => state.basicInfo);
@@ -243,6 +244,7 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
             <ContactButton
               handleClick={() => {
                 contactsInPolicyActions.addContact({
+                  [constants.EXT_NUMBER_KEY]: Number(extNumber),
                   [constants.OIB_KEY]: basicInfoData.oib,
                   [constants.SUB_KEY]: basicInfoData.subsidiaryNumber,
                   [constants.NAME_KEY]:

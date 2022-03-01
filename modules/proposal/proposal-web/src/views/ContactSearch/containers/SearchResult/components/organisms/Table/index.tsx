@@ -11,7 +11,7 @@ import { actions } from "../../../../../../../redux/searchFilterSlice";
 import { ResultsTable, Span } from "./styles";
 
 import * as types from "../../../types/searchResult";
-import * as constants from "../../../constants/searchResult";
+import * as constants from "../../../../../constants/searchResult";
 
 interface props {
   inputData: Array<types.responseType>;

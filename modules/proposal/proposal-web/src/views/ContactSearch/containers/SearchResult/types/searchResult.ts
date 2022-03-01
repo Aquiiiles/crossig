@@ -1,4 +1,4 @@
-import * as constants from "../constants/searchResult";
+import * as constants from "../../../constants/searchResult";
 
 export type responseType = {
   [constants.EXT_NUMBER_KEY]: number;

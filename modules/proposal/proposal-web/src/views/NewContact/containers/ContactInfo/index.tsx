@@ -159,6 +159,7 @@ const ContactInfo: React.FC = () => {
         .then(() => {
           setCreateSuccess(true);
           contactsInPolicyActions.addContact({
+            [constants.EXT_NUMBER_KEY]: 1,
             [constants.OIB_KEY]: basicInfoData.oib,
             [constants.SUB_KEY]: basicInfoData.subsidiaryNumber,
             [constants.NAME_KEY]:
