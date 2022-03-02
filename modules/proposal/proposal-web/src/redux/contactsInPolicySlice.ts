@@ -3,6 +3,7 @@ import { contactInPolicy } from "../views/RolesOnPolicy/constants/types";
 
 const initialState = {
   contactsInPolicy: new Array<contactInPolicy>(),
+  roleOptions: new Array<string>(),
 };
 
 const ContactsInPolicy = createSlice({
@@ -21,11 +22,18 @@ const ContactsInPolicy = createSlice({
     removeRole(state, action: PayloadAction<[number, string]>) {
       const index = action.payload[0];
       const newState = [...state.contactsInPolicy];
-      newState[index].contactRoles = newState[index].contactRoles.filter((role) => role != action.payload[1]);
+      newState[index].contactRoles = newState[index].contactRoles.filter(
+        (role) => role != action.payload[1]
+      );
       state.contactsInPolicy = newState;
+    },
+    setRoleOptions(state, action: PayloadAction<Array<string>>) {
+      console.log(action.payload);
+      state.roleOptions = action.payload;
     },
     resetFields(state) {
       state.contactsInPolicy = initialState.contactsInPolicy;
+      state.roleOptions = initialState.roleOptions;
     },
   },
 });

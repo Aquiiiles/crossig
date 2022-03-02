@@ -41,8 +41,6 @@ const Table: React.FC<{ hasInsuredRole: boolean }> = ({ hasInsuredRole }) => {
     />
   );
 
-  const roleOptions = ["Insured", "Payer"];
-
   return (
     <ResultsTable borderless>
       <ClayTable.Head>
@@ -96,7 +94,6 @@ const Table: React.FC<{ hasInsuredRole: boolean }> = ({ hasInsuredRole }) => {
           <TableRow
             key={index}
             contact={contact}
-            roleOptions={roleOptions}
             policyHolder={index === 0}
             addRole={(title: string) => dispatch(addRole([index, title]))}
             removeRole={(title: string) => dispatch(removeRole([index, title]))}

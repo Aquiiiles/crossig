@@ -22,8 +22,8 @@ import {
   useContactSelector,
   useContactDispatch,
 } from "../../../../redux/store";
-import { actions as contactsInPolicyActions } from "../../../../redux/contactsInPolicySlice";
 import { createContactStore } from "../../../../redux/store";
+import { actions as contactsInPolicyActions } from "../../../../redux/contactsInPolicySlice";
 import { actions as contactInfoActions } from "../../../../redux/contactInfoSlice";
 import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
 import { actions as addressesActions } from "../../../../redux/addressesSlice";
@@ -158,14 +158,16 @@ const ContactInfo: React.FC = () => {
       response
         .then(() => {
           setCreateSuccess(true);
-          contactsInPolicyActions.addContact({
-            [constants.EXT_NUMBER_KEY]: 1,
-            [constants.OIB_KEY]: basicInfoData.oib,
-            [constants.SUB_KEY]: basicInfoData.subsidiaryNumber,
-            [constants.NAME_KEY]:
-              basicInfoData.firstName + basicInfoData.lastName,
-            [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
-          });
+          dispatch(
+            contactsInPolicyActions.addContact({
+              [constants.EXT_NUMBER_KEY]: 1,
+              [constants.OIB_KEY]: basicInfoData.oib,
+              [constants.SUB_KEY]: basicInfoData.subsidiaryNumber,
+              [constants.NAME_KEY]:
+                basicInfoData.firstName + basicInfoData.lastName,
+              [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
+            })
+          );
         })
         .catch(() => {
           setCreateSuccess(false);

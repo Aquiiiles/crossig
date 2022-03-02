@@ -243,14 +243,16 @@ const UpdateContactForm: React.FC<{
           <ClayButton.Group spaced>
             <ContactButton
               handleClick={() => {
-                contactsInPolicyActions.addContact({
-                  [constants.EXT_NUMBER_KEY]: Number(extNumber),
-                  [constants.OIB_KEY]: basicInfoData.oib,
-                  [constants.SUB_KEY]: basicInfoData.subsidiaryNumber,
-                  [constants.NAME_KEY]:
-                    basicInfoData.firstName + basicInfoData.lastName,
-                  [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
-                });
+                dispatch(
+                  contactsInPolicyActions.addContact({
+                    [constants.EXT_NUMBER_KEY]: Number(extNumber),
+                    [constants.OIB_KEY]: basicInfoData.oib,
+                    [constants.SUB_KEY]: basicInfoData.subsidiaryNumber,
+                    [constants.NAME_KEY]:
+                      basicInfoData.firstName + basicInfoData.lastName,
+                    [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
+                  })
+                );
                 history.push("/product");
               }}
               label={UPDATE_CONTACT.USE_CONTACT}

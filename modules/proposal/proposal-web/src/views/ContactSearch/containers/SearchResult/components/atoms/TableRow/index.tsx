@@ -7,11 +7,11 @@ import MissingInformationIcon from "../MissingInformationIcon";
 import {
   CONTACT_SEARCH_TABLE_VIEW_DETAILS,
   CONTACT_SEARCH_TABLE_USE_CONTACT,
-  CONTACT_SEARCH_TABLE_ADD_TO_POLICY,
-  ROLES_ON_POLICY
+  ROLES_ON_POLICY,
 } from "../../../../../../../constants/languageKeys";
 import { useContactDispatch } from "../../../../../../../redux/store";
 import { actions } from "../../../../../../../redux/contactsInPolicySlice";
+import AddToPolicyBtn from "../AddToPolicyBtn";
 
 import * as types from "../../../types/searchResult";
 import * as constants from "../../../../../constants/searchResult";
@@ -56,7 +56,7 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
       style={{ position: "relative" }}
       onMouseLeave={() => setShowButtons(false)}
       onMouseEnter={() => setShowButtons(true)}
-      onDoubleClick={() => history.push("/product")}
+      onDoubleClick={() => (!embedded ? history.push("/product") : null)}
     >
       <ClayTable.Cell headingTitle>
         <MissingInformationIcon
@@ -88,33 +88,21 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
             {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
           </ClayButton>
           {embedded ? (
-            <ClayButton
-              displayType="primary"
-              onClick={() =>
-                dispatch(
-                  addContact({
-                    [constants.EXT_NUMBER_KEY]: contact[constants.EXT_NUMBER_KEY],
-                    [constants.OIB_KEY]: contact[constants.OIB_KEY],
-                    [constants.SUB_KEY]: contact[constants.SUB_KEY],
-                    [constants.NAME_KEY]: contact[constants.NAME_KEY],
-                    [constants.ROLES_KEY]: [],
-                  })
-                )
-              }
-            >
-              {CONTACT_SEARCH_TABLE_ADD_TO_POLICY}
-            </ClayButton>
+            <AddToPolicyBtn contact={contact} />
           ) : (
             <ClayButton
               displayType="primary"
               onClick={() => {
-                addContact({
-                  [constants.EXT_NUMBER_KEY]: contact[constants.EXT_NUMBER_KEY],
-                  [constants.OIB_KEY]: contact[constants.OIB_KEY],
-                  [constants.SUB_KEY]: contact[constants.SUB_KEY],
-                  [constants.NAME_KEY]: contact[constants.NAME_KEY],
-                  [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
-                });
+                dispatch(
+                  addContact({
+                    [constants.EXT_NUMBER_KEY]:
+                      contact[constants.EXT_NUMBER_KEY],
+                    [constants.OIB_KEY]: contact[constants.OIB_KEY],
+                    [constants.SUB_KEY]: contact[constants.SUB_KEY],
+                    [constants.NAME_KEY]: contact[constants.NAME_KEY],
+                    [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
+                  })
+                );
                 history.push("/product");
               }}
             >

@@ -1,20 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Stepper from "../ContactSearch/containers/Stepper";
 import { Wrapper, Buttons } from "./styles";
 import BackBtn from "../../shared/atoms/BackBtn";
 import ContinueBtn from "../../shared/atoms/ContinueBtn";
 import Table from "./containers/Table";
 import { ROLES_ON_POLICY } from "../../constants/languageKeys";
-import { useContactSelector } from "../../redux/store";
+import { useContactDispatch, useContactSelector } from "../../redux/store";
+import { actions } from "../../redux/contactsInPolicySlice";
 
 const RolesOnPolicy: React.FC = () => {
+  const dispatch = useContactDispatch();
   const { contactsInPolicy } = useContactSelector(
     (state) => state.contactsInPolicy
   );
+  const { setRoleOptions } = actions;
+
   const hasInsuredRole =
     contactsInPolicy.filter((contact) =>
       contact.contactRoles.includes(ROLES_ON_POLICY.INSURED)
     ).length > 0;
+
+  useEffect(() => {
+    dispatch(setRoleOptions(["Insured", "Payer"]));
+  }, []);
 
   return (
     <Wrapper>

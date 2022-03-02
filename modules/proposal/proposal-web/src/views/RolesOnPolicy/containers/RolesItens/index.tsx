@@ -3,10 +3,10 @@ import RoleItem from "./RoleItem";
 import AddRoleItem from "./AddRoleItem";
 import { Wrapper } from "./styles";
 import { ROLES_ON_POLICY } from "../../../../constants/languageKeys";
+import { useContactSelector } from "../../../../redux/store";
 
 interface rolesItens {
   policyHolder: boolean;
-  roleOptions: Array<string>;
   roles: Array<string>;
   addRole: (title: string) => void;
   removeRole: (title: string) => void;
@@ -14,11 +14,12 @@ interface rolesItens {
 
 const RolesItens: React.FC<rolesItens> = ({
   policyHolder,
-  roleOptions,
   roles,
   addRole,
   removeRole,
 }) => {
+  const { roleOptions } = useContactSelector((state) => state.contactsInPolicy);
+
   return (
     <Wrapper>
       {policyHolder && (

@@ -10,7 +10,6 @@ import * as constants from "../../../constants/constants";
 
 interface props {
   contact: types.contactInPolicy;
-  roleOptions: Array<string>;
   policyHolder: boolean;
   addRole: (title: string) => void;
   removeRole: (title: string) => void;
@@ -18,7 +17,6 @@ interface props {
 
 const TableRow: React.FC<props> = ({
   contact,
-  roleOptions,
   policyHolder,
   addRole,
   removeRole,
@@ -45,7 +43,6 @@ const TableRow: React.FC<props> = ({
         <Wrapper>
           <RolesItens
             policyHolder={policyHolder}
-            roleOptions={roleOptions}
             roles={contact.contactRoles}
             addRole={addRole}
             removeRole={removeRole}

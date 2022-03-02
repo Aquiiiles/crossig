@@ -5,9 +5,9 @@ import ArrowButton from "../../../../../shared/atoms/ArrowButton";
 import ClayTableCell from "@clayui/table/lib/Cell";
 import { ROLES_ON_POLICY } from "../../../../../constants/languageKeys";
 
-const AddRoleRow: React.FC<{ hasInsuredRole: boolean }> = ({
-  hasInsuredRole,
-}) => {
+const AddRoleRow: React.FC<{
+  hasInsuredRole: boolean;
+}> = ({ hasInsuredRole }) => {
   const [showLookup, setShowLookup] = useState(!hasInsuredRole);
 
   return (
