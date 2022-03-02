@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  background-color: ${(props) => props.theme.color.primary.main};
-  border-radius: 16px;
+  background-color: ${(props) => props.theme.color.primary.links};
+  border-radius: 160px;
+  padding: 0 0.5rem;
 
   &:not(:first-child) {
     margin-left: 0.5rem;
@@ -15,5 +16,9 @@ export const Wrapper = styled.div`
     &.not-title {
       cursor: pointer;
     }
+  }
+
+  svg {
+    transform: scale(0.8);
   }
 `;

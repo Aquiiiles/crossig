@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Row } from "./styles";
 import ContactSearch from "../../../../ContactSearch";
 import ArrowButton from "../../../../../shared/atoms/ArrowButton";
@@ -9,6 +9,10 @@ const AddRoleRow: React.FC<{
   hasInsuredRole: boolean;
 }> = ({ hasInsuredRole }) => {
   const [showLookup, setShowLookup] = useState(!hasInsuredRole);
+
+  useEffect(() => {
+    setShowLookup(!hasInsuredRole);
+  }, [hasInsuredRole]);
 
   return (
     <>

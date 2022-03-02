@@ -14,10 +14,5 @@ export const Row = styled(ClayTable.Row)`
 
   :hover {
     background-color: ${(props) => props.theme.color.neutral.white} !important;
-
-    td: hover {
-      background-color: ${(props) =>
-        props.theme.color.neutral.white} !important;
-    }
   }
 `;

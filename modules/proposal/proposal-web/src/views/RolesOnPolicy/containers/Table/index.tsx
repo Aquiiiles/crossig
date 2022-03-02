@@ -99,8 +99,8 @@ const Table: React.FC<{ hasInsuredRole: boolean }> = ({ hasInsuredRole }) => {
             removeRole={(title: string) => dispatch(removeRole([index, title]))}
           />
         ))}
-        <AddRoleRow hasInsuredRole={hasInsuredRole} />
       </ClayTable.Body>
+      <AddRoleRow hasInsuredRole={hasInsuredRole} />
     </ResultsTable>
   );
 };

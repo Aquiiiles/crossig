@@ -47,17 +47,14 @@ const TableRow: React.FC<props> = ({
             addRole={addRole}
             removeRole={removeRole}
           />
-          {showDetails ? (
-            <ViewDetailsBtn
-              displayType="secondary"
-              className="ghost"
-              onClick={() =>
-                openUpdateContact(contact[constants.EXT_NUMBER_KEY])
-              }
-            >
-              {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
-            </ViewDetailsBtn>
-          ) : null}
+          <ViewDetailsBtn
+            displayType="secondary"
+            className="ghost"
+            onClick={() => openUpdateContact(contact[constants.EXT_NUMBER_KEY])}
+            showDetails={showDetails}
+          >
+            {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
+          </ViewDetailsBtn>
         </Wrapper>
       </ClayTable.Cell>
     </Row>

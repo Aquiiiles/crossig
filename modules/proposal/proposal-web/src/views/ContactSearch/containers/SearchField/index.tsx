@@ -177,8 +177,9 @@ const SearchField: React.FC<props> = ({
           active={expand}
           alignElementRef={triggerElementRef}
           onSetActive={() => {}}
+          className="cap"
         >
-          <div className="cap">
+          <div>
             {countries && (
               <SearchFilters
                 fetchData={() => {
