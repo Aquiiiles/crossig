@@ -12,6 +12,7 @@ import com.liferay.portal.kernel.service.UserGroupLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.PrefsProps;
 
+import hr.crosig.proposal.service.CoveragePlanLocalService;
 import hr.crosig.proposal.service.ProductLocalService;
 import hr.crosig.proposal.service.ProductRoleLocalService;
 
@@ -26,6 +27,9 @@ public class DependencyProvider {
 
 	@Reference
 	public CompanyLocalService companyLocalService;
+
+	@Reference
+	public CoveragePlanLocalService coveragePlanLocalService;
 
 	@Reference
 	public CounterLocalService counterLocalService;

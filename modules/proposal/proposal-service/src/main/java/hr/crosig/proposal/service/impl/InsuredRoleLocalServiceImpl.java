@@ -40,13 +40,13 @@ public class InsuredRoleLocalServiceImpl
 
 		return list.stream(
 		).map(
-			insuredRole -> mapToInsuredRoleDTO(insuredRole)
+			insuredRole -> _mapToInsuredRoleDTO(insuredRole)
 		).collect(
 			Collectors.toList()
 		);
 	}
 
-	private InsuredRoleDTO mapToInsuredRoleDTO(InsuredRole insuredRole) {
+	private InsuredRoleDTO _mapToInsuredRoleDTO(InsuredRole insuredRole) {
 		return new InsuredRoleDTO(
 			insuredRole.getInsuredRoleId(), insuredRole.getTitle(),
 			insuredRole.getName(), insuredRole.getExternalId());

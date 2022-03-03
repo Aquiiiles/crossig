@@ -19,18 +19,20 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.service.RoleLocalService;
+
 import hr.crosig.proposal.dto.ProductDTO;
 import hr.crosig.proposal.model.Product;
 import hr.crosig.proposal.model.ProductRole;
 import hr.crosig.proposal.service.base.ProductLocalServiceBaseImpl;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author David Martini
@@ -83,7 +85,7 @@ public class ProductLocalServiceImpl extends ProductLocalServiceBaseImpl {
 
 		return productIds.stream(
 		).map(
-			this::getProductIfActive
+			this::_getProductIfActive
 		).filter(
 			product -> !Objects.isNull(product)
 		).collect(
@@ -102,17 +104,17 @@ public class ProductLocalServiceImpl extends ProductLocalServiceBaseImpl {
 		);
 	}
 
-	private ProductDTO getProductIfActive(long productId) {
+	private ProductDTO _getProductIfActive(long productId) {
 		Product product = productLocalService.fetchProduct(productId);
 
 		if (product.isActive()) {
-			return mapToProductDTO(product);
+			return _mapToProductDTO(product);
 		}
 
 		return null;
 	}
 
-	private ProductDTO mapToProductDTO(Product product) {
+	private ProductDTO _mapToProductDTO(Product product) {
 		return new ProductDTO(
 			product.getActive(), product.getCategory(),
 			product.getDescription(), product.getProductId(), product.getName(),

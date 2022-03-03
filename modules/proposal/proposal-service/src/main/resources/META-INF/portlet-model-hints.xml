@@ -1,6 +1,17 @@
 <?xml version="1.0"?>
 
 <model-hints>
+	<model name="hr.crosig.proposal.model.CoveragePlan">
+		<field name="coveragePlanId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="name" type="String" />
+		<field name="description" type="String" />
+		<field name="category" type="String" />
+	</model>
 	<model name="hr.crosig.proposal.model.InsuredRole">
 		<field name="InsuredRoleId" type="long" />
 		<field name="companyId" type="long" />

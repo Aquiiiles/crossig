@@ -41,6 +41,7 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import hr.crosig.proposal.model.Product;
 import hr.crosig.proposal.service.ProductLocalService;
 import hr.crosig.proposal.service.ProductLocalServiceUtil;
+import hr.crosig.proposal.service.persistence.CoveragePlanPersistence;
 import hr.crosig.proposal.service.persistence.InsuredRolePersistence;
 import hr.crosig.proposal.service.persistence.ProductPersistence;
 import hr.crosig.proposal.service.persistence.ProductRolePersistence;
@@ -437,6 +438,9 @@ public abstract class ProductLocalServiceBaseImpl
 			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
+
+	@Reference
+	protected CoveragePlanPersistence coveragePlanPersistence;
 
 	@Reference
 	protected InsuredRolePersistence insuredRolePersistence;

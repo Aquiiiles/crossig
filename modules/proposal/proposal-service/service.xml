@@ -4,6 +4,60 @@
 
 <service-builder dependency-injector="ds" package-path="hr.crosig.proposal">
 	<namespace>AP_Proposal</namespace>
+	<entity local-service="true" name="CoveragePlan" remote-service="false" uuid="false">
+
+		<!-- PK fields -->
+
+		<column name="coveragePlanId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="name" type="String" />
+		<column name="description" type="String" />
+		<column name="category" type="String" />
+
+		<!-- Finders -->
+
+		<finder name="Name" return-type="CoveragePlan">
+			<finder-column name="name" />
+		</finder>
+
+		<finder name="Category" return-type="Collection">
+			<finder-column name="category" />
+		</finder>
+	</entity>
+	<entity local-service="true" name="InsuredRole" remote-service="false" uuid="false">
+
+		<!-- PK fields -->
+
+		<column name="InsuredRoleId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="title" type="String" />
+		<column name="name" type="String" />
+		<column name="externalId" type="String" />
+
+		<finder name="InsuredRoleId" return-type="InsuredRole">
+			<finder-column name="InsuredRoleId" />
+		</finder>
+	</entity>
 	<entity local-service="true" name="Product" remote-service="false" uuid="false">
 
 		<!-- PK fields -->
@@ -59,30 +113,6 @@
 
 		<finder name="RoleId" return-type="Collection">
 			<finder-column name="roleId" />
-		</finder>
-	</entity>
-	<entity local-service="true" name="InsuredRole" remote-service="false" uuid="false">
-
-		<!-- PK fields -->
-
-		<column name="InsuredRoleId" primary="true" type="long" />
-
-		<!-- Audit fields -->
-
-		<column name="companyId" type="long" />
-		<column name="userId" type="long" />
-		<column name="userName" type="String" />
-		<column name="createDate" type="Date" />
-		<column name="modifiedDate" type="Date" />
-
-		<!-- Other fields -->
-
-		<column name="title" type="String" />
-		<column name="name" type="String" />
-		<column name="externalId" type="String" />
-
-		<finder name="InsuredRoleId" return-type="InsuredRole">
-			<finder-column name="InsuredRoleId" />
 		</finder>
 	</entity>
 </service-builder>

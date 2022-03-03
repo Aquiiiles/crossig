@@ -1,10 +1,5 @@
 package hr.crosig.proposal.rest.application.utils;
 
-import hr.crosig.proposal.model.InsuredRole;
-
-import java.util.Arrays;
-import java.util.List;
-
 import javax.ws.rs.core.Response;
 
 /**

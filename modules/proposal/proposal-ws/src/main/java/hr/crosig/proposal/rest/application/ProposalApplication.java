@@ -1,93 +1,132 @@
 package hr.crosig.proposal.rest.application;
 
+import hr.crosig.proposal.dto.CoveragePlanDTO;
 import hr.crosig.proposal.dto.InsuredRoleDTO;
 import hr.crosig.proposal.dto.ProductDTO;
+import hr.crosig.proposal.service.CoveragePlanLocalService;
 import hr.crosig.proposal.service.InsuredRoleLocalService;
 import hr.crosig.proposal.service.ProductLocalService;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
 /**
  * @author victor.catanante
  */
 @Component(
-        property = {
-                JaxrsWhiteboardConstants.JAX_RS_APPLICATION_BASE + "=/agent-portal/proposal",
-                JaxrsWhiteboardConstants.JAX_RS_NAME + "=Proposal.Rest",
-                JaxrsWhiteboardConstants.JAX_RS_MEDIA_TYPE + "=application/json",
-                "auth.verifier.guest.allowed=false",
-                "liferay.access.control.disable=false"
-        },
-        service = Application.class
+	property = {
+		JaxrsWhiteboardConstants.JAX_RS_APPLICATION_BASE + "=/agent-portal/proposal",
+		JaxrsWhiteboardConstants.JAX_RS_NAME + "=Proposal.Rest",
+		JaxrsWhiteboardConstants.JAX_RS_MEDIA_TYPE + "=application/json",
+		"auth.verifier.guest.allowed=false",
+		"liferay.access.control.disable=false"
+	},
+	service = Application.class
 )
 public class ProposalApplication extends Application {
 
-    @GET
-    @Path("/insured-roles")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getInsuredRoles() {
-        Response.ResponseBuilder responseBuilder;
-        try {
-            List<InsuredRoleDTO> insuredRole = _insuredRoleLocalService.getAllInsuredRole();
+	@GET
+	@Path("/coverage-plans")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getCoveragePlansByCategory(
+		@QueryParam("category") String category) {
 
-            responseBuilder = Response.ok(
-            ).entity(
-                    insuredRole
-            );
-        } catch (
-                Exception exception) {
-            responseBuilder = Response.serverError(
-            ).entity(
-                    exception.getMessage()
-            );
-        }
-        return responseBuilder.build();
-    }
+		Response.ResponseBuilder responseBuilder;
 
+		try {
+			List<CoveragePlanDTO> coveragePlans =
+				_coveragePlanLocalService.getCoveragePlansByCategory(category);
 
-    @GET
-    @Path("/products/{userId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getProductsByUserId(@PathParam("userId") long userId) {
-        Response.ResponseBuilder responseBuilder;
+			responseBuilder = Response.ok(
+			).entity(
+				coveragePlans
+			);
+		}
+		catch (Exception exception) {
+			responseBuilder = Response.serverError(
+			).entity(
+				exception.getMessage()
+			);
+		}
 
-        try {
-            List<ProductDTO> products = _productLocalService.getProductsByUserId(userId);
+		return responseBuilder.build();
+	}
 
-            responseBuilder = Response.ok(
-            ).entity(
-                    products
-            );
-        } catch (Exception exception) {
-            responseBuilder = Response.serverError(
-            ).entity(
-                    exception.getMessage()
-            );
-        }
+	@GET
+	@Path("/insured-roles")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getInsuredRoles() {
+		Response.ResponseBuilder responseBuilder;
 
-        return responseBuilder.build();
-    }
+		try {
+			List<InsuredRoleDTO> insuredRole =
+				_insuredRoleLocalService.getAllInsuredRole();
 
-    public Set<Object> getSingletons() {
-        return Collections.singleton(this);
-    }
+			responseBuilder = Response.ok(
+			).entity(
+				insuredRole
+			);
+		}
+		catch (Exception exception) {
+			responseBuilder = Response.serverError(
+			).entity(
+				exception.getMessage()
+			);
+		}
 
-    @Reference
-    private InsuredRoleLocalService _insuredRoleLocalService;
+		return responseBuilder.build();
+	}
 
-    @Reference
-    private ProductLocalService _productLocalService;
+	@GET
+	@Path("/products/{userId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getProductsByUserId(@PathParam("userId") long userId) {
+		Response.ResponseBuilder responseBuilder;
+
+		try {
+			List<ProductDTO> products =
+				_productLocalService.getProductsByUserId(userId);
+
+			responseBuilder = Response.ok(
+			).entity(
+				products
+			);
+		}
+		catch (Exception exception) {
+			responseBuilder = Response.serverError(
+			).entity(
+				exception.getMessage()
+			);
+		}
+
+		return responseBuilder.build();
+	}
+
+	public Set<Object> getSingletons() {
+		return Collections.singleton(this);
+	}
+
+	@Reference
+	private CoveragePlanLocalService _coveragePlanLocalService;
+
+	@Reference
+	private InsuredRoleLocalService _insuredRoleLocalService;
+
+	@Reference
+	private ProductLocalService _productLocalService;
 
 }
