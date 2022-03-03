@@ -182,3 +182,23 @@ export const STEPPER_INSURED_OBJECT_DETAILS_STEP = {
   ADDITIONAL_DETAILS: Liferay.Language.get('stepper-insured-object-details-step-additional-details'),
   VALUE: Liferay.Language.get('stepper-insured-object-details-step-value'),
 }
+
+export const COVERAGE_PLAN = {
+  TITLE: Liferay.Language.get('coverage-plan-title'),
+  SUBTITLE: Liferay.Language.get('coverage-plan-subtitle'),
+  SELECT: Liferay.Language.get('coverage-plan-select'),
+  PRODUCTS: [
+    {
+      TITLE: Liferay.Language.get('coverage-plan-compulsory-title'),
+      DESC: Liferay.Language.get('coverage-plan-compulsory-desc'),
+    },
+    {
+      TITLE: Liferay.Language.get('coverage-plan-casco-title'),
+      DESC: Liferay.Language.get('coverage-plan-casco-desc'),
+    },
+    {
+      TITLE: Liferay.Language.get('coverage-plan-compulsory-casco-title'),
+      DESC: Liferay.Language.get('coverage-plan-compulsory-casco-desc'),
+    },
+  ]
+}
