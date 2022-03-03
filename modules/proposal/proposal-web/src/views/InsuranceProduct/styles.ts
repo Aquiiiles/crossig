@@ -6,6 +6,10 @@ export const Wrapper = styled.div`
   background-color: ${(props) => props.theme.color.neutral.background};
 `;
 
+export const InnerWrapper = styled.div`
+  flex: 1 1 auto;
+`;
+
 export const Content = styled.div`
   flex: 1;
   padding: 6.25rem 3.5rem 1.25rem 3.75rem;
@@ -26,5 +30,5 @@ export const Products = styled.div`
 export const Footer = styled.div`
   display: flex;
   border-top: 1px solid ${(props) => props.theme.color.neutral.dividerGrey};
-  padding: 3.125rem 0 2.8125rem 0;
+  padding: 3.125rem 0 2.8125rem 3.75rem;
 `;
