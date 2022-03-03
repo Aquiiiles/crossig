@@ -202,9 +202,6 @@ public interface CoveragePlanLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CoveragePlanDTO> getAllCoveragePlans();
-
 	/**
 	 * Returns the coverage plan with the primary key.
 	 *
@@ -232,6 +229,9 @@ public interface CoveragePlanLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CoveragePlan> getCoveragePlans(int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CoveragePlanDTO> getCoveragePlansByCategory(String category);
 
 	/**
 	 * Returns the number of coverage plans.

@@ -14,6 +14,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -85,11 +86,11 @@ public class ProposalApplication extends Application {
     @GET
     @Path("/coverage-plans")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllCoveragePlans() {
+    public Response getCoveragePlansByCategory(@QueryParam("category") String category) {
         Response.ResponseBuilder responseBuilder;
 
         try {
-            List<CoveragePlanDTO> coveragePlans = _coveragePlanLocalService.getAllCoveragePlans();
+            List<CoveragePlanDTO> coveragePlans = _coveragePlanLocalService.getCoveragePlansByCategory(category);
 
             responseBuilder = Response.ok(
             ).entity(

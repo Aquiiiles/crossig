@@ -31,17 +31,23 @@
 			"response": []
 		},
 		{
-			"name": "Get All Coverage Plans",
+			"name": "Get Coverage Plans by Category",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{localURL}}proposal/coverage-plans",
+					"raw": "{{localURL}}proposal/coverage-plans?category=VESSEL",
 					"host": [
 						"{{localURL}}proposal"
 					],
 					"path": [
 						"coverage-plans"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "VESSEL"
+						}
 					]
 				}
 			},

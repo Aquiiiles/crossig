@@ -105,6 +105,12 @@
 		<column name="description" type="String" />
 		<column name="category" type="String" />
 
+		<!-- Finders -->
+
+		<finder name="Category" return-type="Collection">
+			<finder-column name="category" />
+		</finder>
+
 		<finder name="Name" return-type="CoveragePlan">
 			<finder-column name="name" />
 		</finder>

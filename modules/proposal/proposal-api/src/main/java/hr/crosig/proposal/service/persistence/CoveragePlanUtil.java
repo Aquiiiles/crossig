@@ -121,6 +121,175 @@ public class CoveragePlanUtil {
 	}
 
 	/**
+	 * Returns all the coverage plans where category = &#63;.
+	 *
+	 * @param category the category
+	 * @return the matching coverage plans
+	 */
+	public static List<CoveragePlan> findByCategory(String category) {
+		return getPersistence().findByCategory(category);
+	}
+
+	/**
+	 * Returns a range of all the coverage plans where category = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CoveragePlanModelImpl</code>.
+	 * </p>
+	 *
+	 * @param category the category
+	 * @param start the lower bound of the range of coverage plans
+	 * @param end the upper bound of the range of coverage plans (not inclusive)
+	 * @return the range of matching coverage plans
+	 */
+	public static List<CoveragePlan> findByCategory(
+		String category, int start, int end) {
+
+		return getPersistence().findByCategory(category, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the coverage plans where category = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CoveragePlanModelImpl</code>.
+	 * </p>
+	 *
+	 * @param category the category
+	 * @param start the lower bound of the range of coverage plans
+	 * @param end the upper bound of the range of coverage plans (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching coverage plans
+	 */
+	public static List<CoveragePlan> findByCategory(
+		String category, int start, int end,
+		OrderByComparator<CoveragePlan> orderByComparator) {
+
+		return getPersistence().findByCategory(
+			category, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the coverage plans where category = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CoveragePlanModelImpl</code>.
+	 * </p>
+	 *
+	 * @param category the category
+	 * @param start the lower bound of the range of coverage plans
+	 * @param end the upper bound of the range of coverage plans (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching coverage plans
+	 */
+	public static List<CoveragePlan> findByCategory(
+		String category, int start, int end,
+		OrderByComparator<CoveragePlan> orderByComparator,
+		boolean useFinderCache) {
+
+		return getPersistence().findByCategory(
+			category, start, end, orderByComparator, useFinderCache);
+	}
+
+	/**
+	 * Returns the first coverage plan in the ordered set where category = &#63;.
+	 *
+	 * @param category the category
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching coverage plan
+	 * @throws NoSuchCoveragePlanException if a matching coverage plan could not be found
+	 */
+	public static CoveragePlan findByCategory_First(
+			String category, OrderByComparator<CoveragePlan> orderByComparator)
+		throws hr.crosig.proposal.exception.NoSuchCoveragePlanException {
+
+		return getPersistence().findByCategory_First(
+			category, orderByComparator);
+	}
+
+	/**
+	 * Returns the first coverage plan in the ordered set where category = &#63;.
+	 *
+	 * @param category the category
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching coverage plan, or <code>null</code> if a matching coverage plan could not be found
+	 */
+	public static CoveragePlan fetchByCategory_First(
+		String category, OrderByComparator<CoveragePlan> orderByComparator) {
+
+		return getPersistence().fetchByCategory_First(
+			category, orderByComparator);
+	}
+
+	/**
+	 * Returns the last coverage plan in the ordered set where category = &#63;.
+	 *
+	 * @param category the category
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching coverage plan
+	 * @throws NoSuchCoveragePlanException if a matching coverage plan could not be found
+	 */
+	public static CoveragePlan findByCategory_Last(
+			String category, OrderByComparator<CoveragePlan> orderByComparator)
+		throws hr.crosig.proposal.exception.NoSuchCoveragePlanException {
+
+		return getPersistence().findByCategory_Last(
+			category, orderByComparator);
+	}
+
+	/**
+	 * Returns the last coverage plan in the ordered set where category = &#63;.
+	 *
+	 * @param category the category
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching coverage plan, or <code>null</code> if a matching coverage plan could not be found
+	 */
+	public static CoveragePlan fetchByCategory_Last(
+		String category, OrderByComparator<CoveragePlan> orderByComparator) {
+
+		return getPersistence().fetchByCategory_Last(
+			category, orderByComparator);
+	}
+
+	/**
+	 * Returns the coverage plans before and after the current coverage plan in the ordered set where category = &#63;.
+	 *
+	 * @param coveragePlanId the primary key of the current coverage plan
+	 * @param category the category
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next coverage plan
+	 * @throws NoSuchCoveragePlanException if a coverage plan with the primary key could not be found
+	 */
+	public static CoveragePlan[] findByCategory_PrevAndNext(
+			long coveragePlanId, String category,
+			OrderByComparator<CoveragePlan> orderByComparator)
+		throws hr.crosig.proposal.exception.NoSuchCoveragePlanException {
+
+		return getPersistence().findByCategory_PrevAndNext(
+			coveragePlanId, category, orderByComparator);
+	}
+
+	/**
+	 * Removes all the coverage plans where category = &#63; from the database.
+	 *
+	 * @param category the category
+	 */
+	public static void removeByCategory(String category) {
+		getPersistence().removeByCategory(category);
+	}
+
+	/**
+	 * Returns the number of coverage plans where category = &#63;.
+	 *
+	 * @param category the category
+	 * @return the number of matching coverage plans
+	 */
+	public static int countByCategory(String category) {
+		return getPersistence().countByCategory(category);
+	}
+
+	/**
 	 * Returns the coverage plan where name = &#63; or throws a <code>NoSuchCoveragePlanException</code> if it could not be found.
 	 *
 	 * @param name the name

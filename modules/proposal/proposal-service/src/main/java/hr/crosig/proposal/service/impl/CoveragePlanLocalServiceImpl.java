@@ -63,8 +63,8 @@ public class CoveragePlanLocalServiceImpl
 		return coveragePlanPersistence.fetchByName(name);
 	}
 
-	public List<CoveragePlanDTO>  getAllCoveragePlans() {
-		return coveragePlanPersistence.findAll().stream().map(coveragePlan -> _mapToCoveragePlanDTO(coveragePlan)).collect(Collectors.toList());
+	public List<CoveragePlanDTO>  getCoveragePlansByCategory(String category) {
+		return coveragePlanPersistence.findByCategory(category).stream().map(coveragePlan -> _mapToCoveragePlanDTO(coveragePlan)).collect(Collectors.toList());
 	}
 
 	private CoveragePlanDTO _mapToCoveragePlanDTO(CoveragePlan coveragePlan) {

@@ -214,12 +214,6 @@ public class CoveragePlanLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
-	public static List<hr.crosig.proposal.dto.CoveragePlanDTO>
-		getAllCoveragePlans() {
-
-		return getService().getAllCoveragePlans();
-	}
-
 	/**
 	 * Returns the coverage plan with the primary key.
 	 *
@@ -250,6 +244,12 @@ public class CoveragePlanLocalServiceUtil {
 	 */
 	public static List<CoveragePlan> getCoveragePlans(int start, int end) {
 		return getService().getCoveragePlans(start, end);
+	}
+
+	public static List<hr.crosig.proposal.dto.CoveragePlanDTO>
+		getCoveragePlansByCategory(String category) {
+
+		return getService().getCoveragePlansByCategory(category);
 	}
 
 	/**

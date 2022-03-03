@@ -42,6 +42,149 @@ public interface CoveragePlanPersistence extends BasePersistence<CoveragePlan> {
 	 */
 
 	/**
+	 * Returns all the coverage plans where category = &#63;.
+	 *
+	 * @param category the category
+	 * @return the matching coverage plans
+	 */
+	public java.util.List<CoveragePlan> findByCategory(String category);
+
+	/**
+	 * Returns a range of all the coverage plans where category = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CoveragePlanModelImpl</code>.
+	 * </p>
+	 *
+	 * @param category the category
+	 * @param start the lower bound of the range of coverage plans
+	 * @param end the upper bound of the range of coverage plans (not inclusive)
+	 * @return the range of matching coverage plans
+	 */
+	public java.util.List<CoveragePlan> findByCategory(
+		String category, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the coverage plans where category = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CoveragePlanModelImpl</code>.
+	 * </p>
+	 *
+	 * @param category the category
+	 * @param start the lower bound of the range of coverage plans
+	 * @param end the upper bound of the range of coverage plans (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching coverage plans
+	 */
+	public java.util.List<CoveragePlan> findByCategory(
+		String category, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<CoveragePlan>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the coverage plans where category = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CoveragePlanModelImpl</code>.
+	 * </p>
+	 *
+	 * @param category the category
+	 * @param start the lower bound of the range of coverage plans
+	 * @param end the upper bound of the range of coverage plans (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching coverage plans
+	 */
+	public java.util.List<CoveragePlan> findByCategory(
+		String category, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<CoveragePlan>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first coverage plan in the ordered set where category = &#63;.
+	 *
+	 * @param category the category
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching coverage plan
+	 * @throws NoSuchCoveragePlanException if a matching coverage plan could not be found
+	 */
+	public CoveragePlan findByCategory_First(
+			String category,
+			com.liferay.portal.kernel.util.OrderByComparator<CoveragePlan>
+				orderByComparator)
+		throws NoSuchCoveragePlanException;
+
+	/**
+	 * Returns the first coverage plan in the ordered set where category = &#63;.
+	 *
+	 * @param category the category
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching coverage plan, or <code>null</code> if a matching coverage plan could not be found
+	 */
+	public CoveragePlan fetchByCategory_First(
+		String category,
+		com.liferay.portal.kernel.util.OrderByComparator<CoveragePlan>
+			orderByComparator);
+
+	/**
+	 * Returns the last coverage plan in the ordered set where category = &#63;.
+	 *
+	 * @param category the category
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching coverage plan
+	 * @throws NoSuchCoveragePlanException if a matching coverage plan could not be found
+	 */
+	public CoveragePlan findByCategory_Last(
+			String category,
+			com.liferay.portal.kernel.util.OrderByComparator<CoveragePlan>
+				orderByComparator)
+		throws NoSuchCoveragePlanException;
+
+	/**
+	 * Returns the last coverage plan in the ordered set where category = &#63;.
+	 *
+	 * @param category the category
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching coverage plan, or <code>null</code> if a matching coverage plan could not be found
+	 */
+	public CoveragePlan fetchByCategory_Last(
+		String category,
+		com.liferay.portal.kernel.util.OrderByComparator<CoveragePlan>
+			orderByComparator);
+
+	/**
+	 * Returns the coverage plans before and after the current coverage plan in the ordered set where category = &#63;.
+	 *
+	 * @param coveragePlanId the primary key of the current coverage plan
+	 * @param category the category
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next coverage plan
+	 * @throws NoSuchCoveragePlanException if a coverage plan with the primary key could not be found
+	 */
+	public CoveragePlan[] findByCategory_PrevAndNext(
+			long coveragePlanId, String category,
+			com.liferay.portal.kernel.util.OrderByComparator<CoveragePlan>
+				orderByComparator)
+		throws NoSuchCoveragePlanException;
+
+	/**
+	 * Removes all the coverage plans where category = &#63; from the database.
+	 *
+	 * @param category the category
+	 */
+	public void removeByCategory(String category);
+
+	/**
+	 * Returns the number of coverage plans where category = &#63;.
+	 *
+	 * @param category the category
+	 * @return the number of matching coverage plans
+	 */
+	public int countByCategory(String category);
+
+	/**
 	 * Returns the coverage plan where name = &#63; or throws a <code>NoSuchCoveragePlanException</code> if it could not be found.
 	 *
 	 * @param name the name

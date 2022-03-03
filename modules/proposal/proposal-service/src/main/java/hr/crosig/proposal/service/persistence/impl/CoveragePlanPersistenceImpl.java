@@ -103,6 +103,542 @@ public class CoveragePlanPersistenceImpl
 	private FinderPath _finderPathWithPaginationFindAll;
 	private FinderPath _finderPathWithoutPaginationFindAll;
 	private FinderPath _finderPathCountAll;
+	private FinderPath _finderPathWithPaginationFindByCategory;
+	private FinderPath _finderPathWithoutPaginationFindByCategory;
+	private FinderPath _finderPathCountByCategory;
+
+	/**
+	 * Returns all the coverage plans where category = &#63;.
+	 *
+	 * @param category the category
+	 * @return the matching coverage plans
+	 */
+	@Override
+	public List<CoveragePlan> findByCategory(String category) {
+		return findByCategory(
+			category, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the coverage plans where category = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CoveragePlanModelImpl</code>.
+	 * </p>
+	 *
+	 * @param category the category
+	 * @param start the lower bound of the range of coverage plans
+	 * @param end the upper bound of the range of coverage plans (not inclusive)
+	 * @return the range of matching coverage plans
+	 */
+	@Override
+	public List<CoveragePlan> findByCategory(
+		String category, int start, int end) {
+
+		return findByCategory(category, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the coverage plans where category = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CoveragePlanModelImpl</code>.
+	 * </p>
+	 *
+	 * @param category the category
+	 * @param start the lower bound of the range of coverage plans
+	 * @param end the upper bound of the range of coverage plans (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching coverage plans
+	 */
+	@Override
+	public List<CoveragePlan> findByCategory(
+		String category, int start, int end,
+		OrderByComparator<CoveragePlan> orderByComparator) {
+
+		return findByCategory(category, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the coverage plans where category = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CoveragePlanModelImpl</code>.
+	 * </p>
+	 *
+	 * @param category the category
+	 * @param start the lower bound of the range of coverage plans
+	 * @param end the upper bound of the range of coverage plans (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching coverage plans
+	 */
+	@Override
+	public List<CoveragePlan> findByCategory(
+		String category, int start, int end,
+		OrderByComparator<CoveragePlan> orderByComparator,
+		boolean useFinderCache) {
+
+		category = Objects.toString(category, "");
+
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByCategory;
+				finderArgs = new Object[] {category};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByCategory;
+			finderArgs = new Object[] {category, start, end, orderByComparator};
+		}
+
+		List<CoveragePlan> list = null;
+
+		if (useFinderCache) {
+			list = (List<CoveragePlan>)finderCache.getResult(
+				finderPath, finderArgs, this);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (CoveragePlan coveragePlan : list) {
+					if (!category.equals(coveragePlan.getCategory())) {
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler sb = null;
+
+			if (orderByComparator != null) {
+				sb = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				sb = new StringBundler(3);
+			}
+
+			sb.append(_SQL_SELECT_COVERAGEPLAN_WHERE);
+
+			boolean bindCategory = false;
+
+			if (category.isEmpty()) {
+				sb.append(_FINDER_COLUMN_CATEGORY_CATEGORY_3);
+			}
+			else {
+				bindCategory = true;
+
+				sb.append(_FINDER_COLUMN_CATEGORY_CATEGORY_2);
+			}
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				sb.append(CoveragePlanModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindCategory) {
+					queryPos.add(category);
+				}
+
+				list = (List<CoveragePlan>)QueryUtil.list(
+					query, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first coverage plan in the ordered set where category = &#63;.
+	 *
+	 * @param category the category
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching coverage plan
+	 * @throws NoSuchCoveragePlanException if a matching coverage plan could not be found
+	 */
+	@Override
+	public CoveragePlan findByCategory_First(
+			String category, OrderByComparator<CoveragePlan> orderByComparator)
+		throws NoSuchCoveragePlanException {
+
+		CoveragePlan coveragePlan = fetchByCategory_First(
+			category, orderByComparator);
+
+		if (coveragePlan != null) {
+			return coveragePlan;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("category=");
+		sb.append(category);
+
+		sb.append("}");
+
+		throw new NoSuchCoveragePlanException(sb.toString());
+	}
+
+	/**
+	 * Returns the first coverage plan in the ordered set where category = &#63;.
+	 *
+	 * @param category the category
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching coverage plan, or <code>null</code> if a matching coverage plan could not be found
+	 */
+	@Override
+	public CoveragePlan fetchByCategory_First(
+		String category, OrderByComparator<CoveragePlan> orderByComparator) {
+
+		List<CoveragePlan> list = findByCategory(
+			category, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last coverage plan in the ordered set where category = &#63;.
+	 *
+	 * @param category the category
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching coverage plan
+	 * @throws NoSuchCoveragePlanException if a matching coverage plan could not be found
+	 */
+	@Override
+	public CoveragePlan findByCategory_Last(
+			String category, OrderByComparator<CoveragePlan> orderByComparator)
+		throws NoSuchCoveragePlanException {
+
+		CoveragePlan coveragePlan = fetchByCategory_Last(
+			category, orderByComparator);
+
+		if (coveragePlan != null) {
+			return coveragePlan;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("category=");
+		sb.append(category);
+
+		sb.append("}");
+
+		throw new NoSuchCoveragePlanException(sb.toString());
+	}
+
+	/**
+	 * Returns the last coverage plan in the ordered set where category = &#63;.
+	 *
+	 * @param category the category
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching coverage plan, or <code>null</code> if a matching coverage plan could not be found
+	 */
+	@Override
+	public CoveragePlan fetchByCategory_Last(
+		String category, OrderByComparator<CoveragePlan> orderByComparator) {
+
+		int count = countByCategory(category);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<CoveragePlan> list = findByCategory(
+			category, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the coverage plans before and after the current coverage plan in the ordered set where category = &#63;.
+	 *
+	 * @param coveragePlanId the primary key of the current coverage plan
+	 * @param category the category
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next coverage plan
+	 * @throws NoSuchCoveragePlanException if a coverage plan with the primary key could not be found
+	 */
+	@Override
+	public CoveragePlan[] findByCategory_PrevAndNext(
+			long coveragePlanId, String category,
+			OrderByComparator<CoveragePlan> orderByComparator)
+		throws NoSuchCoveragePlanException {
+
+		category = Objects.toString(category, "");
+
+		CoveragePlan coveragePlan = findByPrimaryKey(coveragePlanId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			CoveragePlan[] array = new CoveragePlanImpl[3];
+
+			array[0] = getByCategory_PrevAndNext(
+				session, coveragePlan, category, orderByComparator, true);
+
+			array[1] = coveragePlan;
+
+			array[2] = getByCategory_PrevAndNext(
+				session, coveragePlan, category, orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected CoveragePlan getByCategory_PrevAndNext(
+		Session session, CoveragePlan coveragePlan, String category,
+		OrderByComparator<CoveragePlan> orderByComparator, boolean previous) {
+
+		StringBundler sb = null;
+
+		if (orderByComparator != null) {
+			sb = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			sb = new StringBundler(3);
+		}
+
+		sb.append(_SQL_SELECT_COVERAGEPLAN_WHERE);
+
+		boolean bindCategory = false;
+
+		if (category.isEmpty()) {
+			sb.append(_FINDER_COLUMN_CATEGORY_CATEGORY_3);
+		}
+		else {
+			bindCategory = true;
+
+			sb.append(_FINDER_COLUMN_CATEGORY_CATEGORY_2);
+		}
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				sb.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			sb.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC);
+					}
+					else {
+						sb.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			sb.append(CoveragePlanModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = sb.toString();
+
+		Query query = session.createQuery(sql);
+
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+
+		QueryPos queryPos = QueryPos.getInstance(query);
+
+		if (bindCategory) {
+			queryPos.add(category);
+		}
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(coveragePlan)) {
+
+				queryPos.add(orderByConditionValue);
+			}
+		}
+
+		List<CoveragePlan> list = query.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the coverage plans where category = &#63; from the database.
+	 *
+	 * @param category the category
+	 */
+	@Override
+	public void removeByCategory(String category) {
+		for (CoveragePlan coveragePlan :
+				findByCategory(
+					category, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+
+			remove(coveragePlan);
+		}
+	}
+
+	/**
+	 * Returns the number of coverage plans where category = &#63;.
+	 *
+	 * @param category the category
+	 * @return the number of matching coverage plans
+	 */
+	@Override
+	public int countByCategory(String category) {
+		category = Objects.toString(category, "");
+
+		FinderPath finderPath = _finderPathCountByCategory;
+
+		Object[] finderArgs = new Object[] {category};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_COVERAGEPLAN_WHERE);
+
+			boolean bindCategory = false;
+
+			if (category.isEmpty()) {
+				sb.append(_FINDER_COLUMN_CATEGORY_CATEGORY_3);
+			}
+			else {
+				bindCategory = true;
+
+				sb.append(_FINDER_COLUMN_CATEGORY_CATEGORY_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindCategory) {
+					queryPos.add(category);
+				}
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_CATEGORY_CATEGORY_2 =
+		"coveragePlan.category = ?";
+
+	private static final String _FINDER_COLUMN_CATEGORY_CATEGORY_3 =
+		"(coveragePlan.category IS NULL OR coveragePlan.category = '')";
+
 	private FinderPath _finderPathFetchByName;
 	private FinderPath _finderPathCountByName;
 
@@ -907,6 +1443,24 @@ public class CoveragePlanPersistenceImpl
 		_finderPathCountAll = _createFinderPath(
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
 			new String[0], new String[0], false);
+
+		_finderPathWithPaginationFindByCategory = _createFinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCategory",
+			new String[] {
+				String.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			},
+			new String[] {"category"}, true);
+
+		_finderPathWithoutPaginationFindByCategory = _createFinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCategory",
+			new String[] {String.class.getName()}, new String[] {"category"},
+			true);
+
+		_finderPathCountByCategory = _createFinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCategory",
+			new String[] {String.class.getName()}, new String[] {"category"},
+			false);
 
 		_finderPathFetchByName = _createFinderPath(
 			FINDER_CLASS_NAME_ENTITY, "fetchByName",
