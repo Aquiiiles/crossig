@@ -31,6 +31,12 @@
         }
     }
 
+    input[type=text]:disabled, 
+    input[type=number]:disabled {
+        background: $color-neutral-background;
+        color: $color-neutral-grey-text;
+    }
+
     input[type=text]:hover {
         box-shadow: none!important;
     }
