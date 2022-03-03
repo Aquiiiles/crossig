@@ -1,9 +1,22 @@
-import { STEPPER_STEP_NAME } from "./languageKeys";
+import {
+  STEPPER_STEP,
+  STEPPER_INSURED_OBJECT_DETAILS_STEP,
+} from "./languageKeys";
 import { Step } from "../shared/types/stepper";
 
-export const steps: Step[] = Object.keys(STEPPER_STEP_NAME).map((key) => {
-  return {
-    name: STEPPER_STEP_NAME[key as keyof typeof STEPPER_STEP_NAME],
-    state: "INACTIVE",
-  };
-});
+export const getSteps = (key: StepsLookupTableKeys) => {
+  const stepCategory = stepsLookupTable[key];
+  return Object.keys(stepCategory).map((stepKey) => {
+    return {
+      name: stepCategory[stepKey as keyof typeof stepCategory],
+      state: "INACTIVE",
+    };
+  }) as Step[];
+};
+
+export const stepsLookupTable = {
+  MAIN: STEPPER_STEP,
+  INSURED_OBJECT_DETAILS: STEPPER_INSURED_OBJECT_DETAILS_STEP,
+};
+
+export type StepsLookupTableKeys = keyof typeof stepsLookupTable;

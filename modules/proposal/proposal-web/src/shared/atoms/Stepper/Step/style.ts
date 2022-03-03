@@ -14,9 +14,13 @@ export const Wrapper = styled.div`
 export const InnerWrapper = styled.div`
   display: grid;
   align-items: baseline;
-  grid-template-columns: 15px min-content;
+  grid-template-columns: 15px 100%;
   grid-template-rows: auto;
   column-gap: 0.6875rem;
+`;
+
+export const SubStepWrapper = styled.div`
+  padding-left: 0.5rem;
 `;
 
 export const ActiveBar = styled.div<{ state: StepState }>`

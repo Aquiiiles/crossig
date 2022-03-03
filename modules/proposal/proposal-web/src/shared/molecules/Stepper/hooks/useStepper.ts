@@ -1,30 +1,43 @@
 import { useEffect, useState } from "react";
-import { steps as constantSteps } from "../../../../constants/steps";
+import { getSteps, StepsLookupTableKeys } from "../../../../constants/steps";
+import { Step } from "../../../types/stepper";
 
-export default function useStepper(currentStep: number) {
-  const [steps, setSteps] = useState(constantSteps);
-  const stepIndex = currentStep - 1;
+export default function useStepper(
+  currentStep: number,
+  subCategory?: { name: StepsLookupTableKeys; currentStep: number }
+) {
+  const [steps, setSteps] = useState(getSteps("MAIN"));
+  const [subSteps, setSubSteps] = useState(
+    subCategory != null ? getSteps(subCategory.name) : []
+  );
 
-  useEffect(() => {
-    if (stepIndex > steps.length) {
+  const deriveStepState = (stepArray: Step[], index: number): Step[] => {
+    if (index > stepArray.length) {
       throw new Error("Current stepper index out of bounds.");
     } else {
-      setSteps((prev) => {
-        const newArr = [...prev];
+      const newArr = [...stepArray];
+      newArr.splice(index, 1, { ...stepArray[index], state: "ACTIVE" });
+      newArr.splice(
+        0,
+        index,
+        ...newArr.slice(0, index).map((step) => {
+          return { ...step, state: "COMPLETE" } as typeof step;
+        })
+      );
 
-        newArr.splice(stepIndex, 1, { ...steps[stepIndex], state: "ACTIVE" });
-        newArr.splice(
-          0,
-          stepIndex,
-          ...prev.slice(0, stepIndex).map((step) => {
-            return { ...step, state: "COMPLETE" } as typeof step;
-          })
-        );
-
-        return newArr;
-      });
+      return newArr;
     }
-  }, [stepIndex]);
+  };
 
-  return [steps] as const;
+  useEffect(() => {
+    setSteps(deriveStepState(steps, currentStep - 1));
+  }, [currentStep]);
+
+  useEffect(() => {
+    if (subCategory) {
+      setSubSteps(deriveStepState(subSteps, subCategory.currentStep - 1));
+    }
+  }, [subCategory?.currentStep]);
+
+  return [steps, subSteps] as const;
 }
