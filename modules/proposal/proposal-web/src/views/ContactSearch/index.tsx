@@ -134,7 +134,7 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
 
   return (
     <Wrapper embedded={embedded}>
-      {embedded ? <Stepper currentStep={1} /> : null}
+      {!embedded ? <Stepper currentStep={1} /> : null}
 
       <InnerWrapper>
         <Content embedded={embedded}>
@@ -176,7 +176,7 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
             <EmptySpace />
           ) : null}
         </Content>
-        {!idle || !embedded ? (
+        {!idle && !embedded ? (
           <LinkWrapper>
             <Link to="new_contact">{CONTACT_SEARCH_CREATE_NEW_CONTACT}</Link>
           </LinkWrapper>
