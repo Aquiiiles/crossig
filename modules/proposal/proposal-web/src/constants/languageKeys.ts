@@ -215,3 +215,8 @@ export const COVERAGE_PLAN = {
   SUBTITLE: Liferay.Language.get('coverage-plan-subtitle'),
   SELECT: Liferay.Language.get('coverage-plan-select'),
 }
+
+export const VESSEL_LOOKUP = {
+  TITLE: Liferay.Language.get('vessel-lookup-title'),
+  SUBTITLE: Liferay.Language.get('vessel-lookup-subtitle'), 
+}

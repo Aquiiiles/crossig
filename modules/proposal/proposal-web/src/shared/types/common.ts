@@ -10,3 +10,5 @@ export interface PhoneNumber {
   areaCode: string;
   phoneNumber: string;
 }
+
+export type FetchDataResultsFunction = () => void;
