@@ -1,8 +1,8 @@
 import React from "react";
 import { Wrapper, ProductInfoWrapper } from "./style";
 import ClayButton from "@clayui/button";
-import { Product } from "../../types/product";
-import { INSURANCE_PRODUCT } from "../../../../constants/languageKeys";
+import { Product } from "../../../views/InsuranceProduct/types/product";
+import { INSURANCE_PRODUCT } from "../../../constants/languageKeys";
 
 type ProductProps = Product & {
   icon: React.ReactNode;

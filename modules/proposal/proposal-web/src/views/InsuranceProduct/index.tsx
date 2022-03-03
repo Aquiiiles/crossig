@@ -1,7 +1,7 @@
 import React from "react";
 import { Wrapper, Content, Products, Footer } from "./styles";
 import Stepper from "../../shared/molecules/Stepper";
-import ProductCard from "./containers/ProductCard";
+import ProductCard from "../../shared/atoms/ProductCard";
 import productIcon from "../../assets/productIcon.png";
 import useProductState from "./hooks/useProductState";
 import SuccessBanner from "./containers/SuccessBanner";
