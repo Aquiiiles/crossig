@@ -7,6 +7,7 @@ import useProductState from "./hooks/useProductState";
 import SuccessBanner from "./containers/SuccessBanner";
 import { INSURANCE_PRODUCT } from "../../constants/languageKeys";
 import BackBtn from "../../shared/atoms/BackBtn";
+import { useHistory } from "react-router-dom";
 
 const InsuranceProduct: React.FC = () => {
   const [
@@ -17,6 +18,7 @@ const InsuranceProduct: React.FC = () => {
     hasEmailData,
     hasPhoneData,
   ] = useProductState();
+  const history = useHistory();
 
   return (
     <Wrapper>
@@ -66,7 +68,7 @@ const InsuranceProduct: React.FC = () => {
                       <img src={productIcon} alt={`Icon for ${product.name}`} />
                     ),
                   }}
-                  onProductSelection={(product) => true}
+                  onProductSelection={(product) => history.replace("/roles")}
                 />
               </>
             ))
