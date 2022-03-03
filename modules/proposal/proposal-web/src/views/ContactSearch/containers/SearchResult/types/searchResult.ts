@@ -23,6 +23,7 @@ export type providedDataType = {
   [constants.CITY_KEY]: string;
   [constants.OIB_KEY]: string;
   [constants.DOB_KEY]: string;
+  [constants.FIRST_NAME_KEY]: string;
   [constants.NAME_KEY]: string;
   [constants.STREET_KEY]: string;
   [constants.TYPE_KEY]: { desc: string; id: string };
