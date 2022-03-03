@@ -1,21 +1,29 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
-  display: flex;
+interface Props {
+  readonly embedded: boolean;
+}
+
+export const Wrapper = styled.div<Props>`
+  display: ${(props) => (props.embedded ? "block" : "flex")};
   flex-direction: row;
-  background-color: ${props => props.theme.color.neutral.background};
+  background-color: ${(props) =>
+    props.embedded
+      ? props.theme.color.neutral.white
+      : props.theme.color.neutral.background};
   padding: 0;
-  padding-top: 4.875rem;
+  padding-top: ${(props) => (props.embedded ? "2rem" : "4.875rem")};
 `;
 
 export const LinkWrapper = styled.div`
-  border-top: 1px solid ${props => props.theme.color.neutral.dividerGrey};
+  border-top: 1px solid ${(props) => props.theme.color.neutral.dividerGrey};
   padding: 3.125rem 0 2.8125rem 0;
 `;
 
-export const Content = styled.div`
+export const Content = styled.div<Props>`
   flex: 1;
-  padding: 1.25rem 3.5rem 1.25rem 3.75rem;
+  padding: ${(props) =>
+    props.embedded ? "0" : "1.25rem 3.5rem 1.25rem 3.75rem"};
 `;
 
 export const EmptySpace = styled.div`

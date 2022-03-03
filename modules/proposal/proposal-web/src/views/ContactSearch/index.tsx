@@ -25,7 +25,7 @@ interface stateType {
 const contactsLimit = 20;
 const contactsTotalResultLimit = 100;
 
-const ContactSearch: React.FC = () => {
+const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
   const [data, setData] = useState([]);
   const location = useLocation<stateType>();
   const { state: searchResultData, fetchData: fetchSearchResultData } =
@@ -127,14 +127,16 @@ const ContactSearch: React.FC = () => {
   }, []);
 
   return (
-    <Wrapper>
-      <Stepper />
+    <Wrapper embedded={embedded}>
+      {embedded ? <Stepper /> : null}
 
-      <Content>
+      <Content embedded={embedded}>
         <h5>{CONTACT_SEARCH_TITLE}</h5>
-        <p className="body-small" style={{ marginBottom: "2.5rem" }}>
-          {CONTACT_SEARCH_SUBTITLE}
-        </p>
+        {!embedded ? (
+          <p className="body-small" style={{ marginBottom: "2.5rem" }}>
+            {CONTACT_SEARCH_SUBTITLE}
+          </p>
+        ) : null}
         <SearchField
           currentPage={currentPage}
           goToPage={goToPage}
@@ -160,14 +162,19 @@ const ContactSearch: React.FC = () => {
                 totalPages,
               }}
               contactsTotalLimit={contactsTotalResultLimit}
+              embedded={embedded}
             />
-            <LinkWrapper>
-              <Link to="new_contact">{CONTACT_SEARCH_CREATE_NEW_CONTACT}</Link>
-            </LinkWrapper>
+            {!embedded ? (
+              <LinkWrapper>
+                <Link to="new_contact">
+                  {CONTACT_SEARCH_CREATE_NEW_CONTACT}
+                </Link>
+              </LinkWrapper>
+            ) : null}
           </>
-        ) : (
+        ) : embedded ? (
           <EmptySpace />
-        )}
+        ) : null}
       </Content>
     </Wrapper>
   );

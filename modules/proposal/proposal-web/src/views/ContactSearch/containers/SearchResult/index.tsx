@@ -19,7 +19,7 @@ import {
 } from "../../../../redux/store";
 import { actions } from "../../../../redux/searchFilterSlice";
 
-import * as constants from "./constants/searchResult";
+import * as constants from "../../constants/searchResult";
 
 import { providedDataType, responseType } from "./types/searchResult";
 
@@ -38,6 +38,7 @@ interface props {
     totalPages: () => number;
   };
   contactsTotalLimit: number;
+  embedded: boolean;
 }
 
 const SearchResult: React.FC<props> = ({
@@ -45,6 +46,7 @@ const SearchResult: React.FC<props> = ({
   loading,
   paginationData,
   contactsTotalLimit,
+  embedded,
 }: props) => {
   const dispatch = useContactDispatch();
   const [showCountryDropdown, setShowCountryDropdown] = useState(false);
@@ -197,7 +199,11 @@ const SearchResult: React.FC<props> = ({
           </SearchResultsHeader>
           {foundContacts ? (
             <>
-              <Table loading={loading} inputData={filteredData}></Table>
+              <Table
+                loading={loading}
+                inputData={filteredData}
+                embedded={embedded}
+              />
               <Pagination
                 paginationData={{
                   total: filteredData.length,

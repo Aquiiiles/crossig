@@ -35,7 +35,7 @@ const UpdateContact: React.FC = () => {
     <Wrapper>
       {state.status === RESOLVED && hasValidResponse(state.response.data) && (
         <Content id="update-contact-main-container">
-          <UpdateContactForm contactResponse={state.response.data} />
+          <UpdateContactForm contactResponse={state.response.data} extNumber={extNumber}/>
         </Content>
       )}
     </Wrapper>

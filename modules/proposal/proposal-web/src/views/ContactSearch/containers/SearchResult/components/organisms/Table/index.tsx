@@ -11,14 +11,15 @@ import { actions } from "../../../../../../../redux/searchFilterSlice";
 import { ResultsTable, Span } from "./styles";
 
 import * as types from "../../../types/searchResult";
-import * as constants from "../../../constants/searchResult";
+import * as constants from "../../../../../constants/searchResult";
 
 interface props {
   inputData: Array<types.responseType>;
   loading: boolean;
+  embedded: boolean;
 }
 
-const Table: React.FC<props> = ({ inputData, loading }: props) => {
+const Table: React.FC<props> = ({ inputData, loading, embedded }: props) => {
   const dispatch = useContactDispatch();
   const { sortedBy, sortOrder } = useContactSelector(
     (state) => state.searchFilter
@@ -128,7 +129,7 @@ const Table: React.FC<props> = ({ inputData, loading }: props) => {
       </ClayTable.Head>
       <ClayTable.Body>
         {inputData.map((item: types.responseType) => (
-          <TableRow key={item.idValue} contact={item} />
+          <TableRow key={item.idValue} contact={item} embedded={embedded} />
         ))}
       </ClayTable.Body>
     </ResultsTable>

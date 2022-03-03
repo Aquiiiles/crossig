@@ -8,6 +8,7 @@ import ClayButton from "@clayui/button";
 import {
   CONTACT_INFO,
   UPDATE_CONTACT,
+  ROLES_ON_POLICY,
 } from "../../../../constants/languageKeys";
 import {
   mapToCountryNames,
@@ -16,6 +17,7 @@ import {
 import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
 import { actions as addressesSetters } from "../../../../redux/addressesSlice";
 import { actions as contactInfoSetters } from "../../../../redux/contactInfoSlice";
+import { actions as contactsInPolicyActions } from "../../../../redux/contactsInPolicySlice";
 import store, {
   useContactDispatch,
   useContactSelector,
@@ -36,12 +38,15 @@ import {
   setBasicInfoFields,
   setContactInfoFields,
 } from "./util";
+import * as constants from "../../../ContactSearch/constants/searchResult";
 
-const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
-  contactResponse,
-}) => {
+const UpdateContactForm: React.FC<{
+  contactResponse: any;
+  extNumber: unknown;
+}> = ({ contactResponse, extNumber }) => {
   const history = useHistory();
   const dispatch = useContactDispatch();
+  const basicInfoData = useContactSelector((state) => state.basicInfo);
   const data = contactResponse[0];
   const { state, get } = useFetchData();
   const [countries, setCountries] = useState<Array<any> | null>(null);
@@ -238,6 +243,16 @@ const UpdateContactForm: React.FC<{ contactResponse: any }> = ({
           <ClayButton.Group spaced>
             <ContactButton
               handleClick={() => {
+                dispatch(
+                  contactsInPolicyActions.addContact({
+                    [constants.EXT_NUMBER_KEY]: Number(extNumber),
+                    [constants.OIB_KEY]: basicInfoData.oib,
+                    [constants.SUB_KEY]: basicInfoData.subsidiaryNumber,
+                    [constants.NAME_KEY]:
+                      basicInfoData.firstName + basicInfoData.lastName,
+                    [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
+                  })
+                );
                 history.push("/product");
               }}
               label={UPDATE_CONTACT.USE_CONTACT}

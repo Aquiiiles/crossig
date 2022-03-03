@@ -1,4 +1,4 @@
-import { CONTACT_RESULTS_TABLE } from "../../../../../constants/languageKeys";
+import { CONTACT_RESULTS_TABLE } from "../../../constants/languageKeys";
 
 export const EXT_NUMBER_KEY = "id";
 export const OIB_NAME = CONTACT_RESULTS_TABLE.HEADER.OIB;
@@ -18,3 +18,4 @@ export const TYPE_NAME = CONTACT_RESULTS_TABLE.HEADER.TYPE;
 export const TYPE_KEY = "entityTypeVO";
 export const MAIL_VALIDATED_KEY = "mailValidated";
 export const PHONE_NUMBER_VALIDATED_KEY = "phoneNumberValidated";
+export const ROLES_KEY = "contactRoles";

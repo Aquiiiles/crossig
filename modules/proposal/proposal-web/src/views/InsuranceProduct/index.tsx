@@ -1,13 +1,13 @@
 import React from "react";
-import { Wrapper, Content, Products, LinkWrapper } from "./styles";
+import { Wrapper, Content, Products, Footer } from "./styles";
 import Stepper from "../ContactSearch/containers/Stepper";
 import ProductCard from "./containers/ProductCard";
 import productIcon from "../../assets/productIcon.png";
-import ClayButton from "@clayui/button";
-import { Link } from "react-router-dom";
 import useProductState from "./hooks/useProductState";
 import SuccessBanner from "./containers/SuccessBanner";
 import { INSURANCE_PRODUCT } from "../../constants/languageKeys";
+import BackBtn from "../../shared/atoms/BackBtn";
+import { useHistory } from "react-router-dom";
 
 const InsuranceProduct: React.FC = () => {
   const [
@@ -18,6 +18,7 @@ const InsuranceProduct: React.FC = () => {
     hasEmailData,
     hasPhoneData,
   ] = useProductState();
+  const history = useHistory();
 
   return (
     <Wrapper>
@@ -67,17 +68,15 @@ const InsuranceProduct: React.FC = () => {
                       <img src={productIcon} alt={`Icon for ${product.name}`} />
                     ),
                   }}
-                  onProductSelection={(product) => true}
+                  onProductSelection={(product) => history.replace("/roles")}
                 />
               </>
             ))
           )}
         </Products>
-        <LinkWrapper>
-          <Link to={{ pathname: "/", state: { doSearch: true } }}>
-            {INSURANCE_PRODUCT.LINK_BACK}
-          </Link>
-        </LinkWrapper>
+        <Footer>
+          <BackBtn pathname="/" state={{ doSearch: true }} />
+        </Footer>
       </Content>
     </Wrapper>
   );

@@ -44,6 +44,7 @@ export const CONTACT_SEARCH_FIELD_EMAIL_ADDRESS = Liferay.Language.get('contact-
 export const CONTACT_SEARCH_CREATE_NEW_CONTACT = Liferay.Language.get('contact-search-create-new-contact');
 export const CONTACT_SEARCH_TABLE_VIEW_DETAILS = Liferay.Language.get('contact-search-table-view-details');
 export const CONTACT_SEARCH_TABLE_USE_CONTACT = Liferay.Language.get('contact-search-table-use-contact');
+export const CONTACT_SEARCH_TABLE_ADD_TO_POLICY = Liferay.Language.get('contact-search-table-add-to-policy');
 export const CONTACT_SEARCH_RESULT_CONTACTS_FOUND = Liferay.Language.get('contact-search-result-contacts-found');
 export const CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND = Liferay.Language.get('contact-search-result-no-contacts-found');
 export const CONTACT_SEARCH_RESULT_TOO_MANY_SEARCH_RESULTS = Liferay.Language.get('contact-search-result-too-many-search-results');
@@ -90,13 +91,13 @@ export const CREATE_NEW_CONTACT = {
 
 export const CONTACT_RESULTS_TABLE = {
     HEADER: {
-        OIB: Liferay.Language.get('contact-results-table-header-oib'),
-        SUB: Liferay.Language.get('contact-results-table-header-sub'),
-        DOB: Liferay.Language.get('contact-results-table-header-dob'),
-        NAME: Liferay.Language.get('contact-results-table-header-name'),
-        STREET: Liferay.Language.get('contact-results-table-header-street'),
-        CITY: Liferay.Language.get('contact-results-table-header-city'),
-        TYPE: Liferay.Language.get('contact-results-table-header-type'),
+      OIB: Liferay.Language.get('contact-results-table-header-oib'),
+      SUB: Liferay.Language.get('contact-results-table-header-sub'),
+      DOB: Liferay.Language.get('contact-results-table-header-dob'),
+      NAME: Liferay.Language.get('contact-results-table-header-name'),
+      STREET: Liferay.Language.get('contact-results-table-header-street'),
+      CITY: Liferay.Language.get('contact-results-table-header-city'),
+      TYPE: Liferay.Language.get('contact-results-table-header-type'),
     }
 }
 
@@ -131,8 +132,6 @@ export const VALIDATOR_MESSAGE = {
 export const INSURANCE_PRODUCT = {
   TITLE: Liferay.Language.get('insurance-product-title'),
   SUBTITLE: Liferay.Language.get('insurance-product-subtitle'),
-  LINK_BACK: Liferay.Language.get('insurance-product-link-back'),
-  BUTTON_CONTINUE: Liferay.Language.get('insurance-product-button-continue'),
   PRODUCT: {
     SELECT: Liferay.Language.get('insurance-product-product-select'),
   },
@@ -141,5 +140,29 @@ export const INSURANCE_PRODUCT = {
     CREATED_SUCCESSFULLY: Liferay.Language.get('insurance-product-banner-contact-created-successfully'),
     VERIFICATION_LINK_HAS_BEEN_SENT: Liferay.Language.get('insurance-product-banner-verification-link-has-been-sent'),
     AND: Liferay.Language.get('insurance-product-banner-and'),
+  }
+}
+
+export const PROPOSAL = {
+  LINK_BACK: Liferay.Language.get('proposal-link-back'),
+  BUTTON_CONTINUE: Liferay.Language.get('proposal-button-continue'),
+}
+
+export const ROLES_ON_POLICY = {
+  TITLE: Liferay.Language.get('roles-on-policy-title'),
+  SUBTITLE: Liferay.Language.get('roles-on-policy-subtitle'),
+  INSURED_ROLE_MISSING: Liferay.Language.get('roles-on-policy-insured-role-missing'),
+  ADD_ROLE: Liferay.Language.get('roles-on-policy-add-role'),
+  NO_OPTIONS: Liferay.Language.get('roles-on-policy-no-options'),
+  POLICY_HOLDER: Liferay.Language.get('roles-on-policy-policy-holder'),
+  INSURED: Liferay.Language.get('roles-on-policy-insured'),
+}
+
+export const ROLES_TABLE = {
+  HEADER:{
+    OIB: Liferay.Language.get('roles-table-header-oib'),
+    SUB: Liferay.Language.get('roles-table-header-sub'),
+    NAME: Liferay.Language.get('roles-table-header-name'),
+    ROLES: Liferay.Language.get('roles-table-header-roles'),
   }
 }

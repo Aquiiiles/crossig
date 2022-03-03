@@ -4,6 +4,7 @@ import NewContact from "./views/NewContact";
 import ContactSearch from "./views/ContactSearch";
 import UpdateContact from "./views/UpdateContact";
 import InsuranceProduct from "./views/InsuranceProduct";
+import RolesOnPolicy from "./views/RolesOnPolicy";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 const App: React.FC = () => {
@@ -13,6 +14,9 @@ const App: React.FC = () => {
         <Route path="/product">
           <InsuranceProduct />
         </Route>
+        <Route path="/roles">
+          <RolesOnPolicy />
+        </Route>
         <Route path="/new_contact">
           <NewContact />
         </Route>
@@ -20,7 +24,7 @@ const App: React.FC = () => {
           <UpdateContact />
         </Route>
         <Route path="/">
-          <ContactSearch />
+          <ContactSearch embedded={false} />
         </Route>
       </Switch>
     </Router>

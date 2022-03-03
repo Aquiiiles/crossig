@@ -6,12 +6,13 @@ import { Button } from "./styles";
 
 interface props {
   onClick: () => void;
+  angleUp: boolean;
 }
 
 const ArrowButton = React.forwardRef<HTMLButtonElement, props>(
-  ({ onClick }, ref) => {
+  ({ onClick, angleUp }, ref) => {
     return (
-      <Button ref={ref} displayType={null} onClick={onClick}>
+      <Button ref={ref} displayType={null} onClick={onClick} angleUp={angleUp}>
         <ClayIcon symbol="angle-down" spritemap={spritemap} />
       </Button>
     );
