@@ -15,7 +15,6 @@
 package hr.crosig.proposal.service.impl;
 
 import com.liferay.portal.aop.AopService;
-
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -24,11 +23,11 @@ import hr.crosig.proposal.dto.CoveragePlanDTO;
 import hr.crosig.proposal.model.CoveragePlan;
 import hr.crosig.proposal.service.base.CoveragePlanLocalServiceBaseImpl;
 
-import org.osgi.service.component.annotations.Component;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Brian Wing Shun Chan
@@ -40,7 +39,10 @@ import java.util.stream.Collectors;
 public class CoveragePlanLocalServiceImpl
 	extends CoveragePlanLocalServiceBaseImpl {
 
-	public CoveragePlan addCoveragePlan(String name, String category, String description) throws PortalException {
+	public CoveragePlan addCoveragePlan(
+			String name, String category, String description)
+		throws PortalException {
+
 		CoveragePlan coveragePlan = getCoveragePlanByName(name);
 
 		if (!Objects.isNull(coveragePlan)) {
@@ -50,7 +52,7 @@ public class CoveragePlanLocalServiceImpl
 		}
 
 		coveragePlan = coveragePlanLocalService.createCoveragePlan(
-				counterLocalService.increment(CoveragePlan.class.getName()));
+			counterLocalService.increment(CoveragePlan.class.getName()));
 
 		coveragePlan.setName(name);
 		coveragePlan.setCategory(category);
@@ -63,8 +65,15 @@ public class CoveragePlanLocalServiceImpl
 		return coveragePlanPersistence.fetchByName(name);
 	}
 
-	public List<CoveragePlanDTO>  getCoveragePlansByCategory(String category) {
-		return coveragePlanPersistence.findByCategory(category).stream().map(coveragePlan -> _mapToCoveragePlanDTO(coveragePlan)).collect(Collectors.toList());
+	public List<CoveragePlanDTO> getCoveragePlansByCategory(String category) {
+		return coveragePlanPersistence.findByCategory(
+			category
+		).stream(
+		).map(
+			coveragePlan -> _mapToCoveragePlanDTO(coveragePlan)
+		).collect(
+			Collectors.toList()
+		);
 	}
 
 	private CoveragePlanDTO _mapToCoveragePlanDTO(CoveragePlan coveragePlan) {
@@ -79,5 +88,6 @@ public class CoveragePlanLocalServiceImpl
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-			CoveragePlanLocalServiceImpl.class);
+		CoveragePlanLocalServiceImpl.class);
+
 }
