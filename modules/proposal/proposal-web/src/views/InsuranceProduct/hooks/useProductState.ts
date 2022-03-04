@@ -10,6 +10,21 @@ declare const Liferay: {
   ThemeDisplay: { getUserId: () => string };
 };
 
+export const sortProducts = (
+  productA: Product,
+  productB: Product
+): 0 | 1 | -1 => {
+  if (productA.active && !productB.active) {
+    return -1;
+  }
+
+  if (productB.active && !productA.active) {
+    return 1;
+  }
+
+  return 0;
+};
+
 const categorizeProducts = (products: Product[]): Product[][] => {
   return Object.values(
     products.reduce((acc, value) => {

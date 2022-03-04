@@ -3,7 +3,7 @@ import { Wrapper, Content, Products, Footer } from "./styles";
 import Stepper from "../../shared/molecules/Stepper";
 import ProductCard from "../../shared/atoms/ProductCard";
 import productIcon from "../../assets/productIcon.png";
-import useProductState from "./hooks/useProductState";
+import useProductState, { sortProducts } from "./hooks/useProductState";
 import SuccessBanner from "./containers/SuccessBanner";
 import { INSURANCE_PRODUCT } from "../../constants/languageKeys";
 import BackBtn from "../../shared/atoms/BackBtn";
@@ -54,7 +54,7 @@ const InsuranceProduct: React.FC = () => {
           </p>
           <Products>
             {products.map((category, categoryIndex) =>
-              category.map((product, productIndex) => (
+              category.sort(sortProducts).map((product, productIndex) => (
                 <>
                   {productIndex === 0 ? (
                     <h6
