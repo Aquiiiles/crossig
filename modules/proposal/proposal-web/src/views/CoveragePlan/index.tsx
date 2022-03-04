@@ -6,10 +6,13 @@ import ProductCard from "../../shared/atoms/ProductCard";
 import BackBtn from "../../shared/atoms/BackBtn";
 import { COVERAGE_PLAN } from "../../constants/languageKeys";
 import useCoveragePlanState from "./hooks/useCoveragePlanState";
+import { useContactDispatch } from "../../redux/store";
+import { actions } from "../../redux/coveragePlanSlice";
 
 const CoveragePlan: React.FC = () => {
   const history = useHistory();
   const coveragePlans = useCoveragePlanState();
+  const dispatch = useContactDispatch();
 
   return (
     <Wrapper>
@@ -22,20 +25,23 @@ const CoveragePlan: React.FC = () => {
             {COVERAGE_PLAN.SUBTITLE}
           </p>
           <Products>
-            {coveragePlans.map((product, index) => (
+            {coveragePlans.map((coveragePlan, index) => (
               <>
                 <ProductCard
                   key={index}
                   product={{
                     active: true,
                     category: "",
-                    description: product.description,
+                    description: coveragePlan.description,
                     externalId: 0,
-                    name: product.name,
-                    productId: product.coveragePlanId,
+                    name: coveragePlan.name,
+                    productId: coveragePlan.coveragePlanId,
                     icon: null,
                   }}
-                  onProductSelection={() => history.push("/vessel-search")}
+                  onProductSelection={() => {
+                    dispatch(actions.setCoveragePlan(coveragePlan));
+                    history.push("/vessel-search");
+                  }}
                 />
               </>
             ))}
