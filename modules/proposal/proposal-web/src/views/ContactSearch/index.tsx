@@ -1,8 +1,14 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { useEffect, useState } from "react";
 import SearchField from "./containers/SearchField";
-import { Content, Wrapper, LinkWrapper, EmptySpace } from "./styles";
-import Stepper from "./containers/Stepper";
+import {
+  InnerWrapper,
+  Wrapper,
+  LinkWrapper,
+  Content,
+  EmptySpace,
+} from "./styles";
+import Stepper from "../../shared/molecules/Stepper";
 import {
   CONTACT_SEARCH_SUBTITLE,
   CONTACT_SEARCH_TITLE,
@@ -128,54 +134,54 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
 
   return (
     <Wrapper embedded={embedded}>
-      {embedded ? <Stepper /> : null}
+      {!embedded ? <Stepper currentStep={1} /> : null}
 
-      <Content embedded={embedded}>
-        <h5>{CONTACT_SEARCH_TITLE}</h5>
-        {!embedded ? (
-          <p className="body-small" style={{ marginBottom: "2.5rem" }}>
-            {CONTACT_SEARCH_SUBTITLE}
-          </p>
+      <InnerWrapper>
+        <Content embedded={embedded}>
+          <h5>{CONTACT_SEARCH_TITLE}</h5>
+          {!embedded ? (
+            <p className="body-small" style={{ marginBottom: "2.5rem" }}>
+              {CONTACT_SEARCH_SUBTITLE}
+            </p>
+          ) : null}
+          <SearchField
+            currentPage={currentPage}
+            goToPage={goToPage}
+            fetchData={fetchData}
+          />
+          {!idle ? (
+            <>
+              <SearchResult
+                data={data}
+                loading={loading}
+                paginationData={{
+                  lowerRange: (currentPage - 1) * contactsLimit + 1,
+                  upperRange: Math.min(
+                    (currentPage - 1) * contactsLimit + contactsLimit,
+                    data.length
+                  ),
+                  currentPage,
+                  pages,
+                  goToNextPage,
+                  goToPrevPage,
+                  goToPage,
+                  handleNewTotal,
+                  totalPages,
+                }}
+                contactsTotalLimit={contactsTotalResultLimit}
+                embedded={embedded}
+              />
+            </>
+          ) : embedded ? (
+            <EmptySpace />
+          ) : null}
+        </Content>
+        {!idle && !embedded ? (
+          <LinkWrapper>
+            <Link to="new_contact">{CONTACT_SEARCH_CREATE_NEW_CONTACT}</Link>
+          </LinkWrapper>
         ) : null}
-        <SearchField
-          currentPage={currentPage}
-          goToPage={goToPage}
-          fetchData={fetchData}
-        />
-        {!idle ? (
-          <>
-            <SearchResult
-              data={data}
-              loading={loading}
-              paginationData={{
-                lowerRange: (currentPage - 1) * contactsLimit + 1,
-                upperRange: Math.min(
-                  (currentPage - 1) * contactsLimit + contactsLimit,
-                  data.length
-                ),
-                currentPage,
-                pages,
-                goToNextPage,
-                goToPrevPage,
-                goToPage,
-                handleNewTotal,
-                totalPages,
-              }}
-              contactsTotalLimit={contactsTotalResultLimit}
-              embedded={embedded}
-            />
-            {!embedded ? (
-              <LinkWrapper>
-                <Link to="new_contact">
-                  {CONTACT_SEARCH_CREATE_NEW_CONTACT}
-                </Link>
-              </LinkWrapper>
-            ) : null}
-          </>
-        ) : embedded ? (
-          <EmptySpace />
-        ) : null}
-      </Content>
+      </InnerWrapper>
     </Wrapper>
   );
 };

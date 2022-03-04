@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import Stepper from "../ContactSearch/containers/Stepper";
-import { Wrapper, Buttons } from "./styles";
+import Stepper from "../../shared/molecules/Stepper";
+import { Wrapper, Buttons, InnerWrapper, Content } from "./styles";
 import BackBtn from "../../shared/atoms/BackBtn";
 import ContinueBtn from "../../shared/atoms/ContinueBtn";
 import Table from "./containers/Table";
@@ -26,22 +26,29 @@ const RolesOnPolicy: React.FC = () => {
 
   return (
     <Wrapper>
-      <Stepper />
-      <h5>{ROLES_ON_POLICY.TITLE}</h5>
-      <p className="body-small" style={{ marginBottom: "2.5rem" }}>
-        {ROLES_ON_POLICY.SUBTITLE}
-      </p>
-      <Table hasInsuredRole={hasInsuredRole} />
-      <Buttons>
-        <BackBtn pathname="/product" state={{ doSearch: true }} />
-        {!hasInsuredRole && <span>{ROLES_ON_POLICY.INSURED_ROLE_MISSING}</span>}
-        <ContinueBtn
-          disabled={!hasInsuredRole}
-          onClick={() => {
-            return;
-          }}
-        />
-      </Buttons>
+      <Stepper currentStep={3} />
+
+      <InnerWrapper>
+        <Content>
+          <h5>{ROLES_ON_POLICY.TITLE}</h5>
+          <p className="body-small" style={{ marginBottom: "2.5rem" }}>
+            {ROLES_ON_POLICY.SUBTITLE}
+          </p>
+          <Table hasInsuredRole={hasInsuredRole} />
+        </Content>
+        <Buttons>
+          <BackBtn pathname="/product" state={{ doSearch: true }} />
+          {!hasInsuredRole && (
+            <span>{ROLES_ON_POLICY.INSURED_ROLE_MISSING}</span>
+          )}
+          <ContinueBtn
+            disabled={!hasInsuredRole}
+            onClick={() => {
+              return;
+            }}
+          />
+        </Buttons>
+      </InnerWrapper>
     </Wrapper>
   );
 };

@@ -17,13 +17,17 @@ export const Wrapper = styled.div<Props>`
 
 export const LinkWrapper = styled.div`
   border-top: 1px solid ${(props) => props.theme.color.neutral.dividerGrey};
-  padding: 3.125rem 0 2.8125rem 0;
+  padding: 3.125rem 0 2.8125rem 3.75rem;
+`;
+
+export const InnerWrapper = styled.div`
+  flex: 1 1 auto;
 `;
 
 export const Content = styled.div<Props>`
   flex: 1;
   padding: ${(props) =>
-    props.embedded ? "0" : "1.25rem 3.5rem 1.25rem 3.75rem"};
+    props.embedded ? "0" : "6.25rem 3.5rem 1.25rem 3.75rem"};
 `;
 
 export const EmptySpace = styled.div`
