@@ -36,6 +36,32 @@ const SearchField: React.FC<props> = ({ onSearchClick }) => {
       <ClayForm.Group style={{ marginBottom: "0" }}>
         <ClayInput.Group>
           <ClayInput.GroupItem>
+            <label className="body-small" htmlFor="vesselNib">
+              {VESSEL_LOOKUP.FIELD.NIB}
+            </label>
+            <ClayInput
+              id="vesselNib"
+              type="text"
+              value={vesselNib}
+              onChange={({ target: { value } }) =>
+                dispatch(setVesselNib(value))
+              }
+            />
+          </ClayInput.GroupItem>
+          <ClayInput.GroupItem>
+            <label className="body-small" htmlFor="vesselRegistrationMark">
+              {VESSEL_LOOKUP.FIELD.REGISTRATION_MARK}
+            </label>
+            <ClayInput
+              id="vesselRegistrationMark"
+              type="text"
+              value={vesselRegistrationMark}
+              onChange={({ target: { value } }) =>
+                dispatch(setVesselRegistrationMark(value))
+              }
+            />
+          </ClayInput.GroupItem>
+          <ClayInput.GroupItem>
             <label className="body-small" htmlFor="vesselType">
               {VESSEL_LOOKUP.FIELD.TYPE}
             </label>
@@ -58,32 +84,6 @@ const SearchField: React.FC<props> = ({ onSearchClick }) => {
               value={vesselName}
               onChange={({ target: { value } }) =>
                 dispatch(setVesselName(value))
-              }
-            />
-          </ClayInput.GroupItem>
-          <ClayInput.GroupItem>
-            <label className="body-small" htmlFor="vesselRegistrationMark">
-              {VESSEL_LOOKUP.FIELD.REGISTRATION_MARK}
-            </label>
-            <ClayInput
-              id="vesselRegistrationMark"
-              type="text"
-              value={vesselRegistrationMark}
-              onChange={({ target: { value } }) =>
-                dispatch(setVesselRegistrationMark(value))
-              }
-            />
-          </ClayInput.GroupItem>
-          <ClayInput.GroupItem>
-            <label className="body-small" htmlFor="vesselNib">
-              {VESSEL_LOOKUP.FIELD.NIB}
-            </label>
-            <ClayInput
-              id="vesselNib"
-              type="text"
-              value={vesselNib}
-              onChange={({ target: { value } }) =>
-                dispatch(setVesselNib(value))
               }
             />
           </ClayInput.GroupItem>
