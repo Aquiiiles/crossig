@@ -22,7 +22,7 @@ const ProductCard: React.FC<props> = ({ product, onProductSelection }) => {
         <p>{product.description}</p>
       </ProductInfoWrapper>
       {product.active ? (
-        <ClayButton onClick={() => onProductSelection(product)}>
+        <ClayButton onClick={() => onProductSelection(product)} style={{marginLeft: "auto"}}>
           {INSURANCE_PRODUCT.PRODUCT.SELECT}
         </ClayButton>
       ) : null}

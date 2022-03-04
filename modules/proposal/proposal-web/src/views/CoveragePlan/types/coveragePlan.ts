@@ -1,4 +1,4 @@
-export interface CoveragePlan {
+export interface CoveragePlanInterface {
   category: string;
   coveragePlanId: number;
   description: string;

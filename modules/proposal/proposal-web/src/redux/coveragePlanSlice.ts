@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CoveragePlan } from "../views/CoveragePlan/types/coveragePlan";
+import { CoveragePlanInterface } from "../views/CoveragePlan/types/coveragePlan";
 
 const initialState = {
   coveragePlan: {
@@ -14,7 +14,7 @@ const CoveragePlan = createSlice({
   name: "CoveragePlan",
   initialState,
   reducers: {
-    setCoveragePlan(state, action: PayloadAction<CoveragePlan>) {
+    setCoveragePlan(state, action: PayloadAction<CoveragePlanInterface>) {
       state.coveragePlan = action.payload;
     },
     resetFields(state) {
