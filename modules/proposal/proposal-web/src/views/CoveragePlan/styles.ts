@@ -4,8 +4,10 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   background-color: ${(props) => props.theme.color.neutral.background};
-  padding: 0;
-  padding-top: 4.875rem;
+`;
+
+export const InnerWrapper = styled.div`
+  flex: 1 1 auto;
 `;
 
 export const Content = styled.div`
