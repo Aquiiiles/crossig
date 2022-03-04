@@ -22,7 +22,7 @@ const VesselSearch: React.FC = () => {
           <SearchField onSearchClick={() => true} />
         </Content>
         <LinkWrapper>
-          <Link to="/">{VESSEL_LOOKUP.LINK_BACK}</Link>
+          <Link to="/coverage_plan">{VESSEL_LOOKUP.LINK_BACK}</Link>
         </LinkWrapper>
       </InnerWrapper>
     </Wrapper>

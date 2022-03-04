@@ -5,12 +5,14 @@ import {
 } from "../../../../../redux/store";
 import { actions } from "../../../../../redux/vesselSearchSlice";
 import { MINIMUM_LENGTH_FOR_SEARCH } from "../../../../../constants/vesselConstants";
+import { useHistory } from "react-router-dom";
 
 export default function useSearchField() {
   const dispatch = useContactDispatch();
   const [disabledSearch, setDisabledSearch] = useState(true);
   const fieldValues = useContactSelector((state) => state.vesselSearch);
   const fieldActions = actions;
+  const history = useHistory();
 
   useEffect(() => {
     const { vesselName, vesselRegistrationMark, vesselNib, vesselType } =
@@ -32,5 +34,11 @@ export default function useSearchField() {
     fieldValues.vesselType,
   ]);
 
-  return [disabledSearch, fieldValues, fieldActions, dispatch] as const;
+  return [
+    disabledSearch,
+    fieldValues,
+    fieldActions,
+    dispatch,
+    history,
+  ] as const;
 }

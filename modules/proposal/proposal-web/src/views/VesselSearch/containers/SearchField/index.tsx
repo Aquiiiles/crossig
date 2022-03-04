@@ -28,6 +28,7 @@ const SearchField: React.FC<props> = ({ onSearchClick }) => {
       setVesselFleetName,
     },
     dispatch,
+    history,
   ] = useSearchField();
 
   return (
@@ -107,7 +108,10 @@ const SearchField: React.FC<props> = ({ onSearchClick }) => {
               {VESSEL_LOOKUP.BUTTON_SEARCH_VESSEL}
             </ClayButton>
           </span>
-          <ClayButton displayType="link" onClick={() => true}>
+          <ClayButton
+            displayType="link"
+            onClick={() => history.push("/new_vessel")}
+          >
             {VESSEL_LOOKUP.BUTTON_CREATE_NEW_VESSEL}
           </ClayButton>
         </ClayButton.Group>
