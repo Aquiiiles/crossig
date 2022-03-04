@@ -177,10 +177,10 @@ const ContactInfo: React.FC = () => {
   };
 
   useEffect(() => {
-    if (contactState.response?.status === Number(SUCCESS_CODE)) {
+    if (isCreateSuccessful) {
       history.push("/product?success=true");
     }
-  }, [contactState]);
+  }, [isCreateSuccessful]);
 
   return (
     <Wrapper
