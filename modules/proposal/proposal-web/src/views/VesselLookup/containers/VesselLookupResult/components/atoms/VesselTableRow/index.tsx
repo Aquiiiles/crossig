@@ -7,33 +7,16 @@ import {
   CONTACT_SEARCH_TABLE_USE_CONTACT,
 } from "../../../../../../../constants/languageKeys";
 
-import * as types from "../../../types/searchResult";
-import * as constants from "../../../constants/searchResult";
+import * as types from "../../../types/vesselLookupResult";
 import { useHistory } from "react-router-dom";
 
-interface props {
-  contact: types.responseType;
-}
+type propsType = {
+  vessel: types.responseType;
+};
 
-const TableRow: React.FC<props> = ({ contact }) => {
+const VesselTableRow: React.FC<propsType> = (props: propsType) => {
   const [showButtons, setShowButtons] = useState(false);
   const history = useHistory();
-
-  const types = {
-    Individual: "F",
-    "Self Employed": "O",
-    "Legal Entity": "P",
-  };
-
-  const formatDOB = (date: string): string => {
-    try {
-      const [year, month, day] = date.split("-");
-
-      return `${day}/${month}/${year}`;
-    } catch (error) {
-      return "";
-    }
-  };
 
   const openUpdateContact = (extNumber: number) => {
     history.push({
@@ -49,28 +32,20 @@ const TableRow: React.FC<props> = ({ contact }) => {
       onMouseEnter={() => setShowButtons(true)}
       onDoubleClick={() => history.push("/product")}
     >
+      <ClayTable.Cell headingTitle>{props.vessel.NIB}</ClayTable.Cell>
       <ClayTable.Cell headingTitle>
-        {contact[constants.OIB_KEY]}
+        {props.vessel.registrationMark}
       </ClayTable.Cell>
-      <ClayTable.Cell headingTitle>{contact[constants.SUB_KEY]}</ClayTable.Cell>
-      <ClayTable.Cell headingTitle>
-        {formatDOB(contact[constants.DOB_KEY])}
-      </ClayTable.Cell>
-      <ClayTable.Cell headingTitle>
-        {contact[constants.NAME_KEY]}
-      </ClayTable.Cell>
-      <ClayTable.Cell headingTitle>
-        {contact[constants.STREET_KEY]}
-      </ClayTable.Cell>
-      <ClayTable.Cell headingTitle>
-        {contact[constants.CITY_KEY]}
-      </ClayTable.Cell>
+      <ClayTable.Cell headingTitle>{props.vessel.vesselName}</ClayTable.Cell>
+      <ClayTable.Cell headingTitle>{props.vessel.fleetName}</ClayTable.Cell>
       {showButtons ? (
         <HoveringButtonGroup>
           <ClayButton
             displayType="secondary"
             className="ghost"
-            onClick={() => openUpdateContact(contact[constants.EXT_NUMBER_KEY])}
+            onClick={() => {
+              return;
+            }}
           >
             {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
           </ClayButton>
@@ -83,11 +58,11 @@ const TableRow: React.FC<props> = ({ contact }) => {
         </HoveringButtonGroup>
       ) : (
         <ClayTable.Cell headingTitle>
-          {types[contact[constants.TYPE_KEY] as keyof typeof types]}
+          {props.vessel.policyHolder}
         </ClayTable.Cell>
       )}
     </ClayTable.Row>
   );
 };
 
-export default TableRow;
+export default VesselTableRow;

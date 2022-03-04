@@ -9,7 +9,7 @@ export const initialState = {
   sortOrder: "desc",
 };
 
-const lookupSlice = createSlice({
+const vesselLookupReducer = createSlice({
   name: "vesselLookupFilter",
   initialState,
   reducers: {
@@ -40,6 +40,6 @@ const lookupSlice = createSlice({
   },
 });
 
-export const actions = lookupSlice.actions;
+export const actions = vesselLookupReducer.actions;
 
-export default lookupSlice.reducer;
+export default vesselLookupReducer.reducer;

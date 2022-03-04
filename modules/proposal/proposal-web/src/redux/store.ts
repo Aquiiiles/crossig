@@ -1,61 +1,30 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import searchFilterReducer from "./searchFilterSlice";
+import {
+  TypedUseSelectorHook,
+  useDispatch as useReduxDispatch,
+  useSelector as useReduxSelector,
+} from "react-redux";
 
-import basicInfoReducer, {
-  actions as basicInfoActions,
-} from "./basicInfoSlice";
+import * as app from "./";
 
-import contactInfoReducer, {
-  actions as contactInfoActions,
-} from "./contactInfoSlice";
+export const store = configureStore({
+  reducer: app.reducer,
+});
 
-import addressesReducer, {
-  actions as addressesActions,
-} from "./addressesSlice";
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
-import contactsInPolicyReducer from "./contactsInPolicySlice";
-import vesselSearchReducer from "./vesselSearchSlice";
-
-import insuranceProductReducer, {
-  actions as insuranceProductActions,
-} from "./insuranceProductSlice";
-
-import coveragePlanReducer, {
-  actions as coveragePlanActions,
-} from "./coveragePlanSlice";
-
-export const createContactStore = () => {
-  return configureStore({
-    reducer: {
-      basicInfo: basicInfoReducer,
-      addresses: addressesReducer,
-      searchFilter: searchFilterReducer,
-      contactInfo: contactInfoReducer,
-      contactsInPolicy: contactsInPolicyReducer,
-      insuranceProduct: insuranceProductReducer,
-      coveragePlan: coveragePlanReducer,
-      vesselSearch: vesselSearchReducer,
-    },
-  });
-};
-
-const store = createContactStore();
-
-export type ContactRootState = ReturnType<typeof store.getState>;
-export type ContactDispatch = typeof store.dispatch;
-
-export const useContactDispatch = () => useDispatch<ContactDispatch>();
-export const useContactSelector: TypedUseSelectorHook<ContactRootState> =
-  useSelector;
+export const useDispatch = () => useReduxDispatch<AppDispatch>();
+export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
 
 export const resetState = () => {
-  const dispatch = useContactDispatch();
-  dispatch(basicInfoActions.resetFields());
-  dispatch(contactInfoActions.resetFields());
-  dispatch(addressesActions.resetFields());
-  dispatch(insuranceProductActions.resetFields());
-  dispatch(coveragePlanActions.resetFields());
+  const dispatch = useDispatch();
+  dispatch(app.actions.basicInfo.resetFields());
+  dispatch(app.actions.contactInfo.resetFields());
+  dispatch(app.actions.addresses.resetFields());
+  dispatch(app.actions.coveragePlan.resetFields());
+  dispatch(app.actions.insuranceProduct.resetFields());
+  dispatch(app.actions.contactsInPolicy.resetFields());
 };
 
 export default store;

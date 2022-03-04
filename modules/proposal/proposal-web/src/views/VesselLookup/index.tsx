@@ -9,18 +9,18 @@ import { useLocation } from "react-router-dom";
 import { VESSEL_LOOKUP } from "../../constants/languageKeys";
 import usePagination from "../../shared/hooks/usePagination";
 import { FetchDataResultsFunction } from "../../shared/types/common";
-import { initialState } from "../../redux/vessel/lookupSlice";
-import { useVesselSelector } from "../../redux/vessel/store";
+import { initialState } from "../../redux/vessel/vesselLookupSlice";
+import { useContactSelector } from "../../redux/store";
+import { VESSEL_URL } from "../../api/constants/routes";
+import { mockData } from "./util";
+
+import * as constants from "./constants/";
 
 interface stateType {
   doSearch: boolean;
 }
 
-const RESULTS_LIMIT = 20;
-const TOTAL_RESULTS_LIMIT = 100;
-
 const VesselLookup: React.FC = () => {
-  const [data, setData] = useState([]);
   const location = useLocation<stateType>();
   const { state: searchResultData, fetchData: fetchSearchResultData } =
     useFetchData();
@@ -31,9 +31,10 @@ const VesselLookup: React.FC = () => {
     { goToNextPage, goToPrevPage, goToPage },
     handleNewTotal,
     totalPages,
-  ] = usePagination(RESULTS_LIMIT);
+  ] = usePagination(constants.RESULTS_LIMIT);
 
-  const filterState = useVesselSelector((state) => state.lookupFilter);
+  const filterState = useContactSelector((state) => state.vesselLookupFilter);
+
   const { vesselType, vesselName, registrationMark, NIB, sortOrder, sortedBy } =
     filterState;
 
@@ -49,7 +50,6 @@ const VesselLookup: React.FC = () => {
   const fetchData: FetchDataResultsFunction = () => {
     const numberRegex = /^\d+/;
     const textRegex = /^[A-Za-z\s]+/;
-
     const payload = {
       finderKey: 1,
       identifierType: 1000000,
@@ -62,15 +62,19 @@ const VesselLookup: React.FC = () => {
     };
 
     const urlParams = new URLSearchParams({
-      startIndex: ((currentPage - 1) * RESULTS_LIMIT).toString(),
-      count: RESULTS_LIMIT.toString(),
+      startIndex: ((currentPage - 1) * constants.RESULTS_LIMIT).toString(),
+      count: constants.RESULTS_LIMIT.toString(),
       sortBy: sortedBy,
       sortOrder,
     }).toString();
 
-    const VESSEL_URL = ""; // TODO: change this when the API is ready.
-
-    fetchSearchResultData("POST", `${VESSEL_URL}?${urlParams}`, {}, payload);
+    fetchSearchResultData(
+      "POST",
+      `${VESSEL_URL}?${urlParams}`,
+      {},
+      payload,
+      mockData
+    );
   };
 
   const fetchNewData = () => {
@@ -82,9 +86,8 @@ const VesselLookup: React.FC = () => {
   };
 
   useEffect(() => {
-    const result = searchResultData.response.data[0]; // TODO: change this when the API is ready.
+    const result = searchResultData.response.data[0];
     if (result != null) {
-      setData(result);
       handleNewTotal(result.length);
     }
   }, [searchResultData, handleNewTotal]);
@@ -116,23 +119,23 @@ const VesselLookup: React.FC = () => {
         </p>
         {!idle ? (
           <VesselLookupResult
-            data={data}
+            data={mockData}
             loading={loading}
             paginationData={{
-              lowerRange: (currentPage - 1) * RESULTS_LIMIT + 1,
+              lowerRange: (currentPage - 1) * constants.RESULTS_LIMIT + 1,
               upperRange: Math.min(
-                (currentPage - 1) * RESULTS_LIMIT + RESULTS_LIMIT,
-                data.length
+                (currentPage - 1) * constants.RESULTS_LIMIT +
+                  constants.RESULTS_LIMIT,
+                mockData.length
               ),
               currentPage,
               pages,
               goToNextPage,
               goToPrevPage,
               goToPage,
-              handleNewTotal,
               totalPages,
             }}
-            totalResultsLimit={TOTAL_RESULTS_LIMIT}
+            totalResultsLimit={constants.TOTAL_RESULTS_LIMIT}
           />
         ) : (
           <EmptySpace />

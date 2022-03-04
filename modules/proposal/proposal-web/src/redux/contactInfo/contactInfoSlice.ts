@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { MOBILE } from "../constants/contactConstants";
-import { PhoneNumber } from "../shared/types/contact";
-import { createEmptyPhoneNumber } from "../shared/util/commonFunctions";
+import { MOBILE } from "../../constants/contactConstants";
+import { PhoneNumber } from "../../shared/types/contact";
+import { createEmptyPhoneNumber } from "../../shared/util/commonFunctions";
 
 const initialState = {
   emailAddresses: [""],
