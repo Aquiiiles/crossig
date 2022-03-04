@@ -7,10 +7,10 @@ import ClayForm, {
   ClayCheckbox,
   ClaySelectWithOption,
 } from "@clayui/form";
-import { actions } from "../../../../redux/basicInfoSlice";
+import { actions } from "../../../../redux";
 import {
-  useContactDispatch,
-  useContactSelector,
+  useDispatch,
+  useSelector,
 } from "../../../../redux/store";
 import {
   contactTypeOptions,
@@ -36,7 +36,7 @@ const BasicInfo: React.FC<propsType> = ({
   operation,
   setUpdatedValues,
 }: propsType) => {
-  const dispatcher = useContactDispatch();
+  const dispatcher = useDispatch();
 
   const dispatch = (action: any, updatedValue: string) => {
     enableSave && enableSave();
@@ -55,7 +55,7 @@ const BasicInfo: React.FC<propsType> = ({
     foreignerStatus,
     companyName,
     subsidiaryNumber,
-  } = useContactSelector((state) => state.basicInfo);
+  } = useSelector((state) => state.basicInfo);
   const {
     setContactType,
     setFirstName,
@@ -67,7 +67,7 @@ const BasicInfo: React.FC<propsType> = ({
     toggleForeignerStatus,
     setCompanyName,
     setSubsidiaryNumber,
-  } = actions;
+  } = actions.basicInfo;
 
   const showIndividualFields = contactType === contactTypes.Individual;
 

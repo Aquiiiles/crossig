@@ -17,16 +17,7 @@ import {
   CREATE_NEW_CONTACT,
   ROLES_ON_POLICY,
 } from "../../../../constants/languageKeys";
-import { contactTypes } from "../../../../constants/contactConstants";
-import {
-  useContactSelector,
-  useContactDispatch,
-} from "../../../../redux/store";
-import { createContactStore } from "../../../../redux/store";
-import { actions as contactsInPolicyActions } from "../../../../redux/contactsInPolicySlice";
-import { actions as contactInfoActions } from "../../../../redux/contactInfoSlice";
-import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
-import { actions as addressesActions } from "../../../../redux/addressesSlice";
+import { useSelector, useDispatch } from "../../../../redux/store";
 import { valuesToISOString } from "./utils/dateUtils";
 import { emailListToData } from "./utils/emailUtils";
 import { phoneObjectToData } from "./utils/phoneUtils";
@@ -38,17 +29,19 @@ import { RESOLVED } from "../../../../api/reducers/constants";
 import { SUCCESS_CODE } from "../../../../api/reducers/constants";
 import ClayForm from "@clayui/form";
 import * as constants from "../../../ContactSearch/constants/searchResult";
+import { contactTypes } from "../../../../constants/contactConstants";
+import { actions } from "../../../../redux";
 
 const ContactInfo: React.FC = () => {
-  const dispatch = useContactDispatch();
-  const basicInfoData = useContactSelector((state) => state.basicInfo);
-  const addressData = useContactSelector((state) => state.addresses);
-  const contactInfoData = useContactSelector((state) => state.contactInfo);
+  const dispatch = useDispatch();
+  const basicInfoData = useSelector((state) => state.basicInfo);
+  const addressData = useSelector((state) => state.addresses);
+  const contactInfoData = useSelector((state) => state.contactInfo);
   const { state: contactState } = useFetchData();
   const formRef = useRef<HTMLFormElement>(null);
   const { state, get } = useFetchData();
   const [countries, setCountries] = useState<Array<any> | null>(null);
-  const { contactType } = useContactSelector((state) => state.basicInfo);
+  const { contactType } = useSelector((state) => state.basicInfo);
   const [showModal, setShowModal] = useState(false);
   const [isCreateSuccessful, setCreateSuccess] = useState(false);
   const [canSubmit] = useFormState([
@@ -67,10 +60,6 @@ const ContactInfo: React.FC = () => {
       setCountries(state.response.data);
     }
   });
-
-  useEffect(() => {
-    createContactStore();
-  }, []);
 
   const isLegalEntity = () => {
     return contactType === contactTypes.Legal_Entity;
@@ -160,7 +149,7 @@ const ContactInfo: React.FC = () => {
           setCreateSuccess(true);
           dispatch(contactsInPolicyActions.resetFields());
           dispatch(
-            contactsInPolicyActions.addContact({
+            actions.contactsInPolicy.addContact({
               [constants.EXT_NUMBER_KEY]: 1,
               [constants.OIB_KEY]: basicInfoData.oib,
               [constants.SUB_KEY]: basicInfoData.subsidiaryNumber,
@@ -219,7 +208,7 @@ const ContactInfo: React.FC = () => {
         <LinkWrapper
           title={CONTACT_INFO.CANCEL}
           handleClick={() => {
-            [basicInfoActions, addressesActions, contactInfoActions].forEach(
+            [actions.basicInfo, actions.addresses, actions.contactInfo].forEach(
               (action) => dispatch(action["resetFields"]())
             );
             history.replace({ pathname: "/", state: { doSearch: true } });

@@ -33,8 +33,11 @@ export const useFetchData = () => {
   const fetchData: FetchDataFunction = useCallback(
     async (method, url, params, payload, mockedData) => {
       if (mockedData) {
-        const response = { data: mockedData };
-        return dispatch({ type: RESOLVED, response });
+        const response = { data: mockedData, status: 200 };
+        return dispatch({
+          type: RESOLVED,
+          response: response,
+        });
       }
 
       dispatch({ type: PENDING });

@@ -219,8 +219,8 @@ export const COVERAGE_PLAN = {
 export const VESSEL_LOOKUP = {
   TITLE: Liferay.Language.get('vessel-lookup-title'),
   SUBTITLE: Liferay.Language.get('vessel-lookup-subtitle'), 
-  CONTACTS_FOUND: Liferay.Language.get('vessel-lookup-result-vessels-found'),
-  NO_CONTACTS_FOUND: Liferay.Language.get('vessel-lookup-result-no-vessels-found'),
+  VESSELS_FOUND: Liferay.Language.get('vessel-lookup-result-vessels-found'),
+  NO_VESSELS_FOUND: Liferay.Language.get('vessel-lookup-result-no-vessels-found'),
   TOO_MANY_SEARCH_RESULTS: Liferay.Language.get('vessel-lookup-result-too-many-search-results'),
 }
 

@@ -10,7 +10,7 @@ import { VESSEL_LOOKUP } from "../../constants/languageKeys";
 import usePagination from "../../shared/hooks/usePagination";
 import { FetchDataResultsFunction } from "../../shared/types/common";
 import { initialState } from "../../redux/vessel/vesselLookupSlice";
-import { useContactSelector } from "../../redux/store";
+import { useSelector } from "../../redux/store";
 import { VESSEL_URL } from "../../api/constants/routes";
 import { mockData } from "./util";
 
@@ -33,12 +33,14 @@ const VesselLookup: React.FC = () => {
     totalPages,
   ] = usePagination(constants.RESULTS_LIMIT);
 
-  const filterState = useContactSelector((state) => state.vesselLookupFilter);
+  const filterState = useSelector((state) => state.vesselLookupFilter);
 
   const { vesselType, vesselName, registrationMark, NIB, sortOrder, sortedBy } =
     filterState;
 
-  const idle = searchResultData.status === IDLE;
+  // TODO: this should be uncommented once the search filter is done.
+  // const idle = searchResultData.status === IDLE;
+  const idle = false;
   const loading = searchResultData.status === PENDING;
 
   useEffect(() => {
@@ -66,11 +68,11 @@ const VesselLookup: React.FC = () => {
       count: constants.RESULTS_LIMIT.toString(),
       sortBy: sortedBy,
       sortOrder,
-    }).toString();
+    });
 
     fetchSearchResultData(
       "POST",
-      `${VESSEL_URL}?${urlParams}`,
+      `${VESSEL_URL}?${urlParams.toString()}`,
       {},
       payload,
       mockData
@@ -86,7 +88,7 @@ const VesselLookup: React.FC = () => {
   };
 
   useEffect(() => {
-    const result = searchResultData.response.data[0];
+    const result = searchResultData.response.data;
     if (result != null) {
       handleNewTotal(result.length);
     }

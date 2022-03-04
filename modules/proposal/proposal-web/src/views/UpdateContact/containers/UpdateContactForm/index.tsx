@@ -14,14 +14,8 @@ import {
   mapToCountryNames,
   mapToCountryCodes,
 } from "../../../../shared/util/countryMappers";
-import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
-import { actions as addressesSetters } from "../../../../redux/addressesSlice";
-import { actions as contactInfoSetters } from "../../../../redux/contactInfoSlice";
-import { actions as contactsInPolicyActions } from "../../../../redux/contactsInPolicySlice";
-import store, {
-  useContactDispatch,
-  useContactSelector,
-} from "../../../../redux/store";
+import { actions } from "../../../../redux";
+import store, { useDispatch, useSelector } from "../../../../redux/store";
 import { contactTypes } from "../../../../constants/contactConstants";
 import LinkWrapper from "../../../../shared/atoms/contact/LinkWrapper";
 import ContactButton from "../../../../shared/atoms/contact/ContactButton";
@@ -45,8 +39,7 @@ const UpdateContactForm: React.FC<{
   extNumber: unknown;
 }> = ({ contactResponse, extNumber }) => {
   const history = useHistory();
-  const dispatch = useContactDispatch();
-  const basicInfoData = useContactSelector((state) => state.basicInfo);
+  const dispatch = useDispatch();
   const data = contactResponse[0];
   const { state, get } = useFetchData();
   const [countries, setCountries] = useState<Array<any> | null>(null);
@@ -56,9 +49,14 @@ const UpdateContactForm: React.FC<{
   const [isUpdateSuccessful, setUpdateSuccess] = useState(false);
   const [updatedValues, setUpdatedValues] = useState<string[]>([]);
 
-  const { contactType, firstName, lastName, companyName } = useContactSelector(
-    (state) => state.basicInfo
-  );
+  const {
+    oib,
+    contactType,
+    firstName,
+    lastName,
+    companyName,
+    subsidiaryNumber,
+  } = useSelector((state) => state.basicInfo);
 
   useEffect(() => {
     get(COUNTRIES_URL);
@@ -71,9 +69,9 @@ const UpdateContactForm: React.FC<{
   });
 
   useEffect(() => {
-    setBasicInfoFields(data, dispatch, basicInfoActions);
-    setAddressFields(data, dispatch, addressesSetters);
-    setContactInfoFields(data, dispatch, contactInfoSetters);
+    setBasicInfoFields(data, dispatch, actions.basicInfo);
+    setAddressFields(data, dispatch, actions.addresses);
+    setContactInfoFields(data, dispatch, actions.contactInfo);
   }, []);
 
   const createContactDTO = () => {
@@ -207,9 +205,6 @@ const UpdateContactForm: React.FC<{
         <LinkWrapper
           title={CONTACT_INFO.CANCEL}
           handleClick={() => {
-            [basicInfoActions, addressesSetters, contactInfoSetters].forEach(
-              (action) => dispatch(action["resetFields"]())
-            );
             history.replace({ pathname: "/", state: { doSearch: true } });
           }}
           disabled={false}
@@ -255,12 +250,11 @@ const UpdateContactForm: React.FC<{
               handleClick={() => {
                 dispatch(contactsInPolicyActions.resetFields());
                 dispatch(
-                  contactsInPolicyActions.addContact({
+                  actions.contactsInPolicy.addContact({
                     [constants.EXT_NUMBER_KEY]: Number(extNumber),
-                    [constants.OIB_KEY]: basicInfoData.oib,
-                    [constants.SUB_KEY]: basicInfoData.subsidiaryNumber,
-                    [constants.NAME_KEY]:
-                      basicInfoData.firstName + basicInfoData.lastName,
+                    [constants.OIB_KEY]: oib,
+                    [constants.SUB_KEY]: subsidiaryNumber,
+                    [constants.NAME_KEY]: firstName + lastName,
                     [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
                   })
                 );

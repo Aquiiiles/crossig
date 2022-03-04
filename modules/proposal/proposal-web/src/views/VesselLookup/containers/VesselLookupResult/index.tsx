@@ -46,8 +46,8 @@ const VesselLookupResult: React.FC<propsType> = (props: propsType) => {
           <SearchResultsHeader>
             <h6 className="h9">
               {foundContacts
-                ? `${formatedData.length} ${VESSEL_LOOKUP.CONTACTS_FOUND}`
-                : `${VESSEL_LOOKUP.NO_CONTACTS_FOUND}`}
+                ? `${formatedData.length} ${VESSEL_LOOKUP.VESSELS_FOUND}`
+                : `${VESSEL_LOOKUP.NO_VESSELS_FOUND}`}
             </h6>
           </SearchResultsHeader>
           {foundContacts ? (

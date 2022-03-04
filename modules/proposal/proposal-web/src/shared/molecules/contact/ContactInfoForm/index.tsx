@@ -14,12 +14,12 @@ import {
   MAXIMUM_MOBILE_PHONES,
 } from "../../../../constants/contactConstants";
 import {
-  useContactDispatch,
-  useContactSelector,
+  useDispatch,
+  useSelector,
 } from "../../../../redux/store";
 import { Country } from "../../../types/contact";
 import { createEmptyPhoneNumber } from "../../../util/commonFunctions";
-import { actions as contactInfoActions } from "../../../../redux/contactInfoSlice";
+import { actions } from "../../../../redux";
 import { StyledLabelFormGroup, StyledPhoneTypeFormGroup } from "./styles";
 
 type propsType = {
@@ -35,18 +35,18 @@ const ContactInfoForm: React.FC<propsType> = ({
   operation,
   setUpdatedValues,
 }: propsType) => {
-  const dispatcher = useContactDispatch();
+  const dispatcher = useDispatch();
 
   const dispatch = (action: any, updatedValue: string) => {
     enableSave && enableSave();
     dispatcher(action);
     setUpdatedValues && setUpdatedValues(updatedValue);
   };
-  const { emailAddresses, mobilePhones } = useContactSelector(
+  const { emailAddresses, mobilePhones } = useSelector(
     (state) => state.contactInfo
   );
 
-  const { contactType } = useContactSelector((state) => state.basicInfo);
+  const { contactType } = useSelector((state) => state.basicInfo);
 
   const {
     setEmailAddresses,
@@ -55,7 +55,7 @@ const ContactInfoForm: React.FC<propsType> = ({
     setPhoneNumber,
     setType,
     setMobilePhones,
-  } = contactInfoActions;
+  } = actions.contactInfo;
 
   const handleEmailChange = (index: number, e: any) => {
     const currentEmails = [...emailAddresses];

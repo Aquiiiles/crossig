@@ -1,11 +1,8 @@
 import React from "react";
 import ClayTable from "@clayui/table";
 import VesselTableRow from "../../atoms/VesselTableRow";
-import {
-  useContactDispatch,
-  useContactSelector,
-} from "../../../../../../../redux/store";
-import { actions } from "../../../../../../../redux/vessel/vesselLookupSlice";
+import { useDispatch, useSelector } from "../../../../../../../redux/store";
+import { actions } from "../../../../../../../redux";
 import { ResultsTable, Span } from "./styles";
 import { decideOrder } from "../../../../../../../shared/util/tableUtils";
 import * as types from "../../../types/vesselLookupResult";
@@ -18,11 +15,11 @@ interface props {
 }
 
 const VesselResultsTable: React.FC<props> = ({ inputData }: props) => {
-  const dispatch = useContactDispatch();
-  const { sortedBy, sortOrder } = useContactSelector(
+  const dispatch = useDispatch();
+  const { sortedBy, sortOrder } = useSelector(
     (state) => state.vesselLookupFilter
   );
-  const { setSortedBy, setSortOrder } = actions;
+  const { setSortedBy, setSortOrder } = actions.vesselLookupFilter;
 
   const headerCell = (cell: headerCellType) => {
     return (

@@ -15,10 +15,10 @@ import {
   CONTACT_SEARCH_MORE_SEARCH_OPTIONS,
 } from "../../../../constants/languageKeys";
 import {
-  useContactSelector,
-  useContactDispatch,
+  useSelector,
+  useDispatch,
 } from "../../../../redux/store";
-import { actions } from "../../../../redux/searchFilterSlice";
+import { actions } from "../../../../redux";
 import { PageIndex } from "../../hooks/usePagination";
 import useOnClickOutside from "../../../../shared/hooks/useOnClickOutside";
 import { useFetchData } from "../../../../api/hooks/useFetchData";
@@ -39,7 +39,7 @@ const SearchField: React.FC<props> = ({
   fetchData,
 }: props) => {
   const { state, get } = useFetchData();
-  const dispatch = useContactDispatch();
+  const dispatch = useDispatch();
   const [disabled, setDisabled] = useState(false);
   const [expand, setExpand] = useState(false);
   const [fieldWidth, setFieldWidth] = useState(0);
@@ -48,11 +48,11 @@ const SearchField: React.FC<props> = ({
   const arrowButtonRef = useRef<HTMLButtonElement>(null);
 
   const { firstName, OIB, lastName, phoneNumber, areaCode, email } =
-    useContactSelector((state) => state.searchFilter);
+    useSelector((state) => state.searchFilter);
 
   const [countries, setCountries] = useState<Array<any> | null>(null);
 
-  const { setFirstName, setOIB, setLastName } = actions;
+  const { setFirstName, setOIB, setLastName } = actions.searchFilter;
 
   useOnClickOutside<HTMLDivElement>(
     menuElementRef,

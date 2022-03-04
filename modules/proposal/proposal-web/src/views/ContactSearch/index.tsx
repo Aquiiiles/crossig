@@ -20,9 +20,9 @@ import { Link, useLocation } from "react-router-dom";
 import { CONTACT_SEARCH_CREATE_NEW_CONTACT } from "../../constants/languageKeys";
 import usePagination from "./hooks/usePagination";
 import { SEARCH_URL } from "../../api/constants/routes";
-import { useContactSelector } from "../../redux/store";
+import { useSelector } from "../../redux/store";
 import { FetchContactsFunction } from "./types/fetchData";
-import { initialState } from "../../redux/searchFilterSlice";
+import { initialState } from "../../redux/searchFilter/searchFilterSlice";
 
 interface stateType {
   doSearch: boolean;
@@ -43,7 +43,7 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
     handleNewTotal,
     totalPages,
   ] = usePagination(contactsLimit);
-  const filterState = useContactSelector((state) => state.searchFilter);
+  const filterState = useSelector((state) => state.searchFilter);
   const {
     OIB,
     firstName,

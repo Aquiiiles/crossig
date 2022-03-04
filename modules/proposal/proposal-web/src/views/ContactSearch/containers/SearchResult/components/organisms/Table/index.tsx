@@ -3,11 +3,8 @@ import ClayTable from "@clayui/table";
 import TableRow from "../../atoms/TableRow";
 import spritemap from "@clayui/css/lib/images/icons/icons.svg";
 import ClayIcon from "@clayui/icon";
-import {
-  useContactSelector,
-  useContactDispatch,
-} from "../../../../../../../redux/store";
-import { actions } from "../../../../../../../redux/searchFilterSlice";
+import { useSelector, useDispatch } from "../../../../../../../redux/store";
+import { actions } from "../../../../../../../redux";
 import { ResultsTable, Span } from "./styles";
 
 import * as types from "../../../types/searchResult";
@@ -20,11 +17,9 @@ interface props {
 }
 
 const Table: React.FC<props> = ({ inputData, loading, embedded }: props) => {
-  const dispatch = useContactDispatch();
-  const { sortedBy, sortOrder } = useContactSelector(
-    (state) => state.searchFilter
-  );
-  const { setSortedBy, setSortOrder } = actions;
+  const dispatch = useDispatch();
+  const { sortedBy, sortOrder } = useSelector((state) => state.searchFilter);
+  const { setSortedBy, setSortOrder } = actions.searchFilter;
 
   const decideOrder = (sortBy: string) => {
     if (sortBy === sortedBy) {
