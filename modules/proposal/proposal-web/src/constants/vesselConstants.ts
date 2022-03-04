@@ -23,7 +23,8 @@ export const vesselTypeOptions: { label: string; value: string }[] = [
   },
 ];
 
-const FIELD_MAX_LENGTH = 12;
-export const MAXIMUM_LENGTH_FOR_REGISTRATION_MARK = FIELD_MAX_LENGTH;
-export const MAXIMUM_LENGTH_FOR_NIB = FIELD_MAX_LENGTH;
+export const MAXIMUM_LENGTH_FOR_NAME_OF_VESSEL = 255;
+export const MAXIMUM_LENGTH_FOR_NAME_OF_FLEET = 255;
+export const MAXIMUM_LENGTH_FOR_REGISTRATION_MARK = 12;
+export const MAXIMUM_LENGTH_FOR_NIB = 12;
 export const MINIMUM_LENGTH_FOR_SEARCH = 3;

@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
+  MAXIMUM_LENGTH_FOR_NAME_OF_VESSEL,
+  MAXIMUM_LENGTH_FOR_NAME_OF_FLEET,
   MAXIMUM_LENGTH_FOR_REGISTRATION_MARK,
   MAXIMUM_LENGTH_FOR_NIB,
 } from "../constants/vesselConstants";
@@ -20,7 +22,9 @@ const vesselSearchSlice = createSlice({
       state.vesselType = action.payload;
     },
     setVesselName(state, action: PayloadAction<string>) {
-      state.vesselName = action.payload;
+      if (action.payload.length <= MAXIMUM_LENGTH_FOR_NAME_OF_VESSEL) {
+        state.vesselName = action.payload;
+      }
     },
     setVesselRegistrationMark(state, action: PayloadAction<string>) {
       if (action.payload.length <= MAXIMUM_LENGTH_FOR_REGISTRATION_MARK) {
@@ -33,7 +37,9 @@ const vesselSearchSlice = createSlice({
       }
     },
     setVesselFleetName(state, action: PayloadAction<string>) {
-      state.vesselFleetName = action.payload;
+      if (action.payload.length <= MAXIMUM_LENGTH_FOR_NAME_OF_FLEET) {
+        state.vesselFleetName = action.payload;
+      }
     },
     clearValues(state) {
       state.vesselFleetName = initialState.vesselFleetName;
