@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import Stepper from "../../shared/molecules/Stepper";
 import { Wrapper, Buttons, InnerWrapper, Content } from "./styles";
 import BackBtn from "../../shared/atoms/BackBtn";
@@ -14,6 +15,8 @@ const RolesOnPolicy: React.FC = () => {
     (state) => state.contactsInPolicy
   );
   const { setRoleOptions } = actions;
+
+  const history = useHistory();
 
   const hasInsuredRole =
     contactsInPolicy.filter((contact) =>
@@ -44,7 +47,7 @@ const RolesOnPolicy: React.FC = () => {
           <ContinueBtn
             disabled={!hasInsuredRole}
             onClick={() => {
-              return;
+              history.push("/coverage_plan");
             }}
           />
         </Buttons>
