@@ -16,6 +16,10 @@ import addressesReducer, {
 
 import contactsInPolicyReducer from "./contactsInPolicySlice";
 
+import insuranceProductReducer, {
+  actions as insuranceProductActions,
+} from "./insuranceProductSlice";
+
 export const createContactStore = () => {
   return configureStore({
     reducer: {
@@ -24,6 +28,7 @@ export const createContactStore = () => {
       searchFilter: searchFilterReducer,
       contactInfo: contactInfoReducer,
       contactsInPolicy: contactsInPolicyReducer,
+      insuranceProduct: insuranceProductReducer,
     },
   });
 };
@@ -42,6 +47,7 @@ export const resetState = () => {
   dispatch(basicInfoActions.resetFields());
   dispatch(contactInfoActions.resetFields());
   dispatch(addressesActions.resetFields());
+  dispatch(insuranceProductActions.resetFields());
 };
 
 export default store;

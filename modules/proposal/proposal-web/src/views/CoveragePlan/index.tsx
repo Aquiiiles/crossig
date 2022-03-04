@@ -1,13 +1,15 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { Wrapper, Content, Products, Footer, InnerWrapper } from "./styles";
 import Stepper from "../../shared/molecules/Stepper";
 import ProductCard from "../../shared/atoms/ProductCard";
-import { COVERAGE_PLAN } from "../../constants/languageKeys";
 import BackBtn from "../../shared/atoms/BackBtn";
-import { useHistory } from "react-router-dom";
+import { COVERAGE_PLAN } from "../../constants/languageKeys";
+import useCoveragePlanState from "./hooks/useCoveragePlanState";
 
 const CoveragePlan: React.FC = () => {
   const history = useHistory();
+  const coveragePlans = useCoveragePlanState();
 
   return (
     <Wrapper>
@@ -20,17 +22,17 @@ const CoveragePlan: React.FC = () => {
             {COVERAGE_PLAN.SUBTITLE}
           </p>
           <Products>
-            {COVERAGE_PLAN.PRODUCTS.map((product, index) => (
+            {coveragePlans.map((product, index) => (
               <>
                 <ProductCard
                   key={index}
                   product={{
                     active: true,
                     category: "",
-                    description: product.DESC,
+                    description: product.description,
                     externalId: 0,
-                    name: product.TITLE,
-                    productId: 0,
+                    name: product.name,
+                    productId: product.coveragePlanId,
                     icon: null,
                   }}
                   onProductSelection={() => history.push("/vessel-search")}

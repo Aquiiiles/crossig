@@ -9,6 +9,8 @@ import { INSURANCE_PRODUCT } from "../../constants/languageKeys";
 import BackBtn from "../../shared/atoms/BackBtn";
 import { useHistory } from "react-router-dom";
 import { InnerWrapper } from "../ContactSearch/styles";
+import { useContactDispatch } from "../../redux/store";
+import { actions } from "../../redux/insuranceProductSlice";
 
 const InsuranceProduct: React.FC = () => {
   const [
@@ -20,6 +22,7 @@ const InsuranceProduct: React.FC = () => {
     hasPhoneData,
   ] = useProductState();
   const history = useHistory();
+  const dispatch = useContactDispatch();
 
   return (
     <Wrapper>
@@ -73,7 +76,10 @@ const InsuranceProduct: React.FC = () => {
                         />
                       ),
                     }}
-                    onProductSelection={() => history.replace("/roles")}
+                    onProductSelection={() => {
+                      dispatch(actions.setInsuranceProduct(product));
+                      history.replace("/roles");
+                    }}
                   />
                 </>
               ))
