@@ -1,6 +1,11 @@
 package hr.crosig.proposal.rest.application;
 
-import hr.crosig.proposal.dto.VesselSearchResultDTO;
+import hr.crosig.common.ws.idit.client.IDITWSClient;
+import hr.crosig.common.ws.response.ServiceResponse;
+import hr.crosig.proposal.rest.application.utils.ApplicationUtilities;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -9,9 +14,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
+import java.util.HashMap;
 
 /**
  * @author Guilherme Kfouri
@@ -37,25 +40,28 @@ public class VesselApplication extends Application {
 		@QueryParam("registrationMark") String registrationMark,
 		@QueryParam("nib") String nib) {
 
-		Response.ResponseBuilder responseBuilder;
-
 		try {
-			VesselSearchResultDTO vesselSearchResultDTO =
-				new VesselSearchResultDTO();
+			HashMap<String, Object> vesselRequestMap = new HashMap<>();
 
-			responseBuilder = Response.ok(
-			).entity(
-				vesselSearchResultDTO
-			);
+			vesselRequestMap.put("nib", nib);
+			vesselRequestMap.put("registrationMark", registrationMark);
+			vesselRequestMap.put("vesselName", vesselName);
+			vesselRequestMap.put("vesselType", vesselType);
+
+			String jsonRequest = ApplicationUtilities.createEntityJsonString(
+				vesselRequestMap);
+
+			ServiceResponse serviceResponse = _iditwsClient.searchVessel(
+				jsonRequest);
+
+			return ApplicationUtilities.handleServiceResponse(serviceResponse);
 		}
 		catch (Exception exception) {
-			responseBuilder = Response.serverError(
-			).entity(
-				exception.getMessage()
-			);
+			return ApplicationUtilities.handleErrorResponse(exception);
 		}
-
-		return responseBuilder.build();
 	}
+
+	@Reference
+	private IDITWSClient _iditwsClient;
 
 }
