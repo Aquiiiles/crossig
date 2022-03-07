@@ -1,14 +1,16 @@
 import React from "react";
-import VesselResultsTable from "./components/organisms/VesselResultsTable";
-import Pagination from "../../../../shared/molecules/Pagination";
-import { SearchResultsHeader, Wrapper } from "./styles";
-import ClayLoadingIndicator from "@clayui/loading-indicator";
 import { VESSEL_LOOKUP } from "../../../../constants/languageKeys";
 import { PageIndex } from "../../../../shared/hooks/usePagination";
+import LookupResult from "../../../../shared/containers/LookupResult";
+import { ProvidedDataType, VesselRow } from "./types/vesselLookupResult";
+import ResultsTable from "../../../../shared/organisms/ResultsTable";
+import { useDispatch, useSelector } from "../../../../redux/store";
+import { actions } from "../../../../redux";
+import { decideOrder } from "../../../../shared/util/tableUtils";
+import VesselTableRow from "./components/atoms/VesselTableRow";
+import { VESSEL_LOOKUP_HEADER } from "./constants/vesselLookup";
 
-import { providedDataType, responseType } from "./types/vesselLookupResult";
-
-type propsType = {
+type PropsType = {
   data: Array<any>;
   loading: boolean;
   paginationData: {
@@ -24,9 +26,15 @@ type propsType = {
   totalResultsLimit: number;
 };
 
-const VesselLookupResult: React.FC<propsType> = (props: propsType) => {
-  const formatedData = props.data.map((item: providedDataType) => {
-    const responseObj: responseType = {
+const VesselLookupResult: React.FC<PropsType> = (props: PropsType) => {
+  const dispatch = useDispatch();
+  const { sortedBy, sortOrder } = useSelector(
+    (state) => state.vesselLookupFilter
+  );
+  const { setSortedBy, setSortOrder } = actions.vesselLookupFilter;
+
+  const parsedData = props.data.map((item: ProvidedDataType) => {
+    const responseObj: VesselRow = {
       NIB: item.NIB,
       registrationMark: item.registrationMark,
       vesselName: item.vesselName,
@@ -37,37 +45,29 @@ const VesselLookupResult: React.FC<propsType> = (props: propsType) => {
     return responseObj;
   });
 
-  const foundContacts = formatedData.length > 0;
-
   return (
-    <Wrapper>
-      {!props.loading && formatedData.length <= props.totalResultsLimit ? (
-        <>
-          <SearchResultsHeader>
-            <h6 className="h9">
-              {foundContacts
-                ? `${formatedData.length} ${VESSEL_LOOKUP.VESSELS_FOUND}`
-                : `${VESSEL_LOOKUP.NO_VESSELS_FOUND}`}
-            </h6>
-          </SearchResultsHeader>
-          {foundContacts ? (
-            <>
-              <VesselResultsTable inputData={formatedData} />
-              <Pagination
-                paginationData={{
-                  total: formatedData.length,
-                  ...props.paginationData,
-                }}
-              />
-            </>
-          ) : null}
-        </>
-      ) : formatedData.length > props.totalResultsLimit ? (
-        <h6 className="h9">{VESSEL_LOOKUP.TOO_MANY_SEARCH_RESULTS}</h6>
-      ) : (
-        <ClayLoadingIndicator />
-      )}
-    </Wrapper>
+    <LookupResult
+      data={parsedData}
+      loading={props.loading}
+      paginationData={props.paginationData}
+      totalResultsLimit={props.totalResultsLimit}
+      noElementsMessage={VESSEL_LOOKUP.NO_VESSELS_FOUND}
+      elementsFoundMessage={VESSEL_LOOKUP.VESSELS_FOUND}
+    >
+      <ResultsTable
+        inputData={parsedData}
+        onSort={(key: string) => {
+          dispatch(setSortedBy(key));
+          dispatch(setSortOrder(decideOrder(key, sortedBy, sortOrder)));
+        }}
+        rowGenerator={(vessel: VesselRow) => {
+          return <VesselTableRow vessel={vessel} />;
+        }}
+        sortedBy={sortedBy}
+        sortOrder={sortOrder}
+        headerItems={VESSEL_LOOKUP_HEADER}
+      />
+    </LookupResult>
   );
 };
 

@@ -2,35 +2,24 @@ import React, { useState } from "react";
 import ClayButton from "@clayui/button";
 import ClayTable from "@clayui/table";
 import { HoveringButtonGroup } from "./style";
-import {
-  CONTACT_SEARCH_TABLE_VIEW_DETAILS,
-  CONTACT_SEARCH_TABLE_USE_CONTACT,
-} from "../../../../../../../constants/languageKeys";
-
+import { VESSEL_LOOKUP_TABLE } from "../../../../../../../constants/languageKeys";
 import * as types from "../../../types/vesselLookupResult";
-import { useHistory } from "react-router-dom";
 
 type propsType = {
-  vessel: types.responseType;
+  vessel: types.VesselRow;
 };
 
 const VesselTableRow: React.FC<propsType> = (props: propsType) => {
   const [showButtons, setShowButtons] = useState(false);
-  const history = useHistory();
-
-  const openUpdateContact = (extNumber: number) => {
-    history.push({
-      pathname: "/update_contact",
-      state: extNumber,
-    });
-  };
 
   return (
     <ClayTable.Row
       style={{ position: "relative" }}
       onMouseLeave={() => setShowButtons(false)}
       onMouseEnter={() => setShowButtons(true)}
-      onDoubleClick={() => history.push("/product")}
+      onDoubleClick={() => {
+        return;
+      }}
     >
       <ClayTable.Cell headingTitle>{props.vessel.NIB}</ClayTable.Cell>
       <ClayTable.Cell headingTitle>
@@ -40,20 +29,11 @@ const VesselTableRow: React.FC<propsType> = (props: propsType) => {
       <ClayTable.Cell headingTitle>{props.vessel.fleetName}</ClayTable.Cell>
       {showButtons ? (
         <HoveringButtonGroup>
-          <ClayButton
-            displayType="secondary"
-            className="ghost"
-            onClick={() => {
-              return;
-            }}
-          >
-            {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
+          <ClayButton displayType="secondary" className="ghost">
+            {VESSEL_LOOKUP_TABLE.VIEW_DETAILS}
           </ClayButton>
-          <ClayButton
-            displayType="primary"
-            onClick={() => history.push("/product")}
-          >
-            {CONTACT_SEARCH_TABLE_USE_CONTACT}
+          <ClayButton displayType="primary">
+            {VESSEL_LOOKUP_TABLE.USE_VESSEL}
           </ClayButton>
         </HoveringButtonGroup>
       ) : (

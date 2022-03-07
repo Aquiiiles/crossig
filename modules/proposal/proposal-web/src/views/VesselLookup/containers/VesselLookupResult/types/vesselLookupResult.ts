@@ -1,11 +1,4 @@
-export type headerCellType = {
-  key: string;
-  name: string;
-  expanded: boolean;
-  hasSpan: boolean;
-}
-
-export type responseType = {
+export type VesselRow = {
   NIB: number;
   registrationMark: string;
   vesselName: string;
@@ -13,7 +6,7 @@ export type responseType = {
   policyHolder: string;
 };
 
-export type providedDataType = {
+export type ProvidedDataType = {
   NIB: number;
   registrationMark: string;
   vesselName: string;

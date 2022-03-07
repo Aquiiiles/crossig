@@ -22,8 +22,7 @@ interface stateType {
 
 const VesselLookup: React.FC = () => {
   const location = useLocation<stateType>();
-  const { state: searchResultData, fetchData: fetchSearchResultData } =
-    useFetchData();
+  const { state: searchResult, fetchData: fetchSearchResult } = useFetchData();
 
   const [
     currentPage,
@@ -39,9 +38,9 @@ const VesselLookup: React.FC = () => {
     filterState;
 
   // TODO: this should be uncommented once the search filter is done.
-  // const idle = searchResultData.status === IDLE;
+  // const idle = searchResult.status === IDLE;
   const idle = false;
-  const loading = searchResultData.status === PENDING;
+  const loading = searchResult.status === PENDING;
 
   useEffect(() => {
     if (filterState !== initialState) {
@@ -70,7 +69,7 @@ const VesselLookup: React.FC = () => {
       sortOrder,
     });
 
-    fetchSearchResultData(
+    fetchSearchResult(
       "POST",
       `${VESSEL_URL}?${urlParams.toString()}`,
       {},
@@ -88,11 +87,11 @@ const VesselLookup: React.FC = () => {
   };
 
   useEffect(() => {
-    const result = searchResultData.response.data;
+    const result = searchResult.response.data;
     if (result != null) {
       handleNewTotal(result.length);
     }
-  }, [searchResultData, handleNewTotal]);
+  }, [searchResult, handleNewTotal]);
 
   useEffect(() => {
     if (!idle) {
@@ -121,14 +120,14 @@ const VesselLookup: React.FC = () => {
         </p>
         {!idle ? (
           <VesselLookupResult
-            data={mockData}
+            data={searchResult.response.data}
             loading={loading}
             paginationData={{
               lowerRange: (currentPage - 1) * constants.RESULTS_LIMIT + 1,
               upperRange: Math.min(
                 (currentPage - 1) * constants.RESULTS_LIMIT +
                   constants.RESULTS_LIMIT,
-                mockData.length
+                searchResult.response.data.length
               ),
               currentPage,
               pages,

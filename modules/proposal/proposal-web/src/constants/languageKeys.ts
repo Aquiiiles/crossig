@@ -4,6 +4,8 @@ declare const Liferay: {
   }
 };
 
+export const TOO_MANY_SEARCH_RESULTS = Liferay.Language.get('too-many-search-results');
+
 export const CONTACT_INFO = {
   ADD_EMAIL_ADDRESS: Liferay.Language.get('contact-info-add-email-address'),
   ADD_MOBILE_PHONE: Liferay.Language.get('contact-info-add-mobile-phone'),
@@ -225,6 +227,8 @@ export const VESSEL_LOOKUP = {
 }
 
 export const VESSEL_LOOKUP_TABLE = {
+  VIEW_DETAILS: Liferay.Language.get('vessel-lookup-results-table-view-details'),
+  USE_VESSEL: Liferay.Language.get('vessel-lookup-results-table-use-vessel'),
   NIB: Liferay.Language.get('vessel-lookup-results-table-header-nib'),
   REGISTRATION_MARK: Liferay.Language.get('vessel-lookup-results-table-header-registration-mark'),
   VESSEL_NAME: Liferay.Language.get('vessel-lookup-results-table-header-vessel-name'),

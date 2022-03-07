@@ -8,20 +8,20 @@ import { decideOrder } from "../../../../../../../shared/util/tableUtils";
 import * as types from "../../../types/vesselLookupResult";
 import * as constants from "../../../constants/vesselLookup";
 import ArrowIcon from "../../../../../../../shared/atoms/ArrowIcon";
-import { headerCellType } from "../../../types/vesselLookupResult";
+import { HeaderCell } from "../../../../../../../shared/types/common";
 
-interface props {
-  inputData: Array<types.responseType>;
-}
+type propsType = {
+  inputData: Array<types.VesselRow>;
+};
 
-const VesselResultsTable: React.FC<props> = ({ inputData }: props) => {
+const VesselResultsTable: React.FC<propsType> = ({ inputData }: propsType) => {
   const dispatch = useDispatch();
   const { sortedBy, sortOrder } = useSelector(
     (state) => state.vesselLookupFilter
   );
   const { setSortedBy, setSortOrder } = actions.vesselLookupFilter;
 
-  const headerCell = (cell: headerCellType) => {
+  const headerCell = (cell: HeaderCell) => {
     return (
       <ClayTable.Cell
         style={{ cursor: "pointer" }}
@@ -51,7 +51,7 @@ const VesselResultsTable: React.FC<props> = ({ inputData }: props) => {
         </ClayTable.Row>
       </ClayTable.Head>
       <ClayTable.Body>
-        {inputData.map((item: types.responseType) => (
+        {inputData.map((item: types.VesselRow) => (
           <VesselTableRow key={item.NIB} vessel={item} />
         ))}
       </ClayTable.Body>

@@ -11,4 +11,11 @@ export interface PhoneNumber {
   phoneNumber: string;
 }
 
+export type HeaderCell = {
+  key: string;
+  name: string;
+  expanded: boolean;
+  hasSpan: boolean;
+};
+
 export type FetchDataResultsFunction = () => void;
