@@ -158,6 +158,7 @@ const ContactInfo: React.FC = () => {
       response
         .then(() => {
           setCreateSuccess(true);
+          dispatch(contactsInPolicyActions.resetFields());
           dispatch(
             contactsInPolicyActions.addContact({
               [constants.EXT_NUMBER_KEY]: 1,
