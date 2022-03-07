@@ -86,7 +86,7 @@ const SuccessBanner: React.FC<props> = ({ contact }) => {
         onClose={() => setShowBanner(false)}
         title={`${INSURANCE_PRODUCT.BANNER.CONTACT} ${INSURANCE_PRODUCT.BANNER.CREATION}`}
         body={message()}
-        timeOut={30000}
+        timeOut={5000}
       />
     );
   } else {
