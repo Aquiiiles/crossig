@@ -37,7 +37,6 @@ const ContactInfo: React.FC = () => {
   const basicInfoData = useSelector((state) => state.basicInfo);
   const addressData = useSelector((state) => state.addresses);
   const contactInfoData = useSelector((state) => state.contactInfo);
-  const { state: contactState } = useFetchData();
   const formRef = useRef<HTMLFormElement>(null);
   const { state, get } = useFetchData();
   const [countries, setCountries] = useState<Array<any> | null>(null);
@@ -147,7 +146,7 @@ const ContactInfo: React.FC = () => {
       response
         .then(() => {
           setCreateSuccess(true);
-          dispatch(contactsInPolicyActions.resetFields());
+          dispatch(actions.contactsInPolicy.resetFields());
           dispatch(
             actions.contactsInPolicy.addContact({
               [constants.EXT_NUMBER_KEY]: 1,

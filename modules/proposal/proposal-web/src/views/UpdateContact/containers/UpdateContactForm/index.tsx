@@ -146,12 +146,11 @@ const UpdateContactForm: React.FC<{
         lastButtonTitle={UPDATE_CONTACT.USE_CONTACT}
         lastButtonAction={() => {
           dispatch(
-            contactsInPolicyActions.addContact({
+            actions.contactsInPolicy.addContact({
               [constants.EXT_NUMBER_KEY]: Number(extNumber),
-              [constants.OIB_KEY]: basicInfoData.oib,
-              [constants.SUB_KEY]: basicInfoData.subsidiaryNumber,
-              [constants.NAME_KEY]:
-                basicInfoData.firstName + basicInfoData.lastName,
+              [constants.OIB_KEY]: oib,
+              [constants.SUB_KEY]: subsidiaryNumber,
+              [constants.NAME_KEY]: firstName + lastName,
               [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
             })
           );
@@ -248,7 +247,7 @@ const UpdateContactForm: React.FC<{
           <ClayButton.Group spaced>
             <ContactButton
               handleClick={() => {
-                dispatch(contactsInPolicyActions.resetFields());
+                dispatch(actions.contactsInPolicy.resetFields());
                 dispatch(
                   actions.contactsInPolicy.addContact({
                     [constants.EXT_NUMBER_KEY]: Number(extNumber),
