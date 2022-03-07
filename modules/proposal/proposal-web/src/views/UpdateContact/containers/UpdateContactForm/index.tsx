@@ -147,7 +147,17 @@ const UpdateContactForm: React.FC<{
         body={successMessage()}
         lastButtonTitle={UPDATE_CONTACT.USE_CONTACT}
         lastButtonAction={() => {
-          return;
+          dispatch(
+            contactsInPolicyActions.addContact({
+              [constants.EXT_NUMBER_KEY]: Number(extNumber),
+              [constants.OIB_KEY]: basicInfoData.oib,
+              [constants.SUB_KEY]: basicInfoData.subsidiaryNumber,
+              [constants.NAME_KEY]:
+                basicInfoData.firstName + basicInfoData.lastName,
+              [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
+            })
+          );
+          history.push("/product");
         }}
         timeOut={5000}
       />
