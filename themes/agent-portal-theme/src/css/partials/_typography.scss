@@ -90,4 +90,28 @@
 	.straight-numbers {
 		font-family: CrosigRavniBrojevi-Light !important;
 	}
+
+	p {
+		&.small {
+			/* Paragraph/Small/Light */
+			font-family: Crosig-Light;
+			font-size: 0.8125rem;
+			line-height: 1.25rem;
+			align-items: center;
+			color: $color-neutral-grey-text;
+			line-height: 0.75rem;
+		}
+
+		&.base {
+			/* Paragraph/Base/Light */
+			font-family: Crosig-Light;
+			font-size: 1rem;
+			line-height: 1.5rem;
+			display: flex;
+			align-items: center;
+			color: $color-neutral-black;
+			line-height: 0.75rem;
+		}
+
+	}
 }

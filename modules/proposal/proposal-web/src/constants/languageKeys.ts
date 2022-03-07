@@ -206,6 +206,7 @@ export const STEPPER_STEP = {
   COVERAGE_PLAN: Liferay.Language.get('stepper-step-coverage-plan'),
   OBJECT_DETAILS: Liferay.Language.get('stepper-step-insured-object-details'),
   PREMIUM: Liferay.Language.get('stepper-step-premium'),
+  POLICY_HOLDER: Liferay.Language.get('stepper-policy-holder'),
 }
 
 export const STEPPER_INSURED_OBJECT_DETAILS_STEP = {
