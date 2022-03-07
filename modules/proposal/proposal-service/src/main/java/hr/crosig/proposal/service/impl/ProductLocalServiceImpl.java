@@ -107,11 +107,7 @@ public class ProductLocalServiceImpl extends ProductLocalServiceBaseImpl {
 	private ProductDTO _getProductIfActive(long productId) {
 		Product product = productLocalService.fetchProduct(productId);
 
-		if (product.isActive()) {
-			return _mapToProductDTO(product);
-		}
-
-		return null;
+		return _mapToProductDTO(product);
 	}
 
 	private ProductDTO _mapToProductDTO(Product product) {

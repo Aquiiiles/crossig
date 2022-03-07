@@ -132,6 +132,7 @@ export const VALIDATOR_MESSAGE = {
 export const INSURANCE_PRODUCT = {
   TITLE: Liferay.Language.get('insurance-product-title'),
   SUBTITLE: Liferay.Language.get('insurance-product-subtitle'),
+  COMING_SOON: Liferay.Language.get('insurance-product-coming-soon'),
   PRODUCT: {
     SELECT: Liferay.Language.get('insurance-product-product-select'),
   },

@@ -21,11 +21,15 @@ const ProductCard: React.FC<props> = ({ product, onProductSelection }) => {
         <h6 className="h10">{product.name}</h6>
         <p>{product.description}</p>
       </ProductInfoWrapper>
-      {product.active ? (
-        <ClayButton onClick={() => onProductSelection(product)} style={{marginLeft: "auto"}}>
-          {INSURANCE_PRODUCT.PRODUCT.SELECT}
-        </ClayButton>
-      ) : null}
+      <ClayButton
+        disabled={!product.active}
+        onClick={() => onProductSelection(product)}
+        style={{ marginLeft: "auto" }}
+      >
+        {product.active
+          ? INSURANCE_PRODUCT.PRODUCT.SELECT
+          : INSURANCE_PRODUCT.COMING_SOON}
+      </ClayButton>
     </Wrapper>
   );
 };
