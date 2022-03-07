@@ -1,6 +1,5 @@
 import React from "react";
-import { contactTypes } from "../../../constants/contactConstants";
-import { STEPPER_STEP } from "../../../constants/languageKeys";
+import { POLICY_HOLDER } from "../../../constants/languageKeys";
 import { useContactSelector } from "../../../redux/store";
 import { LineWrapper } from "./styles";
   
@@ -8,17 +7,19 @@ const DisplayPolicyHolder = () => {
   const { contactsInPolicy } = useContactSelector(
     (state) => state.contactsInPolicy
   );
-  console.log(contactsInPolicy);
+  const policyHolder = contactsInPolicy.length > 0 ? contactsInPolicy[0] : null;
 
   return (
-    <LineWrapper>
-        <p className="small">
-            {STEPPER_STEP.POLICY_HOLDER}
-        </p>
-        <p className="base">
-            {/* {message()} */}
-        </p>
-    </LineWrapper>
+    policyHolder != null ?
+      <LineWrapper>
+          <span className="span-small">
+            {POLICY_HOLDER.POLICY_HOLDER}
+          </span>
+          <br/>
+          <span className="span-base">
+            {policyHolder.name}
+          </span>
+      </LineWrapper> : null
   );
 };
 
