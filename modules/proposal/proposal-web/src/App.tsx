@@ -5,12 +5,16 @@ import ContactSearch from "./views/ContactSearch";
 import UpdateContact from "./views/UpdateContact";
 import InsuranceProduct from "./views/InsuranceProduct";
 import RolesOnPolicy from "./views/RolesOnPolicy";
+import CoveragePlan from "./views/CoveragePlan";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 const App: React.FC = () => {
   return (
     <Router>
       <Switch>
+        <Route path="/coverage_plan">
+          <CoveragePlan />
+        </Route>
         <Route path="/product">
           <InsuranceProduct />
         </Route>

@@ -28,7 +28,6 @@ const ContactsInPolicy = createSlice({
       state.contactsInPolicy = newState;
     },
     setRoleOptions(state, action: PayloadAction<Array<string>>) {
-      console.log(action.payload);
       state.roleOptions = action.payload;
     },
     resetFields(state) {

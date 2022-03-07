@@ -1,8 +1,8 @@
 import React from "react";
 import { Wrapper, ProductInfoWrapper } from "./style";
 import ClayButton from "@clayui/button";
-import { Product } from "../../types/product";
-import { INSURANCE_PRODUCT } from "../../../../constants/languageKeys";
+import { Product } from "../../../views/InsuranceProduct/types/product";
+import { INSURANCE_PRODUCT } from "../../../constants/languageKeys";
 
 type ProductProps = Product & {
   icon: React.ReactNode;
@@ -22,7 +22,7 @@ const ProductCard: React.FC<props> = ({ product, onProductSelection }) => {
         <p>{product.description}</p>
       </ProductInfoWrapper>
       {product.active ? (
-        <ClayButton onClick={() => onProductSelection(product)}>
+        <ClayButton onClick={() => onProductSelection(product)} style={{marginLeft: "auto"}}>
           {INSURANCE_PRODUCT.PRODUCT.SELECT}
         </ClayButton>
       ) : null}

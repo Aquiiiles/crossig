@@ -9,3 +9,5 @@ export const COUNTRIES_URL = "/api/jsonws/country/get-countries";
 export const PROPOSAL_URL = "/o/agent-portal/proposal";
 
 export const PRODUCTS_URL = `${PROPOSAL_URL}/products`;
+
+export const COVERAGE_PLANS_URL = `${PROPOSAL_URL}/coverage-plans?category=`;
