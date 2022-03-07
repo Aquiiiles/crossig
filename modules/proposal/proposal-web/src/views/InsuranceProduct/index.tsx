@@ -78,7 +78,7 @@ const InsuranceProduct: React.FC = () => {
                     }}
                     onProductSelection={() => {
                       dispatch(actions.setInsuranceProduct(product));
-                      history.replace("/roles");
+                      history.push("/roles");
                     }}
                   />
                 </>
