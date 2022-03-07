@@ -64,7 +64,7 @@
 				"phoneNr": "+385 98 777 777",
 				"phoneNumberValidated": true,
 				"phoneType": 4,
-				"streetHouse": "Anonimized 1, 10360",
+				"streetHouse": "Anonimized 1",
 				"updateVersion": -1
 			},
 			{
@@ -86,7 +86,7 @@
 				"phoneNr": "+385 91 140 1813",
 				"phoneNumberValidated": false,
 				"phoneType": 4,
-				"streetHouse": "VRH VISOKE 17E, 21000",
+				"streetHouse": "VRH VISOKE 17E",
 				"updateVersion": -1
 			},
 			{
@@ -108,7 +108,7 @@
 				"phoneNr": "+385 91 442 3553",
 				"phoneNumberValidated": false,
 				"phoneType": 4,
-				"streetHouse": "ULICA SV. PETKA 1, 31000",
+				"streetHouse": "ULICA SV. PETKA 1",
 				"updateVersion": -1
 			},
 			{
@@ -130,7 +130,7 @@
 				"phoneNr": "+385 98 645 128",
 				"phoneNumberValidated": true,
 				"phoneType": 4,
-				"streetHouse": "PRIJEKO 1, 20000",
+				"streetHouse": "PRIJEKO 1",
 				"updateVersion": -1
 			},
 			{
@@ -152,7 +152,7 @@
 				"phoneNr": "+385 98 158 4728",
 				"phoneNumberValidated": true,
 				"phoneType": 4,
-				"streetHouse": "Anonimized 18, 42000",
+				"streetHouse": "Anonimized 18",
 				"updateVersion": -1
 			},
 			{
@@ -174,7 +174,7 @@
 				"phoneNr": "+385 97 543 3146",
 				"phoneNumberValidated": true,
 				"phoneType": 4,
-				"streetHouse": "Anonimized 6, 52100",
+				"streetHouse": "Anonimized 6",
 				"updateVersion": -1
 			},
 			{
@@ -196,7 +196,7 @@
 				"phoneNr": "+385 98 424 520",
 				"phoneNumberValidated": true,
 				"phoneType": 4,
-				"streetHouse": "ULICA BOKOKOTORSKOG USTANKA 1, 52100",
+				"streetHouse": "ULICA BOKOKOTORSKOG USTANKA 1",
 				"updateVersion": -1
 			},
 			{
@@ -218,7 +218,7 @@
 				"phoneNr": "+385 91 614 6138",
 				"phoneNumberValidated": true,
 				"phoneType": 4,
-				"streetHouse": "PETRINJSKA ULICA 14, 44000",
+				"streetHouse": "PETRINJSKA ULICA 14",
 				"updateVersion": -1
 			},
 			{
@@ -240,7 +240,7 @@
 				"phoneNr": "+385 91 677 3644",
 				"phoneNumberValidated": true,
 				"phoneType": 4,
-				"streetHouse": "HRASTJE PLEŠIVIČKO 1, 10450",
+				"streetHouse": "HRASTJE PLEŠIVIČKO 1",
 				"updateVersion": -1
 			},
 			{
@@ -262,7 +262,7 @@
 				"phoneNr": "+385 91 651 1815",
 				"phoneNumberValidated": true,
 				"phoneType": 4,
-				"streetHouse": "Anonimized 1, 10431",
+				"streetHouse": "Anonimized 1",
 				"updateVersion": -1
 			},
 			{
@@ -284,7 +284,7 @@
 				"phoneNr": "+385 97 112 3456",
 				"phoneNumberValidated": true,
 				"phoneType": 4,
-				"streetHouse": "KALNIČKA 3, 31000",
+				"streetHouse": "KALNIČKA 3",
 				"updateVersion": -1
 			},
 			{
@@ -307,7 +307,7 @@
 				"phoneNr": "+385 92 332 2321",
 				"phoneNumberValidated": true,
 				"phoneType": 4,
-				"streetHouse": "Anonimized 10, 49000"
+				"streetHouse": "Anonimized 10"
 			},
 			{
 				"address": "CELJSKA ULICA, 10000 ZAGREB, Croatia",
@@ -328,7 +328,7 @@
 				"phoneNr": "+385 91 517 1517",
 				"phoneNumberValidated": true,
 				"phoneType": 4,
-				"streetHouse": "CELJSKA ULICA, 10000",
+				"streetHouse": "CELJSKA ULICA",
 				"updateVersion": -1
 			},
 			{
@@ -350,7 +350,7 @@
 				"phoneNr": "+385 95 732 2704",
 				"phoneNumberValidated": true,
 				"phoneType": 4,
-				"streetHouse": "ULICA MIROSLAVA KRLEŽE 11, 42223",
+				"streetHouse": "ULICA MIROSLAVA KRLEŽE 11",
 				"updateVersion": -1
 			},
 			{
@@ -372,7 +372,7 @@
 				"phoneNr": "+385 91 410 1148",
 				"phoneNumberValidated": true,
 				"phoneType": 4,
-				"streetHouse": "TONŽINO 1, 51000",
+				"streetHouse": "TONŽINO 1",
 				"updateVersion": -1
 			},
 			{
@@ -394,7 +394,7 @@
 				"phoneNr": "+385 97 527 1778",
 				"phoneNumberValidated": true,
 				"phoneType": 4,
-				"streetHouse": "ULICA OTONA IVEKOVIĆA 60, 10360",
+				"streetHouse": "ULICA OTONA IVEKOVIĆA 60",
 				"updateVersion": -1
 			},
 			{
@@ -416,7 +416,7 @@
 				"phoneNr": "+385 95 412 7640",
 				"phoneNumberValidated": false,
 				"phoneType": 4,
-				"streetHouse": "ULICA FOJBON 1, 52100",
+				"streetHouse": "ULICA FOJBON 1",
 				"updateVersion": -1
 			},
 			{
@@ -438,7 +438,7 @@
 				"phoneNr": "+385 91 147 7200",
 				"phoneNumberValidated": true,
 				"phoneType": 4,
-				"streetHouse": "Anonimized 23, 32000",
+				"streetHouse": "Anonimized 23",
 				"updateVersion": -1
 			},
 			{
@@ -460,7 +460,7 @@
 				"phoneNr": "+ ",
 				"phoneNumberValidated": false,
 				"phoneType": 0,
-				"streetHouse": "Anonimized 1, 10000",
+				"streetHouse": "Anonimized 1",
 				"updateVersion": -1
 			},
 			{
@@ -482,7 +482,7 @@
 				"phoneNr": "+ ",
 				"phoneNumberValidated": true,
 				"phoneType": 0,
-				"streetHouse": "ULICA JOSIPA JELAČIĆA 1, 10430",
+				"streetHouse": "ULICA JOSIPA JELAČIĆA 1",
 				"updateVersion": -1
 			}
 		],
