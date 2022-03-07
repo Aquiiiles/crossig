@@ -12,7 +12,7 @@
 	root_css_class = languageUtil.get(locale, "lang.dir")
 	css_class = htmlUtil.escape(bodyCssClass!)
 
-	css_class = css_class + " " + htmlUtil.escape(theme_display.getColorScheme().getCssClass()) + " yui3-skin-sam cap"
+	css_class = css_class + " " + htmlUtil.escape(theme_display.getColorScheme().getCssClass()) + " yui3-skin-sam body-bg-color"
 
 	page_group = layout.getGroup()
 />
