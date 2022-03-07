@@ -6,15 +6,13 @@ import BackBtn from "../../shared/atoms/BackBtn";
 import ContinueBtn from "../../shared/atoms/ContinueBtn";
 import Table from "./containers/Table";
 import { ROLES_ON_POLICY } from "../../constants/languageKeys";
-import { useContactDispatch, useContactSelector } from "../../redux/store";
-import { actions } from "../../redux/contactsInPolicySlice";
+import { useDispatch, useSelector } from "../../redux/store";
+import { actions } from "../../redux";
 
 const RolesOnPolicy: React.FC = () => {
-  const dispatch = useContactDispatch();
-  const { contactsInPolicy } = useContactSelector(
-    (state) => state.contactsInPolicy
-  );
-  const { setRoleOptions } = actions;
+  const dispatch = useDispatch();
+  const { contactsInPolicy } = useSelector((state) => state.contactsInPolicy);
+  const { setRoleOptions } = actions.contactsInPolicy;
 
   const history = useHistory();
 

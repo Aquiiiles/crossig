@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { contactInPolicy } from "../views/RolesOnPolicy/constants/types";
+import { contactInPolicy } from "./types";
 
 const initialState = {
   contactsInPolicy: new Array<contactInPolicy>(),

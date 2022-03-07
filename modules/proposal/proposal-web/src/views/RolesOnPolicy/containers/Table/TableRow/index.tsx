@@ -5,8 +5,8 @@ import { Row, ViewDetailsBtn, Wrapper } from "./styles";
 import RolesItens from "../../RolesItens";
 import { CONTACT_SEARCH_TABLE_VIEW_DETAILS } from "../../../../../constants/languageKeys";
 
-import * as types from "../../../constants/types";
-import * as constants from "../../../constants/constants";
+import * as types from "../../../../../redux/contactsInPolicy/types";
+import * as constants from "../../../../../constants/RolesOnPolicy";
 
 interface props {
   contact: types.contactInPolicy;

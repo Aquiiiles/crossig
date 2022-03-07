@@ -16,14 +16,14 @@ const SearchField: React.FC<props> = ({ onSearchClick }) => {
     {
       vesselType,
       vesselName,
-      vesselNib,
+      vesselNIB,
       vesselRegistrationMark,
       vesselFleetName,
     },
     {
       setVesselType,
       setVesselName,
-      setVesselNib,
+      setVesselNIB,
       setVesselRegistrationMark,
       setVesselFleetName,
     },
@@ -42,9 +42,9 @@ const SearchField: React.FC<props> = ({ onSearchClick }) => {
             <ClayInput
               id="vesselNib"
               type="text"
-              value={vesselNib}
+              value={vesselNIB}
               onChange={({ target: { value } }) =>
-                dispatch(setVesselNib(value))
+                dispatch(setVesselNIB(value))
               }
             />
           </ClayInput.GroupItem>

@@ -6,13 +6,13 @@ import ProductCard from "../../shared/atoms/ProductCard";
 import BackBtn from "../../shared/atoms/BackBtn";
 import { COVERAGE_PLAN } from "../../constants/languageKeys";
 import useCoveragePlanState from "./hooks/useCoveragePlanState";
-import { useContactDispatch } from "../../redux/store";
-import { actions } from "../../redux/coveragePlanSlice";
+import { useDispatch } from "../../redux/store";
+import { actions } from "../../redux/coveragePlan/coveragePlanSlice";
 
 const CoveragePlan: React.FC = () => {
   const history = useHistory();
   const coveragePlans = useCoveragePlanState();
-  const dispatch = useContactDispatch();
+  const dispatch = useDispatch();
 
   return (
     <Wrapper>

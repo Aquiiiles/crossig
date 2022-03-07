@@ -9,7 +9,7 @@ import { useLocation } from "react-router-dom";
 import { VESSEL_LOOKUP } from "../../constants/languageKeys";
 import usePagination from "../../shared/hooks/usePagination";
 import { FetchDataResultsFunction } from "../../shared/types/common";
-import { initialState } from "../../redux/vessel/vesselLookupSlice";
+import { initialState } from "../../redux/vesselLookup/vesselLookupSlice";
 import { useSelector } from "../../redux/store";
 import { VESSEL_URL } from "../../api/constants/routes";
 import { mockData } from "./util";
@@ -34,19 +34,19 @@ const VesselLookup: React.FC = () => {
 
   const filterState = useSelector((state) => state.vesselLookupFilter);
 
-  const { vesselType, vesselName, registrationMark, NIB, sortOrder, sortedBy } =
-    filterState;
+  const {
+    vesselType,
+    vesselName,
+    vesselRegistrationMark,
+    vesselNIB,
+    sortOrder,
+    sortedBy,
+  } = filterState;
 
   // TODO: this should be uncommented once the search filter is done.
   // const idle = searchResult.status === IDLE;
   const idle = false;
   const loading = searchResult.status === PENDING;
-
-  useEffect(() => {
-    if (filterState !== initialState) {
-      fetchData();
-    }
-  }, []);
 
   const fetchData: FetchDataResultsFunction = () => {
     const numberRegex = /^\d+/;
@@ -54,11 +54,11 @@ const VesselLookup: React.FC = () => {
     const payload = {
       finderKey: 1,
       identifierType: 1000000,
-      identityNumber: numberRegex.test(NIB) ? NIB : undefined,
+      identityNumber: numberRegex.test(vesselNIB) ? vesselNIB : undefined,
       type: textRegex.test(vesselType) ? vesselType : undefined,
       name: textRegex.test(vesselName) ? vesselName : undefined,
-      registrationMark: textRegex.test(registrationMark)
-        ? registrationMark
+      registrationMark: textRegex.test(vesselRegistrationMark)
+        ? vesselRegistrationMark
         : undefined,
     };
 
@@ -77,6 +77,12 @@ const VesselLookup: React.FC = () => {
       mockData
     );
   };
+
+  useEffect(() => {
+    if (filterState !== initialState) {
+      fetchData();
+    }
+  }, []);
 
   const fetchNewData = () => {
     if (currentPage === 1 && !idle) {
@@ -111,13 +117,7 @@ const VesselLookup: React.FC = () => {
 
   return (
     <Wrapper>
-      <Stepper />
-
       <Content>
-        <h5>{VESSEL_LOOKUP.TITLE}</h5>
-        <p className="body-small" style={{ marginBottom: "2.5rem" }}>
-          {VESSEL_LOOKUP.SUBTITLE}
-        </p>
         {!idle ? (
           <VesselLookupResult
             data={searchResult.response.data}

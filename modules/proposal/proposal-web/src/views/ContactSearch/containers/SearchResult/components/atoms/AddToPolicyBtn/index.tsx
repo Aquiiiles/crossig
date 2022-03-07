@@ -5,11 +5,8 @@ import {
   CONTACT_SEARCH_TABLE_ADD_TO_POLICY,
   ROLES_ON_POLICY,
 } from "../../../../../../../constants/languageKeys";
-import {
-  useContactDispatch,
-  useContactSelector,
-} from "../../../../../../../redux/store";
-import { actions } from "../../../../../../../redux/contactsInPolicySlice";
+import { useDispatch, useSelector } from "../../../../../../../redux/store";
+import { actions } from "../../../../../../../redux";
 
 import * as types from "../../../types/searchResult";
 import * as constants from "../../../../../constants/searchResult";
@@ -17,9 +14,9 @@ import * as constants from "../../../../../constants/searchResult";
 const AddToPolicyBtn: React.FC<{ contact: types.responseType }> = ({
   contact,
 }) => {
-  const dispatch = useContactDispatch();
-  const { addContact } = actions;
-  const { roleOptions } = useContactSelector((state) => state.contactsInPolicy);
+  const dispatch = useDispatch();
+  const { addContact } = actions.contactsInPolicy;
+  const { roleOptions } = useSelector((state) => state.contactsInPolicy);
 
   const [active, setActive] = useState(false);
 

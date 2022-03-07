@@ -1,21 +1,24 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
 import {
   MAXIMUM_LENGTH_FOR_NAME_OF_VESSEL,
   MAXIMUM_LENGTH_FOR_NAME_OF_FLEET,
   MAXIMUM_LENGTH_FOR_REGISTRATION_MARK,
   MAXIMUM_LENGTH_FOR_NIB,
-} from "../constants/vesselConstants";
+} from "../../constants/vesselConstants";
 
-const initialState = {
+export const initialState = {
   vesselType: "",
   vesselName: "",
   vesselRegistrationMark: "",
-  vesselNib: "",
   vesselFleetName: "",
+  vesselNIB: "",
+  sortedBy: "id",
+  sortOrder: "desc",
 };
 
-const vesselSearchSlice = createSlice({
-  name: "vesselSearch",
+const vesselLookupReducer = createSlice({
+  name: "vesselLookupFilter",
   initialState,
   reducers: {
     setVesselType(state, action: PayloadAction<string>) {
@@ -31,26 +34,32 @@ const vesselSearchSlice = createSlice({
         state.vesselRegistrationMark = action.payload;
       }
     },
-    setVesselNib(state, action: PayloadAction<string>) {
-      if (action.payload.length <= MAXIMUM_LENGTH_FOR_NIB) {
-        state.vesselNib = action.payload;
-      }
-    },
     setVesselFleetName(state, action: PayloadAction<string>) {
       if (action.payload.length <= MAXIMUM_LENGTH_FOR_NAME_OF_FLEET) {
         state.vesselFleetName = action.payload;
       }
     },
-    clearValues(state) {
+    setVesselNIB(state, action: PayloadAction<string>) {
+      if (action.payload.length <= MAXIMUM_LENGTH_FOR_NIB) {
+        state.vesselNIB = action.payload;
+      }
+    },
+    setSortedBy(state, action: PayloadAction<string>) {
+      state.sortedBy = action.payload;
+    },
+    setSortOrder(state, action: PayloadAction<"asc" | "desc">) {
+      state.sortOrder = action.payload;
+    },
+    resetFields(state) {
       state.vesselFleetName = initialState.vesselFleetName;
       state.vesselName = initialState.vesselName;
-      state.vesselNib = initialState.vesselNib;
+      state.vesselNIB = initialState.vesselNIB;
       state.vesselRegistrationMark = initialState.vesselRegistrationMark;
       state.vesselType = initialState.vesselType;
     },
   },
 });
 
-export const actions = vesselSearchSlice.actions;
+export const actions = vesselLookupReducer.actions;
 
-export default vesselSearchSlice.reducer;
+export default vesselLookupReducer.reducer;

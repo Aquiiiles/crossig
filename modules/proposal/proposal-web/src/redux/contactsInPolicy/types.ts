@@ -1,4 +1,4 @@
-import * as constants from "./constants";
+import * as constants from "../../constants/RolesOnPolicy";
 
 export type contactInPolicy = {
   [constants.EXT_NUMBER_KEY]: number;
