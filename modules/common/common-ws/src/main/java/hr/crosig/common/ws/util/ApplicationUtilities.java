@@ -1,24 +1,21 @@
-package hr.crosig.contact.rest.application.utils;
+package hr.crosig.common.ws.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.google.gson.Gson;
-
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
-
 import hr.crosig.common.ws.response.ServiceResponse;
-
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author marcelo.mazurky
@@ -32,9 +29,10 @@ public class ApplicationUtilities {
 	 * @return
 	 */
 	public static String createEntityJsonString(Map<String, Object> entity) {
-		Gson gson = new Gson();
+		JSONObject json = JSONFactoryUtil.createJSONObject();
+		entity.entrySet().forEach(entry -> json.put(entry.getKey(), entry));
 
-		return gson.toJson(entity);
+		return json.toJSONString();
 	}
 
 	/**
@@ -68,7 +66,7 @@ public class ApplicationUtilities {
 	/**
 	 * Handles the Error Response by Exception
 	 *
-	 * @param e
+	 * @param exception
 	 * @return
 	 */
 	public static Response handleErrorResponse(Exception exception) {

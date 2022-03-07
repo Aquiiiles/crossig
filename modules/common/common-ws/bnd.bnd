@@ -5,4 +5,5 @@ Export-Package:\
 	hr.crosig.common.ws,\
 	hr.crosig.common.ws.exception,\
 	hr.crosig.common.ws.oauth,\
-	hr.crosig.common.ws.response\
+	hr.crosig.common.ws.response,\
+    hr.crosig.common.ws.util,\

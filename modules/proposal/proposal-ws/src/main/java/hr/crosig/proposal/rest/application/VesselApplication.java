@@ -1,9 +1,9 @@
-package hr.crosig.contact.rest.application;
+package hr.crosig.proposal.rest.application;
 
 import hr.crosig.common.ws.idit.client.IDITWSClient;
 import hr.crosig.common.ws.response.ServiceResponse;
 import hr.crosig.common.ws.util.ApplicationUtilities;
-import hr.crosig.contact.dto.SearchDTO;
+import hr.crosig.proposal.dto.VesselSearchDTO;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
@@ -14,25 +14,24 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Set;
 
 /**
- * @author victor.catanante
+ * @author Guilherme Kfouri
  */
 @Component(
 	property = {
-		JaxrsWhiteboardConstants.JAX_RS_APPLICATION_BASE + "=/agent-portal",
-		JaxrsWhiteboardConstants.JAX_RS_NAME + "=Search.Rest",
+		JaxrsWhiteboardConstants.JAX_RS_APPLICATION_BASE + "=/agent-portal/vessel",
+		JaxrsWhiteboardConstants.JAX_RS_NAME + "=Vessel.Rest",
 		JaxrsWhiteboardConstants.JAX_RS_MEDIA_TYPE + "=application/json",
 		"auth.verifier.guest.allowed=false",
 		"liferay.access.control.disable=false"
 	},
 	service = Application.class
 )
-public class SearchApplication extends Application {
+public class VesselApplication extends Application {
 
 	public Set<Object> getSingletons() {
 		return Collections.singleton(this);
@@ -41,14 +40,22 @@ public class SearchApplication extends Application {
 	@Path("/search")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response search(SearchDTO searchDTO) {
+	public Response searchVessels(VesselSearchDTO vesselSearch) {
+
 		try {
-			List<SearchDTO> contactSearchDTOList = Arrays.asList(searchDTO);
+			HashMap<String, Object> vesselRequestMap = new HashMap<>();
 
-			String entityJSON = ApplicationUtilities.createEntityJsonString(
-				contactSearchDTOList);
+			vesselRequestMap.put("nib", vesselSearch.getNib());
+			vesselRequestMap.put("registrationMark", vesselSearch.getRegistrationMark());
+			vesselRequestMap.put("vesselName", vesselSearch.getVesselName());
+			vesselRequestMap.put("vesselType", vesselSearch.getVesselType());
+			vesselRequestMap.put("fleetName", vesselSearch.getFleetName());
 
-			ServiceResponse serviceResponse = _iditwsClient.search(entityJSON);
+			String jsonRequest = ApplicationUtilities.createEntityJsonString(
+				vesselRequestMap);
+
+			ServiceResponse serviceResponse = _iditwsClient.searchVessel(
+				jsonRequest);
 
 			return ApplicationUtilities.handleServiceResponse(serviceResponse);
 		}

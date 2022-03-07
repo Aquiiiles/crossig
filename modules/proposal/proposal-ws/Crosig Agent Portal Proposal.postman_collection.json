@@ -1,18 +1,102 @@
 {
+	"info": {
+		"_postman_id": "a809b20e-c1dc-4a2c-a6c9-3f33982cd082",
+		"name": "Crosig Agent Portal Proposal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Insured Roles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localURL}}proposal/insured-roles",
+					"host": [
+						"{{localURL}}proposal"
+					],
+					"path": [
+						"insured-roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get products by userId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Coverage Plans by Category",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localURL}}proposal/coverage-plans?category=VESSEL",
+					"host": [
+						"{{localURL}}proposal"
+					],
+					"path": [
+						"coverage-plans"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "VESSEL"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Vessels",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"vesselType\": \"\",\n    \"vesselName\": \"\",\n    \"registrationMark\": \"\",\n    \"nib\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localURL}}vessel/search",
+					"host": [
+						"{{localURL}}vessel"
+					],
+					"path": [
+						"search"
+					]
+				}
+			},
+			"response": []
+		}
+	],
 	"auth": {
+		"type": "basic",
 		"basic": [
 			{
 				"key": "password",
-				"type": "string",
-				"value": "test"
+				"value": "test",
+				"type": "string"
 			},
 			{
 				"key": "username",
-				"type": "string",
-				"value": "test@liferay.com"
+				"value": "test@liferay.com",
+				"type": "string"
 			}
-		],
-		"type": "basic"
+		]
 	},
 	"event": [
 		{
@@ -32,67 +116,6 @@
 				],
 				"type": "text/javascript"
 			}
-		}
-	],
-	"info": {
-		"_postman_id": "17b3707c-4ad7-4c1b-9c22-53e22747720c",
-		"name": "Crosig Agent Portal Proposal",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "Get Insured Roles",
-			"request": {
-				"header": [
-				],
-				"method": "GET",
-				"url": {
-					"host": [
-						"{{localURL}}proposal"
-					],
-					"path": [
-						"insured-roles"
-					],
-					"raw": "{{localURL}}proposal/insured-roles"
-				}
-			},
-			"response": [
-			]
-		},
-		{
-			"name": "Get products by userId",
-			"request": {
-				"header": [
-				],
-				"method": "GET"
-			},
-			"response": [
-			]
-		},
-		{
-			"name": "Get Coverage Plans by Category",
-			"request": {
-				"header": [
-				],
-				"method": "GET",
-				"url": {
-					"host": [
-						"{{localURL}}proposal"
-					],
-					"path": [
-						"coverage-plans"
-					],
-					"query": [
-						{
-							"key": "category",
-							"value": "VESSEL"
-						}
-					],
-					"raw": "{{localURL}}proposal/coverage-plans?category=VESSEL"
-				}
-			},
-			"response": [
-			]
 		}
 	],
 	"variable": [

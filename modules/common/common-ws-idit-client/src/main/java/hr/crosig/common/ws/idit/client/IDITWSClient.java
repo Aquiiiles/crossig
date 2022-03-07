@@ -72,6 +72,15 @@ public class IDITWSClient {
 		return invoker.post(ServiceProviderType.IDIT, "/search", jsonRequest);
 	}
 
+	public ServiceResponse searchVessel(String jsonRequest)
+		throws ServiceInvocationException {
+
+		RestAPIServiceInvoker invoker =
+				_restAPIServiceInvokerFactory.getInvoker(ServiceProviderType.IDIT);
+
+		return invoker.post(ServiceProviderType.IDIT, "/search-vessel", jsonRequest);
+	}
+
 	public ServiceResponse updateContact(String jsonRequest)
 		throws ServiceInvocationException {
 
