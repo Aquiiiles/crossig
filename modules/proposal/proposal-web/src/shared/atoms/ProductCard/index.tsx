@@ -24,8 +24,11 @@ const ProductCard: React.FC<props> = ({ product, onProductSelection }) => {
       <ClayButton
         disabled={!product.active}
         onClick={() => onProductSelection(product)}
+        style={{ marginLeft: "auto" }}
       >
-        {INSURANCE_PRODUCT.PRODUCT.SELECT}
+        {product.active
+          ? INSURANCE_PRODUCT.PRODUCT.SELECT
+          : INSURANCE_PRODUCT.COMING_SOON}
       </ClayButton>
     </Wrapper>
   );
