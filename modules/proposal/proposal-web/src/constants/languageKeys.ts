@@ -167,6 +167,31 @@ export const ROLES_TABLE = {
   }
 }
 
+export const VESSEL = {
+  TYPE: {
+    BOAT: Liferay.Language.get('vessel-type-boat'),
+    YATCH: Liferay.Language.get('vessel-type-yatch'),
+    BIG_YATCH: Liferay.Language.get('vessel-type-big-yatch'),
+    RIVERBOAT: Liferay.Language.get('vessel-type-riverboat'),
+  }
+}
+
+export const VESSEL_LOOKUP = {
+  TITLE: Liferay.Language.get('vessel-lookup-title'),
+  SUBTITLE: Liferay.Language.get('vessel-lookup-subtitle'),
+  BUTTON_SEARCH_VESSEL: Liferay.Language.get('vessel-lookup-button-search-vessel'),
+  BUTTON_CREATE_NEW_VESSEL: Liferay.Language.get('vessel-lookup-button-create-new-vessel'),
+  LINK_BACK: Liferay.Language.get('vessel-lookup-link-back'),
+  FIELD: {
+    SELECT: Liferay.Language.get('vessel-lookup-field-select'),
+    TYPE: Liferay.Language.get('vessel-lookup-field-type'),
+    NAME: Liferay.Language.get('vessel-lookup-field-name'),
+    REGISTRATION_MARK: Liferay.Language.get('vessel-lookup-field-registration-mark'),
+    NIB: Liferay.Language.get('vessel-lookup-field-nib'),
+    FLEET_NAME: Liferay.Language.get('vessel-lookup-field-fleet-name'),
+  }
+}
+
 export const STEPPER_STEP = {
   CONTACT_LOOKUP: Liferay.Language.get('stepper-step-contact-lookup'),
   PRODUCT: Liferay.Language.get('stepper-step-product'),

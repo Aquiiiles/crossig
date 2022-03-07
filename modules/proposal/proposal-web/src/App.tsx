@@ -6,6 +6,7 @@ import UpdateContact from "./views/UpdateContact";
 import InsuranceProduct from "./views/InsuranceProduct";
 import RolesOnPolicy from "./views/RolesOnPolicy";
 import CoveragePlan from "./views/CoveragePlan";
+import VesselSearch from "./views/VesselSearch";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 const App: React.FC = () => {
@@ -26,6 +27,9 @@ const App: React.FC = () => {
         </Route>
         <Route path="/update_contact">
           <UpdateContact />
+        </Route>
+        <Route path="/vessel_search">
+          <VesselSearch />
         </Route>
         <Route path="/">
           <ContactSearch embedded={false} />

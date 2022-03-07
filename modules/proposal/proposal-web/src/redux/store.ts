@@ -15,6 +15,7 @@ import addressesReducer, {
 } from "./addressesSlice";
 
 import contactsInPolicyReducer from "./contactsInPolicySlice";
+import vesselSearchReducer from "./vesselSearchSlice";
 
 import insuranceProductReducer, {
   actions as insuranceProductActions,
@@ -34,6 +35,7 @@ export const createContactStore = () => {
       contactsInPolicy: contactsInPolicyReducer,
       insuranceProduct: insuranceProductReducer,
       coveragePlan: coveragePlanReducer,
+      vesselSearch: vesselSearchReducer,
     },
   });
 };
