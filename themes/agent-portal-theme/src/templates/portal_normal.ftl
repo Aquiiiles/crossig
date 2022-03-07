@@ -20,7 +20,7 @@
 
 <@liferay.control_menu />
 
-<div class="container-fluid" id="wrapper">
+<div class="cap container-fluid" id="wrapper">
 	
 	<section id="content">
 		<h2 class="hide-accessible" role="heading" aria-level="1">${the_title}</h2>
