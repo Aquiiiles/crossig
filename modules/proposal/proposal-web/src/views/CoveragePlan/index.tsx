@@ -40,7 +40,7 @@ const CoveragePlan: React.FC = () => {
                   }}
                   onProductSelection={() => {
                     dispatch(actions.setCoveragePlan(coveragePlan));
-                    history.push("/vessel-search");
+                    history.push("/vessel_search");
                   }}
                 />
               </>
