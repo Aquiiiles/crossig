@@ -253,6 +253,7 @@ const UpdateContactForm: React.FC<{
           <ClayButton.Group spaced>
             <ContactButton
               handleClick={() => {
+                dispatch(contactsInPolicyActions.resetFields());
                 dispatch(
                   contactsInPolicyActions.addContact({
                     [constants.EXT_NUMBER_KEY]: Number(extNumber),
