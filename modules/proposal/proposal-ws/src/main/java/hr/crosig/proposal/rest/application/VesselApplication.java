@@ -3,9 +3,10 @@ package hr.crosig.proposal.rest.application;
 import hr.crosig.common.ws.idit.client.IDITWSClient;
 import hr.crosig.common.ws.response.ServiceResponse;
 import hr.crosig.proposal.rest.application.utils.ApplicationUtilities;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Set;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -14,7 +15,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.HashMap;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
 /**
  * @author Guilherme Kfouri
@@ -31,10 +35,14 @@ import java.util.HashMap;
 )
 public class VesselApplication extends Application {
 
+	public Set<Object> getSingletons() {
+		return Collections.singleton(this);
+	}
+
 	@Path("/search")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getCoveragePlansByCategory(
+	public Response searchVessels(
 		@QueryParam("vesselType") String vesselType,
 		@QueryParam("vesselName") String vesselName,
 		@QueryParam("registrationMark") String registrationMark,
