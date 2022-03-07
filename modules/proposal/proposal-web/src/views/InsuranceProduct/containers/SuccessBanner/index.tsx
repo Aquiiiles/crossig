@@ -6,6 +6,7 @@ import { actions as contactInfoActions } from "../../../../redux/contactInfoSlic
 import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
 import { INSURANCE_PRODUCT } from "../../../../constants/languageKeys";
 import { Banner } from "./style";
+import Modal from "../../../../shared/atoms/contact/Modal";
 
 interface props {
   contact: {
@@ -79,7 +80,15 @@ const SuccessBanner: React.FC<props> = ({ contact }) => {
   }, []);
 
   if (showBanner) {
-    return <Banner>{message()}</Banner>;
+    return (
+      <Modal
+        visible={showBanner}
+        onClose={() => setShowBanner(false)}
+        title={`${INSURANCE_PRODUCT.BANNER.CONTACT} ${INSURANCE_PRODUCT.BANNER.CREATION}`}
+        body={message()}
+        timeOut={30000}
+      />
+    );
   } else {
     return null;
   }

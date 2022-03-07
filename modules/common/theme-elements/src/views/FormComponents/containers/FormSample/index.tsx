@@ -8,7 +8,7 @@ import RadioInput from "./components/atoms/Radio";
 import SelectInput from "./components/atoms/Select";
 import ButtonCrosig from "./components/atoms/Buttons";
 import ClayLayout from '@clayui/layout';
-
+import Modal from "../../ModalMessage";
 
 const propsForm = {
   inputSample: "",
@@ -47,8 +47,38 @@ const FormSample: React.FC = () => {
 
   const [value, setValue] = useState(false);
 
+  const [showModal, setShowModal] = useState(false);
+
+  const handleSuccessModal = () => {
+    setShowModal(true);
+  };
+
   return (
     <div>
+      <h6>Messages</h6>
+      <ClayLayout.Row>
+        <ClayLayout.Col size={4}>
+          <Modal
+            visible={showModal}
+            onClose={() => setShowModal(false)}
+            title={'Updated successful'}
+            body={'Form updated successfully'}
+            lastButtonTitle={'Modal button'}
+            lastButtonAction={() => {
+              return alert('Modal Button Action');
+            }}
+            timeOut={5000}
+          />
+          <ButtonCrosig
+            size="medium"
+            type="solid"
+            label="Open modal"
+            icon=""
+            disabled={false}
+            onClick={handleSuccessModal}
+          />
+        </ClayLayout.Col>
+      </ClayLayout.Row>
       <h6>Botões</h6>
       <ClayLayout.Row justify="center">
         <ClayLayout.Col size={4} style={colStyles}>

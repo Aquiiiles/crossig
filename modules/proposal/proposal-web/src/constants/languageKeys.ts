@@ -137,6 +137,7 @@ export const INSURANCE_PRODUCT = {
   },
   BANNER: {
     CONTACT: Liferay.Language.get('insurance-product-banner-contact'),
+    CREATION: Liferay.Language.get('insurance-product-banner-contact-creation'),
     CREATED_SUCCESSFULLY: Liferay.Language.get('insurance-product-banner-contact-created-successfully'),
     VERIFICATION_LINK_HAS_BEEN_SENT: Liferay.Language.get('insurance-product-banner-verification-link-has-been-sent'),
     AND: Liferay.Language.get('insurance-product-banner-and'),
