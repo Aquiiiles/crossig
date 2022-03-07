@@ -1,28 +1,23 @@
 package hr.crosig.contact.rest.application;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-
 import hr.crosig.common.ws.exception.ServiceInvocationException;
 import hr.crosig.common.ws.idit.client.IDITWSClient;
 import hr.crosig.common.ws.response.ServiceResponse;
-import hr.crosig.contact.rest.application.utils.ApplicationUtilities;
+import hr.crosig.common.ws.util.ApplicationUtilities;
 import hr.crosig.contact.rest.application.utils.TestConstants;
-
-import java.util.Arrays;
-
-import javax.ws.rs.core.Response;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
+
+import javax.ws.rs.core.Response;
+import java.util.Arrays;
 
 /**
  * @author marcelo.mazurky

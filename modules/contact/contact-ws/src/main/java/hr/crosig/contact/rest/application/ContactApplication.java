@@ -2,14 +2,13 @@ package hr.crosig.contact.rest.application;
 
 import hr.crosig.common.ws.idit.client.IDITWSClient;
 import hr.crosig.common.ws.response.ServiceResponse;
+import hr.crosig.common.ws.util.ApplicationUtilities;
 import hr.crosig.contact.dto.ContactDTO;
 import hr.crosig.contact.dto.EmailDTO;
 import hr.crosig.contact.dto.TelephoneDTO;
-import hr.crosig.contact.rest.application.utils.ApplicationUtilities;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -20,10 +19,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author victor.catanante
