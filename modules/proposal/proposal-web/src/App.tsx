@@ -7,7 +7,6 @@ import InsuranceProduct from "./views/InsuranceProduct";
 import RolesOnPolicy from "./views/RolesOnPolicy";
 import CoveragePlan from "./views/CoveragePlan";
 import VesselSearch from "./views/VesselSearch";
-import VesselLookup from "./views/VesselLookup";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 const App: React.FC = () => {
@@ -22,9 +21,6 @@ const App: React.FC = () => {
         </Route>
         <Route path="/roles">
           <RolesOnPolicy />
-        </Route>
-        <Route path="/vessel_lookup">
-          <VesselLookup />
         </Route>
         <Route path="/new_contact">
           <NewContact />

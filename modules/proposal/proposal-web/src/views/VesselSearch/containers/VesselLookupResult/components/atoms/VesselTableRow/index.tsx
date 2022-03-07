@@ -30,7 +30,7 @@ const VesselTableRow: React.FC<propsType> = (props: propsType) => {
       {showButtons ? (
         <HoveringButtonGroup>
           <ClayButton displayType="primary">
-            {VESSEL_LOOKUP_TABLE.USE_VESSEL}
+            {VESSEL_LOOKUP_TABLE.CHOOSE_AND_CONTINUE}
           </ClayButton>
         </HoveringButtonGroup>
       ) : (

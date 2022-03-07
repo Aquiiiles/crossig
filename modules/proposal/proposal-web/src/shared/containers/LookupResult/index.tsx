@@ -5,7 +5,7 @@ import ClayLoadingIndicator from "@clayui/loading-indicator";
 import { TOO_MANY_SEARCH_RESULTS } from "../../../constants/languageKeys";
 import { PageIndex } from "../../../shared/hooks/usePagination";
 
-type propsType = {
+type PropsType = {
   data: Array<any>;
   loading: boolean;
   paginationData: {
@@ -24,7 +24,7 @@ type propsType = {
   elementsFoundMessage: string;
 };
 
-const LookupResult: React.FC<propsType> = (props: propsType) => {
+const LookupResult: React.FC<PropsType> = (props: PropsType) => {
   const hasResults = props.data.length > 0;
 
   const shouldShowResults = () => {

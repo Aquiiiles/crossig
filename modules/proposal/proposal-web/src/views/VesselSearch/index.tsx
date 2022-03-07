@@ -42,11 +42,12 @@ const VesselSearch: React.FC = () => {
     sortedBy,
   } = filterState;
 
-  // TODO: this should be uncommented once the search filter API is done.
-  // const idle = searchResult.status === IDLE;
-  const idle = false;
+  // TODO: the line 46 should be removed once the vessels API is done.
+  // const idle = false;
+  const idle = searchResult.status === IDLE;
   const loading = searchResult.status === PENDING;
 
+  // TODO: this function should be refactored once the vessels API is done.
   const fetchData: FetchDataResultsFunction = () => {
     const numberRegex = /^\d+/;
     const textRegex = /^[A-Za-z\s]+/;

@@ -222,8 +222,7 @@ export const COVERAGE_PLAN = {
 }
 
 export const VESSEL_LOOKUP_TABLE = {
-  VIEW_DETAILS: Liferay.Language.get('vessel-lookup-results-table-view-details'),
-  USE_VESSEL: Liferay.Language.get('vessel-lookup-results-table-use-vessel'),
+  CHOOSE_AND_CONTINUE: Liferay.Language.get('vessel-lookup-result-choose-and-continue'),
   NIB: Liferay.Language.get('vessel-lookup-results-table-header-nib'),
   REGISTRATION_MARK: Liferay.Language.get('vessel-lookup-results-table-header-registration-mark'),
   VESSEL_NAME: Liferay.Language.get('vessel-lookup-results-table-header-vessel-name'),
