@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CoveragePlanInterface } from "../views/CoveragePlan/types/coveragePlan";
+import { CoveragePlanInterface } from "../../views/CoveragePlan/types/coveragePlan";
 
 const initialState = {
   coveragePlan: {

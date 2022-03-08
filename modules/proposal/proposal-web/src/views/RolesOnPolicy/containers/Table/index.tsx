@@ -2,21 +2,16 @@ import React from "react";
 import ClayTable from "@clayui/table";
 import TableRow from "./TableRow";
 import AddRoleRow from "./AddRoleRow";
-import {
-  useContactSelector,
-  useContactDispatch,
-} from "../../../../redux/store";
-import { actions as contactActions } from "../../../../redux/contactsInPolicySlice";
+import { useSelector, useDispatch } from "../../../../redux/store";
+import { actions } from "../../../../redux";
 import { ResultsTable } from "./styles";
 
-import * as constants from "../../constants/constants";
+import * as constants from "../../../../constants/RolesOnPolicy";
 
 const Table: React.FC<{ hasInsuredRole: boolean }> = ({ hasInsuredRole }) => {
-  const dispatch = useContactDispatch();
-  const { contactsInPolicy } = useContactSelector(
-    (state) => state.contactsInPolicy
-  );
-  const { addRole, removeRole } = contactActions;
+  const dispatch = useDispatch();
+  const { contactsInPolicy } = useSelector((state) => state.contactsInPolicy);
+  const { addRole, removeRole } = actions.contactsInPolicy;
 
   return (
     <ResultsTable borderless>

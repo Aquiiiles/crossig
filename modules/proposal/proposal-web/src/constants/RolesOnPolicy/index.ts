@@ -1,4 +1,4 @@
-import { ROLES_TABLE } from "../../../constants/languageKeys";
+import { ROLES_TABLE } from "../languageKeys";
 
 export const EXT_NUMBER_KEY = "id";
 export const OIB_NAME = ROLES_TABLE.HEADER.OIB;

@@ -11,11 +11,8 @@ import ClayForm, {
 import { contactTypes } from "../../../../constants/contactConstants";
 import { countryNames } from "../../../../constants/defaultCountryConfiguration";
 import { CREATE_NEW_CONTACT } from "../../../../constants/languageKeys";
-import {
-  useContactDispatch,
-  useContactSelector,
-} from "../../../../redux/store";
-import { actions } from "../../../../redux/addressesSlice";
+import { useDispatch, useSelector } from "../../../../redux/store";
+import { actions } from "../../../../redux";
 import { Line } from "./styles";
 import { searchCitiesByName, searchStreetsByCityIdAndName } from "./controller";
 import useRequiredField from "../../../hooks/useRequiredField";
@@ -33,14 +30,14 @@ const Addresses: React.FC<propsType> = ({
   operation,
   setUpdatedValues,
 }: propsType) => {
-  const dispatcher = useContactDispatch();
+  const dispatcher = useDispatch();
   const dispatch = (action: any, updatedValue: string) => {
     enableSave && enableSave();
     dispatcher(action);
     setUpdatedValues && setUpdatedValues(updatedValue);
   };
 
-  const { contactType } = useContactSelector(
+  const { contactType } = useSelector(
     (state: { basicInfo: any }) => state.basicInfo
   );
 
@@ -58,7 +55,7 @@ const Addresses: React.FC<propsType> = ({
     dispatchPostalCode,
     houseNumber,
     dispatchHouseNumber,
-  } = useContactSelector((state) => state.addresses);
+  } = useSelector((state) => state.addresses);
   const {
     setCountry,
     setDispatchCountry,
@@ -71,7 +68,7 @@ const Addresses: React.FC<propsType> = ({
     setDispatchPostalCode,
     setHouseNumber,
     setDispatchHouseNumber,
-  } = actions;
+  } = actions.addresses;
 
   const isMainAddressInCroatia = () => {
     return country === countryNames.value || country === countryNames.label;

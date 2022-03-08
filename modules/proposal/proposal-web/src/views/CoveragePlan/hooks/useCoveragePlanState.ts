@@ -3,16 +3,14 @@ import { useFetchData } from "../../../api/hooks/useFetchData";
 import { CoveragePlanInterface } from "../types/coveragePlan";
 import { COVERAGE_PLANS_URL } from "../../../api/constants/routes";
 import { IDLE } from "../../../api/reducers/constants";
-import { useContactSelector } from "../../../redux/store";
+import { useSelector } from "../../../redux/store";
 
 export default function useCoveragePlan() {
   const { state, fetchData: API } = useFetchData();
   const [coveragePlans, setCoveragePlans] = useState<CoveragePlanInterface[]>(
     []
   );
-  const { insuranceProduct } = useContactSelector(
-    (state) => state.insuranceProduct
-  );
+  const { insuranceProduct } = useSelector((state) => state.insuranceProduct);
 
   useEffect(() => {
     API(

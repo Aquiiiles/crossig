@@ -10,3 +10,12 @@ export interface PhoneNumber {
   areaCode: string;
   phoneNumber: string;
 }
+
+export type HeaderCell = {
+  key: string;
+  name: string;
+  expanded: boolean;
+  hasSpan: boolean;
+};
+
+export type FetchDataResultsFunction = () => void;

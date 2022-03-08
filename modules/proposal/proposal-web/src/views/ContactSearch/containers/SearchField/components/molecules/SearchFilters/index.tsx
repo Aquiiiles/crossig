@@ -15,11 +15,11 @@ import { countryCodes as croatia } from "../../../../../../../constants/defaultC
 import { Country } from "../../../../../../../shared/types/contact";
 import { useFetchData } from "../../../../../../../api/hooks/useFetchData";
 import { AREA_CODE_URL } from "../../../../../../../api/constants/routes";
-import { actions } from "../../../../../../../redux/searchFilterSlice";
+import { actions } from "../../../../../../../redux";
 import { numbersOnly } from "../../../../../../../shared/util/commonFunctions";
 import {
-  useContactDispatch,
-  useContactSelector,
+  useDispatch,
+  useSelector,
 } from "../../../../../../../redux/store";
 import AreaCodeSelect from "../../../../../../../shared/atoms/contact/AreaCodeSelect";
 
@@ -57,9 +57,9 @@ const SearchFilters: React.FC<props> = ({
     getAreaCodes(AREA_CODE_URL);
   }, []);
 
-  const dispatch = useContactDispatch();
+  const dispatch = useDispatch();
   const { city, street, countryCode, areaCode, phoneNumber, email } =
-    useContactSelector((state) => state.searchFilter);
+    useSelector((state) => state.searchFilter);
   const {
     setCity,
     setStreet,
@@ -68,7 +68,7 @@ const SearchFilters: React.FC<props> = ({
     setPhoneNumber,
     setEmail,
     clearFilterValues,
-  } = actions;
+  } = actions.searchFilter;
 
   const handleCountryCodeChange = (e: any) => {
     dispatch(setCountryCode(e.target.value));

@@ -2,9 +2,9 @@
     "private": true,
     "workspaces": {
         "packages": [
-            "themes/agent-portal-theme",
             "modules/proposal/proposal-web",
-            "modules/common/theme-elements"
+            "modules/common/theme-elements",
+            "themes/agent-portal-theme"
         ]
     },
     "dependencies": {

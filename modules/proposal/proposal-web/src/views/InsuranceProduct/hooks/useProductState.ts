@@ -4,7 +4,7 @@ import { Product } from "../types/product";
 import { PRODUCTS_URL } from "../../../api/constants/routes";
 import { IDLE } from "../../../api/reducers/constants";
 import useQueryParams from "../../../shared/hooks/useQueryParams";
-import { useContactSelector } from "../../../redux/store";
+import { useSelector } from "../../../redux/store";
 
 declare const Liferay: {
   ThemeDisplay: { getUserId: () => string };
@@ -42,7 +42,7 @@ export default function useProductState() {
   const { state, fetchData: API } = useFetchData();
   const [products, setProducts] = useState<Product[][]>([]);
   const query = useQueryParams();
-  const { basicInfo, contactInfo } = useContactSelector((state) => state);
+  const { basicInfo, contactInfo } = useSelector((state) => state);
   const hasEmailData = contactInfo.emailAddresses[0] !== "";
   const hasPhoneData = contactInfo.mobilePhones[0].phoneNumber !== "";
 

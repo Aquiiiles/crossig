@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { contactTypes } from "../../../../constants/contactConstants";
-import { useContactDispatch } from "../../../../redux/store";
-import { actions as addressInfoActions } from "../../../../redux/addressesSlice";
-import { actions as contactInfoActions } from "../../../../redux/contactInfoSlice";
-import { actions as basicInfoActions } from "../../../../redux/basicInfoSlice";
+import { useDispatch } from "../../../../redux/store";
+import { actions } from "../../../../redux";
 import { INSURANCE_PRODUCT } from "../../../../constants/languageKeys";
 import { Banner } from "./style";
 import Modal from "../../../../shared/atoms/contact/Modal";
@@ -24,7 +22,7 @@ interface props {
 }
 
 const SuccessBanner: React.FC<props> = ({ contact }) => {
-  const dispatch = useContactDispatch();
+  const dispatch = useDispatch();
   const [showBanner, setShowBanner] = useState(true);
 
   const message = (): string => {
@@ -62,7 +60,7 @@ const SuccessBanner: React.FC<props> = ({ contact }) => {
 
   useEffect(() => {
     const clearContactData = () => {
-      [addressInfoActions, contactInfoActions, basicInfoActions].forEach(
+      [actions.addresses, actions.contactInfo, actions.basicInfo].forEach(
         action => dispatch(action["resetFields"]())
       );
     };

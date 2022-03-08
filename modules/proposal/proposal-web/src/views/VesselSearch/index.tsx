@@ -1,11 +1,106 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Content, Wrapper, InnerWrapper, LinkWrapper } from "./styles";
 import Stepper from "../../shared/molecules/Stepper";
 import { VESSEL_LOOKUP } from "../../constants/languageKeys";
 import SearchField from "./containers/SearchField";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { VESSEL_URL } from "../../api/constants/routes";
+import { useFetchData } from "../../api/hooks/useFetchData";
+import { FetchDataResultsFunction } from "../../shared/types/common";
+import * as constants from "./constants";
+import { initialState } from "../../redux/vesselLookup/vesselLookupSlice";
+import VesselLookupResult from "./containers/VesselLookupResult";
+import { PENDING, IDLE } from "../../api/reducers/constants";
+import usePagination from "../../shared/hooks/usePagination";
+import { useSelector } from "../../redux/store";
+
+interface SearchState {
+  doSearch: boolean;
+}
 
 const VesselSearch: React.FC = () => {
+  const location = useLocation<SearchState>();
+  const { state: searchResult, fetchData: fetchSearchResult } = useFetchData();
+
+  const [
+    currentPage,
+    pages,
+    { goToNextPage, goToPrevPage, goToPage },
+    handleNewTotal,
+    totalPages,
+  ] = usePagination(constants.RESULTS_LIMIT);
+
+  const filterState = useSelector((state) => state.vesselLookupFilter);
+
+  const {
+    vesselType,
+    vesselName,
+    vesselFleetName,
+    vesselRegistrationMark,
+    vesselNIB,
+    sortOrder,
+    sortedBy,
+  } = filterState;
+
+  const idle = searchResult.status === IDLE;
+  const loading = searchResult.status === PENDING;
+
+  const fetchData: FetchDataResultsFunction = () => {
+    const payload = {
+      fleetName: vesselFleetName,
+      nib: vesselNIB,
+      registrationMark: vesselRegistrationMark,
+      vesselName: vesselName,
+      vesselType: vesselType,
+    };
+
+    const urlParams = new URLSearchParams({
+      startIndex: ((currentPage - 1) * constants.RESULTS_LIMIT).toString(),
+      count: constants.RESULTS_LIMIT.toString(),
+      sortBy: sortedBy,
+      sortOrder,
+    });
+
+    fetchSearchResult("POST", `${VESSEL_URL}/search`, urlParams, payload);
+  };
+
+  useEffect(() => {
+    if (filterState !== initialState) {
+      fetchData();
+    }
+  }, []);
+
+  const fetchNewData = () => {
+    if (currentPage === 1 && !idle) {
+      fetchData();
+    } else {
+      goToPage(1);
+    }
+  };
+
+  useEffect(() => {
+    const result = searchResult.response.data;
+    if (result != null) {
+      handleNewTotal(result.length);
+    }
+  }, [searchResult, handleNewTotal]);
+
+  useEffect(() => {
+    if (!idle) {
+      fetchData();
+    }
+  }, [currentPage]);
+
+  useEffect(() => {
+    fetchNewData();
+  }, [sortOrder, sortedBy]);
+
+  useEffect(() => {
+    if (location.state?.doSearch) {
+      fetchData();
+    }
+  }, []);
+
   return (
     <Wrapper>
       <Stepper
@@ -19,7 +114,28 @@ const VesselSearch: React.FC = () => {
           <p className="body-small" style={{ marginBottom: "2.5rem" }}>
             {VESSEL_LOOKUP.SUBTITLE}
           </p>
-          <SearchField onSearchClick={() => true} />
+          <SearchField onSearchClick={() => fetchData()} />
+          {!idle && (
+            <VesselLookupResult
+              data={searchResult.response.data}
+              loading={loading}
+              paginationData={{
+                lowerRange: (currentPage - 1) * constants.RESULTS_LIMIT + 1,
+                upperRange: Math.min(
+                  (currentPage - 1) * constants.RESULTS_LIMIT +
+                    constants.RESULTS_LIMIT,
+                  searchResult.response.data.length
+                ),
+                currentPage,
+                pages,
+                goToNextPage,
+                goToPrevPage,
+                goToPage,
+                totalPages,
+              }}
+              totalResultsLimit={constants.TOTAL_RESULTS_LIMIT}
+            />
+          )}
         </Content>
         <LinkWrapper>
           <Link to="/coverage_plan">{VESSEL_LOOKUP.LINK_BACK}</Link>

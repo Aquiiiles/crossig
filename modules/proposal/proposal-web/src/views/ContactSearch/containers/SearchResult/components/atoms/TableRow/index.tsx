@@ -9,8 +9,8 @@ import {
   CONTACT_SEARCH_TABLE_USE_CONTACT,
   ROLES_ON_POLICY,
 } from "../../../../../../../constants/languageKeys";
-import { useContactDispatch } from "../../../../../../../redux/store";
-import { actions } from "../../../../../../../redux/contactsInPolicySlice";
+import { useDispatch } from "../../../../../../../redux/store";
+import { actions } from "../../../../../../../redux";
 import AddToPolicyBtn from "../AddToPolicyBtn";
 
 import * as types from "../../../types/searchResult";
@@ -25,8 +25,8 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
   const [showButtons, setShowButtons] = useState(false);
   const history = useHistory();
 
-  const dispatch = useContactDispatch();
-  const { addContact } = actions;
+  const dispatch = useDispatch();
+  const { addContact } = actions.contactsInPolicy;
 
   const types = {
     Individual: "F",

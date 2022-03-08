@@ -12,7 +12,8 @@ export type FetchDataFunction = (
   method: NonNullable<AxiosRequestConfig["method"]>,
   url: string,
   params?: AxiosRequestConfig["params"],
-  data?: AxiosRequestConfig["data"]
+  payload?: AxiosRequestConfig["data"],
+  mockedData?: any
 ) => Promise<void>;
 
 const initialArgs = {
@@ -30,10 +31,18 @@ export const useFetchData = () => {
   const dispatch = useSafeDispatch(unsafeDispatch);
 
   const fetchData: FetchDataFunction = useCallback(
-    async (method, url, params, data) => {
+    async (method, url, params, payload, mockedData) => {
+      if (mockedData) {
+        const response = { data: mockedData, status: 200 };
+        return dispatch({
+          type: RESOLVED,
+          response: response,
+        });
+      }
+
       dispatch({ type: PENDING });
       try {
-        const response = await API({ method, url, params, data });
+        const response = await API({ method, url, params, data: payload });
         dispatch({ type: RESOLVED, response });
       } catch (error) {
         dispatch({ type: REJECTED, error });

@@ -14,10 +14,10 @@ import {
 } from "../../../../constants/languageKeys";
 import { PageIndex } from "../../hooks/usePagination";
 import {
-  useContactSelector,
-  useContactDispatch,
+  useSelector,
+  useDispatch,
 } from "../../../../redux/store";
-import { actions } from "../../../../redux/searchFilterSlice";
+import { actions } from "../../../../redux";
 
 import * as constants from "../../constants/searchResult";
 
@@ -48,7 +48,7 @@ const SearchResult: React.FC<props> = ({
   contactsTotalLimit,
   embedded,
 }: props) => {
-  const dispatch = useContactDispatch();
+  const dispatch = useDispatch();
   const [showCountryDropdown, setShowCountryDropdown] = useState(false);
   const [citySearch, setCitySearch] = useState("");
   const formatedData = data.map((item: providedDataType) => {
@@ -74,10 +74,10 @@ const SearchResult: React.FC<props> = ({
   const [filteredData, setFilteredData] = useState(formatedData);
 
   const cities = new Set(data.map((item: providedDataType) => item["city"]));
-  const { selectedContactType, selectedCity } = useContactSelector(
+  const { selectedContactType, selectedCity } = useSelector(
     (state) => state.searchFilter
   );
-  const { setSelectedContactType, setSelectedCity } = actions;
+  const { setSelectedContactType, setSelectedCity } = actions.searchFilter;
 
   useEffect(() => {
     if (showCountryDropdown) {

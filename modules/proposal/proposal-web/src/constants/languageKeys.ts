@@ -4,6 +4,8 @@ declare const Liferay: {
   }
 };
 
+export const TOO_MANY_SEARCH_RESULTS = Liferay.Language.get('too-many-search-results');
+
 export const CONTACT_INFO = {
   ADD_EMAIL_ADDRESS: Liferay.Language.get('contact-info-add-email-address'),
   ADD_MOBILE_PHONE: Liferay.Language.get('contact-info-add-mobile-phone'),
@@ -184,6 +186,9 @@ export const VESSEL_LOOKUP = {
   BUTTON_SEARCH_VESSEL: Liferay.Language.get('vessel-lookup-button-search-vessel'),
   BUTTON_CREATE_NEW_VESSEL: Liferay.Language.get('vessel-lookup-button-create-new-vessel'),
   LINK_BACK: Liferay.Language.get('vessel-lookup-link-back'),
+  VESSELS_FOUND: Liferay.Language.get('vessel-lookup-result-vessels-found'),
+  NO_VESSELS_FOUND: Liferay.Language.get('vessel-lookup-result-no-vessels-found'),
+  TOO_MANY_SEARCH_RESULTS: Liferay.Language.get('vessel-lookup-result-too-many-search-results'),
   FIELD: {
     SELECT: Liferay.Language.get('vessel-lookup-field-select'),
     TYPE: Liferay.Language.get('vessel-lookup-field-type'),
@@ -214,4 +219,13 @@ export const COVERAGE_PLAN = {
   TITLE: Liferay.Language.get('coverage-plan-title'),
   SUBTITLE: Liferay.Language.get('coverage-plan-subtitle'),
   SELECT: Liferay.Language.get('coverage-plan-select'),
+}
+
+export const VESSEL_LOOKUP_TABLE = {
+  CHOOSE_AND_CONTINUE: Liferay.Language.get('vessel-lookup-result-choose-and-continue'),
+  NIB: Liferay.Language.get('vessel-lookup-results-table-header-nib'),
+  REGISTRATION_MARK: Liferay.Language.get('vessel-lookup-results-table-header-registration-mark'),
+  VESSEL_NAME: Liferay.Language.get('vessel-lookup-results-table-header-vessel-name'),
+  FLEET_NAME: Liferay.Language.get('vessel-lookup-results-table-header-fleet-name'),
+  POLICY_HOLDER: Liferay.Language.get('vessel-lookup-results-table-header-policy-holder'),
 }
