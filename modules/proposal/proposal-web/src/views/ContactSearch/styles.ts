@@ -13,6 +13,10 @@ export const Wrapper = styled.div<Props>`
       : props.theme.color.neutral.background};
   padding: 0;
   padding-top: ${(props) => (props.embedded ? "2rem" : "0")};
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    flex-direction: column;
+  }
 `;
 
 export const LinkWrapper = styled.div`
@@ -28,6 +32,18 @@ export const Content = styled.div<Props>`
   flex: 1;
   padding: ${(props) =>
     props.embedded ? "0" : "6.25rem 3.5rem 1.25rem 3.75rem"};
+
+  & .content-subtitle {
+    margin-bottom: 2.5rem;
+  }
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    padding: ${(props) => (props.embedded ? "0" : "2.5rem")};
+
+    & .content-subtitle {
+      margin-bottom: 1.5rem;
+    }
+  }
 `;
 
 export const EmptySpace = styled.div`

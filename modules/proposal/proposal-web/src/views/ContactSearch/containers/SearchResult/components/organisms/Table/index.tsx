@@ -37,7 +37,7 @@ const Table: React.FC<props> = ({ inputData, loading, embedded }: props) => {
   );
 
   return (
-    <ResultsTable borderless>
+    <ResultsTable borderless className="desktop-only">
       <ClayTable.Head>
         <ClayTable.Row>
           <ClayTable.Cell

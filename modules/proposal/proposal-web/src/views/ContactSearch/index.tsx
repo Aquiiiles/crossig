@@ -141,7 +141,7 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
         <Content embedded={embedded}>
           <h5>{CONTACT_SEARCH_TITLE}</h5>
           {!embedded ? (
-            <p className="body-small" style={{ marginBottom: "2.5rem" }}>
+            <p className="body-small content-subtitle">
               {CONTACT_SEARCH_SUBTITLE}
             </p>
           ) : null}

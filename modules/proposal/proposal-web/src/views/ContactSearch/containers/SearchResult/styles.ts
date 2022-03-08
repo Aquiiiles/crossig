@@ -5,8 +5,14 @@ export const Wrapper = styled.div`
   margin-bottom: 2.8125rem;
   padding: 2.3125rem 0 1.875rem 0.5625rem;
   width: 100%;
-  background-color: ${props => props.theme.color.neutral.white};
+  background-color: ${(props) => props.theme.color.neutral.white};
   border-radius: 12px;
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    & .desktop-only {
+      display: none;
+    }
+  }
 `;
 
 export const SearchResultsHeader = styled.div`
@@ -34,6 +40,6 @@ export const SearchResultsHeader = styled.div`
 
 export const Error = styled.small`
   font-size: 14px;
-  color: ${props => props.theme.color.feedback.error};
+  color: ${(props) => props.theme.color.feedback.error};
   font-weight: bold;
 `;
