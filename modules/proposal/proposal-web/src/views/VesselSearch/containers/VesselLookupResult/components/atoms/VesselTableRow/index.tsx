@@ -21,7 +21,7 @@ const VesselTableRow: React.FC<propsType> = (props: propsType) => {
         return;
       }}
     >
-      <ClayTable.Cell headingTitle>{props.vessel.NIB}</ClayTable.Cell>
+      <ClayTable.Cell headingTitle>{props.vessel.nib}</ClayTable.Cell>
       <ClayTable.Cell headingTitle>
         {props.vessel.registrationMark}
       </ClayTable.Cell>

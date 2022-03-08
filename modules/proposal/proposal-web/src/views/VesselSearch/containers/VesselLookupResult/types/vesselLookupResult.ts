@@ -1,5 +1,5 @@
 export type VesselRow = {
-  NIB: number;
+  nib: number;
   registrationMark: string;
   vesselName: string;
   fleetName: string;
@@ -7,7 +7,7 @@ export type VesselRow = {
 };
 
 export type ProvidedDataType = {
-  NIB: number;
+  nib: number;
   registrationMark: string;
   vesselName: string;
   fleetName: string;

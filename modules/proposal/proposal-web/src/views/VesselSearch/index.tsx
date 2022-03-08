@@ -7,7 +7,6 @@ import { Link, useLocation } from "react-router-dom";
 import { VESSEL_URL } from "../../api/constants/routes";
 import { useFetchData } from "../../api/hooks/useFetchData";
 import { FetchDataResultsFunction } from "../../shared/types/common";
-import { mockData } from "./util";
 import * as constants from "./constants";
 import { initialState } from "../../redux/vesselLookup/vesselLookupSlice";
 import VesselLookupResult from "./containers/VesselLookupResult";
@@ -36,30 +35,23 @@ const VesselSearch: React.FC = () => {
   const {
     vesselType,
     vesselName,
+    vesselFleetName,
     vesselRegistrationMark,
     vesselNIB,
     sortOrder,
     sortedBy,
   } = filterState;
 
-  // TODO: the line 46 should be removed once the vessels API is done.
-  // const idle = false;
   const idle = searchResult.status === IDLE;
   const loading = searchResult.status === PENDING;
 
-  // TODO: this function should be refactored once the vessels API is done.
   const fetchData: FetchDataResultsFunction = () => {
-    const numberRegex = /^\d+/;
-    const textRegex = /^[A-Za-z\s]+/;
     const payload = {
-      finderKey: 1,
-      identifierType: 1000000,
-      identityNumber: numberRegex.test(vesselNIB) ? vesselNIB : undefined,
-      type: textRegex.test(vesselType) ? vesselType : undefined,
-      name: textRegex.test(vesselName) ? vesselName : undefined,
-      registrationMark: textRegex.test(vesselRegistrationMark)
-        ? vesselRegistrationMark
-        : undefined,
+      fleetName: vesselFleetName,
+      nib: vesselNIB,
+      registrationMark: vesselRegistrationMark,
+      vesselName: vesselName,
+      vesselType: vesselType,
     };
 
     const urlParams = new URLSearchParams({
@@ -69,13 +61,7 @@ const VesselSearch: React.FC = () => {
       sortOrder,
     });
 
-    fetchSearchResult(
-      "POST",
-      `${VESSEL_URL}?${urlParams.toString()}`,
-      {},
-      payload,
-      mockData
-    );
+    fetchSearchResult("POST", `${VESSEL_URL}/search`, urlParams, payload);
   };
 
   useEffect(() => {
@@ -128,7 +114,7 @@ const VesselSearch: React.FC = () => {
           <p className="body-small" style={{ marginBottom: "2.5rem" }}>
             {VESSEL_LOOKUP.SUBTITLE}
           </p>
-          <SearchField onSearchClick={() => true} />
+          <SearchField onSearchClick={() => fetchData()} />
           {!idle && (
             <VesselLookupResult
               data={searchResult.response.data}

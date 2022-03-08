@@ -35,7 +35,7 @@ const VesselLookupResult: React.FC<PropsType> = (props: PropsType) => {
 
   const parsedData = props.data.map((item: ProvidedDataType) => {
     const responseObj: VesselRow = {
-      NIB: item.NIB,
+      nib: item.nib,
       registrationMark: item.registrationMark,
       vesselName: item.vesselName,
       fleetName: item.fleetName,
