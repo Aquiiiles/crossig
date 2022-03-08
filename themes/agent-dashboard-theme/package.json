@@ -15,14 +15,14 @@
 		"version": "7.3"
 	},
 	"devDependencies": {
+		"agent-portal-theme": "file:../agent-portal-theme",
 		"compass-mixins": "0.12.10",
-		"gulp": "^4.0.2",
-		"liferay-font-awesome": "3.5.1",
+		"gulp": "4.0.2",
+		"liferay-font-awesome": "^3.5.1",
 		"liferay-frontend-common-css": "1.0.4",
-		"liferay-frontend-theme-styled": "5.0.15",
-		"liferay-frontend-theme-unstyled": "5.0.20",
-		"liferay-theme-tasks": "^11.2.2",
-		"agent-portal-theme": "file:../agent-portal-theme"
+		"liferay-frontend-theme-styled": "5.0.0",
+		"liferay-frontend-theme-unstyled": "5.0.0",
+		"liferay-theme-tasks": "^10.3.0"
 	},
 	"scripts": {
 		"init": "gulp init",
@@ -33,6 +33,5 @@
 		"status": "gulp status",
 		"upgrade": "gulp upgrade",
 		"watch": "gulp watch"
-	},
-	"dependencies": {}
+	}
 }
