@@ -6,7 +6,9 @@
 		"liferay-theme"
 	],
 	"liferayTheme": {
-		"baseTheme": "styled",
+		"baseTheme": {
+			"name": "agent-portal-theme"
+		},
 		"fontAwesome": true,
 		"screenshot": "",
 		"templateLanguage": "ftl",
@@ -19,7 +21,8 @@
 		"liferay-frontend-common-css": "1.0.4",
 		"liferay-frontend-theme-styled": "5.0.15",
 		"liferay-frontend-theme-unstyled": "5.0.20",
-		"liferay-theme-tasks": "^11.2.2"
+		"liferay-theme-tasks": "^11.2.2",
+		"agent-portal-theme": "file:../agent-portal-theme"
 	},
 	"scripts": {
 		"init": "gulp init",
