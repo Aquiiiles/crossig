@@ -1,3 +1,4 @@
+import ClayDropDown from "@clayui/drop-down";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -49,5 +50,18 @@ export const SearchWrapper = styled.div`
     & .searchFieldButtonGroup button {
       width: 100%;
     }
+  }
+`;
+
+export const StyledClayDropdownMenu = styled(ClayDropDown.Menu)<{
+  styledWidth: number;
+  styledMaxWidth: number;
+}>`
+  width: ${(props) => props.styledWidth}px;
+  max-width: ${(props) => props.styledMaxWidth}px;
+
+  @media ${(props) => props.theme.breakpoint.tablet("down")} {
+    width: 100%;
+    max-width: 100vw;
   }
 `;

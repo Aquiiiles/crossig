@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import ClayForm, { ClayInput, ClaySelect } from "@clayui/form";
+import ClayForm, { ClayInput } from "@clayui/form";
 import ClayButton from "@clayui/button";
 import { ButtonsWrapper, InputWrappers, Wrapper } from "./styles";
 import {
@@ -17,12 +17,8 @@ import { useFetchData } from "../../../../../../../api/hooks/useFetchData";
 import { AREA_CODE_URL } from "../../../../../../../api/constants/routes";
 import { actions } from "../../../../../../../redux";
 import { numbersOnly } from "../../../../../../../shared/util/commonFunctions";
-import {
-  useDispatch,
-  useSelector,
-} from "../../../../../../../redux/store";
+import { useDispatch, useSelector } from "../../../../../../../redux/store";
 import AreaCodeSelect from "../../../../../../../shared/atoms/contact/AreaCodeSelect";
-
 
 type AreaCodeType = {
   area_name: string;
@@ -43,12 +39,14 @@ interface props {
   fetchData: () => void;
   searchDisabled: boolean;
   countries: Array<Country>;
+  onDropdownCancel: () => void;
 }
 
 const SearchFilters: React.FC<props> = ({
   countries,
   fetchData,
   searchDisabled,
+  onDropdownCancel,
 }) => {
   const { state, get: getAreaCodes } = useFetchData();
   const areaCodeData = state as State;
@@ -163,19 +161,24 @@ const SearchFilters: React.FC<props> = ({
         />
       </ClayForm.Group>
       <ButtonsWrapper>
-        <ClayButton
-          displayType="link"
-          onClick={() => dispatch(clearFilterValues())}
-        >
-          Clear
-        </ClayButton>
-        <ClayButton
-          displayType="primary"
-          disabled={searchDisabled}
-          onClick={fetchData}
-        >
-          Search
-        </ClayButton>
+        <ClayButton.Group className="tablet-only" onClick={onDropdownCancel}>
+          <ClayButton displayType="link">Cancel</ClayButton>
+        </ClayButton.Group>
+        <ClayButton.Group>
+          <ClayButton
+            displayType="link"
+            onClick={() => dispatch(clearFilterValues())}
+          >
+            Clear
+          </ClayButton>
+          <ClayButton
+            displayType="primary"
+            disabled={searchDisabled}
+            onClick={fetchData}
+          >
+            Search
+          </ClayButton>
+        </ClayButton.Group>
       </ButtonsWrapper>
     </Wrapper>
   );

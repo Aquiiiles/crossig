@@ -6,7 +6,7 @@ import ClayDropDown from "@clayui/drop-down";
 import SearchFilters from "./components/molecules/SearchFilters";
 import { mapToCountryCodes } from "../../../../shared/util/countryMappers";
 import { getActiveCountries } from "../../../../api/services/liferay";
-import { Wrapper, SearchWrapper } from "./styles";
+import { Wrapper, SearchWrapper, StyledClayDropdownMenu } from "./styles";
 import {
   CONTACT_SEARCH_ACTION_BUTTON,
   CONTACT_SEARCH_FIELD_OIB,
@@ -180,9 +180,10 @@ const SearchField: React.FC<props> = ({
             </ClayButton>
           </ClayButton.Group>
         </ClayForm.Group>
-        <ClayDropDown.Menu
+        <StyledClayDropdownMenu
+          styledWidth={fieldSize.width}
+          styledMaxWidth={fieldSize.maxWidth}
           ref={menuElementRef}
-          style={fieldSize}
           active={expand}
           alignElementRef={triggerElementRef}
           onSetActive={() => {}}
@@ -201,10 +202,11 @@ const SearchField: React.FC<props> = ({
                 }}
                 countries={mapToCountryCodes(countries)}
                 searchDisabled={disabled}
+                onDropdownCancel={() => setExpand(false)}
               />
             )}
           </div>
-        </ClayDropDown.Menu>
+        </StyledClayDropdownMenu>
       </SearchWrapper>
       <div></div>
     </Wrapper>

@@ -12,8 +12,23 @@ export const InputWrappers = styled.div`
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
+
   .form-group {
     width: 31%;
+  }
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    .form-group:first-child {
+      width: 50%;
+    }
+
+    .form-group:nth-child(2) {
+      width: 50%;
+    }
+
+    .form-group:last-child {
+      width: 100%;
+    }
   }
 `;
 
@@ -21,6 +36,6 @@ export const ButtonsWrapper = styled.div`
   display: flex;
   margin-top: 1rem;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   flex-wrap: wrap;
 `;
