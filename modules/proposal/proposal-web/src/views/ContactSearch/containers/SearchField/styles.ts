@@ -1,6 +1,20 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div``;
+export const Wrapper = styled.div`
+  & .tablet-only {
+    display: none;
+  }
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    & .desktop-only {
+      display: none;
+    }
+
+    & .tablet-only {
+      display: block;
+    }
+  }
+`;
 
 export const SearchWrapper = styled.div`
   display: flex;
@@ -10,12 +24,12 @@ export const SearchWrapper = styled.div`
   align-items: end;
 
   & #oibInputText {
-    color: ${props => props.theme.color.primary.links};
+    color: ${(props) => props.theme.color.primary.links};
   }
   & #lastNameInputText {
-    color: ${props => props.theme.color.primary.links};
+    color: ${(props) => props.theme.color.primary.links};
   }
   & #firstNameInputText {
-    color: ${props => props.theme.color.primary.links};
+    color: ${(props) => props.theme.color.primary.links};
   }
 `;

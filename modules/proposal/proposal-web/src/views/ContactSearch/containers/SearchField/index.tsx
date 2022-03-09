@@ -13,11 +13,9 @@ import {
   CONTACT_SEARCH_FIELD_LAST_NAME_COMPANY_NAME_SE_NAME,
   CONTACT_SEARCH_FIELD_FIRST_NAME,
   CONTACT_SEARCH_MORE_SEARCH_OPTIONS,
+  CONTACT_SEARCH_FIELD_LAST_NAME,
 } from "../../../../constants/languageKeys";
-import {
-  useSelector,
-  useDispatch,
-} from "../../../../redux/store";
+import { useSelector, useDispatch } from "../../../../redux/store";
 import { actions } from "../../../../redux";
 import { PageIndex } from "../../hooks/usePagination";
 import useOnClickOutside from "../../../../shared/hooks/useOnClickOutside";
@@ -114,12 +112,23 @@ const SearchField: React.FC<props> = ({
                 type="text"
                 className="straight-numbers"
                 value={OIB}
-                onChange={({ target: { value } }) => dispatch(setOIB(numbersOnly(value)))}
+                onChange={({ target: { value } }) =>
+                  dispatch(setOIB(numbersOnly(value)))
+                }
               />
             </ClayInput.GroupItem>
             <ClayInput.GroupItem>
-              <label className="body-small" htmlFor="lastNameInputText">
+              <label
+                className="body-small desktop-only"
+                htmlFor="lastNameInputText"
+              >
                 {CONTACT_SEARCH_FIELD_LAST_NAME_COMPANY_NAME_SE_NAME}
+              </label>
+              <label
+                className="body-small tablet-only"
+                htmlFor="lastNameInputText"
+              >
+                {CONTACT_SEARCH_FIELD_LAST_NAME}
               </label>
               <ClayInput
                 id="lastNameInputText"

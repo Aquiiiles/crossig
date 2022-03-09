@@ -37,6 +37,7 @@ export const CONTACT_SEARCH_FIELD_NAME_OR_OIB = Liferay.Language.get('contact-se
 export const CONTACT_SEARCH_FIELD_OIB = Liferay.Language.get('contact-search-field-oib');
 export const CONTACT_SEARCH_FIELD_LAST_NAME_COMPANY_NAME_SE_NAME = Liferay.Language.get('contact-search-field-last-name-company-name-se-name');
 export const CONTACT_SEARCH_FIELD_FIRST_NAME = Liferay.Language.get('contact-search-field-first-name');
+export const CONTACT_SEARCH_FIELD_LAST_NAME = Liferay.Language.get('contact-search-field-last-name');
 export const CONTACT_SEARCH_FIELD_CITY = Liferay.Language.get('contact-search-field-city');
 export const CONTACT_SEARCH_FIELD_STREET_ADDRESS = Liferay.Language.get('contact-search-field-street-address');
 export const CONTACT_SEARCH_FIELD_COUNTRY_CODE = Liferay.Language.get('contact-search-field-country-code');

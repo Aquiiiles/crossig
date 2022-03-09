@@ -4,7 +4,7 @@ import ClayButton from "@clayui/button";
 export const Wrapper = styled.div`
   display: none;
   flex-direction: column;
-  padding-top: 2.625rem;
+  padding: 2.625rem 1.5rem 0 1.5rem;
 
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
     display: flex;
