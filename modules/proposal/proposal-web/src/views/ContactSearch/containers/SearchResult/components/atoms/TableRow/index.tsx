@@ -26,7 +26,7 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
   const history = useHistory();
 
   const dispatch = useDispatch();
-  const { addContact } = actions.contactsInPolicy;
+  const { setPolicyHolder } = actions.contactsInPolicy;
 
   const types = {
     Individual: "F",
@@ -54,7 +54,7 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
   const selectContact = () => {
     dispatch(actions.contactsInPolicy.resetFields());
     dispatch(
-      addContact({
+      setPolicyHolder({
         [constants.EXT_NUMBER_KEY]: contact[constants.EXT_NUMBER_KEY],
         [constants.OIB_KEY]: contact[constants.OIB_KEY],
         [constants.SUB_KEY]: contact[constants.SUB_KEY],

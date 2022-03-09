@@ -249,7 +249,7 @@ const UpdateContactForm: React.FC<{
               handleClick={() => {
                 dispatch(actions.contactsInPolicy.resetFields());
                 dispatch(
-                  actions.contactsInPolicy.addContact({
+                  actions.contactsInPolicy.setPolicyHolder({
                     [constants.EXT_NUMBER_KEY]: Number(extNumber),
                     [constants.OIB_KEY]: oib,
                     [constants.SUB_KEY]: subsidiaryNumber,
