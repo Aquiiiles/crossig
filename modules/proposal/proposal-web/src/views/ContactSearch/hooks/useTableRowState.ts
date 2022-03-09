@@ -1,17 +1,16 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useContactDispatch } from "../../../redux/store";
-import { actions } from "../../../redux/contactsInPolicySlice";
 import { ROLES_ON_POLICY } from "../../../constants/languageKeys";
 import * as constants from "../constants/searchResult";
 import * as types from "../containers/SearchResult/types/searchResult";
+import { useDispatch } from "../../../redux/store";
+import { actions } from "../../../redux";
 
 export default function useTableRowState() {
   const [showButtons, setShowButtons] = useState(false);
   const history = useHistory();
-
-  const dispatch = useContactDispatch();
   const { setPolicyHolder } = actions.contactsInPolicy;
+  const dispatch = useDispatch();
 
   const types = {
     Individual: "F",

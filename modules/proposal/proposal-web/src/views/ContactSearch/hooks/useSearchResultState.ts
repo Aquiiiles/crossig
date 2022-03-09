@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useContactSelector, useContactDispatch } from "../../../redux/store";
-import { actions } from "../../../redux/searchFilterSlice";
+import { useSelector, useDispatch } from "../../../redux/store";
+import { actions } from "../../../redux";
 
 import * as constants from "../constants/searchResult";
 
@@ -30,15 +30,15 @@ export default function useSearchResultState(data: any[]) {
     };
     return responseObj;
   });
-  const dispatch = useContactDispatch();
+  const dispatch = useDispatch();
   const [showCountryDropdown, setShowCountryDropdown] = useState(false);
   const [citySearch, setCitySearch] = useState("");
   const [filteredData, setFilteredData] = useState(formatedData);
   const cities = new Set(data.map((item: providedDataType) => item["city"]));
-  const { selectedContactType, selectedCity } = useContactSelector(
+  const { selectedContactType, selectedCity } = useSelector(
     (state) => state.searchFilter
   );
-  const { setSelectedContactType, setSelectedCity } = actions;
+  const { setSelectedContactType, setSelectedCity } = actions.searchFilter;
 
   useEffect(() => {
     if (showCountryDropdown) {
