@@ -4,6 +4,7 @@ import useStepper from "./hooks/useStepper";
 import { Wrapper } from "./styles";
 import { StepsLookupTableKeys } from "../../../constants/steps";
 import DisplayPolicyInfo from "../../../shared/atoms/DisplayPolicyInfo";
+import { useHistory } from "react-router-dom";
 
 interface props {
   /** The step index as seen in the website/mockup (not 0 based) */
@@ -18,6 +19,21 @@ interface props {
 const Stepper: React.FC<props> = ({ currentStep, subCategory, children }) => {
   const [steps, subSteps] = useStepper(currentStep, subCategory);
 
+  const history = useHistory();
+
+  const canNavigateToStep = (stepState: string) => {
+    return !["ACTIVE", "INACTIVE"].includes(stepState);
+  };
+
+  const handleStepClick = (targetStepIndex: number) => {
+    const targetStep = steps.at(targetStepIndex - 1);
+
+    if (targetStep && canNavigateToStep(targetStep.state)) {
+      const route = targetStep.route;
+      history.replace({ pathname: route, state: { doSearch: true } });
+    }
+  };
+
   return (
     <Wrapper>
       {steps.map((step, index) => (
@@ -26,6 +42,7 @@ const Stepper: React.FC<props> = ({ currentStep, subCategory, children }) => {
           stepIndex={index + 1}
           step={step}
           subSteps={index + 1 === currentStep ? subSteps : []}
+          handleClick={handleStepClick}
         />
       ))}
       {currentStep > 1 && <DisplayPolicyInfo />}

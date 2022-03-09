@@ -17,6 +17,10 @@ export const InnerWrapper = styled.div`
   grid-template-columns: 15px 100%;
   grid-template-rows: auto;
   column-gap: 0.6875rem;
+
+  & h6 {
+    cursor: pointer;
+  }
 `;
 
 export const SubStepWrapper = styled.div`

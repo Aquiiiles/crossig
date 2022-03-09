@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  ActiveBar,
-  Wrapper,
-  Text,
-  InnerWrapper,
-  SubStepWrapper,
-} from "./style";
+import { ActiveBar, Wrapper, Text, InnerWrapper } from "./style";
 import { Step as StepType } from "../../../types/stepper";
 
 interface props {
@@ -13,9 +7,16 @@ interface props {
   stepIndex: number;
   subSteps: StepType[];
   isSubStep?: boolean;
+  handleClick: (targetStep: number) => void;
 }
 
-const Step: React.FC<props> = ({ step, stepIndex, subSteps, isSubStep }) => {
+const Step: React.FC<props> = ({
+  step,
+  stepIndex,
+  subSteps,
+  isSubStep,
+  handleClick,
+}) => {
   return (
     <>
       <Wrapper>
@@ -24,7 +25,12 @@ const Step: React.FC<props> = ({ step, stepIndex, subSteps, isSubStep }) => {
           {isSubStep ? (
             <span></span>
           ) : (
-            <Text state={step.state}>{stepIndex}</Text>
+            <Text
+              state={step.state}
+              onClick={() => handleClick(stepIndex)}
+            >
+              {stepIndex}
+            </Text>
           )}
           <Text
             state={step.state}
@@ -34,6 +40,7 @@ const Step: React.FC<props> = ({ step, stepIndex, subSteps, isSubStep }) => {
                 ? { textDecoration: "underline" }
                 : undefined
             }
+            onClick={() => handleClick(stepIndex)}
           >
             {step.name}
           </Text>
@@ -47,6 +54,7 @@ const Step: React.FC<props> = ({ step, stepIndex, subSteps, isSubStep }) => {
               step={subStep}
               subSteps={[]}
               isSubStep
+              handleClick={handleClick}
             />
           ))
         : null}
