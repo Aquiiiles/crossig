@@ -32,6 +32,7 @@ const contactsLimit = 20;
 const contactsTotalResultLimit = 100;
 
 const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
+  const [showResults, setShowResults] = useState(false);
   const [data, setData] = useState([]);
   const location = useLocation<stateType>();
   const { state: searchResultData, fetchData: fetchSearchResultData } =
@@ -147,9 +148,12 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
           <SearchField
             currentPage={currentPage}
             goToPage={goToPage}
-            fetchData={fetchData}
+            fetchData={() => {
+              fetchData();
+              setShowResults(true); 
+            }}
           />
-          {!idle ? (
+          {!idle && (!embedded || showResults) ? (
             <>
               <SearchResult
                 data={data}
