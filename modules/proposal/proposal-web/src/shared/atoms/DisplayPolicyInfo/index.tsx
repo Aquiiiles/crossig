@@ -4,14 +4,15 @@ import { useSelector } from "../../../redux/store";
 import { LineWrapper } from "./styles";
   
 const DisplayPolicyInfo = () => {
-  const { contactsInPolicy } = useSelector(
+  const { policyHolder } = useSelector(
     (state) => state.contactsInPolicy
   );
-  const policyHolder = contactsInPolicy.length > 0 ? contactsInPolicy[0] : null;
+
+  const hasPolicyHolder = policyHolder.name.length > 0;
 
   return (
     <>
-      { policyHolder && 
+      { hasPolicyHolder && 
           <LineWrapper>
               <span className="span-small">
                 {POLICY_HOLDER.POLICY_HOLDER}

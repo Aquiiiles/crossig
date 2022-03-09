@@ -11,7 +11,9 @@ import { actions } from "../../redux";
 
 const RolesOnPolicy: React.FC = () => {
   const dispatch = useDispatch();
-  const { contactsInPolicy } = useSelector((state) => state.contactsInPolicy);
+  const { policyHolder, contactsInPolicy } = useSelector(
+    (state) => state.contactsInPolicy
+  );
   const { setRoleOptions } = actions.contactsInPolicy;
   const { clearSearchValues } = actions.searchFilter;
 
@@ -20,7 +22,7 @@ const RolesOnPolicy: React.FC = () => {
   const hasInsuredRole =
     contactsInPolicy.filter((contact) =>
       contact.contactRoles.includes(ROLES_ON_POLICY.INSURED)
-    ).length > 0;
+    ).length > 0 || policyHolder.contactRoles.includes(ROLES_ON_POLICY.INSURED);
 
   useEffect(() => {
     dispatch(setRoleOptions(["Insured", "Payer"]));

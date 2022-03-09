@@ -10,8 +10,15 @@ import * as constants from "../../../../constants/RolesOnPolicy";
 
 const Table: React.FC<{ hasInsuredRole: boolean }> = ({ hasInsuredRole }) => {
   const dispatch = useDispatch();
-  const { contactsInPolicy } = useSelector((state) => state.contactsInPolicy);
-  const { addRole, removeRole } = actions.contactsInPolicy;
+  const { policyHolder, contactsInPolicy } = useSelector(
+    (state) => state.contactsInPolicy
+  );
+  const {
+    addRoleToPolicyHolder,
+    removeRoleFromPolicyHolder,
+    addContactRole,
+    removeContactRole,
+  } = actions.contactsInPolicy;
 
   return (
     <ResultsTable borderless>
@@ -28,13 +35,26 @@ const Table: React.FC<{ hasInsuredRole: boolean }> = ({ hasInsuredRole }) => {
         </ClayTable.Row>
       </ClayTable.Head>
       <ClayTable.Body>
+        <TableRow
+          key={0}
+          contact={policyHolder}
+          policyHolder={true}
+          addRole={(title: string) => dispatch(addRoleToPolicyHolder(title))}
+          removeRole={(title: string) =>
+            dispatch(removeRoleFromPolicyHolder(title))
+          }
+        />
         {contactsInPolicy.map((contact, index) => (
           <TableRow
             key={index}
             contact={contact}
-            policyHolder={index === 0}
-            addRole={(title: string) => dispatch(addRole([index, title]))}
-            removeRole={(title: string) => dispatch(removeRole([index, title]))}
+            policyHolder={false}
+            addRole={(title: string) =>
+              dispatch(addContactRole([index, title]))
+            }
+            removeRole={(title: string) =>
+              dispatch(removeContactRole([index, title]))
+            }
           />
         ))}
       </ClayTable.Body>

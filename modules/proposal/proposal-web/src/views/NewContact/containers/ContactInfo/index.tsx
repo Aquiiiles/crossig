@@ -148,7 +148,7 @@ const ContactInfo: React.FC = () => {
           setCreateSuccess(true);
           dispatch(actions.contactsInPolicy.resetFields());
           dispatch(
-            actions.contactsInPolicy.addContact({
+            actions.contactsInPolicy.setPolicyHolder({
               [constants.EXT_NUMBER_KEY]: 1,
               [constants.OIB_KEY]: basicInfoData.oib,
               [constants.SUB_KEY]: basicInfoData.subsidiaryNumber,

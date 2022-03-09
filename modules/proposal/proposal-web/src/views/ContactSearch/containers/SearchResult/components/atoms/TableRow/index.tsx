@@ -26,7 +26,7 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
   const history = useHistory();
 
   const dispatch = useDispatch();
-  const { addContact } = actions.contactsInPolicy;
+  const { setPolicyHolder } = actions.contactsInPolicy;
 
   const types = {
     Individual: "F",
@@ -51,12 +51,26 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
     });
   };
 
+  const selectContact = () => {
+    dispatch(actions.contactsInPolicy.resetFields());
+    dispatch(
+      setPolicyHolder({
+        [constants.EXT_NUMBER_KEY]: contact[constants.EXT_NUMBER_KEY],
+        [constants.OIB_KEY]: contact[constants.OIB_KEY],
+        [constants.SUB_KEY]: contact[constants.SUB_KEY],
+        [constants.NAME_KEY]: contact[constants.NAME_KEY],
+        [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
+      })
+    );
+    history.push("/product");
+  };
+
   return (
     <ClayTable.Row
       style={{ position: "relative" }}
       onMouseLeave={() => setShowButtons(false)}
       onMouseEnter={() => setShowButtons(true)}
-      onDoubleClick={() => (!embedded ? history.push("/product") : null)}
+      onDoubleClick={() => (!embedded ? selectContact() : null)}
     >
       <ClayTable.Cell headingTitle>
         <MissingInformationIcon
@@ -92,19 +106,7 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
           ) : (
             <ClayButton
               displayType="primary"
-              onClick={() => {
-                dispatch(
-                  addContact({
-                    [constants.EXT_NUMBER_KEY]:
-                      contact[constants.EXT_NUMBER_KEY],
-                    [constants.OIB_KEY]: contact[constants.OIB_KEY],
-                    [constants.SUB_KEY]: contact[constants.SUB_KEY],
-                    [constants.NAME_KEY]: contact[constants.NAME_KEY],
-                    [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
-                  })
-                );
-                history.push("/product");
-              }}
+              onClick={selectContact}
             >
               {CONTACT_SEARCH_TABLE_USE_CONTACT}
             </ClayButton>
