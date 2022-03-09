@@ -24,8 +24,6 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
     { showButtons },
     { setShowButtons, formatDOB, openUpdateContact, selectContact },
     types,
-    history,
-    dispatch,
   ] = useTableRowState();
 
   return (
@@ -67,7 +65,10 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
           {embedded ? (
             <AddToPolicyBtn contact={contact} />
           ) : (
-            <ClayButton displayType="primary" onClick={selectContact}>
+            <ClayButton
+              displayType="primary"
+              onClick={() => selectContact(contact)}
+            >
               {CONTACT_SEARCH_TABLE_USE_CONTACT}
             </ClayButton>
           )}

@@ -16,13 +16,8 @@ interface Props {
 }
 
 const ResultMobile: React.FC<Props> = ({ contact }) => {
-  const [
-    ,
-    { formatDOB, openUpdateContact, addContact },
-    types,
-    history,
-    dispatch,
-  ] = useTableRowState();
+  const [, { formatDOB, openUpdateContact, selectContact }, types] =
+    useTableRowState();
 
   return (
     <Wrapper>
@@ -58,18 +53,7 @@ const ResultMobile: React.FC<Props> = ({ contact }) => {
         </ClayButton>
         <ClayButton
           displayType="primary"
-          onClick={() => {
-            dispatch(
-              addContact({
-                [constants.EXT_NUMBER_KEY]: contact[constants.EXT_NUMBER_KEY],
-                [constants.OIB_KEY]: contact[constants.OIB_KEY],
-                [constants.SUB_KEY]: contact[constants.SUB_KEY],
-                [constants.NAME_KEY]: contact[constants.NAME_KEY],
-                [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
-              })
-            );
-            history.push("/product");
-          }}
+          onClick={() => selectContact(contact)}
         >
           {CONTACT_SEARCH_TABLE_USE_CONTACT}
         </ClayButton>
