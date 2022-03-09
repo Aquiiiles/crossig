@@ -13,6 +13,7 @@ const RolesOnPolicy: React.FC = () => {
   const dispatch = useDispatch();
   const { contactsInPolicy } = useSelector((state) => state.contactsInPolicy);
   const { setRoleOptions } = actions.contactsInPolicy;
+  const { clearSearchValues } = actions.searchFilter;
 
   const history = useHistory();
 
@@ -23,6 +24,7 @@ const RolesOnPolicy: React.FC = () => {
 
   useEffect(() => {
     dispatch(setRoleOptions(["Insured", "Payer"]));
+    dispatch(clearSearchValues());
   }, []);
 
   return (

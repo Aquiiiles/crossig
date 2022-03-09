@@ -59,6 +59,11 @@ const searchFilterSlice = createSlice({
     setSortOrder(state, action: PayloadAction<"asc" | "desc">) {
       state.sortOrder = action.payload;
     },
+    clearSearchValues(state) {
+      state.OIB = "";
+      state.lastName = "";
+      state.firstName = "";
+    },
     clearFilterValues(state) {
       state.city = "";
       state.street = "";
