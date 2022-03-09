@@ -32,4 +32,22 @@ export const SearchWrapper = styled.div`
   & #firstNameInputText {
     color: ${(props) => props.theme.color.primary.links};
   }
+
+  @media ${({ theme }) => theme.breakpoint.mobile("down")} {
+    & .searchFieldInputs > .input-group-item {
+      width: 100%;
+      margin-left: 0;
+    }
+
+    & .searchFieldButtonGroup {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-auto-rows: auto;
+      row-gap: 1rem;
+    }
+
+    & .searchFieldButtonGroup button {
+      width: 100%;
+    }
+  }
 `;

@@ -9,4 +9,9 @@ export const Wrapper = styled.div`
   & p {
     margin-bottom: 0;
   }
+
+  @media ${(props) => props.theme.breakpoint.mobile("down")} {
+    flex-direction: column;
+    row-gap: 1rem;
+  }
 `;

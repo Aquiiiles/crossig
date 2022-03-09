@@ -23,6 +23,16 @@ export const Header = styled.div`
   & > *:last-child {
     flex: 0 0 auto;
   }
+
+  @media ${(props) => props.theme.breakpoint.mobile("down")} {
+    & > *:first-child {
+      flex: 0 1 75%;
+    }
+
+    & > *:last-child {
+      flex: 0 0 auto;
+    }
+  }
 `;
 
 export const FieldWrapper = styled.div`

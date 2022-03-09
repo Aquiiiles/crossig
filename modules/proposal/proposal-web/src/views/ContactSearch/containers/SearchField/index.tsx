@@ -102,7 +102,7 @@ const SearchField: React.FC<props> = ({
     <Wrapper>
       <SearchWrapper>
         <ClayForm.Group style={{ marginBottom: "0" }}>
-          <ClayInput.Group>
+          <ClayInput.Group className="searchFieldInputs">
             <ClayInput.GroupItem>
               <label className="body-small" htmlFor="oibInputText">
                 {CONTACT_SEARCH_FIELD_OIB}
@@ -155,7 +155,7 @@ const SearchField: React.FC<props> = ({
             </ClayInput.GroupItem>
           </ClayInput.Group>
           <br></br>
-          <ClayButton.Group>
+          <ClayButton.Group className="searchFieldButtonGroup">
             <span>
               <ClayButton
                 displayType="primary"
