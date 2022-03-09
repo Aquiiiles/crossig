@@ -9,6 +9,12 @@ export const Wrapper = styled.div`
   border-radius: 12px;
 
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    margin-top: 1.5rem;
+    padding: 0 2.1875rem;
+    padding-bottom: 1.875rem;
+    border-radius: 0;
+    border-top: 1px solid ${(props) => props.theme.color.neutral.dividerGrey};
+
     & .desktop-only {
       display: none;
     }

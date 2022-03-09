@@ -38,7 +38,7 @@ export const Content = styled.div<Props>`
   }
 
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
-    padding: ${(props) => (props.embedded ? "0" : "2.5rem")};
+    padding: ${(props) => (props.embedded ? "0" : "2.5rem 0")};
 
     & .content-subtitle {
       margin-bottom: 1.5rem;

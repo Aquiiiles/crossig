@@ -15,6 +15,7 @@ import {
 import { PageIndex } from "../../hooks/usePagination";
 import useSearchResultState from "../../hooks/useSearchResultState";
 import ResultsHeaderMobile from "./components/molecules/ResultsHeaderMobile";
+import ResultsMobile from "./components/organisms/ResultsMobile";
 
 interface props {
   data: Array<any>;
@@ -144,6 +145,7 @@ const SearchResult: React.FC<props> = ({
             </SearchResultsHeader>
             {foundContacts ? (
               <>
+                <ResultsMobile data={filteredData} />
                 <Table
                   loading={loading}
                   inputData={filteredData}
