@@ -55,6 +55,9 @@ export const CONTACT_SEARCH_MORE_SEARCH_OPTIONS = Liferay.Language.get('contact-
 export const CONTACT_SEARCH_RESULT_EMAIL_NOT_VALIDATED= Liferay.Language.get('contact-search-result-email-not-validated');
 export const CONTACT_SEARCH_RESULT_PHONE_NOT_VALIDATED= Liferay.Language.get('contact-search-result-phone-not-validated');
 export const CONTACT_SEARCH_RESULT_EMAIL_AND_PHONE_NOT_VALIDATED= Liferay.Language.get('contact-search-result-email-and-phone-not-validated');
+export const CONTACT_SEARCH_FILTER_CANCEL= Liferay.Language.get('contact-search-filter-cancel');
+export const CONTACT_SEARCH_FILTER_CLEAR= Liferay.Language.get('contact-search-filter-clear')
+export const CONTACT_SEARCH_FILTER_SEARCH= Liferay.Language.get('contact-search-filter-search')
 
 export const CREATE_NEW_CONTACT = {
     TITLE: Liferay.Language.get('create-new-contact-title'),

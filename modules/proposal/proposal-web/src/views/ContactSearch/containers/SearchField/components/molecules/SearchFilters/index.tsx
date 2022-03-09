@@ -9,6 +9,9 @@ import {
   CONTACT_SEARCH_FIELD_EMAIL_ADDRESS,
   CONTACT_SEARCH_FIELD_PHONE_NUMBER,
   CONTACT_SEARCH_FIELD_STREET_ADDRESS,
+  CONTACT_SEARCH_FILTER_CANCEL,
+  CONTACT_SEARCH_FILTER_CLEAR,
+  CONTACT_SEARCH_FILTER_SEARCH,
 } from "../../../../../../../constants/languageKeys";
 import CountryCodeSelect from "../../../../../../../shared/atoms/contact/CountryCodeSelect";
 import { countryCodes as croatia } from "../../../../../../../constants/defaultCountryConfiguration";
@@ -162,21 +165,23 @@ const SearchFilters: React.FC<props> = ({
       </ClayForm.Group>
       <ButtonsWrapper>
         <ClayButton.Group className="tablet-only" onClick={onDropdownCancel}>
-          <ClayButton displayType="link">Cancel</ClayButton>
+          <ClayButton displayType="link">
+            {CONTACT_SEARCH_FILTER_CANCEL}
+          </ClayButton>
         </ClayButton.Group>
         <ClayButton.Group>
           <ClayButton
             displayType="link"
             onClick={() => dispatch(clearFilterValues())}
           >
-            Clear
+            {CONTACT_SEARCH_FILTER_CLEAR}
           </ClayButton>
           <ClayButton
             displayType="primary"
             disabled={searchDisabled}
             onClick={fetchData}
           >
-            Search
+            {CONTACT_SEARCH_FILTER_SEARCH}
           </ClayButton>
         </ClayButton.Group>
       </ButtonsWrapper>
