@@ -37,4 +37,7 @@ export const Text = styled.h6<{ state: StepState }>`
       : state === "COMPLETE"
       ? theme.color.neutral.black
       : theme.color.neutral.dividerGrey};
+
+  cursor: ${({ state }) =>
+    ["ACTIVE", "INACTIVE"].includes(state) ? "text" : "pointer"};
 `;
