@@ -9,6 +9,7 @@ import {
   responseType,
 } from "../containers/SearchResult/types/searchResult";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export default function useSearchResultState(data: any[]) {
   const formatedData = data.map((item: providedDataType) => {
     const responseObj: responseType = {
@@ -32,6 +33,7 @@ export default function useSearchResultState(data: any[]) {
   });
   const dispatch = useDispatch();
   const [showCountryDropdown, setShowCountryDropdown] = useState(false);
+  const [showSortDropdown, setShowSortDropdown] = useState(false);
   const [citySearch, setCitySearch] = useState("");
   const [filteredData, setFilteredData] = useState(formatedData);
   const cities = new Set(data.map((item: providedDataType) => item["city"]));
@@ -89,12 +91,14 @@ export default function useSearchResultState(data: any[]) {
       citySearch,
       cities,
       showCountryDropdown,
+      showSortDropdown,
     },
     {
       setCitySearch,
       setSelectedCity,
       setSelectedContactType,
       setShowCountryDropdown,
+      setShowSortDropdown,
     },
     dispatch,
   ] as const;
