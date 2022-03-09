@@ -22,6 +22,18 @@ export const Wrapper = styled.div<Props>`
 export const LinkWrapper = styled.div`
   border-top: 1px solid ${(props) => props.theme.color.neutral.dividerGrey};
   padding: 3.125rem 0 2.8125rem 3.75rem;
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    padding: 1.9375rem 0 1.5rem 2.5rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 0;
+    box-shadow: 0px 2px 7px ${(props) => props.theme.color.neutral.neutralGrey};
+    background-color: ${(props) => props.theme.color.neutral.white};
+    z-index: 5;
+  }
 `;
 
 export const InnerWrapper = styled.div`
