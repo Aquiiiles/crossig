@@ -95,6 +95,15 @@
 		}
 	}
 
+	.btn-primary {
+		background-color: $color-action-default;
+		border: none;
+
+		&:active {
+			background-color: $color-action-default !important;
+		}
+	}
+
 	.btn-large {
 		text-transform: uppercase;
 		align-items: center;
