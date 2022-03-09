@@ -169,7 +169,7 @@ const SearchFilters: React.FC<props> = ({
             {CONTACT_SEARCH_FILTER_CANCEL}
           </ClayButton>
         </ClayButton.Group>
-        <ClayButton.Group>
+        <ClayButton.Group spaced>
           <ClayButton
             displayType="link"
             onClick={() => dispatch(clearFilterValues())}
