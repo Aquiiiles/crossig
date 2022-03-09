@@ -93,6 +93,7 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
             <ClayButton
               displayType="primary"
               onClick={() => {
+                dispatch(actions.contactsInPolicy.resetFields());
                 dispatch(
                   addContact({
                     [constants.EXT_NUMBER_KEY]:
