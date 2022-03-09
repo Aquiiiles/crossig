@@ -3,6 +3,7 @@ import Step from "../../../shared/atoms/Stepper/Step";
 import useStepper from "./hooks/useStepper";
 import { Wrapper } from "./styles";
 import { StepsLookupTableKeys } from "../../../constants/steps";
+import DisplayPolicyInfo from "../../../shared/atoms/DisplayPolicyInfo";
 
 interface props {
   /** The step index as seen in the website/mockup (not 0 based) */
@@ -27,6 +28,7 @@ const Stepper: React.FC<props> = ({ currentStep, subCategory, children }) => {
           subSteps={index + 1 === currentStep ? subSteps : []}
         />
       ))}
+      {currentStep > 1 && <DisplayPolicyInfo />}
       {children}
     </Wrapper>
   );
