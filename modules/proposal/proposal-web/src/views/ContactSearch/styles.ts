@@ -12,7 +12,7 @@ export const Wrapper = styled.div<Props>`
       ? props.theme.color.neutral.white
       : props.theme.color.neutral.background};
   padding: 0;
-  padding-top: ${(props) => (props.embedded ? "2rem" : "4.875rem")};
+  padding-top: ${(props) => (props.embedded ? "2rem" : "0")};
 `;
 
 export const LinkWrapper = styled.div`
