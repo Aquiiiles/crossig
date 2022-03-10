@@ -1,5 +1,6 @@
 import React from "react";
 import Step from "../../../shared/atoms/Stepper/Step";
+import MobileStep from "../../../shared/atoms/Stepper/MobileStep";
 import useStepper from "./hooks/useStepper";
 import { Wrapper } from "./styles";
 import { StepsLookupTableKeys } from "../../../constants/steps";
@@ -37,13 +38,28 @@ const Stepper: React.FC<props> = ({ currentStep, subCategory, children }) => {
   return (
     <Wrapper>
       {steps.map((step, index) => (
-        <Step
-          key={step.name}
-          stepIndex={index + 1}
-          step={step}
-          subSteps={index + 1 === currentStep ? subSteps : []}
-          handleClick={handleStepClick}
-        />
+        <>
+          <div className="desktop-stepper">
+            <Step
+              key={step.name}
+              stepIndex={index + 1}
+              step={step}
+              subSteps={index + 1 === currentStep ? subSteps : []}
+              handleClick={handleStepClick}
+            />
+            {currentStep > 1 && <DisplayPolicyInfo />}
+            {children}
+          </div>
+          <div className="mobile-stepper">
+            <MobileStep
+              key={step.name}
+              stepIndex={index + 1}
+              step={step}
+              subSteps={index + 1 === currentStep ? subSteps : []}
+              handleClick={handleStepClick}
+            />
+          </div>
+        </>
       ))}
       {currentStep > 1 && <DisplayPolicyInfo />}
       {children}
