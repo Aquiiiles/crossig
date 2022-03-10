@@ -1,5 +1,5 @@
 import React from "react";
-import { Wrapper, Dot, OutterDot } from "./styles";
+import { Wrapper } from "./styles";
 import { Step as StepType } from "../../../types/stepper";
 
 interface props {
@@ -10,17 +10,13 @@ interface props {
   handleClick: (targetStep: number) => void;
 }
 
-const Step: React.FC<props> = ({
-  step,
-  stepIndex,
-  subSteps,
-  isSubStep,
-  handleClick,
-}) => {
+const Step: React.FC<props> = ({ step, stepIndex, handleClick }) => {
+  const isActive = step.state === "ACTIVE";
+
   return (
-    <Wrapper onClick={() => handleClick(stepIndex)}>
-      {step.state === "ACTIVE" ? <OutterDot /> : null}
-      <Dot state={step.state} />
+    <Wrapper onClick={() => handleClick(stepIndex)} active={isActive}>
+      {isActive ? <span className="outter" /> : null}
+      <span className={isActive ? "active" : "not-active"} />
     </Wrapper>
   );
 };

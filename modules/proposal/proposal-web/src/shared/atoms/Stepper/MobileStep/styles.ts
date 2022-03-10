@@ -1,25 +1,31 @@
 import styled from "styled-components";
-import { Step } from "../../../types/stepper";
 
-type StepState = Step["state"];
+export const Wrapper = styled.div<{ active: boolean }>`
+  span {
+    height: 0.625rem;
+    width: 0.625rem;
+    border-radius: 50%;
+    display: inline-block;
 
-export const Wrapper = styled.div`
-  width: 100%;
-`;
+    &.not-active {
+      background-color: ${({ theme }) => theme.color.neutral.dot};
+    }
 
-export const Dot = styled.span<{ state: StepState }>`
-  height: ${({ state }) => (state === "ACTIVE" ? "0.625rem" : "0.375rem")};
-  width: ${({ state }) => (state === "ACTIVE" ? "0.625rem" : "0.375rem")};
-  background-color: ${({ state, theme }) =>
-    state === "ACTIVE"
-      ? theme.color.primary.links
-      : theme.color.neutral.background};
-  border-radius: 50%;
-`;
+    &.active {
+      background-color: ${({ theme }) => theme.color.primary.links};
+      position: relative;
+      right: 0.75rem;
+      bottom: 0.125rem;
+      margin-right: -0.75rem;
+    }
 
-export const OutterDot = styled.span`
-  height: 0.875rem;
-  width: 0.875rem;
-  background-color: ${(props) => props.theme.color.neutral.white};
-  border: 1px solid ${(props) => props.theme.color.primary.links};
+    &.outter {
+      height: 0.875rem;
+      width: 0.875rem;
+      background-color: ${(props) => props.theme.color.neutral.white};
+      border: 1px solid rgba(33, 114, 255, 0.5);
+    }
+  }
+
+  margin-top: ${({ active }) => (active ? "0.25rem" : "0")};
 `;
