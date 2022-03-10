@@ -7,11 +7,11 @@ export const Wrapper = styled.div`
 
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
     height: 5rem;
-    width: 100%;
+    width: calc(100% + 2rem);
     display: flex;
-    margin: auto;
-    position: absolute;
     padding: 0;
+    position: relative;
+    right: 1rem;
   }
 
   .desktop-stepper {
@@ -25,5 +25,25 @@ export const Wrapper = styled.div`
       display: none;
     }
     margin: auto;
+  }
+`;
+
+export const MobileWrapper = styled.div`
+  svg {
+    display: none;
+  }
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    width: 11rem;
+    display: flex;
+    margin: auto;
+
+    svg {
+      display: flex;
+      position: absolute;
+      right: 2rem;
+      top: 2rem;
+      color: ${(props) => props.theme.color.neutral.dot};
+    }
   }
 `;
