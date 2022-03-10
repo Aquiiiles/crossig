@@ -4,11 +4,9 @@ import { PageIndex } from "../../../../shared/hooks/usePagination";
 import LookupResult from "../../../../shared/containers/LookupResult";
 import { ProvidedDataType, VesselRow } from "./types/vesselLookupResult";
 import ResultsTable from "../../../../shared/organisms/ResultsTable";
-import { useDispatch, useSelector } from "../../../../redux/store";
-import { actions } from "../../../../redux";
-import { decideOrder } from "../../../../shared/util/tableUtils";
 import VesselTableRow from "./components/atoms/VesselTableRow";
 import { VESSEL_LOOKUP_HEADER } from "./constants/vesselLookup";
+import useSort from "../../../../shared/hooks/useSort";
 
 type PropsType = {
   data: Array<any>;
@@ -27,11 +25,7 @@ type PropsType = {
 };
 
 const VesselLookupResult: React.FC<PropsType> = (props: PropsType) => {
-  const dispatch = useDispatch();
-  const { sortedBy, sortOrder } = useSelector(
-    (state) => state.vesselLookupFilter
-  );
-  const { setSortedBy, setSortOrder } = actions.vesselLookupFilter;
+  const [sortData, { handleSort }] = useSort("vesselLookupFilter");
 
   const parsedData = props.data.map((item: ProvidedDataType) => {
     const responseObj: VesselRow = {
@@ -56,15 +50,11 @@ const VesselLookupResult: React.FC<PropsType> = (props: PropsType) => {
     >
       <ResultsTable
         inputData={parsedData}
-        onSort={(key: string) => {
-          dispatch(setSortedBy(key));
-          dispatch(setSortOrder(decideOrder(key, sortedBy, sortOrder)));
-        }}
+        {...sortData}
+        onSort={handleSort}
         rowGenerator={(vessel: VesselRow) => {
           return <VesselTableRow vessel={vessel} />;
         }}
-        sortedBy={sortedBy}
-        sortOrder={sortOrder}
         headerItems={VESSEL_LOOKUP_HEADER}
       />
     </LookupResult>
