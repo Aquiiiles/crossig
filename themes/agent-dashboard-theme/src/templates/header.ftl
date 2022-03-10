@@ -14,7 +14,11 @@
     </div>
 
     <div>
-      <button class="btn btn-primary" onclick={location.href='/group/agent-portal/proposal'}>NEW PROPOSAL</button>
+      <button 
+        class="btn btn-primary" 
+        onclick='Liferay.fire("displayProposalWidget", 0);'>
+        ${new_proposal_button}
+      </button>
 		</div>
 	</div>
 </header>
