@@ -17,6 +17,7 @@ declare module "styled-components" {
         dividerGrey: string;
         neutralGrey: string;
         neutralGreyText: string;
+        dot: string;
       };
       secondary: {
         1: string;

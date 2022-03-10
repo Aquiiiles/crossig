@@ -17,6 +17,7 @@ const defaultTheme: DefaultTheme = {
       dividerGrey: "#DEDFE0",
       neutralGrey: "#95A0AB",
       neutralGreyText: "#79838C",
+      dot: "#898593",
     },
     secondary: {
       1: "#F49F0A",
