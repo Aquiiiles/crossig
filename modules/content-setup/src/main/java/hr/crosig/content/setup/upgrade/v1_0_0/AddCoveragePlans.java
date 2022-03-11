@@ -11,19 +11,31 @@ import java.util.UUID;
  */
 public class AddCoveragePlans extends BaseUpgradeProcess {
 
-    public AddCoveragePlans(DependencyProvider dependencyProvider) {
-        super(dependencyProvider);
-    }
+	public AddCoveragePlans(DependencyProvider dependencyProvider) {
+		super(dependencyProvider);
+	}
 
-    @Override
-    protected void doUpgrade() throws Exception {
-        dependencyProvider.coveragePlanLocalService.addCoveragePlan(_COMPULSORY_LIABILITY_ONLY, ProductCategory.VESSEL.name(), _DESCRIPTION);
-        dependencyProvider.coveragePlanLocalService.addCoveragePlan(_CASCO_ONLY, ProductCategory.VESSEL.name(), _DESCRIPTION);
-        dependencyProvider.coveragePlanLocalService.addCoveragePlan(_COMPULSORY_LIABILITY_AND_CASCO_BUNDLE, ProductCategory.VESSEL.name(), _DESCRIPTION);
-    }
+	@Override
+	protected void doUpgrade() throws Exception {
+		dependencyProvider.coveragePlanLocalService.addCoveragePlan(
+			_COMPULSORY_LIABILITY_ONLY, ProductCategory.VESSEL.name(),
+			_DESCRIPTION);
+		dependencyProvider.coveragePlanLocalService.addCoveragePlan(
+			_CASCO_ONLY, ProductCategory.VESSEL.name(), _DESCRIPTION);
+		dependencyProvider.coveragePlanLocalService.addCoveragePlan(
+			_COMPULSORY_LIABILITY_AND_CASCO_BUNDLE,
+			ProductCategory.VESSEL.name(), _DESCRIPTION);
+	}
 
-    private static final String _COMPULSORY_LIABILITY_ONLY = "Compulsory Liability Only";
-    private static final String _CASCO_ONLY = "CASCO Only";
-    private static final String _COMPULSORY_LIABILITY_AND_CASCO_BUNDLE = "Compulsory Liability and CASCO Bundle";
-    private static final String _DESCRIPTION = UUID.randomUUID().toString();
+	private static final String _CASCO_ONLY = "CASCO Only";
+
+	private static final String _COMPULSORY_LIABILITY_AND_CASCO_BUNDLE =
+		"Compulsory Liability and CASCO Bundle";
+
+	private static final String _COMPULSORY_LIABILITY_ONLY =
+		"Compulsory Liability Only";
+
+	private static final String _DESCRIPTION = UUID.randomUUID(
+	).toString();
+
 }
