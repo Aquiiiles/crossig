@@ -25,11 +25,19 @@ public class ContentSetupConstants {
 
 	public static final String HOME_URL = "/web/agent-portal";
 
-	public static final String LANDING_PAGE_URL = "/group/agent-portal/proposal";
+	public static final String LANDING_PAGE_URL =
+		"/group/agent-portal/proposal";
 
 	public static final String LAYOUT_1_COLUMN = "1_column";
 
 	public static final String MANAGER_USER_GROUP = "Manager";
+
+	public static final String MOTOR_ROLE_ALL = "MOTOR_ALL";
+
+	public static final String MOTOR_ROLE_ALL_DESCRIPTION =
+		"User can perform all actions for Motor";
+
+	public static final String MOTOR_ROLE_ALL_TITLE = "Motor All";
 
 	public static final String PRODUCT_BIG_BOATS_DESCRIPTION =
 		"Big Boats description";
@@ -60,10 +68,30 @@ public class ContentSetupConstants {
 
 	public static final String VESSEL_ROLE_ALL = "VESSEL_ALL";
 
+	public static final String VESSEL_ROLE_ALL_DESCRIPTION =
+		"User can perform all actions for Vessel";
+
+	public static final String VESSEL_ROLE_ALL_TITLE = "Vessel All";
+
 	public static final String VESSEL_ROLE_CREATE = "VESSEL_CREATE";
+
+	public static final String VESSEL_ROLE_CREATE_DESCRIPTION =
+		"User can perform the Create action for Vessel";
+
+	public static final String VESSEL_ROLE_CREATE_TITLE = "Vessel Create";
 
 	public static final String VESSEL_ROLE_SELL = "VESSEL_SELL";
 
+	public static final String VESSEL_ROLE_SELL_DESCRIPTION =
+		"User can perform the Sell action for Vessel";
+
+	public static final String VESSEL_ROLE_SELL_TITLE = "Vessel Sell";
+
 	public static final String VESSEL_ROLE_UPDATE = "VESSEL_UPDATE";
+
+	public static final String VESSEL_ROLE_UPDATE_DESCRIPTION =
+		"User can perform the Update action for Vessel";
+
+	public static final String VESSEL_ROLE_UPDATE_TITLE = "Vessel Update";
 
 }

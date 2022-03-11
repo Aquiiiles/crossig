@@ -7,6 +7,7 @@ import hr.crosig.content.setup.upgrade.v1_0_0.AddAgentPortalDashboardPage;
 import hr.crosig.content.setup.upgrade.v1_0_0.AddAgentPortalHomePage;
 import hr.crosig.content.setup.upgrade.v1_0_0.AddAgentPortalSite;
 import hr.crosig.content.setup.upgrade.v1_0_0.AddCoveragePlans;
+import hr.crosig.content.setup.upgrade.v1_0_0.AddMotorRoles;
 import hr.crosig.content.setup.upgrade.v1_0_0.AddProducts;
 import hr.crosig.content.setup.upgrade.v1_0_0.AddProposalPage;
 import hr.crosig.content.setup.upgrade.v1_0_0.AddVesselRoles;
@@ -31,6 +32,7 @@ public class ContentSetupUpgradeStepRegistrator
 			new AddAgentPortalHomePage(_dependencyProvider),
 			new AddProposalPage(_dependencyProvider),
 			new AddVesselRoles(_dependencyProvider),
+			new AddMotorRoles(_dependencyProvider),
 			new AddProducts(_dependencyProvider),
 			new AddCoveragePlans(_dependencyProvider));
 	}
