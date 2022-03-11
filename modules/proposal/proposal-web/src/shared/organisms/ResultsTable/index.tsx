@@ -34,7 +34,7 @@ const ResultsTable = <RowGeneratorType extends object>(
   };
 
   return (
-    <Table borderless>
+    <Table borderless className="desktop-only">
       <ClayTable.Head>
         <ClayTable.Row>
           {Object.values(props.headerItems).map((headerItem: HeaderCell) =>

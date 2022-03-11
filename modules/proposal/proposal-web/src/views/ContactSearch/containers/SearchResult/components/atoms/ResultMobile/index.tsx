@@ -10,6 +10,7 @@ import {
 } from "../../../../../../../constants/languageKeys";
 import { contactOperations } from "../../../../../../../constants/contactConstants";
 import MissingInformationIcon from "../MissingInformationIcon";
+import ResultRowMobile from "../../../../../../../shared/atoms/ResultRowMobile";
 
 interface Props {
   contact: types.responseType;
@@ -26,24 +27,36 @@ const ResultMobile: React.FC<Props> = ({ contact, embedded }) => {
     <Wrapper>
       <MainGrid>
         <InnerGrid>
-          <h6 className="h10">{constants.OIB_NAME}</h6>
-          <p className="body-small">{contact[constants.OIB_KEY]}</p>
-          <h6 className="h10">{constants.SUB_NAME}</h6>
-          <p className="body-small">{contact[constants.SUB_KEY]}</p>
-          <h6 className="h10">{constants.DOB_NAME}</h6>
-          <p className="body-small">{formatDOB(contact[constants.DOB_KEY])}</p>
-          <h6 className="h10">{constants.NAME_NAME}</h6>
-          <p className="body-small">{contact[constants.NAME_KEY]}</p>
+          <ResultRowMobile
+            name={constants.OIB_NAME}
+            value={contact[constants.OIB_KEY]}
+          />
+          <ResultRowMobile
+            name={constants.SUB_NAME}
+            value={contact[constants.SUB_KEY]}
+          />
+          <ResultRowMobile
+            name={constants.DOB_NAME}
+            value={formatDOB(contact[constants.DOB_KEY])}
+          />
+          <ResultRowMobile
+            name={constants.NAME_NAME}
+            value={contact[constants.NAME_KEY]}
+          />
         </InnerGrid>
         <InnerGrid>
-          <h6 className="h10">{constants.STREET_NAME}</h6>
-          <p className="body-small">{contact[constants.STREET_KEY]}</p>
-          <h6 className="h10">{constants.CITY_NAME}</h6>
-          <p className="body-small">{contact[constants.CITY_KEY]}</p>
-          <h6 className="h10">{constants.TYPE_NAME}</h6>
-          <p className="body-small">
-            {types[contact[constants.TYPE_KEY] as keyof typeof types]}
-          </p>
+          <ResultRowMobile
+            name={constants.STREET_NAME}
+            value={contact[constants.STREET_KEY]}
+          />
+          <ResultRowMobile
+            name={constants.CITY_NAME}
+            value={contact[constants.CITY_KEY]}
+          />
+          <ResultRowMobile
+            name={constants.TYPE_NAME}
+            value={types[contact[constants.TYPE_KEY] as keyof typeof types]}
+          />
         </InnerGrid>
       </MainGrid>
       <ButtonGroup>
