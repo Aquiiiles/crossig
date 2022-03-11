@@ -1,6 +1,7 @@
 import ClayModal, { useModal } from "@clayui/modal";
 import React, { useState, useEffect } from "react";
 import spritemap from "@clayui/css/lib/images/icons/icons.svg";
+import { StyledModal } from "./styles";
 
 type propsType = {
   children: React.ReactNode;
@@ -40,15 +41,16 @@ const ProposalModal: React.FC<propsType> = (props: propsType) => {
   return (
     <>
       {visible && (
-        <ClayModal
+        <StyledModal
           className="cap"
           observer={observer}
           size="full-screen"
           spritemap={spritemap}
           status="info"
         >
+          <ClayModal.Header>{"New Proposal"}</ClayModal.Header>
           <ClayModal.Body>{props.children}</ClayModal.Body>
-        </ClayModal>
+        </StyledModal>
       )}
     </>
   );
