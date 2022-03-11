@@ -5,7 +5,8 @@ package hr.crosig.proposal.enums;
  */
 public enum ProductCategory {
 
-	VESSEL("Vessel");
+	VESSEL("Vessel"),
+	MOTOR("Motor");
 
 	public String getTitle() {
 		return title;

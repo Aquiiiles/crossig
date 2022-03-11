@@ -16,39 +16,27 @@ public class AddVesselRoles extends BaseUpgradeProcess {
 	}
 
 	@Override
-	protected void doUpgrade() throws Exception {
+	protected void doUpgrade() {
 		addRole(
-			ContentSetupConstants.VESSEL_ROLE_ALL, _VESSEL_ROLE_ALL_TITLE,
-			_VESSEL_ROLE_ALL_DESCRIPTION, RoleConstants.TYPE_SITE);
+			ContentSetupConstants.VESSEL_ROLE_ALL,
+			ContentSetupConstants.VESSEL_ROLE_ALL_TITLE,
+			ContentSetupConstants.VESSEL_ROLE_ALL_DESCRIPTION,
+			RoleConstants.TYPE_SITE);
 		addRole(
-			ContentSetupConstants.VESSEL_ROLE_SELL, _VESSEL_ROLE_SELL_TITLE,
-			_VESSEL_ROLE_SELL_DESCRIPTION, RoleConstants.TYPE_SITE);
+			ContentSetupConstants.VESSEL_ROLE_SELL,
+			ContentSetupConstants.VESSEL_ROLE_SELL_TITLE,
+			ContentSetupConstants.VESSEL_ROLE_SELL_DESCRIPTION,
+			RoleConstants.TYPE_SITE);
 		addRole(
-			ContentSetupConstants.VESSEL_ROLE_CREATE, _VESSEL_ROLE_CREATE_TITLE,
-			_VESSEL_ROLE_CREATE_DESCRIPTION, RoleConstants.TYPE_SITE);
+			ContentSetupConstants.VESSEL_ROLE_CREATE,
+			ContentSetupConstants.VESSEL_ROLE_CREATE_TITLE,
+			ContentSetupConstants.VESSEL_ROLE_CREATE_DESCRIPTION,
+			RoleConstants.TYPE_SITE);
 		addRole(
-			ContentSetupConstants.VESSEL_ROLE_UPDATE, _VESSEL_ROLE_UPDATE_TITLE,
-			_VESSEL_ROLE_UPDATE_DESCRIPTION, RoleConstants.TYPE_SITE);
+			ContentSetupConstants.VESSEL_ROLE_UPDATE,
+			ContentSetupConstants.VESSEL_ROLE_UPDATE_TITLE,
+			ContentSetupConstants.VESSEL_ROLE_UPDATE_DESCRIPTION,
+			RoleConstants.TYPE_SITE);
 	}
-
-	private static final String _VESSEL_ROLE_ALL_DESCRIPTION =
-		"User can perform all actions for Vessel";
-
-	private static final String _VESSEL_ROLE_ALL_TITLE = "Vessel All";
-
-	private static final String _VESSEL_ROLE_CREATE_DESCRIPTION =
-		"User can perform the Create action for Vessel";
-
-	private static final String _VESSEL_ROLE_CREATE_TITLE = "Vessel Create";
-
-	private static final String _VESSEL_ROLE_SELL_DESCRIPTION =
-		"User can perform the Sell action for Vessel";
-
-	private static final String _VESSEL_ROLE_SELL_TITLE = "Vessel Sell";
-
-	private static final String _VESSEL_ROLE_UPDATE_DESCRIPTION =
-		"User can perform the Update action for Vessel";
-
-	private static final String _VESSEL_ROLE_UPDATE_TITLE = "Vessel Update";
 
 }

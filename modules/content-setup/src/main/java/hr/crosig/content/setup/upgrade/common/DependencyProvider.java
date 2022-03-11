@@ -29,10 +29,10 @@ public class DependencyProvider {
 	public CompanyLocalService companyLocalService;
 
 	@Reference
-	public CoveragePlanLocalService coveragePlanLocalService;
+	public CounterLocalService counterLocalService;
 
 	@Reference
-	public CounterLocalService counterLocalService;
+	public CoveragePlanLocalService coveragePlanLocalService;
 
 	@Reference
 	public GroupLocalService groupLocalService;
