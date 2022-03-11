@@ -44,17 +44,39 @@ public class AddProducts extends BaseUpgradeProcess {
 			ContentSetupConstants.PRODUCT_SKIPPER_RENT_BOAT_DESCRIPTION,
 			ProductCategory.VESSEL.getTitle());
 
+		Product mtpl = addProduct(
+			ContentSetupConstants.PRODUCT_MTPL_NAME, 0L, false,
+			ContentSetupConstants.PRODUCT_MTPL_DESCRIPTION,
+			ProductCategory.MOTOR.getTitle());
+
+		Product casco = addProduct(
+			ContentSetupConstants.PRODUCT_CASCO_NAME, 0L, false,
+			ContentSetupConstants.PRODUCT_CASCO_DESCRIPTION,
+			ProductCategory.MOTOR.getTitle());
+
 		try {
 			_addRelationshipToVesselAllAndSell(boat.getProductId());
 			_addRelationshipToVesselAllAndSell(bigBoats.getProductId());
 			_addRelationshipToVesselAllAndSell(boatInstitute.getProductId());
 			_addRelationshipToVesselAllAndSell(skipper.getProductId());
+			_addRelationshipToMotorAll(mtpl.getProductId());
+			_addRelationshipToMotorAll(casco.getProductId());
 		}
 		catch (PortalException portalException) {
 			log.error(
 				"Failed to create relationships to Vessel All and Vessel Sell",
 				portalException);
 		}
+	}
+
+	private void _addRelationshipToMotorAll(long productId)
+		throws PortalException {
+
+		Role motorAll = roleLocalService.getRole(
+			PortalUtil.getDefaultCompanyId(),
+			ContentSetupConstants.MOTOR_ROLE_ALL);
+
+		addProductRole(productId, motorAll.getRoleId());
 	}
 
 	private void _addRelationshipToVesselAllAndSell(long productId)

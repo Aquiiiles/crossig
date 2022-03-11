@@ -57,6 +57,14 @@ public class ContentSetupConstants {
 	public static final String PRODUCT_SKIPPER_RENT_BOAT_DESCRIPTION =
 		"Skipper & Rent-a-Boat description";
 
+	public static final String PRODUCT_CASCO_DESCRIPTION = "CASCO description";
+
+	public static final String PRODUCT_CASCO_NAME = "CASCO";
+
+	public static final String PRODUCT_MTPL_DESCRIPTION = "MTPL description";
+
+	public static final String PRODUCT_MTPL_NAME = "MTPL";
+
 	public static final String PRODUCT_SKIPPER_RENT_BOAT_NAME =
 		"Skipper & Rent-a-Boat";
 
