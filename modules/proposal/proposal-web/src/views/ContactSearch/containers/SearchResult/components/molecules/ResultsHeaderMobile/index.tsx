@@ -4,16 +4,16 @@ import {
   CONTACT_SEARCH_RESULT_CONTACTS_FOUND,
   CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND,
 } from "../../../../../../../constants/languageKeys";
-import { Wrapper, FieldWrapper, Header, FilterButton } from "./styles";
+import { Wrapper, FieldWrapper, Header } from "./styles";
 import ClayDropDown from "@clayui/drop-down";
 import { ClaySelect, ClaySelectWithOption } from "@clayui/form";
 import { filterTypeOptions } from "../../../../../../../constants/contactConstants";
 import useSearchResultState from "../../../../../hooks/useSearchResultState";
-import { ReactComponent as FilterIcon } from "../../../../../../../assets/filterIcon.svg";
 import * as constants from "../../../../../constants/searchResult";
 import useSort from "../../../../../../../shared/hooks/useSort";
 import spritemap from "@clayui/css/lib/images/icons/icons.svg";
 import ClayIcon from "@clayui/icon";
+import SortButton from "../../../../../../../shared/atoms/SortButton";
 
 interface Props {
   data: any[];
@@ -125,11 +125,7 @@ const ResultsHeaderMobile: React.FC<Props> = ({ data }) => {
           />
         </FieldWrapper>
         <ClayDropDown
-          trigger={
-            <FilterButton displayType="unstyled">
-              <FilterIcon />
-            </FilterButton>
-          }
+          trigger={<SortButton />}
           active={showSortDropdown}
           onActiveChange={setShowSortDropdown}
         >

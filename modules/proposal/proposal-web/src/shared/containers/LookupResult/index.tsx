@@ -4,6 +4,7 @@ import { SearchResultsHeader, Wrapper } from "./styles";
 import ClayLoadingIndicator from "@clayui/loading-indicator";
 import { TOO_MANY_SEARCH_RESULTS } from "../../../constants/languageKeys";
 import { PageIndex } from "../../../shared/hooks/usePagination";
+import SortButton from "../../atoms/SortButton";
 
 type PropsType = {
   data: Array<any>;
@@ -42,30 +43,38 @@ const LookupResult: React.FC<PropsType> = (props: PropsType) => {
   };
 
   return (
-    <Wrapper>
+    <>
       {shouldShowResults() ? (
-        <>
-          <SearchResultsHeader>
-            <h6 className="h9">{elementsFoundText()}</h6>
-          </SearchResultsHeader>
-          {hasResults && (
-            <>
-              {props.children}
-              <Pagination
-                paginationData={{
-                  total: props.data.length,
-                  ...props.paginationData,
-                }}
-              />
-            </>
-          )}
-        </>
-      ) : props.data.length > props.totalResultsLimit ? (
-        <h6 className="h9">{TOO_MANY_SEARCH_RESULTS}</h6>
-      ) : (
-        <ClayLoadingIndicator />
-      )}
-    </Wrapper>
+        <SearchResultsHeader className="tablet-only">
+          <h6 className="h9">{elementsFoundText()}</h6>
+          <SortButton />
+        </SearchResultsHeader>
+      ) : null}
+      <Wrapper>
+        {shouldShowResults() ? (
+          <>
+            <SearchResultsHeader className="desktop-only">
+              <h6 className="h9">{elementsFoundText()}</h6>
+            </SearchResultsHeader>
+            {hasResults && (
+              <>
+                {props.children}
+                <Pagination
+                  paginationData={{
+                    total: props.data.length,
+                    ...props.paginationData,
+                  }}
+                />
+              </>
+            )}
+          </>
+        ) : props.data.length > props.totalResultsLimit ? (
+          <h6 className="h9">{TOO_MANY_SEARCH_RESULTS}</h6>
+        ) : (
+          <ClayLoadingIndicator />
+        )}
+      </Wrapper>
+    </>
   );
 };
 

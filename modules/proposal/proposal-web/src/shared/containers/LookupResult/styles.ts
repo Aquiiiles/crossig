@@ -5,8 +5,22 @@ export const Wrapper = styled.div`
   margin-bottom: 2.8125rem;
   padding: 2.3125rem 0 1.875rem 0.5625rem;
   width: 100%;
-  background-color: ${props => props.theme.color.neutral.white};
+  background-color: ${(props) => props.theme.color.neutral.white};
   border-radius: 12px;
+
+  & .tablet-only {
+    display: none;
+  }
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    & .desktop-only {
+      display: none;
+    }
+
+    & .tablet-only {
+      display: flex;
+    }
+  }
 `;
 
 export const SearchResultsHeader = styled.div`
@@ -30,10 +44,15 @@ export const SearchResultsHeader = styled.div`
     column-gap: 1.1875rem;
     margin-bottom: 0;
   }
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    padding: 5.5rem 0 0 0;
+    margin-bottom: 1rem;
+  }
 `;
 
 export const Error = styled.small`
   font-size: 14px;
-  color: ${props => props.theme.color.feedback.error};
+  color: ${(props) => props.theme.color.feedback.error};
   font-weight: bold;
 `;
