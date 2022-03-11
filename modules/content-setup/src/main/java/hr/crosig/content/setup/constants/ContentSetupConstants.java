@@ -17,15 +17,14 @@ public class ContentSetupConstants {
 
 	public static final String COLUMN_1 = "column-1";
 
-	public static final String PROPOSAL_PORTLET_NAME = "proposalweb";
-
 	public static final String DASHBOARD_FRIENDLY_URL = "/dashboard";
 
 	public static final String HOME_FRIENDLY_URL = "/home";
 
 	public static final String HOME_URL = "/web/agent-portal";
 
-	public static final String LANDING_PAGE_URL = "/group/agent-portal/dashboard";
+	public static final String LANDING_PAGE_URL =
+		"/group/agent-portal/dashboard";
 
 	public static final String LAYOUT_1_COLUMN = "1_column";
 
@@ -68,6 +67,8 @@ public class ContentSetupConstants {
 		"Skipper & Rent-a-Boat";
 
 	public static final String PROPOSAL_FRIENDLY_URL = "/proposal";
+
+	public static final String PROPOSAL_PORTLET_NAME = "proposalweb";
 
 	public static final String REGIONAL_MANAGER_USER_GROUP = "Regional Manager";
 

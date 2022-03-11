@@ -79,12 +79,12 @@ public class AddAgentPortalDashboardPage extends BaseUpgradeProcess {
 
 	protected static final Long PARENT_LAYOUT_ID = 0L;
 
+	protected static final Integer PORTLET_COLUMN_POS = -1;
+
 	protected static final Boolean PRIVATE_PAGE = Boolean.TRUE;
 
 	protected static final String THEME_ID =
 		"agentdashboardtheme_WAR_agentdashboardtheme";
-
-	protected static final Integer PORTLET_COLUMN_POS = -1;
 
 	protected Long companyId;
 	protected Long groupId;
