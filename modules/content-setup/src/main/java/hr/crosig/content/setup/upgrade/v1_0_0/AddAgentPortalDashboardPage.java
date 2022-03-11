@@ -46,7 +46,13 @@ public class AddAgentPortalDashboardPage extends BaseUpgradeProcess {
 			InputStream is = getClass().getResourceAsStream(
 				"/META-INF/resources/images/crosig_logo.png");
 
+			addPortletToPage(
+				layout, userId, ContentSetupConstants.PROPOSAL_PORTLET_NAME,
+				ContentSetupConstants.COLUMN_1, PORTLET_COLUMN_POS);
+
 			layoutSetLocalService.updateLogo(groupId, true, true, is);
+
+			updatePage(layout);
 		}
 		finally {
 			teardownAdminUpgrade();
@@ -76,7 +82,9 @@ public class AddAgentPortalDashboardPage extends BaseUpgradeProcess {
 	protected static final Boolean PRIVATE_PAGE = Boolean.TRUE;
 
 	protected static final String THEME_ID =
-		"agentportaltheme_WAR_agentportaltheme";
+		"agentdashboardtheme_WAR_agentdashboardtheme";
+
+	protected static final Integer PORTLET_COLUMN_POS = -1;
 
 	protected Long companyId;
 	protected Long groupId;

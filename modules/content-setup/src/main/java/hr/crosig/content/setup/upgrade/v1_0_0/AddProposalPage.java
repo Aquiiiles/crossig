@@ -1,5 +1,6 @@
 package hr.crosig.content.setup.upgrade.v1_0_0;
 
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutConstants;
@@ -29,7 +30,7 @@ public class AddProposalPage extends BaseUpgradeProcess {
 			Layout layout = addPage(
 				userId, groupId, PRIVATE_PAGE, PARENT_LAYOUT_ID, PAGE_NAME,
 				PAGE_NAME, DESCRIPTION, LayoutConstants.TYPE_PORTLET, HIDDEN,
-				ContentSetupConstants.PROPOSAL_URL, new ServiceContext());
+				ContentSetupConstants.PROPOSAL_FRIENDLY_URL, new ServiceContext());
 
 			setPageLayoutTemplateId(
 				layout, userId, ContentSetupConstants.LAYOUT_1_COLUMN);
@@ -37,7 +38,7 @@ public class AddProposalPage extends BaseUpgradeProcess {
 			updatePage(layout);
 
 			addPortletToPage(
-				layout, userId, ContentSetupConstants.CONTACT_PORTLET_NAME,
+				layout, userId, ContentSetupConstants.PROPOSAL_PORTLET_NAME,
 				ContentSetupConstants.COLUMN_1, PORTLET_COLUMN_POS);
 
 			updatePage(layout);
