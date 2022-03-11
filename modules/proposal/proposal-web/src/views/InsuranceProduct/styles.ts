@@ -4,6 +4,10 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   background-color: ${(props) => props.theme.color.neutral.background};
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    display: block;
+  }
 `;
 
 export const InnerWrapper = styled.div`

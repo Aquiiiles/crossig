@@ -44,7 +44,7 @@ const RolesOnPolicy: React.FC = () => {
         <Buttons>
           <BackBtn pathname="/product" state={{ doSearch: true }} />
           {!hasInsuredRole && (
-            <span>{ROLES_ON_POLICY.INSURED_ROLE_MISSING}</span>
+            <span className="msg">{ROLES_ON_POLICY.INSURED_ROLE_MISSING}</span>
           )}
           <ContinueBtn
             disabled={!hasInsuredRole}
