@@ -16,18 +16,15 @@ import com.liferay.portal.kernel.upgrade.util.UpgradeProcessUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
-
 import hr.crosig.content.setup.constants.ContentSetupConstants;
 import hr.crosig.sample.data.generator.api.UserDataGenerator;
 import hr.crosig.sample.data.generator.api.constants.UserDataConstants;
 import hr.crosig.sample.data.generator.util.GeneratorUtilities;
-
-import java.sql.SQLException;
-
-import java.time.LocalDateTime;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 /**
  * @author marcelo.mazurky
@@ -75,11 +72,15 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
 			UserDataConstants.DEFAULT_USER_PASSWORD,
 			UserDataConstants.USER_GROUP_MANAGER_TYPE);
 
-		// adds VESSEL_ALL role to the sample manager
+		// adds VESSEL_ALL and MOTOR_ALL role to the sample manager
 
 		_addRoleToUser(
 			ContentSetupConstants.VESSEL_ROLE_ALL,
 			UserDataConstants.SAMPLE_MANAGER_JACK_EMAIL_ADDRESS);
+
+		_addRoleToUser(
+				ContentSetupConstants.MOTOR_ROLE_ALL,
+				UserDataConstants.SAMPLE_MANAGER_JACK_EMAIL_ADDRESS);
 
 		// adds another sample agent
 
@@ -90,11 +91,15 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
 			UserDataConstants.DEFAULT_USER_PASSWORD,
 			UserDataConstants.USER_GROUP_AGENT_TYPE);
 
-		// adds VESSEL_SELL role to the sample agent
+		// adds VESSEL_SELL and MOTOR_ALL role to the sample agent
 
 		_addRoleToUser(
 			ContentSetupConstants.VESSEL_ROLE_SELL,
 			UserDataConstants.SAMPLE_AGENT_SCOTT_EMAIL_ADDRESS);
+
+		_addRoleToUser(
+				ContentSetupConstants.MOTOR_ROLE_ALL,
+				UserDataConstants.SAMPLE_AGENT_SCOTT_EMAIL_ADDRESS);
 	}
 
 	/**
