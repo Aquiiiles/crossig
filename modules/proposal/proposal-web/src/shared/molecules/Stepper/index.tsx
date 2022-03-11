@@ -50,8 +50,6 @@ const Stepper: React.FC<props> = ({ currentStep, subCategory, children }) => {
                 subSteps={index + 1 === currentStep ? subSteps : []}
                 handleClick={handleStepClick}
               />
-              {currentStep > 1 && <DisplayPolicyInfo />}
-              {children}
             </div>
             <div className="mobile-stepper">
               <MobileStep
@@ -66,6 +64,10 @@ const Stepper: React.FC<props> = ({ currentStep, subCategory, children }) => {
         ))}
         <ClayIcon symbol="times" spritemap={spritemap} />
       </MobileWrapper>
+      <div className="desktop-stepper">
+        {currentStep > 1 && <DisplayPolicyInfo />}
+        {children}
+      </div>
     </Wrapper>
   );
 };
