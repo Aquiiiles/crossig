@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React from "react";
 import ClayButton from "@clayui/button";
 import ClayTable from "@clayui/table";
 import { HoveringButtonGroup } from "./style";
@@ -9,12 +8,11 @@ import {
   CONTACT_SEARCH_TABLE_USE_CONTACT,
   ROLES_ON_POLICY,
 } from "../../../../../../../constants/languageKeys";
-import { useDispatch } from "../../../../../../../redux/store";
-import { actions } from "../../../../../../../redux";
 import AddToPolicyBtn from "../AddToPolicyBtn";
 
 import * as types from "../../../types/searchResult";
 import * as constants from "../../../../../constants/searchResult";
+import useTableRowState from "../../../../../hooks/useTableRowState";
 
 interface props {
   contact: types.responseType;
@@ -22,55 +20,18 @@ interface props {
 }
 
 const TableRow: React.FC<props> = ({ contact, embedded }) => {
-  const [showButtons, setShowButtons] = useState(false);
-  const history = useHistory();
-
-  const dispatch = useDispatch();
-  const { setPolicyHolder } = actions.contactsInPolicy;
-
-  const types = {
-    Individual: "F",
-    "Self Employed": "O",
-    "Legal Entity": "P",
-  };
-
-  const formatDOB = (date: string): string => {
-    try {
-      const [year, month, day] = date.split("-");
-
-      return `${day}/${month}/${year}`;
-    } catch (error) {
-      return "";
-    }
-  };
-
-  const openUpdateContact = (extNumber: number) => {
-    history.push({
-      pathname: "/update_contact",
-      state: extNumber,
-    });
-  };
-
-  const selectContact = () => {
-    dispatch(actions.contactsInPolicy.resetFields());
-    dispatch(
-      setPolicyHolder({
-        [constants.EXT_NUMBER_KEY]: contact[constants.EXT_NUMBER_KEY],
-        [constants.OIB_KEY]: contact[constants.OIB_KEY],
-        [constants.SUB_KEY]: contact[constants.SUB_KEY],
-        [constants.NAME_KEY]: contact[constants.NAME_KEY],
-        [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
-      })
-    );
-    history.push("/product");
-  };
+  const [
+    { showButtons },
+    { setShowButtons, formatDOB, openUpdateContact, selectContact },
+    types,
+  ] = useTableRowState();
 
   return (
     <ClayTable.Row
       style={{ position: "relative" }}
       onMouseLeave={() => setShowButtons(false)}
       onMouseEnter={() => setShowButtons(true)}
-      onDoubleClick={() => (!embedded ? selectContact() : null)}
+      onDoubleClick={() => (!embedded ? selectContact(contact) : null)}
     >
       <ClayTable.Cell headingTitle>
         <MissingInformationIcon
@@ -106,7 +67,7 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
           ) : (
             <ClayButton
               displayType="primary"
-              onClick={selectContact}
+              onClick={() => selectContact(contact)}
             >
               {CONTACT_SEARCH_TABLE_USE_CONTACT}
             </ClayButton>

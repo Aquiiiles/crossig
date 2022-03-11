@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import ClayForm, { ClayInput, ClaySelect } from "@clayui/form";
+import ClayForm, { ClayInput } from "@clayui/form";
 import ClayButton from "@clayui/button";
 import { ButtonsWrapper, InputWrappers, Wrapper } from "./styles";
 import {
@@ -9,6 +9,9 @@ import {
   CONTACT_SEARCH_FIELD_EMAIL_ADDRESS,
   CONTACT_SEARCH_FIELD_PHONE_NUMBER,
   CONTACT_SEARCH_FIELD_STREET_ADDRESS,
+  CONTACT_SEARCH_FILTER_CANCEL,
+  CONTACT_SEARCH_FILTER_CLEAR,
+  CONTACT_SEARCH_FILTER_SEARCH,
 } from "../../../../../../../constants/languageKeys";
 import CountryCodeSelect from "../../../../../../../shared/atoms/contact/CountryCodeSelect";
 import { countryCodes as croatia } from "../../../../../../../constants/defaultCountryConfiguration";
@@ -17,12 +20,8 @@ import { useFetchData } from "../../../../../../../api/hooks/useFetchData";
 import { AREA_CODE_URL } from "../../../../../../../api/constants/routes";
 import { actions } from "../../../../../../../redux";
 import { numbersOnly } from "../../../../../../../shared/util/commonFunctions";
-import {
-  useDispatch,
-  useSelector,
-} from "../../../../../../../redux/store";
+import { useDispatch, useSelector } from "../../../../../../../redux/store";
 import AreaCodeSelect from "../../../../../../../shared/atoms/contact/AreaCodeSelect";
-
 
 type AreaCodeType = {
   area_name: string;
@@ -43,12 +42,14 @@ interface props {
   fetchData: () => void;
   searchDisabled: boolean;
   countries: Array<Country>;
+  onDropdownCancel: () => void;
 }
 
 const SearchFilters: React.FC<props> = ({
   countries,
   fetchData,
   searchDisabled,
+  onDropdownCancel,
 }) => {
   const { state, get: getAreaCodes } = useFetchData();
   const areaCodeData = state as State;
@@ -163,19 +164,26 @@ const SearchFilters: React.FC<props> = ({
         />
       </ClayForm.Group>
       <ButtonsWrapper>
-        <ClayButton
-          displayType="link"
-          onClick={() => dispatch(clearFilterValues())}
-        >
-          Clear
-        </ClayButton>
-        <ClayButton
-          displayType="primary"
-          disabled={searchDisabled}
-          onClick={fetchData}
-        >
-          Search
-        </ClayButton>
+        <ClayButton.Group className="tablet-only" onClick={onDropdownCancel}>
+          <ClayButton displayType="link">
+            {CONTACT_SEARCH_FILTER_CANCEL}
+          </ClayButton>
+        </ClayButton.Group>
+        <ClayButton.Group spaced>
+          <ClayButton
+            displayType="link"
+            onClick={() => dispatch(clearFilterValues())}
+          >
+            {CONTACT_SEARCH_FILTER_CLEAR}
+          </ClayButton>
+          <ClayButton
+            displayType="primary"
+            disabled={searchDisabled}
+            onClick={fetchData}
+          >
+            {CONTACT_SEARCH_FILTER_SEARCH}
+          </ClayButton>
+        </ClayButton.Group>
       </ButtonsWrapper>
     </Wrapper>
   );

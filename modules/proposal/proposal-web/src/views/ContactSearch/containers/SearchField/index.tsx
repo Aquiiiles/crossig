@@ -6,18 +6,16 @@ import ClayDropDown from "@clayui/drop-down";
 import SearchFilters from "./components/molecules/SearchFilters";
 import { mapToCountryCodes } from "../../../../shared/util/countryMappers";
 import { getActiveCountries } from "../../../../api/services/liferay";
-import { Wrapper, SearchWrapper } from "./styles";
+import { Wrapper, SearchWrapper, StyledClayDropdownMenu } from "./styles";
 import {
   CONTACT_SEARCH_ACTION_BUTTON,
   CONTACT_SEARCH_FIELD_OIB,
   CONTACT_SEARCH_FIELD_LAST_NAME_COMPANY_NAME_SE_NAME,
   CONTACT_SEARCH_FIELD_FIRST_NAME,
   CONTACT_SEARCH_MORE_SEARCH_OPTIONS,
+  CONTACT_SEARCH_FIELD_LAST_NAME,
 } from "../../../../constants/languageKeys";
-import {
-  useSelector,
-  useDispatch,
-} from "../../../../redux/store";
+import { useSelector, useDispatch } from "../../../../redux/store";
 import { actions } from "../../../../redux";
 import { PageIndex } from "../../hooks/usePagination";
 import useOnClickOutside from "../../../../shared/hooks/useOnClickOutside";
@@ -104,7 +102,7 @@ const SearchField: React.FC<props> = ({
     <Wrapper>
       <SearchWrapper>
         <ClayForm.Group style={{ marginBottom: "0" }}>
-          <ClayInput.Group>
+          <ClayInput.Group className="searchFieldInputs">
             <ClayInput.GroupItem>
               <label className="body-small" htmlFor="oibInputText">
                 {CONTACT_SEARCH_FIELD_OIB}
@@ -114,12 +112,23 @@ const SearchField: React.FC<props> = ({
                 type="text"
                 className="straight-numbers"
                 value={OIB}
-                onChange={({ target: { value } }) => dispatch(setOIB(numbersOnly(value)))}
+                onChange={({ target: { value } }) =>
+                  dispatch(setOIB(numbersOnly(value)))
+                }
               />
             </ClayInput.GroupItem>
             <ClayInput.GroupItem>
-              <label className="body-small" htmlFor="lastNameInputText">
+              <label
+                className="body-small desktop-only"
+                htmlFor="lastNameInputText"
+              >
                 {CONTACT_SEARCH_FIELD_LAST_NAME_COMPANY_NAME_SE_NAME}
+              </label>
+              <label
+                className="body-small tablet-only"
+                htmlFor="lastNameInputText"
+              >
+                {CONTACT_SEARCH_FIELD_LAST_NAME}
               </label>
               <ClayInput
                 id="lastNameInputText"
@@ -146,7 +155,7 @@ const SearchField: React.FC<props> = ({
             </ClayInput.GroupItem>
           </ClayInput.Group>
           <br></br>
-          <ClayButton.Group>
+          <ClayButton.Group className="searchFieldButtonGroup">
             <span>
               <ClayButton
                 displayType="primary"
@@ -171,9 +180,10 @@ const SearchField: React.FC<props> = ({
             </ClayButton>
           </ClayButton.Group>
         </ClayForm.Group>
-        <ClayDropDown.Menu
+        <StyledClayDropdownMenu
+          styledWidth={fieldSize.width}
+          styledMaxWidth={fieldSize.maxWidth}
           ref={menuElementRef}
-          style={fieldSize}
           active={expand}
           alignElementRef={triggerElementRef}
           onSetActive={() => {}}
@@ -192,10 +202,11 @@ const SearchField: React.FC<props> = ({
                 }}
                 countries={mapToCountryCodes(countries)}
                 searchDisabled={disabled}
+                onDropdownCancel={() => setExpand(false)}
               />
             )}
           </div>
-        </ClayDropDown.Menu>
+        </StyledClayDropdownMenu>
       </SearchWrapper>
       <div></div>
     </Wrapper>

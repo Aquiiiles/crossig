@@ -26,7 +26,7 @@ const MissingInformationIcon: React.FC<{
   return (
     <>
       {(!mailValidated || !phoneNumberValidated) && (
-        <Wrapper>
+        <Wrapper className="missingInformationIcon">
           <ClayTooltipProvider>
             <Button title={validationMessage}>
               <ClayIcon symbol="warning" spritemap={spritemap} />

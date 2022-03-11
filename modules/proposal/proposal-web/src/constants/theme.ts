@@ -1,4 +1,5 @@
 import { DefaultTheme } from "styled-components";
+import { breakpoints } from "./breakpoints";
 
 const defaultTheme: DefaultTheme = {
   color: {
@@ -39,6 +40,14 @@ const defaultTheme: DefaultTheme = {
       success: "#00CB79",
       warning: "#FFCF56",
       error: "#FF0000",
+    },
+  },
+  breakpoint: {
+    tablet(type) {
+      return `(${type === "up" ? "min" : "max"}-width: ${breakpoints.tablet})`;
+    },
+    mobile(type) {
+      return `(${type === "up" ? "min" : "max"}-width: ${breakpoints.mobile})`;
     },
   },
 };

@@ -3,12 +3,11 @@ import ClayTable from "@clayui/table";
 import TableRow from "../../atoms/TableRow";
 import spritemap from "@clayui/css/lib/images/icons/icons.svg";
 import ClayIcon from "@clayui/icon";
-import { useSelector, useDispatch } from "../../../../../../../redux/store";
-import { actions } from "../../../../../../../redux";
 import { ResultsTable, Span } from "./styles";
 
 import * as types from "../../../types/searchResult";
 import * as constants from "../../../../../constants/searchResult";
+import useSort from "../../../../../hooks/useSort";
 
 interface props {
   inputData: Array<types.responseType>;
@@ -17,17 +16,11 @@ interface props {
 }
 
 const Table: React.FC<props> = ({ inputData, loading, embedded }: props) => {
-  const dispatch = useDispatch();
-  const { sortedBy, sortOrder } = useSelector((state) => state.searchFilter);
-  const { setSortedBy, setSortOrder } = actions.searchFilter;
-
-  const decideOrder = (sortBy: string) => {
-    if (sortBy === sortedBy) {
-      return sortOrder === "asc" ? "desc" : "asc";
-    } else {
-      return "desc";
-    }
-  };
+  const [
+    { sortedBy, sortOrder },
+    { setSortedBy, setSortOrder, decideOrder },
+    dispatch,
+  ] = useSort();
 
   const arrowIcon = (
     <ClayIcon
@@ -37,7 +30,7 @@ const Table: React.FC<props> = ({ inputData, loading, embedded }: props) => {
   );
 
   return (
-    <ResultsTable borderless>
+    <ResultsTable borderless className="desktop-only">
       <ClayTable.Head>
         <ClayTable.Row>
           <ClayTable.Cell

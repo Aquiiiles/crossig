@@ -42,5 +42,9 @@ declare module "styled-components" {
         error: string;
       };
     };
+    breakpoint: {
+      tablet: (type: "up" | "down") => string;
+      mobile: (type: "up" | "down") => string;
+    };
   }
 }
