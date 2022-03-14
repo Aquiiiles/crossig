@@ -27,6 +27,7 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.21",
     "axios": "^0.25.0",
+    "country-flag-icons": "^1.4.20",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
@@ -34,13 +35,14 @@
     "react-scripts": "5.0.0",
     "styled-components": "^5.3.3",
     "typescript": "^4.5.5",
-    "web-vitals": "^2.1.4",
-    "country-flag-icons": "^1.4.20"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false --passWithNoTests",
+    "test:coverage": "react-scripts test --watchAll=false --passWithNoTests --coverage",
+    "test:watch": "react-scripts test",
     "eject": "react-scripts eject",
     "build:liferay": "lnbs-build",
     "deploy:liferay": "npm run build:liferay && lnbs-deploy"
@@ -64,6 +66,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.16.7",
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.11.0",
     "eslint": "^8.8.0",

@@ -109,6 +109,7 @@ const SearchField: React.FC<props> = ({
               </label>
               <ClayInput
                 id="oibInputText"
+                data-testid="oibInputText"
                 type="text"
                 className="straight-numbers"
                 value={OIB}
