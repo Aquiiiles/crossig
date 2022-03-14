@@ -22,9 +22,6 @@ export const resetState = () => {
   dispatch(app.actions.basicInfo.resetFields());
   dispatch(app.actions.contactInfo.resetFields());
   dispatch(app.actions.addresses.resetFields());
-  dispatch(app.actions.coveragePlan.resetFields());
-  dispatch(app.actions.insuranceProduct.resetFields());
-  dispatch(app.actions.contactsInPolicy.resetFields());
 };
 
 export default store;
