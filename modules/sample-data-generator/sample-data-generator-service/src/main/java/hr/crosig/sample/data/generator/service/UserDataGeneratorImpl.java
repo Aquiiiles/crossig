@@ -11,6 +11,7 @@ import com.liferay.portal.kernel.model.UserGroup;
 import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.UserGroupLocalService;
+import com.liferay.portal.kernel.service.UserGroupRoleLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.upgrade.util.UpgradeProcessUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
@@ -125,7 +126,7 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
 
 			// adds the role to the user
 
-			_userLocalService.addRoleUser(role.getRoleId(), user.getUserId());
+			_userGroupRoleLocalService.addUserGroupRole(user.getUserId(), _getAgentPortalGroupId(), role.getRoleId());
 		}
 		catch (Exception exception) {
 			_log.error(exception);
@@ -170,7 +171,7 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
 				).getDayOfMonth(),
 				LocalDateTime.now(
 				).getYear(),
-				null, _getAgentPortalGroupId(), new long[0], new long[0],
+				null, new long[] {_getAgentPortalGroupId()}, new long[0], new long[0],
 				_getUserGroupId(userGroupName), false,
 				GeneratorUtilities.getDefaultServiceContext(defaultUserId));
 		}
@@ -185,7 +186,7 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
 	 * Gets the Agent Portal's Group Id
 	 * @return
 	 */
-	private long[] _getAgentPortalGroupId() {
+	private long _getAgentPortalGroupId() {
 
 		// default company id
 
@@ -197,10 +198,10 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
 			defaultCompanyId, ContentSetupConstants.AGENT_PORTAL_SITE_NAME);
 
 		if (group != null) {
-			return new long[] {group.getGroupId()};
+			return group.getGroupId();
 		}
 
-		return new long[0];
+		return 0;
 	}
 
 	/**
@@ -268,6 +269,9 @@ public class UserDataGeneratorImpl implements UserDataGenerator {
 
 	@Reference
 	private UserGroupLocalService _userGroupLocalService;
+
+	@Reference
+	private UserGroupRoleLocalService _userGroupRoleLocalService;
 
 	@Reference
 	private UserLocalService _userLocalService;
