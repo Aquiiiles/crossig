@@ -2,7 +2,7 @@ import React from "react";
 
 interface PropsType {
   name: string;
-  value: string;
+  value: string | number;
 }
 
 const ResultRowMobile: React.FC<PropsType> = ({ name, value }) => {

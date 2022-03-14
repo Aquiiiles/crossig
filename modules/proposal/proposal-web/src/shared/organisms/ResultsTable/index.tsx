@@ -8,6 +8,7 @@ interface propsInterface<RowGeneratorType> {
   inputData: Array<RowGeneratorType>;
   onSort: (key: string) => void;
   rowGenerator: (item: RowGeneratorType) => void;
+  rowGeneratorMobile?: (item: RowGeneratorType) => void;
   sortedBy: string;
   sortOrder: string;
   headerItems: Array<HeaderCell>;
@@ -50,8 +51,9 @@ const ResultsTable = <RowGeneratorType extends object>(
         </ClayTable.Body>
       </Table>
       <MobileWrapper>
-        {props.inputData.map((row: RowGeneratorType) =>
-          props.rowGenerator(row)
+        {props.inputData.map(
+          (row: RowGeneratorType) =>
+            !!props.rowGeneratorMobile && props.rowGeneratorMobile(row)
         )}
       </MobileWrapper>
     </>

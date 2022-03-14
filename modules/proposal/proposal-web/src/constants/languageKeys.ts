@@ -232,6 +232,8 @@ export const VESSEL_LOOKUP_TABLE = {
   VESSEL_NAME: Liferay.Language.get('vessel-lookup-results-table-header-vessel-name'),
   FLEET_NAME: Liferay.Language.get('vessel-lookup-results-table-header-fleet-name'),
   POLICY_HOLDER: Liferay.Language.get('vessel-lookup-results-table-header-policy-holder'),
+  USE_VESSEL: Liferay.Language.get('vessel-lookup-table-use-vessel'),
+  VIEW_DETAILS: Liferay.Language.get('vessel-lookup-table-view-details'),
 }
 
 export const POLICY_HOLDER = {

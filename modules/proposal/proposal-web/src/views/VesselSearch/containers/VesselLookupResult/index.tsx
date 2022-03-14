@@ -7,6 +7,7 @@ import ResultsTable from "../../../../shared/organisms/ResultsTable";
 import VesselTableRow from "./components/atoms/VesselTableRow";
 import { VESSEL_LOOKUP_HEADER } from "./constants/vesselLookup";
 import useSort from "../../../../shared/hooks/useSort";
+import VesselRowMobile from "./components/atoms/VesselRowMobile";
 
 type PropsType = {
   data: Array<any>;
@@ -56,6 +57,14 @@ const VesselLookupResult: React.FC<PropsType> = (props: PropsType) => {
         onSort={handleSort}
         rowGenerator={(vessel: VesselRow) => {
           return <VesselTableRow vessel={vessel} />;
+        }}
+        rowGeneratorMobile={(vessel: VesselRow) => {
+          return (
+            <VesselRowMobile
+              vessel={vessel}
+              headerItems={VESSEL_LOOKUP_HEADER}
+            />
+          );
         }}
         headerItems={VESSEL_LOOKUP_HEADER}
       />
