@@ -5,9 +5,13 @@ export const Wrapper = styled.div`
   flex-direction: row;
   background-color: ${(props) => props.theme.color.neutral.background};
 
-  span {
+  span.msg {
     padding-top: 0.5rem;
     padding-right: 1rem;
+  }
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    flex-direction: column;
   }
 `;
 
