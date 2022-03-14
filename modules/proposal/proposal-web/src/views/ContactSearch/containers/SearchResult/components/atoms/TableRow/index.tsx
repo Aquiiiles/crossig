@@ -11,6 +11,7 @@ import AddToPolicyBtn from "../AddToPolicyBtn";
 
 import * as types from "../../../types/searchResult";
 import * as constants from "../../../../../constants/searchResult";
+import { contactOperations } from "../../../../../../../constants/contactConstants";
 import useTableRowState from "../../../../../hooks/useTableRowState";
 
 interface props {
@@ -23,7 +24,9 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
     { showButtons },
     { setShowButtons, formatDOB, openUpdateContact, selectContact },
     types,
-  ] = useTableRowState(embedded);
+  ] = useTableRowState(
+    embedded ? contactOperations.updateEmbedded : contactOperations.update
+  );
 
   return (
     <ClayTable.Row

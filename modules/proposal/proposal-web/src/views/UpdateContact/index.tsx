@@ -22,8 +22,8 @@ const UpdateContact: React.FC = () => {
   resetState();
 
   const { state, get } = useFetchData();
-  const location = useLocation<{ extNumber: number; embedded: boolean }>();
-  const { extNumber, embedded } = location.state;
+  const location = useLocation<{ extNumber: number; operation: number }>();
+  const { extNumber, operation } = location.state;
 
   useEffect(() => {
     if (extNumber) {
@@ -38,7 +38,7 @@ const UpdateContact: React.FC = () => {
           <UpdateContactForm
             contactResponse={state.response.data}
             extNumber={extNumber}
-            embedded={embedded}
+            operation={operation}
           />
         </Content>
       )}

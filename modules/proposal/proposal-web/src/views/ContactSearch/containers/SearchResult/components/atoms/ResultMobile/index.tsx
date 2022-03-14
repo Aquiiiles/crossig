@@ -8,6 +8,7 @@ import {
   CONTACT_SEARCH_TABLE_USE_CONTACT,
   CONTACT_SEARCH_TABLE_VIEW_DETAILS,
 } from "../../../../../../../constants/languageKeys";
+import { contactOperations } from "../../../../../../../constants/contactConstants";
 import MissingInformationIcon from "../MissingInformationIcon";
 
 interface Props {
@@ -17,7 +18,9 @@ interface Props {
 
 const ResultMobile: React.FC<Props> = ({ contact, embedded }) => {
   const [, { formatDOB, openUpdateContact, selectContact }, types] =
-    useTableRowState(embedded);
+    useTableRowState(
+      embedded ? contactOperations.updateEmbedded : contactOperations.update
+    );
 
   return (
     <Wrapper>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AutocompleteInput from "../../../atoms/contact/AutocompleteInput";
 import SectionSubTitle from "../../../atoms/contact/SectionSubTitle";
 import FormSection from "../../../atoms/contact/FormSection";
@@ -8,7 +8,10 @@ import ClayForm, {
   ClayCheckbox,
   ClaySelectWithOption,
 } from "@clayui/form";
-import { contactTypes } from "../../../../constants/contactConstants";
+import {
+  contactOperations,
+  contactTypes,
+} from "../../../../constants/contactConstants";
 import { countryNames } from "../../../../constants/defaultCountryConfiguration";
 import { CREATE_NEW_CONTACT } from "../../../../constants/languageKeys";
 import { useDispatch, useSelector } from "../../../../redux/store";
@@ -20,7 +23,7 @@ import useRequiredField from "../../../hooks/useRequiredField";
 type propsType = {
   enableSave?: () => void;
   countries: { label: any; value: any }[];
-  operation: string;
+  operation: number;
   setUpdatedValues?: (value: string) => void;
 };
 
@@ -30,6 +33,7 @@ const Addresses: React.FC<propsType> = ({
   operation,
   setUpdatedValues,
 }: propsType) => {
+  const [disableFields, setDisableFields] = useState(false);
   const dispatcher = useDispatch();
   const dispatch = (action: any, updatedValue: string) => {
     enableSave && enableSave();
@@ -81,13 +85,13 @@ const Addresses: React.FC<propsType> = ({
     );
   };
 
-  const isLegalEntity = () => {
-    return contactType === contactTypes.Legal_Entity;
-  };
-
-  const isUpdate = () => {
-    return operation === "update";
-  };
+  useEffect(() => {
+    setDisableFields(
+      (contactType === contactTypes.Legal_Entity &&
+        operation !== contactOperations.create) ||
+        operation === contactOperations.updateReadOnly
+    );
+  }, [contactType]);
 
   const [registerRequiredCity, cityWarn, hasCityWarn] = useRequiredField(
     city,
@@ -134,7 +138,7 @@ const Addresses: React.FC<propsType> = ({
                 dispatch(setCountry(value), CREATE_NEW_CONTACT.FIELD.COUNTRY)
               }
               required
-              disabled={isLegalEntity() && isUpdate()}
+              disabled={disableFields}
             />
           </ClayForm.Group>
         </Row>
@@ -158,7 +162,7 @@ const Addresses: React.FC<propsType> = ({
                     )
                   }
                   isCity
-                  disabled={isLegalEntity() && isUpdate()}
+                  disabled={disableFields}
                   selectedValue={cityName}
                   {...registerRequiredCity}
                 />
@@ -183,9 +187,7 @@ const Addresses: React.FC<propsType> = ({
                       CREATE_NEW_CONTACT.FIELD.POSTAL_CODE
                     )
                   }
-                  disabled={
-                    isMainAddressInCroatia() || (isLegalEntity() && isUpdate())
-                  }
+                  disabled={isMainAddressInCroatia() || disableFields}
                   value={postalCode}
                 />
               </ClayInput.GroupItem>
@@ -206,7 +208,7 @@ const Addresses: React.FC<propsType> = ({
                 )
               }
               isCity={false}
-              disabled={!postalCode || (isLegalEntity() && isUpdate())}
+              disabled={!postalCode || disableFields}
               {...registerRequiredAddress}
             />
           ) : (
@@ -225,7 +227,7 @@ const Addresses: React.FC<propsType> = ({
                   )
                 }
                 value={street}
-                disabled={isLegalEntity() && isUpdate()}
+                disabled={disableFields}
                 {...registerRequiredAddress}
               />
             </>
@@ -251,7 +253,7 @@ const Addresses: React.FC<propsType> = ({
                 )
               }
               value={houseNumber}
-              disabled={isLegalEntity() && isUpdate()}
+              disabled={disableFields}
               {...registerRequiredHouseNumber}
             />
             {hasHouseNumberWarn ? (
@@ -273,7 +275,7 @@ const Addresses: React.FC<propsType> = ({
             )
           }
           label={CREATE_NEW_CONTACT.FIELD.DISPATCH_ADDRESS}
-          disabled={isLegalEntity() && isUpdate()}
+          disabled={disableFields}
         />
 
         {!isSameAddress && (
@@ -293,7 +295,7 @@ const Addresses: React.FC<propsType> = ({
                       CREATE_NEW_CONTACT.FIELD.COUNTRY
                     )
                   }
-                  disabled={isLegalEntity() && isUpdate()}
+                  disabled={disableFields}
                 />
               </ClayForm.Group>
             </Row>
@@ -322,7 +324,7 @@ const Addresses: React.FC<propsType> = ({
                         )
                       }
                       isCity
-                      disabled={isLegalEntity() && isUpdate()}
+                      disabled={disableFields}
                       selectedValue={dispatchCityName}
                       {...registerRequiredDispatchCity}
                     />
@@ -343,10 +345,7 @@ const Addresses: React.FC<propsType> = ({
                     <ClayInput
                       id="dispatch-postal-code"
                       type="number"
-                      disabled={
-                        isDispatchAddressInCroatia() ||
-                        (isLegalEntity() && isUpdate())
-                      }
+                      disabled={isDispatchAddressInCroatia() || disableFields}
                       onChange={(e) =>
                         dispatch(
                           setDispatchPostalCode(e.target.value.toString()),
@@ -378,9 +377,7 @@ const Addresses: React.FC<propsType> = ({
                     )
                   }
                   isCity={false}
-                  disabled={
-                    !dispatchPostalCode || (isLegalEntity() && isUpdate())
-                  }
+                  disabled={!dispatchPostalCode || disableFields}
                   {...registerRequiredDispatchAddress}
                 />
               ) : (
@@ -399,7 +396,7 @@ const Addresses: React.FC<propsType> = ({
                       )
                     }
                     value={dispatchStreet}
-                    disabled={isLegalEntity() && isUpdate()}
+                    disabled={disableFields}
                     {...registerRequiredDispatchAddress}
                   />
                 </>
@@ -430,7 +427,7 @@ const Addresses: React.FC<propsType> = ({
                     )
                   }
                   value={dispatchHouseNumber}
-                  disabled={isLegalEntity() && isUpdate()}
+                  disabled={disableFields}
                   {...registerRequiredDispatchHouseNumber}
                 />
                 {hasDispatchHouseNumberWarn ? (

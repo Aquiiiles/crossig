@@ -16,7 +16,10 @@ import {
 } from "../../../../shared/util/countryMappers";
 import { actions } from "../../../../redux";
 import store, { useDispatch, useSelector } from "../../../../redux/store";
-import { contactTypes } from "../../../../constants/contactConstants";
+import {
+  contactOperations,
+  contactTypes,
+} from "../../../../constants/contactConstants";
 import LinkWrapper from "../../../../shared/atoms/contact/LinkWrapper";
 import ContactButton from "../../../../shared/atoms/contact/ContactButton";
 import API from "../../../../api";
@@ -37,8 +40,8 @@ import * as constants from "../../../ContactSearch/constants/searchResult";
 const UpdateContactForm: React.FC<{
   contactResponse: any;
   extNumber: unknown;
-  embedded: boolean;
-}> = ({ contactResponse, extNumber, embedded }) => {
+  operation: number;
+}> = ({ contactResponse, extNumber, operation }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const data = contactResponse[0];
@@ -138,7 +141,7 @@ const UpdateContactForm: React.FC<{
   };
 
   const useContact = () => {
-    if (embedded) {
+    if (operation === contactOperations.updateEmbedded) {
       dispatch(
         actions.contactsInPolicy.addContact({
           [constants.EXT_NUMBER_KEY]: Number(extNumber),
@@ -164,6 +167,8 @@ const UpdateContactForm: React.FC<{
     }
   };
 
+  const readOnly = operation === contactOperations.updateReadOnly;
+
   return (
     <Wrapper id="update-contact-form-main-container">
       <Modal
@@ -188,7 +193,7 @@ const UpdateContactForm: React.FC<{
       <p className="subtitle">{UPDATE_CONTACT.SUBTITLE}</p>
       <BasicInfo
         key="update-contact-basic-info"
-        operation="update"
+        operation={operation}
         enableSave={() => {
           setEnabledButton(true);
         }}
@@ -198,7 +203,7 @@ const UpdateContactForm: React.FC<{
         <Addresses
           countries={mapToCountryNames(countries)}
           key="update-contact-addresses"
-          operation="update"
+          operation={operation}
           enableSave={() => {
             setEnabledButton(true);
           }}
@@ -209,7 +214,7 @@ const UpdateContactForm: React.FC<{
         <ContactInfoForm
           countries={mapToCountryCodes(countries)}
           key="update-contact-contact-info"
-          operation="update"
+          operation={operation}
           enableSave={() => {
             setEnabledButton(true);
           }}
@@ -239,7 +244,7 @@ const UpdateContactForm: React.FC<{
                   handleClick={() => {
                     return;
                   }}
-                  disabled={false}
+                  disabled={readOnly}
                 />
               </span>
 
@@ -255,7 +260,7 @@ const UpdateContactForm: React.FC<{
                   handleClick={() => {
                     return;
                   }}
-                  disabled={false}
+                  disabled={readOnly}
                 />
               </span>
             </ClayButton.Group>
@@ -265,13 +270,13 @@ const UpdateContactForm: React.FC<{
             <ContactButton
               handleClick={useContact}
               label={UPDATE_CONTACT.USE_CONTACT}
-              disabled={false}
+              disabled={readOnly}
             />
             {!isLegalEntity() && (
               <ContactButton
                 handleClick={handleUpdateContact}
                 label={UPDATE_CONTACT.SUBMIT_BUTTON}
-                disabled={!enabledButton}
+                disabled={!enabledButton || readOnly}
               />
             )}
           </ClayButton.Group>
