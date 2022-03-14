@@ -6,13 +6,18 @@ import * as constants from "../../../../../constants/searchResult";
 
 interface Props {
   data: Array<types.responseType>;
+  embedded: boolean;
 }
 
-const ResultsMobile: React.FC<Props> = ({ data }) => {
+const ResultsMobile: React.FC<Props> = ({ data, embedded }) => {
   return (
     <Wrapper>
       {data.map((contact) => (
-        <ResultMobile key={contact[constants.OIB_KEY]} contact={contact} />
+        <ResultMobile
+          key={contact[constants.OIB_KEY]}
+          contact={contact}
+          embedded={embedded}
+        />
       ))}
     </Wrapper>
   );
