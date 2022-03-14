@@ -36,6 +36,12 @@ const ResultsTable = <RowGeneratorType extends object>(
 
   return (
     <>
+      <MobileWrapper>
+        {props.inputData.map(
+          (row: RowGeneratorType) =>
+            !!props.rowGeneratorMobile && props.rowGeneratorMobile(row)
+        )}
+      </MobileWrapper>
       <Table borderless className="desktop-only">
         <ClayTable.Head>
           <ClayTable.Row>
@@ -50,12 +56,6 @@ const ResultsTable = <RowGeneratorType extends object>(
           )}
         </ClayTable.Body>
       </Table>
-      <MobileWrapper>
-        {props.inputData.map(
-          (row: RowGeneratorType) =>
-            !!props.rowGeneratorMobile && props.rowGeneratorMobile(row)
-        )}
-      </MobileWrapper>
     </>
   );
 };

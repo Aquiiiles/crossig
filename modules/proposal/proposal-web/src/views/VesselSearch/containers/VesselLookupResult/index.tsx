@@ -10,6 +10,7 @@ import useSort from "../../../../shared/hooks/useSort";
 import VesselRowMobile from "./components/atoms/VesselRowMobile";
 
 type PropsType = {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   data: Array<any>;
   loading: boolean;
   paginationData: {

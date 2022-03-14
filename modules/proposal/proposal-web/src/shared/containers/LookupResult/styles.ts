@@ -13,6 +13,12 @@ export const Wrapper = styled.div`
   }
 
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    margin-top: 1.5rem;
+    padding: 0 2.1875rem;
+    padding-bottom: 1.875rem;
+    border-radius: 0;
+    border-top: 1px solid ${(props) => props.theme.color.neutral.dividerGrey};
+
     & .desktop-only {
       display: none;
     }
@@ -54,8 +60,7 @@ export const SearchResultsHeader = styled.div`
       display: flex;
     }
 
-    padding: 5.5rem 0 0 0;
-    margin-bottom: 1rem;
+    padding: 2.625rem 1.5rem 0 1.5rem;
   }
 `;
 
