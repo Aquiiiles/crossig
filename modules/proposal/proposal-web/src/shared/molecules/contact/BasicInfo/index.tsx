@@ -8,11 +8,9 @@ import ClayForm, {
   ClaySelectWithOption,
 } from "@clayui/form";
 import { actions } from "../../../../redux";
+import { useDispatch, useSelector } from "../../../../redux/store";
 import {
-  useDispatch,
-  useSelector,
-} from "../../../../redux/store";
-import {
+  contactOperations,
   contactTypeOptions,
   contactTypes,
 } from "../../../../constants/contactConstants";
@@ -26,7 +24,7 @@ import { validateOib } from "../../../validators/oib";
 import useRequiredField from "../../../hooks/useRequiredField";
 
 type propsType = {
-  operation: string;
+  operation: number;
   enableSave?: () => void;
   setUpdatedValues?: (value: string) => void;
 };
@@ -80,7 +78,11 @@ const BasicInfo: React.FC<propsType> = ({
   };
 
   const isUpdate = () => {
-    return operation === "update";
+    return operation !== contactOperations.create;
+  };
+
+  const isReadOnly = () => {
+    return operation === contactOperations.updateReadOnly;
   };
 
   const [dayError, hasDayError] = useFieldValidation(
@@ -152,7 +154,7 @@ const BasicInfo: React.FC<propsType> = ({
             dispatch(setContactType(value), CREATE_NEW_CONTACT.TYPE)
           }
           options={contactTypeOptions}
-          disabled={isUpdate()}
+          disabled={isUpdate() || isReadOnly()}
         ></ClaySelectWithOption>
       </ClayForm.Group>
       {showIndividualFields ? (
@@ -176,7 +178,7 @@ const BasicInfo: React.FC<propsType> = ({
                     )
                   }
                   value={firstName}
-                  disabled={isIndividual() && isUpdate()}
+                  disabled={(isIndividual() && isUpdate()) || isReadOnly()}
                   {...registerRequiredName}
                 />
                 {hasNameWarn ? (
@@ -206,6 +208,7 @@ const BasicInfo: React.FC<propsType> = ({
                   }
                   {...registerRequiredLastName}
                   value={lastName}
+                  disabled={isReadOnly()}
                 />
                 {hasLastNameWarn ? (
                   <ClayForm.FeedbackGroup>
@@ -238,7 +241,7 @@ const BasicInfo: React.FC<propsType> = ({
                 )
               }
               value={companyName}
-              disabled={isLegalEntity() && isUpdate()}
+              disabled={(isLegalEntity() && isUpdate()) || isReadOnly()}
             />
             {hasCompanyNameWarn ? (
               <ClayForm.FeedbackGroup>
@@ -276,7 +279,7 @@ const BasicInfo: React.FC<propsType> = ({
                     }
                     placeholder="DD"
                     value={dateDay}
-                    disabled={isIndividual() && isUpdate()}
+                    disabled={(isIndividual() && isUpdate()) || isReadOnly()}
                     {...registerRequiredDay}
                   />
                   <ClayInput
@@ -287,7 +290,7 @@ const BasicInfo: React.FC<propsType> = ({
                     }
                     placeholder="MM"
                     value={dateMonth}
-                    disabled={isIndividual() && isUpdate()}
+                    disabled={(isIndividual() && isUpdate()) || isReadOnly()}
                     {...registerRequiredMonth}
                   />
                   <ClayInput
@@ -298,7 +301,7 @@ const BasicInfo: React.FC<propsType> = ({
                     }
                     placeholder="YYYY"
                     value={dateYear}
-                    disabled={isIndividual() && isUpdate()}
+                    disabled={(isIndividual() && isUpdate()) || isReadOnly()}
                     {...registerRequiredYear}
                   />
                 </div>
@@ -343,7 +346,7 @@ const BasicInfo: React.FC<propsType> = ({
                   dispatch(setOIB(value), CREATE_NEW_CONTACT.FIELD.OIB)
                 }
                 value={oib}
-                disabled={isUpdate()}
+                disabled={isUpdate() || isReadOnly()}
                 {...registerRequiredOib}
               />
               {hasOibWarn || hasOibError ? (
@@ -376,7 +379,7 @@ const BasicInfo: React.FC<propsType> = ({
               id="subsidiaryNumber"
               type="text"
               value={subsidiaryNumber}
-              disabled={isUpdate()}
+              disabled={isUpdate() || isReadOnly()}
               onChange={({ target: { value } }) =>
                 dispatch(
                   setSubsidiaryNumber(value),
@@ -405,7 +408,7 @@ const BasicInfo: React.FC<propsType> = ({
               CREATE_NEW_CONTACT.FIELD.FOREIGNER_STATUS
             )
           }
-          disabled={isLegalEntity() && isUpdate()}
+          disabled={(isLegalEntity() && isUpdate()) || isReadOnly()}
         />
       </Row>
       {isLegalEntity() && <p>{CREATE_NEW_CONTACT.CREATE_LEGAL_ENTITY}</p>}

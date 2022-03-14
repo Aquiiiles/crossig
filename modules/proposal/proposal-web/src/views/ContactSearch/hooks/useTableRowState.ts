@@ -6,7 +6,7 @@ import * as types from "../containers/SearchResult/types/searchResult";
 import { useDispatch } from "../../../redux/store";
 import { actions } from "../../../redux";
 
-export default function useTableRowState() {
+export default function useTableRowState(operation: number) {
   const [showButtons, setShowButtons] = useState(false);
   const history = useHistory();
   const { setPolicyHolder } = actions.contactsInPolicy;
@@ -31,7 +31,7 @@ export default function useTableRowState() {
   const openUpdateContact = (extNumber: number) => {
     history.push({
       pathname: "/update_contact",
-      state: extNumber,
+      state: { extNumber, operation: operation },
     });
   };
 

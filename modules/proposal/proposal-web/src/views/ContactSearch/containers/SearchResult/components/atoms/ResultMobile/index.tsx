@@ -7,17 +7,20 @@ import ClayButton from "@clayui/button";
 import {
   CONTACT_SEARCH_TABLE_USE_CONTACT,
   CONTACT_SEARCH_TABLE_VIEW_DETAILS,
-  ROLES_ON_POLICY,
 } from "../../../../../../../constants/languageKeys";
+import { contactOperations } from "../../../../../../../constants/contactConstants";
 import MissingInformationIcon from "../MissingInformationIcon";
 
 interface Props {
   contact: types.responseType;
+  embedded: boolean;
 }
 
-const ResultMobile: React.FC<Props> = ({ contact }) => {
+const ResultMobile: React.FC<Props> = ({ contact, embedded }) => {
   const [, { formatDOB, openUpdateContact, selectContact }, types] =
-    useTableRowState();
+    useTableRowState(
+      embedded ? contactOperations.updateEmbedded : contactOperations.update
+    );
 
   return (
     <Wrapper>

@@ -17,6 +17,7 @@ import {
   CREATE_NEW_CONTACT,
   ROLES_ON_POLICY,
 } from "../../../../constants/languageKeys";
+import { contactOperations } from "../../../../constants/contactConstants";
 import { useSelector, useDispatch } from "../../../../redux/store";
 import { valuesToISOString } from "./utils/dateUtils";
 import { emailListToData } from "./utils/emailUtils";
@@ -26,7 +27,6 @@ import { CONTACT_URL } from "../../../../api/constants/routes";
 import { COUNTRIES_URL } from "../../../../api/constants/routes";
 import { useFetchData } from "../../../../api/hooks/useFetchData";
 import { RESOLVED } from "../../../../api/reducers/constants";
-import { SUCCESS_CODE } from "../../../../api/reducers/constants";
 import ClayForm from "@clayui/form";
 import * as constants from "../../../ContactSearch/constants/searchResult";
 import { contactTypes } from "../../../../constants/contactConstants";
@@ -190,17 +190,17 @@ const ContactInfo: React.FC = () => {
 
       <h3>{CREATE_NEW_CONTACT.TITLE}</h3>
       <p style={{ marginBottom: "1.875rem" }}>{CREATE_NEW_CONTACT.SUBTITLE}</p>
-      <BasicInfo operation="create" />
+      <BasicInfo operation={contactOperations.create} />
       {countries && (
         <Addresses
           countries={mapToCountryNames(countries)}
-          operation="create"
+          operation={contactOperations.create}
         />
       )}
       {countries && (
         <ContactInfoForm
           countries={mapToCountryCodes(countries)}
-          operation="create"
+          operation={contactOperations.create}
         />
       )}
       <ButtonWrapper className={isLegalEntity() ? "standard-wrapper" : ""}>

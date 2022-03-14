@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import ClayForm from "@clayui/form";
 import EmailInputList from "../../../atoms/contact/EmailInputList";
 import FormSection from "../../../atoms/contact/FormSection";
@@ -12,11 +12,9 @@ import {
   FIXED,
   MAXIMUM_EMAIL_ADDRESSES,
   MAXIMUM_MOBILE_PHONES,
+  contactOperations,
 } from "../../../../constants/contactConstants";
-import {
-  useDispatch,
-  useSelector,
-} from "../../../../redux/store";
+import { useDispatch, useSelector } from "../../../../redux/store";
 import { Country } from "../../../types/contact";
 import { createEmptyPhoneNumber } from "../../../util/commonFunctions";
 import { actions } from "../../../../redux";
@@ -24,7 +22,7 @@ import { StyledLabelFormGroup, StyledPhoneTypeFormGroup } from "./styles";
 
 type propsType = {
   countries: Array<Country>;
-  operation: string;
+  operation: number;
   enableSave?: () => void;
   setUpdatedValues?: (value: string) => void;
 };
@@ -35,8 +33,9 @@ const ContactInfoForm: React.FC<propsType> = ({
   operation,
   setUpdatedValues,
 }: propsType) => {
-  const dispatcher = useDispatch();
+  const [disableFields, setDisableFields] = useState(false);
 
+  const dispatcher = useDispatch();
   const dispatch = (action: any, updatedValue: string) => {
     enableSave && enableSave();
     dispatcher(action);
@@ -95,9 +94,8 @@ const ContactInfoForm: React.FC<propsType> = ({
   const addEmailAddressInput = () => {
     const currentEmails = [...emailAddresses];
 
-    const legalEntityUpdate = isLegalEntity() && isUpdate();
     const shouldAddInput =
-      currentEmails.length < MAXIMUM_EMAIL_ADDRESSES && !legalEntityUpdate;
+      currentEmails.length < MAXIMUM_EMAIL_ADDRESSES && !disableFields;
 
     if (shouldAddInput) {
       currentEmails.push("");
@@ -108,9 +106,8 @@ const ContactInfoForm: React.FC<propsType> = ({
   const addMobilePhoneInput = () => {
     const currentMobilePhones = [...mobilePhones];
 
-    const legalEntityUpdate = isLegalEntity() && isUpdate();
     const shouldAddInput =
-      currentMobilePhones.length < MAXIMUM_MOBILE_PHONES && !legalEntityUpdate;
+      currentMobilePhones.length < MAXIMUM_MOBILE_PHONES && !disableFields;
 
     if (shouldAddInput) {
       currentMobilePhones.push(createEmptyPhoneNumber(FIXED));
@@ -130,13 +127,13 @@ const ContactInfoForm: React.FC<propsType> = ({
       : CONTACT_INFO.OTHER_EMAIL_ADDRESSES_SUBTITLE;
   };
 
-  const isLegalEntity = () => {
-    return contactType === contactTypes.Legal_Entity;
-  };
-
-  const isUpdate = () => {
-    return operation === "update";
-  };
+  useEffect(() => {
+    setDisableFields(
+      (contactType === contactTypes.Legal_Entity &&
+        operation !== contactOperations.create) ||
+        operation === contactOperations.updateReadOnly
+    );
+  }, [contactType]);
 
   return (
     <Fragment>
@@ -156,8 +153,8 @@ const ContactInfoForm: React.FC<propsType> = ({
               emails={emailAddresses}
               handleChange={handleEmailChange}
               addEmailInput={addEmailAddressInput}
-              disableLink={isLegalEntity() && isUpdate()}
-              disableInput={isLegalEntity() && isUpdate()}
+              disableLink={disableFields}
+              disableInput={disableFields}
             />
           </ClayForm.Group>
         </Row>
@@ -176,7 +173,7 @@ const ContactInfoForm: React.FC<propsType> = ({
               title={CONTACT_INFO.PHONE_TYPE}
               handleChange={handlePhoneChange}
               entity={mobilePhones}
-              disableInput={isLegalEntity() && isUpdate()}
+              disableInput={disableFields}
             />
           ))}
         </StyledPhoneTypeFormGroup>
@@ -187,8 +184,8 @@ const ContactInfoForm: React.FC<propsType> = ({
               handleChange={handlePhoneChange}
               addPhoneInput={addMobilePhoneInput}
               countries={countries}
-              disableLink={isLegalEntity() && isUpdate()}
-              disableInput={isLegalEntity() && isUpdate()}
+              disableLink={disableFields}
+              disableInput={disableFields}
             />
           </ClayForm.Group>
         </Row>

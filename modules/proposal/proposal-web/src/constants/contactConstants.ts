@@ -43,3 +43,10 @@ export const MAXIMUM_MOBILE_PHONES = 4;
 
 export const FIXED = 1;
 export const MOBILE = 2;
+
+export const contactOperations = {
+  create: 1,
+  update: 2,
+  updateReadOnly: 3,
+  updateEmbedded: 4,
+};

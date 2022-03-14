@@ -6,12 +6,12 @@ import MissingInformationIcon from "../MissingInformationIcon";
 import {
   CONTACT_SEARCH_TABLE_VIEW_DETAILS,
   CONTACT_SEARCH_TABLE_USE_CONTACT,
-  ROLES_ON_POLICY,
 } from "../../../../../../../constants/languageKeys";
 import AddToPolicyBtn from "../AddToPolicyBtn";
 
 import * as types from "../../../types/searchResult";
 import * as constants from "../../../../../constants/searchResult";
+import { contactOperations } from "../../../../../../../constants/contactConstants";
 import useTableRowState from "../../../../../hooks/useTableRowState";
 
 interface props {
@@ -24,7 +24,9 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
     { showButtons },
     { setShowButtons, formatDOB, openUpdateContact, selectContact },
     types,
-  ] = useTableRowState();
+  ] = useTableRowState(
+    embedded ? contactOperations.updateEmbedded : contactOperations.update
+  );
 
   return (
     <ClayTable.Row

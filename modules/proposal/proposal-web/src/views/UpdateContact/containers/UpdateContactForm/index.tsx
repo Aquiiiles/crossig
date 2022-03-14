@@ -16,7 +16,10 @@ import {
 } from "../../../../shared/util/countryMappers";
 import { actions } from "../../../../redux";
 import store, { useDispatch, useSelector } from "../../../../redux/store";
-import { contactTypes } from "../../../../constants/contactConstants";
+import {
+  contactOperations,
+  contactTypes,
+} from "../../../../constants/contactConstants";
 import LinkWrapper from "../../../../shared/atoms/contact/LinkWrapper";
 import ContactButton from "../../../../shared/atoms/contact/ContactButton";
 import API from "../../../../api";
@@ -37,7 +40,8 @@ import * as constants from "../../../ContactSearch/constants/searchResult";
 const UpdateContactForm: React.FC<{
   contactResponse: any;
   extNumber: unknown;
-}> = ({ contactResponse, extNumber }) => {
+  operation: number;
+}> = ({ contactResponse, extNumber, operation }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const data = contactResponse[0];
@@ -136,6 +140,41 @@ const UpdateContactForm: React.FC<{
     }
   };
 
+  const useContact = () => {
+    if (operation === contactOperations.updateEmbedded) {
+      dispatch(
+        actions.contactsInPolicy.addContact({
+          [constants.EXT_NUMBER_KEY]: Number(extNumber),
+          [constants.OIB_KEY]: oib,
+          [constants.SUB_KEY]: subsidiaryNumber,
+          [constants.NAME_KEY]: firstName + lastName,
+          [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
+        })
+      );
+      history.goBack();
+    } else {
+      dispatch(actions.contactsInPolicy.resetFields());
+      dispatch(
+        actions.contactsInPolicy.setPolicyHolder({
+          [constants.EXT_NUMBER_KEY]: Number(extNumber),
+          [constants.OIB_KEY]: oib,
+          [constants.SUB_KEY]: subsidiaryNumber,
+          [constants.NAME_KEY]: firstName + lastName,
+          [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
+        })
+      );
+      history.push("/product");
+    }
+  };
+
+  const readOnly = operation === contactOperations.updateReadOnly;
+
+  const goBackPath =
+    operation === contactOperations.create ||
+    operation === contactOperations.update
+      ? "/"
+      : "/roles";
+
   return (
     <Wrapper id="update-contact-form-main-container">
       <Modal
@@ -144,18 +183,7 @@ const UpdateContactForm: React.FC<{
         title={UPDATE_CONTACT.TITLE}
         body={successMessage()}
         lastButtonTitle={UPDATE_CONTACT.USE_CONTACT}
-        lastButtonAction={() => {
-          dispatch(
-            actions.contactsInPolicy.addContact({
-              [constants.EXT_NUMBER_KEY]: Number(extNumber),
-              [constants.OIB_KEY]: oib,
-              [constants.SUB_KEY]: subsidiaryNumber,
-              [constants.NAME_KEY]: firstName + lastName,
-              [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
-            })
-          );
-          history.push("/product");
-        }}
+        lastButtonAction={useContact}
         timeOut={5000}
       />
 
@@ -171,7 +199,7 @@ const UpdateContactForm: React.FC<{
       <p className="subtitle">{UPDATE_CONTACT.SUBTITLE}</p>
       <BasicInfo
         key="update-contact-basic-info"
-        operation="update"
+        operation={operation}
         enableSave={() => {
           setEnabledButton(true);
         }}
@@ -181,7 +209,7 @@ const UpdateContactForm: React.FC<{
         <Addresses
           countries={mapToCountryNames(countries)}
           key="update-contact-addresses"
-          operation="update"
+          operation={operation}
           enableSave={() => {
             setEnabledButton(true);
           }}
@@ -192,7 +220,7 @@ const UpdateContactForm: React.FC<{
         <ContactInfoForm
           countries={mapToCountryCodes(countries)}
           key="update-contact-contact-info"
-          operation="update"
+          operation={operation}
           enableSave={() => {
             setEnabledButton(true);
           }}
@@ -204,7 +232,7 @@ const UpdateContactForm: React.FC<{
         <LinkWrapper
           title={CONTACT_INFO.CANCEL}
           handleClick={() => {
-            history.replace({ pathname: "/", state: { doSearch: true } });
+            history.push({ pathname: goBackPath, state: { doSearch: true } });
           }}
           disabled={false}
         />
@@ -222,7 +250,7 @@ const UpdateContactForm: React.FC<{
                   handleClick={() => {
                     return;
                   }}
-                  disabled={false}
+                  disabled={readOnly}
                 />
               </span>
 
@@ -238,7 +266,7 @@ const UpdateContactForm: React.FC<{
                   handleClick={() => {
                     return;
                   }}
-                  disabled={false}
+                  disabled={readOnly}
                 />
               </span>
             </ClayButton.Group>
@@ -246,27 +274,15 @@ const UpdateContactForm: React.FC<{
 
           <ClayButton.Group spaced>
             <ContactButton
-              handleClick={() => {
-                dispatch(actions.contactsInPolicy.resetFields());
-                dispatch(
-                  actions.contactsInPolicy.setPolicyHolder({
-                    [constants.EXT_NUMBER_KEY]: Number(extNumber),
-                    [constants.OIB_KEY]: oib,
-                    [constants.SUB_KEY]: subsidiaryNumber,
-                    [constants.NAME_KEY]: firstName + lastName,
-                    [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
-                  })
-                );
-                history.push("/product");
-              }}
+              handleClick={useContact}
               label={UPDATE_CONTACT.USE_CONTACT}
-              disabled={false}
+              disabled={readOnly}
             />
             {!isLegalEntity() && (
               <ContactButton
                 handleClick={handleUpdateContact}
                 label={UPDATE_CONTACT.SUBMIT_BUTTON}
-                disabled={!enabledButton}
+                disabled={!enabledButton || readOnly}
               />
             )}
           </ClayButton.Group>
