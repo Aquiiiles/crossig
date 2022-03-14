@@ -169,6 +169,12 @@ const UpdateContactForm: React.FC<{
 
   const readOnly = operation === contactOperations.updateReadOnly;
 
+  const goBackPath =
+    operation === contactOperations.create ||
+    operation === contactOperations.update
+      ? "/"
+      : "/roles";
+
   return (
     <Wrapper id="update-contact-form-main-container">
       <Modal
@@ -226,7 +232,7 @@ const UpdateContactForm: React.FC<{
         <LinkWrapper
           title={CONTACT_INFO.CANCEL}
           handleClick={() => {
-            history.replace({ pathname: "/", state: { doSearch: true } });
+            history.push({ pathname: goBackPath, state: { doSearch: true } });
           }}
           disabled={false}
         />
