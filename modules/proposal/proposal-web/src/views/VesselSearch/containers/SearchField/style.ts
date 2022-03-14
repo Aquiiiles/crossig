@@ -4,13 +4,16 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: end;
 
+  & #vesselLookupInputGroup {
+    align-items: end;
+  }
+
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
     & #vesselLookupInputGroup {
       display: grid;
       grid-template-columns: 1fr repeat(2, 0.5fr) 1fr;
       grid-auto-rows: auto;
       column-gap: 0.5rem;
-      align-items: end;
 
       & .input-group-item {
         margin-left: 0;
