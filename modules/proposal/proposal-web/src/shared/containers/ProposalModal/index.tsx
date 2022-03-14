@@ -5,7 +5,6 @@ import { StyledModal } from "./styles";
 
 type propsType = {
   children: React.ReactNode;
-  timeOut?: number;
   visible: boolean;
   onClose: () => void;
 };
@@ -19,38 +18,31 @@ const ProposalModal: React.FC<propsType> = (props: propsType) => {
   });
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
-    if (visible && props.timeOut) {
-      timeout = setTimeout(() => {
-        onClose();
-      }, props.timeOut);
-    }
-    return () => {
-      timeout && clearTimeout(timeout);
-    };
-  }, [visible, props.timeOut]);
-
-  useEffect(() => {
-    if (props.visible) {
-      setVisible(true);
-    } else {
-      setVisible(false);
-    }
+    setVisible(props.visible);
   }, [props.visible]);
+
+  console.log(props.children?.toString);
 
   return (
     <>
       {visible && (
-        <StyledModal
-          className="cap"
-          observer={observer}
-          size="full-screen"
-          spritemap={spritemap}
-          status="info"
-        >
-          <ClayModal.Header>{"New Proposal"}</ClayModal.Header>
-          <ClayModal.Body>{props.children}</ClayModal.Body>
-        </StyledModal>
+        <>
+          <StyledModal
+            className="cap not-clickable-outside"
+            observer={observer}
+            size="full-screen"
+            spritemap={spritemap}
+            status="info"
+          >
+            <ClayModal.Body>
+              <ClayModal.Header
+                onClick={onClose}
+                className="proposal-modal-header"
+              />
+              {props.children}
+            </ClayModal.Body>
+          </StyledModal>
+        </>
       )}
     </>
   );

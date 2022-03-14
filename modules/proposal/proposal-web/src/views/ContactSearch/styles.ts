@@ -12,6 +12,7 @@ export const Wrapper = styled.div<Props>`
       ? props.theme.color.neutral.white
       : props.theme.color.neutral.background};
   padding: 0;
+  height: 100%;
   padding-top: ${(props) => (props.embedded ? "2rem" : "0")};
 
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
