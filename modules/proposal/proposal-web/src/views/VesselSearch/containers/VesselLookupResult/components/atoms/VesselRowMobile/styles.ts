@@ -19,7 +19,7 @@ export const MainGrid = styled.div`
 
 export const InnerGrid = styled.div`
   display: grid;
-  grid-template-columns: min-content 1fr;
+  grid-template-columns: max-content 1fr;
   grid-auto-rows: 1fr;
   column-gap: 2.5rem;
 
@@ -29,6 +29,12 @@ export const InnerGrid = styled.div`
 
   & > p {
     color: ${(props) => props.theme.color.neutral.black};
+  }
+
+  @media ${({ theme }) => theme.breakpoint.mobile("down")} {
+    & > p {
+      place-self: end;
+    }
   }
 `;
 
