@@ -47,6 +47,8 @@ const VesselLookupResult: React.FC<PropsType> = (props: PropsType) => {
       totalResultsLimit={props.totalResultsLimit}
       noElementsMessage={VESSEL_LOOKUP.NO_VESSELS_FOUND}
       elementsFoundMessage={VESSEL_LOOKUP.VESSELS_FOUND}
+      sortableActionKey={"vesselLookupFilter"}
+      headerItems={VESSEL_LOOKUP_HEADER}
     >
       <ResultsTable
         inputData={parsedData}

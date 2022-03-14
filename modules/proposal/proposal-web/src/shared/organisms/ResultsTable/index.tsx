@@ -1,6 +1,6 @@
 import React from "react";
 import ClayTable from "@clayui/table";
-import { Table, Span } from "./styles";
+import { Table, Span, MobileWrapper } from "./styles";
 import ArrowIcon from "../../atoms/ArrowIcon";
 import { HeaderCell } from "../../types/common";
 
@@ -34,20 +34,27 @@ const ResultsTable = <RowGeneratorType extends object>(
   };
 
   return (
-    <Table borderless className="desktop-only">
-      <ClayTable.Head>
-        <ClayTable.Row>
-          {Object.values(props.headerItems).map((headerItem: HeaderCell) =>
-            handleHeaderCell(headerItem)
+    <>
+      <Table borderless className="desktop-only">
+        <ClayTable.Head>
+          <ClayTable.Row>
+            {Object.values(props.headerItems).map((headerItem: HeaderCell) =>
+              handleHeaderCell(headerItem)
+            )}
+          </ClayTable.Row>
+        </ClayTable.Head>
+        <ClayTable.Body>
+          {props.inputData.map((row: RowGeneratorType) =>
+            props.rowGenerator(row)
           )}
-        </ClayTable.Row>
-      </ClayTable.Head>
-      <ClayTable.Body>
+        </ClayTable.Body>
+      </Table>
+      <MobileWrapper>
         {props.inputData.map((row: RowGeneratorType) =>
           props.rowGenerator(row)
         )}
-      </ClayTable.Body>
-    </Table>
+      </MobileWrapper>
+    </>
   );
 };
 

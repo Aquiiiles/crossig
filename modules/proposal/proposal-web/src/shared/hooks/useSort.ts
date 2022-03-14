@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "../../redux/store";
 import { actions } from "../../redux";
 import { decideOrder } from "../../shared/util/tableUtils";
 
-type SortableActionKeyType = keyof Pick<
+export type SortableActionKeyType = keyof Pick<
   typeof actions,
   "searchFilter" | "vesselLookupFilter"
 >;
