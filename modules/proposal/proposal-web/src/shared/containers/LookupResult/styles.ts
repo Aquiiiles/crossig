@@ -45,7 +45,15 @@ export const SearchResultsHeader = styled.div`
     margin-bottom: 0;
   }
 
+  &.tablet-only {
+    display: none;
+  }
+
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    &.tablet-only {
+      display: flex;
+    }
+
     padding: 5.5rem 0 0 0;
     margin-bottom: 1rem;
   }
