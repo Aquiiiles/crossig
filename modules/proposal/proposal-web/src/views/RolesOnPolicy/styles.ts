@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   }
 
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
-    display: block;
+    flex-direction: column;
   }
 `;
 

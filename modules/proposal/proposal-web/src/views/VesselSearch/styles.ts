@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   background-color: ${(props) => props.theme.color.neutral.background};
 
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
-    display: block;
+    flex-direction: column;
   }
 `;
 
