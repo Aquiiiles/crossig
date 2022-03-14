@@ -145,7 +145,7 @@ const SearchResult: React.FC<props> = ({
             </SearchResultsHeader>
             {foundContacts ? (
               <>
-                <ResultsMobile data={filteredData} />
+                <ResultsMobile data={filteredData} embedded={embedded} />
                 <Table
                   loading={loading}
                   inputData={filteredData}

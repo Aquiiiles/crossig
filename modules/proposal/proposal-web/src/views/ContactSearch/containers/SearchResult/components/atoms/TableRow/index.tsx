@@ -6,7 +6,6 @@ import MissingInformationIcon from "../MissingInformationIcon";
 import {
   CONTACT_SEARCH_TABLE_VIEW_DETAILS,
   CONTACT_SEARCH_TABLE_USE_CONTACT,
-  ROLES_ON_POLICY,
 } from "../../../../../../../constants/languageKeys";
 import AddToPolicyBtn from "../AddToPolicyBtn";
 
@@ -24,7 +23,7 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
     { showButtons },
     { setShowButtons, formatDOB, openUpdateContact, selectContact },
     types,
-  ] = useTableRowState();
+  ] = useTableRowState(embedded);
 
   return (
     <ClayTable.Row

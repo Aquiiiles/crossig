@@ -37,7 +37,8 @@ import * as constants from "../../../ContactSearch/constants/searchResult";
 const UpdateContactForm: React.FC<{
   contactResponse: any;
   extNumber: unknown;
-}> = ({ contactResponse, extNumber }) => {
+  embedded: boolean;
+}> = ({ contactResponse, extNumber, embedded }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const data = contactResponse[0];
@@ -136,6 +137,33 @@ const UpdateContactForm: React.FC<{
     }
   };
 
+  const useContact = () => {
+    if (embedded) {
+      dispatch(
+        actions.contactsInPolicy.addContact({
+          [constants.EXT_NUMBER_KEY]: Number(extNumber),
+          [constants.OIB_KEY]: oib,
+          [constants.SUB_KEY]: subsidiaryNumber,
+          [constants.NAME_KEY]: firstName + lastName,
+          [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
+        })
+      );
+      history.goBack();
+    } else {
+      dispatch(actions.contactsInPolicy.resetFields());
+      dispatch(
+        actions.contactsInPolicy.setPolicyHolder({
+          [constants.EXT_NUMBER_KEY]: Number(extNumber),
+          [constants.OIB_KEY]: oib,
+          [constants.SUB_KEY]: subsidiaryNumber,
+          [constants.NAME_KEY]: firstName + lastName,
+          [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
+        })
+      );
+      history.push("/product");
+    }
+  };
+
   return (
     <Wrapper id="update-contact-form-main-container">
       <Modal
@@ -144,18 +172,7 @@ const UpdateContactForm: React.FC<{
         title={UPDATE_CONTACT.TITLE}
         body={successMessage()}
         lastButtonTitle={UPDATE_CONTACT.USE_CONTACT}
-        lastButtonAction={() => {
-          dispatch(
-            actions.contactsInPolicy.addContact({
-              [constants.EXT_NUMBER_KEY]: Number(extNumber),
-              [constants.OIB_KEY]: oib,
-              [constants.SUB_KEY]: subsidiaryNumber,
-              [constants.NAME_KEY]: firstName + lastName,
-              [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
-            })
-          );
-          history.push("/product");
-        }}
+        lastButtonAction={useContact}
         timeOut={5000}
       />
 
@@ -246,19 +263,7 @@ const UpdateContactForm: React.FC<{
 
           <ClayButton.Group spaced>
             <ContactButton
-              handleClick={() => {
-                dispatch(actions.contactsInPolicy.resetFields());
-                dispatch(
-                  actions.contactsInPolicy.setPolicyHolder({
-                    [constants.EXT_NUMBER_KEY]: Number(extNumber),
-                    [constants.OIB_KEY]: oib,
-                    [constants.SUB_KEY]: subsidiaryNumber,
-                    [constants.NAME_KEY]: firstName + lastName,
-                    [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
-                  })
-                );
-                history.push("/product");
-              }}
+              handleClick={useContact}
               label={UPDATE_CONTACT.USE_CONTACT}
               disabled={false}
             />
