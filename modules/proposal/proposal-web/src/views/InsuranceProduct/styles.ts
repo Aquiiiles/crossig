@@ -17,6 +17,15 @@ export const InnerWrapper = styled.div`
 export const Content = styled.div`
   flex: 1;
   padding: 6.25rem 3.5rem 1.25rem 3.75rem;
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    padding: 2rem;
+  }
+
+  p {
+    line-break: auto;
+    color: ${({ theme }) => theme.color.neutral.neutralGreyText};
+  }
 `;
 
 export const Products = styled.div`
@@ -28,6 +37,10 @@ export const Products = styled.div`
 
   & > * {
     grid-column-start: 2;
+  }
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    grid-template-columns: 0 1fr 0;
   }
 `;
 

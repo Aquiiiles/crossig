@@ -22,6 +22,10 @@ export const InnerWrapper = styled.div`
 export const Content = styled.div`
   flex: 1;
   padding: 6.25rem 3.5rem 1.25rem 3.75rem;
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    padding: 2rem;
+  }
 `;
 
 export const Buttons = styled.div`

@@ -2,7 +2,6 @@ import React from "react";
 import { Wrapper, Content, Products, Footer } from "./styles";
 import Stepper from "../../shared/molecules/Stepper";
 import ProductCard from "../../shared/atoms/ProductCard";
-import productIcon from "../../assets/productIcon.png";
 import useProductState, { sortProducts } from "./hooks/useProductState";
 import SuccessBanner from "./containers/SuccessBanner";
 import { INSURANCE_PRODUCT } from "../../constants/languageKeys";
@@ -11,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import { InnerWrapper } from "../ContactSearch/styles";
 import { useDispatch } from "../../redux/store";
 import { actions } from "../../redux/insuranceProduct/insuranceProductSlice";
+import { motorIconsMap, vesselsIconsMap } from "./constants";
 
 const InsuranceProduct: React.FC = () => {
   const [
@@ -23,6 +23,14 @@ const InsuranceProduct: React.FC = () => {
   ] = useProductState();
   const history = useHistory();
   const dispatch = useDispatch();
+
+  const getProductsIcon = (category: string, index: number) => {
+    if (category === "Vessel") {
+      return vesselsIconsMap[index];
+    } else if (category === "Motor") {
+      return motorIconsMap[index];
+    }
+  };
 
   return (
     <Wrapper>
@@ -71,7 +79,7 @@ const InsuranceProduct: React.FC = () => {
                       ...product,
                       icon: (
                         <img
-                          src={productIcon}
+                          src={getProductsIcon(product.category, productIndex)}
                           alt={`Icon for ${product.name}`}
                         />
                       ),

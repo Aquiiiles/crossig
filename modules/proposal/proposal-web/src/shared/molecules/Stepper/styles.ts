@@ -21,10 +21,12 @@ export const Wrapper = styled.div`
   }
 
   .mobile-stepper {
-    @media ${({ theme }) => theme.breakpoint.tablet("up")} {
-      display: none;
-    }
+    display: none;
     margin: auto;
+
+    @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+      display: block;
+    }
   }
 `;
 
