@@ -24,7 +24,6 @@ import { COUNTRIES_URL } from "../../../../api/constants/routes";
 import { RESOLVED } from "../../../../api/reducers/constants";
 import { numbersOnly } from "../../../../shared/util/commonFunctions";
 import { lettersOnly } from "../../../../shared/util/commonFunctions";
-import { viewsLookupTable } from "../../../../constants/views";
 
 interface props {
   currentPage: number;
@@ -68,12 +67,6 @@ const SearchField: React.FC<props> = ({
       setCountries(state.response.data);
     }
   });
-
-  useEffect(() => {
-    dispatch(
-      actions.viewMapper.setCurrentView(viewsLookupTable.CONTACT_SEARCH)
-    );
-  }, []);
 
   const handleExpand = () => {
     setExpand(!expand);

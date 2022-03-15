@@ -31,7 +31,6 @@ import ClayForm from "@clayui/form";
 import * as constants from "../../../ContactSearch/constants/searchResult";
 import { contactTypes } from "../../../../constants/contactConstants";
 import { actions } from "../../../../redux";
-import { viewsLookupTable } from "../../../../constants/views";
 
 const ContactInfo: React.FC = () => {
   const dispatch = useDispatch();
@@ -53,10 +52,6 @@ const ContactInfo: React.FC = () => {
 
   useEffect(() => {
     get(COUNTRIES_URL);
-  }, []);
-
-  useEffect(() => {
-    dispatch(actions.viewMapper.setCurrentView(viewsLookupTable.NEW_CONTACT));
   }, []);
 
   useEffect(() => {

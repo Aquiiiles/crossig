@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ProposalModal from "../../shared/containers/ProposalModal";
 
 type PropsType = {
@@ -9,7 +9,7 @@ declare const Liferay: any;
 
 // High Order Component
 const LiferayEventProvider: React.FC<PropsType> = (props: PropsType) => {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = React.useState(false);
 
   Liferay.on("displayProposalWidget", (_event: Event) => {
     setVisible(true);

@@ -41,4 +41,7 @@ global.Liferay = {
       },
     },
   },
+  on: function (type, fn, context) {
+    return;
+  }
 };
