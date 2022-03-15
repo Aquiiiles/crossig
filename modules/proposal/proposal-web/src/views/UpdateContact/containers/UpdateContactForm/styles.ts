@@ -9,6 +9,15 @@ export const Wrapper = styled.form`
   .subtitle {
     margin-bottom: 1.875rem;
   }
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    padding: 2.5rem;
+    border-radius: 0;
+  }
+
+  @media ${({ theme }) => theme.breakpoint.mobile("down")} {
+    padding: 1.5rem;
+  }
 `;
 
 export const ButtonWrapper = styled.div`

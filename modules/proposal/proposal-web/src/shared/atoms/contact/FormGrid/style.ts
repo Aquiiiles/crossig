@@ -21,4 +21,21 @@ export const Wrapper = styled.div`
     grid-template-columns: 0.5fr 0.5fr 1fr;
     column-gap: 1rem;
   }
+
+  @media ${(props) => props.theme.breakpoint.tablet("down")} {
+    grid-template-columns: 1fr;
+
+    & > *:first-child {
+      justify-self: initial;
+      width: calc(50% - 1.2rem);
+    }
+
+    & > *:not(:first-child) {
+      grid-column-start: initial;
+    }
+
+    & > *:nth-child(2) {
+      grid-row-start: 2;
+    }
+  }
 `;

@@ -9,4 +9,8 @@ export const Wrapper = styled.div`
 export const Content = styled.div`
   flex: 1;
   padding: 1.25rem;
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    padding: 0;
+  }
 `;
