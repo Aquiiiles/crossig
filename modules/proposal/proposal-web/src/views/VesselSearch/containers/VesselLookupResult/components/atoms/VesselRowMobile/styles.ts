@@ -33,7 +33,9 @@ export const InnerGrid = styled.div`
 
   @media ${({ theme }) => theme.breakpoint.mobile("down")} {
     & > p {
-      place-self: end;
+      text-align: end;
+      justify-self: end;
+      align-self: start;
     }
   }
 `;
