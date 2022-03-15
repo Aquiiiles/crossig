@@ -13,6 +13,11 @@ export const Wrapper = styled.div<{ half: boolean }>`
   }
 
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    & > * {
+      flex: 1 1 100%;
+      padding-right: 0;
+    }
+
     & .input-group-item:not(:first-child) {
       margin-left: 2rem;
     }

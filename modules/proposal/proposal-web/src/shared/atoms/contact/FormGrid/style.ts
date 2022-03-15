@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
     justify-self: end;
   }
 
-  & > *:not(:first-child) {
+  & > div:not(:first-of-type) {
     grid-column-start: 2;
   }
 
@@ -25,22 +25,38 @@ export const Wrapper = styled.div`
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
     grid-template-columns: 1fr;
 
-    & > *:first-child {
+    && .cityPostalRow {
+      grid-row-start: 3;
+    }
+
+    && .halfRowTabletFullRowMobile {
+      width: calc(50% - 1.1rem);
+    }
+
+    & > strong {
+      justify-self: initial !important;
+    }
+
+    & > div:first-of-type {
       justify-self: initial;
       width: calc(50% - 1.2rem);
     }
 
-    & > *:not(:first-child) {
+    & > div:not(:first-of-type) {
       grid-column-start: initial;
     }
 
-    & > *:nth-child(2) {
+    & > div:nth-of-type(2) {
       grid-row-start: 2;
     }
   }
 
   @media ${({ theme }) => theme.breakpoint.mobile("down")} {
-    & > *:first-child {
+    && .halfRowTabletFullRowMobile {
+      width: 100%;
+    }
+
+    & > div:first-of-type {
       justify-self: initial;
       width: 100%;
     }
