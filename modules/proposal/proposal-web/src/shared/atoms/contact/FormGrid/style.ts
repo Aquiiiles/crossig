@@ -22,7 +22,7 @@ export const Wrapper = styled.div`
     column-gap: 1rem;
   }
 
-  @media ${(props) => props.theme.breakpoint.tablet("down")} {
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
     grid-template-columns: 1fr;
 
     & > *:first-child {
@@ -36,6 +36,13 @@ export const Wrapper = styled.div`
 
     & > *:nth-child(2) {
       grid-row-start: 2;
+    }
+  }
+
+  @media ${({ theme }) => theme.breakpoint.mobile("down")} {
+    & > *:first-child {
+      justify-self: initial;
+      width: 100%;
     }
   }
 `;

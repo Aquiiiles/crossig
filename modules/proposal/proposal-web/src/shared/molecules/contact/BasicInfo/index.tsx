@@ -253,7 +253,7 @@ const BasicInfo: React.FC<propsType> = ({
       )}
       <Row half={!showIndividualFields}>
         <ClayForm.Group>
-          <ClayInput.Group>
+          <ClayInput.Group id="dateOibInputGroup">
             {showIndividualFields ? (
               <ClayInput.GroupItem
                 className={`${
