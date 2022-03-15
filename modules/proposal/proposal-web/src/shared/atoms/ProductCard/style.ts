@@ -20,7 +20,7 @@ export const Wrapper = styled.div`
 
     button {
       margin-right: auto;
-      margin-left: 0;
+      margin-left: 0 !important;
     }
   }
 `;
@@ -32,9 +32,5 @@ export const ProductInfoWrapper = styled.div`
 
   @media ${({ theme }) => theme.breakpoint.mobile("down")} {
     margin: 1rem auto 1rem 0;
-  }
-
-  p {
-    line-break: anywhere;
   }
 `;

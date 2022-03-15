@@ -21,6 +21,11 @@ export const Content = styled.div`
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
     padding: 2rem;
   }
+
+  p {
+    line-break: auto;
+    color: ${({ theme }) => theme.color.neutral.neutralGreyText};
+  }
 `;
 
 export const Products = styled.div`
