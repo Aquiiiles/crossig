@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  background-color: ${(props) => props.theme.color.primary.links};
+  background-color: ${(props) => props.theme.color.secondary[2]};
   border-radius: 160px;
   padding: 0 0.5rem;
 

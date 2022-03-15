@@ -18,7 +18,7 @@ const AddRoleRow: React.FC<{
     <>
       <Row>
         <ClayTableCell colSpan={4}>
-          <p onClick={() => setShowLookup(!showLookup)}>
+          <p onClick={() => setShowLookup(!showLookup)} className="add-role">
             {ROLES_ON_POLICY.ADD_ROLE + "  "}
             <ArrowButton
               onClick={() => {

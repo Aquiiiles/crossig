@@ -36,9 +36,7 @@ const RolesOnPolicy: React.FC = () => {
       <InnerWrapper>
         <Content>
           <h5>{ROLES_ON_POLICY.TITLE}</h5>
-          <p className="body-small" style={{ marginBottom: "2.5rem" }}>
-            {ROLES_ON_POLICY.SUBTITLE}
-          </p>
+          <p className="body-small subtitle">{ROLES_ON_POLICY.SUBTITLE}</p>
           <Table hasInsuredRole={hasInsuredRole} />
         </Content>
         <Buttons>

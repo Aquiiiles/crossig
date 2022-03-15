@@ -23,8 +23,14 @@ export const Content = styled.div`
   flex: 1;
   padding: 6.25rem 3.5rem 1.25rem 3.75rem;
 
-  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
-    padding: 2rem;
+  @media ${(props) => props.theme.breakpoint.tablet("down")} {
+    padding: 2.5rem 0;
+  }
+
+  p.subtitle {
+    margin-bottom: 2.5rem;
+    line-break: auto;
+    color: ${({ theme }) => theme.color.neutral.neutralGreyText};
   }
 `;
 

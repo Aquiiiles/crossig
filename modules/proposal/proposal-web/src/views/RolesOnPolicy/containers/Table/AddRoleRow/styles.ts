@@ -10,6 +10,10 @@ export const Row = styled(ClayTable.Row)`
 
   p {
     margin-bottom: 0;
+
+    &.add-role{
+      color: ${(props) => props.theme.color.primary.links};
+    }
   }
 
   :hover {
