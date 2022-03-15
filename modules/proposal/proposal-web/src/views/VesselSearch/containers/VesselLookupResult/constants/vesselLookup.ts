@@ -2,7 +2,7 @@ import { VESSEL_LOOKUP_TABLE } from "../../../../../constants/languageKeys";
 import { HeaderCell } from "../../../../../shared/types/common";
 
 export const NIB: HeaderCell = {
-  key: "NIB",
+  key: "nib",
   name: VESSEL_LOOKUP_TABLE.NIB,
   expanded: false,
   hasSpan: true,

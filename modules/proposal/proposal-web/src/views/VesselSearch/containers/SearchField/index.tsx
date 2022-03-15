@@ -34,7 +34,7 @@ const SearchField: React.FC<props> = ({ onSearchClick }) => {
   return (
     <Wrapper>
       <ClayForm.Group style={{ marginBottom: "0" }}>
-        <ClayInput.Group>
+        <ClayInput.Group id="vesselLookupInputGroup">
           <ClayInput.GroupItem>
             <label className="body-small" htmlFor="vesselNib">
               {VESSEL_LOOKUP.FIELD.NIB}
@@ -102,18 +102,18 @@ const SearchField: React.FC<props> = ({ onSearchClick }) => {
           </ClayInput.GroupItem>
         </ClayInput.Group>
         <br />
-        <ClayButton.Group>
-          <span>
-            <ClayButton disabled={disabledSearch} onClick={onSearchClick}>
-              {VESSEL_LOOKUP.BUTTON_SEARCH_VESSEL}
+        <ClayButton.Group spaced>
+          <ClayButton disabled={disabledSearch} onClick={onSearchClick}>
+            {VESSEL_LOOKUP.BUTTON_SEARCH_VESSEL}
+          </ClayButton>
+          <span id="vesselLookupCreateVesselButton">
+            <ClayButton
+              displayType="link"
+              onClick={() => history.push("/new_vessel")}
+            >
+              {VESSEL_LOOKUP.BUTTON_CREATE_NEW_VESSEL}
             </ClayButton>
           </span>
-          <ClayButton
-            displayType="link"
-            onClick={() => history.push("/new_vessel")}
-          >
-            {VESSEL_LOOKUP.BUTTON_CREATE_NEW_VESSEL}
-          </ClayButton>
         </ClayButton.Group>
       </ClayForm.Group>
     </Wrapper>

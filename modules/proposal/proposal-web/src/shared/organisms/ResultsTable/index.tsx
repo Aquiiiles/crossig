@@ -1,6 +1,6 @@
 import React from "react";
 import ClayTable from "@clayui/table";
-import { Table, Span } from "./styles";
+import { Table, Span, MobileWrapper } from "./styles";
 import ArrowIcon from "../../atoms/ArrowIcon";
 import { HeaderCell } from "../../types/common";
 
@@ -8,6 +8,7 @@ interface propsInterface<RowGeneratorType> {
   inputData: Array<RowGeneratorType>;
   onSort: (key: string) => void;
   rowGenerator: (item: RowGeneratorType) => void;
+  rowGeneratorMobile?: (item: RowGeneratorType) => void;
   sortedBy: string;
   sortOrder: string;
   headerItems: Array<HeaderCell>;
@@ -34,20 +35,28 @@ const ResultsTable = <RowGeneratorType extends object>(
   };
 
   return (
-    <Table borderless>
-      <ClayTable.Head>
-        <ClayTable.Row>
-          {Object.values(props.headerItems).map((headerItem: HeaderCell) =>
-            handleHeaderCell(headerItem)
-          )}
-        </ClayTable.Row>
-      </ClayTable.Head>
-      <ClayTable.Body>
-        {props.inputData.map((row: RowGeneratorType) =>
-          props.rowGenerator(row)
+    <>
+      <MobileWrapper>
+        {props.inputData.map(
+          (row: RowGeneratorType) =>
+            !!props.rowGeneratorMobile && props.rowGeneratorMobile(row)
         )}
-      </ClayTable.Body>
-    </Table>
+      </MobileWrapper>
+      <Table borderless className="desktop-only">
+        <ClayTable.Head>
+          <ClayTable.Row>
+            {Object.values(props.headerItems).map((headerItem: HeaderCell) =>
+              handleHeaderCell(headerItem)
+            )}
+          </ClayTable.Row>
+        </ClayTable.Head>
+        <ClayTable.Body>
+          {props.inputData.map((row: RowGeneratorType) =>
+            props.rowGenerator(row)
+          )}
+        </ClayTable.Body>
+      </Table>
+    </>
   );
 };
 

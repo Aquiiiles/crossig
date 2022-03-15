@@ -41,12 +41,3 @@ export const FieldWrapper = styled.div`
   grid-template-rows: 1fr;
   column-gap: 1rem;
 `;
-
-export const FilterButton = styled(ClayButton)`
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 6px;
-  background-color: ${({ theme }) => theme.color.neutral.white};
-`;

@@ -1,18 +1,10 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
   padding: 1.5rem 0;
   border-bottom: 1px solid ${(props) => props.theme.color.neutral.dividerGrey};
-
-  & .missingInformationIcon {
-    position: absolute;
-    top: 1.5rem;
-    right: 0;
-    margin-right: 0 !important;
-  }
 `;
 
 export const MainGrid = styled.div`
@@ -27,7 +19,7 @@ export const MainGrid = styled.div`
 
 export const InnerGrid = styled.div`
   display: grid;
-  grid-template-columns: min-content 1fr;
+  grid-template-columns: max-content 1fr;
   grid-auto-rows: min-content;
   column-gap: 2.5rem;
 
@@ -37,6 +29,14 @@ export const InnerGrid = styled.div`
 
   & > p {
     color: ${(props) => props.theme.color.neutral.black};
+  }
+
+  @media ${({ theme }) => theme.breakpoint.mobile("down")} {
+    & > p {
+      text-align: end;
+      justify-self: end;
+      align-self: start;
+    }
   }
 `;
 

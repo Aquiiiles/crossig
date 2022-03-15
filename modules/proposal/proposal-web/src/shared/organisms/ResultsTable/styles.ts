@@ -14,3 +14,12 @@ export const Table = styled(ClayTable)`
 export const Span = styled.span`
   margin-left: 2rem;
 `;
+
+export const MobileWrapper = styled.div`
+  display: none;
+  flex-direction: column;
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    display: flex;
+  }
+`;

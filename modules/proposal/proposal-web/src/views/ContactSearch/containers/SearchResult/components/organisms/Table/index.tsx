@@ -7,7 +7,7 @@ import { ResultsTable, Span } from "./styles";
 
 import * as types from "../../../types/searchResult";
 import * as constants from "../../../../../constants/searchResult";
-import useSort from "../../../../../hooks/useSort";
+import useSort from "../../../../../../../shared/hooks/useSort";
 
 interface props {
   inputData: Array<types.responseType>;
@@ -16,11 +16,7 @@ interface props {
 }
 
 const Table: React.FC<props> = ({ inputData, loading, embedded }: props) => {
-  const [
-    { sortedBy, sortOrder },
-    { setSortedBy, setSortOrder, decideOrder },
-    dispatch,
-  ] = useSort();
+  const [{ sortedBy, sortOrder }, { handleSort }] = useSort("searchFilter");
 
   const arrowIcon = (
     <ClayIcon
@@ -36,10 +32,7 @@ const Table: React.FC<props> = ({ inputData, loading, embedded }: props) => {
           <ClayTable.Cell
             style={{ cursor: "pointer" }}
             headingCell
-            onClick={() => {
-              dispatch(setSortedBy(constants.OIB_KEY));
-              dispatch(setSortOrder(decideOrder(constants.OIB_KEY)));
-            }}
+            onClick={() => handleSort(constants.OIB_KEY)}
           >
             <Span />
             {constants.OIB_NAME}
@@ -48,10 +41,7 @@ const Table: React.FC<props> = ({ inputData, loading, embedded }: props) => {
           <ClayTable.Cell
             style={{ cursor: "pointer" }}
             headingCell
-            onClick={() => {
-              dispatch(setSortedBy(constants.SUB_KEY));
-              dispatch(setSortOrder(decideOrder(constants.SUB_KEY)));
-            }}
+            onClick={() => handleSort(constants.SUB_KEY)}
           >
             {constants.SUB_NAME}
             {sortedBy === constants.SUB_KEY ? arrowIcon : null}
@@ -59,10 +49,7 @@ const Table: React.FC<props> = ({ inputData, loading, embedded }: props) => {
           <ClayTable.Cell
             style={{ cursor: "pointer" }}
             headingCell
-            onClick={() => {
-              dispatch(setSortedBy(constants.DOB_KEY));
-              dispatch(setSortOrder(decideOrder(constants.DOB_KEY)));
-            }}
+            onClick={() => handleSort(constants.DOB_KEY)}
           >
             {constants.DOB_NAME}
             {sortedBy === constants.DOB_KEY ? arrowIcon : null}
@@ -71,10 +58,7 @@ const Table: React.FC<props> = ({ inputData, loading, embedded }: props) => {
             style={{ cursor: "pointer" }}
             expanded
             headingCell
-            onClick={() => {
-              dispatch(setSortedBy(constants.NAME_KEY));
-              dispatch(setSortOrder(decideOrder(constants.NAME_KEY)));
-            }}
+            onClick={() => handleSort(constants.NAME_KEY)}
           >
             {constants.NAME_NAME}
             {sortedBy === constants.NAME_KEY ? arrowIcon : null}
@@ -83,10 +67,7 @@ const Table: React.FC<props> = ({ inputData, loading, embedded }: props) => {
             style={{ cursor: "pointer" }}
             expanded
             headingCell
-            onClick={() => {
-              dispatch(setSortedBy(constants.STREET_KEY));
-              dispatch(setSortOrder(decideOrder(constants.STREET_KEY)));
-            }}
+            onClick={() => handleSort(constants.STREET_KEY)}
           >
             {constants.STREET_NAME}
             {sortedBy === constants.STREET_KEY ? arrowIcon : null}
@@ -94,10 +75,7 @@ const Table: React.FC<props> = ({ inputData, loading, embedded }: props) => {
           <ClayTable.Cell
             style={{ cursor: "pointer" }}
             headingCell
-            onClick={() => {
-              dispatch(setSortedBy(constants.CITY_KEY));
-              dispatch(setSortOrder(decideOrder(constants.CITY_KEY)));
-            }}
+            onClick={() => handleSort(constants.CITY_KEY)}
           >
             {constants.CITY_NAME}
             {sortedBy === constants.CITY_KEY ? arrowIcon : null}
@@ -105,10 +83,7 @@ const Table: React.FC<props> = ({ inputData, loading, embedded }: props) => {
           <ClayTable.Cell
             style={{ cursor: "pointer" }}
             headingCell
-            onClick={() => {
-              dispatch(setSortedBy(constants.TYPE_KEY));
-              dispatch(setSortOrder(decideOrder(constants.TYPE_KEY)));
-            }}
+            onClick={() => handleSort(constants.TYPE_KEY)}
           >
             {constants.TYPE_NAME}
             {sortedBy === constants.TYPE_KEY ? arrowIcon : null}
