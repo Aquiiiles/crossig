@@ -28,7 +28,7 @@ export const MainGrid = styled.div`
 export const InnerGrid = styled.div`
   display: grid;
   grid-template-columns: min-content 1fr;
-  grid-auto-rows: 1fr;
+  grid-auto-rows: min-content;
   column-gap: 2.5rem;
 
   & > h6 {
