@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Wrapper, Content, Products, Footer, InnerWrapper } from "./styles";
 import Stepper from "../../shared/molecules/Stepper";
@@ -7,12 +7,17 @@ import BackBtn from "../../shared/atoms/BackBtn";
 import { COVERAGE_PLAN } from "../../constants/languageKeys";
 import useCoveragePlanState from "./hooks/useCoveragePlanState";
 import { useDispatch } from "../../redux/store";
-import { actions } from "../../redux/coveragePlan/coveragePlanSlice";
+import { actions } from "../../redux/";
+import { viewsLookupTable } from "../../constants/views";
 
 const CoveragePlan: React.FC = () => {
   const history = useHistory();
   const coveragePlans = useCoveragePlanState();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(actions.viewMapper.setCurrentView(viewsLookupTable.COVERAGE_PLAN));
+  }, []);
 
   return (
     <Wrapper>
@@ -39,7 +44,9 @@ const CoveragePlan: React.FC = () => {
                     icon: null,
                   }}
                   onProductSelection={() => {
-                    dispatch(actions.setCoveragePlan(coveragePlan));
+                    dispatch(
+                      actions.coveragePlan.setCoveragePlan(coveragePlan)
+                    );
                     history.push("/vessel_search");
                   }}
                 />

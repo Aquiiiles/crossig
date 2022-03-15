@@ -1,25 +1,23 @@
 import ClayModal from "@clayui/modal";
 import styled from "styled-components";
 
-export const StyledModal = styled(ClayModal)`
-  .cap {
-    pointer-events: none;
-  }
+type PropsType = {
+  headerMargin: boolean;
+};
 
+export const StyledModal = styled(ClayModal)<PropsType>`
   .modal-body {
     padding: 0;
   }
 
   .modal-header {
-    margin-left: 15rem;
+    margin-left: ${(props: PropsType) => (props.headerMargin ? "15rem" : "0")};
   }
 
   .modal-header,
   .modal-title {
     background-color: ${(props) => props.theme.color.neutral.background};
     border-color: ${(props) => props.theme.color.neutral.background};
-    color: ${(props) => props.theme.color.neutral.white};
-    font-family: Crosig-Bold;
     pointer-events: none;
   }
 

@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ClayForm, { ClayInput, ClaySelectWithOption } from "@clayui/form";
 import ClayButton from "@clayui/button";
 import { Wrapper } from "./style";
 import { VESSEL_LOOKUP } from "../../../../constants/languageKeys";
 import { vesselTypeOptions } from "../../../../constants/vesselConstants";
 import useSearchField from "./hooks/useSearchField";
+import { actions } from "../../../../redux";
+import { viewsLookupTable } from "../../../../constants/views";
 
 interface props {
   onSearchClick: () => void;
@@ -30,6 +32,10 @@ const SearchField: React.FC<props> = ({ onSearchClick }) => {
     dispatch,
     history,
   ] = useSearchField();
+
+  useEffect(() => {
+    dispatch(actions.viewMapper.setCurrentView(viewsLookupTable.VESSEL_SEARCH));
+  }, []);
 
   return (
     <Wrapper>

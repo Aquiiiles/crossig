@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import ProposalModal from "../../shared/containers/ProposalModal";
-import { useHistory } from "react-router-dom";
 
 type PropsType = {
   children: React.ReactNode;
@@ -21,6 +20,7 @@ const LiferayEventProvider: React.FC<PropsType> = (props: PropsType) => {
       visible={visible}
       onClose={() => {
         setVisible(false);
+        window.location.assign("/group/agent-portal/dashboard");
       }}
     >
       {props.children}

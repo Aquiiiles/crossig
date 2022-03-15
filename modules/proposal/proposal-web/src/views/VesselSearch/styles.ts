@@ -4,6 +4,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   background-color: ${(props) => props.theme.color.neutral.background};
+  height: 100%;
 
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
     flex-direction: column;

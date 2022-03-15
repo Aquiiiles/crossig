@@ -2,14 +2,16 @@ import ClayModal, { useModal } from "@clayui/modal";
 import React, { useState, useEffect } from "react";
 import spritemap from "@clayui/css/lib/images/icons/icons.svg";
 import { StyledModal } from "./styles";
+import { useSelector } from "../../../redux/store";
+import { hasMargin } from "./util";
 
-type propsType = {
+type PropsType = {
   children: React.ReactNode;
   visible: boolean;
   onClose: () => void;
 };
 
-const ProposalModal: React.FC<propsType> = (props: propsType) => {
+const ProposalModal: React.FC<PropsType> = (props: PropsType) => {
   const [visible, setVisible] = useState(false);
   const { observer, onClose } = useModal({
     onClose: () => {
@@ -17,32 +19,29 @@ const ProposalModal: React.FC<propsType> = (props: propsType) => {
     },
   });
 
+  const { currentView } = useSelector((state) => state.viewMapper);
+  const headerWithMargin = hasMargin(currentView);
+
   useEffect(() => {
     setVisible(props.visible);
   }, [props.visible]);
 
-  console.log(props.children?.toString);
-
   return (
     <>
       {visible && (
-        <>
-          <StyledModal
-            className="cap not-clickable-outside"
-            observer={observer}
-            size="full-screen"
-            spritemap={spritemap}
-            status="info"
-          >
-            <ClayModal.Body>
-              <ClayModal.Header
-                onClick={onClose}
-                className="proposal-modal-header"
-              />
-              {props.children}
-            </ClayModal.Body>
-          </StyledModal>
-        </>
+        <StyledModal
+          headerMargin={headerWithMargin}
+          className="cap"
+          observer={observer}
+          size="full-screen"
+          spritemap={spritemap}
+          status="info"
+        >
+          <ClayModal.Body>
+            <ClayModal.Header onClick={onClose} />
+            {props.children}
+          </ClayModal.Body>
+        </StyledModal>
       )}
     </>
   );

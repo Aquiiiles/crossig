@@ -36,6 +36,7 @@ import {
   setContactInfoFields,
 } from "./util";
 import * as constants from "../../../ContactSearch/constants/searchResult";
+import { viewsLookupTable } from "../../../../constants/views";
 
 const UpdateContactForm: React.FC<{
   contactResponse: any;
@@ -71,6 +72,12 @@ const UpdateContactForm: React.FC<{
       setCountries(state.response.data);
     }
   });
+
+  useEffect(() => {
+    dispatch(
+      actions.viewMapper.setCurrentView(viewsLookupTable.UPDATE_CONTACT)
+    );
+  }, []);
 
   useEffect(() => {
     setBasicInfoFields(data, dispatch, actions.basicInfo);

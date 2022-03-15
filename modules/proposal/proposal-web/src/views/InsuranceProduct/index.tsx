@@ -85,7 +85,9 @@ const InsuranceProduct: React.FC = () => {
                       ),
                     }}
                     onProductSelection={() => {
-                      dispatch(actions.setInsuranceProduct(product));
+                      dispatch(
+                        actions.setInsuranceProduct(product)
+                      );
                       history.push("/roles");
                     }}
                   />

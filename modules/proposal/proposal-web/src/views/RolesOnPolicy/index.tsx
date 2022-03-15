@@ -8,6 +8,7 @@ import Table from "./containers/Table";
 import { ROLES_ON_POLICY } from "../../constants/languageKeys";
 import { useDispatch, useSelector } from "../../redux/store";
 import { actions } from "../../redux";
+import { viewsLookupTable } from "../../constants/views";
 
 const RolesOnPolicy: React.FC = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,12 @@ const RolesOnPolicy: React.FC = () => {
   useEffect(() => {
     dispatch(setRoleOptions(["Insured", "Payer"]));
     dispatch(clearSearchValues());
+  }, []);
+
+  useEffect(() => {
+    dispatch(
+      actions.viewMapper.setCurrentView(viewsLookupTable.ROLES_ON_POLICY)
+    );
   }, []);
 
   return (
