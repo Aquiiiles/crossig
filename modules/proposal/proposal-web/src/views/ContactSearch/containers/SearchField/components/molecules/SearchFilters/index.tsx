@@ -52,7 +52,6 @@ const SearchFilters: React.FC<props> = ({
   onDropdownCancel,
 }) => {
   const { state, get: getAreaCodes } = useFetchData();
-  const areaCodeData = state as State;
 
   useEffect(() => {
     getAreaCodes(AREA_CODE_URL);

@@ -27,7 +27,9 @@ const Table: React.FC<{ hasInsuredRole: boolean }> = ({ hasInsuredRole }) => {
         <ClayTable.Head>
           <ClayTable.Row>
             <ClayTable.Cell headingCell>{constants.OIB_NAME}</ClayTable.Cell>
-            <ClayTable.Cell headingCell>{constants.SUB_NAME}</ClayTable.Cell>
+            <ClayTable.Cell headingCell className="sub-header-cell">
+              {constants.SUB_NAME}
+            </ClayTable.Cell>
             <ClayTable.Cell expanded headingCell>
               {constants.NAME_NAME}
             </ClayTable.Cell>

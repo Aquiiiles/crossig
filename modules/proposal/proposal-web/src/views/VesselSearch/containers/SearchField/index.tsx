@@ -48,7 +48,7 @@ const SearchField: React.FC<props> = ({ onSearchClick }) => {
               }
             />
           </ClayInput.GroupItem>
-          <ClayInput.GroupItem>
+          <ClayInput.GroupItem className="registration-mark-search-field">
             <label className="body-small" htmlFor="vesselRegistrationMark">
               {VESSEL_LOOKUP.FIELD.REGISTRATION_MARK}
             </label>

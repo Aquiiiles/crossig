@@ -39,7 +39,7 @@ const Table: React.FC<props> = ({ inputData, loading, embedded }: props) => {
             {sortedBy === constants.OIB_KEY ? arrowIcon : null}
           </ClayTable.Cell>
           <ClayTable.Cell
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", whiteSpace: "nowrap" }}
             headingCell
             onClick={() => handleSort(constants.SUB_KEY)}
           >

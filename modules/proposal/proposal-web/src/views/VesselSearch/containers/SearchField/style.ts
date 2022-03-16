@@ -8,6 +8,10 @@ export const Wrapper = styled.div`
     align-items: end;
   }
 
+  .registration-mark-search-field {
+    width: min-content;
+  }
+
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
     & #vesselLookupInputGroup {
       display: grid;

@@ -1,4 +1,11 @@
 import styled from "styled-components";
+import ClayTable from "@clayui/table";
+
+export const StyledRow = styled(ClayTable.Row)`
+  .no-wrap {
+    white-space: nowrap;
+  }
+`;
 
 export const HoveringButtonGroup = styled.div`
   pointer-events: none;

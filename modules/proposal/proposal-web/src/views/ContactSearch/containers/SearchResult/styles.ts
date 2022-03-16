@@ -8,6 +8,16 @@ export const Wrapper = styled.div`
   background-color: ${(props) => props.theme.color.neutral.white};
   border-radius: 12px;
 
+  .city-dropdown {
+    cursor: pointer;
+    width: max-content;
+  }
+
+  .type-dropdown {
+    cursor: pointer;
+    width: min-content;
+  }
+
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
     margin-top: 1.5rem;
     padding: 0 2.1875rem;

@@ -5,6 +5,8 @@ export const Wrapper = styled.div`
   border-radius: 160px;
   padding: 0 1rem;
   margin-bottom: 0.5rem;
+  white-space: nowrap;
+  height: fit-content;
 
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
     position: relative;
@@ -13,6 +15,9 @@ export const Wrapper = styled.div`
 
   &:not(:last-child) {
     margin-right: 0.5rem;
+
+  &:not(:first-child) {
+    margin-left: 0.5rem;
   }
 
   p {

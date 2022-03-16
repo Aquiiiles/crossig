@@ -21,4 +21,8 @@ export const ResultsTable = styled(ClayTable)`
       background-color: ${(props) => props.theme.color.neutral.white};
     }
   }
+
+  .sub-header-cell {
+    white-space: nowrap;
+  }
 `;

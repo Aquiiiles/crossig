@@ -1,7 +1,7 @@
 import React from "react";
 import ClayButton from "@clayui/button";
 import ClayTable from "@clayui/table";
-import { HoveringButtonGroup } from "./style";
+import { HoveringButtonGroup, StyledRow } from "./style";
 import MissingInformationIcon from "../MissingInformationIcon";
 import {
   CONTACT_SEARCH_TABLE_VIEW_DETAILS,
@@ -29,13 +29,15 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
   );
 
   return (
-    <ClayTable.Row
+    <StyledRow
       style={{ position: "relative" }}
       onMouseLeave={() => setShowButtons(false)}
+      onPointerLeave={() => setShowButtons(false)}
       onMouseEnter={() => setShowButtons(true)}
+      onPointerEnter={() => setShowButtons(true)}
       onDoubleClick={() => (!embedded ? selectContact(contact) : null)}
     >
-      <ClayTable.Cell headingTitle>
+      <ClayTable.Cell headingTitle className="no-wrap">
         <MissingInformationIcon
           mailValidated={contact[constants.MAIL_VALIDATED_KEY]}
           phoneNumberValidated={contact[constants.PHONE_NUMBER_VALIDATED_KEY]}
@@ -80,7 +82,7 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
           {types[contact[constants.TYPE_KEY] as keyof typeof types]}
         </ClayTable.Cell>
       )}
-    </ClayTable.Row>
+    </StyledRow>
   );
 };
 
