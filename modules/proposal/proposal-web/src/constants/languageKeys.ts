@@ -4,6 +4,8 @@ declare const Liferay: {
   }
 };
 
+export const NEW_PROPOSAL_BUTTON = Liferay.Language.get('dashboard-new-proposal-button');
+
 export const TOO_MANY_SEARCH_RESULTS = Liferay.Language.get('too-many-search-results');
 
 export const CONTACT_INFO = {

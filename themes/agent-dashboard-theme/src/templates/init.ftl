@@ -154,6 +154,10 @@
 	is_portlet_page = false
 />
 
+<#assign
+	new_proposal_button = languageUtil.get(locale, "dashboard-new-proposal-button")
+/>
+
 <#if stringUtil.equals(page.getType(), "portlet")>
 	<#assign is_portlet_page = true />
 </#if>

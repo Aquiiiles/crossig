@@ -7,12 +7,13 @@ import BackBtn from "../../shared/atoms/BackBtn";
 import { COVERAGE_PLAN } from "../../constants/languageKeys";
 import useCoveragePlanState from "./hooks/useCoveragePlanState";
 import { useDispatch } from "../../redux/store";
-import { actions } from "../../redux/coveragePlan/coveragePlanSlice";
+import { actions } from "../../redux/";
 
 const CoveragePlan: React.FC = () => {
   const history = useHistory();
   const coveragePlans = useCoveragePlanState();
   const dispatch = useDispatch();
+
 
   return (
     <Wrapper>
@@ -39,7 +40,9 @@ const CoveragePlan: React.FC = () => {
                     icon: null,
                   }}
                   onProductSelection={() => {
-                    dispatch(actions.setCoveragePlan(coveragePlan));
+                    dispatch(
+                      actions.coveragePlan.setCoveragePlan(coveragePlan)
+                    );
                     history.push("/vessel_search");
                   }}
                 />
