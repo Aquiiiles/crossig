@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import Stepper from "../../shared/molecules/Stepper";
 import { Wrapper, Buttons, InnerWrapper, Content } from "./styles";
+import Stepper from "../../shared/molecules/Stepper";
 import BackBtn from "../../shared/atoms/BackBtn";
 import ContinueBtn from "../../shared/atoms/ContinueBtn";
 import Table from "./containers/Table";
+import ResultsMobile from "./containers/ResultsMobile";
 import { ROLES_ON_POLICY } from "../../constants/languageKeys";
 import { useDispatch, useSelector } from "../../redux/store";
 import { actions } from "../../redux";
@@ -37,6 +38,7 @@ const RolesOnPolicy: React.FC = () => {
         <Content>
           <h5>{ROLES_ON_POLICY.TITLE}</h5>
           <p className="body-small subtitle">{ROLES_ON_POLICY.SUBTITLE}</p>
+          <ResultsMobile hasInsuredRole={hasInsuredRole} />
           <Table hasInsuredRole={hasInsuredRole} />
         </Content>
         <Buttons>

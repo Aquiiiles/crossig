@@ -23,7 +23,7 @@ const Table: React.FC<{ hasInsuredRole: boolean }> = ({ hasInsuredRole }) => {
 
   return (
     <Wrapper>
-      <ResultsTable borderless>
+      <ResultsTable borderless className="desktop-only">
         <ClayTable.Head>
           <ClayTable.Row>
             <ClayTable.Cell headingCell>{constants.OIB_NAME}</ClayTable.Cell>
@@ -48,7 +48,7 @@ const Table: React.FC<{ hasInsuredRole: boolean }> = ({ hasInsuredRole }) => {
           />
           {contactsInPolicy.map((contact, index) => (
             <TableRow
-              key={index}
+              key={index + 1}
               contact={contact}
               policyHolder={false}
               addRole={(title: string) =>
