@@ -18,7 +18,13 @@ import { useDispatch, useSelector } from "../../../../redux/store";
 import { Country } from "../../../types/contact";
 import { createEmptyPhoneNumber } from "../../../util/commonFunctions";
 import { actions } from "../../../../redux";
-import { StyledLabelFormGroup, StyledPhoneTypeFormGroup } from "./styles";
+import {
+  InnerTitle,
+  StyledLabelFormGroup,
+  StyledPhoneTypeFormGroup,
+  Wrapper,
+} from "./styles";
+import FormSectionMobile from "../../../atoms/contact/FormSectionMobile";
 
 type propsType = {
   countries: Array<Country>;
@@ -136,8 +142,8 @@ const ContactInfoForm: React.FC<propsType> = ({
   }, [contactType]);
 
   return (
-    <Fragment>
-      <FormSection title={CONTACT_INFO.TITLE}>
+    <Wrapper>
+      <FormSection className="desktop-only" title={CONTACT_INFO.TITLE}>
         <StyledLabelFormGroup>
           {emailAddresses.map((_email, index) => (
             <SubtitledLabel
@@ -160,7 +166,7 @@ const ContactInfoForm: React.FC<propsType> = ({
         </Row>
       </FormSection>
 
-      <FormSection>
+      <FormSection className="desktop-only">
         <StyledPhoneTypeFormGroup>
           <SubtitledLabel
             title={CONTACT_INFO.MAIN_MOBILE}
@@ -190,7 +196,48 @@ const ContactInfoForm: React.FC<propsType> = ({
           </ClayForm.Group>
         </Row>
       </FormSection>
-    </Fragment>
+      <FormSectionMobile className="tablet-only" title={CONTACT_INFO.TITLE}>
+        <InnerTitle>
+          <strong>{getEmailLabelTitle(0)}</strong>
+          <small>{getEmailLabelSubtitle(0)}</small>
+        </InnerTitle>
+        <Row>
+          <EmailInputList
+            emails={emailAddresses}
+            handleChange={handleEmailChange}
+            addEmailInput={addEmailAddressInput}
+            disableLink={disableFields}
+            disableInput={disableFields}
+          />
+        </Row>
+      </FormSectionMobile>
+      <FormSectionMobile className="tablet-only">
+        <InnerTitle>
+          <strong>{CONTACT_INFO.MAIN_MOBILE}</strong>
+          <small>{CONTACT_INFO.MAIN_MOBILE_SUBTITLE}</small>
+        </InnerTitle>
+        <Row>
+          <PhoneInputList
+            phoneTypeSelect={(index) => (
+              <PhoneTypeSelect
+                key={index}
+                index={index}
+                title={CONTACT_INFO.PHONE_TYPE}
+                handleChange={handlePhoneChange}
+                entity={mobilePhones}
+                disableInput={disableFields}
+              />
+            )}
+            phoneNumbers={mobilePhones}
+            handleChange={handlePhoneChange}
+            addPhoneInput={addMobilePhoneInput}
+            countries={countries}
+            disableLink={disableFields}
+            disableInput={disableFields}
+          />
+        </Row>
+      </FormSectionMobile>
+    </Wrapper>
   );
 };
 

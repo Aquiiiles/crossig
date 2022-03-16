@@ -8,15 +8,23 @@ export const StyledFormGroup = styled(ClayForm.Group)`
   row-gap: 1rem;
 
   & input {
-    color: ${props => props.theme.color.primary.links};
+    color: ${(props) => props.theme.color.primary.links};
   }
 
   .form-control:focus {
-    color: ${props => props.theme.color.primary.links};
+    color: ${(props) => props.theme.color.primary.links};
+  }
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    padding-top: 1.875rem;
+  }
+
+  @media ${({ theme }) => theme.breakpoint.mobile("down")} {
+    grid-template-columns: 1fr;
   }
 `;
 
 export const Error = styled.small`
   font-size: 13px;
-  color: ${props => props.theme.color.feedback.error};
+  color: ${(props) => props.theme.color.feedback.error};
 `;

@@ -6,7 +6,7 @@ import { PhoneNumber } from "../../../types/contact";
 import { Wrapper } from "./styles";
 import { shouldDisableInput } from "../../../util/commonFunctions";
 
-interface props {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
   index: number;
   title: string;
   handleChange: (index: number, e: React.ChangeEvent, property: string) => void;
@@ -18,26 +18,32 @@ const getComponentId = (index: number) => {
   return "subtitled-select-" + index;
 };
 
-const PhoneTypeSelect: React.FC<props> = (props) => {
+const PhoneTypeSelect: React.FC<Props> = ({
+  index,
+  title,
+  handleChange,
+  entity,
+  ...props
+}) => {
   return (
-    <Wrapper>
-      <label htmlFor={getComponentId(props.index)}>{props.title}</label>
+    <Wrapper {...props}>
+      <label htmlFor={getComponentId(index)}>{title}</label>
       <ClaySelect
         aria-label="Select Label"
-        id={getComponentId(props.index)}
-        onChange={(e) => props.handleChange(props.index, e, "type")}
-        value={props.entity[props.index].type}
+        id={getComponentId(index)}
+        onChange={(e) => handleChange(index, e, "type")}
+        value={entity[index].type}
         disabled={shouldDisableInput(props)}
       >
         <ClaySelect.Option
           selected
-          key={"fixed" + "-" + props.index}
+          key={"fixed" + "-" + index}
           label={CONTACT_INFO.OTHER_MOBILE_PHONES_FIXED}
           value={FIXED}
         />
         <ClaySelect.Option
           selected
-          key={"mobile" + "-" + props.index}
+          key={"mobile" + "-" + index}
           label={CONTACT_INFO.OTHER_MOBILE_PHONES_MOBILE}
           value={MOBILE}
         />

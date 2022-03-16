@@ -6,6 +6,14 @@ export const StyledFormGroup = styled(ClayForm.Group)`
   grid-template-columns: 80%;
   grid-auto-rows: auto;
   row-gap: 1rem;
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    padding-top: 1.875rem;
+  }
+
+  @media ${({ theme }) => theme.breakpoint.mobile("down")} {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const PhoneNumberWrapper = styled.li`
@@ -15,17 +23,17 @@ export const PhoneNumberWrapper = styled.li`
   flex-wrap: wrap;
 
   & input {
-    color: ${props => props.theme.color.primary.links};
+    color: ${(props) => props.theme.color.primary.links};
     width: 60%;
   }
 
   option:disabled {
-    color: ${props => props.theme.color.action.disabled};
+    color: ${(props) => props.theme.color.action.disabled};
   }
 
   .country-code {
     width: 19%;
-    color: ${props => props.theme.color.primary.links};
+    color: ${(props) => props.theme.color.primary.links};
   }
 
   .area-code {
@@ -33,15 +41,15 @@ export const PhoneNumberWrapper = styled.li`
   }
 
   .area-code-default-option {
-    color: ${props => props.theme.color.neutral.neutralGreyText};
+    color: ${(props) => props.theme.color.neutral.neutralGreyText};
   }
 
   .area-code-option {
-    color: ${props => props.theme.color.primary.links};
+    color: ${(props) => props.theme.color.primary.links};
   }
 
   .phone-number {
-    color: ${props => props.theme.color.primary.links};
+    color: ${(props) => props.theme.color.primary.links};
   }
 
   .hidden-select {
@@ -50,6 +58,17 @@ export const PhoneNumberWrapper = styled.li`
 
   .stretch-phone-number {
     width: 80%;
+  }
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    & .country-code,
+    & .area-code {
+      flex: 0 1 30%;
+    }
+
+    & .phone-number {
+      flex: 1 1 40%;
+    }
   }
 `;
 
@@ -74,5 +93,5 @@ export const OrderedListWrapper = styled.ol`
 
 export const Error = styled.small`
   font-size: 13px;
-  color: ${props => props.theme.color.feedback.error};
+  color: ${(props) => props.theme.color.feedback.error};
 `;
