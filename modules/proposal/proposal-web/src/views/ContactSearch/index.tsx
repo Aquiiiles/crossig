@@ -9,6 +9,7 @@ import {
   EmptySpace,
 } from "./styles";
 import Stepper from "../../shared/molecules/Stepper";
+import GoBackHeader from "../../shared/molecules/GoBackHeader";
 import {
   CONTACT_SEARCH_SUBTITLE,
   CONTACT_SEARCH_TITLE,
@@ -135,7 +136,7 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
 
   return (
     <Wrapper embedded={embedded}>
-      {!embedded ? <Stepper currentStep={1} /> : null}
+      {!embedded ? <Stepper currentStep={1} /> : <GoBackHeader />}
 
       <InnerWrapper>
         <Content embedded={embedded}>
@@ -150,7 +151,7 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
             goToPage={goToPage}
             fetchData={() => {
               fetchData();
-              setShowResults(true); 
+              setShowResults(true);
             }}
           />
           {!idle && (!embedded || showResults) ? (

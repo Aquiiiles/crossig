@@ -1,23 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Wrapper } from "./styles";
-import ContactSearch from "../../../../ContactSearch";
 import { ROLES_ON_POLICY } from "../../../../../constants/languageKeys";
+import { actions } from "../../../../../redux/";
+import { useDispatch } from "../../../../../redux/store";
 
-const AddRoleRow: React.FC<{
-  hasInsuredRole: boolean;
-}> = ({ hasInsuredRole }) => {
-  const [showLookup, setShowLookup] = useState(!hasInsuredRole);
-
-  useEffect(() => {
-    setShowLookup(!hasInsuredRole);
-  }, [hasInsuredRole]);
+const AddRoleRow: React.FC = () => {
+  const dispatch = useDispatch();
+  const { setShowMobileSearch } = actions.contactsInPolicy;
 
   return (
     <Wrapper>
-      <p onClick={() => setShowLookup(!showLookup)} className="add-role">
+      <p
+        onClick={() => dispatch(setShowMobileSearch(true))}
+        className="add-role"
+      >
         {ROLES_ON_POLICY.ADD_ROLE + "  "}
       </p>
-      {showLookup ? <ContactSearch embedded={true} /> : ""}
     </Wrapper>
   );
 };

@@ -12,6 +12,7 @@ const initialState = {
   },
   contactsInPolicy: new Array<contactInPolicy>(),
   roleOptions: new Array<string>(),
+  showMobileSearch: false,
 };
 
 const ContactsInPolicy = createSlice({
@@ -49,10 +50,14 @@ const ContactsInPolicy = createSlice({
     setRoleOptions(state, action: PayloadAction<Array<string>>) {
       state.roleOptions = action.payload;
     },
+    setShowMobileSearch(state, action: PayloadAction<boolean>) {
+      state.showMobileSearch = action.payload;
+    },
     resetFields(state) {
       state.policyHolder = initialState.policyHolder;
       state.contactsInPolicy = initialState.contactsInPolicy;
       state.roleOptions = initialState.roleOptions;
+      state.showMobileSearch = initialState.showMobileSearch;
     },
   },
 });

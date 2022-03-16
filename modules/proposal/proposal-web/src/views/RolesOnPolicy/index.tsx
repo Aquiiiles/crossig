@@ -9,10 +9,11 @@ import ResultsMobile from "./containers/ResultsMobile";
 import { ROLES_ON_POLICY } from "../../constants/languageKeys";
 import { useDispatch, useSelector } from "../../redux/store";
 import { actions } from "../../redux";
+import ContactSearch from "../ContactSearch";
 
 const RolesOnPolicy: React.FC = () => {
   const dispatch = useDispatch();
-  const { policyHolder, contactsInPolicy } = useSelector(
+  const { policyHolder, contactsInPolicy, showMobileSearch } = useSelector(
     (state) => state.contactsInPolicy
   );
   const { setRoleOptions } = actions.contactsInPolicy;
@@ -30,31 +31,43 @@ const RolesOnPolicy: React.FC = () => {
     dispatch(clearSearchValues());
   }, []);
 
-  return (
-    <Wrapper>
-      <Stepper currentStep={3} />
+  useEffect(() => {
+    console.log(showMobileSearch);
+  }, [showMobileSearch]);
 
-      <InnerWrapper>
-        <Content>
-          <h5>{ROLES_ON_POLICY.TITLE}</h5>
-          <p className="body-small subtitle">{ROLES_ON_POLICY.SUBTITLE}</p>
-          <ResultsMobile hasInsuredRole={hasInsuredRole} />
-          <Table hasInsuredRole={hasInsuredRole} />
-        </Content>
-        <Buttons>
-          <BackBtn pathname="/product" state={{ doSearch: true }} />
-          {!hasInsuredRole && (
-            <span className="msg">{ROLES_ON_POLICY.INSURED_ROLE_MISSING}</span>
-          )}
-          <ContinueBtn
-            disabled={!hasInsuredRole}
-            onClick={() => {
-              history.push("/coverage_plan");
-            }}
-          />
-        </Buttons>
-      </InnerWrapper>
-    </Wrapper>
+  return (
+    <>
+      {showMobileSearch ? (
+        <ContactSearch embedded />
+      ) : (
+        <Wrapper>
+          <Stepper currentStep={3} />
+
+          <InnerWrapper>
+            <Content>
+              <h5>{ROLES_ON_POLICY.TITLE}</h5>
+              <p className="body-small subtitle">{ROLES_ON_POLICY.SUBTITLE}</p>
+              <ResultsMobile />
+              <Table hasInsuredRole={hasInsuredRole} />
+            </Content>
+            <Buttons>
+              <BackBtn pathname="/product" state={{ doSearch: true }} />
+              {!hasInsuredRole && (
+                <span className="msg">
+                  {ROLES_ON_POLICY.INSURED_ROLE_MISSING}
+                </span>
+              )}
+              <ContinueBtn
+                disabled={!hasInsuredRole}
+                onClick={() => {
+                  history.push("/coverage_plan");
+                }}
+              />
+            </Buttons>
+          </InnerWrapper>
+        </Wrapper>
+      )}
+    </>
   );
 };
 

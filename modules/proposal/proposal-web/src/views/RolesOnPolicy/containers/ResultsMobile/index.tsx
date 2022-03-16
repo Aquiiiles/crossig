@@ -5,9 +5,7 @@ import AddRoleRow from "./AddRoleRow";
 import { useSelector, useDispatch } from "../../../../redux/store";
 import { actions } from "../../../../redux";
 
-const ResultsMobile: React.FC<{ hasInsuredRole: boolean }> = ({
-  hasInsuredRole,
-}) => {
+const ResultsMobile: React.FC = () => {
   const dispatch = useDispatch();
   const { policyHolder, contactsInPolicy } = useSelector(
     (state) => state.contactsInPolicy
@@ -41,7 +39,7 @@ const ResultsMobile: React.FC<{ hasInsuredRole: boolean }> = ({
           }
         />
       ))}
-      <AddRoleRow hasInsuredRole={hasInsuredRole} />
+      <AddRoleRow />
     </Wrapper>
   );
 };
