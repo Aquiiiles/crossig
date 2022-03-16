@@ -4,8 +4,6 @@ import hr.crosig.content.setup.upgrade.common.BaseUpgradeProcess;
 import hr.crosig.content.setup.upgrade.common.DependencyProvider;
 import hr.crosig.proposal.enums.ProductCategory;
 
-import java.util.UUID;
-
 /**
  * @author victor.catanante
  */
@@ -35,7 +33,5 @@ public class AddCoveragePlans extends BaseUpgradeProcess {
 	private static final String _COMPULSORY_LIABILITY_ONLY =
 		"Compulsory Liability Only";
 
-	private static final String _DESCRIPTION = UUID.randomUUID(
-	).toString();
-
+	private static final String _DESCRIPTION = "Lorem Ipsum je jednostavno probni tekst.";
 }
