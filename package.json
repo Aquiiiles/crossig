@@ -2,8 +2,8 @@
     "private": true,
     "workspaces": {
         "packages": [
-            "modules/common/theme-elements",
             "modules/proposal/proposal-web",
+            "modules/common/theme-elements",
             "themes/agent-portal-theme",
             "themes/agent-dashboard-theme"
         ]

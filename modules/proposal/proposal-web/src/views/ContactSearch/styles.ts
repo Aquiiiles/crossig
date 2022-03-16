@@ -13,7 +13,6 @@ export const Wrapper = styled.div<Props>`
       : props.theme.color.neutral.background};
   padding: 0;
   height: 100%;
-  padding-top: ${(props) => (props.embedded ? "2rem" : "0")};
 
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
     display: block;
@@ -37,12 +36,16 @@ export const LinkWrapper = styled.div`
   }
 `;
 
-export const InnerWrapper = styled.div`
+export const InnerWrapper = styled.div<Props>`
   flex: 1 1 auto;
-
+  padding-top: 2rem;
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
-    padding: 0 2.1875rem;
+    padding: 2rem 2.1875rem 0 2.1875rem;
     border-top: 1px solid ${(props) => props.theme.color.neutral.dividerGrey};
+    background-color: ${(props) =>
+      props.embedded
+        ? props.theme.color.neutral.background
+        : props.theme.color.neutral.white};
   }
 `;
 

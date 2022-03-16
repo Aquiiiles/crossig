@@ -138,7 +138,7 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
     <Wrapper embedded={embedded}>
       {!embedded ? <Stepper currentStep={1} /> : <GoBackHeader />}
 
-      <InnerWrapper>
+      <InnerWrapper embedded={embedded}>
         <Content embedded={embedded}>
           <h5>{CONTACT_SEARCH_TITLE}</h5>
           {!embedded ? (

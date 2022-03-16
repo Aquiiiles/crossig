@@ -34,7 +34,7 @@ const RolesOnPolicy: React.FC = () => {
   return (
     <>
       {showMobileSearch ? (
-        <ContactSearch embedded />
+        <ContactSearch embedded={true} />
       ) : (
         <Wrapper>
           <Stepper currentStep={3} />
