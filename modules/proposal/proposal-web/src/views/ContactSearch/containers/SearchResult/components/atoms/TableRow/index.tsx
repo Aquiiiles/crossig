@@ -65,7 +65,7 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
             {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
           </ClayButton>
           {embedded ? (
-            <AddToPolicyBtn contact={contact} />
+            <AddToPolicyBtn contact={contact} isMobile={false} />
           ) : (
             <ClayButton
               displayType="primary"
