@@ -16,7 +16,7 @@ export const Wrapper = styled.div<Props>`
   padding-top: ${(props) => (props.embedded ? "2rem" : "0")};
 
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
-    flex-direction: column;
+    display: block;
   }
 `;
 
@@ -39,6 +39,11 @@ export const LinkWrapper = styled.div`
 
 export const InnerWrapper = styled.div`
   flex: 1 1 auto;
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    padding: 0 2.1875rem;
+    border-top: 1px solid ${(props) => props.theme.color.neutral.dividerGrey};
+  }
 `;
 
 export const Content = styled.div<Props>`

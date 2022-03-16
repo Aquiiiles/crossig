@@ -31,10 +31,6 @@ const RolesOnPolicy: React.FC = () => {
     dispatch(clearSearchValues());
   }, []);
 
-  useEffect(() => {
-    console.log(showMobileSearch);
-  }, [showMobileSearch]);
-
   return (
     <>
       {showMobileSearch ? (
