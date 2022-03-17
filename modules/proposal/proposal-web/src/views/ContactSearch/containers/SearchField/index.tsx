@@ -4,7 +4,6 @@ import ClayForm, { ClayInput } from "@clayui/form";
 import ClayButton from "@clayui/button";
 import SearchFilters from "./components/molecules/SearchFilters";
 import { mapToCountryCodes } from "../../../../shared/util/countryMappers";
-import { getActiveCountries } from "../../../../api/services/liferay";
 import { Wrapper, SearchWrapper, StyledClayDropdownMenu } from "./styles";
 import {
   CONTACT_SEARCH_ACTION_BUTTON,

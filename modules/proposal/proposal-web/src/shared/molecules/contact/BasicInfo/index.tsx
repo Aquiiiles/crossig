@@ -134,11 +134,10 @@ const BasicInfo: React.FC<propsType> = ({
   );
   const [registerRequiredCompanyName, companyNameWarn, hasCompanyNameWarn] =
     useRequiredField(companyName, !showIndividualFields);
-  const [
-    registerRequiredSubsidiaryNumber,
-    subsidiaryNumberWarn,
-    hasSubsidiaryNumberWarn,
-  ] = useRequiredField(subsidiaryNumber, !showIndividualFields);
+  const [, subsidiaryNumberWarn, hasSubsidiaryNumberWarn] = useRequiredField(
+    subsidiaryNumber,
+    !showIndividualFields
+  );
 
   return (
     <FormSection title={CREATE_NEW_CONTACT.BASIC_INFO_TITLE}>

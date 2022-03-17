@@ -147,11 +147,7 @@ const SearchResult: React.FC<props> = ({
             {foundContacts ? (
               <>
                 <ResultsMobile data={filteredData} embedded={embedded} />
-                <Table
-                  loading={loading}
-                  inputData={filteredData}
-                  embedded={embedded}
-                />
+                <Table inputData={filteredData} embedded={embedded} />
                 <Pagination
                   paginationData={{
                     total: filteredData.length,

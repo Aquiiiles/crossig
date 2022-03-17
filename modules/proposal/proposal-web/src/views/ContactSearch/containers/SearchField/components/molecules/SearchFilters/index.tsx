@@ -23,21 +23,6 @@ import { numbersOnly } from "../../../../../../../shared/util/commonFunctions";
 import { useDispatch, useSelector } from "../../../../../../../redux/store";
 import AreaCodeSelect from "../../../../../../../shared/atoms/contact/AreaCodeSelect";
 
-type AreaCodeType = {
-  area_name: string;
-  area_code: number;
-};
-interface State {
-  status: string;
-  response: {
-    data: {
-      area_codes: Array<AreaCodeType>;
-    };
-  };
-  statusMessage: string;
-  statusCode: string;
-}
-
 interface props {
   fetchData: () => void;
   searchDisabled: boolean;
@@ -51,7 +36,7 @@ const SearchFilters: React.FC<props> = ({
   searchDisabled,
   onDropdownCancel,
 }) => {
-  const { state, get: getAreaCodes } = useFetchData();
+  const { get: getAreaCodes } = useFetchData();
 
   useEffect(() => {
     getAreaCodes(AREA_CODE_URL);
