@@ -43,10 +43,10 @@ const ContactInfo: React.FC = () => {
   const { contactType } = useSelector((state) => state.basicInfo);
   const [showModal, setShowModal] = useState(false);
   const [isCreateSuccessful, setCreateSuccess] = useState(false);
-  const [canSubmit] = useFormState([
-    ...Object.values(basicInfoData),
-    ...Object.values(addressData),
-  ]);
+  const [canSubmit] = useFormState(
+    [...Object.values(basicInfoData), ...Object.values(addressData)],
+    "#contact-info-main-container"
+  );
 
   const history = useHistory();
 
