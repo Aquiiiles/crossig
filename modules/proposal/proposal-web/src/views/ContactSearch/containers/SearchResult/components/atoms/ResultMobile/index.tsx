@@ -10,7 +10,7 @@ import {
 } from "../../../../../../../constants/languageKeys";
 import { contactOperations } from "../../../../../../../constants/contactConstants";
 import MissingInformationIcon from "../MissingInformationIcon";
-import AddToPolicyBtn from "../AddToPolicyBtn";
+import AddToPolicyBtn from "../../molecules/AddToPolicyBtn";
 import ResultRowMobile from "../../../../../../../shared/atoms/ResultRowMobile";
 
 interface Props {

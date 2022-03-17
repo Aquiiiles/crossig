@@ -7,7 +7,7 @@ import {
   CONTACT_SEARCH_TABLE_VIEW_DETAILS,
   CONTACT_SEARCH_TABLE_USE_CONTACT,
 } from "../../../../../../../constants/languageKeys";
-import AddToPolicyBtn from "../AddToPolicyBtn";
+import AddToPolicyBtn from "../../molecules/AddToPolicyBtn";
 
 import * as types from "../../../types/searchResult";
 import * as constants from "../../../../../constants/searchResult";
