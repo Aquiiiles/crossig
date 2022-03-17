@@ -38,14 +38,11 @@ export const LinkWrapper = styled.div`
 
 export const InnerWrapper = styled.div<Props>`
   flex: 1 1 auto;
-  padding-top: 2rem;
+  background-color: ${(props) => props.theme.color.neutral.background};
+
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
     padding: 2rem 2.1875rem 0 2.1875rem;
     border-top: 1px solid ${(props) => props.theme.color.neutral.dividerGrey};
-    background-color: ${(props) =>
-      props.embedded
-        ? props.theme.color.neutral.background
-        : props.theme.color.neutral.white};
   }
 `;
 
@@ -65,6 +62,7 @@ export const Content = styled.div<Props>`
       margin-bottom: 1.5rem;
     }
   }
+  background-color: ${(props) => props.theme.color.neutral.background};
 `;
 
 export const EmptySpace = styled.div`
