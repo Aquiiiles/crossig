@@ -6,8 +6,8 @@ export const Wrapper = styled.div`
   background-color: ${(props) => props.theme.color.neutral.background};
 
   span.msg {
-    padding-top: 0.5rem;
-    padding-right: 1rem;
+    max-width: calc(100% - 15rem);
+    margin: auto;
   }
 
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
@@ -46,5 +46,13 @@ export const Content = styled.div`
 export const Buttons = styled.div`
   display: flex;
   border-top: 1px solid ${(props) => props.theme.color.neutral.dividerGrey};
-  padding: 3.125rem 0 2.8125rem 0;
+  padding: 3.125rem 3.75rem 2.8125rem;
+
+  @media ${(props) => props.theme.breakpoint.tablet("down")} {
+    padding: 3.125rem 0 2.8125rem;
+  }
+
+  button {
+    margin-left: auto;
+  }
 `;
