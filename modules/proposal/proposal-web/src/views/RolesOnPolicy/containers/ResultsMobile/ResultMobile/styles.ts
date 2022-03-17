@@ -9,11 +9,13 @@ export const Wrapper = styled.div`
 
 export const MainGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  column-gap: 1rem;
 
   @media ${({ theme }) => theme.breakpoint.mobile("down")} {
     grid-template-columns: 1fr;
+    grid-auto-flow: row;
   }
 `;
 

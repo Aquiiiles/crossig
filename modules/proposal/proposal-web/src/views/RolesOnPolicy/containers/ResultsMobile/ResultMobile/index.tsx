@@ -47,14 +47,14 @@ const ResultMobile: React.FC<Props> = ({
             value={contact[constants.NAME_KEY]}
           />
         </InnerGrid>
-        <InnerGrid>
+        <div>
           <RolesItens
             policyHolder={policyHolder}
             roles={contact.contactRoles}
             addRole={addRole}
             removeRole={removeRole}
           />
-        </InnerGrid>
+        </div>
       </MainGrid>
       <ButtonGroup>
         <ClayButton
