@@ -83,7 +83,7 @@ const SearchResult: React.FC<props> = ({
                     <div className="city-dropdown">
                       <ClaySelect
                         style={{ pointerEvents: "none" }}
-                        id="cityFilterField"
+                        id="cityFilterableField"
                         value=""
                       >
                         <ClaySelect.Option

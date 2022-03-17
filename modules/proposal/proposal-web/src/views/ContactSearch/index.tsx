@@ -82,7 +82,7 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
       assetStreetName: street !== "" ? street : undefined,
       telephoneCountryCode: countryCode !== "" ? countryCode : undefined,
       telephonePrefix: areaCode !== "" ? areaCode : undefined,
-      telphoneNumber: phoneNumber !== "" ? phoneNumber : undefined,
+      telephoneNumber: phoneNumber !== "" ? phoneNumber : undefined,
       email: email !== "" ? email : undefined,
       accountType:
         selectedContactType !== "" ? Number(selectedContactType) : undefined,

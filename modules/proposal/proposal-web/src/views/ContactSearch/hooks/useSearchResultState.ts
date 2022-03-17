@@ -46,7 +46,7 @@ export default function useSearchResultState(data: any[]) {
     if (showCountryDropdown) {
       document.getElementById("searchContactInput")?.focus();
     } else {
-      document.getElementById("cityFilterField")?.blur();
+      document.getElementById("cityFilterableField")?.blur();
       setCitySearch("");
     }
   }, [showCountryDropdown]);

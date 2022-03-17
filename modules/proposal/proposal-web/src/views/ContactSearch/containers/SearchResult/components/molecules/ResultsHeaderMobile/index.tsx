@@ -65,7 +65,7 @@ const ResultsHeaderMobile: React.FC<Props> = ({ data }) => {
               <div style={{ cursor: "pointer" }}>
                 <ClaySelect
                   style={{ pointerEvents: "none" }}
-                  id="cityFiltablerField"
+                  id="cityFilterableField"
                   value=""
                 >
                   <ClaySelect.Option
