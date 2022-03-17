@@ -29,8 +29,19 @@ export const InnerWrapper = styled.div`
 export const Content = styled.div`
   padding: 6.25rem 3.5rem 1.25rem 3.75rem;
 
-  @media ${(props) => props.theme.breakpoint.tablet("down")} {
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
     padding: 2.5rem 0;
+    padding-bottom: 0;
+
+    & .tablet-padding {
+      padding: 0 2.5rem;
+    }
+  }
+
+  @media ${({ theme }) => theme.breakpoint.mobile("down")} {
+    & .tablet-padding {
+      padding: 0 1.5rem;
+    }
   }
   background-color: ${(props) => props.theme.color.neutral.background};
 `;

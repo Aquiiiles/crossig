@@ -140,20 +140,22 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
 
       <InnerWrapper embedded={embedded}>
         <Content embedded={embedded}>
-          <h5>{CONTACT_SEARCH_TITLE}</h5>
-          {!embedded ? (
-            <p className="body-small content-subtitle">
-              {CONTACT_SEARCH_SUBTITLE}
-            </p>
-          ) : null}
-          <SearchField
-            currentPage={currentPage}
-            goToPage={goToPage}
-            fetchData={() => {
-              fetchData();
-              setShowResults(true);
-            }}
-          />
+          <div className="tablet-padding">
+            <h5>{CONTACT_SEARCH_TITLE}</h5>
+            {!embedded ? (
+              <p className="body-small content-subtitle">
+                {CONTACT_SEARCH_SUBTITLE}
+              </p>
+            ) : null}
+            <SearchField
+              currentPage={currentPage}
+              goToPage={goToPage}
+              fetchData={() => {
+                fetchData();
+                setShowResults(true);
+              }}
+            />
+          </div>
           {!idle && (!embedded || showResults) ? (
             <>
               <SearchResult
