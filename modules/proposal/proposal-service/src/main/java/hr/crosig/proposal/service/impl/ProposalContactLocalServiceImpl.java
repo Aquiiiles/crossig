@@ -16,6 +16,9 @@ package hr.crosig.proposal.service.impl;
 
 import com.liferay.portal.aop.AopService;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import hr.crosig.proposal.dto.ProposalContactDTO;
+import hr.crosig.proposal.model.ProposalContact;
 import hr.crosig.proposal.service.base.ProposalContactLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
@@ -29,4 +32,65 @@ import org.osgi.service.component.annotations.Component;
 )
 public class ProposalContactLocalServiceImpl
 	extends ProposalContactLocalServiceBaseImpl {
+
+	public ProposalContactDTO createProposalContact(
+		ProposalContactDTO proposalContactDTO) {
+
+		long proposalContactId = counterLocalService.increment(
+			ProposalContact.class.getName());
+
+		ProposalContact proposalContact = proposalContactPersistence.create(
+			proposalContactId);
+
+		proposalContact = _updateProposalContact(
+			proposalContactDTO, proposalContact);
+
+		return _mapToDTO(proposalContact);
+	}
+
+	public ProposalContactDTO updateProposalContact(
+		ProposalContactDTO proposalContactDTO) throws PortalException {
+
+		ProposalContact proposalContact =
+			proposalContactLocalService.getProposalContact(
+				proposalContactDTO.getProposalContactId());
+
+		proposalContact = _updateProposalContact(
+			proposalContactDTO, proposalContact);
+
+		return _mapToDTO(proposalContact);
+	}
+
+	private ProposalContactDTO _mapToDTO(ProposalContact proposalContact) {
+		ProposalContactDTO proposalContactDTO = new ProposalContactDTO();
+
+		proposalContactDTO.setCompanyId(proposalContact.getCompanyId());
+		proposalContactDTO.setContactExtNumber(
+			proposalContact.getContactExtNumber());
+		proposalContactDTO.setCreateDate(proposalContact.getCreateDate());
+		proposalContactDTO.setInsuredRoles(proposalContact.getInsuredRoles());
+		proposalContactDTO.setModifiedDate(proposalContact.getModifiedDate());
+		proposalContactDTO.setProposalContactId(
+			proposalContact.getProposalContactId());
+		proposalContactDTO.setProposalId(proposalContact.getProposalId());
+		proposalContactDTO.setUserId(proposalContact.getUserId());
+		proposalContactDTO.setUserName(proposalContact.getUserName());
+
+		return proposalContactDTO;
+	}
+
+	private ProposalContact _updateProposalContact(
+		ProposalContactDTO proposalContactDTO,
+		ProposalContact proposalContact) {
+
+		proposalContact.setContactExtNumber(
+			proposalContactDTO.getContactExtNumber());
+		proposalContact.setInsuredRoles(proposalContactDTO.getInsuredRoles());
+		proposalContact.setProposalContactId(
+			proposalContactDTO.getProposalContactId());
+		proposalContact.setProposalId(proposalContactDTO.getProposalId());
+
+		return proposalContactPersistence.update(proposalContact);
+	}
+
 }

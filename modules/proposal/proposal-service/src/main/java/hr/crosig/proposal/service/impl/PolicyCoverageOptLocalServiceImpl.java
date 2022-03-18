@@ -15,18 +15,88 @@
 package hr.crosig.proposal.service.impl;
 
 import com.liferay.portal.aop.AopService;
-
+import com.liferay.portal.kernel.exception.PortalException;
+import hr.crosig.proposal.dto.PolicyCoverageOptionDTO;
+import hr.crosig.proposal.model.PolicyCoverageOpt;
 import hr.crosig.proposal.service.base.PolicyCoverageOptLocalServiceBaseImpl;
-
 import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Brian Wing Shun Chan
  */
 @Component(
-	property = "model.class.name=hr.crosig.proposal.model.PolicyCoverageOpt",
+	property = "model.class.name=hr.crosig.proposal.model.PolicyCoverageCoverageOpt",
 	service = AopService.class
 )
 public class PolicyCoverageOptLocalServiceImpl
 	extends PolicyCoverageOptLocalServiceBaseImpl {
+
+	public PolicyCoverageOptionDTO createPolicyCoverageOpt(
+		PolicyCoverageOptionDTO policyCoverageOptDTO) {
+
+		long policyCoverageOptId = counterLocalService.increment(
+			PolicyCoverageOpt.class.getName());
+
+		PolicyCoverageOpt policyCoverageOpt =
+			policyCoverageOptPersistence.create(policyCoverageOptId);
+
+		policyCoverageOpt = _updatePolicyCoverageOpt(
+			policyCoverageOptDTO, policyCoverageOpt);
+
+		return _mapToDTO(policyCoverageOpt);
+	}
+
+	public PolicyCoverageOptionDTO updatePolicyCoverageOpt(
+		PolicyCoverageOptionDTO policyCoverageOptDTO) throws PortalException {
+
+		PolicyCoverageOpt policyCoverageOpt =
+			policyCoverageOptLocalService.getPolicyCoverageOpt(
+				policyCoverageOptDTO.getPolicyCoverageOptionId());
+
+		policyCoverageOpt = _updatePolicyCoverageOpt(
+				policyCoverageOptDTO, policyCoverageOpt);
+
+		return _mapToDTO(policyCoverageOpt);
+	}
+
+	private PolicyCoverageOptionDTO _mapToDTO(
+		PolicyCoverageOpt policyCoverageOpt) {
+
+		PolicyCoverageOptionDTO policyCoverageOptDTO =
+			new PolicyCoverageOptionDTO();
+
+		policyCoverageOptDTO.setCompanyId(policyCoverageOpt.getCompanyId());
+		policyCoverageOptDTO.setCoverageOptionsName(
+			policyCoverageOpt.getCoverageOptionsName());
+		policyCoverageOptDTO.setCoverageOptionsValue(
+			policyCoverageOpt.getCoverageOptionsValue());
+		policyCoverageOptDTO.setCreateDate(policyCoverageOpt.getCreateDate());
+		policyCoverageOptDTO.setModifiedDate(
+			policyCoverageOpt.getModifiedDate());
+		policyCoverageOptDTO.setPolicyCoverageOptionId(
+			policyCoverageOpt.getPolicyCoverageOptionId());
+		policyCoverageOptDTO.setProposalId(policyCoverageOpt.getProposalId());
+		policyCoverageOptDTO.setType(policyCoverageOpt.getType());
+		policyCoverageOptDTO.setUserId(policyCoverageOpt.getUserId());
+		policyCoverageOptDTO.setUserName(policyCoverageOpt.getUserName());
+
+		return policyCoverageOptDTO;
+	}
+
+	private PolicyCoverageOpt _updatePolicyCoverageOpt(
+		PolicyCoverageOptionDTO policyCoverageOptDTO,
+		PolicyCoverageOpt policyCoverageOpt) {
+
+		policyCoverageOpt.setCoverageOptionsName(
+			policyCoverageOptDTO.getCoverageOptionsName());
+		policyCoverageOpt.setCoverageOptionsValue(
+			policyCoverageOptDTO.getCoverageOptionsValue());
+		policyCoverageOpt.setPolicyCoverageOptionId(
+			policyCoverageOptDTO.getPolicyCoverageOptionId());
+		policyCoverageOpt.setProposalId(policyCoverageOptDTO.getProposalId());
+		policyCoverageOpt.setType(policyCoverageOptDTO.getType());
+
+		return policyCoverageOptPersistence.update(policyCoverageOpt);
+	}
+
 }
