@@ -63,7 +63,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"vesselType\": \"\",\n    \"vesselName\": \"\",\n    \"registrationMark\": \"\",\n    \"nib\": \"\"\n}",
+					"raw": "{\n    \"vesselType\": \"\",\n    \"vesselName\": \"\",\n    \"registrationMark\": \"\",\n    \"nib\": \"\",\n    \"fleetName\": \"\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -77,6 +77,58 @@
 					],
 					"path": [
 						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Proposal",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"externalProposalNumber\" : \"externalProposalNumber\",\n    \"lastUpdate\": \"01/01/2000\",\n    \"origin\": \"origin\",\n    \"agentUserId\": 1,\n    \"policyHolderExtNumber\": \"policyHolderExtNumber\",\n    \"insuredObjectExtNumber\": \"insuredObjectExtNumber\",\n    \"status\": \"status\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localURL}}proposal/",
+					"host": [
+						"{{localURL}}proposal"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Proposal",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"externalProposalNumber\" : \"externalProposalNumberUpdated\",\n    \"lastUpdate\": \"01/01/2000\",\n    \"origin\": \"originUpdated\",\n    \"agentUserId\": 1,\n    \"policyHolderExtNumber\": \"policyHolderExtNumberUpdated\",\n    \"insuredObjectExtNumber\": \"insuredObjectExtNumberUpdated\",\n    \"status\": \"statusUpdated\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localURL}}proposal/101",
+					"host": [
+						"{{localURL}}proposal"
+					],
+					"path": [
+						"101"
 					]
 				}
 			},
