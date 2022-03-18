@@ -24,7 +24,6 @@ const AddRoleItem: React.FC<{
           />
         </div>
       }
-      style={{ marginLeft: "0.5rem" }}
     >
       <ClayDropDown.ItemList>
         {roleOptions && roleOptions?.length > 0 ? (

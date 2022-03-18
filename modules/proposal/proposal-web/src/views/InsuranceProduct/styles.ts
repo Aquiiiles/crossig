@@ -7,26 +7,33 @@ export const Wrapper = styled.div`
   height: 100%;
 
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
-    flex-direction: column;
+    display: block;
   }
 `;
 
 export const InnerWrapper = styled.div`
   flex: 1 1 auto;
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    padding: 0 2.1875rem;
+    border-top: 1px solid ${(props) => props.theme.color.neutral.dividerGrey};
+    background-color: ${(props) => props.theme.color.neutral.background};
+  }
 `;
 
 export const Content = styled.div`
   flex: 1;
   padding: 6.25rem 3.5rem 1.25rem 3.75rem;
 
-  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
-    padding: 2rem;
+  @media ${(props) => props.theme.breakpoint.tablet("down")} {
+    padding: 2.5rem 0;
   }
 
   p {
     line-break: auto;
     color: ${({ theme }) => theme.color.neutral.neutralGreyText};
   }
+  background-color: ${(props) => props.theme.color.neutral.background};
 `;
 
 export const Products = styled.div`

@@ -6,8 +6,6 @@ import MobileStep from "../../../shared/atoms/Stepper/MobileStep";
 import useStepper from "./hooks/useStepper";
 import { Wrapper, MobileWrapper } from "./styles";
 import { StepsLookupTableKeys } from "../../../constants/steps";
-import ClayIcon from "@clayui/icon";
-import spritemap from "@clayui/css/lib/images/icons/icons.svg";
 
 interface props {
   /** The step index as seen in the website/mockup (not 0 based) */
@@ -62,7 +60,6 @@ const Stepper: React.FC<props> = ({ currentStep, subCategory, children }) => {
             </div>
           </>
         ))}
-        <ClayIcon symbol="times" spritemap={spritemap} />
       </MobileWrapper>
       <div className="desktop-stepper">
         {currentStep > 1 && <DisplayPolicyInfo />}

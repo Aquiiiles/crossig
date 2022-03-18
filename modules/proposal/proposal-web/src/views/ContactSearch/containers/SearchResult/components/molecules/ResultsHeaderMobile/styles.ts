@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import ClayButton from "@clayui/button";
 
 export const Wrapper = styled.div`
   display: none;

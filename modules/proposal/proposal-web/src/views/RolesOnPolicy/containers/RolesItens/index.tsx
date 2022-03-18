@@ -1,9 +1,10 @@
 import React from "react";
 import RoleItem from "./RoleItem";
 import AddRoleItem from "./AddRoleItem";
-import { Wrapper } from "./styles";
+import { Wrapper, Roles } from "./styles";
 import { ROLES_ON_POLICY } from "../../../../constants/languageKeys";
 import { useSelector } from "../../../../redux/store";
+import * as constants from "../../../../constants/RolesOnPolicy";
 
 interface rolesItens {
   policyHolder: boolean;
@@ -22,29 +23,32 @@ const RolesItens: React.FC<rolesItens> = ({
 
   return (
     <Wrapper>
-      {policyHolder && (
-        <RoleItem
-          title={ROLES_ON_POLICY.POLICY_HOLDER}
-          removable={false}
-          removeRole={() => {
-            return;
-          }}
-        />
-      )}
-      {roles.map((role, index) => (
-        <RoleItem
-          key={index}
-          title={role}
-          removable={true}
-          removeRole={() => removeRole(role)}
-        />
-      ))}
-      <AddRoleItem
-        roleOptions={roleOptions.filter(
-          (roleOption) => !roles.includes(roleOption)
+      <h6 className="h10">{constants.ROLES_NAME}</h6>
+      <Roles>
+        {policyHolder && (
+          <RoleItem
+            title={ROLES_ON_POLICY.POLICY_HOLDER}
+            removable={false}
+            removeRole={() => {
+              return;
+            }}
+          />
         )}
-        addRole={(title: string) => addRole(title)}
-      />
+        {roles.map((role, index) => (
+          <RoleItem
+            key={index}
+            title={role}
+            removable={true}
+            removeRole={() => removeRole(role)}
+          />
+        ))}
+        <AddRoleItem
+          roleOptions={roleOptions.filter(
+            (roleOption) => !roles.includes(roleOption)
+          )}
+          addRole={(title: string) => addRole(title)}
+        />
+      </Roles>
     </Wrapper>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { Wrapper, Content, Products, Footer } from "./styles";
+import { Wrapper, Content, Products, Footer, InnerWrapper } from "./styles";
 import Stepper from "../../shared/molecules/Stepper";
 import ProductCard from "../../shared/atoms/ProductCard";
 import useProductState, { sortProducts } from "./hooks/useProductState";
@@ -7,7 +7,6 @@ import SuccessBanner from "./containers/SuccessBanner";
 import { INSURANCE_PRODUCT } from "../../constants/languageKeys";
 import BackBtn from "../../shared/atoms/BackBtn";
 import { useHistory } from "react-router-dom";
-import { InnerWrapper } from "../ContactSearch/styles";
 import { useDispatch } from "../../redux/store";
 import { actions } from "../../redux/insuranceProduct/insuranceProductSlice";
 import { motorIconsMap, vesselsIconsMap } from "./constants";
@@ -85,9 +84,7 @@ const InsuranceProduct: React.FC = () => {
                       ),
                     }}
                     onProductSelection={() => {
-                      dispatch(
-                        actions.setInsuranceProduct(product)
-                      );
+                      dispatch(actions.setInsuranceProduct(product));
                       history.push("/roles");
                     }}
                   />

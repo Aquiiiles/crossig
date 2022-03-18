@@ -10,6 +10,7 @@ import {
 } from "../../../../../../../constants/languageKeys";
 import { contactOperations } from "../../../../../../../constants/contactConstants";
 import MissingInformationIcon from "../MissingInformationIcon";
+import AddToPolicyBtn from "../../molecules/AddToPolicyBtn";
 import ResultRowMobile from "../../../../../../../shared/atoms/ResultRowMobile";
 
 interface Props {
@@ -67,12 +68,16 @@ const ResultMobile: React.FC<Props> = ({ contact, embedded }) => {
         >
           {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
         </ClayButton>
-        <ClayButton
-          displayType="primary"
-          onClick={() => selectContact(contact)}
-        >
-          {CONTACT_SEARCH_TABLE_USE_CONTACT}
-        </ClayButton>
+        {embedded ? (
+          <AddToPolicyBtn contact={contact} isMobile />
+        ) : (
+          <ClayButton
+            displayType="primary"
+            onClick={() => selectContact(contact)}
+          >
+            {CONTACT_SEARCH_TABLE_USE_CONTACT}
+          </ClayButton>
+        )}
       </ButtonGroup>
       <MissingInformationIcon
         mailValidated={contact[constants.MAIL_VALIDATED_KEY]}

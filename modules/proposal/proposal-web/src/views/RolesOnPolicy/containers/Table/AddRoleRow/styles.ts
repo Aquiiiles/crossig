@@ -9,7 +9,11 @@ export const Row = styled(ClayTable.Row)`
   padding: 0.75rem 0.75rem 0.75rem 0.9375rem;
 
   p {
-    margin-bottom: 0;
+    margin-bottom: 2rem;
+
+    &.add-role{
+      color: ${(props) => props.theme.color.primary.links};
+    }
   }
 
   :hover {

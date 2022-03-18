@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   height: 100%;
 
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
-    flex-direction: column;
+    display: block;
   }
 `;
 
@@ -18,6 +18,12 @@ export const LinkWrapper = styled.div`
 
 export const InnerWrapper = styled.div`
   flex: 1 1 auto;
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    padding: 0 2.1875rem;
+    border-top: 1px solid ${(props) => props.theme.color.neutral.dividerGrey};
+    background-color: ${(props) => props.theme.color.neutral.background};
+  }
 `;
 
 export const Content = styled.div`
@@ -26,4 +32,5 @@ export const Content = styled.div`
   @media ${(props) => props.theme.breakpoint.tablet("down")} {
     padding: 2.5rem 0;
   }
+  background-color: ${(props) => props.theme.color.neutral.background};
 `;

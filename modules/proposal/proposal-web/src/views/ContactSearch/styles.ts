@@ -13,10 +13,9 @@ export const Wrapper = styled.div<Props>`
       : props.theme.color.neutral.background};
   padding: 0;
   height: 100%;
-  padding-top: ${(props) => (props.embedded ? "2rem" : "0")};
 
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
-    flex-direction: column;
+    display: block;
   }
 `;
 
@@ -37,12 +36,26 @@ export const LinkWrapper = styled.div`
   }
 `;
 
-export const InnerWrapper = styled.div`
+export const InnerWrapper = styled.div<Props>`
   flex: 1 1 auto;
+  background-color: ${(props) =>
+    props.embedded
+      ? props.theme.color.neutral.white
+      : props.theme.color.neutral.background};
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    padding: 2rem 2.1875rem 0 2.1875rem;
+    border-top: 1px solid ${(props) => props.theme.color.neutral.dividerGrey};
+    background-color: ${(props) => props.theme.color.neutral.background};
+  }
 `;
 
 export const Content = styled.div<Props>`
   flex: 1;
+  background-color: ${(props) =>
+    props.embedded
+      ? props.theme.color.neutral.white
+      : props.theme.color.neutral.background};
   padding: ${(props) =>
     props.embedded ? "0" : "6.25rem 3.5rem 1.25rem 3.75rem"};
 
@@ -52,6 +65,7 @@ export const Content = styled.div<Props>`
 
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
     padding: ${(props) => (props.embedded ? "0" : "2.5rem 0")};
+    background-color: ${(props) => props.theme.color.neutral.background};
 
     & .content-subtitle {
       margin-bottom: 1.5rem;
