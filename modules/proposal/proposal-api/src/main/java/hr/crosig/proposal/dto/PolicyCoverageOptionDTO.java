@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * @author Guilherme Kfouri
  */
-public class PolicyCoverageOptionsDTO {
+public class PolicyCoverageOptionDTO {
 
 	public long getCompanyId() {
 		return companyId;
@@ -29,6 +29,10 @@ public class PolicyCoverageOptionsDTO {
 
 	public long getPolicyCoverageOptionId() {
 		return policyCoverageOptionId;
+	}
+
+	public long getProposalId() {
+		return proposalId;
 	}
 
 	public String getType() {
@@ -67,6 +71,10 @@ public class PolicyCoverageOptionsDTO {
 		this.policyCoverageOptionId = policyCoverageOptionId;
 	}
 
+	public void setProposalId(long proposalId) {
+		this.proposalId = proposalId;
+	}
+
 	public void setType(String type) {
 		this.type = type;
 	}
@@ -85,6 +93,7 @@ public class PolicyCoverageOptionsDTO {
 	private Date createDate;
 	private Date modifiedDate;
 	private long policyCoverageOptionId;
+	private long proposalId;
 	private String type;
 	private long userId;
 	private String userName;

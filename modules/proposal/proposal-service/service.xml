@@ -74,6 +74,7 @@
 
 		<!-- Other fields -->
 
+		<column name="proposalId" type="long" />
 		<column name="coverageOptionsName" type="String" />
 		<column name="coverageOptionsValue" type="String" />
 		<column name="type" type="String" />
