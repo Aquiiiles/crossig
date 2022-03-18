@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { Wrapper, Buttons, InnerWrapper, Content } from "./styles";
 import Stepper from "../../shared/molecules/Stepper";
@@ -10,6 +10,7 @@ import { ROLES_ON_POLICY } from "../../constants/languageKeys";
 import { useDispatch, useSelector } from "../../redux/store";
 import { actions } from "../../redux";
 import ContactSearch from "../ContactSearch";
+import { handleEnterKeyEvent } from "../../shared/util/commonFunctions";
 
 const RolesOnPolicy: React.FC = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const RolesOnPolicy: React.FC = () => {
   );
   const { setRoleOptions } = actions.contactsInPolicy;
   const { clearSearchValues } = actions.searchFilter;
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const history = useHistory();
 
@@ -31,12 +33,27 @@ const RolesOnPolicy: React.FC = () => {
     dispatch(clearSearchValues());
   }, []);
 
+  const continueToCoveragePlan = () => {
+    window.scrollTo(0, 0);
+    history.push("/coverage_plan");
+  };
+
+  useEffect(() => {
+    if (wrapperRef.current) {
+      wrapperRef.current.focus();
+    }
+  }, []);
+
   return (
     <>
       {showMobileSearch ? (
         <ContactSearch embedded={true} />
       ) : (
-        <Wrapper>
+        <Wrapper
+          tabIndex={1}
+          ref={wrapperRef}
+          onKeyDown={(e) => handleEnterKeyEvent(e, continueToCoveragePlan)}
+        >
           <Stepper currentStep={3} />
 
           <InnerWrapper>
@@ -55,10 +72,7 @@ const RolesOnPolicy: React.FC = () => {
               )}
               <ContinueBtn
                 disabled={!hasInsuredRole}
-                onClick={() => {
-                  window.scrollTo(0, 0);
-                  history.push("/coverage_plan");
-                }}
+                onClick={() => continueToCoveragePlan()}
               />
             </Buttons>
           </InnerWrapper>
