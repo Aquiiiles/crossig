@@ -1,6 +1,11 @@
 package hr.crosig.proposal.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import hr.crosig.proposal.constants.ProposalConstants;
+
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Guilherme Kfouri
@@ -39,8 +44,20 @@ public class ProposalDTO {
 		return origin;
 	}
 
+	public List<PolicyCoverageOptionDTO> getPolicyCoverageOptions() {
+		return policyCoverageOptions;
+	}
+
 	public String getPolicyHolderExtNumber() {
 		return policyHolderExtNumber;
+	}
+
+	public List<PolicyOptionsDTO> getPolicyOptions() {
+		return policyOptions;
+	}
+
+	public List<ProposalContactDTO> getProposalContacts() {
+		return proposalContacts;
 	}
 
 	public long getProposalId() {
@@ -91,8 +108,22 @@ public class ProposalDTO {
 		this.origin = origin;
 	}
 
+	public void setPolicyCoverageOptions(
+		List<PolicyCoverageOptionDTO> policyCoverageOptions) {
+
+		this.policyCoverageOptions = policyCoverageOptions;
+	}
+
 	public void setPolicyHolderExtNumber(String policyHolderExtNumber) {
 		this.policyHolderExtNumber = policyHolderExtNumber;
+	}
+
+	public void setPolicyOptions(List<PolicyOptionsDTO> policyOptions) {
+		this.policyOptions = policyOptions;
+	}
+
+	public void setProposalContacts(List<ProposalContactDTO> proposalContacts) {
+		this.proposalContacts = proposalContacts;
 	}
 
 	public void setProposalId(long proposalId) {
@@ -113,13 +144,30 @@ public class ProposalDTO {
 
 	private long agentUserId;
 	private long companyId;
+
+	@JsonFormat(
+		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
+	)
 	private Date createDate;
+
 	private String externalProposalNumber;
 	private String insuredObjectExtNumber;
+
+	@JsonFormat(
+		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
+	)
 	private Date lastUpdate;
+
+	@JsonFormat(
+		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
+	)
 	private Date modifiedDate;
+
 	private String origin;
+	private List<PolicyCoverageOptionDTO> policyCoverageOptions;
 	private String policyHolderExtNumber;
+	private List<PolicyOptionsDTO> policyOptions;
+	private List<ProposalContactDTO> proposalContacts;
 	private long proposalId;
 	private String status;
 	private long userId;
