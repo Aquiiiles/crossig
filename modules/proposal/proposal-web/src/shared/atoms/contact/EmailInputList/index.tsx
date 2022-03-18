@@ -44,18 +44,6 @@ const EmailListInput: React.FC<props> = (props) => {
     validateEmails();
   };
 
-  const getEmailLabelTitle = (index: number) => {
-    return index === 0
-      ? CONTACT_INFO.MAIN_EMAIL
-      : CONTACT_INFO.OTHER_EMAIL_ADDRESSES;
-  };
-
-  const getEmailLabelSubtitle = (index: number) => {
-    return index === 0
-      ? CONTACT_INFO.MAIN_EMAIL_SUBTITLE
-      : CONTACT_INFO.OTHER_EMAIL_ADDRESSES_SUBTITLE;
-  };
-
   return (
     <StyledFormGroup>
       {props.emails.map((email, index) => {
@@ -63,8 +51,8 @@ const EmailListInput: React.FC<props> = (props) => {
           <Fragment key={`emailFragmentInputKey${index}`}>
             {index === 1 && (
               <InnerTitle className="tablet-only">
-                <strong>{getEmailLabelTitle(1)}</strong>
-                <small>{getEmailLabelSubtitle(1)}</small>
+                <strong>{CONTACT_INFO.OTHER_EMAIL_ADDRESSES}</strong>
+                <small>{CONTACT_INFO.OTHER_EMAIL_ADDRESSES_SUBTITLE}</small>
               </InnerTitle>
             )}
             <label>{CONTACT_INFO.EMAIL_ADDRESS}</label>
