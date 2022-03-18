@@ -1,5 +1,6 @@
 package hr.crosig.proposal.rest.application;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import hr.crosig.proposal.dto.CoveragePlanDTO;
 import hr.crosig.proposal.dto.InsuredRoleDTO;
 import hr.crosig.proposal.dto.ProductDTO;
@@ -154,6 +155,13 @@ public class ProposalApplication extends Application {
 			responseBuilder = Response.ok(
 			).entity(
 					proposalDTO
+			);
+		}
+		catch (PortalException portalException) {
+			responseBuilder = Response.status(
+					Response.Status.BAD_REQUEST
+			).entity(
+					portalException.getMessage()
 			);
 		}
 		catch (Exception exception) {
