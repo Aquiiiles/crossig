@@ -42,9 +42,8 @@ public class ProposalLocalServiceImpl extends ProposalLocalServiceBaseImpl {
 		return _mapToDTO(proposal);
 	}
 
-	public ProposalDTO updateProposal(ProposalDTO proposalDTO) {
-		Proposal proposal = proposalPersistence.fetchByPrimaryKey(
-			proposalDTO.getProposalId());
+	public ProposalDTO updateProposal(long proposalId, ProposalDTO proposalDTO) {
+		Proposal proposal = proposalPersistence.fetchByPrimaryKey(proposalId);
 
 		proposal = _updateProposal(proposalDTO, proposal);
 
