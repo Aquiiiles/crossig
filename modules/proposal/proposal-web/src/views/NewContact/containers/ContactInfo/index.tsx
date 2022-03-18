@@ -22,7 +22,6 @@ import { useSelector, useDispatch } from "../../../../redux/store";
 import { valuesToISOString } from "./utils/dateUtils";
 import { emailListToData } from "./utils/emailUtils";
 import { phoneObjectToData } from "./utils/phoneUtils";
-import API from "../../../../api";
 import { CONTACT_URL } from "../../../../api/constants/routes";
 import { COUNTRIES_URL } from "../../../../api/constants/routes";
 import { useFetchData } from "../../../../api/hooks/useFetchData";
@@ -35,6 +34,7 @@ import { resetScroll } from "../../../../shared/util/commonFunctions";
 
 const ContactInfo: React.FC = () => {
   const dispatch = useDispatch();
+  const { returnFetchData: API } = useFetchData();
   const basicInfoData = useSelector((state) => state.basicInfo);
   const addressData = useSelector((state) => state.addresses);
   const contactInfoData = useSelector((state) => state.contactInfo);
@@ -76,7 +76,7 @@ const ContactInfo: React.FC = () => {
     }
   };
 
-  const createContact = () => {
+  const createContact = async () => {
     if (!hasFormErrors()) {
       const { dateDay, dateMonth, dateYear } = basicInfoData;
       const { contactType } = basicInfoData;
@@ -141,7 +141,7 @@ const ContactInfo: React.FC = () => {
         telephones: phoneObjectToData(contactInfoData.mobilePhones),
       };
 
-      const response = API.post(CONTACT_URL, payload);
+      const response = API("POST", CONTACT_URL, {}, payload);
       resetScroll();
 
       response
