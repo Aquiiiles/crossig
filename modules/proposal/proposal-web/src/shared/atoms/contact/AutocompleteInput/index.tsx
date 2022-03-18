@@ -96,9 +96,10 @@ const AutoCompleteInput: React.FC<props> = ({
     " - " +
     (boxNumber || "boxNumber");
 
-  useEffect(() => updateOptions(value), [updateOptions, value]);
+  useEffect(() => updateOptions(value), [value]);
   useEffect(() => {
     document.addEventListener("click", closeDropdown, true);
+    return () => document.removeEventListener("click", closeDropdown, true);
   });
 
   return (
