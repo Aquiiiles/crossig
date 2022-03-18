@@ -121,6 +121,64 @@ public class CoveragePlanUtil {
 	}
 
 	/**
+	 * Returns the coverage plan where name = &#63; or throws a <code>NoSuchCoveragePlanException</code> if it could not be found.
+	 *
+	 * @param name the name
+	 * @return the matching coverage plan
+	 * @throws NoSuchCoveragePlanException if a matching coverage plan could not be found
+	 */
+	public static CoveragePlan findByName(String name)
+		throws hr.crosig.proposal.exception.NoSuchCoveragePlanException {
+
+		return getPersistence().findByName(name);
+	}
+
+	/**
+	 * Returns the coverage plan where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param name the name
+	 * @return the matching coverage plan, or <code>null</code> if a matching coverage plan could not be found
+	 */
+	public static CoveragePlan fetchByName(String name) {
+		return getPersistence().fetchByName(name);
+	}
+
+	/**
+	 * Returns the coverage plan where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param name the name
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching coverage plan, or <code>null</code> if a matching coverage plan could not be found
+	 */
+	public static CoveragePlan fetchByName(
+		String name, boolean useFinderCache) {
+
+		return getPersistence().fetchByName(name, useFinderCache);
+	}
+
+	/**
+	 * Removes the coverage plan where name = &#63; from the database.
+	 *
+	 * @param name the name
+	 * @return the coverage plan that was removed
+	 */
+	public static CoveragePlan removeByName(String name)
+		throws hr.crosig.proposal.exception.NoSuchCoveragePlanException {
+
+		return getPersistence().removeByName(name);
+	}
+
+	/**
+	 * Returns the number of coverage plans where name = &#63;.
+	 *
+	 * @param name the name
+	 * @return the number of matching coverage plans
+	 */
+	public static int countByName(String name) {
+		return getPersistence().countByName(name);
+	}
+
+	/**
 	 * Returns all the coverage plans where category = &#63;.
 	 *
 	 * @param category the category
@@ -287,64 +345,6 @@ public class CoveragePlanUtil {
 	 */
 	public static int countByCategory(String category) {
 		return getPersistence().countByCategory(category);
-	}
-
-	/**
-	 * Returns the coverage plan where name = &#63; or throws a <code>NoSuchCoveragePlanException</code> if it could not be found.
-	 *
-	 * @param name the name
-	 * @return the matching coverage plan
-	 * @throws NoSuchCoveragePlanException if a matching coverage plan could not be found
-	 */
-	public static CoveragePlan findByName(String name)
-		throws hr.crosig.proposal.exception.NoSuchCoveragePlanException {
-
-		return getPersistence().findByName(name);
-	}
-
-	/**
-	 * Returns the coverage plan where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param name the name
-	 * @return the matching coverage plan, or <code>null</code> if a matching coverage plan could not be found
-	 */
-	public static CoveragePlan fetchByName(String name) {
-		return getPersistence().fetchByName(name);
-	}
-
-	/**
-	 * Returns the coverage plan where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	 *
-	 * @param name the name
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the matching coverage plan, or <code>null</code> if a matching coverage plan could not be found
-	 */
-	public static CoveragePlan fetchByName(
-		String name, boolean useFinderCache) {
-
-		return getPersistence().fetchByName(name, useFinderCache);
-	}
-
-	/**
-	 * Removes the coverage plan where name = &#63; from the database.
-	 *
-	 * @param name the name
-	 * @return the coverage plan that was removed
-	 */
-	public static CoveragePlan removeByName(String name)
-		throws hr.crosig.proposal.exception.NoSuchCoveragePlanException {
-
-		return getPersistence().removeByName(name);
-	}
-
-	/**
-	 * Returns the number of coverage plans where name = &#63;.
-	 *
-	 * @param name the name
-	 * @return the number of matching coverage plans
-	 */
-	public static int countByName(String name) {
-		return getPersistence().countByName(name);
 	}
 
 	/**
