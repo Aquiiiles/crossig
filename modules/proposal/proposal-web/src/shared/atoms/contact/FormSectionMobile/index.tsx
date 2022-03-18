@@ -1,5 +1,5 @@
 import React from "react";
-import FormGrid from "../FormGrid";
+import FormGridMobile from "../FormGridMobile";
 import SectionTitle from "../SectionTitle";
 import { Wrapper } from "./styles";
 
@@ -7,13 +7,13 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
 }
 
-const FormSection: React.FC<Props> = ({ title, children, ...props }) => {
+const FormSectionMobile: React.FC<Props> = ({ title, children, ...props }) => {
   return (
     <Wrapper {...props}>
       {title != null ? <SectionTitle title={title} /> : null}
-      <FormGrid>{children}</FormGrid>
+      <FormGridMobile>{children}</FormGridMobile>
     </Wrapper>
   );
 };
 
-export default FormSection;
+export default FormSectionMobile;

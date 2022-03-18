@@ -110,11 +110,13 @@ const VesselSearch: React.FC = () => {
 
       <InnerWrapper>
         <Content>
-          <h5>{VESSEL_LOOKUP.TITLE}</h5>
-          <p className="body-small" style={{ marginBottom: "2.5rem" }}>
-            {VESSEL_LOOKUP.SUBTITLE}
-          </p>
-          <SearchField onSearchClick={() => fetchData()} />
+          <div className="tablet-padding">
+            <h5>{VESSEL_LOOKUP.TITLE}</h5>
+            <p className="body-small" style={{ marginBottom: "2.5rem" }}>
+              {VESSEL_LOOKUP.SUBTITLE}
+            </p>
+            <SearchField onSearchClick={() => fetchData()} />
+          </div>
           {!idle && (
             <VesselLookupResult
               data={searchResult.response.data}

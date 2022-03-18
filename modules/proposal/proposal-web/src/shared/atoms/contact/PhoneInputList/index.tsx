@@ -14,6 +14,7 @@ import CountryCodeSelect from "../../../atoms/contact/CountryCodeSelect";
 import { PhoneNumber } from "../../../types/contact";
 import { MAXIMUM_MOBILE_PHONES } from "../../../../constants/contactConstants";
 import { shouldDisableInput } from "../../../util/commonFunctions";
+import PhoneTypeSelect from "../PhoneTypeSelect";
 
 type propsType = {
   phoneNumbers: Array<PhoneNumber>;
@@ -22,6 +23,7 @@ type propsType = {
   countries: Array<Country>;
   disableLink?: boolean;
   disableInput?: boolean;
+  phoneTypeSelect?: (index: number) => React.ReactNode;
 };
 export interface Country {
   label: string;
@@ -106,36 +108,41 @@ const PhoneInputList: React.FC<propsType> = (props: propsType) => {
       <OrderedListWrapper>
         {props.phoneNumbers.map((phoneNumber, index) => {
           return (
-            <li key={`phoneInputList${index}`}>
-              <label>{CONTACT_INFO.PHONE_NUMBER}</label>
-              <PhoneNumberWrapper>
-                <CountryCodeSelect
-                  id={`countryCodeSelect${index}`}
-                  className="country-code"
-                  handleChange={(e) => handleChange(index, e, "countryCode")}
-                  entity={phoneNumber.countryCode}
-                  countries={props.countries}
-                  disabled={shouldDisableInput(props)}
-                />
+            <>
+              {index > 0 &&
+                props.phoneTypeSelect &&
+                props.phoneTypeSelect(index)}
+              <li key={`phoneInputList${index}`}>
+                <label>{CONTACT_INFO.PHONE_NUMBER}</label>
+                <PhoneNumberWrapper>
+                  <CountryCodeSelect
+                    id={`countryCodeSelect${index}`}
+                    className="country-code"
+                    handleChange={(e) => handleChange(index, e, "countryCode")}
+                    entity={phoneNumber.countryCode}
+                    countries={props.countries}
+                    disabled={shouldDisableInput(props)}
+                  />
 
-                <AreaCodeSelect
-                  id={`areaCodeSelect${index}`}
-                  className={displayAreaCode(phoneNumber.countryCode)}
-                  entity={phoneNumber.areaCode}
-                  disabled={shouldDisableInput(props)}
-                  handleChange={(e) => handleChange(index, e, "areaCode")}
-                />
+                  <AreaCodeSelect
+                    id={`areaCodeSelect${index}`}
+                    className={displayAreaCode(phoneNumber.countryCode)}
+                    entity={phoneNumber.areaCode}
+                    disabled={shouldDisableInput(props)}
+                    handleChange={(e) => handleChange(index, e, "areaCode")}
+                  />
 
-                <ClayInput
-                  id={`phoneNumber${index}`}
-                  className={handlePhoneInputWidth(phoneNumber.countryCode)}
-                  type="number"
-                  onChange={(e) => handleChange(index, e, "phoneNumber")}
-                  value={phoneNumber.phoneNumber}
-                  disabled={shouldDisableInput(props)}
-                />
-              </PhoneNumberWrapper>
-            </li>
+                  <ClayInput
+                    id={`phoneNumber${index}`}
+                    className={handlePhoneInputWidth(phoneNumber.countryCode)}
+                    type="number"
+                    onChange={(e) => handleChange(index, e, "phoneNumber")}
+                    value={phoneNumber.phoneNumber}
+                    disabled={shouldDisableInput(props)}
+                  />
+                </PhoneNumberWrapper>
+              </li>
+            </>
           );
         })}
       </OrderedListWrapper>

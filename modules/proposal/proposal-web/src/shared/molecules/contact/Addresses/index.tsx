@@ -143,7 +143,7 @@ const Addresses: React.FC<propsType> = ({
           </ClayForm.Group>
         </Row>
 
-        <Row>
+        <Row className="cityPostalRow">
           <ClayForm.Group>
             <ClayInput.Group>
               <ClayInput.GroupItem className={hasCityWarn ? "has-warning" : ""}>
@@ -238,7 +238,7 @@ const Addresses: React.FC<propsType> = ({
             </ClayForm.FeedbackGroup>
           ) : null}
         </ClayForm.Group>
-        <Row half>
+        <Row half className="halfRowTabletFullRowMobile">
           <ClayForm.Group className={hasHouseNumberWarn ? "has-warning" : ""}>
             <label className="required" htmlFor="house-number">
               {CREATE_NEW_CONTACT.FIELD.HOUSE_NUMBER}
@@ -280,7 +280,7 @@ const Addresses: React.FC<propsType> = ({
 
         {!isSameAddress && (
           <>
-            <Row half>
+            <Row half className="halfRowTabletFullRowMobile">
               <ClayForm.Group>
                 <label className="required" htmlFor="dispatch-country">
                   {CREATE_NEW_CONTACT.FIELD.COUNTRY}
@@ -410,7 +410,7 @@ const Addresses: React.FC<propsType> = ({
               ) : null}
             </ClayForm.Group>
 
-            <Row half>
+            <Row half className="halfRowTabletFullRowMobile">
               <ClayForm.Group
                 className={hasDispatchHouseNumberWarn ? "has-warning" : ""}
               >

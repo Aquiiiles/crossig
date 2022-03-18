@@ -70,6 +70,16 @@ export const Content = styled.div<Props>`
     & .content-subtitle {
       margin-bottom: 1.5rem;
     }
+
+    & .tablet-padding {
+      padding: ${(props) => (props.embedded ? "0" : "0 2.5rem")};
+    }
+  }
+
+  @media ${({ theme }) => theme.breakpoint.mobile("down")} {
+    & .tablet-padding {
+      padding: ${(props) => (props.embedded ? "0" : "0 1.5rem")};
+    }
   }
 `;
 

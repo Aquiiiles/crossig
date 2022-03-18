@@ -6,10 +6,9 @@ export const Wrapper = styled.div`
   background-color: ${(props) => props.theme.color.neutral.white};
 
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
-    height: 5rem;
-    width: calc(100% + 2rem);
+    width: 100%;
     display: flex;
-    padding: 0;
+    padding: 2.1875rem;
     position: relative;
     right: 1rem;
   }

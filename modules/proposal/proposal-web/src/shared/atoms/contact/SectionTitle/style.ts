@@ -6,4 +6,8 @@ export const Wrapper = styled.div`
   & h6 {
     margin-bottom: 0;
   }
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    padding: 0;
+  }
 `;

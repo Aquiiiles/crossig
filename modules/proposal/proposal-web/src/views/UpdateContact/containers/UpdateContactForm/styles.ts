@@ -9,10 +9,33 @@ export const Wrapper = styled.form`
   .subtitle {
     margin-bottom: 1.875rem;
   }
+
+  @media ${({ theme }) => theme.breakpoint.tablet("down")} {
+    padding: 2.5rem;
+    border-radius: 0;
+  }
+
+  @media ${({ theme }) => theme.breakpoint.mobile("down")} {
+    padding: 1.5rem;
+  }
 `;
 
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media ${({ theme }) => theme.breakpoint.mobile("down")} {
+    flex-direction: column;
+
+    & > *:first-child {
+      margin: 1.5rem 0;
+    }
+
+    & > .btn-group {
+      flex-direction: column;
+      align-items: center;
+      row-gap: 1rem;
+    }
+  }
 `;

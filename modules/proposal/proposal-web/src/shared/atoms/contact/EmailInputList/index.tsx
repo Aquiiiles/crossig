@@ -5,6 +5,7 @@ import LinkWrapper from "../LinkWrapper";
 import { StyledFormGroup, Error } from "./styles";
 import { MAXIMUM_EMAIL_ADDRESSES } from "../../../../constants/contactConstants";
 import { shouldDisableInput } from "../../../util/commonFunctions";
+import { InnerTitle } from "../../../molecules/contact/ContactInfoForm/styles";
 
 interface props {
   emails: Array<string>;
@@ -48,6 +49,12 @@ const EmailListInput: React.FC<props> = (props) => {
       {props.emails.map((email, index) => {
         return (
           <Fragment key={`emailFragmentInputKey${index}`}>
+            {index === 1 && (
+              <InnerTitle className="tablet-only">
+                <strong>{CONTACT_INFO.OTHER_EMAIL_ADDRESSES}</strong>
+                <small>{CONTACT_INFO.OTHER_EMAIL_ADDRESSES_SUBTITLE}</small>
+              </InnerTitle>
+            )}
             <label>{CONTACT_INFO.EMAIL_ADDRESS}</label>
             <ClayInput
               key={`emailInputKey${index}`}
