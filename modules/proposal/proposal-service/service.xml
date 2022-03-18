@@ -58,6 +58,61 @@
 			<finder-column name="InsuredRoleId" />
 		</finder>
 	</entity>
+	<entity local-service="true" name="PolicyCoverageOpt" remote-service="false" uuid="false">
+
+		<!-- PK fields -->
+
+		<column name="policyCoverageOptionId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="coverageOptionsName" type="String" />
+		<column name="coverageOptionsValue" type="String" />
+		<column name="type" type="String" />
+	</entity>
+	<entity local-service="true" name="PolicyOptions" remote-service="false" uuid="false">
+
+		<!-- PK fields -->
+
+		<column name="policyOptionsId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="proposalId" type="long" />
+		<column name="currency" type="String" />
+		<column name="termsDate" type="Date" />
+		<column name="productCategory" type="String" />
+		<column name="productExtNumber" type="String" />
+		<column name="issueDate" type="Date" />
+		<column name="contractStartDate" type="Date" />
+		<column name="contractEndDate" type="Date" />
+		<column name="contractPeriod" type="String" />
+		<column name="durationYear" type="int" />
+		<column name="policyStartDate" type="Date" />
+		<column name="policyEndDate" type="Date" />
+		<column name="policyNumberDays" type="int" />
+		<column name="communicationMethod" type="String" />
+
+		<finder name="ProposalId" return-type="PolicyOptions">
+			<finder-column name="proposalId" />
+		</finder>
+	</entity>
 	<entity local-service="true" name="Product" remote-service="false" uuid="false">
 
 		<!-- PK fields -->
@@ -163,60 +218,4 @@
 			<finder-column name="proposalId" />
 		</finder>
 	</entity>
-	<entity local-service="true" name="PolicyOptions" remote-service="false" uuid="false">
-
-		<!-- PK fields -->
-
-		<column name="policyOptionsId" primary="true" type="long" />
-
-		<!-- Audit fields -->
-
-		<column name="companyId" type="long" />
-		<column name="userId" type="long" />
-		<column name="userName" type="String" />
-		<column name="createDate" type="Date" />
-		<column name="modifiedDate" type="Date" />
-
-		<!-- Other fields -->
-
-		<column name="proposalId" type="long" />
-		<column name="currency" type="String" />
-		<column name="termsDate" type="Date" />
-		<column name="productCategory" type="String" />
-		<column name="productExtNumber" type="String" />
-		<column name="issueDate" type="Date" />
-		<column name="contractStartDate" type="Date" />
-		<column name="contractEndDate" type="Date" />
-		<column name="contractPeriod" type="String" />
-		<column name="durationYear" type="int" />
-		<column name="policyStartDate" type="Date" />
-		<column name="policyEndDate" type="Date" />
-		<column name="policyNumberDays" type="int" />
-		<column name="communicationMethod" type="String" />
-
-		<finder name="ProposalId" return-type="PolicyOptions">
-			<finder-column name="proposalId" />
-		</finder>
-	</entity>
-	<entity local-service="true" name="PolicyCoverageOpt" remote-service="false" uuid="false">
-
-		<!-- PK fields -->
-
-		<column name="policyCoverageOptionId" primary="true" type="long" />
-
-		<!-- Audit fields -->
-
-		<column name="companyId" type="long" />
-		<column name="userId" type="long" />
-		<column name="userName" type="String" />
-		<column name="createDate" type="Date" />
-		<column name="modifiedDate" type="Date" />
-
-		<!-- Other fields -->
-
-		<column name="coverageOptionsName" type="String" />
-		<column name="coverageOptionsValue" type="String" />
-		<column name="type" type="String" />
-	</entity>
-
 </service-builder>
