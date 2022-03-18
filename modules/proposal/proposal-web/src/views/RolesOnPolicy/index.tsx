@@ -56,6 +56,7 @@ const RolesOnPolicy: React.FC = () => {
               <ContinueBtn
                 disabled={!hasInsuredRole}
                 onClick={() => {
+                  window.scrollTo(0, 0);
                   history.push("/coverage_plan");
                 }}
               />

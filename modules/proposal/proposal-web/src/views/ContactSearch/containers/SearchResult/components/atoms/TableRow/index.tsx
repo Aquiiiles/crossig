@@ -1,7 +1,7 @@
 import React from "react";
 import ClayButton from "@clayui/button";
 import ClayTable from "@clayui/table";
-import { HoveringButtonGroup, StyledRow } from "./style";
+import { CollapsableCell, StyledRow } from "./style";
 import MissingInformationIcon from "../MissingInformationIcon";
 import {
   CONTACT_SEARCH_TABLE_VIEW_DETAILS,
@@ -20,21 +20,34 @@ interface props {
 }
 
 const TableRow: React.FC<props> = ({ contact, embedded }) => {
-  const [
-    { showButtons },
-    { setShowButtons, formatDOB, openUpdateContact, selectContact },
-    types,
-  ] = useTableRowState(
-    embedded ? contactOperations.updateEmbedded : contactOperations.update
-  );
+  const operations = embedded
+    ? contactOperations.updateEmbedded
+    : contactOperations.update;
+
+  const [{ formatDOB, openUpdateContact, selectContact }, types] =
+    useTableRowState(operations);
+
+  const handleContactActionButton = (embedded: boolean) => {
+    let button = (
+      <ClayButton
+        displayType="primary"
+        className="hovering-button"
+        onClick={() => selectContact(contact)}
+      >
+        {CONTACT_SEARCH_TABLE_USE_CONTACT}
+      </ClayButton>
+    );
+
+    if (embedded) {
+      button = <AddToPolicyBtn isMobile={false} contact={contact} />;
+    }
+
+    return button;
+  };
 
   return (
     <StyledRow
       style={{ position: "relative" }}
-      onMouseLeave={() => setShowButtons(false)}
-      onPointerLeave={() => setShowButtons(false)}
-      onMouseEnter={() => setShowButtons(true)}
-      onPointerEnter={() => setShowButtons(true)}
       onDoubleClick={() => (!embedded ? selectContact(contact) : null)}
     >
       <ClayTable.Cell headingTitle className="no-wrap">
@@ -54,34 +67,22 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
       <ClayTable.Cell headingTitle>
         {contact[constants.STREET_KEY]}
       </ClayTable.Cell>
-      <ClayTable.Cell headingTitle>
-        {contact[constants.CITY_KEY]}
-      </ClayTable.Cell>
-      {showButtons ? (
-        <HoveringButtonGroup>
-          <ClayButton
-            displayType="secondary"
-            className="ghost"
-            onClick={() => openUpdateContact(contact[constants.EXT_NUMBER_KEY])}
-          >
-            {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
-          </ClayButton>
-          {embedded ? (
-            <AddToPolicyBtn contact={contact} isMobile={false} />
-          ) : (
-            <ClayButton
-              displayType="primary"
-              onClick={() => selectContact(contact)}
-            >
-              {CONTACT_SEARCH_TABLE_USE_CONTACT}
-            </ClayButton>
-          )}
-        </HoveringButtonGroup>
-      ) : (
-        <ClayTable.Cell headingTitle>
+      <CollapsableCell headingTitle>
+        <p className="collapsable-cell">{contact[constants.CITY_KEY]}</p>
+        <ClayButton
+          displayType="secondary"
+          className="ghost hovering-button align-button-right"
+          onClick={() => openUpdateContact(contact[constants.EXT_NUMBER_KEY])}
+        >
+          {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
+        </ClayButton>
+      </CollapsableCell>
+      <CollapsableCell headingTitle>
+        <p className="collapsable-cell">
           {types[contact[constants.TYPE_KEY] as keyof typeof types]}
-        </ClayTable.Cell>
-      )}
+        </p>
+        {handleContactActionButton(embedded)}
+      </CollapsableCell>
     </StyledRow>
   );
 };

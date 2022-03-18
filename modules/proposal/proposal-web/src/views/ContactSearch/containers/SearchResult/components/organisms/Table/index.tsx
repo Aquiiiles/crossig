@@ -73,7 +73,6 @@ const Table: React.FC<props> = ({ inputData, loading, embedded }: props) => {
             {sortedBy === constants.STREET_KEY ? arrowIcon : null}
           </ClayTable.Cell>
           <ClayTable.Cell
-            style={{ cursor: "pointer" }}
             headingCell
             onClick={() => handleSort(constants.CITY_KEY)}
           >
@@ -81,7 +80,6 @@ const Table: React.FC<props> = ({ inputData, loading, embedded }: props) => {
             {sortedBy === constants.CITY_KEY ? arrowIcon : null}
           </ClayTable.Cell>
           <ClayTable.Cell
-            style={{ cursor: "pointer" }}
             headingCell
             onClick={() => handleSort(constants.TYPE_KEY)}
           >
@@ -91,8 +89,12 @@ const Table: React.FC<props> = ({ inputData, loading, embedded }: props) => {
         </ClayTable.Row>
       </ClayTable.Head>
       <ClayTable.Body>
-        {inputData.map((item: types.responseType) => (
-          <TableRow key={item.idValue} contact={item} embedded={embedded} />
+        {inputData.map((item: types.responseType, index: number) => (
+          <TableRow
+            key={item.idValue}
+            contact={item}
+            embedded={embedded}
+          />
         ))}
       </ClayTable.Body>
     </ResultsTable>
