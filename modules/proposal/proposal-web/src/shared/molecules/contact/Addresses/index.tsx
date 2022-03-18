@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import AutocompleteInput from "../../../atoms/contact/AutocompleteInput";
 import SectionSubTitle from "../../../atoms/contact/SectionSubTitle";
 import FormSection from "../../../atoms/contact/FormSection";
@@ -8,90 +8,62 @@ import ClayForm, {
   ClayCheckbox,
   ClaySelectWithOption,
 } from "@clayui/form";
-import {
-  contactOperations,
-  contactTypes,
-} from "../../../../constants/contactConstants";
-import { countryNames } from "../../../../constants/defaultCountryConfiguration";
+import { contactTypes } from "../../../../constants/contactConstants";
 import { CREATE_NEW_CONTACT } from "../../../../constants/languageKeys";
-import { useDispatch, useSelector } from "../../../../redux/store";
-import { actions } from "../../../../redux";
 import { Line } from "./styles";
-import { searchCitiesByName, searchStreetsByCityIdAndName } from "./controller";
 import useRequiredField from "../../../hooks/useRequiredField";
+import useAddressState from "./hooks/useAdressState";
 
-type propsType = {
+type PropsType = {
   enableSave?: () => void;
-  countries: { label: any; value: any }[];
+  countries: { label: string; value: string }[];
   operation: number;
   setUpdatedValues?: (value: string) => void;
 };
 
-const Addresses: React.FC<propsType> = ({
+const Addresses: React.FC<PropsType> = ({
   countries,
   enableSave,
   operation,
   setUpdatedValues,
-}: propsType) => {
-  const [disableFields, setDisableFields] = useState(false);
-  const dispatcher = useDispatch();
-  const dispatch = (action: any, updatedValue: string) => {
-    enableSave && enableSave();
-    dispatcher(action);
-    setUpdatedValues && setUpdatedValues(updatedValue);
-  };
-
-  const { contactType } = useSelector(
-    (state: { basicInfo: any }) => state.basicInfo
-  );
-
-  const {
-    country,
-    dispatchCountry,
-    city,
-    dispatchCity,
-    cityName,
-    dispatchCityName,
-    street,
-    dispatchStreet,
-    isSameAddress,
-    postalCode,
-    dispatchPostalCode,
-    houseNumber,
-    dispatchHouseNumber,
-  } = useSelector((state) => state.addresses);
-  const {
-    setCountry,
-    setDispatchCountry,
-    setCity,
-    setDispatchCity,
-    setStreet,
-    setDispatchStreet,
-    setIsSameAddress,
-    setPostalCode,
-    setDispatchPostalCode,
-    setHouseNumber,
-    setDispatchHouseNumber,
-  } = actions.addresses;
-
-  const isMainAddressInCroatia = () => {
-    return country === countryNames.value || country === countryNames.label;
-  };
-
-  const isDispatchAddressInCroatia = () => {
-    return (
-      dispatchCountry === countryNames.value ||
-      dispatchCountry === countryNames.label
-    );
-  };
-
-  useEffect(() => {
-    setDisableFields(
-      (contactType === contactTypes.Legal_Entity &&
-        operation !== contactOperations.create) ||
-        operation === contactOperations.updateReadOnly
-    );
-  }, [contactType]);
+}: PropsType) => {
+  const [
+    {
+      disableFields,
+      city,
+      street,
+      houseNumber,
+      dispatchCity,
+      dispatchHouseNumber,
+      dispatchStreet,
+      dispatchCityName,
+      dispatchPostalCode,
+      contactType,
+      cityName,
+      postalCode,
+      isSameAddress,
+    },
+    {
+      setCity,
+      setCountry,
+      setDispatchCity,
+      setDispatchCountry,
+      setDispatchHouseNumber,
+      setDispatchPostalCode,
+      setDispatchStreet,
+      setHouseNumber,
+      setIsSameAddress,
+      setPostalCode,
+      setStreet,
+    },
+    {
+      isMainAddressInCroatia,
+      isDispatchAddressInCroatia,
+      searchCitiesByName,
+      searchStreetsByCityIdAndName,
+    },
+    dispatch,
+  ] = useAddressState(operation, enableSave, setUpdatedValues);
 
   const [registerRequiredCity, cityWarn, hasCityWarn] = useRequiredField(
     city,

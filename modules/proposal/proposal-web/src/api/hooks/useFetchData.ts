@@ -1,20 +1,17 @@
 import { useCallback, useReducer } from "react";
-
 import { fetchDataReducer } from "../reducers/fetchDataReducer";
 import { useSafeDispatch } from "./useSafeDispatch";
-
 import { IDLE, PENDING, REJECTED, RESOLVED } from "../reducers/constants";
-
-import API from "../";
 import { AxiosRequestConfig } from "axios";
+import API from "../";
 
-export type FetchDataFunction = (
+export type FetchDataFunction<T> = (
   method: NonNullable<AxiosRequestConfig["method"]>,
   url: string,
   params?: AxiosRequestConfig["params"],
   payload?: AxiosRequestConfig["data"],
-  mockedData?: any
-) => Promise<void>;
+  mockedData?: AxiosRequestConfig["data"]
+) => Promise<T>;
 
 const initialArgs = {
   status: IDLE,
@@ -30,7 +27,7 @@ export const useFetchData = () => {
 
   const dispatch = useSafeDispatch(unsafeDispatch);
 
-  const fetchData: FetchDataFunction = useCallback(
+  const fetchData: FetchDataFunction<void> = useCallback(
     async (method, url, params, payload, mockedData) => {
       if (mockedData) {
         const response = { data: mockedData, status: 200 };
@@ -49,6 +46,24 @@ export const useFetchData = () => {
       }
     },
     [dispatch]
+  );
+
+  const returnFetchData: FetchDataFunction<any> = useCallback(
+    async (method, url, params, payload, mockedData) => {
+      if (mockedData) {
+        const mockPromise = new Promise((resolve) => {
+          resolve({ data: mockedData, status: 200 });
+        });
+
+        const response = await mockPromise;
+
+        return response;
+      }
+
+      const response = await API({ method, url, params, data: payload });
+      return response;
+    },
+    []
   );
 
   const post = useCallback(
@@ -93,5 +108,5 @@ export const useFetchData = () => {
     [dispatch]
   );
 
-  return { state, fetchData, dispatch, post, get, put };
+  return { state, fetchData, returnFetchData, dispatch, post, get, put };
 };
