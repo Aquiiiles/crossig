@@ -28,6 +28,7 @@ export const StyledModal = styled(ClayModal)`
       right: 0;
       top: 0;
       height: 100%;
+      width: 100%;
     }
   }
 `;
