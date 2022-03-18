@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  padding-top: 1rem;
+  padding-top: 2.5rem;
   display: grid;
   grid-template-columns: 0.5fr 2fr;
   grid-auto-rows: auto;
