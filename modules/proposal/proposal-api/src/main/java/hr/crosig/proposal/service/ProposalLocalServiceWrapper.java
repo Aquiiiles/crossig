@@ -296,6 +296,13 @@ public class ProposalLocalServiceWrapper
 		return _proposalLocalService.getProposalsCount();
 	}
 
+	@Override
+	public hr.crosig.proposal.dto.ProposalDTO updateProposal(
+		long proposalId, hr.crosig.proposal.dto.ProposalDTO proposalDTO) {
+
+		return _proposalLocalService.updateProposal(proposalId, proposalDTO);
+	}
+
 	/**
 	 * Updates the proposal in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -311,13 +318,6 @@ public class ProposalLocalServiceWrapper
 		hr.crosig.proposal.model.Proposal proposal) {
 
 		return _proposalLocalService.updateProposal(proposal);
-	}
-
-	@Override
-	public hr.crosig.proposal.dto.ProposalDTO updateProposal(
-		hr.crosig.proposal.dto.ProposalDTO proposalDTO) {
-
-		return _proposalLocalService.updateProposal(proposalDTO);
 	}
 
 	@Override

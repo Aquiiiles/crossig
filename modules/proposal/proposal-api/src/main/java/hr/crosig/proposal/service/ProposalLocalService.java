@@ -249,6 +249,8 @@ public interface ProposalLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getProposalsCount();
 
+	public ProposalDTO updateProposal(long proposalId, ProposalDTO proposalDTO);
+
 	/**
 	 * Updates the proposal in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -261,7 +263,5 @@ public interface ProposalLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public Proposal updateProposal(Proposal proposal);
-
-	public ProposalDTO updateProposal(ProposalDTO proposalDTO);
 
 }

@@ -273,6 +273,12 @@ public class ProposalLocalServiceUtil {
 		return getService().getProposalsCount();
 	}
 
+	public static hr.crosig.proposal.dto.ProposalDTO updateProposal(
+		long proposalId, hr.crosig.proposal.dto.ProposalDTO proposalDTO) {
+
+		return getService().updateProposal(proposalId, proposalDTO);
+	}
+
 	/**
 	 * Updates the proposal in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -285,12 +291,6 @@ public class ProposalLocalServiceUtil {
 	 */
 	public static Proposal updateProposal(Proposal proposal) {
 		return getService().updateProposal(proposal);
-	}
-
-	public static hr.crosig.proposal.dto.ProposalDTO updateProposal(
-		hr.crosig.proposal.dto.ProposalDTO proposalDTO) {
-
-		return getService().updateProposal(proposalDTO);
 	}
 
 	public static ProposalLocalService getService() {
