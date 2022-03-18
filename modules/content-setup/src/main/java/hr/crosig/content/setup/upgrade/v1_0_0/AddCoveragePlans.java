@@ -33,5 +33,7 @@ public class AddCoveragePlans extends BaseUpgradeProcess {
 	private static final String _COMPULSORY_LIABILITY_ONLY =
 		"Compulsory Liability Only";
 
-	private static final String _DESCRIPTION = "Lorem Ipsum je jednostavno probni tekst.";
+	private static final String _DESCRIPTION =
+		"Lorem Ipsum je jednostavno probni tekst.";
+
 }
