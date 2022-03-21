@@ -59,7 +59,7 @@ const ContactInfo: React.FC = () => {
     if (countryResponse.status === RESOLVED) {
       setCountries(countryResponse.response.data);
     }
-  }, [countryResponse.status]);
+  }, [countryResponse]);
 
   const isLegalEntity = () => {
     return contactType === contactTypes.Legal_Entity;

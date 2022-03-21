@@ -71,7 +71,7 @@ const UpdateContactForm: React.FC<{
     if (countriesResponse.status === RESOLVED) {
       setCountries(countriesResponse.response.data);
     }
-  });
+  }, [countriesResponse]);
 
   useEffect(() => {
     setBasicInfoFields(data, dispatch, actions.basicInfo);

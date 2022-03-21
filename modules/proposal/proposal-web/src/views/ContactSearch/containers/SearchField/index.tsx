@@ -67,7 +67,7 @@ const SearchField: React.FC<props> = ({
     if (coutryResponse.status === RESOLVED) {
       setCountries(coutryResponse.response.data);
     }
-  });
+  }, [coutryResponse]);
 
   const handleExpand = () => {
     setExpand(!expand);

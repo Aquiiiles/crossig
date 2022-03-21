@@ -100,7 +100,7 @@ const AutoCompleteInput: React.FC<props> = ({
   useEffect(() => {
     document.addEventListener("click", closeDropdown, true);
     return () => document.removeEventListener("click", closeDropdown, true);
-  });
+  }, []);
 
   return (
     <>
