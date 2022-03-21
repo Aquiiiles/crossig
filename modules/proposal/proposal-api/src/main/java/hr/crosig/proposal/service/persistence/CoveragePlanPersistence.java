@@ -42,6 +42,50 @@ public interface CoveragePlanPersistence extends BasePersistence<CoveragePlan> {
 	 */
 
 	/**
+	 * Returns the coverage plan where name = &#63; or throws a <code>NoSuchCoveragePlanException</code> if it could not be found.
+	 *
+	 * @param name the name
+	 * @return the matching coverage plan
+	 * @throws NoSuchCoveragePlanException if a matching coverage plan could not be found
+	 */
+	public CoveragePlan findByName(String name)
+		throws NoSuchCoveragePlanException;
+
+	/**
+	 * Returns the coverage plan where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param name the name
+	 * @return the matching coverage plan, or <code>null</code> if a matching coverage plan could not be found
+	 */
+	public CoveragePlan fetchByName(String name);
+
+	/**
+	 * Returns the coverage plan where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param name the name
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching coverage plan, or <code>null</code> if a matching coverage plan could not be found
+	 */
+	public CoveragePlan fetchByName(String name, boolean useFinderCache);
+
+	/**
+	 * Removes the coverage plan where name = &#63; from the database.
+	 *
+	 * @param name the name
+	 * @return the coverage plan that was removed
+	 */
+	public CoveragePlan removeByName(String name)
+		throws NoSuchCoveragePlanException;
+
+	/**
+	 * Returns the number of coverage plans where name = &#63;.
+	 *
+	 * @param name the name
+	 * @return the number of matching coverage plans
+	 */
+	public int countByName(String name);
+
+	/**
 	 * Returns all the coverage plans where category = &#63;.
 	 *
 	 * @param category the category
@@ -183,50 +227,6 @@ public interface CoveragePlanPersistence extends BasePersistence<CoveragePlan> {
 	 * @return the number of matching coverage plans
 	 */
 	public int countByCategory(String category);
-
-	/**
-	 * Returns the coverage plan where name = &#63; or throws a <code>NoSuchCoveragePlanException</code> if it could not be found.
-	 *
-	 * @param name the name
-	 * @return the matching coverage plan
-	 * @throws NoSuchCoveragePlanException if a matching coverage plan could not be found
-	 */
-	public CoveragePlan findByName(String name)
-		throws NoSuchCoveragePlanException;
-
-	/**
-	 * Returns the coverage plan where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param name the name
-	 * @return the matching coverage plan, or <code>null</code> if a matching coverage plan could not be found
-	 */
-	public CoveragePlan fetchByName(String name);
-
-	/**
-	 * Returns the coverage plan where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	 *
-	 * @param name the name
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the matching coverage plan, or <code>null</code> if a matching coverage plan could not be found
-	 */
-	public CoveragePlan fetchByName(String name, boolean useFinderCache);
-
-	/**
-	 * Removes the coverage plan where name = &#63; from the database.
-	 *
-	 * @param name the name
-	 * @return the coverage plan that was removed
-	 */
-	public CoveragePlan removeByName(String name)
-		throws NoSuchCoveragePlanException;
-
-	/**
-	 * Returns the number of coverage plans where name = &#63;.
-	 *
-	 * @param name the name
-	 * @return the number of matching coverage plans
-	 */
-	public int countByName(String name);
 
 	/**
 	 * Caches the coverage plan in the entity cache if it is enabled.

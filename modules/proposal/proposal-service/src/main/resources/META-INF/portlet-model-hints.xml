@@ -23,6 +23,40 @@
 		<field name="name" type="String" />
 		<field name="externalId" type="String" />
 	</model>
+	<model name="hr.crosig.proposal.model.PolicyCoverageOpt">
+		<field name="policyCoverageOptionId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="proposalId" type="long" />
+		<field name="coverageOptionsName" type="String" />
+		<field name="coverageOptionsValue" type="String" />
+		<field name="type" type="String" />
+	</model>
+	<model name="hr.crosig.proposal.model.PolicyOptions">
+		<field name="policyOptionsId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="proposalId" type="long" />
+		<field name="currency" type="String" />
+		<field name="termsDate" type="Date" />
+		<field name="productCategory" type="String" />
+		<field name="productExtNumber" type="String" />
+		<field name="issueDate" type="Date" />
+		<field name="contractStartDate" type="Date" />
+		<field name="contractEndDate" type="Date" />
+		<field name="contractPeriod" type="String" />
+		<field name="durationYear" type="int" />
+		<field name="policyStartDate" type="Date" />
+		<field name="policyEndDate" type="Date" />
+		<field name="policyNumberDays" type="int" />
+		<field name="communicationMethod" type="String" />
+	</model>
 	<model name="hr.crosig.proposal.model.Product">
 		<field name="productId" type="long" />
 		<field name="companyId" type="long" />
@@ -45,5 +79,31 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="productId" type="long" />
 		<field name="roleId" type="long" />
+	</model>
+	<model name="hr.crosig.proposal.model.Proposal">
+		<field name="proposalId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="externalProposalNumber" type="String" />
+		<field name="lastUpdate" type="Date" />
+		<field name="origin" type="String" />
+		<field name="agentUserId" type="long" />
+		<field name="policyHolderExtNumber" type="String" />
+		<field name="insuredObjectExtNumber" type="String" />
+		<field name="status" type="String" />
+	</model>
+	<model name="hr.crosig.proposal.model.ProposalContact">
+		<field name="proposalContactId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="proposalId" type="long" />
+		<field name="contactExtNumber" type="String" />
+		<field name="insuredRoles" type="String" />
 	</model>
 </model-hints>

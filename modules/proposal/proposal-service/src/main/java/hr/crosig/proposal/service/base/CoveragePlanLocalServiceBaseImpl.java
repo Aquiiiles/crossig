@@ -43,8 +43,12 @@ import hr.crosig.proposal.service.CoveragePlanLocalService;
 import hr.crosig.proposal.service.CoveragePlanLocalServiceUtil;
 import hr.crosig.proposal.service.persistence.CoveragePlanPersistence;
 import hr.crosig.proposal.service.persistence.InsuredRolePersistence;
+import hr.crosig.proposal.service.persistence.PolicyCoverageOptPersistence;
+import hr.crosig.proposal.service.persistence.PolicyOptionsPersistence;
 import hr.crosig.proposal.service.persistence.ProductPersistence;
 import hr.crosig.proposal.service.persistence.ProductRolePersistence;
+import hr.crosig.proposal.service.persistence.ProposalContactPersistence;
+import hr.crosig.proposal.service.persistence.ProposalPersistence;
 
 import java.io.Serializable;
 
@@ -455,10 +459,22 @@ public abstract class CoveragePlanLocalServiceBaseImpl
 	protected InsuredRolePersistence insuredRolePersistence;
 
 	@Reference
+	protected PolicyCoverageOptPersistence policyCoverageOptPersistence;
+
+	@Reference
+	protected PolicyOptionsPersistence policyOptionsPersistence;
+
+	@Reference
 	protected ProductPersistence productPersistence;
 
 	@Reference
 	protected ProductRolePersistence productRolePersistence;
+
+	@Reference
+	protected ProposalPersistence proposalPersistence;
+
+	@Reference
+	protected ProposalContactPersistence proposalContactPersistence;
 
 	@Reference
 	protected com.liferay.counter.kernel.service.CounterLocalService
