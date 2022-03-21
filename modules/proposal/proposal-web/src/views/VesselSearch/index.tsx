@@ -13,6 +13,7 @@ import VesselLookupResult from "./containers/VesselLookupResult";
 import { PENDING, IDLE } from "../../api/reducers/constants";
 import usePagination from "../../shared/hooks/usePagination";
 import { useSelector } from "../../redux/store";
+import { resetModalScroll } from "../../shared/util/commonFunctions";
 
 interface SearchState {
   doSearch: boolean;
@@ -99,6 +100,10 @@ const VesselSearch: React.FC = () => {
     if (location.state?.doSearch) {
       fetchData();
     }
+  }, []);
+
+  useEffect(() => {
+    resetModalScroll();
   }, []);
 
   return (

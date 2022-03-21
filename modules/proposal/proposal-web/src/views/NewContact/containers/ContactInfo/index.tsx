@@ -31,6 +31,7 @@ import ClayForm from "@clayui/form";
 import * as constants from "../../../ContactSearch/constants/searchResult";
 import { contactTypes } from "../../../../constants/contactConstants";
 import { actions } from "../../../../redux";
+import { resetScroll } from "../../../../shared/util/commonFunctions";
 
 const ContactInfo: React.FC = () => {
   const dispatch = useDispatch();
@@ -141,7 +142,7 @@ const ContactInfo: React.FC = () => {
       };
 
       const response = API.post(CONTACT_URL, payload);
-      window.scrollTo(0, 0);
+      resetScroll();
 
       response
         .then(() => {

@@ -15,6 +15,7 @@ export const ViewDetailsBtn = styled(ClayButton)<Props>`
   margin-top: -0.1875rem;
   z-index: ${(props) => (props.showDetails ? "2" : "-2")};
   white-space: nowrap;
+  height: fit-content;
 `;
 
 export const Wrapper = styled.div`

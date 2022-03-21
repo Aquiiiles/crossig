@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ClayButton from "@clayui/button";
 import ClayTable from "@clayui/table";
-import { CollapsableCell, StyledRow } from "./style";
+import { HoveringButtonGroup } from "./style";
 import MissingInformationIcon from "../MissingInformationIcon";
 import {
   CONTACT_SEARCH_TABLE_VIEW_DETAILS,
@@ -20,37 +20,63 @@ interface props {
 }
 
 const TableRow: React.FC<props> = ({ contact, embedded }) => {
-  const operations = embedded
-    ? contactOperations.updateEmbedded
-    : contactOperations.update;
+  const [
+    { showButtons },
+    { setShowButtons, formatDOB, openUpdateContact, selectContact },
+    types,
+  ] = useTableRowState(
+    embedded ? contactOperations.updateEmbedded : contactOperations.update
+  );
 
-  const [{ formatDOB, openUpdateContact, selectContact }, types] =
-    useTableRowState(operations);
-
-  const handleContactActionButton = (embedded: boolean) => {
-    let button = (
-      <ClayButton
-        displayType="primary"
-        className="hovering-button"
-        onClick={() => selectContact(contact)}
-      >
+  const hoveringButtons = (embedded: boolean) => {
+    const secondButton = embedded ? (
+      <AddToPolicyBtn contact={contact} isMobile={false} />
+    ) : (
+      <ClayButton displayType="primary" onClick={() => selectContact(contact)}>
         {CONTACT_SEARCH_TABLE_USE_CONTACT}
       </ClayButton>
     );
 
-    if (embedded) {
-      button = <AddToPolicyBtn isMobile={false} contact={contact} />;
+    return (
+      <HoveringButtonGroup>
+        <ClayButton
+          displayType="secondary"
+          className="ghost"
+          onClick={() => openUpdateContact(contact[constants.EXT_NUMBER_KEY])}
+        >
+          {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
+        </ClayButton>
+        {secondButton}
+      </HoveringButtonGroup>
+    );
+  };
+
+  const contactTypeCell = () => {
+    return (
+      <ClayTable.Cell headingTitle>
+        {types[contact[constants.TYPE_KEY] as keyof typeof types]}
+      </ClayTable.Cell>
+    );
+  };
+
+  const handleLastCells = (showButtons: boolean) => {
+    let lastCells = contactTypeCell();
+
+    if (showButtons) {
+      lastCells = hoveringButtons(embedded);
     }
 
-    return button;
+    return lastCells;
   };
 
   return (
-    <StyledRow
+    <ClayTable.Row
       style={{ position: "relative" }}
+      onMouseLeave={() => setShowButtons(false)}
+      onMouseMove={() => setShowButtons(true)}
       onDoubleClick={() => (!embedded ? selectContact(contact) : null)}
     >
-      <ClayTable.Cell headingTitle className="no-wrap">
+      <ClayTable.Cell headingTitle>
         <MissingInformationIcon
           mailValidated={contact[constants.MAIL_VALIDATED_KEY]}
           phoneNumberValidated={contact[constants.PHONE_NUMBER_VALIDATED_KEY]}
@@ -67,23 +93,11 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
       <ClayTable.Cell headingTitle>
         {contact[constants.STREET_KEY]}
       </ClayTable.Cell>
-      <CollapsableCell headingTitle>
-        <p className="collapsable-cell">{contact[constants.CITY_KEY]}</p>
-        <ClayButton
-          displayType="secondary"
-          className="ghost hovering-button align-button-right"
-          onClick={() => openUpdateContact(contact[constants.EXT_NUMBER_KEY])}
-        >
-          {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
-        </ClayButton>
-      </CollapsableCell>
-      <CollapsableCell headingTitle>
-        <p className="collapsable-cell">
-          {types[contact[constants.TYPE_KEY] as keyof typeof types]}
-        </p>
-        {handleContactActionButton(embedded)}
-      </CollapsableCell>
-    </StyledRow>
+      <ClayTable.Cell headingTitle>
+        {contact[constants.CITY_KEY]}
+      </ClayTable.Cell>
+      {handleLastCells(showButtons)}
+    </ClayTable.Row>
   );
 };
 
