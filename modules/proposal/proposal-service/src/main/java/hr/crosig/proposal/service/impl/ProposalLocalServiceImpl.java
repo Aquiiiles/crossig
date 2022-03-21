@@ -52,11 +52,12 @@ public class ProposalLocalServiceImpl extends ProposalLocalServiceBaseImpl {
 
 		List<PolicyCoverageOptionDTO> policyCoverageOptions =
 			_createPolicyCoverageOptions(
-				proposalDTO.getPolicyCoverageOptions());
+				proposalDTO.getPolicyCoverageOptions(),
+				proposal.getProposalId());
 		List<PolicyOptionsDTO> policyOptionsList = _createPolicyOptions(
-			proposalDTO.getPolicyOptions());
+			proposalDTO.getPolicyOptions(), proposal.getProposalId());
 		List<ProposalContactDTO> proposalContacts = _createProposalContact(
-			proposalDTO.getProposalContacts());
+			proposalDTO.getProposalContacts(), proposal.getProposalId());
 
 		return _mapToDTO(
 			proposal, policyCoverageOptions, policyOptionsList,
@@ -84,40 +85,50 @@ public class ProposalLocalServiceImpl extends ProposalLocalServiceBaseImpl {
 	}
 
 	private List<PolicyCoverageOptionDTO> _createPolicyCoverageOptions(
-		List<PolicyCoverageOptionDTO> policyCoverageOptions) {
+		List<PolicyCoverageOptionDTO> policyCoverageOptions, long proposalId) {
 
 		List<PolicyCoverageOptionDTO> updatedPolicyCoverageOptions =
 			new ArrayList<>();
 
 		policyCoverageOptions.forEach(
-			policyCoverageOption -> updatedPolicyCoverageOptions.add(
-				_policyCoverageOptLocalService.createPolicyCoverageOpt(
-					policyCoverageOption)));
+			policyCoverageOption -> {
+				policyCoverageOption.setProposalId(proposalId);
+				updatedPolicyCoverageOptions.add(
+					_policyCoverageOptLocalService.createPolicyCoverageOpt(
+						policyCoverageOption));
+			});
 
 		return updatedPolicyCoverageOptions;
 	}
 
 	private List<PolicyOptionsDTO> _createPolicyOptions(
-		List<PolicyOptionsDTO> policyOptionsDTOS) {
+		List<PolicyOptionsDTO> policyOptionsDTOS, long proposalId) {
 
 		List<PolicyOptionsDTO> updatedPolicyOptions = new ArrayList<>();
 
 		policyOptionsDTOS.forEach(
-			policyOptions -> updatedPolicyOptions.add(
-				_policyOptionsLocalService.createPolicyOptions(policyOptions)));
+			policyOptions -> {
+				policyOptions.setProposalId(proposalId);
+				updatedPolicyOptions.add(
+					_policyOptionsLocalService.createPolicyOptions(
+						policyOptions));
+			});
 
 		return updatedPolicyOptions;
 	}
 
 	private List<ProposalContactDTO> _createProposalContact(
-		List<ProposalContactDTO> proposalContacts) {
+		List<ProposalContactDTO> proposalContacts, long proposalId) {
 
 		List<ProposalContactDTO> updatedProposalContacts = new ArrayList<>();
 
 		proposalContacts.forEach(
-			proposalContact -> updatedProposalContacts.add(
-				_proposalContactLocalService.createProposalContact(
-					proposalContact)));
+			proposalContact -> {
+				proposalContact.setProposalId(proposalId);
+				updatedProposalContacts.add(
+					_proposalContactLocalService.createProposalContact(
+						proposalContact));
+			});
 
 		return updatedProposalContacts;
 	}
