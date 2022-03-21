@@ -43,6 +43,149 @@ public interface PolicyCoverageOptPersistence
 	 */
 
 	/**
+	 * Returns all the policy coverage opts where proposalId = &#63;.
+	 *
+	 * @param proposalId the proposal ID
+	 * @return the matching policy coverage opts
+	 */
+	public java.util.List<PolicyCoverageOpt> findByProposalId(long proposalId);
+
+	/**
+	 * Returns a range of all the policy coverage opts where proposalId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PolicyCoverageOptModelImpl</code>.
+	 * </p>
+	 *
+	 * @param proposalId the proposal ID
+	 * @param start the lower bound of the range of policy coverage opts
+	 * @param end the upper bound of the range of policy coverage opts (not inclusive)
+	 * @return the range of matching policy coverage opts
+	 */
+	public java.util.List<PolicyCoverageOpt> findByProposalId(
+		long proposalId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the policy coverage opts where proposalId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PolicyCoverageOptModelImpl</code>.
+	 * </p>
+	 *
+	 * @param proposalId the proposal ID
+	 * @param start the lower bound of the range of policy coverage opts
+	 * @param end the upper bound of the range of policy coverage opts (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching policy coverage opts
+	 */
+	public java.util.List<PolicyCoverageOpt> findByProposalId(
+		long proposalId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<PolicyCoverageOpt>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the policy coverage opts where proposalId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PolicyCoverageOptModelImpl</code>.
+	 * </p>
+	 *
+	 * @param proposalId the proposal ID
+	 * @param start the lower bound of the range of policy coverage opts
+	 * @param end the upper bound of the range of policy coverage opts (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching policy coverage opts
+	 */
+	public java.util.List<PolicyCoverageOpt> findByProposalId(
+		long proposalId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<PolicyCoverageOpt>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first policy coverage opt in the ordered set where proposalId = &#63;.
+	 *
+	 * @param proposalId the proposal ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching policy coverage opt
+	 * @throws NoSuchPolicyCoverageOptException if a matching policy coverage opt could not be found
+	 */
+	public PolicyCoverageOpt findByProposalId_First(
+			long proposalId,
+			com.liferay.portal.kernel.util.OrderByComparator<PolicyCoverageOpt>
+				orderByComparator)
+		throws NoSuchPolicyCoverageOptException;
+
+	/**
+	 * Returns the first policy coverage opt in the ordered set where proposalId = &#63;.
+	 *
+	 * @param proposalId the proposal ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching policy coverage opt, or <code>null</code> if a matching policy coverage opt could not be found
+	 */
+	public PolicyCoverageOpt fetchByProposalId_First(
+		long proposalId,
+		com.liferay.portal.kernel.util.OrderByComparator<PolicyCoverageOpt>
+			orderByComparator);
+
+	/**
+	 * Returns the last policy coverage opt in the ordered set where proposalId = &#63;.
+	 *
+	 * @param proposalId the proposal ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching policy coverage opt
+	 * @throws NoSuchPolicyCoverageOptException if a matching policy coverage opt could not be found
+	 */
+	public PolicyCoverageOpt findByProposalId_Last(
+			long proposalId,
+			com.liferay.portal.kernel.util.OrderByComparator<PolicyCoverageOpt>
+				orderByComparator)
+		throws NoSuchPolicyCoverageOptException;
+
+	/**
+	 * Returns the last policy coverage opt in the ordered set where proposalId = &#63;.
+	 *
+	 * @param proposalId the proposal ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching policy coverage opt, or <code>null</code> if a matching policy coverage opt could not be found
+	 */
+	public PolicyCoverageOpt fetchByProposalId_Last(
+		long proposalId,
+		com.liferay.portal.kernel.util.OrderByComparator<PolicyCoverageOpt>
+			orderByComparator);
+
+	/**
+	 * Returns the policy coverage opts before and after the current policy coverage opt in the ordered set where proposalId = &#63;.
+	 *
+	 * @param policyCoverageOptionId the primary key of the current policy coverage opt
+	 * @param proposalId the proposal ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next policy coverage opt
+	 * @throws NoSuchPolicyCoverageOptException if a policy coverage opt with the primary key could not be found
+	 */
+	public PolicyCoverageOpt[] findByProposalId_PrevAndNext(
+			long policyCoverageOptionId, long proposalId,
+			com.liferay.portal.kernel.util.OrderByComparator<PolicyCoverageOpt>
+				orderByComparator)
+		throws NoSuchPolicyCoverageOptException;
+
+	/**
+	 * Removes all the policy coverage opts where proposalId = &#63; from the database.
+	 *
+	 * @param proposalId the proposal ID
+	 */
+	public void removeByProposalId(long proposalId);
+
+	/**
+	 * Returns the number of policy coverage opts where proposalId = &#63;.
+	 *
+	 * @param proposalId the proposal ID
+	 * @return the number of matching policy coverage opts
+	 */
+	public int countByProposalId(long proposalId);
+
+	/**
 	 * Caches the policy coverage opt in the entity cache if it is enabled.
 	 *
 	 * @param policyCoverageOpt the policy coverage opt

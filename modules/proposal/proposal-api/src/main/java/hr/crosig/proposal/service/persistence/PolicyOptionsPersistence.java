@@ -43,41 +43,139 @@ public interface PolicyOptionsPersistence
 	 */
 
 	/**
-	 * Returns the policy options where proposalId = &#63; or throws a <code>NoSuchPolicyOptionsException</code> if it could not be found.
+	 * Returns all the policy optionses where proposalId = &#63;.
 	 *
 	 * @param proposalId the proposal ID
-	 * @return the matching policy options
+	 * @return the matching policy optionses
+	 */
+	public java.util.List<PolicyOptions> findByProposalId(long proposalId);
+
+	/**
+	 * Returns a range of all the policy optionses where proposalId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PolicyOptionsModelImpl</code>.
+	 * </p>
+	 *
+	 * @param proposalId the proposal ID
+	 * @param start the lower bound of the range of policy optionses
+	 * @param end the upper bound of the range of policy optionses (not inclusive)
+	 * @return the range of matching policy optionses
+	 */
+	public java.util.List<PolicyOptions> findByProposalId(
+		long proposalId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the policy optionses where proposalId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PolicyOptionsModelImpl</code>.
+	 * </p>
+	 *
+	 * @param proposalId the proposal ID
+	 * @param start the lower bound of the range of policy optionses
+	 * @param end the upper bound of the range of policy optionses (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching policy optionses
+	 */
+	public java.util.List<PolicyOptions> findByProposalId(
+		long proposalId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<PolicyOptions>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the policy optionses where proposalId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PolicyOptionsModelImpl</code>.
+	 * </p>
+	 *
+	 * @param proposalId the proposal ID
+	 * @param start the lower bound of the range of policy optionses
+	 * @param end the upper bound of the range of policy optionses (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching policy optionses
+	 */
+	public java.util.List<PolicyOptions> findByProposalId(
+		long proposalId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<PolicyOptions>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first policy options in the ordered set where proposalId = &#63;.
+	 *
+	 * @param proposalId the proposal ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching policy options
 	 * @throws NoSuchPolicyOptionsException if a matching policy options could not be found
 	 */
-	public PolicyOptions findByProposalId(long proposalId)
+	public PolicyOptions findByProposalId_First(
+			long proposalId,
+			com.liferay.portal.kernel.util.OrderByComparator<PolicyOptions>
+				orderByComparator)
 		throws NoSuchPolicyOptionsException;
 
 	/**
-	 * Returns the policy options where proposalId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the first policy options in the ordered set where proposalId = &#63;.
 	 *
 	 * @param proposalId the proposal ID
-	 * @return the matching policy options, or <code>null</code> if a matching policy options could not be found
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching policy options, or <code>null</code> if a matching policy options could not be found
 	 */
-	public PolicyOptions fetchByProposalId(long proposalId);
+	public PolicyOptions fetchByProposalId_First(
+		long proposalId,
+		com.liferay.portal.kernel.util.OrderByComparator<PolicyOptions>
+			orderByComparator);
 
 	/**
-	 * Returns the policy options where proposalId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the last policy options in the ordered set where proposalId = &#63;.
 	 *
 	 * @param proposalId the proposal ID
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the matching policy options, or <code>null</code> if a matching policy options could not be found
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching policy options
+	 * @throws NoSuchPolicyOptionsException if a matching policy options could not be found
 	 */
-	public PolicyOptions fetchByProposalId(
-		long proposalId, boolean useFinderCache);
-
-	/**
-	 * Removes the policy options where proposalId = &#63; from the database.
-	 *
-	 * @param proposalId the proposal ID
-	 * @return the policy options that was removed
-	 */
-	public PolicyOptions removeByProposalId(long proposalId)
+	public PolicyOptions findByProposalId_Last(
+			long proposalId,
+			com.liferay.portal.kernel.util.OrderByComparator<PolicyOptions>
+				orderByComparator)
 		throws NoSuchPolicyOptionsException;
+
+	/**
+	 * Returns the last policy options in the ordered set where proposalId = &#63;.
+	 *
+	 * @param proposalId the proposal ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching policy options, or <code>null</code> if a matching policy options could not be found
+	 */
+	public PolicyOptions fetchByProposalId_Last(
+		long proposalId,
+		com.liferay.portal.kernel.util.OrderByComparator<PolicyOptions>
+			orderByComparator);
+
+	/**
+	 * Returns the policy optionses before and after the current policy options in the ordered set where proposalId = &#63;.
+	 *
+	 * @param policyOptionsId the primary key of the current policy options
+	 * @param proposalId the proposal ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next policy options
+	 * @throws NoSuchPolicyOptionsException if a policy options with the primary key could not be found
+	 */
+	public PolicyOptions[] findByProposalId_PrevAndNext(
+			long policyOptionsId, long proposalId,
+			com.liferay.portal.kernel.util.OrderByComparator<PolicyOptions>
+				orderByComparator)
+		throws NoSuchPolicyOptionsException;
+
+	/**
+	 * Removes all the policy optionses where proposalId = &#63; from the database.
+	 *
+	 * @param proposalId the proposal ID
+	 */
+	public void removeByProposalId(long proposalId);
 
 	/**
 	 * Returns the number of policy optionses where proposalId = &#63;.

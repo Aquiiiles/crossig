@@ -96,6 +96,8 @@ public interface PolicyCoverageOptLocalService
 	public PolicyCoverageOptionDTO createPolicyCoverageOpt(
 		PolicyCoverageOptionDTO policyCoverageOptDTO);
 
+	public void deleteAllByProposalId(long proposalId);
+
 	/**
 	 * @throws PortalException
 	 */
