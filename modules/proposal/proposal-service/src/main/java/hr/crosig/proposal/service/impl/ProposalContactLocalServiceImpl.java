@@ -48,6 +48,10 @@ public class ProposalContactLocalServiceImpl
 		return _mapToDTO(proposalContact);
 	}
 
+	public void deleteAllByProposalId(long proposalId) {
+		proposalContactPersistence.removeByProposalId(proposalId);
+	}
+
 	public ProposalContactDTO updateProposalContact(
 			ProposalContactDTO proposalContactDTO)
 		throws PortalException {

@@ -47,6 +47,10 @@ public class PolicyOptionsLocalServiceImpl
 		return _mapToDTO(policyOptions);
 	}
 
+	public void deleteAllByProposalId(long proposalId) {
+		policyOptionsPersistence.removeByProposalId(proposalId);
+	}
+
 	public PolicyOptionsDTO updatePolicyOptions(
 			PolicyOptionsDTO policyOptionsDTO)
 		throws PortalException {

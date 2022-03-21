@@ -16,8 +16,6 @@ package hr.crosig.proposal.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import hr.crosig.proposal.dto.PolicyCoverageOptionDTO;
 import hr.crosig.proposal.dto.PolicyOptionsDTO;
 import hr.crosig.proposal.dto.ProposalContactDTO;
@@ -50,18 +48,7 @@ public class ProposalLocalServiceImpl extends ProposalLocalServiceBaseImpl {
 
 		proposal = _updateProposal(proposalDTO, proposal);
 
-		List<PolicyCoverageOptionDTO> policyCoverageOptions =
-			_createPolicyCoverageOptions(
-				proposalDTO.getPolicyCoverageOptions(),
-				proposal.getProposalId());
-		List<PolicyOptionsDTO> policyOptionsList = _createPolicyOptions(
-			proposalDTO.getPolicyOptions(), proposal.getProposalId());
-		List<ProposalContactDTO> proposalContacts = _createProposalContact(
-			proposalDTO.getProposalContacts(), proposal.getProposalId());
-
-		return _mapToDTO(
-			proposal, policyCoverageOptions, policyOptionsList,
-			proposalContacts);
+		return _createRelatedEntities(proposalDTO, proposal);
 	}
 
 	public ProposalDTO updateProposal(long proposalId, ProposalDTO proposalDTO)
@@ -71,17 +58,9 @@ public class ProposalLocalServiceImpl extends ProposalLocalServiceBaseImpl {
 
 		proposal = _updateProposal(proposalDTO, proposal);
 
-		List<PolicyCoverageOptionDTO> policyCoverageOptions =
-			_updatePolicyCoverageOptions(
-				proposalDTO.getPolicyCoverageOptions());
-		List<PolicyOptionsDTO> policyOptionsList = _updatePolicyOptions(
-			proposalDTO.getPolicyOptions());
-		List<ProposalContactDTO> proposalContacts = _updateProposalContact(
-			proposalDTO.getProposalContacts());
+		_removeRelatedEntities(proposalId);
 
-		return _mapToDTO(
-			proposal, policyCoverageOptions, policyOptionsList,
-			proposalContacts);
+		return _createRelatedEntities(proposalDTO, proposal);
 	}
 
 	private List<PolicyCoverageOptionDTO> _createPolicyCoverageOptions(
@@ -93,6 +72,7 @@ public class ProposalLocalServiceImpl extends ProposalLocalServiceBaseImpl {
 		policyCoverageOptions.forEach(
 			policyCoverageOption -> {
 				policyCoverageOption.setProposalId(proposalId);
+
 				updatedPolicyCoverageOptions.add(
 					_policyCoverageOptLocalService.createPolicyCoverageOpt(
 						policyCoverageOption));
@@ -109,6 +89,7 @@ public class ProposalLocalServiceImpl extends ProposalLocalServiceBaseImpl {
 		policyOptionsDTOS.forEach(
 			policyOptions -> {
 				policyOptions.setProposalId(proposalId);
+
 				updatedPolicyOptions.add(
 					_policyOptionsLocalService.createPolicyOptions(
 						policyOptions));
@@ -117,7 +98,7 @@ public class ProposalLocalServiceImpl extends ProposalLocalServiceBaseImpl {
 		return updatedPolicyOptions;
 	}
 
-	private List<ProposalContactDTO> _createProposalContact(
+	private List<ProposalContactDTO> _createProposalContacts(
 		List<ProposalContactDTO> proposalContacts, long proposalId) {
 
 		List<ProposalContactDTO> updatedProposalContacts = new ArrayList<>();
@@ -125,12 +106,30 @@ public class ProposalLocalServiceImpl extends ProposalLocalServiceBaseImpl {
 		proposalContacts.forEach(
 			proposalContact -> {
 				proposalContact.setProposalId(proposalId);
+
 				updatedProposalContacts.add(
 					_proposalContactLocalService.createProposalContact(
 						proposalContact));
 			});
 
 		return updatedProposalContacts;
+	}
+
+	private ProposalDTO _createRelatedEntities(
+		ProposalDTO proposalDTO, Proposal proposal) {
+
+		List<PolicyCoverageOptionDTO> policyCoverageOptions =
+			_createPolicyCoverageOptions(
+				proposalDTO.getPolicyCoverageOptions(),
+				proposal.getProposalId());
+		List<PolicyOptionsDTO> policyOptionsList = _createPolicyOptions(
+			proposalDTO.getPolicyOptions(), proposal.getProposalId());
+		List<ProposalContactDTO> proposalContacts = _createProposalContacts(
+			proposalDTO.getProposalContacts(), proposal.getProposalId());
+
+		return _mapToDTO(
+			proposal, policyCoverageOptions, policyOptionsList,
+			proposalContacts);
 	}
 
 	private ProposalDTO _mapToDTO(
@@ -163,45 +162,10 @@ public class ProposalLocalServiceImpl extends ProposalLocalServiceBaseImpl {
 		return proposalDTO;
 	}
 
-	private List<PolicyCoverageOptionDTO> _updatePolicyCoverageOptions(
-		List<PolicyCoverageOptionDTO> policyCoverageOptions) {
-
-		List<PolicyCoverageOptionDTO> updatedPolicyCoverageOptions =
-			new ArrayList<>();
-
-		policyCoverageOptions.forEach(
-			policyCoverageOption -> {
-				try {
-					updatedPolicyCoverageOptions.add(
-						_policyCoverageOptLocalService.updatePolicyCoverageOpt(
-							policyCoverageOption));
-				}
-				catch (PortalException portalException) {
-					_log.info(portalException.getMessage());
-				}
-			});
-
-		return updatedPolicyCoverageOptions;
-	}
-
-	private List<PolicyOptionsDTO> _updatePolicyOptions(
-		List<PolicyOptionsDTO> policyOptionsDTOS) {
-
-		List<PolicyOptionsDTO> updatedPolicyCoverageOptions = new ArrayList<>();
-
-		policyOptionsDTOS.forEach(
-			policyOptions -> {
-				try {
-					updatedPolicyCoverageOptions.add(
-						_policyOptionsLocalService.updatePolicyOptions(
-							policyOptions));
-				}
-				catch (PortalException portalException) {
-					_log.info(portalException.getMessage());
-				}
-			});
-
-		return updatedPolicyCoverageOptions;
+	private void _removeRelatedEntities(long proposalId) {
+		_policyCoverageOptLocalService.deleteAllByProposalId(proposalId);
+		_policyOptionsLocalService.deleteAllByProposalId(proposalId);
+		_proposalContactLocalService.deleteAllByProposalId(proposalId);
 	}
 
 	private Proposal _updateProposal(
@@ -220,29 +184,6 @@ public class ProposalLocalServiceImpl extends ProposalLocalServiceBaseImpl {
 
 		return proposalPersistence.update(proposal);
 	}
-
-	private List<ProposalContactDTO> _updateProposalContact(
-		List<ProposalContactDTO> proposalContacts) {
-
-		List<ProposalContactDTO> updatedProposalContacts = new ArrayList<>();
-
-		proposalContacts.forEach(
-			proposalContact -> {
-				try {
-					updatedProposalContacts.add(
-						_proposalContactLocalService.updateProposalContact(
-							proposalContact));
-				}
-				catch (PortalException portalException) {
-					_log.info(portalException.getMessage());
-				}
-			});
-
-		return updatedProposalContacts;
-	}
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		ProductLocalServiceImpl.class);
 
 	@Reference
 	private PolicyCoverageOptLocalService _policyCoverageOptLocalService;

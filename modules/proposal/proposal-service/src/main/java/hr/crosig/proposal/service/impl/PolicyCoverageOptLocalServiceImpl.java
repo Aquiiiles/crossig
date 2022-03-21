@@ -48,6 +48,10 @@ public class PolicyCoverageOptLocalServiceImpl
 		return _mapToDTO(policyCoverageOpt);
 	}
 
+	public void deleteAllByProposalId(long proposalId) {
+		policyCoverageOptPersistence.removeByProposalId(proposalId);
+	}
+
 	public PolicyCoverageOptionDTO updatePolicyCoverageOpt(
 			PolicyCoverageOptionDTO policyCoverageOptDTO)
 		throws PortalException {
