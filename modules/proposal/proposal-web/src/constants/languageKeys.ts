@@ -241,3 +241,42 @@ export const VESSEL_LOOKUP_TABLE = {
 export const POLICY_HOLDER = {
   POLICY_HOLDER: Liferay.Language.get('policy-holder-title'),
 }
+
+export const PREMIUM = {
+  TITLE: Liferay.Language.get('premium-title'),
+  SUBTITLE: Liferay.Language.get('premium-subtitle'),
+  POLICY_PERIOD: {
+    TITLE: Liferay.Language.get('premium-policy-period'),
+    TERM_PERIOD: Liferay.Language.get('premium-policy-period-term-period'),
+    START_DATE: Liferay.Language.get('premium-policy-period-start-date'),
+    START_TIME: Liferay.Language.get('premium-policy-period-start-time'),
+    END_DATE: Liferay.Language.get('premium-policy-period-end-date'),
+    END_TIME: Liferay.Language.get('premium-policy-period-end-time'),
+    ISSUE_DATE: Liferay.Language.get('premium-policy-period-issue-date')
+  },
+  COVERAGE: {
+    TITLE: Liferay.Language.get('premium-coverage'),
+    VESSEL_NAME: Liferay.Language.get('premium-coverage-vessel-name'),
+    REGISTRATION_MARK: Liferay.Language.get('premium-coverage-registration-mark'),
+    TOTAL_VESSEL_VALUE: Liferay.Language.get('premium-coverage-total-vessel-value'),
+    COVERAGE_PLAN: Liferay.Language.get('premium-coverage-coverage-plan'),
+    REQUIRED: Liferay.Language.get('premium-coverage-required'),
+    SELECTED: Liferay.Language.get('premium-coverage-selected'),
+    PERIL_ADD_ONS: Liferay.Language.get('premium-coverage-peril-add-ons'),
+  },
+  DESCRIPTION: {
+    TITLE: Liferay.Language.get('premium-description-title'),
+    COMPULSORY_LIABILITY: Liferay.Language.get('premium-description-compulsory-liability'),
+    HULL: Liferay.Language.get('premium-description-hull'),
+    VOLUNTARY_LIABILITY: Liferay.Language.get('premium-description-voluntary-liability'),
+    LOH: Liferay.Language.get('premium-description-loh'),
+    VOLUNTARY_ACCIDENT: Liferay.Language.get('premium-description-voluntary-accident'),
+    COMPULSORY_ACCIDENT: Liferay.Language.get('premium-description-compulsory-accident'),
+    HULL_TUG: Liferay.Language.get('premium-description-hull-tug'),
+    TOTAL: Liferay.Language.get('premium-description-total'),
+    DISCOUNT: Liferay.Language.get('premium-description-discount'),
+    APPLY_BUTTON: Liferay.Language.get('premium-description-apply-button'),
+  },
+  SAVE_AND_RESUME_BUTTON: Liferay.Language.get('premium-save-and-resume-later-button'),
+  CONTINUE_BUTTON: Liferay.Language.get('premium-continue-button'),
+}
