@@ -78,6 +78,10 @@
 		<column name="coverageOptionsName" type="String" />
 		<column name="coverageOptionsValue" type="String" />
 		<column name="type" type="String" />
+
+		<finder name="ProposalId" return-type="Collection">
+			<finder-column name="proposalId" />
+		</finder>
 	</entity>
 	<entity local-service="true" name="PolicyOptions" remote-service="false" uuid="false">
 
@@ -110,7 +114,7 @@
 		<column name="policyNumberDays" type="int" />
 		<column name="communicationMethod" type="String" />
 
-		<finder name="ProposalId" return-type="PolicyOptions">
+		<finder name="ProposalId" return-type="Collection">
 			<finder-column name="proposalId" />
 		</finder>
 	</entity>
