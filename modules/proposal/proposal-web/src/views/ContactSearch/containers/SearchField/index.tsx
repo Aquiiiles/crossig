@@ -2,7 +2,6 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import ClayForm, { ClayInput } from "@clayui/form";
 import ClayButton from "@clayui/button";
-import ClayDropDown from "@clayui/drop-down";
 import SearchFilters from "./components/molecules/SearchFilters";
 import { mapToCountryCodes } from "../../../../shared/util/countryMappers";
 import { getActiveCountries } from "../../../../api/services/liferay";
@@ -22,8 +21,11 @@ import useOnClickOutside from "../../../../shared/hooks/useOnClickOutside";
 import { useFetchData } from "../../../../api/hooks/useFetchData";
 import { COUNTRIES_URL } from "../../../../api/constants/routes";
 import { RESOLVED } from "../../../../api/reducers/constants";
-import { numbersOnly } from "../../../../shared/util/commonFunctions";
-import { lettersOnly } from "../../../../shared/util/commonFunctions";
+import {
+  handleEnterKeyEvent,
+  lettersOnly,
+  numbersOnly,
+} from "../../../../shared/util/commonFunctions";
 
 interface props {
   currentPage: number;
@@ -98,10 +100,21 @@ const SearchField: React.FC<props> = ({
     }
   }, [triggerElementRef]);
 
+  const submitSearch = () => {
+    if (currentPage === 1) {
+      fetchData();
+    } else {
+      goToPage(1);
+    }
+  };
+
   return (
     <Wrapper>
       <SearchWrapper>
-        <ClayForm.Group style={{ marginBottom: "0" }}>
+        <ClayForm.Group
+          style={{ marginBottom: "0" }}
+          onKeyDown={(e) => handleEnterKeyEvent(e, submitSearch)}
+        >
           <ClayInput.Group className="searchFieldInputs">
             <ClayInput.GroupItem>
               <label className="body-small" htmlFor="oibInputText">
@@ -161,13 +174,7 @@ const SearchField: React.FC<props> = ({
               <ClayButton
                 displayType="primary"
                 disabled={disabled}
-                onClick={() => {
-                  if (currentPage === 1) {
-                    fetchData();
-                  } else {
-                    goToPage(1);
-                  }
-                }}
+                onClick={() => submitSearch()}
               >
                 {CONTACT_SEARCH_ACTION_BUTTON}
               </ClayButton>

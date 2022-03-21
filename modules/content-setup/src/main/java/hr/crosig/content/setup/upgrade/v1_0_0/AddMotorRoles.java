@@ -6,6 +6,9 @@ import hr.crosig.content.setup.constants.ContentSetupConstants;
 import hr.crosig.content.setup.upgrade.common.BaseUpgradeProcess;
 import hr.crosig.content.setup.upgrade.common.DependencyProvider;
 
+/**
+ * @author Guilherme Kfouri
+ */
 public class AddMotorRoles extends BaseUpgradeProcess {
 
 	public AddMotorRoles(DependencyProvider dependencyProvider) {

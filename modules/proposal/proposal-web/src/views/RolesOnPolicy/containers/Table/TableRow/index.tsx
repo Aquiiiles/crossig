@@ -37,8 +37,8 @@ const TableRow: React.FC<props> = ({
       onMouseLeave={() => setShowDetails(false)}
       onMouseEnter={() => setShowDetails(true)}
     >
-      <ClayTable.Cell>{contact[constants.OIB_KEY] || "0"}</ClayTable.Cell>
-      <ClayTable.Cell>{contact[constants.SUB_KEY] || "0"}</ClayTable.Cell>
+      <ClayTable.Cell>{contact[constants.OIB_KEY]}</ClayTable.Cell>
+      <ClayTable.Cell>{contact[constants.SUB_KEY]}</ClayTable.Cell>
       <ClayTable.Cell>{contact[constants.NAME_KEY] || "-"}</ClayTable.Cell>
       <ClayTable.Cell>
         <Wrapper>

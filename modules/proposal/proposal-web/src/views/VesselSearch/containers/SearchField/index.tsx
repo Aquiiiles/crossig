@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ClayForm, { ClayInput, ClaySelectWithOption } from "@clayui/form";
 import ClayButton from "@clayui/button";
 import { Wrapper } from "./style";
 import { VESSEL_LOOKUP } from "../../../../constants/languageKeys";
 import { vesselTypeOptions } from "../../../../constants/vesselConstants";
 import useSearchField from "./hooks/useSearchField";
+import { handleEnterKeyEvent } from "../../../../shared/util/commonFunctions";
 
 interface props {
   onSearchClick: () => void;
@@ -32,7 +33,7 @@ const SearchField: React.FC<props> = ({ onSearchClick }) => {
   ] = useSearchField();
 
   return (
-    <Wrapper>
+    <Wrapper onKeyDown={(e) => handleEnterKeyEvent(e, onSearchClick)}>
       <ClayForm.Group style={{ marginBottom: "0" }}>
         <ClayInput.Group id="vesselLookupInputGroup">
           <ClayInput.GroupItem>
@@ -48,7 +49,7 @@ const SearchField: React.FC<props> = ({ onSearchClick }) => {
               }
             />
           </ClayInput.GroupItem>
-          <ClayInput.GroupItem>
+          <ClayInput.GroupItem className="registration-mark-search-field">
             <label className="body-small" htmlFor="vesselRegistrationMark">
               {VESSEL_LOOKUP.FIELD.REGISTRATION_MARK}
             </label>

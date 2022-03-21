@@ -1,4 +1,27 @@
 import styled from "styled-components";
+import ClayTable from "@clayui/table";
+
+export const StyledRow = styled(ClayTable.Row)`
+  .no-wrap {
+    white-space: nowrap;
+  }
+
+  .hovering-button {
+    width: min-content;
+  }
+`;
+
+export const CollapsableCell = styled(ClayTable.Cell)`
+  cursor: "pointer";
+
+  & p {
+    width: 9rem;
+  }
+
+  p:nth-child(2) {
+    width: min-content;
+  }
+`;
 
 export const HoveringButtonGroup = styled.div`
   pointer-events: none;

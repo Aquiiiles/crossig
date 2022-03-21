@@ -80,10 +80,10 @@ const SearchResult: React.FC<props> = ({
                   active={showCountryDropdown}
                   onActiveChange={setShowCountryDropdown}
                   trigger={
-                    <div style={{ cursor: "pointer" }}>
+                    <div className="city-dropdown">
                       <ClaySelect
                         style={{ pointerEvents: "none" }}
-                        id="cityFiltablerField"
+                        id="cityFilterField"
                         value=""
                       >
                         <ClaySelect.Option
@@ -132,6 +132,7 @@ const SearchResult: React.FC<props> = ({
                 </ClayDropDown>
                 <ClaySelectWithOption
                   id="TypeFilterField"
+                  className="type-dropdown"
                   value={selectedContactType}
                   options={[
                     { label: CONTACT_RESULTS_TABLE.HEADER.TYPE, value: "" },
