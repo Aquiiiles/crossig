@@ -89,7 +89,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"externalProposalNumber\" : \"externalProposalNumber\",\n    \"lastUpdate\": \"01/01/2000\",\n    \"origin\": \"origin\",\n    \"agentUserId\": 1,\n    \"policyHolderExtNumber\": \"policyHolderExtNumber\",\n    \"insuredObjectExtNumber\": \"insuredObjectExtNumber\",\n    \"status\": \"status\"\n}",
+					"raw": "{\n    \"externalProposalNumber\": \"externalProposalNumber\",\n    \"lastUpdate\": \"01/01/2000\",\n    \"origin\": \"origin\",\n    \"agentUserId\": 1,\n    \"policyHolderExtNumber\": \"policyHolderExtNumber\",\n    \"insuredObjectExtNumber\": \"insuredObjectExtNumber\",\n    \"status\": \"status\",\n    \"policyCoverageOptions\": [\n        {\n            \"coverageOptionsName\": \"coverageOptionsName\",\n            \"coverageOptionsValue\": \"coverageOptionsValue\",\n            \"type\": \"type\"\n        }\n    ],\n    \"policyOptions\": [\n        {\n            \"communicationMethod\": \"communicationMethod\",\n            \"contractEndDate\": \"10/10/2023\",\n            \"contractPeriod\": \"contractPeriod\",\n            \"contractStartDate\": \"10/10/2022\",\n            \"currency\": \"currency\",\n            \"durationYear\": 1,\n            \"issueDate\": \"10/10/2022\",\n            \"policyEndDate\": \"10/10/2022\",\n            \"policyNumberDays\": 1,\n            \"policyStartDate\": \"10/10/2022\",\n            \"productCategory\": \"productCategory\",\n            \"productExtNumber\": \"productExtNumber\",\n            \"termsDate\": \"10/10/2022\"\n        }\n    ],\n    \"proposalContacts\": [\n        {\n            \"contactExtNumber\": \"contactExtNumber\",\n            \"insuredRoles\": \"insuredRoles\"\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -115,7 +115,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"externalProposalNumber\" : \"externalProposalNumberUpdated\",\n    \"lastUpdate\": \"01/01/2000\",\n    \"origin\": \"originUpdated\",\n    \"agentUserId\": 1,\n    \"policyHolderExtNumber\": \"policyHolderExtNumberUpdated\",\n    \"insuredObjectExtNumber\": \"insuredObjectExtNumberUpdated\",\n    \"status\": \"statusUpdated\"\n}",
+					"raw": "{\n    \"externalProposalNumber\": \"externalProposalNumberUpdated\",\n    \"lastUpdate\": \"01/01/2000\",\n    \"origin\": \"originUpdated\",\n    \"agentUserId\": 1,\n    \"policyHolderExtNumber\": \"policyHolderExtNumberUpdated\",\n    \"insuredObjectExtNumber\": \"insuredObjectExtNumberUpdated\",\n    \"status\": \"statusUpdated\",\n    \"policyCoverageOptions\": [\n        {\n            \"coverageOptionsName\": \"coverageOptionsNameUpdated\",\n            \"coverageOptionsValue\": \"coverageOptionsValue\",\n            \"type\": \"type\"\n        }\n    ],\n    \"policyOptions\": [\n        {\n            \"communicationMethod\": \"communicationMethod\",\n            \"contractEndDate\": \"10/10/2023\",\n            \"contractPeriod\": \"contractPeriod\",\n            \"contractStartDate\": \"10/10/2022\",\n            \"currency\": \"currency\",\n            \"durationYear\": 1,\n            \"issueDate\": \"10/10/2022\",\n            \"policyEndDate\": \"10/10/2022\",\n            \"policyNumberDays\": 1,\n            \"policyStartDate\": \"10/10/2022\",\n            \"productCategory\": \"productCategory\",\n            \"productExtNumber\": \"productExtNumber\",\n            \"termsDate\": \"10/10/2022\"\n        }\n    ],\n    \"proposalContacts\": [\n        {\n            \"contactExtNumber\": \"contactExtNumber\",\n            \"insuredRoles\": \"insuredRoles\"\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -123,12 +123,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{localURL}}proposal/101",
+					"raw": "{{localURL}}proposal/701",
 					"host": [
 						"{{localURL}}proposal"
 					],
 					"path": [
-						"101"
+						"701"
 					]
 				}
 			},
