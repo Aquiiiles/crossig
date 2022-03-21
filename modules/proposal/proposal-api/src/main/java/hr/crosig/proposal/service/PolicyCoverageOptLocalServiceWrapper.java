@@ -77,6 +77,16 @@ public class PolicyCoverageOptLocalServiceWrapper
 			policyCoverageOptionId);
 	}
 
+	@Override
+	public hr.crosig.proposal.dto.PolicyCoverageOptionDTO
+		createPolicyCoverageOpt(
+			hr.crosig.proposal.dto.PolicyCoverageOptionDTO
+				policyCoverageOptDTO) {
+
+		return _policyCoverageOptLocalService.createPolicyCoverageOpt(
+			policyCoverageOptDTO);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -322,6 +332,17 @@ public class PolicyCoverageOptLocalServiceWrapper
 
 		return _policyCoverageOptLocalService.updatePolicyCoverageOpt(
 			policyCoverageOpt);
+	}
+
+	@Override
+	public hr.crosig.proposal.dto.PolicyCoverageOptionDTO
+			updatePolicyCoverageOpt(
+				hr.crosig.proposal.dto.PolicyCoverageOptionDTO
+					policyCoverageOptDTO)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _policyCoverageOptLocalService.updatePolicyCoverageOpt(
+			policyCoverageOptDTO);
 	}
 
 	@Override

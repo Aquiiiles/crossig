@@ -83,6 +83,14 @@ public class PolicyCoverageOptLocalServiceUtil {
 		return getService().createPolicyCoverageOpt(policyCoverageOptionId);
 	}
 
+	public static hr.crosig.proposal.dto.PolicyCoverageOptionDTO
+		createPolicyCoverageOpt(
+			hr.crosig.proposal.dto.PolicyCoverageOptionDTO
+				policyCoverageOptDTO) {
+
+		return getService().createPolicyCoverageOpt(policyCoverageOptDTO);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -295,6 +303,15 @@ public class PolicyCoverageOptLocalServiceUtil {
 		PolicyCoverageOpt policyCoverageOpt) {
 
 		return getService().updatePolicyCoverageOpt(policyCoverageOpt);
+	}
+
+	public static hr.crosig.proposal.dto.PolicyCoverageOptionDTO
+			updatePolicyCoverageOpt(
+				hr.crosig.proposal.dto.PolicyCoverageOptionDTO
+					policyCoverageOptDTO)
+		throws PortalException {
+
+		return getService().updatePolicyCoverageOpt(policyCoverageOptDTO);
 	}
 
 	public static PolicyCoverageOptLocalService getService() {

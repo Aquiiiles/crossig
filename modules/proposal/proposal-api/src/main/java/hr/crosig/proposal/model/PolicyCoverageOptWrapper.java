@@ -48,6 +48,7 @@ public class PolicyCoverageOptWrapper
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("proposalId", getProposalId());
 		attributes.put("coverageOptionsName", getCoverageOptionsName());
 		attributes.put("coverageOptionsValue", getCoverageOptionsValue());
 		attributes.put("type", getType());
@@ -92,6 +93,12 @@ public class PolicyCoverageOptWrapper
 
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
+		}
+
+		Long proposalId = (Long)attributes.get("proposalId");
+
+		if (proposalId != null) {
+			setProposalId(proposalId);
 		}
 
 		String coverageOptionsName = (String)attributes.get(
@@ -183,6 +190,16 @@ public class PolicyCoverageOptWrapper
 	@Override
 	public long getPrimaryKey() {
 		return model.getPrimaryKey();
+	}
+
+	/**
+	 * Returns the proposal ID of this policy coverage opt.
+	 *
+	 * @return the proposal ID of this policy coverage opt
+	 */
+	@Override
+	public long getProposalId() {
+		return model.getProposalId();
 	}
 
 	/**
@@ -298,6 +315,16 @@ public class PolicyCoverageOptWrapper
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		model.setPrimaryKey(primaryKey);
+	}
+
+	/**
+	 * Sets the proposal ID of this policy coverage opt.
+	 *
+	 * @param proposalId the proposal ID of this policy coverage opt
+	 */
+	@Override
+	public void setProposalId(long proposalId) {
+		model.setProposalId(proposalId);
 	}
 
 	/**

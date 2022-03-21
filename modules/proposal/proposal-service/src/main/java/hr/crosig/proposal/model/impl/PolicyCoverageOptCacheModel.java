@@ -65,7 +65,7 @@ public class PolicyCoverageOptCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{policyCoverageOptionId=");
 		sb.append(policyCoverageOptionId);
@@ -79,6 +79,8 @@ public class PolicyCoverageOptCacheModel
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+		sb.append(", proposalId=");
+		sb.append(proposalId);
 		sb.append(", coverageOptionsName=");
 		sb.append(coverageOptionsName);
 		sb.append(", coverageOptionsValue=");
@@ -120,6 +122,8 @@ public class PolicyCoverageOptCacheModel
 			policyCoverageOptImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
+		policyCoverageOptImpl.setProposalId(proposalId);
+
 		if (coverageOptionsName == null) {
 			policyCoverageOptImpl.setCoverageOptionsName("");
 		}
@@ -156,6 +160,8 @@ public class PolicyCoverageOptCacheModel
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
+
+		proposalId = objectInput.readLong();
 		coverageOptionsName = objectInput.readUTF();
 		coverageOptionsValue = objectInput.readUTF();
 		type = objectInput.readUTF();
@@ -178,6 +184,8 @@ public class PolicyCoverageOptCacheModel
 
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
+
+		objectOutput.writeLong(proposalId);
 
 		if (coverageOptionsName == null) {
 			objectOutput.writeUTF("");
@@ -207,6 +215,7 @@ public class PolicyCoverageOptCacheModel
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
+	public long proposalId;
 	public String coverageOptionsName;
 	public String coverageOptionsValue;
 	public String type;

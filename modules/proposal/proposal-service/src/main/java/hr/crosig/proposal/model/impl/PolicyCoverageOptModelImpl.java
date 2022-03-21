@@ -73,7 +73,7 @@ public class PolicyCoverageOptModelImpl
 		{"policyCoverageOptionId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"coverageOptionsName", Types.VARCHAR},
+		{"proposalId", Types.BIGINT}, {"coverageOptionsName", Types.VARCHAR},
 		{"coverageOptionsValue", Types.VARCHAR}, {"type_", Types.VARCHAR}
 	};
 
@@ -87,13 +87,14 @@ public class PolicyCoverageOptModelImpl
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("proposalId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("coverageOptionsName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("coverageOptionsValue", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("type_", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table AP_Proposal_PolicyCoverageOpt (policyCoverageOptionId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,coverageOptionsName VARCHAR(75) null,coverageOptionsValue VARCHAR(75) null,type_ VARCHAR(75) null)";
+		"create table AP_Proposal_PolicyCoverageOpt (policyCoverageOptionId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,proposalId LONG,coverageOptionsName VARCHAR(75) null,coverageOptionsValue VARCHAR(75) null,type_ VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table AP_Proposal_PolicyCoverageOpt";
@@ -294,6 +295,12 @@ public class PolicyCoverageOptModelImpl
 			(BiConsumer<PolicyCoverageOpt, Date>)
 				PolicyCoverageOpt::setModifiedDate);
 		attributeGetterFunctions.put(
+			"proposalId", PolicyCoverageOpt::getProposalId);
+		attributeSetterBiConsumers.put(
+			"proposalId",
+			(BiConsumer<PolicyCoverageOpt, Long>)
+				PolicyCoverageOpt::setProposalId);
+		attributeGetterFunctions.put(
 			"coverageOptionsName", PolicyCoverageOpt::getCoverageOptionsName);
 		attributeSetterBiConsumers.put(
 			"coverageOptionsName",
@@ -428,6 +435,20 @@ public class PolicyCoverageOptModelImpl
 	}
 
 	@Override
+	public long getProposalId() {
+		return _proposalId;
+	}
+
+	@Override
+	public void setProposalId(long proposalId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_proposalId = proposalId;
+	}
+
+	@Override
 	public String getCoverageOptionsName() {
 		if (_coverageOptionsName == null) {
 			return "";
@@ -548,6 +569,7 @@ public class PolicyCoverageOptModelImpl
 		policyCoverageOptImpl.setUserName(getUserName());
 		policyCoverageOptImpl.setCreateDate(getCreateDate());
 		policyCoverageOptImpl.setModifiedDate(getModifiedDate());
+		policyCoverageOptImpl.setProposalId(getProposalId());
 		policyCoverageOptImpl.setCoverageOptionsName(getCoverageOptionsName());
 		policyCoverageOptImpl.setCoverageOptionsValue(
 			getCoverageOptionsValue());
@@ -664,6 +686,8 @@ public class PolicyCoverageOptModelImpl
 		else {
 			policyCoverageOptCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
+
+		policyCoverageOptCacheModel.proposalId = getProposalId();
 
 		policyCoverageOptCacheModel.coverageOptionsName =
 			getCoverageOptionsName();
@@ -795,6 +819,7 @@ public class PolicyCoverageOptModelImpl
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
+	private long _proposalId;
 	private String _coverageOptionsName;
 	private String _coverageOptionsValue;
 	private String _type;
@@ -835,6 +860,7 @@ public class PolicyCoverageOptModelImpl
 		_columnOriginalValues.put("userName", _userName);
 		_columnOriginalValues.put("createDate", _createDate);
 		_columnOriginalValues.put("modifiedDate", _modifiedDate);
+		_columnOriginalValues.put("proposalId", _proposalId);
 		_columnOriginalValues.put("coverageOptionsName", _coverageOptionsName);
 		_columnOriginalValues.put(
 			"coverageOptionsValue", _coverageOptionsValue);
@@ -874,11 +900,13 @@ public class PolicyCoverageOptModelImpl
 
 		columnBitmasks.put("modifiedDate", 32L);
 
-		columnBitmasks.put("coverageOptionsName", 64L);
+		columnBitmasks.put("proposalId", 64L);
 
-		columnBitmasks.put("coverageOptionsValue", 128L);
+		columnBitmasks.put("coverageOptionsName", 128L);
 
-		columnBitmasks.put("type_", 256L);
+		columnBitmasks.put("coverageOptionsValue", 256L);
+
+		columnBitmasks.put("type_", 512L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

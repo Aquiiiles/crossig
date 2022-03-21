@@ -79,6 +79,12 @@ public class PolicyOptionsLocalServiceUtil {
 		return getService().createPolicyOptions(policyOptionsId);
 	}
 
+	public static hr.crosig.proposal.dto.PolicyOptionsDTO createPolicyOptions(
+		hr.crosig.proposal.dto.PolicyOptionsDTO policyOptionsDTO) {
+
+		return getService().createPolicyOptions(policyOptionsDTO);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -285,6 +291,13 @@ public class PolicyOptionsLocalServiceUtil {
 		PolicyOptions policyOptions) {
 
 		return getService().updatePolicyOptions(policyOptions);
+	}
+
+	public static hr.crosig.proposal.dto.PolicyOptionsDTO updatePolicyOptions(
+			hr.crosig.proposal.dto.PolicyOptionsDTO policyOptionsDTO)
+		throws PortalException {
+
+		return getService().updatePolicyOptions(policyOptionsDTO);
 	}
 
 	public static PolicyOptionsLocalService getService() {

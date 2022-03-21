@@ -74,6 +74,13 @@ public class PolicyOptionsLocalServiceWrapper
 		return _policyOptionsLocalService.createPolicyOptions(policyOptionsId);
 	}
 
+	@Override
+	public hr.crosig.proposal.dto.PolicyOptionsDTO createPolicyOptions(
+		hr.crosig.proposal.dto.PolicyOptionsDTO policyOptionsDTO) {
+
+		return _policyOptionsLocalService.createPolicyOptions(policyOptionsDTO);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -312,6 +319,14 @@ public class PolicyOptionsLocalServiceWrapper
 		hr.crosig.proposal.model.PolicyOptions policyOptions) {
 
 		return _policyOptionsLocalService.updatePolicyOptions(policyOptions);
+	}
+
+	@Override
+	public hr.crosig.proposal.dto.PolicyOptionsDTO updatePolicyOptions(
+			hr.crosig.proposal.dto.PolicyOptionsDTO policyOptionsDTO)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _policyOptionsLocalService.updatePolicyOptions(policyOptionsDTO);
 	}
 
 	@Override

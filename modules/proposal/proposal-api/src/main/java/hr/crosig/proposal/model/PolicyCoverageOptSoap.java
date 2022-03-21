@@ -39,6 +39,7 @@ public class PolicyCoverageOptSoap implements Serializable {
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
+		soapModel.setProposalId(model.getProposalId());
 		soapModel.setCoverageOptionsName(model.getCoverageOptionsName());
 		soapModel.setCoverageOptionsValue(model.getCoverageOptionsValue());
 		soapModel.setType(model.getType());
@@ -151,6 +152,14 @@ public class PolicyCoverageOptSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
+	public long getProposalId() {
+		return _proposalId;
+	}
+
+	public void setProposalId(long proposalId) {
+		_proposalId = proposalId;
+	}
+
 	public String getCoverageOptionsName() {
 		return _coverageOptionsName;
 	}
@@ -181,6 +190,7 @@ public class PolicyCoverageOptSoap implements Serializable {
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
+	private long _proposalId;
 	private String _coverageOptionsName;
 	private String _coverageOptionsValue;
 	private String _type;

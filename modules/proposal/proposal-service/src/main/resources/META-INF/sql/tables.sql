@@ -29,6 +29,7 @@ create table AP_Proposal_PolicyCoverageOpt (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
+	proposalId LONG,
 	coverageOptionsName VARCHAR(75) null,
 	coverageOptionsValue VARCHAR(75) null,
 	type_ VARCHAR(75) null

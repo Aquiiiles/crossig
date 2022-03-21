@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import hr.crosig.proposal.dto.PolicyOptionsDTO;
 import hr.crosig.proposal.model.PolicyOptions;
 
 import java.io.Serializable;
@@ -89,6 +90,9 @@ public interface PolicyOptionsLocalService
 	 */
 	@Transactional(enabled = false)
 	public PolicyOptions createPolicyOptions(long policyOptionsId);
+
+	public PolicyOptionsDTO createPolicyOptions(
+		PolicyOptionsDTO policyOptionsDTO);
 
 	/**
 	 * @throws PortalException
@@ -260,5 +264,9 @@ public interface PolicyOptionsLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public PolicyOptions updatePolicyOptions(PolicyOptions policyOptions);
+
+	public PolicyOptionsDTO updatePolicyOptions(
+			PolicyOptionsDTO policyOptionsDTO)
+		throws PortalException;
 
 }

@@ -274,7 +274,8 @@ public class ProposalLocalServiceUtil {
 	}
 
 	public static hr.crosig.proposal.dto.ProposalDTO updateProposal(
-		long proposalId, hr.crosig.proposal.dto.ProposalDTO proposalDTO) {
+			long proposalId, hr.crosig.proposal.dto.ProposalDTO proposalDTO)
+		throws PortalException {
 
 		return getService().updateProposal(proposalId, proposalDTO);
 	}

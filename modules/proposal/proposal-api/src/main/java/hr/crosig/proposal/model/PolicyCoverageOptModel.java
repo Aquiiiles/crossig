@@ -170,6 +170,20 @@ public interface PolicyCoverageOptModel
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
+	 * Returns the proposal ID of this policy coverage opt.
+	 *
+	 * @return the proposal ID of this policy coverage opt
+	 */
+	public long getProposalId();
+
+	/**
+	 * Sets the proposal ID of this policy coverage opt.
+	 *
+	 * @param proposalId the proposal ID of this policy coverage opt
+	 */
+	public void setProposalId(long proposalId);
+
+	/**
 	 * Returns the coverage options name of this policy coverage opt.
 	 *
 	 * @return the coverage options name of this policy coverage opt

@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import hr.crosig.proposal.dto.ProposalContactDTO;
 import hr.crosig.proposal.model.ProposalContact;
 
 import java.io.Serializable;
@@ -89,6 +90,9 @@ public interface ProposalContactLocalService
 	 */
 	@Transactional(enabled = false)
 	public ProposalContact createProposalContact(long proposalContactId);
+
+	public ProposalContactDTO createProposalContact(
+		ProposalContactDTO proposalContactDTO);
 
 	/**
 	 * @throws PortalException
@@ -262,5 +266,9 @@ public interface ProposalContactLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public ProposalContact updateProposalContact(
 		ProposalContact proposalContact);
+
+	public ProposalContactDTO updateProposalContact(
+			ProposalContactDTO proposalContactDTO)
+		throws PortalException;
 
 }

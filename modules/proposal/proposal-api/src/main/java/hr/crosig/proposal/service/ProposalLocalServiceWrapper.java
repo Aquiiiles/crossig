@@ -298,7 +298,8 @@ public class ProposalLocalServiceWrapper
 
 	@Override
 	public hr.crosig.proposal.dto.ProposalDTO updateProposal(
-		long proposalId, hr.crosig.proposal.dto.ProposalDTO proposalDTO) {
+			long proposalId, hr.crosig.proposal.dto.ProposalDTO proposalDTO)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _proposalLocalService.updateProposal(proposalId, proposalDTO);
 	}

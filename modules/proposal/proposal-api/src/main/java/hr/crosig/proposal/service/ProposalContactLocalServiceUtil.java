@@ -83,6 +83,13 @@ public class ProposalContactLocalServiceUtil {
 		return getService().createProposalContact(proposalContactId);
 	}
 
+	public static hr.crosig.proposal.dto.ProposalContactDTO
+		createProposalContact(
+			hr.crosig.proposal.dto.ProposalContactDTO proposalContactDTO) {
+
+		return getService().createProposalContact(proposalContactDTO);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -291,6 +298,14 @@ public class ProposalContactLocalServiceUtil {
 		ProposalContact proposalContact) {
 
 		return getService().updateProposalContact(proposalContact);
+	}
+
+	public static hr.crosig.proposal.dto.ProposalContactDTO
+			updateProposalContact(
+				hr.crosig.proposal.dto.ProposalContactDTO proposalContactDTO)
+		throws PortalException {
+
+		return getService().updateProposalContact(proposalContactDTO);
 	}
 
 	public static ProposalContactLocalService getService() {
