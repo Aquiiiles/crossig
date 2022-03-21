@@ -94,6 +94,8 @@ public interface ProposalContactLocalService
 	public ProposalContactDTO createProposalContact(
 		ProposalContactDTO proposalContactDTO);
 
+	public void deleteAllByProposalId(long proposalId);
+
 	/**
 	 * @throws PortalException
 	 */

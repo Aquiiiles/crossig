@@ -85,6 +85,10 @@ public class PolicyOptionsLocalServiceUtil {
 		return getService().createPolicyOptions(policyOptionsDTO);
 	}
 
+	public static void deleteAllByProposalId(long proposalId) {
+		getService().deleteAllByProposalId(proposalId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */

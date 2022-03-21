@@ -16,9 +16,11 @@ package hr.crosig.proposal.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+
 import hr.crosig.proposal.dto.PolicyCoverageOptionDTO;
 import hr.crosig.proposal.model.PolicyCoverageOpt;
 import hr.crosig.proposal.service.base.PolicyCoverageOptLocalServiceBaseImpl;
+
 import org.osgi.service.component.annotations.Component;
 
 /**
@@ -46,15 +48,20 @@ public class PolicyCoverageOptLocalServiceImpl
 		return _mapToDTO(policyCoverageOpt);
 	}
 
+	public void deleteAllByProposalId(long proposalId) {
+		policyCoverageOptPersistence.removeByProposalId(proposalId);
+	}
+
 	public PolicyCoverageOptionDTO updatePolicyCoverageOpt(
-		PolicyCoverageOptionDTO policyCoverageOptDTO) throws PortalException {
+			PolicyCoverageOptionDTO policyCoverageOptDTO)
+		throws PortalException {
 
 		PolicyCoverageOpt policyCoverageOpt =
 			policyCoverageOptLocalService.getPolicyCoverageOpt(
 				policyCoverageOptDTO.getPolicyCoverageOptionId());
 
 		policyCoverageOpt = _updatePolicyCoverageOpt(
-				policyCoverageOptDTO, policyCoverageOpt);
+			policyCoverageOptDTO, policyCoverageOpt);
 
 		return _mapToDTO(policyCoverageOpt);
 	}
@@ -91,8 +98,6 @@ public class PolicyCoverageOptLocalServiceImpl
 			policyCoverageOptDTO.getCoverageOptionsName());
 		policyCoverageOpt.setCoverageOptionsValue(
 			policyCoverageOptDTO.getCoverageOptionsValue());
-		policyCoverageOpt.setPolicyCoverageOptionId(
-			policyCoverageOptDTO.getPolicyCoverageOptionId());
 		policyCoverageOpt.setProposalId(policyCoverageOptDTO.getProposalId());
 		policyCoverageOpt.setType(policyCoverageOptDTO.getType());
 

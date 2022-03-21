@@ -81,6 +81,11 @@ public class PolicyOptionsLocalServiceWrapper
 		return _policyOptionsLocalService.createPolicyOptions(policyOptionsDTO);
 	}
 
+	@Override
+	public void deleteAllByProposalId(long proposalId) {
+		_policyOptionsLocalService.deleteAllByProposalId(proposalId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */

@@ -90,6 +90,10 @@ public class ProposalContactLocalServiceUtil {
 		return getService().createProposalContact(proposalContactDTO);
 	}
 
+	public static void deleteAllByProposalId(long proposalId) {
+		getService().deleteAllByProposalId(proposalId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */

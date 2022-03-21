@@ -87,6 +87,11 @@ public class PolicyCoverageOptLocalServiceWrapper
 			policyCoverageOptDTO);
 	}
 
+	@Override
+	public void deleteAllByProposalId(long proposalId) {
+		_policyCoverageOptLocalService.deleteAllByProposalId(proposalId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */

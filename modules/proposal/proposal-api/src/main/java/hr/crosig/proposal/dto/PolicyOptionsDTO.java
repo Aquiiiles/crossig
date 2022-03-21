@@ -1,5 +1,9 @@
 package hr.crosig.proposal.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import hr.crosig.proposal.constants.ProposalConstants;
+
 import java.util.Date;
 
 /**
@@ -169,22 +173,59 @@ public class PolicyOptionsDTO {
 
 	private String communicationMethod;
 	private long companyId;
+
+	@JsonFormat(
+		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
+	)
 	private Date contractEndDate;
+
 	private String contractPeriod;
+
+	@JsonFormat(
+		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
+	)
 	private Date contractStartDate;
+
+	@JsonFormat(
+		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
+	)
 	private Date createDate;
+
 	private String currency;
 	private int durationYear;
+
+	@JsonFormat(
+		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
+	)
 	private Date issueDate;
+
+	@JsonFormat(
+		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
+	)
 	private Date modifiedDate;
+
+	@JsonFormat(
+		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
+	)
 	private Date policyEndDate;
+
 	private int policyNumberDays;
 	private long policyOptionsId;
+
+	@JsonFormat(
+		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
+	)
 	private Date policyStartDate;
+
 	private String productCategory;
 	private String productExtNumber;
 	private long proposalId;
+
+	@JsonFormat(
+		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
+	)
 	private Date termsDate;
+
 	private long userId;
 	private String userName;
 

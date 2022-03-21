@@ -91,6 +91,10 @@ public class PolicyCoverageOptLocalServiceUtil {
 		return getService().createPolicyCoverageOpt(policyCoverageOptDTO);
 	}
 
+	public static void deleteAllByProposalId(long proposalId) {
+		getService().deleteAllByProposalId(proposalId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */

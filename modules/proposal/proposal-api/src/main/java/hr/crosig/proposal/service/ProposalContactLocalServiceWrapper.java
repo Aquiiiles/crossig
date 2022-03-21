@@ -83,6 +83,11 @@ public class ProposalContactLocalServiceWrapper
 			proposalContactDTO);
 	}
 
+	@Override
+	public void deleteAllByProposalId(long proposalId) {
+		_proposalContactLocalService.deleteAllByProposalId(proposalId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */

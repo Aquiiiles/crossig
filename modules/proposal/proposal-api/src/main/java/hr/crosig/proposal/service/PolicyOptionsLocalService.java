@@ -94,6 +94,8 @@ public interface PolicyOptionsLocalService
 	public PolicyOptionsDTO createPolicyOptions(
 		PolicyOptionsDTO policyOptionsDTO);
 
+	public void deleteAllByProposalId(long proposalId);
+
 	/**
 	 * @throws PortalException
 	 */
