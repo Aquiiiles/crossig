@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { getSteps, StepsLookupTableKeys } from "../../../../constants/steps";
 import { Step } from "../../../types/stepper";
 
@@ -10,6 +11,7 @@ export default function useStepper(
   const [subSteps, setSubSteps] = useState(
     subCategory != null ? getSteps(subCategory.name) : []
   );
+  const history = useHistory();
 
   const deriveStepState = (stepArray: Step[], index: number): Step[] => {
     if (index > stepArray.length) {
@@ -29,6 +31,19 @@ export default function useStepper(
     }
   };
 
+  const canNavigateToStep = (stepState: string) => {
+    return !["ACTIVE", "INACTIVE"].includes(stepState);
+  };
+
+  const handleStepClick = (targetStepIndex: number) => {
+    const targetStep = steps.at(targetStepIndex - 1);
+
+    if (targetStep && canNavigateToStep(targetStep.state)) {
+      const route = targetStep.route;
+      history.replace({ pathname: route, state: { doSearch: true } });
+    }
+  };
+
   useEffect(() => {
     setSteps(deriveStepState(steps, currentStep - 1));
   }, [currentStep]);
@@ -39,5 +54,5 @@ export default function useStepper(
     }
   }, [subCategory?.currentStep]);
 
-  return [steps, subSteps] as const;
+  return [steps, subSteps, { handleStepClick }] as const;
 }

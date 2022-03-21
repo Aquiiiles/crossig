@@ -18,22 +18,10 @@ interface props {
 }
 
 const Stepper: React.FC<props> = ({ currentStep, subCategory, children }) => {
-  const [steps, subSteps] = useStepper(currentStep, subCategory);
-
-  const history = useHistory();
-
-  const canNavigateToStep = (stepState: string) => {
-    return !["ACTIVE", "INACTIVE"].includes(stepState);
-  };
-
-  const handleStepClick = (targetStepIndex: number) => {
-    const targetStep = steps.at(targetStepIndex - 1);
-
-    if (targetStep && canNavigateToStep(targetStep.state)) {
-      const route = targetStep.route;
-      history.replace({ pathname: route, state: { doSearch: true } });
-    }
-  };
+  const [steps, subSteps, { handleStepClick }] = useStepper(
+    currentStep,
+    subCategory
+  );
 
   return (
     <Wrapper>
