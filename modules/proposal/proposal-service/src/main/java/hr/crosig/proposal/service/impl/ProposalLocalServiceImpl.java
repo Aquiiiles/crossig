@@ -15,12 +15,22 @@
 package hr.crosig.proposal.service.impl;
 
 import com.liferay.portal.aop.AopService;
-
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import hr.crosig.proposal.dto.PolicyCoverageOptionDTO;
+import hr.crosig.proposal.dto.PolicyOptionsDTO;
+import hr.crosig.proposal.dto.ProposalContactDTO;
 import hr.crosig.proposal.dto.ProposalDTO;
 import hr.crosig.proposal.model.Proposal;
+import hr.crosig.proposal.service.PolicyCoverageOptLocalService;
+import hr.crosig.proposal.service.PolicyOptionsLocalService;
+import hr.crosig.proposal.service.ProposalContactLocalService;
 import hr.crosig.proposal.service.base.ProposalLocalServiceBaseImpl;
-
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
+import java.util.List;
 
 /**
  * @author Brian Wing Shun Chan
@@ -39,15 +49,51 @@ public class ProposalLocalServiceImpl extends ProposalLocalServiceBaseImpl {
 
 		proposal = _updateProposal(proposalDTO, proposal);
 
+		_createPolicyCoverageOptions(proposalDTO.getPolicyCoverageOptions());
+		_createPolicyOptions(proposalDTO.getPolicyOptions());
+		_createProposalContact(proposalDTO.getProposalContacts());
+
 		return _mapToDTO(proposal);
 	}
 
-	public ProposalDTO updateProposal(long proposalId, ProposalDTO proposalDTO) {
-		Proposal proposal = proposalPersistence.fetchByPrimaryKey(proposalId);
+	public ProposalDTO updateProposal(
+		long proposalId, ProposalDTO proposalDTO) throws PortalException {
+
+		Proposal proposal = proposalLocalService.getProposal(proposalId);
 
 		proposal = _updateProposal(proposalDTO, proposal);
 
+		_updatePolicyCoverageOptions(proposalDTO.getPolicyCoverageOptions());
+		_updatePolicyOptions(proposalDTO.getPolicyOptions());
+		_updateProposalContact(proposalDTO.getProposalContacts());
+
 		return _mapToDTO(proposal);
+	}
+
+	private void _createPolicyCoverageOptions(
+		List<PolicyCoverageOptionDTO> policyCoverageOptions) {
+
+		policyCoverageOptions.forEach(
+			policyCoverageOption ->
+				_policyCoverageOptLocalService.createPolicyCoverageOpt(
+					policyCoverageOption));
+	}
+
+	private void _createPolicyOptions(
+		List<PolicyOptionsDTO> policyOptionsDTOS) {
+
+		policyOptionsDTOS.forEach(
+			policyOptions -> _policyOptionsLocalService.createPolicyOptions(
+				policyOptions));
+	}
+
+	private void _createProposalContact(
+		List<ProposalContactDTO> proposalContacts) {
+
+		proposalContacts.forEach(
+			proposalContact ->
+				_proposalContactLocalService.createProposalContact(
+					proposalContact));
 	}
 
 	private ProposalDTO _mapToDTO(Proposal proposal) {
@@ -73,6 +119,36 @@ public class ProposalLocalServiceImpl extends ProposalLocalServiceBaseImpl {
 		return proposalDTO;
 	}
 
+	private void _updatePolicyCoverageOptions(
+		List<PolicyCoverageOptionDTO> policyCoverageOptions) {
+
+		policyCoverageOptions.forEach(
+			policyCoverageOption ->
+			{
+				try {
+					_policyCoverageOptLocalService.updatePolicyCoverageOpt(
+						policyCoverageOption);
+				} catch (PortalException portalException) {
+					_log.info(portalException.getMessage());
+				}
+
+			});
+	}
+
+	private void _updatePolicyOptions(
+		List<PolicyOptionsDTO> policyOptionsDTOS) {
+
+		policyOptionsDTOS.forEach(
+			policyOptions -> {
+				try {
+					_policyOptionsLocalService.updatePolicyOptions(
+						policyOptions);
+				} catch (PortalException portalException) {
+					_log.info(portalException.getMessage());
+				}
+			});
+	}
+
 	private Proposal _updateProposal(
 		ProposalDTO proposalDTO, Proposal proposal) {
 
@@ -89,5 +165,32 @@ public class ProposalLocalServiceImpl extends ProposalLocalServiceBaseImpl {
 
 		return proposalPersistence.update(proposal);
 	}
+
+	private void _updateProposalContact(
+		List<ProposalContactDTO> proposalContacts) {
+
+		proposalContacts.forEach(
+			proposalContact ->
+			{
+				try {
+					_proposalContactLocalService.updateProposalContact(
+						proposalContact);
+				} catch (PortalException portalException) {
+					_log.info(portalException.getMessage());
+				}
+			});
+	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+			ProductLocalServiceImpl.class);
+
+	@Reference
+	private PolicyCoverageOptLocalService _policyCoverageOptLocalService;
+
+	@Reference
+	private PolicyOptionsLocalService _policyOptionsLocalService;
+
+	@Reference
+	private ProposalContactLocalService _proposalContactLocalService;
 
 }
