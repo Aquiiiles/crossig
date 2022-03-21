@@ -15,8 +15,8 @@
 package hr.crosig.proposal.service.impl;
 
 import com.liferay.portal.aop.AopService;
-
 import com.liferay.portal.kernel.exception.PortalException;
+
 import hr.crosig.proposal.dto.ProposalContactDTO;
 import hr.crosig.proposal.model.ProposalContact;
 import hr.crosig.proposal.service.base.ProposalContactLocalServiceBaseImpl;
@@ -49,7 +49,8 @@ public class ProposalContactLocalServiceImpl
 	}
 
 	public ProposalContactDTO updateProposalContact(
-		ProposalContactDTO proposalContactDTO) throws PortalException {
+			ProposalContactDTO proposalContactDTO)
+		throws PortalException {
 
 		ProposalContact proposalContact =
 			proposalContactLocalService.getProposalContact(
@@ -86,8 +87,6 @@ public class ProposalContactLocalServiceImpl
 		proposalContact.setContactExtNumber(
 			proposalContactDTO.getContactExtNumber());
 		proposalContact.setInsuredRoles(proposalContactDTO.getInsuredRoles());
-		proposalContact.setProposalContactId(
-			proposalContactDTO.getProposalContactId());
 		proposalContact.setProposalId(proposalContactDTO.getProposalId());
 
 		return proposalContactPersistence.update(proposalContact);

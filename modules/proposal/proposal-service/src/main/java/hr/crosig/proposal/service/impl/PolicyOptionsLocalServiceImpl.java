@@ -16,9 +16,11 @@ package hr.crosig.proposal.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+
 import hr.crosig.proposal.dto.PolicyOptionsDTO;
 import hr.crosig.proposal.model.PolicyOptions;
 import hr.crosig.proposal.service.base.PolicyOptionsLocalServiceBaseImpl;
+
 import org.osgi.service.component.annotations.Component;
 
 /**
@@ -46,7 +48,8 @@ public class PolicyOptionsLocalServiceImpl
 	}
 
 	public PolicyOptionsDTO updatePolicyOptions(
-		PolicyOptionsDTO policyOptionsDTO) throws PortalException {
+			PolicyOptionsDTO policyOptionsDTO)
+		throws PortalException {
 
 		PolicyOptions policyOptions =
 			policyOptionsLocalService.getPolicyOptions(
@@ -103,7 +106,6 @@ public class PolicyOptionsLocalServiceImpl
 		policyOptions.setPolicyEndDate(policyOptionsDTO.getPolicyEndDate());
 		policyOptions.setPolicyNumberDays(
 			policyOptionsDTO.getPolicyNumberDays());
-		policyOptions.setPolicyOptionsId(policyOptionsDTO.getPolicyOptionsId());
 		policyOptions.setPolicyStartDate(policyOptionsDTO.getPolicyStartDate());
 		policyOptions.setProductCategory(policyOptionsDTO.getProductCategory());
 		policyOptions.setProductExtNumber(
