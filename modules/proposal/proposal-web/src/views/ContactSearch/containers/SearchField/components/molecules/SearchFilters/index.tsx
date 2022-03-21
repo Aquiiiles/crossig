@@ -16,7 +16,7 @@ import {
 import CountryCodeSelect from "../../../../../../../shared/atoms/contact/CountryCodeSelect";
 import { countryCodes as croatia } from "../../../../../../../constants/defaultCountryConfiguration";
 import { Country } from "../../../../../../../shared/types/contact";
-import { useFetchData } from "../../../../../../../api/hooks/useFetchData";
+import { useHttpRequest } from "../../../../../../../api/hooks/useHttpRequest";
 import { AREA_CODE_URL } from "../../../../../../../api/constants/routes";
 import { actions } from "../../../../../../../redux";
 import { numbersOnly } from "../../../../../../../shared/util/commonFunctions";
@@ -36,10 +36,10 @@ const SearchFilters: React.FC<props> = ({
   searchDisabled,
   onDropdownCancel,
 }) => {
-  const { get: getAreaCodes } = useFetchData();
+  const [, , { get: fetchAreaCodes }] = useHttpRequest();
 
   useEffect(() => {
-    getAreaCodes(AREA_CODE_URL);
+    fetchAreaCodes(AREA_CODE_URL);
   }, []);
 
   const dispatch = useDispatch();

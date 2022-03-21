@@ -7,7 +7,7 @@ import {
   contactOperations,
   contactTypes,
 } from "../../../../../constants/contactConstants";
-import { useFetchData } from "../../../../../api/hooks/useFetchData";
+import { useHttpRequest } from "../../../../../api/hooks/useHttpRequest";
 
 export default function useAddressState(
   operation: number,
@@ -19,8 +19,8 @@ export default function useAddressState(
   const { contactType } = useSelector((state) => state.basicInfo);
   const addressValues = useSelector((state) => state.addresses);
   const addressActions = actions.addresses;
-  const { returnFetchData: getCities } = useFetchData();
-  const { returnFetchData: getStreets } = useFetchData();
+  const [, { returnFetchData: getCities }] = useHttpRequest();
+  const [, { returnFetchData: getStreets }] = useHttpRequest();
 
   const dispatch = (action: AnyAction, updatedValue: string) => {
     enableSave && enableSave();

@@ -23,7 +23,7 @@ import {
 import LinkWrapper from "../../../../shared/atoms/LinkWrapper";
 import ContactButton from "../../../../shared/atoms/contact/ContactButton";
 import { CONTACT_URL, COUNTRIES_URL } from "../../../../api/constants/routes";
-import { useFetchData } from "../../../../api/hooks/useFetchData";
+import { useHttpRequest } from "../../../../api/hooks/useHttpRequest";
 import { RESOLVED } from "../../../../api/reducers/constants";
 import { useHistory } from "react-router-dom";
 import {
@@ -45,8 +45,8 @@ const UpdateContactForm: React.FC<{
   const history = useHistory();
   const dispatch = useDispatch();
   const data = contactResponse[0];
-  const { fetchData: fetchCountries, state } = useFetchData();
-  const { returnFetchData: API } = useFetchData();
+  const [countriesResponse, { fetchData: fetchCountries }] = useHttpRequest();
+  const [, { returnFetchData: updateContact }] = useHttpRequest();
   const [countries, setCountries] = useState<Array<any> | null>(null);
   const [enabledButton, setEnabledButton] = useState(false);
 
@@ -68,8 +68,8 @@ const UpdateContactForm: React.FC<{
   }, []);
 
   useEffect(() => {
-    if (state.status === RESOLVED) {
-      setCountries(state.response.data);
+    if (countriesResponse.status === RESOLVED) {
+      setCountries(countriesResponse.response.data);
     }
   });
 
@@ -91,7 +91,7 @@ const UpdateContactForm: React.FC<{
   };
 
   const handleUpdateContact = () => {
-    const response = API("PUT", CONTACT_URL, createContactDTO());
+    const response = updateContact("PUT", CONTACT_URL, createContactDTO());
     resetScroll();
 
     response

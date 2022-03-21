@@ -17,7 +17,7 @@ import { useSelector, useDispatch } from "../../../../redux/store";
 import { actions } from "../../../../redux";
 import { PageIndex } from "../../hooks/usePagination";
 import useOnClickOutside from "../../../../shared/hooks/useOnClickOutside";
-import { useFetchData } from "../../../../api/hooks/useFetchData";
+import { useHttpRequest } from "../../../../api/hooks/useHttpRequest";
 import { COUNTRIES_URL } from "../../../../api/constants/routes";
 import { RESOLVED } from "../../../../api/reducers/constants";
 import {
@@ -37,7 +37,7 @@ const SearchField: React.FC<props> = ({
   goToPage,
   fetchData,
 }: props) => {
-  const { state, get } = useFetchData();
+  const [coutryResponse, , { get: fetchCountries }] = useHttpRequest();
   const dispatch = useDispatch();
   const [disabled, setDisabled] = useState(false);
   const [expand, setExpand] = useState(false);
@@ -60,12 +60,12 @@ const SearchField: React.FC<props> = ({
   );
 
   useEffect(() => {
-    get(COUNTRIES_URL);
+    fetchCountries(COUNTRIES_URL);
   }, []);
 
   useEffect(() => {
-    if (state.status === RESOLVED) {
-      setCountries(state.response.data);
+    if (coutryResponse.status === RESOLVED) {
+      setCountries(coutryResponse.response.data);
     }
   });
 

@@ -1,5 +1,5 @@
 import React, { ChangeEventHandler, useEffect } from "react";
-import { useFetchData } from "../../../../api/hooks/useFetchData";
+import { useHttpRequest } from "../../../../api/hooks/useHttpRequest";
 import { AREA_CODE_URL } from "../../../../api/constants/routes";
 import { StyledSelect } from "./styles";
 import { ClaySelect } from "@clayui/form";
@@ -23,7 +23,7 @@ interface AreaCodeOption {
   key: string;
 }
 
-interface State {
+interface AreaCodeResponseType {
   status: string;
   response: {
     data: {
@@ -35,19 +35,20 @@ interface State {
 }
 
 const AreaCodeSelect: React.FC<propsType> = (props: propsType) => {
-  const { state, get: getAreaCodes } = useFetchData();
+  const [areaCodeResponse, , { get: getAreaCodes }] = useHttpRequest();
   const [areaCodeOptions, setAreaCodeOptions] = React.useState([
     {} as AreaCodeOption,
   ]);
-  const areaCodeData = state as State;
 
   useEffect(() => {
     getAreaCodes(AREA_CODE_URL);
   }, []);
 
   useEffect(() => {
-    if (areaCodeData.response.data?.area_codes) {
-      const codes = areaCodeData.response.data.area_codes.map((item, index) => {
+    if (areaCodeResponse.response.data?.area_codes) {
+      const codes = (
+        areaCodeResponse as AreaCodeResponseType
+      ).response.data.area_codes.map((item, index) => {
         return {
           label: item.area_code.toString(),
           value: item.area_code.toString(),
@@ -57,7 +58,7 @@ const AreaCodeSelect: React.FC<propsType> = (props: propsType) => {
 
       setAreaCodeOptions(codes);
     }
-  }, [areaCodeData]);
+  }, [areaCodeResponse]);
 
   const defaultAreaCodeOption = {
     key: "default",

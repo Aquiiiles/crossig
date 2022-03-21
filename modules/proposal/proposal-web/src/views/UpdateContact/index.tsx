@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Content, Wrapper } from "./styles";
 import UpdateContactForm from "./containers/UpdateContactForm";
 import { useLocation } from "react-router-dom";
-import { useFetchData } from "../../api/hooks/useFetchData";
+import { useHttpRequest } from "../../api/hooks/useHttpRequest";
 import { CONTACT_URL } from "../../api/constants/routes";
 import { RESOLVED } from "../../api/reducers/constants";
 import { resetState } from "../../redux/store";
@@ -21,27 +21,28 @@ const hasValidResponse = (contactResponse: any) => {
 const UpdateContact: React.FC = () => {
   resetState();
 
-  const { state, get } = useFetchData();
+  const [contactResponse, , { get: fetchContactInfo }] = useHttpRequest();
   const location = useLocation<{ extNumber: number; operation: number }>();
-  const { extNumber, operation } = location.state;
+  const { extNumber: externalIDNumber, operation } = location.state;
 
   useEffect(() => {
-    if (extNumber) {
-      get(`${CONTACT_URL}/${extNumber}`);
+    if (externalIDNumber) {
+      fetchContactInfo(`${CONTACT_URL}/${externalIDNumber}`);
     }
-  }, [extNumber]);
+  }, [externalIDNumber]);
 
   return (
     <Wrapper>
-      {state.status === RESOLVED && hasValidResponse(state.response.data) && (
-        <Content id="update-contact-main-container">
-          <UpdateContactForm
-            contactResponse={state.response.data}
-            extNumber={extNumber}
-            operation={operation}
-          />
-        </Content>
-      )}
+      {contactResponse.status === RESOLVED &&
+        hasValidResponse(contactResponse.response.data) && (
+          <Content id="update-contact-main-container">
+            <UpdateContactForm
+              contactResponse={contactResponse.response.data}
+              extNumber={externalIDNumber}
+              operation={operation}
+            />
+          </Content>
+        )}
     </Wrapper>
   );
 };

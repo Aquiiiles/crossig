@@ -5,7 +5,7 @@ import { VESSEL_LOOKUP } from "../../constants/languageKeys";
 import SearchField from "./containers/SearchField";
 import { Link, useLocation } from "react-router-dom";
 import { VESSEL_URL } from "../../api/constants/routes";
-import { useFetchData } from "../../api/hooks/useFetchData";
+import { useHttpRequest } from "../../api/hooks/useHttpRequest";
 import { FetchDataResultsFunction } from "../../shared/types/common";
 import * as constants from "./constants";
 import { initialState } from "../../redux/vesselLookup/vesselLookupSlice";
@@ -21,7 +21,7 @@ interface SearchState {
 
 const VesselSearch: React.FC = () => {
   const location = useLocation<SearchState>();
-  const { state: searchResult, fetchData: fetchSearchResult } = useFetchData();
+  const [searchResponse, { fetchData: fetchSearch }] = useHttpRequest();
 
   const [
     currentPage,
@@ -43,8 +43,8 @@ const VesselSearch: React.FC = () => {
     sortedBy,
   } = filterState;
 
-  const idle = searchResult.status === IDLE;
-  const loading = searchResult.status === PENDING;
+  const idle = searchResponse.status === IDLE;
+  const loading = searchResponse.status === PENDING;
 
   const fetchData: FetchDataResultsFunction = () => {
     const payload = {
@@ -62,7 +62,7 @@ const VesselSearch: React.FC = () => {
       sortOrder,
     });
 
-    fetchSearchResult("POST", `${VESSEL_URL}/search`, urlParams, payload);
+    fetchSearch("POST", `${VESSEL_URL}/search`, urlParams, payload);
   };
 
   useEffect(() => {
@@ -80,11 +80,11 @@ const VesselSearch: React.FC = () => {
   };
 
   useEffect(() => {
-    const result = searchResult.response.data;
+    const result = searchResponse.response.data;
     if (result != null) {
       handleNewTotal(result.length);
     }
-  }, [searchResult, handleNewTotal]);
+  }, [searchResponse, handleNewTotal]);
 
   useEffect(() => {
     if (!idle) {
@@ -124,14 +124,14 @@ const VesselSearch: React.FC = () => {
           </div>
           {!idle && (
             <VesselLookupResult
-              data={searchResult.response.data}
+              data={searchResponse.response.data}
               loading={loading}
               paginationData={{
                 lowerRange: (currentPage - 1) * constants.RESULTS_LIMIT + 1,
                 upperRange: Math.min(
                   (currentPage - 1) * constants.RESULTS_LIMIT +
                     constants.RESULTS_LIMIT,
-                  searchResult.response.data.length
+                  searchResponse.response.data.length
                 ),
                 currentPage,
                 pages,

@@ -3,9 +3,9 @@ import { fetchDataReducer } from "../reducers/fetchDataReducer";
 import { useSafeDispatch } from "./useSafeDispatch";
 import { IDLE, PENDING, REJECTED, RESOLVED } from "../reducers/constants";
 import { AxiosRequestConfig } from "axios";
-import API from "../";
+import API from "..";
 
-export type FetchDataFunction<T> = (
+export type HttpRequesterType<T> = (
   method: NonNullable<AxiosRequestConfig["method"]>,
   url: string,
   params?: AxiosRequestConfig["params"],
@@ -22,12 +22,12 @@ const initialArgs = {
   statusCode: "",
 };
 
-export const useFetchData = () => {
+export const useHttpRequest = () => {
   const [state, unsafeDispatch] = useReducer(fetchDataReducer, initialArgs);
 
   const dispatch = useSafeDispatch(unsafeDispatch);
 
-  const fetchData: FetchDataFunction<void> = useCallback(
+  const fetchData: HttpRequesterType<void> = useCallback(
     async (method, url, params, payload, mockedData) => {
       if (mockedData) {
         const response = { data: mockedData, status: 200 };
@@ -48,7 +48,7 @@ export const useFetchData = () => {
     [dispatch]
   );
 
-  const returnFetchData: FetchDataFunction<any> = useCallback(
+  const returnFetchData: HttpRequesterType<any> = useCallback(
     async (method, url, params, payload, mockedData) => {
       if (mockedData) {
         const mockPromise = new Promise((resolve) => {
@@ -108,5 +108,24 @@ export const useFetchData = () => {
     [dispatch]
   );
 
-  return { state, fetchData, returnFetchData, dispatch, post, get, put };
+  // Cannot be called 'delete' because it's a reserved word in JavaScript
+  const deleteHttp = useCallback(
+    (url) => {
+      dispatch({ type: PENDING });
+      API.delete(url)
+        .then((response) => {
+          dispatch({ type: RESOLVED, response });
+        })
+        .catch((error) => {
+          dispatch({ type: REJECTED, error });
+        });
+    },
+    [dispatch]
+  );
+
+  return [
+    state,
+    { fetchData, returnFetchData },
+    { get, post, put, deleteHttp },
+  ] as const;
 };

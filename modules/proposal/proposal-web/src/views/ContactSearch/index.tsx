@@ -14,7 +14,7 @@ import {
   CONTACT_SEARCH_SUBTITLE,
   CONTACT_SEARCH_TITLE,
 } from "../../constants/languageKeys";
-import { useFetchData } from "../../api/hooks/useFetchData";
+import { useHttpRequest } from "../../api/hooks/useHttpRequest";
 import SearchResult from "./containers/SearchResult";
 import { PENDING, IDLE } from "../../api/reducers/constants";
 import { Link, useLocation } from "react-router-dom";
@@ -36,8 +36,8 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
   const [showResults, setShowResults] = useState(false);
   const [data, setData] = useState([]);
   const location = useLocation<stateType>();
-  const { state: searchResultData, fetchData: fetchSearchResultData } =
-    useFetchData();
+  const [searchResultResponse, { fetchData: fetchSearchResultData }] =
+    useHttpRequest();
   const [
     currentPage,
     pages,
@@ -61,8 +61,8 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
     sortOrder,
     sortedBy,
   } = filterState;
-  const idle = searchResultData.status === IDLE;
-  const loading = searchResultData.status === PENDING;
+  const idle = searchResultResponse.status === IDLE;
+  const loading = searchResultResponse.status === PENDING;
 
   useEffect(() => {
     if (filterState !== initialState) {
@@ -107,12 +107,12 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
   };
 
   useEffect(() => {
-    const result = searchResultData.response.data[0]?.contactInListIVO;
+    const result = searchResultResponse.response.data[0]?.contactInListIVO;
     if (result != null) {
       setData(result);
       handleNewTotal(result.length);
     }
-  }, [searchResultData, handleNewTotal]);
+  }, [searchResultResponse, handleNewTotal]);
 
   useEffect(() => {
     if (!idle) {

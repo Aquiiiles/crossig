@@ -24,7 +24,7 @@ import { emailListToData } from "./utils/emailUtils";
 import { phoneObjectToData } from "./utils/phoneUtils";
 import { CONTACT_URL } from "../../../../api/constants/routes";
 import { COUNTRIES_URL } from "../../../../api/constants/routes";
-import { useFetchData } from "../../../../api/hooks/useFetchData";
+import { useHttpRequest } from "../../../../api/hooks/useHttpRequest";
 import { RESOLVED } from "../../../../api/reducers/constants";
 import ClayForm from "@clayui/form";
 import * as constants from "../../../ContactSearch/constants/searchResult";
@@ -34,12 +34,12 @@ import { resetScroll } from "../../../../shared/util/commonFunctions";
 
 const ContactInfo: React.FC = () => {
   const dispatch = useDispatch();
-  const { returnFetchData: API } = useFetchData();
+  const [, { returnFetchData }] = useHttpRequest();
   const basicInfoData = useSelector((state) => state.basicInfo);
   const addressData = useSelector((state) => state.addresses);
   const contactInfoData = useSelector((state) => state.contactInfo);
   const formRef = useRef<HTMLFormElement>(null);
-  const { state, get } = useFetchData();
+  const [countryResponse, , { get: fetchCountries }] = useHttpRequest();
   const [countries, setCountries] = useState<Array<any> | null>(null);
   const { contactType } = useSelector((state) => state.basicInfo);
   const [showModal, setShowModal] = useState(false);
@@ -52,14 +52,14 @@ const ContactInfo: React.FC = () => {
   const history = useHistory();
 
   useEffect(() => {
-    get(COUNTRIES_URL);
+    fetchCountries(COUNTRIES_URL);
   }, []);
 
   useEffect(() => {
-    if (state.status === RESOLVED) {
-      setCountries(state.response.data);
+    if (countryResponse.status === RESOLVED) {
+      setCountries(countryResponse.response.data);
     }
-  });
+  }, [countryResponse.status]);
 
   const isLegalEntity = () => {
     return contactType === contactTypes.Legal_Entity;
@@ -141,7 +141,7 @@ const ContactInfo: React.FC = () => {
         telephones: phoneObjectToData(contactInfoData.mobilePhones),
       };
 
-      const response = API("POST", CONTACT_URL, {}, payload);
+      const response = returnFetchData("POST", CONTACT_URL, {}, payload);
       resetScroll();
 
       response
