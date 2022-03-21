@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Wrapper, Content, Products, Footer, InnerWrapper } from "./styles";
 import Stepper from "../../shared/molecules/Stepper";
 import ProductCard from "../../shared/atoms/ProductCard";
@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "../../redux/store";
 import { actions } from "../../redux/insuranceProduct/insuranceProductSlice";
 import { motorIconsMap, vesselsIconsMap } from "./constants";
+import { resetModalScroll } from "../../shared/util/commonFunctions";
 
 const InsuranceProduct: React.FC = () => {
   const [
@@ -30,6 +31,10 @@ const InsuranceProduct: React.FC = () => {
       return motorIconsMap[index];
     }
   };
+
+  useEffect(() => {
+    resetModalScroll();
+  }, []);
 
   return (
     <Wrapper>

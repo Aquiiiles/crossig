@@ -37,3 +37,14 @@ export const handleEnterKeyEvent = (
     callback();
   }
 };
+
+export const resetScroll = () => {
+  window.scrollTo(0, 0);
+};
+
+export const resetModalScroll = () => {
+  const modalBody = document.getElementsByClassName("modal-body");
+  if (modalBody[0]) {
+    modalBody[0].scrollTop = 0;
+  }
+};

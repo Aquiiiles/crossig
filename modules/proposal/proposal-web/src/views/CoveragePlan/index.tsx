@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { Wrapper, Content, Products, Footer, InnerWrapper } from "./styles";
 import Stepper from "../../shared/molecules/Stepper";
@@ -8,12 +8,16 @@ import { COVERAGE_PLAN } from "../../constants/languageKeys";
 import useCoveragePlanState from "./hooks/useCoveragePlanState";
 import { useDispatch } from "../../redux/store";
 import { actions } from "../../redux/";
+import { resetModalScroll } from "../../shared/util/commonFunctions";
 
 const CoveragePlan: React.FC = () => {
   const history = useHistory();
   const coveragePlans = useCoveragePlanState();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    resetModalScroll();
+  }, []);
 
   return (
     <Wrapper>

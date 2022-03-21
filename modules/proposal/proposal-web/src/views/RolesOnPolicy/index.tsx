@@ -10,7 +10,7 @@ import { ROLES_ON_POLICY } from "../../constants/languageKeys";
 import { useDispatch, useSelector } from "../../redux/store";
 import { actions } from "../../redux";
 import ContactSearch from "../ContactSearch";
-import { handleEnterKeyEvent } from "../../shared/util/commonFunctions";
+import { handleEnterKeyEvent, resetModalScroll } from "../../shared/util/commonFunctions";
 
 const RolesOnPolicy: React.FC = () => {
   const dispatch = useDispatch();
@@ -33,8 +33,11 @@ const RolesOnPolicy: React.FC = () => {
     dispatch(clearSearchValues());
   }, []);
 
+  useEffect(() => {
+    resetModalScroll();
+  }, []);
+
   const continueToCoveragePlan = () => {
-    window.scrollTo(0, 0);
     history.push("/coverage_plan");
   };
 

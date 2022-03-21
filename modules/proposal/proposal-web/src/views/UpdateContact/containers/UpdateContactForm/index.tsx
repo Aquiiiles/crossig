@@ -36,6 +36,7 @@ import {
   setContactInfoFields,
 } from "./util";
 import * as constants from "../../../ContactSearch/constants/searchResult";
+import { resetScroll } from "../../../../shared/util/commonFunctions";
 
 const UpdateContactForm: React.FC<{
   contactResponse: any;
@@ -91,7 +92,7 @@ const UpdateContactForm: React.FC<{
 
   const handleUpdateContact = () => {
     const response = API.put(CONTACT_URL, createContactDTO());
-    window.scrollTo(0, 0);
+    resetScroll();
 
     response
       .then(() => {
