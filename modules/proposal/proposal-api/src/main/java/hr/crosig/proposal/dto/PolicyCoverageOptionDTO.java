@@ -1,5 +1,9 @@
 package hr.crosig.proposal.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import hr.crosig.proposal.constants.ProposalConstants;
+
 import java.util.Date;
 
 /**
@@ -90,8 +94,17 @@ public class PolicyCoverageOptionDTO {
 	private long companyId;
 	private String coverageOptionsName;
 	private String coverageOptionsValue;
+
+	@JsonFormat(
+		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
+	)
 	private Date createDate;
+
+	@JsonFormat(
+		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
+	)
 	private Date modifiedDate;
+
 	private long policyCoverageOptionId;
 	private long proposalId;
 	private String type;

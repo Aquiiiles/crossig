@@ -1,10 +1,7 @@
 package hr.crosig.proposal.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-<<<<<<< HEAD
 
-=======
->>>>>>> CAP-335 Format DTO Date
 import hr.crosig.proposal.constants.ProposalConstants;
 
 import java.util.Date;
