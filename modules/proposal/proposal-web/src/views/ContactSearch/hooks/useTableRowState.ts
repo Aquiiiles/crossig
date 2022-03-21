@@ -7,6 +7,7 @@ import { useDispatch } from "../../../redux/store";
 import { actions } from "../../../redux";
 
 export default function useTableRowState(operation: number) {
+  const [showButtons, setShowButtons] = useState(false);
   const history = useHistory();
   const { setPolicyHolder } = actions.contactsInPolicy;
   const dispatch = useDispatch();
@@ -49,7 +50,9 @@ export default function useTableRowState(operation: number) {
   };
 
   return [
+    { showButtons },
     {
+      setShowButtons,
       formatDOB,
       openUpdateContact,
       selectContact,

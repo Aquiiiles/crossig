@@ -19,7 +19,7 @@ interface Props {
 }
 
 const ResultMobile: React.FC<Props> = ({ contact, embedded }) => {
-  const [{ formatDOB, openUpdateContact, selectContact }, types] =
+  const [, { formatDOB, openUpdateContact, selectContact }, types] =
     useTableRowState(
       embedded ? contactOperations.updateEmbedded : contactOperations.update
     );

@@ -89,7 +89,7 @@ const Table: React.FC<props> = ({ inputData, loading, embedded }: props) => {
         </ClayTable.Row>
       </ClayTable.Head>
       <ClayTable.Body>
-        {inputData.map((item: types.responseType, index: number) => (
+        {inputData.map((item: types.responseType) => (
           <TableRow
             key={item.idValue}
             contact={item}
