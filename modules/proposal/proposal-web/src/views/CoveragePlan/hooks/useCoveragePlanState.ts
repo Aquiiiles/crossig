@@ -10,13 +10,12 @@ export default function useCoveragePlan() {
   const [coveragePlans, setCoveragePlans] = useState<CoveragePlanInterface[]>(
     []
   );
-  const { insuranceProduct } = useSelector((state) => state.insuranceProduct);
+  const {
+    insuranceProduct: { category },
+  } = useSelector((state) => state.insuranceProduct);
 
   useEffect(() => {
-    fetchData(
-      "GET",
-      `${COVERAGE_PLANS_URL}${insuranceProduct.category.toUpperCase()}`
-    );
+    fetchData("GET", `${COVERAGE_PLANS_URL}${category.toUpperCase()}`);
   }, []);
 
   useEffect(() => {

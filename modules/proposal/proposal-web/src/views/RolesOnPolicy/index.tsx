@@ -18,9 +18,11 @@ import { ROUTES } from "../../constants/routes";
 
 const RolesOnPolicy: React.FC = () => {
   const dispatch = useDispatch();
-  const { policyHolder, contactsInPolicy, showMobileSearch } = useSelector(
-    (state) => state.contactsInPolicy
-  );
+  const {
+    policyHolder: { contactRoles },
+    contactsInPolicy,
+    showMobileSearch,
+  } = useSelector((state) => state.contactsInPolicy);
   const { setRoleOptions } = actions.contactsInPolicy;
   const { clearSearchValues } = actions.searchFilter;
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -30,7 +32,7 @@ const RolesOnPolicy: React.FC = () => {
   const hasInsuredRole =
     contactsInPolicy.filter((contact) =>
       contact.contactRoles.includes(ROLES_ON_POLICY.INSURED)
-    ).length > 0 || policyHolder.contactRoles.includes(ROLES_ON_POLICY.INSURED);
+    ).length > 0 || contactRoles.includes(ROLES_ON_POLICY.INSURED);
 
   useEffect(() => {
     dispatch(setRoleOptions(["Insured", "Payer"]));
