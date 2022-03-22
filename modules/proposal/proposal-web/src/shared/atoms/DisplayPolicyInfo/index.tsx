@@ -1,14 +1,13 @@
 import React from "react";
 import { POLICY_HOLDER } from "../../../constants/languageKeys";
-import { useSelector } from "../../../redux/store";
 import { LineWrapper } from "./styles";
 
-const DisplayPolicyInfo = () => {
-  const {
-    policyHolder: { name },
-  } = useSelector((state) => state.contactsInPolicy);
+interface PropsType {
+  policyHolderName: string;
+}
 
-  const hasPolicyHolder = name.length > 0;
+const DisplayPolicyInfo: React.FC<PropsType> = ({ policyHolderName }) => {
+  const hasPolicyHolder = policyHolderName.length > 0;
 
   return (
     <>
@@ -16,7 +15,7 @@ const DisplayPolicyInfo = () => {
         <LineWrapper>
           <span className="span-small">{POLICY_HOLDER.POLICY_HOLDER}</span>
           <br />
-          <span className="span-base">{name}</span>
+          <span className="span-base">{policyHolderName}</span>
         </LineWrapper>
       )}
     </>

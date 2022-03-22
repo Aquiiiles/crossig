@@ -192,7 +192,11 @@ const ContactInfo: React.FC = () => {
 
       <h3>{CREATE_NEW_CONTACT.TITLE}</h3>
       <p style={{ marginBottom: "1.875rem" }}>{CREATE_NEW_CONTACT.SUBTITLE}</p>
-      <BasicInfo operation={contactOperations.create} />
+      <BasicInfo
+        operation={contactOperations.create}
+        basicInfoValues={basicInfoData}
+        basicInfoActions={actions.basicInfo}
+      />
       {countries && (
         <Addresses
           countries={mapToCountryNames(countries)}
@@ -203,6 +207,9 @@ const ContactInfo: React.FC = () => {
         <ContactInfoForm
           countries={mapToCountryCodes(countries)}
           operation={contactOperations.create}
+          contactType={basicInfoData.contactType}
+          contactInfoValues={contactInfoData}
+          contactInfoActions={actions.contactInfo}
         />
       )}
       <ButtonWrapper className={isLegalEntity() ? "standard-wrapper" : ""}>

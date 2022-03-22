@@ -8,7 +8,7 @@ import ClayForm, {
   ClaySelectWithOption,
 } from "@clayui/form";
 import { actions } from "../../../../redux";
-import { useDispatch, useSelector } from "../../../../redux/store";
+import { RootState, useDispatch } from "../../../../redux/store";
 import {
   contactOperations,
   contactTypeOptions,
@@ -22,21 +22,26 @@ import {
 } from "../../../validators/date";
 import { validateOib } from "../../../validators/oib";
 import useRequiredField from "../../../hooks/useRequiredField";
+import { AnyAction } from "@reduxjs/toolkit";
 
-type propsType = {
+interface PropsType {
   operation: number;
   enableSave?: () => void;
   setUpdatedValues?: (value: string) => void;
-};
+  basicInfoValues: RootState["basicInfo"];
+  basicInfoActions: typeof actions.basicInfo;
+}
 
-const BasicInfo: React.FC<propsType> = ({
+const BasicInfo: React.FC<PropsType> = ({
   enableSave,
   operation,
   setUpdatedValues,
-}: propsType) => {
+  basicInfoValues,
+  basicInfoActions,
+}) => {
   const dispatcher = useDispatch();
 
-  const dispatch = (action: any, updatedValue: string) => {
+  const dispatch = (action: AnyAction, updatedValue: string) => {
     enableSave && enableSave();
     dispatcher(action);
     setUpdatedValues && setUpdatedValues(updatedValue);
@@ -53,7 +58,7 @@ const BasicInfo: React.FC<propsType> = ({
     foreignerStatus,
     companyName,
     subsidiaryNumber,
-  } = useSelector((state) => state.basicInfo);
+  } = basicInfoValues;
   const {
     setContactType,
     setFirstName,
@@ -65,7 +70,7 @@ const BasicInfo: React.FC<propsType> = ({
     toggleForeignerStatus,
     setCompanyName,
     setSubsidiaryNumber,
-  } = actions.basicInfo;
+  } = basicInfoActions;
 
   const showIndividualFields = contactType === contactTypes.Individual;
 

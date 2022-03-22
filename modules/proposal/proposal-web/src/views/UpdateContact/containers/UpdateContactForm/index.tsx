@@ -55,14 +55,8 @@ const UpdateContactForm: React.FC<{
   const [isUpdateSuccessful, setUpdateSuccess] = useState(false);
   const [updatedValues, setUpdatedValues] = useState<string[]>([]);
 
-  const {
-    oib,
-    contactType,
-    firstName,
-    lastName,
-    companyName,
-    subsidiaryNumber,
-  } = useSelector((state) => state.basicInfo);
+  const basicInfoValues = useSelector((state) => state.basicInfo);
+  const contactInfoValues = useSelector((state) => state.contactInfo);
 
   useEffect(() => {
     fetchCountries("GET", COUNTRIES_URL);
@@ -88,7 +82,7 @@ const UpdateContactForm: React.FC<{
   };
 
   const isLegalEntity = () => {
-    return contactType === contactTypes.Legal_Entity;
+    return basicInfoValues.contactType === contactTypes.Legal_Entity;
   };
 
   const handleUpdateContact = () => {
@@ -124,9 +118,9 @@ const UpdateContactForm: React.FC<{
             <span style={{ marginLeft: 5 }}>
               {" "}
               updated for{" "}
-              {contactType === contactTypes.Individual
-                ? firstName + " " + lastName
-                : companyName}
+              {basicInfoValues.contactType === contactTypes.Individual
+                ? basicInfoValues.firstName + " " + basicInfoValues.lastName
+                : basicInfoValues.companyName}
             </span>
           )}
         </p>
@@ -147,9 +141,10 @@ const UpdateContactForm: React.FC<{
       dispatch(
         actions.contactsInPolicy.addContact({
           [constants.EXT_NUMBER_KEY]: Number(extNumber),
-          [constants.OIB_KEY]: oib,
-          [constants.SUB_KEY]: subsidiaryNumber,
-          [constants.NAME_KEY]: firstName + lastName,
+          [constants.OIB_KEY]: basicInfoValues.oib,
+          [constants.SUB_KEY]: basicInfoValues.subsidiaryNumber,
+          [constants.NAME_KEY]:
+            basicInfoValues.firstName + basicInfoValues.lastName,
           [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
         })
       );
@@ -159,9 +154,10 @@ const UpdateContactForm: React.FC<{
       dispatch(
         actions.contactsInPolicy.setPolicyHolder({
           [constants.EXT_NUMBER_KEY]: Number(extNumber),
-          [constants.OIB_KEY]: oib,
-          [constants.SUB_KEY]: subsidiaryNumber,
-          [constants.NAME_KEY]: firstName + lastName,
+          [constants.OIB_KEY]: basicInfoValues.oib,
+          [constants.SUB_KEY]: basicInfoValues.subsidiaryNumber,
+          [constants.NAME_KEY]:
+            basicInfoValues.firstName + basicInfoValues.lastName,
           [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
         })
       );
@@ -206,6 +202,8 @@ const UpdateContactForm: React.FC<{
           setEnabledButton(true);
         }}
         setUpdatedValues={handleUpdatedValues}
+        basicInfoValues={basicInfoValues}
+        basicInfoActions={actions.basicInfo}
       />
       {countries && (
         <Addresses
@@ -227,6 +225,9 @@ const UpdateContactForm: React.FC<{
             setEnabledButton(true);
           }}
           setUpdatedValues={handleUpdatedValues}
+          contactType={basicInfoValues.contactType}
+          contactInfoValues={contactInfoValues}
+          contactInfoActions={actions.contactInfo}
         />
       )}
 

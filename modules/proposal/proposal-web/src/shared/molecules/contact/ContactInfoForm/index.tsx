@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ClayForm from "@clayui/form";
 import EmailInputList from "../../../atoms/contact/EmailInputList";
 import FormSection from "../../../atoms/contact/FormSection";
@@ -14,7 +14,7 @@ import {
   MAXIMUM_MOBILE_PHONES,
   contactOperations,
 } from "../../../../constants/contactConstants";
-import { useDispatch, useSelector } from "../../../../redux/store";
+import { RootState, useDispatch } from "../../../../redux/store";
 import { Country } from "../../../types/contact";
 import { createEmptyPhoneNumber } from "../../../util/commonFunctions";
 import { actions } from "../../../../redux";
@@ -25,34 +25,36 @@ import {
   Wrapper,
 } from "./styles";
 import FormSectionMobile from "../../../atoms/contact/FormSectionMobile";
+import { AnyAction } from "@reduxjs/toolkit";
 
-type propsType = {
+type PropsType = {
   countries: Array<Country>;
   operation: number;
   enableSave?: () => void;
   setUpdatedValues?: (value: string) => void;
+  contactType: RootState["basicInfo"]["contactType"];
+  contactInfoValues: RootState["contactInfo"];
+  contactInfoActions: typeof actions.contactInfo;
 };
 
-const ContactInfoForm: React.FC<propsType> = ({
+const ContactInfoForm: React.FC<PropsType> = ({
   countries,
   enableSave,
   operation,
   setUpdatedValues,
-}: propsType) => {
+  contactType,
+  contactInfoValues,
+  contactInfoActions,
+}) => {
   const [disableFields, setDisableFields] = useState(false);
 
   const dispatcher = useDispatch();
-  const dispatch = (action: any, updatedValue: string) => {
+  const dispatch = (action: AnyAction, updatedValue: string) => {
     enableSave && enableSave();
     dispatcher(action);
     setUpdatedValues && setUpdatedValues(updatedValue);
   };
-  const { emailAddresses, mobilePhones } = useSelector(
-    (state) => state.contactInfo
-  );
-
-  const { contactType } = useSelector((state) => state.basicInfo);
-
+  const { emailAddresses, mobilePhones } = contactInfoValues;
   const {
     setEmailAddresses,
     setAreaCode,
@@ -60,7 +62,7 @@ const ContactInfoForm: React.FC<propsType> = ({
     setPhoneNumber,
     setType,
     setMobilePhones,
-  } = actions.contactInfo;
+  } = contactInfoActions;
 
   const handleEmailChange = (index: number, e: any) => {
     const currentEmails = [...emailAddresses];
