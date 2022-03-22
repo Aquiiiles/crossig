@@ -6,6 +6,7 @@ import { VESSEL_LOOKUP } from "../../../../constants/languageKeys";
 import { vesselTypeOptions } from "../../../../constants/vesselConstants";
 import useSearchField from "./hooks/useSearchField";
 import { handleEnterKeyEvent } from "../../../../shared/util/commonFunctions";
+import { ROUTES } from "../../../../constants/routes";
 
 interface props {
   onSearchClick: () => void;
@@ -110,7 +111,7 @@ const SearchField: React.FC<props> = ({ onSearchClick }) => {
           <span id="vesselLookupCreateVesselButton">
             <ClayButton
               displayType="link"
-              onClick={() => history.push("/new_vessel")}
+              onClick={() => history.push(ROUTES.NEW_VESSEL)}
             >
               {VESSEL_LOOKUP.BUTTON_CREATE_NEW_VESSEL}
             </ClayButton>

@@ -6,6 +6,7 @@ import { ButtonGroup, InnerGrid, MainGrid, Wrapper } from "./styles";
 import ClayButton from "@clayui/button";
 import { VESSEL_LOOKUP_TABLE } from "../../../../../../../constants/languageKeys";
 import { useHistory } from "react-router-dom";
+import { ROUTES } from "../../../../../../../constants/routes";
 
 type PropsType = {
   vessel: VesselRow;
@@ -58,7 +59,7 @@ const VesselRowMobile: React.FC<PropsType> = ({ vessel, headerItems }) => {
         <ClayButton
           displayType="primary"
           onClick={() => {
-            history.push("/premium");
+            history.push(ROUTES.PREMIUM);
           }}
         >
           {VESSEL_LOOKUP_TABLE.USE_VESSEL}

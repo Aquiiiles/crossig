@@ -14,6 +14,7 @@ import { PENDING, IDLE } from "../../api/reducers/constants";
 import usePagination from "../../shared/hooks/usePagination";
 import { useSelector } from "../../redux/store";
 import { resetModalScroll } from "../../shared/util/commonFunctions";
+import { ROUTES } from "../../constants/routes";
 
 interface SearchState {
   doSearch: boolean;
@@ -145,7 +146,7 @@ const VesselSearch: React.FC = () => {
           )}
         </Content>
         <LinkWrapper>
-          <Link to="/coverage_plan">{VESSEL_LOOKUP.LINK_BACK}</Link>
+          <Link to={ROUTES.COVERAGE_PLAN}>{VESSEL_LOOKUP.LINK_BACK}</Link>
         </LinkWrapper>
       </InnerWrapper>
     </Wrapper>

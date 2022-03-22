@@ -3,6 +3,7 @@ import BackBtn from "../../atoms/BackBtn";
 import { Wrapper } from "./styles";
 import { actions } from "../../../redux";
 import { useDispatch } from "../../../redux/store";
+import { ROUTES } from "../../../constants/routes";
 
 const GoBackHeader: React.FC = () => {
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ const GoBackHeader: React.FC = () => {
   return (
     <Wrapper>
       <BackBtn
-        pathname="roles"
+        pathname={ROUTES.ROLES}
         state={{}}
         onClick={() => dispatch(setShowMobileSearch(false))}
       ></BackBtn>

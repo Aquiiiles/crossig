@@ -8,6 +8,7 @@ import { CONTACT_SEARCH_TABLE_VIEW_DETAILS } from "../../../../../constants/lang
 import * as types from "../../../../../redux/contactsInPolicy/types";
 import * as constants from "../../../../../constants/RolesOnPolicy";
 import { contactOperations } from "../../../../../constants/contactConstants";
+import { ROUTES } from "../../../../../constants/routes";
 
 interface props {
   contact: types.contactInPolicy;
@@ -27,7 +28,7 @@ const TableRow: React.FC<props> = ({
 
   const openUpdateContact = (extNumber: number) => {
     history.push({
-      pathname: "/update_contact",
+      pathname: ROUTES.UPDATE_CONTACT,
       state: { extNumber, operation: contactOperations.updateReadOnly },
     });
   };

@@ -36,6 +36,7 @@ import {
 } from "./util";
 import * as constants from "../../../ContactSearch/constants/searchResult";
 import { resetScroll } from "../../../../shared/util/commonFunctions";
+import { ROUTES } from "../../../../constants/routes";
 
 const UpdateContactForm: React.FC<{
   contactResponse: any;
@@ -164,7 +165,7 @@ const UpdateContactForm: React.FC<{
           [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
         })
       );
-      history.push("/product");
+      history.push(ROUTES.PRODUCT);
     }
   };
 
@@ -173,8 +174,8 @@ const UpdateContactForm: React.FC<{
   const goBackPath =
     operation === contactOperations.create ||
     operation === contactOperations.update
-      ? "/"
-      : "/roles";
+      ? ROUTES.CONTACT_SEARCH
+      : ROUTES.ROLES;
 
   return (
     <Wrapper id="update-contact-form-main-container">

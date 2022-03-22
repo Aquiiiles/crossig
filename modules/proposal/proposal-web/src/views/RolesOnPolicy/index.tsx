@@ -10,7 +10,11 @@ import { ROLES_ON_POLICY } from "../../constants/languageKeys";
 import { useDispatch, useSelector } from "../../redux/store";
 import { actions } from "../../redux";
 import ContactSearch from "../ContactSearch";
-import { handleEnterKeyEvent, resetModalScroll } from "../../shared/util/commonFunctions";
+import {
+  handleEnterKeyEvent,
+  resetModalScroll,
+} from "../../shared/util/commonFunctions";
+import { ROUTES } from "../../constants/routes";
 
 const RolesOnPolicy: React.FC = () => {
   const dispatch = useDispatch();
@@ -38,7 +42,7 @@ const RolesOnPolicy: React.FC = () => {
   }, []);
 
   const continueToCoveragePlan = () => {
-    history.push("/coverage_plan");
+    history.push(ROUTES.COVERAGE_PLAN);
   };
 
   useEffect(() => {
@@ -67,7 +71,7 @@ const RolesOnPolicy: React.FC = () => {
               <Table hasInsuredRole={hasInsuredRole} />
             </Content>
             <Buttons>
-              <BackBtn pathname="/product" state={{ doSearch: true }} />
+              <BackBtn pathname={ROUTES.PRODUCT} state={{ doSearch: true }} />
               {!hasInsuredRole && (
                 <span className="msg">
                   {ROLES_ON_POLICY.INSURED_ROLE_MISSING}

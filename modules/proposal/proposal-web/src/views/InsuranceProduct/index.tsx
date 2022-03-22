@@ -11,6 +11,7 @@ import { useDispatch } from "../../redux/store";
 import { actions } from "../../redux/insuranceProduct/insuranceProductSlice";
 import { motorIconsMap, vesselsIconsMap } from "./constants";
 import { resetModalScroll } from "../../shared/util/commonFunctions";
+import { ROUTES } from "../../constants/routes";
 
 const InsuranceProduct: React.FC = () => {
   const [
@@ -90,7 +91,7 @@ const InsuranceProduct: React.FC = () => {
                     }}
                     onProductSelection={() => {
                       dispatch(actions.setInsuranceProduct(product));
-                      history.push("/roles");
+                      history.push(ROUTES.ROLES);
                     }}
                   />
                 </>
@@ -99,7 +100,10 @@ const InsuranceProduct: React.FC = () => {
           </Products>
         </Content>
         <Footer>
-          <BackBtn pathname="/" state={{ doSearch: true }} />
+          <BackBtn
+            pathname={ROUTES.CONTACT_SEARCH}
+            state={{ doSearch: true }}
+          />
         </Footer>
       </InnerWrapper>
     </Wrapper>

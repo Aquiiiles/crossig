@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ClayButton from "@clayui/button";
 import ClayTable from "@clayui/table";
 import { HoveringButtonGroup } from "./style";

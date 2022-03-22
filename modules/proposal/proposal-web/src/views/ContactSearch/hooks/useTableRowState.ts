@@ -4,6 +4,7 @@ import * as constants from "../constants/searchResult";
 import * as types from "../containers/SearchResult/types/searchResult";
 import { useDispatch } from "../../../redux/store";
 import { actions } from "../../../redux";
+import { ROUTES } from "../../../constants/routes";
 
 export default function useTableRowState(operation: number) {
   const history = useHistory();
@@ -28,7 +29,7 @@ export default function useTableRowState(operation: number) {
 
   const openUpdateContact = (extNumber: number) => {
     history.push({
-      pathname: "/update_contact",
+      pathname: ROUTES.UPDATE_CONTACT,
       state: { extNumber, operation: operation },
     });
   };
@@ -44,7 +45,7 @@ export default function useTableRowState(operation: number) {
         [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
       })
     );
-    history.push("/product");
+    history.push(ROUTES.PRODUCT);
   };
 
   return [

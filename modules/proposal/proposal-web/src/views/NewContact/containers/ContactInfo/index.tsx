@@ -31,6 +31,7 @@ import * as constants from "../../../ContactSearch/constants/searchResult";
 import { contactTypes } from "../../../../constants/contactConstants";
 import { actions } from "../../../../redux";
 import { resetScroll } from "../../../../shared/util/commonFunctions";
+import { ROUTES } from "../../../../constants/routes";
 
 const ContactInfo: React.FC = () => {
   const dispatch = useDispatch();
@@ -168,7 +169,7 @@ const ContactInfo: React.FC = () => {
 
   useEffect(() => {
     if (isCreateSuccessful) {
-      history.push("/product?success=true");
+      history.push(`${ROUTES.PRODUCT}?success=true`);
     }
   }, [isCreateSuccessful]);
 
@@ -211,7 +212,10 @@ const ContactInfo: React.FC = () => {
             [actions.basicInfo, actions.addresses, actions.contactInfo].forEach(
               (action) => dispatch(action["resetFields"]())
             );
-            history.replace({ pathname: "/", state: { doSearch: true } });
+            history.replace({
+              pathname: ROUTES.CONTACT_SEARCH,
+              state: { doSearch: true },
+            });
           }}
           disabled={false}
         />

@@ -8,6 +8,7 @@ import * as types from "../../../../../redux/contactsInPolicy/types";
 import { CONTACT_SEARCH_TABLE_VIEW_DETAILS } from "../../../../../constants/languageKeys";
 import * as constants from "../../../../../constants/RolesOnPolicy";
 import { contactOperations } from "../../../../../constants/contactConstants";
+import { ROUTES } from "../../../../../constants/routes";
 
 interface Props {
   contact: types.contactInPolicy;
@@ -25,7 +26,7 @@ const ResultMobile: React.FC<Props> = ({
   const history = useHistory();
   const openUpdateContact = (extNumber: number) => {
     history.push({
-      pathname: "/update_contact",
+      pathname: ROUTES.UPDATE_CONTACT,
       state: { extNumber, operation: contactOperations.updateReadOnly },
     });
   };
