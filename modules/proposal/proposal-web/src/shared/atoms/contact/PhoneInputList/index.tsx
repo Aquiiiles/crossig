@@ -7,7 +7,7 @@ import {
   PhoneNumberWrapper,
   StyledFormGroup,
 } from "./styles";
-import LinkWrapper from "../LinkWrapper";
+import LinkWrapper from "../../LinkWrapper";
 import { countryCodes } from "../../../../constants/defaultCountryConfiguration";
 import AreaCodeSelect from "../../../atoms/contact/AreaCodeSelect";
 import CountryCodeSelect from "../../../atoms/contact/CountryCodeSelect";

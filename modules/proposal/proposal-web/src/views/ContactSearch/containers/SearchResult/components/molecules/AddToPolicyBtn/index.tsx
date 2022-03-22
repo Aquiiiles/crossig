@@ -9,7 +9,7 @@ import {
 } from "../../../../../../../constants/languageKeys";
 import { useDispatch, useSelector } from "../../../../../../../redux/store";
 import { actions } from "../../../../../../../redux";
-import LinkWrapper from "../../../../../../../shared/atoms/contact/LinkWrapper";
+import LinkWrapper from "../../../../../../../shared/atoms/LinkWrapper";
 
 import * as types from "../../../types/searchResult";
 import * as constants from "../../../../../constants/searchResult";

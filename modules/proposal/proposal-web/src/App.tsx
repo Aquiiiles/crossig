@@ -13,6 +13,7 @@ import { ThemeProvider } from "styled-components";
 import LiferayEventProvider from "./views/LiferayEventProvider";
 import defaultTheme from "./constants/theme";
 import store from "./redux/store";
+import Premium from "./views/Premium";
 
 type PropsType = {
   eventProvider?: boolean;
@@ -39,6 +40,9 @@ const Proposal = () => {
         </Route>
         <Route path="/vessel_search">
           <VesselSearch />
+        </Route>
+        <Route path="/premium">
+          <Premium />
         </Route>
         <Route path="/">
           <ContactSearch embedded={false} />

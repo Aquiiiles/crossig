@@ -4,7 +4,7 @@ import { ButtonWrapper, Wrapper } from "./style";
 import BasicInfo from "../../../../shared/molecules/contact/BasicInfo";
 import Addresses from "../../../../shared/molecules/contact/Addresses";
 import ContactInfoForm from "../../../../shared/molecules/contact/ContactInfoForm";
-import LinkWrapper from "../../../../shared/atoms/contact/LinkWrapper";
+import LinkWrapper from "../../../../shared/atoms/LinkWrapper";
 import ContactButton from "../../../../shared/atoms/contact/ContactButton";
 import Modal from "../../../../shared/atoms/contact/Modal";
 import useFormState from "../../../../shared/hooks/useFormState";

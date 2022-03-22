@@ -1,7 +1,7 @@
 import React, { Fragment, MouseEventHandler, useState } from "react";
 import { ClayInput } from "@clayui/form";
 import { CONTACT_INFO } from "../../../../constants/languageKeys";
-import LinkWrapper from "../LinkWrapper";
+import LinkWrapper from "../../LinkWrapper";
 import { StyledFormGroup, Error } from "./styles";
 import { MAXIMUM_EMAIL_ADDRESSES } from "../../../../constants/contactConstants";
 import { shouldDisableInput } from "../../../util/commonFunctions";

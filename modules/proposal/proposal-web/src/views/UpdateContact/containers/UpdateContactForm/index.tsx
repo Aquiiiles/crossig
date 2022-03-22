@@ -20,7 +20,7 @@ import {
   contactOperations,
   contactTypes,
 } from "../../../../constants/contactConstants";
-import LinkWrapper from "../../../../shared/atoms/contact/LinkWrapper";
+import LinkWrapper from "../../../../shared/atoms/LinkWrapper";
 import ContactButton from "../../../../shared/atoms/contact/ContactButton";
 import API from "../../../../api";
 import { CONTACT_URL, COUNTRIES_URL } from "../../../../api/constants/routes";

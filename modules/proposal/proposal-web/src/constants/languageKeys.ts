@@ -264,7 +264,7 @@ export const PREMIUM = {
     SELECTED: Liferay.Language.get('premium-coverage-selected'),
     PERIL_ADD_ONS: Liferay.Language.get('premium-coverage-peril-add-ons'),
   },
-  DESCRIPTION: {
+  SUMMARY: {
     TITLE: Liferay.Language.get('premium-description-title'),
     COMPULSORY_LIABILITY: Liferay.Language.get('premium-description-compulsory-liability'),
     HULL: Liferay.Language.get('premium-description-hull'),
