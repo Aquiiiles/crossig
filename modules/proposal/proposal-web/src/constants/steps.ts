@@ -2,8 +2,9 @@ import {
   STEPPER_STEP,
   STEPPER_INSURED_OBJECT_DETAILS_STEP,
 } from "./languageKeys";
-import { Step } from "../shared/types/stepper";
+import { Step } from "../shared/types";
 import { ROUTES } from "./routes";
+import { StepsLookupTableKeys } from "./types";
 
 export const getSteps = (key: StepsLookupTableKeys) => {
   const stepCategory = stepsLookupTable[key];
@@ -31,5 +32,3 @@ export const stepRoutesLookupTable = {
   OBJECT_DETAILS: "",
   PREMIUM: "",
 };
-
-export type StepsLookupTableKeys = keyof typeof stepsLookupTable;

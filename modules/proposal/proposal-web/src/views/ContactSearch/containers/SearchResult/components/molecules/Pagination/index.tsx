@@ -1,7 +1,7 @@
 import React from "react";
 import { Wrapper } from "./styles";
 import ClayPagination from "@clayui/pagination";
-import { PageIndex } from "../../../../../hooks/usePagination";
+import { PageIndex } from "../../../../../../../shared/hooks/types";
 
 interface props {
   paginationData: {
@@ -36,7 +36,7 @@ const Pagination: React.FC<props> = ({
         Showing {lowerRange} to {upperRange} of {Math.min(total, 100)} entries
       </p>
       <ClayPagination style={{ marginBottom: "0" }}>
-        {pages.map(page => {
+        {pages.map((page) => {
           if (typeof page === "number") {
             return (
               <ClayPagination.Item

@@ -1,6 +1,6 @@
 import React from "react";
 import { ButtonGroup, InnerGrid, MainGrid, Wrapper } from "./styles";
-import * as types from "../../../types/searchResult";
+import * as types from "../../../types";
 import * as constants from "../../../../../constants/searchResult";
 import useTableRowState from "../../../../../hooks/useTableRowState";
 import ClayButton from "@clayui/button";

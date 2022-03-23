@@ -4,7 +4,7 @@ import DisplayPolicyInfo from "../../../shared/atoms/DisplayPolicyInfo";
 import MobileStep from "../../../shared/atoms/Stepper/MobileStep";
 import useStepper from "./hooks/useStepper";
 import { Wrapper, MobileWrapper } from "./styles";
-import { StepsLookupTableKeys } from "../../../constants/steps";
+import { StepsLookupTableKeys } from "../../../constants/types";
 import { useSelector } from "../../../redux/store";
 
 interface props {

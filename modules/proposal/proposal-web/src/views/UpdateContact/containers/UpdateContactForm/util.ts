@@ -1,5 +1,5 @@
 import { contactTypes } from "../../../../constants/contactConstants";
-import { PhoneNumber } from "../../../../shared/types/contact";
+import { PhoneNumber } from "../../../../shared/types";
 import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 
 export const createBasicInfoDTO = (store: any) => {

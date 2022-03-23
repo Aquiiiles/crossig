@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { getSteps, StepsLookupTableKeys } from "../../../../constants/steps";
-import { Step } from "../../../types/stepper";
+import { getSteps } from "../../../../constants/steps";
+import { StepsLookupTableKeys } from "../../../../constants/types";
+import { Step } from "../../../types";
 
 export default function useStepper(
   currentStep: number,

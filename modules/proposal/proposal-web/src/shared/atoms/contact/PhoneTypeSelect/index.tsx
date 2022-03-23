@@ -2,7 +2,7 @@ import { ClaySelect } from "@clayui/form";
 import React from "react";
 import { CONTACT_INFO } from "../../../../constants/languageKeys";
 import { FIXED, MOBILE } from "../../../../constants/contactConstants";
-import { PhoneNumber } from "../../../types/contact";
+import { PhoneNumber } from "../../../types";
 import { Wrapper } from "./styles";
 import { shouldDisableInput } from "../../../util/commonFunctions";
 

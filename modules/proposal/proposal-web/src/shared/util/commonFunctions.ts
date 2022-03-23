@@ -1,5 +1,5 @@
 import React from "react";
-import { PhoneNumber } from "../types/contact";
+import { PhoneNumber } from "../types";
 import { countryCodes } from "../../constants/defaultCountryConfiguration";
 
 export const createEmptyPhoneNumber = (type: number) => {

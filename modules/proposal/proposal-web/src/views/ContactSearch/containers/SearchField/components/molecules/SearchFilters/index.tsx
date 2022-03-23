@@ -15,7 +15,7 @@ import {
 } from "../../../../../../../constants/languageKeys";
 import CountryCodeSelect from "../../../../../../../shared/atoms/contact/CountryCodeSelect";
 import { countryCodes as croatia } from "../../../../../../../constants/defaultCountryConfiguration";
-import { Country } from "../../../../../../../shared/types/contact";
+import { Country } from "../../../../../../../shared/types";
 import { useHttpRequest } from "../../../../../../../api/hooks/useHttpRequest";
 import { AREA_CODE_URL } from "../../../../../../../api/constants/routes";
 import { actions } from "../../../../../../../redux";

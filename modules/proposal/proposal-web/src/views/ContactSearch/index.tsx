@@ -22,7 +22,7 @@ import { CONTACT_SEARCH_CREATE_NEW_CONTACT } from "../../constants/languageKeys"
 import usePagination from "./hooks/usePagination";
 import { SEARCH_URL } from "../../api/constants/routes";
 import { useSelector } from "../../redux/store";
-import { FetchContactsFunction } from "./types/fetchData";
+import { FetchContactsFunction } from "./types";
 import { initialState } from "../../redux/searchFilter/searchFilterSlice";
 
 interface stateType {

@@ -2,7 +2,7 @@ import React from "react";
 import ClayTable from "@clayui/table";
 import { Table, Span, MobileWrapper } from "./styles";
 import ArrowIcon from "../../atoms/ArrowIcon";
-import { HeaderCell } from "../../types/common";
+import { HeaderCell } from "../../types";
 
 interface propsInterface<RowGeneratorType> {
   inputData: Array<RowGeneratorType>;

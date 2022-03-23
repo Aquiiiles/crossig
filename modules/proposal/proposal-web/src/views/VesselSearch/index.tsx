@@ -6,7 +6,7 @@ import SearchField from "./containers/SearchField";
 import { Link, useLocation } from "react-router-dom";
 import { VESSEL_URL } from "../../api/constants/routes";
 import { useHttpRequest } from "../../api/hooks/useHttpRequest";
-import { FetchDataResultsFunction } from "../../shared/types/common";
+import { FetchDataResultsFunction } from "../../shared/types";
 import * as constants from "./constants";
 import { initialState } from "../../redux/vesselLookup/vesselLookupSlice";
 import VesselLookupResult from "./containers/VesselLookupResult";

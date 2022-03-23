@@ -9,7 +9,7 @@ import {
 } from "../../../../../../../constants/languageKeys";
 import AddToPolicyBtn from "../../molecules/AddToPolicyBtn";
 
-import * as types from "../../../types/searchResult";
+import * as types from "../../../types";
 import * as constants from "../../../../../constants/searchResult";
 import { contactOperations } from "../../../../../../../constants/contactConstants";
 import useTableRowState from "../../../../../hooks/useTableRowState";

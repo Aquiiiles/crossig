@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useHttpRequest } from "../../../api/hooks/useHttpRequest";
-import { CoveragePlanInterface } from "../types/coveragePlan";
+import { CoveragePlanInterface } from "../types";
 import { COVERAGE_PLANS_URL } from "../../../api/constants/routes";
 import { IDLE } from "../../../api/reducers/constants";
 import { useSelector } from "../../../redux/store";

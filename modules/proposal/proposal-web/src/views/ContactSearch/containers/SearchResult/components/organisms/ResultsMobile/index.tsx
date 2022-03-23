@@ -1,6 +1,6 @@
 import React from "react";
 import { Wrapper } from "./styles";
-import * as types from "../../../types/searchResult";
+import * as types from "../../../types";
 import ResultMobile from "../../atoms/ResultMobile";
 import * as constants from "../../../../../constants/searchResult";
 

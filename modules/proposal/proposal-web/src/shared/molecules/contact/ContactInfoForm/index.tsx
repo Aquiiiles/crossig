@@ -15,7 +15,7 @@ import {
   contactOperations,
 } from "../../../../constants/contactConstants";
 import { RootState, useDispatch } from "../../../../redux/store";
-import { Country } from "../../../types/contact";
+import { Country } from "../../../types";
 import { createEmptyPhoneNumber } from "../../../util/commonFunctions";
 import { actions } from "../../../../redux";
 import {

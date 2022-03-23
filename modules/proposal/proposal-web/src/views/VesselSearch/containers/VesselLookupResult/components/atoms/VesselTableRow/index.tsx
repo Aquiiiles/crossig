@@ -3,8 +3,8 @@ import ClayButton from "@clayui/button";
 import ClayTable from "@clayui/table";
 import { HoveringButtonGroup } from "./style";
 import { VESSEL_LOOKUP_TABLE } from "../../../../../../../constants/languageKeys";
-import { VesselRow } from "../../../types/vesselLookupResult";
 import { useHistory } from "react-router-dom";
+import { VesselRow } from "../../../types";
 
 type propsType = {
   vessel: VesselRow;

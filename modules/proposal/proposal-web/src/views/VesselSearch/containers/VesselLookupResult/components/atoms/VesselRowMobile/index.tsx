@@ -1,7 +1,7 @@
 import React from "react";
 import ResultRowMobile from "../../../../../../../shared/atoms/ResultRowMobile";
-import { HeaderCell } from "../../../../../../../shared/types/common";
-import { VesselRow } from "../../../types/vesselLookupResult";
+import { HeaderCell } from "../../../../../../../shared/types";
+import { VesselRow } from "../../../types";
 import { ButtonGroup, InnerGrid, MainGrid, Wrapper } from "./styles";
 import ClayButton from "@clayui/button";
 import { VESSEL_LOOKUP_TABLE } from "../../../../../../../constants/languageKeys";

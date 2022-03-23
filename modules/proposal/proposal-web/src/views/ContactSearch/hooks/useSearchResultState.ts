@@ -7,7 +7,7 @@ import * as constants from "../constants/searchResult";
 import {
   providedDataType,
   responseType,
-} from "../containers/SearchResult/types/searchResult";
+} from "../containers/SearchResult/types";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export default function useSearchResultState(data: any[]) {

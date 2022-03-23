@@ -11,10 +11,10 @@ import LinkWrapper from "../../LinkWrapper";
 import { countryCodes } from "../../../../constants/defaultCountryConfiguration";
 import AreaCodeSelect from "../../../atoms/contact/AreaCodeSelect";
 import CountryCodeSelect from "../../../atoms/contact/CountryCodeSelect";
-import { PhoneNumber } from "../../../types/contact";
+import { PhoneNumber } from "../../../types";
 import { MAXIMUM_MOBILE_PHONES } from "../../../../constants/contactConstants";
 import { shouldDisableInput } from "../../../util/commonFunctions";
-import PhoneTypeSelect from "../PhoneTypeSelect";
+import { Country } from "../../../../shared/types";
 
 type propsType = {
   phoneNumbers: Array<PhoneNumber>;
@@ -25,11 +25,6 @@ type propsType = {
   disableInput?: boolean;
   phoneTypeSelect?: (index: number) => React.ReactNode;
 };
-export interface Country {
-  label: string;
-  value: string;
-  flagKey: string;
-}
 
 const PhoneInputList: React.FC<propsType> = (props: propsType) => {
   const [hasSomeInvalidPhone, setSomeInvalidPhone] = useState(false);

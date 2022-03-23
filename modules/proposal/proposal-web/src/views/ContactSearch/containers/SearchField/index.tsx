@@ -15,7 +15,7 @@ import {
 } from "../../../../constants/languageKeys";
 import { useSelector, useDispatch } from "../../../../redux/store";
 import { actions } from "../../../../redux";
-import { PageIndex } from "../../hooks/usePagination";
+import { PageIndex } from "../../../../shared/hooks/types";
 import useOnClickOutside from "../../../../shared/hooks/useOnClickOutside";
 import { useHttpRequest } from "../../../../api/hooks/useHttpRequest";
 import { COUNTRIES_URL } from "../../../../api/constants/routes";

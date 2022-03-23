@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useHttpRequest } from "../../../api/hooks/useHttpRequest";
-import { Product } from "../types/product";
+import { Product } from "../types";
 import { PRODUCTS_URL } from "../../../api/constants/routes";
 import { IDLE } from "../../../api/reducers/constants";
 import useQueryParams from "../../../shared/hooks/useQueryParams";

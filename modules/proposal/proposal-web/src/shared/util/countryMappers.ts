@@ -3,7 +3,7 @@ import {
   countryCodes,
 } from "../../constants/defaultCountryConfiguration";
 
-import { Country } from "../types/contact";
+import { Country } from "../types";
 
 export const mapToCountryNames = (countriesArray: Array<any>) => {
   const countries = countriesArray

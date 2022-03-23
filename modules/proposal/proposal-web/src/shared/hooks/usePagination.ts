@@ -1,6 +1,5 @@
 import { useCallback, useLayoutEffect, useState } from "react";
-
-export type PageIndex = number | string;
+import { PageIndex } from "./types";
 
 export default function usePagination(limit: number) {
   const [currentPage, setCurrentPage] = useState(1);

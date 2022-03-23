@@ -1,9 +1,5 @@
 import React from "react";
-
-type ValidatorReturn = string | undefined;
-export type ValidatorFunction = (
-  value: string
-) => ValidatorReturn | Promise<ValidatorReturn>;
+import { ValidatorFunction } from "./types";
 
 /**
  * Validates fields based on their current values.

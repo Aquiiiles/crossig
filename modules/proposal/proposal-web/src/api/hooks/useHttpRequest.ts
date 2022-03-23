@@ -2,16 +2,8 @@ import { useCallback, useReducer } from "react";
 import { fetchDataReducer } from "../reducers/fetchDataReducer";
 import { useSafeDispatch } from "./useSafeDispatch";
 import { IDLE, PENDING, REJECTED, RESOLVED } from "../reducers/constants";
-import { AxiosRequestConfig } from "axios";
 import API from "..";
-
-export type HttpRequesterType<T> = (
-  method: NonNullable<AxiosRequestConfig["method"]>,
-  url: string,
-  params?: AxiosRequestConfig["params"],
-  payload?: AxiosRequestConfig["data"],
-  mockedData?: AxiosRequestConfig["data"]
-) => Promise<T>;
+import { HttpRequesterType } from "../types";
 
 const initialArgs = {
   status: IDLE,

@@ -1,11 +1,7 @@
 import { useSelector, useDispatch } from "../../redux/store";
 import { actions } from "../../redux";
 import { decideOrder } from "../../shared/util/tableUtils";
-
-export type SortableActionKeyType = keyof Pick<
-  typeof actions,
-  "searchFilter" | "vesselLookupFilter"
->;
+import { SortableActionKeyType } from "./types";
 
 /**
  * Tap into the sort state for a particular redux action. Exposes helper functions for sorting.

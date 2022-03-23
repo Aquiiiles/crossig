@@ -1,4 +1,4 @@
-import { Step } from "../../../types/stepper";
+import { Step } from "../../../types";
 import styled from "styled-components";
 
 type StepState = Step["state"];

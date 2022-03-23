@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "../../../../../../../redux/store";
 import { actions } from "../../../../../../../redux";
 import LinkWrapper from "../../../../../../../shared/atoms/LinkWrapper";
 
-import * as types from "../../../types/searchResult";
+import * as types from "../../../types";
 import * as constants from "../../../../../constants/searchResult";
 
 const AddToPolicyBtn: React.FC<{

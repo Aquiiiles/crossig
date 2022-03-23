@@ -12,7 +12,7 @@ import {
   CONTACT_SEARCH_RESULT_TOO_MANY_SEARCH_RESULTS,
   CONTACT_RESULTS_TABLE,
 } from "../../../../constants/languageKeys";
-import { PageIndex } from "../../hooks/usePagination";
+import { PageIndex } from "../../../../shared/hooks/types";
 import useSearchResultState from "../../hooks/useSearchResultState";
 import ResultsHeaderMobile from "./components/molecules/ResultsHeaderMobile";
 import ResultsMobile from "./components/organisms/ResultsMobile";
