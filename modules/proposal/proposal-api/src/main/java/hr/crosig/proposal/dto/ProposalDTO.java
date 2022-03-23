@@ -52,7 +52,7 @@ public class ProposalDTO {
 		return policyHolderExtNumber;
 	}
 
-	public List<PolicyOptionsDTO> getPolicyOptions() {
+	public PolicyOptionsDTO getPolicyOptions() {
 		return policyOptions;
 	}
 
@@ -118,7 +118,7 @@ public class ProposalDTO {
 		this.policyHolderExtNumber = policyHolderExtNumber;
 	}
 
-	public void setPolicyOptions(List<PolicyOptionsDTO> policyOptions) {
+	public void setPolicyOptions(PolicyOptionsDTO policyOptions) {
 		this.policyOptions = policyOptions;
 	}
 
@@ -166,7 +166,7 @@ public class ProposalDTO {
 	private String origin;
 	private List<PolicyCoverageOptionDTO> policyCoverageOptions;
 	private String policyHolderExtNumber;
-	private List<PolicyOptionsDTO> policyOptions;
+	private PolicyOptionsDTO policyOptions;
 	private List<ProposalContactDTO> proposalContacts;
 	private long proposalId;
 	private String status;
