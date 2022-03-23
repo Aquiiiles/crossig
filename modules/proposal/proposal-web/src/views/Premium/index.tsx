@@ -5,8 +5,6 @@ import Stepper from "../../shared/molecules/Stepper";
 import { resetModalScroll } from "../../shared/util/commonFunctions";
 import { PREMIUM } from "../../constants/languageKeys";
 import PolicyPeriod from "./containers/PolicyPeriod";
-import Coverage from "./containers/Coverage";
-import PremiumSummary from "./containers/PremiumSummary";
 import BackBtn from "../../shared/atoms/BackBtn";
 import { formatLastUpdate } from "./util";
 import { PROPOSAL_URL } from "../../api/constants/routes";
@@ -27,41 +25,18 @@ const Premium: React.FC = () => {
   const createProposalPayload = () => {
     const contactsInPolicy = state.contactsInPolicy.contactsInPolicy;
     const policyHolder = state.contactsInPolicy.policyHolder;
-    const coveragePlan = state.coveragePlan.coveragePlan;
     const insuranceProduct = state.insuranceProduct.insuranceProduct;
 
     const payload = {
-      externalProposalNumber: "externalProposalNumber",
+      externalProposalNumber: "",
       lastUpdate: formatLastUpdate(new Date()),
-      origin: "origin",
+      origin: "",
       agentUserId: Liferay.ThemeDisplay.getUserId(),
       policyHolderExtNumber: policyHolder.id.toString(),
       insuredObjectExtNumber: insuranceProduct.externalId.toString(),
-      status: "status",
-      policyCoverageOptions: [
-        {
-          coverageOptionsName: coveragePlan.name,
-          coverageOptionsValue: coveragePlan.description,
-          type: coveragePlan.category,
-        },
-      ],
-      policyOptions: [
-        {
-          communicationMethod: "communicationMethod",
-          contractEndDate: "10/10/2023",
-          contractPeriod: "contractPeriod",
-          contractStartDate: "10/10/2022",
-          currency: "currency",
-          durationYear: 1,
-          issueDate: "10/10/2022",
-          policyEndDate: "10/10/2022",
-          policyNumberDays: 1,
-          policyStartDate: "10/10/2022",
-          productCategory: insuranceProduct.category,
-          productExtNumber: insuranceProduct.productId.toString(),
-          termsDate: "10/10/2022",
-        },
-      ],
+      status: "",
+      policyCoverageOptions: [],
+      policyOptions: [],
       proposalContacts: contactsInPolicy.map((contact: contactInPolicy) => {
         return {
           contactExtNumber: contact.id.toString(),
@@ -126,9 +101,6 @@ const Premium: React.FC = () => {
             </p>
           </div>
           <PolicyPeriod />
-          <PremiumSummary />
-          <br></br>
-          <Coverage />
         </Content>
         <ButtonWrapper>
           <BackBtn pathname="vessel_search" state={{ doSearch: true }} />
