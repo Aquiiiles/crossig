@@ -57,7 +57,9 @@ const EmailListInput: React.FC<props> = (props) => {
                 <small>{CONTACT_INFO.OTHER_EMAIL_ADDRESSES_SUBTITLE}</small>
               </InnerTitle>
             )}
-            <label>{CONTACT_INFO.EMAIL_ADDRESS}</label>
+            <label htmlFor={`emailInput${index}`}>
+              {CONTACT_INFO.EMAIL_ADDRESS}
+            </label>
             <ClayInput
               key={`emailInputKey${index}`}
               id={`emailInput${index}`}

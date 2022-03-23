@@ -53,6 +53,22 @@ const selectLegalType = () => {
   });
 };
 
+const addEmail = () => {
+  act(() => {
+    fireEvent.click(
+      screen.getAllByText(language.CONTACT_INFO.ADD_EMAIL_ADDRESS)[0]
+    );
+  });
+};
+
+const addMobile = () => {
+  act(() => {
+    fireEvent.click(
+      screen.getAllByText(language.CONTACT_INFO.ADD_MOBILE_PHONE)[0]
+    );
+  });
+};
+
 describe("New Contact page", () => {
   beforeEach(() => {
     act(() => {
@@ -276,9 +292,120 @@ describe("New Contact page", () => {
     expect(dispatchAddress).not.toBeChecked();
   });
 
-  it("Create Contact button", () => {
+  it("Contact info initial fields", () => {
     expect(
-      screen.getByText(language.CONTACT_INFO.CREATE_CONTACT)
-    ).toBeDisabled();
+      screen.getAllByText(language.CONTACT_INFO.MAIN_EMAIL)[0]
+    ).toBeVisible();
+    expect(
+      screen.getAllByText(language.CONTACT_INFO.MAIN_EMAIL_SUBTITLE)[0]
+    ).toBeVisible();
+    expect(
+      screen.getAllByText(language.CONTACT_INFO.EMAIL_ADDRESS)[0]
+    ).toBeVisible();
+    expect(
+      screen.getAllByText(language.CONTACT_INFO.ADD_EMAIL_ADDRESS)[0]
+    ).not.toBeDisabled();
+    expect(
+      screen.getAllByText(language.CONTACT_INFO.MAIN_MOBILE)[0]
+    ).toBeVisible();
+    expect(
+      screen.getAllByText(language.CONTACT_INFO.MAIN_MOBILE_SUBTITLE)[0]
+    ).toBeVisible();
+    expect(
+      screen.getAllByText(language.CONTACT_INFO.PHONE_NUMBER)[0]
+    ).toBeVisible();
+    expect(
+      screen.getAllByText(language.CONTACT_INFO.ADD_MOBILE_PHONE)[0]
+    ).toBeVisible();
+  });
+
+  it("Add 1 other email", () => {
+    addEmail();
+
+    expect(
+      screen.getAllByText(language.CONTACT_INFO.MAIN_EMAIL_SUBTITLE)[0]
+    ).toBeVisible();
+    expect(
+      screen.getAllByText(language.CONTACT_INFO.OTHER_EMAIL_ADDRESSES)[0]
+    ).toBeVisible();
+    expect(
+      screen.getAllByLabelText(language.CONTACT_INFO.EMAIL_ADDRESS).length
+    ).toBe(2);
+    expect(
+      screen.getAllByText(language.CONTACT_INFO.ADD_EMAIL_ADDRESS)[0]
+    ).not.toHaveClass("disabled");
+  });
+
+  it("Add 2 other email", () => {
+    addEmail();
+    addEmail();
+
+    expect(
+      screen.getAllByText(language.CONTACT_INFO.MAIN_EMAIL_SUBTITLE)[0]
+    ).toBeVisible();
+    expect(
+      screen.getAllByText(language.CONTACT_INFO.OTHER_EMAIL_ADDRESSES)[0]
+    ).toBeVisible();
+    expect(
+      screen.getAllByLabelText(language.CONTACT_INFO.EMAIL_ADDRESS).length
+    ).toBe(3);
+    expect(
+      screen.getAllByText(language.CONTACT_INFO.ADD_EMAIL_ADDRESS)[0]
+    ).not.toHaveClass("disabled");
+  });
+
+  it("Add 3 other email", () => {
+    addEmail();
+    addEmail();
+    addEmail();
+
+    expect(
+      screen.getAllByText(language.CONTACT_INFO.MAIN_EMAIL_SUBTITLE)[0]
+    ).toBeVisible();
+    expect(
+      screen.getAllByText(language.CONTACT_INFO.OTHER_EMAIL_ADDRESSES)[0]
+    ).toBeVisible();
+    expect(
+      screen.getAllByLabelText(language.CONTACT_INFO.EMAIL_ADDRESS).length
+    ).toBe(4);
+    expect(
+      screen.getAllByText(language.CONTACT_INFO.ADD_EMAIL_ADDRESS)[0]
+    ).toHaveClass("disabled");
+  });
+
+  it("Add 1 other mobile", () => {
+    addMobile();
+
+    expect(
+      screen.getAllByLabelText(language.CONTACT_INFO.PHONE_NUMBER).length
+    ).toBe(2);
+    expect(
+      screen.getAllByText(language.CONTACT_INFO.ADD_MOBILE_PHONE)[0]
+    ).not.toHaveClass("disabled");
+  });
+
+  it("Add 2 other mobile", () => {
+    addMobile();
+    addMobile();
+
+    expect(
+      screen.getAllByLabelText(language.CONTACT_INFO.PHONE_NUMBER).length
+    ).toBe(3);
+    expect(
+      screen.getAllByText(language.CONTACT_INFO.ADD_MOBILE_PHONE)[0]
+    ).not.toHaveClass("disabled");
+  });
+
+  it("Add 3 other mobile", () => {
+    addMobile();
+    addMobile();
+    addMobile();
+
+    expect(
+      screen.getAllByLabelText(language.CONTACT_INFO.PHONE_NUMBER).length
+    ).toBe(4);
+    expect(
+      screen.getAllByText(language.CONTACT_INFO.ADD_MOBILE_PHONE)[0]
+    ).toHaveClass("disabled");
   });
 });
