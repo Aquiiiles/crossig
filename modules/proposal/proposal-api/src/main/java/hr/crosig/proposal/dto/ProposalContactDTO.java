@@ -12,95 +12,95 @@ import java.util.Date;
 public class ProposalContactDTO {
 
 	public long getCompanyId() {
-		return companyId;
+		return _companyId;
 	}
 
 	public String getContactExtNumber() {
-		return contactExtNumber;
+		return _contactExtNumber;
 	}
 
 	public Date getCreateDate() {
-		return createDate;
+		return _createDate;
 	}
 
 	public String getInsuredRoles() {
-		return insuredRoles;
+		return _insuredRoles;
 	}
 
 	public Date getModifiedDate() {
-		return modifiedDate;
+		return _modifiedDate;
 	}
 
 	public long getProposalContactId() {
-		return proposalContactId;
+		return _proposalContactId;
 	}
 
 	public long getProposalId() {
-		return proposalId;
+		return _proposalId;
 	}
 
 	public long getUserId() {
-		return userId;
+		return _userId;
 	}
 
 	public String getUserName() {
-		return userName;
+		return _userName;
 	}
 
 	public void setCompanyId(long companyId) {
-		this.companyId = companyId;
+		_companyId = companyId;
 	}
 
 	public void setContactExtNumber(String contactExtNumber) {
-		this.contactExtNumber = contactExtNumber;
+		_contactExtNumber = contactExtNumber;
 	}
 
 	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+		_createDate = createDate;
 	}
 
 	public void setInsuredRoles(String insuredRoles) {
-		this.insuredRoles = insuredRoles;
+		_insuredRoles = insuredRoles;
 	}
 
 	public void setModifiedDate(Date modifiedDate) {
-		this.modifiedDate = modifiedDate;
+		_modifiedDate = modifiedDate;
 	}
 
 	public void setProposalContactId(long proposalContactId) {
-		this.proposalContactId = proposalContactId;
+		_proposalContactId = proposalContactId;
 	}
 
 	public void setProposalId(long proposalId) {
-		this.proposalId = proposalId;
+		_proposalId = proposalId;
 	}
 
 	public void setUserId(long userId) {
-		this.userId = userId;
+		_userId = userId;
 	}
 
 	public void setUserName(String userName) {
-		this.userName = userName;
+		_userName = userName;
 	}
 
-	private long companyId;
-	private String contactExtNumber;
+	private long _companyId;
+	private String _contactExtNumber;
 
 	@JsonFormat(
 		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
 	)
-	private Date createDate;
+	private Date _createDate;
 
-	private String insuredRoles;
+	private String _insuredRoles;
 
 	@JsonFormat(
 		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
 	)
-	private Date modifiedDate;
+	private Date _modifiedDate;
 
-	private long proposalContactId;
-	private long proposalId;
-	private long userId;
-	private String userName;
+	private long _proposalContactId;
+	private long _proposalId;
+	private long _userId;
+	private String _userName;
 
 }

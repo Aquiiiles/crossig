@@ -12,221 +12,221 @@ import java.util.Date;
 public class PolicyOptionsDTO {
 
 	public String getCommunicationMethod() {
-		return communicationMethod;
+		return _communicationMethod;
 	}
 
 	public long getCompanyId() {
-		return companyId;
+		return _companyId;
 	}
 
 	public Date getContractEndDate() {
-		return contractEndDate;
+		return _contractEndDate;
 	}
 
 	public String getContractPeriod() {
-		return contractPeriod;
+		return _contractPeriod;
 	}
 
 	public Date getContractStartDate() {
-		return contractStartDate;
+		return _contractStartDate;
 	}
 
 	public Date getCreateDate() {
-		return createDate;
+		return _createDate;
 	}
 
 	public String getCurrency() {
-		return currency;
+		return _currency;
 	}
 
 	public int getDurationYear() {
-		return durationYear;
+		return _durationYear;
 	}
 
 	public Date getIssueDate() {
-		return issueDate;
+		return _issueDate;
 	}
 
 	public Date getModifiedDate() {
-		return modifiedDate;
+		return _modifiedDate;
 	}
 
 	public Date getPolicyEndDate() {
-		return policyEndDate;
+		return _policyEndDate;
 	}
 
 	public int getPolicyNumberDays() {
-		return policyNumberDays;
+		return _policyNumberDays;
 	}
 
 	public long getPolicyOptionsId() {
-		return policyOptionsId;
+		return _policyOptionsId;
 	}
 
 	public Date getPolicyStartDate() {
-		return policyStartDate;
+		return _policyStartDate;
 	}
 
 	public String getProductCategory() {
-		return productCategory;
+		return _productCategory;
 	}
 
 	public String getProductExtNumber() {
-		return productExtNumber;
+		return _productExtNumber;
 	}
 
 	public long getProposalId() {
-		return proposalId;
+		return _proposalId;
 	}
 
 	public Date getTermsDate() {
-		return termsDate;
+		return _termsDate;
 	}
 
 	public long getUserId() {
-		return userId;
+		return _userId;
 	}
 
 	public String getUserName() {
-		return userName;
+		return _userName;
 	}
 
 	public void setCommunicationMethod(String communicationMethod) {
-		this.communicationMethod = communicationMethod;
+		_communicationMethod = communicationMethod;
 	}
 
 	public void setCompanyId(long companyId) {
-		this.companyId = companyId;
+		_companyId = companyId;
 	}
 
 	public void setContractEndDate(Date contractEndDate) {
-		this.contractEndDate = contractEndDate;
+		_contractEndDate = contractEndDate;
 	}
 
 	public void setContractPeriod(String contractPeriod) {
-		this.contractPeriod = contractPeriod;
+		_contractPeriod = contractPeriod;
 	}
 
 	public void setContractStartDate(Date contractStartDate) {
-		this.contractStartDate = contractStartDate;
+		_contractStartDate = contractStartDate;
 	}
 
 	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+		_createDate = createDate;
 	}
 
 	public void setCurrency(String currency) {
-		this.currency = currency;
+		_currency = currency;
 	}
 
 	public void setDurationYear(int durationYear) {
-		this.durationYear = durationYear;
+		_durationYear = durationYear;
 	}
 
 	public void setIssueDate(Date issueDate) {
-		this.issueDate = issueDate;
+		_issueDate = issueDate;
 	}
 
 	public void setModifiedDate(Date modifiedDate) {
-		this.modifiedDate = modifiedDate;
+		_modifiedDate = modifiedDate;
 	}
 
 	public void setPolicyEndDate(Date policyEndDate) {
-		this.policyEndDate = policyEndDate;
+		_policyEndDate = policyEndDate;
 	}
 
 	public void setPolicyNumberDays(int policyNumberDays) {
-		this.policyNumberDays = policyNumberDays;
+		_policyNumberDays = policyNumberDays;
 	}
 
 	public void setPolicyOptionsId(long policyOptionsId) {
-		this.policyOptionsId = policyOptionsId;
+		_policyOptionsId = policyOptionsId;
 	}
 
 	public void setPolicyStartDate(Date policyStartDate) {
-		this.policyStartDate = policyStartDate;
+		_policyStartDate = policyStartDate;
 	}
 
 	public void setProductCategory(String productCategory) {
-		this.productCategory = productCategory;
+		_productCategory = productCategory;
 	}
 
 	public void setProductExtNumber(String productExtNumber) {
-		this.productExtNumber = productExtNumber;
+		_productExtNumber = productExtNumber;
 	}
 
 	public void setProposalId(long proposalId) {
-		this.proposalId = proposalId;
+		_proposalId = proposalId;
 	}
 
 	public void setTermsDate(Date termsDate) {
-		this.termsDate = termsDate;
+		_termsDate = termsDate;
 	}
 
 	public void setUserId(long userId) {
-		this.userId = userId;
+		_userId = userId;
 	}
 
 	public void setUserName(String userName) {
-		this.userName = userName;
+		_userName = userName;
 	}
 
-	private String communicationMethod;
-	private long companyId;
+	private String _communicationMethod;
+	private long _companyId;
 
 	@JsonFormat(
 		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
 	)
-	private Date contractEndDate;
+	private Date _contractEndDate;
 
-	private String contractPeriod;
-
-	@JsonFormat(
-		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
-	)
-	private Date contractStartDate;
+	private String _contractPeriod;
 
 	@JsonFormat(
 		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
 	)
-	private Date createDate;
-
-	private String currency;
-	private int durationYear;
+	private Date _contractStartDate;
 
 	@JsonFormat(
 		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
 	)
-	private Date issueDate;
+	private Date _createDate;
+
+	private String _currency;
+	private int _durationYear;
 
 	@JsonFormat(
 		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
 	)
-	private Date modifiedDate;
+	private Date _issueDate;
 
 	@JsonFormat(
 		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
 	)
-	private Date policyEndDate;
-
-	private int policyNumberDays;
-	private long policyOptionsId;
+	private Date _modifiedDate;
 
 	@JsonFormat(
 		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
 	)
-	private Date policyStartDate;
+	private Date _policyEndDate;
 
-	private String productCategory;
-	private String productExtNumber;
-	private long proposalId;
+	private int _policyNumberDays;
+	private long _policyOptionsId;
 
 	@JsonFormat(
 		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
 	)
-	private Date termsDate;
+	private Date _policyStartDate;
 
-	private long userId;
-	private String userName;
+	private String _productCategory;
+	private String _productExtNumber;
+	private long _proposalId;
+
+	@JsonFormat(
+		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
+	)
+	private Date _termsDate;
+
+	private long _userId;
+	private String _userName;
 
 }

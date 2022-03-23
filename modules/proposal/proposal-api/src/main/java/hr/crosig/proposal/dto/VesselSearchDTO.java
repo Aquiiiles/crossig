@@ -1,51 +1,54 @@
 package hr.crosig.proposal.dto;
 
+/**
+ * @author Guilherme Kfouri
+ */
 public class VesselSearchDTO {
 
 	public String getFleetName() {
-		return fleetName;
+		return _fleetName;
 	}
 
 	public String getNib() {
-		return nib;
+		return _nib;
 	}
 
 	public String getRegistrationMark() {
-		return registrationMark;
+		return _registrationMark;
 	}
 
 	public String getVesselName() {
-		return vesselName;
+		return _vesselName;
 	}
 
 	public String getVesselType() {
-		return vesselType;
+		return _vesselType;
 	}
 
 	public void setFleetName(String fleetName) {
-		this.fleetName = fleetName;
+		_fleetName = fleetName;
 	}
 
 	public void setNib(String nib) {
-		this.nib = nib;
+		_nib = nib;
 	}
 
 	public void setRegistrationMark(String registrationMark) {
-		this.registrationMark = registrationMark;
+		_registrationMark = registrationMark;
 	}
 
 	public void setVesselName(String vesselName) {
-		this.vesselName = vesselName;
+		_vesselName = vesselName;
 	}
 
 	public void setVesselType(String vesselType) {
-		this.vesselType = vesselType;
+		_vesselType = vesselType;
 	}
 
-	private String fleetName;
-	private String nib;
-	private String registrationMark;
-	private String vesselName;
-	private String vesselType;
+	private String _fleetName;
+	private String _nib;
+	private String _registrationMark;
+	private String _vesselName;
+	private String _vesselType;
 
 }

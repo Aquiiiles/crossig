@@ -4,9 +4,10 @@ import hr.crosig.common.ws.idit.client.IDITWSClient;
 import hr.crosig.common.ws.response.ServiceResponse;
 import hr.crosig.common.ws.util.ApplicationUtilities;
 import hr.crosig.proposal.dto.VesselSearchDTO;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Set;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -14,9 +15,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Set;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
 /**
  * @author Guilherme Kfouri
@@ -41,15 +43,15 @@ public class VesselApplication extends Application {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response searchVessels(VesselSearchDTO vesselSearch) {
-
 		try {
 			HashMap<String, Object> vesselRequestMap = new HashMap<>();
 
+			vesselRequestMap.put("fleetName", vesselSearch.getFleetName());
 			vesselRequestMap.put("nib", vesselSearch.getNib());
-			vesselRequestMap.put("registrationMark", vesselSearch.getRegistrationMark());
+			vesselRequestMap.put(
+				"registrationMark", vesselSearch.getRegistrationMark());
 			vesselRequestMap.put("vesselName", vesselSearch.getVesselName());
 			vesselRequestMap.put("vesselType", vesselSearch.getVesselType());
-			vesselRequestMap.put("fleetName", vesselSearch.getFleetName());
 
 			String jsonRequest = ApplicationUtilities.createEntityJsonString(
 				vesselRequestMap);

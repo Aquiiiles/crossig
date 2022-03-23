@@ -13,164 +13,164 @@ import java.util.List;
 public class ProposalDTO {
 
 	public long getAgentUserId() {
-		return agentUserId;
+		return _agentUserId;
 	}
 
 	public long getCompanyId() {
-		return companyId;
+		return _companyId;
 	}
 
 	public Date getCreateDate() {
-		return createDate;
+		return _createDate;
 	}
 
 	public String getExternalProposalNumber() {
-		return externalProposalNumber;
+		return _externalProposalNumber;
 	}
 
 	public String getInsuredObjectExtNumber() {
-		return insuredObjectExtNumber;
+		return _insuredObjectExtNumber;
 	}
 
 	public Date getLastUpdate() {
-		return lastUpdate;
+		return _lastUpdate;
 	}
 
 	public Date getModifiedDate() {
-		return modifiedDate;
+		return _modifiedDate;
 	}
 
 	public String getOrigin() {
-		return origin;
+		return _origin;
 	}
 
 	public List<PolicyCoverageOptionDTO> getPolicyCoverageOptions() {
-		return policyCoverageOptions;
+		return _policyCoverageOptions;
 	}
 
 	public String getPolicyHolderExtNumber() {
-		return policyHolderExtNumber;
+		return _policyHolderExtNumber;
 	}
 
 	public PolicyOptionsDTO getPolicyOptions() {
-		return policyOptions;
+		return _policyOptions;
 	}
 
 	public List<ProposalContactDTO> getProposalContacts() {
-		return proposalContacts;
+		return _proposalContacts;
 	}
 
 	public long getProposalId() {
-		return proposalId;
+		return _proposalId;
 	}
 
 	public String getStatus() {
-		return status;
+		return _status;
 	}
 
 	public long getUserId() {
-		return userId;
+		return _userId;
 	}
 
 	public String getUserName() {
-		return userName;
+		return _userName;
 	}
 
 	public void setAgentUserId(long agentUserId) {
-		this.agentUserId = agentUserId;
+		_agentUserId = agentUserId;
 	}
 
 	public void setCompanyId(long companyId) {
-		this.companyId = companyId;
+		_companyId = companyId;
 	}
 
 	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+		_createDate = createDate;
 	}
 
 	public void setExternalProposalNumber(String externalProposalNumber) {
-		this.externalProposalNumber = externalProposalNumber;
+		_externalProposalNumber = externalProposalNumber;
 	}
 
 	public void setInsuredObjectExtNumber(String insuredObjectExtNumber) {
-		this.insuredObjectExtNumber = insuredObjectExtNumber;
+		_insuredObjectExtNumber = insuredObjectExtNumber;
 	}
 
 	public void setLastUpdate(Date lastUpdate) {
-		this.lastUpdate = lastUpdate;
+		_lastUpdate = lastUpdate;
 	}
 
 	public void setModifiedDate(Date modifiedDate) {
-		this.modifiedDate = modifiedDate;
+		_modifiedDate = modifiedDate;
 	}
 
 	public void setOrigin(String origin) {
-		this.origin = origin;
+		_origin = origin;
 	}
 
 	public void setPolicyCoverageOptions(
 		List<PolicyCoverageOptionDTO> policyCoverageOptions) {
 
-		this.policyCoverageOptions = policyCoverageOptions;
+		_policyCoverageOptions = policyCoverageOptions;
 	}
 
 	public void setPolicyHolderExtNumber(String policyHolderExtNumber) {
-		this.policyHolderExtNumber = policyHolderExtNumber;
+		_policyHolderExtNumber = policyHolderExtNumber;
 	}
 
 	public void setPolicyOptions(PolicyOptionsDTO policyOptions) {
-		this.policyOptions = policyOptions;
+		_policyOptions = policyOptions;
 	}
 
 	public void setProposalContacts(List<ProposalContactDTO> proposalContacts) {
-		this.proposalContacts = proposalContacts;
+		_proposalContacts = proposalContacts;
 	}
 
 	public void setProposalId(long proposalId) {
-		this.proposalId = proposalId;
+		_proposalId = proposalId;
 	}
 
 	public void setStatus(String status) {
-		this.status = status;
+		_status = status;
 	}
 
 	public void setUserId(long userId) {
-		this.userId = userId;
+		_userId = userId;
 	}
 
 	public void setUserName(String userName) {
-		this.userName = userName;
+		_userName = userName;
 	}
 
-	private long agentUserId;
-	private long companyId;
+	private long _agentUserId;
+	private long _companyId;
 
 	@JsonFormat(
 		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
 	)
-	private Date createDate;
+	private Date _createDate;
 
-	private String externalProposalNumber;
-	private String insuredObjectExtNumber;
-
-	@JsonFormat(
-		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
-	)
-	private Date lastUpdate;
+	private String _externalProposalNumber;
+	private String _insuredObjectExtNumber;
 
 	@JsonFormat(
 		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
 	)
-	private Date modifiedDate;
+	private Date _lastUpdate;
 
-	private String origin;
-	private List<PolicyCoverageOptionDTO> policyCoverageOptions;
-	private String policyHolderExtNumber;
-	private PolicyOptionsDTO policyOptions;
-	private List<ProposalContactDTO> proposalContacts;
-	private long proposalId;
-	private String status;
-	private long userId;
-	private String userName;
+	@JsonFormat(
+		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
+	)
+	private Date _modifiedDate;
+
+	private String _origin;
+	private List<PolicyCoverageOptionDTO> _policyCoverageOptions;
+	private String _policyHolderExtNumber;
+	private PolicyOptionsDTO _policyOptions;
+	private List<ProposalContactDTO> _proposalContacts;
+	private long _proposalId;
+	private String _status;
+	private long _userId;
+	private String _userName;
 
 }

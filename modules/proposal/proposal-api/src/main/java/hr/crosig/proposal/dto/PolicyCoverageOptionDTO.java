@@ -12,103 +12,103 @@ import java.util.Date;
 public class PolicyCoverageOptionDTO {
 
 	public long getCompanyId() {
-		return companyId;
+		return _companyId;
 	}
 
 	public String getCoverageOptionsName() {
-		return coverageOptionsName;
+		return _coverageOptionsName;
 	}
 
 	public String getCoverageOptionsValue() {
-		return coverageOptionsValue;
+		return _coverageOptionsValue;
 	}
 
 	public Date getCreateDate() {
-		return createDate;
+		return _createDate;
 	}
 
 	public Date getModifiedDate() {
-		return modifiedDate;
+		return _modifiedDate;
 	}
 
 	public long getPolicyCoverageOptionId() {
-		return policyCoverageOptionId;
+		return _policyCoverageOptionId;
 	}
 
 	public long getProposalId() {
-		return proposalId;
+		return _proposalId;
 	}
 
 	public String getType() {
-		return type;
+		return _type;
 	}
 
 	public long getUserId() {
-		return userId;
+		return _userId;
 	}
 
 	public String getUserName() {
-		return userName;
+		return _userName;
 	}
 
 	public void setCompanyId(long companyId) {
-		this.companyId = companyId;
+		_companyId = companyId;
 	}
 
 	public void setCoverageOptionsName(String coverageOptionsName) {
-		this.coverageOptionsName = coverageOptionsName;
+		_coverageOptionsName = coverageOptionsName;
 	}
 
 	public void setCoverageOptionsValue(String coverageOptionsValue) {
-		this.coverageOptionsValue = coverageOptionsValue;
+		_coverageOptionsValue = coverageOptionsValue;
 	}
 
 	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+		_createDate = createDate;
 	}
 
 	public void setModifiedDate(Date modifiedDate) {
-		this.modifiedDate = modifiedDate;
+		_modifiedDate = modifiedDate;
 	}
 
 	public void setPolicyCoverageOptionId(long policyCoverageOptionId) {
-		this.policyCoverageOptionId = policyCoverageOptionId;
+		_policyCoverageOptionId = policyCoverageOptionId;
 	}
 
 	public void setProposalId(long proposalId) {
-		this.proposalId = proposalId;
+		_proposalId = proposalId;
 	}
 
 	public void setType(String type) {
-		this.type = type;
+		_type = type;
 	}
 
 	public void setUserId(long userId) {
-		this.userId = userId;
+		_userId = userId;
 	}
 
 	public void setUserName(String userName) {
-		this.userName = userName;
+		_userName = userName;
 	}
 
-	private long companyId;
-	private String coverageOptionsName;
-	private String coverageOptionsValue;
+	private long _companyId;
+	private String _coverageOptionsName;
+	private String _coverageOptionsValue;
 
 	@JsonFormat(
 		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
 	)
-	private Date createDate;
+	private Date _createDate;
 
 	@JsonFormat(
 		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
 	)
-	private Date modifiedDate;
+	private Date _modifiedDate;
 
-	private long policyCoverageOptionId;
-	private long proposalId;
-	private String type;
-	private long userId;
-	private String userName;
+	private long _policyCoverageOptionId;
+	private long _proposalId;
+	private String _type;
+	private long _userId;
+	private String _userName;
 
 }
