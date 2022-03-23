@@ -21,6 +21,9 @@ import hr.crosig.proposal.dto.PolicyCoverageOptionDTO;
 import hr.crosig.proposal.model.PolicyCoverageOpt;
 import hr.crosig.proposal.service.base.PolicyCoverageOptLocalServiceBaseImpl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.osgi.service.component.annotations.Component;
 
 /**
@@ -50,6 +53,19 @@ public class PolicyCoverageOptLocalServiceImpl
 
 	public void deleteAllByProposalId(long proposalId) {
 		policyCoverageOptPersistence.removeByProposalId(proposalId);
+	}
+
+	public List<PolicyCoverageOptionDTO> getProposalCoverageOptions(
+		long proposalId) {
+
+		return policyCoverageOptPersistence.findByProposalId(
+			proposalId
+		).stream(
+		).map(
+			this::_mapToDTO
+		).collect(
+			Collectors.toList()
+		);
 	}
 
 	public PolicyCoverageOptionDTO updatePolicyCoverageOpt(

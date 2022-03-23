@@ -18,6 +18,7 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 
 import hr.crosig.proposal.dto.PolicyOptionsDTO;
+import hr.crosig.proposal.exception.NoSuchPolicyOptionsException;
 import hr.crosig.proposal.model.PolicyOptions;
 import hr.crosig.proposal.service.base.PolicyOptionsLocalServiceBaseImpl;
 
@@ -47,8 +48,15 @@ public class PolicyOptionsLocalServiceImpl
 		return _mapToDTO(policyOptions);
 	}
 
-	public void deleteAllByProposalId(long proposalId) {
+	public void deleteAllByProposalId(long proposalId)
+		throws NoSuchPolicyOptionsException {
+
 		policyOptionsPersistence.removeByProposalId(proposalId);
+	}
+
+	public PolicyOptionsDTO getProposalPolicyOptions(long proposalId) {
+		return _mapToDTO(
+			policyOptionsPersistence.fetchByProposalId(proposalId));
 	}
 
 	public PolicyOptionsDTO updatePolicyOptions(

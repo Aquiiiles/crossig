@@ -21,6 +21,9 @@ import hr.crosig.proposal.dto.ProposalContactDTO;
 import hr.crosig.proposal.model.ProposalContact;
 import hr.crosig.proposal.service.base.ProposalContactLocalServiceBaseImpl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.osgi.service.component.annotations.Component;
 
 /**
@@ -50,6 +53,17 @@ public class ProposalContactLocalServiceImpl
 
 	public void deleteAllByProposalId(long proposalId) {
 		proposalContactPersistence.removeByProposalId(proposalId);
+	}
+
+	public List<ProposalContactDTO> getProposalContacts(long proposalId) {
+		return proposalContactPersistence.findByProposalId(
+			proposalId
+		).stream(
+		).map(
+			this::_mapToDTO
+		).collect(
+			Collectors.toList()
+		);
 	}
 
 	public ProposalContactDTO updateProposalContact(
