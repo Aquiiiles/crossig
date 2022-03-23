@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { ROLES_ON_POLICY } from "../../../constants/languageKeys";
 import * as constants from "../constants/searchResult";
@@ -7,7 +6,6 @@ import { useDispatch } from "../../../redux/store";
 import { actions } from "../../../redux";
 
 export default function useTableRowState(operation: number) {
-  const [showButtons, setShowButtons] = useState(false);
   const history = useHistory();
   const { setPolicyHolder } = actions.contactsInPolicy;
   const dispatch = useDispatch();
@@ -50,9 +48,7 @@ export default function useTableRowState(operation: number) {
   };
 
   return [
-    { showButtons },
     {
-      setShowButtons,
       formatDOB,
       openUpdateContact,
       selectContact,
