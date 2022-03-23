@@ -279,4 +279,6 @@ export const PREMIUM = {
   },
   SAVE_AND_RESUME_BUTTON: Liferay.Language.get('premium-save-and-resume-later-button'),
   CONTINUE_BUTTON: Liferay.Language.get('premium-continue-button'),
+  SUCCESS: Liferay.Language.get('premium-success'),
+  FAILURE: Liferay.Language.get('premium-failure'),
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ButtonWrapper, Content, Wrapper, InnerWrapper } from "./styles";
 import ClayButton from "@clayui/button";
 import Stepper from "../../shared/molecules/Stepper";
@@ -7,19 +7,117 @@ import { PREMIUM } from "../../constants/languageKeys";
 import PolicyPeriod from "./containers/PolicyPeriod";
 import Coverage from "./containers/Coverage";
 import PremiumSummary from "./containers/PremiumSummary";
-import LinkWrapper from "../../shared/atoms/LinkWrapper";
 import BackBtn from "../../shared/atoms/BackBtn";
+import { formatLastUpdate } from "./util";
+import { PROPOSAL_URL } from "../../api/constants/routes";
+import API from "../../api";
+import { useSelector } from "../../redux/store";
+import { contactInPolicy } from "../../redux/contactsInPolicy/types";
+import Modal from "../../shared/atoms/Modal";
+
+declare const Liferay: {
+  ThemeDisplay: { getUserId: () => number };
+};
 
 const Premium: React.FC = () => {
+  const state = useSelector((state) => state);
+  const [showModal, setShowModal] = useState(false);
+  const [isUpdateSuccessful, setUpdateSuccess] = useState(false);
+
+  const createProposalPayload = () => {
+    const contactsInPolicy = state.contactsInPolicy.contactsInPolicy;
+    const policyHolder = state.contactsInPolicy.policyHolder;
+    const coveragePlan = state.coveragePlan.coveragePlan;
+    const insuranceProduct = state.insuranceProduct.insuranceProduct;
+
+    const payload = {
+      externalProposalNumber: "externalProposalNumber",
+      lastUpdate: formatLastUpdate(new Date()),
+      origin: "origin",
+      agentUserId: Liferay.ThemeDisplay.getUserId(),
+      policyHolderExtNumber: policyHolder.id.toString(),
+      insuredObjectExtNumber: insuranceProduct.externalId.toString(),
+      status: "status",
+      policyCoverageOptions: [
+        {
+          coverageOptionsName: coveragePlan.name,
+          coverageOptionsValue: coveragePlan.description,
+          type: coveragePlan.category,
+        },
+      ],
+      policyOptions: [
+        {
+          communicationMethod: "communicationMethod",
+          contractEndDate: "10/10/2023",
+          contractPeriod: "contractPeriod",
+          contractStartDate: "10/10/2022",
+          currency: "currency",
+          durationYear: 1,
+          issueDate: "10/10/2022",
+          policyEndDate: "10/10/2022",
+          policyNumberDays: 1,
+          policyStartDate: "10/10/2022",
+          productCategory: insuranceProduct.category,
+          productExtNumber: insuranceProduct.productId.toString(),
+          termsDate: "10/10/2022",
+        },
+      ],
+      proposalContacts: contactsInPolicy.map((contact: contactInPolicy) => {
+        return {
+          contactExtNumber: contact.id.toString(),
+          insuredRoles: contact.contactRoles.join(","),
+        };
+      }),
+    };
+
+    return payload;
+  };
+
+  const createProposal = () => {
+    const payload = createProposalPayload();
+    const response = API.post(PROPOSAL_URL, payload);
+    resetModalScroll();
+
+    response
+      .then(() => {
+        setUpdateSuccess(true);
+        setShowModal(true);
+      })
+      .catch(() => {
+        setUpdateSuccess(false);
+        setShowModal(true);
+      });
+  };
+
   useEffect(() => {
     resetModalScroll();
   }, []);
+
+  const modalMessage = (text: string) => {
+    return <p style={{ marginLeft: "1.5rem" }}>{text}</p>;
+  };
 
   return (
     <Wrapper id="premium">
       <Stepper currentStep={6} />
 
       <InnerWrapper id="inner-wrapper">
+        <Modal
+          visible={showModal && isUpdateSuccessful}
+          onClose={() => setShowModal(false)}
+          title={PREMIUM.TITLE}
+          body={modalMessage(PREMIUM.SUCCESS)}
+          timeOut={5000}
+        />
+
+        <Modal
+          visible={showModal && !isUpdateSuccessful}
+          onClose={() => setShowModal(false)}
+          title={PREMIUM.TITLE}
+          body={modalMessage(PREMIUM.FAILURE)}
+          timeOut={5000}
+        />
+
         <Content id="content">
           <div className="tablet-padding">
             <h5>{PREMIUM.TITLE}</h5>
@@ -33,13 +131,7 @@ const Premium: React.FC = () => {
           <Coverage />
         </Content>
         <ButtonWrapper>
-          <BackBtn
-            pathname="vessel_search"
-            state={{ doSearch: true }}
-            onClick={() => {
-              return;
-            }}
-          />
+          <BackBtn pathname="vessel_search" state={{ doSearch: true }} />
 
           <ClayButton.Group spaced>
             <ClayButton.Group spaced>
@@ -47,6 +139,7 @@ const Premium: React.FC = () => {
                 id="save-and-resume-later-button"
                 displayType="secondary"
                 className="ghost"
+                onClick={() => createProposal()}
               >
                 {PREMIUM.SAVE_AND_RESUME_BUTTON}
               </ClayButton>

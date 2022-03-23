@@ -3,7 +3,7 @@ import { Wrapper, ButtonWrapper } from "./styles";
 import BasicInfo from "../../../../shared/molecules/contact/BasicInfo";
 import Addresses from "../../../../shared/molecules/contact/Addresses";
 import ContactInfoForm from "../../../../shared/molecules/contact/ContactInfoForm";
-import Modal from "../../../../shared/atoms/contact/Modal";
+import Modal from "../../../../shared/atoms/Modal";
 import ClayButton from "@clayui/button";
 import {
   CONTACT_INFO,
