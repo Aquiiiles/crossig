@@ -143,6 +143,30 @@ public class ProposalApplication extends Application {
 		return responseBuilder.build();
 	}
 
+	@GET
+	@Path("/{proposalId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getProposal(@PathParam("proposalId") long proposalId) {
+		Response.ResponseBuilder responseBuilder;
+
+		try {
+			ProposalDTO proposalDTO = _proposalLocalService.getProposalDTO(proposalId);
+
+			responseBuilder = Response.ok(
+			).entity(
+					proposalDTO
+			);
+		}
+		catch (Exception exception) {
+			responseBuilder = Response.serverError(
+			).entity(
+					exception.getMessage()
+			);
+		}
+
+		return responseBuilder.build();
+	}
+
 	@PUT
 	@Path("/{proposalId}")
 	@Produces(MediaType.APPLICATION_JSON)
