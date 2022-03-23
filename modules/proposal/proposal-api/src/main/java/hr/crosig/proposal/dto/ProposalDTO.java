@@ -20,24 +20,12 @@ public class ProposalDTO {
 		return _companyId;
 	}
 
-	public Date getCreateDate() {
-		return _createDate;
-	}
-
 	public String getExternalProposalNumber() {
 		return _externalProposalNumber;
 	}
 
 	public String getInsuredObjectExtNumber() {
 		return _insuredObjectExtNumber;
-	}
-
-	public Date getLastUpdate() {
-		return _lastUpdate;
-	}
-
-	public Date getModifiedDate() {
-		return _modifiedDate;
 	}
 
 	public String getOrigin() {
@@ -84,24 +72,12 @@ public class ProposalDTO {
 		_companyId = companyId;
 	}
 
-	public void setCreateDate(Date createDate) {
-		_createDate = createDate;
-	}
-
 	public void setExternalProposalNumber(String externalProposalNumber) {
 		_externalProposalNumber = externalProposalNumber;
 	}
 
 	public void setInsuredObjectExtNumber(String insuredObjectExtNumber) {
 		_insuredObjectExtNumber = insuredObjectExtNumber;
-	}
-
-	public void setLastUpdate(Date lastUpdate) {
-		_lastUpdate = lastUpdate;
-	}
-
-	public void setModifiedDate(Date modifiedDate) {
-		_modifiedDate = modifiedDate;
 	}
 
 	public void setOrigin(String origin) {
@@ -145,23 +121,8 @@ public class ProposalDTO {
 	private long _agentUserId;
 	private long _companyId;
 
-	@JsonFormat(
-		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
-	)
-	private Date _createDate;
-
 	private String _externalProposalNumber;
 	private String _insuredObjectExtNumber;
-
-	@JsonFormat(
-		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
-	)
-	private Date _lastUpdate;
-
-	@JsonFormat(
-		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
-	)
-	private Date _modifiedDate;
 
 	private String _origin;
 	private List<PolicyCoverageOptionDTO> _policyCoverageOptions;

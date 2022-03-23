@@ -6,7 +6,6 @@ import { resetModalScroll } from "../../shared/util/commonFunctions";
 import { PREMIUM } from "../../constants/languageKeys";
 import PolicyPeriod from "./containers/PolicyPeriod";
 import BackBtn from "../../shared/atoms/BackBtn";
-import { formatLastUpdate } from "./util";
 import { PROPOSAL_URL } from "../../api/constants/routes";
 import API from "../../api";
 import { useSelector } from "../../redux/store";
@@ -29,14 +28,10 @@ const Premium: React.FC = () => {
 
     const payload = {
       externalProposalNumber: "",
-      lastUpdate: formatLastUpdate(new Date()),
-      origin: "",
       agentUserId: Liferay.ThemeDisplay.getUserId(),
       policyHolderExtNumber: policyHolder.id.toString(),
       insuredObjectExtNumber: insuranceProduct.externalId.toString(),
       status: "",
-      policyCoverageOptions: [],
-      policyOptions: [],
       proposalContacts: contactsInPolicy.map((contact: contactInPolicy) => {
         return {
           contactExtNumber: contact.id.toString(),

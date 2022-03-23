@@ -29,6 +29,7 @@ import hr.crosig.proposal.service.ProposalContactLocalService;
 import hr.crosig.proposal.service.base.ProposalLocalServiceBaseImpl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,6 +50,8 @@ public class ProposalLocalServiceImpl extends ProposalLocalServiceBaseImpl {
 			Proposal.class.getName());
 
 		Proposal proposal = proposalPersistence.create(proposalId);
+
+		proposal.setCreateDate(new Date());
 
 		proposal = _updateProposal(proposalDTO, proposal);
 
@@ -98,6 +101,10 @@ public class ProposalLocalServiceImpl extends ProposalLocalServiceBaseImpl {
 		List<PolicyCoverageOptionDTO> updatedPolicyCoverageOptions =
 			new ArrayList<>();
 
+		if (policyCoverageOptions == null) {
+			return updatedPolicyCoverageOptions;
+		}
+
 		policyCoverageOptions.forEach(
 			policyCoverageOption -> {
 				policyCoverageOption.setProposalId(proposalId);
@@ -112,6 +119,10 @@ public class ProposalLocalServiceImpl extends ProposalLocalServiceBaseImpl {
 
 	private PolicyOptionsDTO _createPolicyOptions(
 		PolicyOptionsDTO policyOptionsDTO, long proposalId) {
+
+		if (policyOptionsDTO == null) {
+			return null;
+		}
 
 		policyOptionsDTO.setProposalId(proposalId);
 
@@ -160,14 +171,10 @@ public class ProposalLocalServiceImpl extends ProposalLocalServiceBaseImpl {
 
 		proposalDTO.setAgentUserId(proposal.getAgentUserId());
 		proposalDTO.setCompanyId(proposal.getCompanyId());
-		proposalDTO.setCreateDate(proposal.getCreateDate());
 		proposalDTO.setExternalProposalNumber(
 			proposal.getExternalProposalNumber());
 		proposalDTO.setInsuredObjectExtNumber(
 			proposal.getInsuredObjectExtNumber());
-		proposalDTO.setLastUpdate(proposal.getLastUpdate());
-		proposalDTO.setModifiedDate(proposal.getModifiedDate());
-		proposalDTO.setOrigin(proposal.getOrigin());
 		proposalDTO.setPolicyHolderExtNumber(
 			proposal.getPolicyHolderExtNumber());
 		proposalDTO.setProposalId(proposal.getProposalId());
@@ -194,7 +201,6 @@ public class ProposalLocalServiceImpl extends ProposalLocalServiceBaseImpl {
 
 		proposal.setExternalProposalNumber(
 			proposalDTO.getExternalProposalNumber());
-		proposal.setLastUpdate(proposalDTO.getLastUpdate());
 		proposal.setOrigin(proposalDTO.getOrigin());
 		proposal.setAgentUserId(proposalDTO.getAgentUserId());
 		proposal.setPolicyHolderExtNumber(
@@ -202,6 +208,7 @@ public class ProposalLocalServiceImpl extends ProposalLocalServiceBaseImpl {
 		proposal.setInsuredObjectExtNumber(
 			proposalDTO.getInsuredObjectExtNumber());
 		proposal.setStatus(proposalDTO.getStatus());
+		proposal.setModifiedDate(new Date());
 
 		return proposalPersistence.update(proposal);
 	}
