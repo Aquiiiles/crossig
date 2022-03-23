@@ -1,17 +1,17 @@
 import React from "react";
 import { render, cleanup, screen, fireEvent } from "@testing-library/react";
-import * as language from "../constants/languageKeys";
-import NewContact from "../views/NewContact";
+import { act } from "react-dom/test-utils";
 import { Provider as StoreProvider } from "react-redux";
 import { ThemeProvider } from "styled-components";
+import { store as reduxStore } from "../redux/store";
+import * as language from "../constants/languageKeys";
 import defaultTheme from "../constants/theme";
-import store from "../redux/store";
-import { act } from "react-dom/test-utils";
+import NewContact from "../views/NewContact";
 
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={defaultTheme}>
-      <StoreProvider store={store}>
+      <StoreProvider store={reduxStore}>
         <NewContact />
       </StoreProvider>
     </ThemeProvider>
@@ -29,9 +29,35 @@ jest.mock("react-router-dom", () => ({
   }),
 }));
 
+const selectIndividualType = () => {
+  act(() => {
+    fireEvent.change(screen.getByLabelText(language.CREATE_NEW_CONTACT.TYPE), {
+      target: { value: 1 },
+    });
+  });
+};
+
+const selectSelfType = () => {
+  act(() => {
+    fireEvent.change(screen.getByLabelText(language.CREATE_NEW_CONTACT.TYPE), {
+      target: { value: 2 },
+    });
+  });
+};
+
+const selectLegalType = () => {
+  act(() => {
+    fireEvent.change(screen.getByLabelText(language.CREATE_NEW_CONTACT.TYPE), {
+      target: { value: 3 },
+    });
+  });
+};
+
 describe("New Contact page", () => {
   beforeEach(() => {
-    render(<App />);
+    act(() => {
+      render(<App />);
+    });
   });
 
   afterEach(cleanup);
@@ -48,8 +74,18 @@ describe("New Contact page", () => {
   });
 
   it("Click cancel button", () => {
-    act(() => screen.getByText(language.CONTACT_INFO.CANCEL).click());
+    const oibInput = screen.getByLabelText(
+      language.CREATE_NEW_CONTACT.FIELD.OIB
+    );
 
+    act(() => {
+      fireEvent.change(oibInput, {
+        target: { value: "oib" },
+      });
+      screen.getByText(language.CONTACT_INFO.CANCEL).click();
+    });
+
+    expect(oibInput).toHaveValue("");
     expect(mockHistoryReplace).toHaveBeenCalledWith({
       pathname: "/",
       state: { doSearch: true },
@@ -76,13 +112,8 @@ describe("New Contact page", () => {
     ).toBeVisible();
   });
 
-  it("Individual type fields", () => {
-    act(() => {
-      screen.getByText(language.CREATE_NEW_CONTACT.TYPE).click();
-      screen
-        .getByText(language.CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.INDIVIDUAL)
-        .click();
-    });
+  it("Individual type basic info fields", () => {
+    selectIndividualType();
 
     expect(
       screen.getByText(language.CREATE_NEW_CONTACT.FIELD.FIRST_NAME)
@@ -97,63 +128,47 @@ describe("New Contact page", () => {
       screen.getByText(language.CREATE_NEW_CONTACT.FIELD.OIB)
     ).toBeVisible();
     expect(
-      screen.getByText(language.CREATE_NEW_CONTACT.FIELD.FOREIGNER_STATUS)
-    ).toBeChecked();
+      screen.getByLabelText(language.CREATE_NEW_CONTACT.FIELD.FOREIGNER_STATUS)
+    ).not.toBeChecked();
   });
 
-  it("Self Employed type fields", () => {
-    act(() => {
-      screen.getByText(language.CREATE_NEW_CONTACT.TYPE).click();
-      screen
-        .getByText(language.CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.SELF_EMPLOYED)
-        .click();
-    });
+  it("Self Employed type basic info fields", () => {
+    selectSelfType();
 
     expect(
       screen.getByText(language.CREATE_NEW_CONTACT.FIELD.COMPANY_NAME)
     ).toBeVisible();
     expect(
-      screen.getByText(language.CREATE_NEW_CONTACT.FIELD.LAST_NAME)
-    ).toBeVisible();
-    expect(
       screen.getByText(language.CREATE_NEW_CONTACT.FIELD.SUBSIDIARY_NUMBER)
-    ).toBeDisabled();
+    ).toBeVisible();
     expect(
       screen.getByText(language.CREATE_NEW_CONTACT.FIELD.OIB)
     ).toBeVisible();
     expect(
       screen.getByText(language.CREATE_NEW_CONTACT.FIELD.FOREIGNER_STATUS)
     ).not.toBeChecked();
-    expect(
-      screen.getByText(language.CREATE_NEW_CONTACT.SUBMIT_BUTTON)
-    ).toBeDisabled();
   });
 
-  it("Legal type fields", () => {
-    act(() => {
-      screen.getByText(language.CREATE_NEW_CONTACT.TYPE).click();
-      screen
-        .getByText(language.CREATE_NEW_CONTACT.FIELD.CONTACT_TYPE.SELF_EMPLOYED)
-        .click();
-    });
+  it("Legal type basic info fields", () => {
+    selectLegalType();
 
     expect(
       screen.getByText(language.CREATE_NEW_CONTACT.FIELD.COMPANY_NAME)
     ).toBeVisible();
     expect(
-      screen.getByText(language.CREATE_NEW_CONTACT.FIELD.LAST_NAME)
-    ).toBeVisible();
-    expect(
       screen.getByText(language.CREATE_NEW_CONTACT.FIELD.SUBSIDIARY_NUMBER)
-    ).toBeDisabled();
+    ).toBeVisible();
     expect(
       screen.getByText(language.CREATE_NEW_CONTACT.FIELD.OIB)
     ).toBeVisible();
     expect(
       screen.getByText(language.CREATE_NEW_CONTACT.FIELD.FOREIGNER_STATUS)
     ).not.toBeChecked();
+  });
+
+  it("Create Contact button", () => {
     expect(
-      screen.getByText(language.CREATE_NEW_CONTACT.SUBMIT_BUTTON)
+      screen.getByText(language.CONTACT_INFO.CREATE_CONTACT)
     ).toBeDisabled();
   });
 });
