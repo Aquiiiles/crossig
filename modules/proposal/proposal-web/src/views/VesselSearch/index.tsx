@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Content, Wrapper, InnerWrapper, LinkWrapper } from "./styles";
 import Stepper from "../../shared/molecules/Stepper";
-import { VESSEL_LOOKUP } from "../../constants/languageKeys";
+import languageKeys from "../../constants/Language";
 import SearchField from "./containers/SearchField";
 import { Link, useLocation } from "react-router-dom";
 import { VESSEL_URL } from "../../api/constants/routes";
@@ -15,6 +15,8 @@ import usePagination from "../../shared/hooks/usePagination";
 import { useSelector } from "../../redux/store";
 import { resetModalScroll } from "../../shared/util/commonFunctions";
 import { ROUTES } from "../../constants/routes";
+
+const { VESSEL_LOOKUP } = languageKeys;
 
 interface SearchState {
   doSearch: boolean;

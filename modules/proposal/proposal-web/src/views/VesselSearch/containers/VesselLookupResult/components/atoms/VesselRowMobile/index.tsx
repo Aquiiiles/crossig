@@ -4,9 +4,11 @@ import { HeaderCell } from "../../../../../../../shared/types";
 import { VesselRow } from "../../../types";
 import { ButtonGroup, InnerGrid, MainGrid, Wrapper } from "./styles";
 import ClayButton from "@clayui/button";
-import { VESSEL_LOOKUP_TABLE } from "../../../../../../../constants/languageKeys";
+import languageKeys from "../../../../../../../constants/Language";
 import { useHistory } from "react-router-dom";
 import { ROUTES } from "../../../../../../../constants/routes";
+
+const { VESSEL_LOOKUP_TABLE } = languageKeys;
 
 type PropsType = {
   vessel: VesselRow;

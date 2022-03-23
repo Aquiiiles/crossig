@@ -6,7 +6,7 @@ import PhoneInputList from "../../../atoms/contact/PhoneInputList";
 import Row from "../../../atoms/contact/Row";
 import SubtitledLabel from "../../../atoms/contact/SubtitledLabel";
 import PhoneTypeSelect from "../../../atoms/contact/PhoneTypeSelect";
-import { CONTACT_INFO } from "../../../../constants/languageKeys";
+import languageKeys from "../../../../constants/Language";
 import {
   contactTypes,
   FIXED,
@@ -26,6 +26,8 @@ import {
 } from "./styles";
 import FormSectionMobile from "../../../atoms/contact/FormSectionMobile";
 import { AnyAction } from "@reduxjs/toolkit";
+
+const { CONTACT_INFO } = languageKeys;
 
 type PropsType = {
   countries: Array<Country>;

@@ -2,11 +2,13 @@ import React from "react";
 import ClayForm, { ClayInput, ClaySelectWithOption } from "@clayui/form";
 import ClayButton from "@clayui/button";
 import { Wrapper } from "./style";
-import { VESSEL_LOOKUP } from "../../../../constants/languageKeys";
 import { vesselTypeOptions } from "../../../../constants/vesselConstants";
 import useSearchField from "./hooks/useSearchField";
 import { handleEnterKeyEvent } from "../../../../shared/util/commonFunctions";
+import languageKeys from "../../../../constants/Language";
 import { ROUTES } from "../../../../constants/routes";
+
+const { VESSEL_LOOKUP } = languageKeys;
 
 interface props {
   onSearchClick: () => void;

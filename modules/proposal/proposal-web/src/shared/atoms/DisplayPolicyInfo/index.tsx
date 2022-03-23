@@ -1,6 +1,8 @@
 import React from "react";
-import { POLICY_HOLDER } from "../../../constants/languageKeys";
+import languageKeys from "../../../constants/Language";
 import { LineWrapper } from "./styles";
+
+const { POLICY_HOLDER } = languageKeys;
 
 interface PropsType {
   policyHolderName: string;

@@ -1,10 +1,9 @@
-import {
-  STEPPER_STEP,
-  STEPPER_INSURED_OBJECT_DETAILS_STEP,
-} from "./languageKeys";
+import languageKeys from "./Language";
 import { Step } from "../shared/types";
 import { ROUTES } from "./routes";
 import { StepsLookupTableKeys } from "./types";
+
+const { STEPPER_STEP, STEPPER_INSURED_OBJECT_DETAILS_STEP } = languageKeys;
 
 export const getSteps = (key: StepsLookupTableKeys) => {
   const stepCategory = stepsLookupTable[key];
@@ -30,5 +29,5 @@ export const stepRoutesLookupTable = {
   ROLES: ROUTES.ROLES,
   COVERAGE_PLAN: ROUTES.COVERAGE_PLAN,
   OBJECT_DETAILS: "",
-  PREMIUM: "",
+  PREMIUM: ROUTES.PREMIUM,
 };

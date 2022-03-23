@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { contactTypes } from "../../../../constants/contactConstants";
 import { useDispatch } from "../../../../redux/store";
 import { actions } from "../../../../redux";
-import { INSURANCE_PRODUCT } from "../../../../constants/languageKeys";
 import Modal from "../../../../shared/atoms/Modal";
+import languageKeys from "../../../../constants/Language";
+
+const { INSURANCE_PRODUCT } = languageKeys;
 
 interface props {
   contact: {

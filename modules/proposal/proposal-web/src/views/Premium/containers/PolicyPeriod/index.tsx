@@ -1,7 +1,9 @@
 import ClayForm, { ClayInput } from "@clayui/form";
 import React from "react";
-import { PREMIUM } from "../../../../constants/languageKeys";
+import languageKeys from "../../../../constants/Language";
 import { Grid, Title, Wrapper } from "./styles";
+
+const { PREMIUM } = languageKeys;
 
 const PolicyPeriod: React.FC = () => {
   return (

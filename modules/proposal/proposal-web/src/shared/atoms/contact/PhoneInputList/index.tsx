@@ -1,6 +1,6 @@
 import React, { MouseEventHandler, useEffect, useState } from "react";
 import { ClayInput } from "@clayui/form";
-import { CONTACT_INFO } from "../../../../constants/languageKeys";
+import languageKeys from "../../../../constants/Language";
 import {
   Error,
   OrderedListWrapper,
@@ -15,6 +15,8 @@ import { PhoneNumber } from "../../../types";
 import { MAXIMUM_MOBILE_PHONES } from "../../../../constants/contactConstants";
 import { shouldDisableInput } from "../../../util/commonFunctions";
 import { Country } from "../../../../shared/types";
+
+const { CONTACT_INFO } = languageKeys;
 
 type propsType = {
   phoneNumbers: Array<PhoneNumber>;

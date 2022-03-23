@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import RoleItem from "../RoleItem";
+import languageKeys from "../../../../../constants/Language";
 import ClayDropDown from "@clayui/drop-down";
-import { ROLES_ON_POLICY } from "../../../../../constants/languageKeys";
+
+const { ROLES_ON_POLICY } = languageKeys;
 
 const AddRoleItem: React.FC<{
   roleOptions: Array<string>;

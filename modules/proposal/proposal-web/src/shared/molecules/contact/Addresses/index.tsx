@@ -9,10 +9,12 @@ import ClayForm, {
   ClaySelectWithOption,
 } from "@clayui/form";
 import { contactTypes } from "../../../../constants/contactConstants";
-import { CREATE_NEW_CONTACT } from "../../../../constants/languageKeys";
+import languageKeys from "../../../../constants/Language";
 import { Line } from "./styles";
 import useRequiredField from "../../../hooks/useRequiredField";
 import useAddressState from "./hooks/useAdressState";
+
+const { CREATE_NEW_CONTACT } = languageKeys;
 
 type PropsType = {
   enableSave?: () => void;

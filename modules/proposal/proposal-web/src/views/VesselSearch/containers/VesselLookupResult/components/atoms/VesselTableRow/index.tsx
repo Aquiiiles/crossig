@@ -2,9 +2,11 @@ import React from "react";
 import ClayButton from "@clayui/button";
 import ClayTable from "@clayui/table";
 import { HoveringButtonGroup } from "./style";
-import { VESSEL_LOOKUP_TABLE } from "../../../../../../../constants/languageKeys";
+import languageKeys from "../../../../../../../constants/Language";
 import { useHistory } from "react-router-dom";
 import { VesselRow } from "../../../types";
+
+const { VESSEL_LOOKUP_TABLE } = languageKeys;
 
 type propsType = {
   vessel: VesselRow;

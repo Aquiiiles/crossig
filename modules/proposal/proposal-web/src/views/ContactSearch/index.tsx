@@ -10,15 +10,11 @@ import {
 } from "./styles";
 import Stepper from "../../shared/molecules/Stepper";
 import GoBackHeader from "../../shared/molecules/GoBackHeader";
-import {
-  CONTACT_SEARCH_SUBTITLE,
-  CONTACT_SEARCH_TITLE,
-} from "../../constants/languageKeys";
+import languageKeys from "../../constants/Language";
 import { useHttpRequest } from "../../api/hooks/useHttpRequest";
 import SearchResult from "./containers/SearchResult";
 import { PENDING, IDLE } from "../../api/reducers/constants";
 import { Link, useLocation } from "react-router-dom";
-import { CONTACT_SEARCH_CREATE_NEW_CONTACT } from "../../constants/languageKeys";
 import usePagination from "./hooks/usePagination";
 import { SEARCH_URL } from "../../api/constants/routes";
 import { useSelector } from "../../redux/store";
@@ -31,6 +27,7 @@ interface stateType {
 
 const contactsLimit = 20;
 const contactsTotalResultLimit = 100;
+const { CONTACT_SEARCH } = languageKeys;
 
 const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
   const [showResults, setShowResults] = useState(false);
@@ -141,10 +138,10 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
       <InnerWrapper embedded={embedded}>
         <Content embedded={embedded}>
           <div className="tablet-padding">
-            <h5>{CONTACT_SEARCH_TITLE}</h5>
+            <h5>{CONTACT_SEARCH.TITLE}</h5>
             {!embedded ? (
               <p className="body-small content-subtitle">
-                {CONTACT_SEARCH_SUBTITLE}
+                {CONTACT_SEARCH.SUBTITLE}
               </p>
             ) : null}
             <SearchField
@@ -185,7 +182,7 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
         </Content>
         {!idle && !embedded ? (
           <LinkWrapper>
-            <Link to="new_contact">{CONTACT_SEARCH_CREATE_NEW_CONTACT}</Link>
+            <Link to="new_contact">{CONTACT_SEARCH.CREATE_NEW_CONTACT}</Link>
           </LinkWrapper>
         ) : null}
       </InnerWrapper>

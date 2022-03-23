@@ -4,7 +4,7 @@ import Stepper from "../../shared/molecules/Stepper";
 import ProductCard from "../../shared/atoms/ProductCard";
 import useProductState, { sortProducts } from "./hooks/useProductState";
 import SuccessBanner from "./containers/SuccessBanner";
-import { INSURANCE_PRODUCT } from "../../constants/languageKeys";
+import languageKeys from "../../constants/Language";
 import BackBtn from "../../shared/atoms/BackBtn";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "../../redux/store";
@@ -12,6 +12,8 @@ import { actions } from "../../redux/insuranceProduct/insuranceProductSlice";
 import { motorIconsMap, vesselsIconsMap } from "./constants";
 import { resetModalScroll } from "../../shared/util/commonFunctions";
 import { ROUTES } from "../../constants/routes";
+
+const { INSURANCE_PRODUCT } = languageKeys;
 
 const InsuranceProduct: React.FC = () => {
   const [

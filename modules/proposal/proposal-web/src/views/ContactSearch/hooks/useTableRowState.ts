@@ -1,10 +1,12 @@
 import { useHistory } from "react-router-dom";
-import { ROLES_ON_POLICY } from "../../../constants/languageKeys";
 import * as constants from "../constants/searchResult";
 import * as types from "../containers/SearchResult/types";
 import { useDispatch } from "../../../redux/store";
 import { actions } from "../../../redux";
+import languageKeys from "../../../constants/Language";
 import { ROUTES } from "../../../constants/routes";
+
+const { ROLES_ON_POLICY } = languageKeys;
 
 export default function useTableRowState(operation: number) {
   const history = useHistory();

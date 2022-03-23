@@ -1,7 +1,7 @@
 import React from "react";
 import FormSection from "../../../atoms/contact/FormSection";
 import Row from "../../../atoms/contact/Row";
-import { CREATE_NEW_CONTACT } from "../../../../constants/languageKeys";
+import languageKeys from "../../../../constants/Language";
 import ClayForm, {
   ClayInput,
   ClayCheckbox,
@@ -23,6 +23,8 @@ import {
 import { validateOib } from "../../../validators/oib";
 import useRequiredField from "../../../hooks/useRequiredField";
 import { AnyAction } from "@reduxjs/toolkit";
+
+const { CREATE_NEW_CONTACT } = languageKeys;
 
 interface PropsType {
   operation: number;

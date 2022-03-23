@@ -1,8 +1,10 @@
 import React from "react";
 import { Wrapper } from "./styles";
-import { ROLES_ON_POLICY } from "../../../../../constants/languageKeys";
 import { actions } from "../../../../../redux/";
+import languageKeys from "../../../../../constants/Language";
 import { useDispatch } from "../../../../../redux/store";
+
+const { ROLES_ON_POLICY } = languageKeys;
 
 const AddRoleRow: React.FC = () => {
   const dispatch = useDispatch();

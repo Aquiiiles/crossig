@@ -1,5 +1,7 @@
-import { VESSEL_LOOKUP_TABLE } from "../../../../../constants/languageKeys";
+import languageKeys from "../../../../../constants/Language";
 import { HeaderCell } from "../../../../../shared/types";
+
+const { VESSEL_LOOKUP_TABLE } = languageKeys;
 
 export const NIB: HeaderCell = {
   key: "nib",

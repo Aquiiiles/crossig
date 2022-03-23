@@ -6,7 +6,7 @@ import BackBtn from "../../shared/atoms/BackBtn";
 import ContinueBtn from "../../shared/atoms/ContinueBtn";
 import Table from "./containers/Table";
 import ResultsMobile from "./containers/ResultsMobile";
-import { ROLES_ON_POLICY } from "../../constants/languageKeys";
+import languageKeys from "../../constants/Language";
 import { useDispatch, useSelector } from "../../redux/store";
 import { actions } from "../../redux";
 import ContactSearch from "../ContactSearch";
@@ -15,6 +15,8 @@ import {
   resetModalScroll,
 } from "../../shared/util/commonFunctions";
 import { ROUTES } from "../../constants/routes";
+
+const { ROLES_ON_POLICY } = languageKeys;
 
 const RolesOnPolicy: React.FC = () => {
   const dispatch = useDispatch();

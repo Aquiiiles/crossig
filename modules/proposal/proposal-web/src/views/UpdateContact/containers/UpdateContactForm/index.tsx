@@ -5,11 +5,7 @@ import Addresses from "../../../../shared/molecules/contact/Addresses";
 import ContactInfoForm from "../../../../shared/molecules/contact/ContactInfoForm";
 import Modal from "../../../../shared/atoms/Modal";
 import ClayButton from "@clayui/button";
-import {
-  CONTACT_INFO,
-  UPDATE_CONTACT,
-  ROLES_ON_POLICY,
-} from "../../../../constants/languageKeys";
+import languageKeys from "../../../../constants/Language";
 import {
   mapToCountryNames,
   mapToCountryCodes,
@@ -37,6 +33,8 @@ import {
 import * as constants from "../../../ContactSearch/constants/searchResult";
 import { resetScroll } from "../../../../shared/util/commonFunctions";
 import { ROUTES } from "../../../../constants/routes";
+
+const { ROLES_ON_POLICY, CONTACT_INFO, UPDATE_CONTACT } = languageKeys;
 
 const UpdateContactForm: React.FC<{
   contactResponse: any;

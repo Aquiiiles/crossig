@@ -2,7 +2,9 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import ClayAutocomplete from "@clayui/autocomplete";
 import ClayDropDown from "@clayui/drop-down";
 import { MINIMUN_LENGTH_FOR_AUTOCOMPLETE_INPUT } from "../../../../constants/contactConstants";
-import { CREATE_NEW_CONTACT } from "../../../../constants/languageKeys";
+import languageKeys from "../../../../constants/Language";
+
+const { CREATE_NEW_CONTACT } = languageKeys;
 
 type props = {
   label: string;

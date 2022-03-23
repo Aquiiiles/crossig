@@ -1,5 +1,7 @@
 import { ValidatorFunction } from "../hooks/types";
-import { VALIDATOR_MESSAGE } from "../../constants/languageKeys";
+import languageKeys from "../../constants/Language";
+
+const { VALIDATOR_MESSAGE } = languageKeys;
 
 const validateOib: ValidatorFunction = (value) => {
   if (value.length < 11) return;

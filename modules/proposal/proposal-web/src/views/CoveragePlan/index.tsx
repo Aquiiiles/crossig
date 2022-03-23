@@ -4,12 +4,14 @@ import { Wrapper, Content, Products, Footer, InnerWrapper } from "./styles";
 import Stepper from "../../shared/molecules/Stepper";
 import ProductCard from "../../shared/atoms/ProductCard";
 import BackBtn from "../../shared/atoms/BackBtn";
-import { COVERAGE_PLAN } from "../../constants/languageKeys";
+import languageKeys from "../../constants/Language";
 import useCoveragePlanState from "./hooks/useCoveragePlanState";
 import { useDispatch } from "../../redux/store";
 import { actions } from "../../redux/";
 import { resetModalScroll } from "../../shared/util/commonFunctions";
 import { ROUTES } from "../../constants/routes";
+
+const { COVERAGE_PLAN } = languageKeys;
 
 const CoveragePlan: React.FC = () => {
   const history = useHistory();

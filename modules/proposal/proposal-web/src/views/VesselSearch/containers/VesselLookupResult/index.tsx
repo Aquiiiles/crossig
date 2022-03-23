@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { VESSEL_LOOKUP } from "../../../../constants/languageKeys";
+import languageKeys from "../../../../constants/Language";
 import { PageIndex } from "../../../../shared/hooks/types";
 import LookupResult from "../../../../shared/containers/LookupResult";
 import { ProvidedDataType, VesselRow } from "./types";
@@ -8,6 +8,8 @@ import VesselTableRow from "./components/atoms/VesselTableRow";
 import { VESSEL_LOOKUP_HEADER } from "./constants/vesselLookup";
 import useSort from "../../../../shared/hooks/useSort";
 import VesselRowMobile from "./components/atoms/VesselRowMobile";
+
+const { VESSEL_LOOKUP } = languageKeys;
 
 type PropsType = {
   /* eslint-disable @typescript-eslint/no-explicit-any */

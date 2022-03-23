@@ -5,14 +5,6 @@ import ClayButton from "@clayui/button";
 import SearchFilters from "./components/molecules/SearchFilters";
 import { mapToCountryCodes } from "../../../../shared/util/countryMappers";
 import { Wrapper, SearchWrapper, StyledClayDropdownMenu } from "./styles";
-import {
-  CONTACT_SEARCH_ACTION_BUTTON,
-  CONTACT_SEARCH_FIELD_OIB,
-  CONTACT_SEARCH_FIELD_LAST_NAME_COMPANY_NAME_SE_NAME,
-  CONTACT_SEARCH_FIELD_FIRST_NAME,
-  CONTACT_SEARCH_MORE_SEARCH_OPTIONS,
-  CONTACT_SEARCH_FIELD_LAST_NAME,
-} from "../../../../constants/languageKeys";
 import { useSelector, useDispatch } from "../../../../redux/store";
 import { actions } from "../../../../redux";
 import { PageIndex } from "../../../../shared/hooks/types";
@@ -25,6 +17,9 @@ import {
   lettersOnly,
   numbersOnly,
 } from "../../../../shared/util/commonFunctions";
+import languageKeys from "../../../../constants/Language";
+
+const { CONTACT_SEARCH } = languageKeys;
 
 interface props {
   currentPage: number;
@@ -117,7 +112,7 @@ const SearchField: React.FC<props> = ({
           <ClayInput.Group className="searchFieldInputs">
             <ClayInput.GroupItem>
               <label className="body-small" htmlFor="oibInputText">
-                {CONTACT_SEARCH_FIELD_OIB}
+                {CONTACT_SEARCH.FIELD.OIB}
               </label>
               <ClayInput
                 id="oibInputText"
@@ -135,13 +130,13 @@ const SearchField: React.FC<props> = ({
                 className="body-small desktop-only"
                 htmlFor="lastNameInputText"
               >
-                {CONTACT_SEARCH_FIELD_LAST_NAME_COMPANY_NAME_SE_NAME}
+                {CONTACT_SEARCH.FIELD.LAST_NAME_COMPANY_NAME_SE_NAME}
               </label>
               <label
                 className="body-small tablet-only"
                 htmlFor="lastNameInputText"
               >
-                {CONTACT_SEARCH_FIELD_LAST_NAME}
+                {CONTACT_SEARCH.FIELD.LAST_NAME}
               </label>
               <ClayInput
                 id="lastNameInputText"
@@ -155,7 +150,7 @@ const SearchField: React.FC<props> = ({
             </ClayInput.GroupItem>
             <ClayInput.GroupItem>
               <label className="body-small" htmlFor="firstNameInputText">
-                {CONTACT_SEARCH_FIELD_FIRST_NAME}
+                {CONTACT_SEARCH.FIELD.FIRST_NAME}
               </label>
               <ClayInput
                 id="firstNameInputText"
@@ -175,7 +170,7 @@ const SearchField: React.FC<props> = ({
                 disabled={disabled}
                 onClick={() => submitSearch()}
               >
-                {CONTACT_SEARCH_ACTION_BUTTON}
+                {CONTACT_SEARCH.ACTION_BUTTON}
               </ClayButton>
             </span>
             <ClayButton
@@ -183,7 +178,7 @@ const SearchField: React.FC<props> = ({
               ref={triggerElementRef}
               onClick={handleExpand}
             >
-              {CONTACT_SEARCH_MORE_SEARCH_OPTIONS}
+              {CONTACT_SEARCH.MORE_SEARCH_OPTIONS}
             </ClayButton>
           </ClayButton.Group>
         </ClayForm.Group>

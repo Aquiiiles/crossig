@@ -1,5 +1,7 @@
 import { ValidatorFunction } from "../hooks/types";
-import { VALIDATOR_MESSAGE } from "../../constants/languageKeys";
+import languageKeys from "../../constants/Language";
+
+const { VALIDATOR_MESSAGE } = languageKeys;
 
 type ValidatorFunctionDay = (
   value: Parameters<ValidatorFunction>[0],

@@ -3,7 +3,7 @@ import { ButtonWrapper, Content, Wrapper, InnerWrapper } from "./styles";
 import ClayButton from "@clayui/button";
 import Stepper from "../../shared/molecules/Stepper";
 import { resetModalScroll } from "../../shared/util/commonFunctions";
-import { PREMIUM } from "../../constants/languageKeys";
+import languageKeys from "../../constants/Language";
 import PolicyPeriod from "./containers/PolicyPeriod";
 import BackBtn from "../../shared/atoms/BackBtn";
 import { PROPOSAL_URL } from "../../api/constants/routes";
@@ -11,6 +11,8 @@ import API from "../../api";
 import { useSelector } from "../../redux/store";
 import { contactInPolicy } from "../../redux/contactsInPolicy/types";
 import Modal from "../../shared/atoms/Modal";
+
+const { PREMIUM } = languageKeys;
 
 declare const Liferay: {
   ThemeDisplay: { getUserId: () => number };

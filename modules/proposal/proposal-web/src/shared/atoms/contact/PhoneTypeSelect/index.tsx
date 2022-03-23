@@ -1,10 +1,12 @@
 import { ClaySelect } from "@clayui/form";
 import React from "react";
-import { CONTACT_INFO } from "../../../../constants/languageKeys";
+import languageKeys from "../../../../constants/Language";
 import { FIXED, MOBILE } from "../../../../constants/contactConstants";
 import { PhoneNumber } from "../../../types";
 import { Wrapper } from "./styles";
 import { shouldDisableInput } from "../../../util/commonFunctions";
+
+const { CONTACT_INFO } = languageKeys;
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   index: number;

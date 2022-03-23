@@ -12,11 +12,7 @@ import {
   mapToCountryNames,
   mapToCountryCodes,
 } from "../../../../shared/util/countryMappers";
-import {
-  CONTACT_INFO,
-  CREATE_NEW_CONTACT,
-  ROLES_ON_POLICY,
-} from "../../../../constants/languageKeys";
+import languageKeys from "../../../../constants/Language";
 import { contactOperations } from "../../../../constants/contactConstants";
 import { useSelector, useDispatch } from "../../../../redux/store";
 import { valuesToISOString } from "./utils/dateUtils";
@@ -32,6 +28,8 @@ import { contactTypes } from "../../../../constants/contactConstants";
 import { actions } from "../../../../redux";
 import { resetScroll } from "../../../../shared/util/commonFunctions";
 import { ROUTES } from "../../../../constants/routes";
+
+const { ROLES_ON_POLICY, CONTACT_INFO, CREATE_NEW_CONTACT } = languageKeys;
 
 const ContactInfo: React.FC = () => {
   const dispatch = useDispatch();

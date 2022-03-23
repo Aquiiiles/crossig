@@ -2,17 +2,6 @@ import React, { useEffect } from "react";
 import ClayForm, { ClayInput } from "@clayui/form";
 import ClayButton from "@clayui/button";
 import { ButtonsWrapper, InputWrappers, Wrapper } from "./styles";
-import {
-  CONTACT_SEARCH_FIELD_AREA_CODE,
-  CONTACT_SEARCH_FIELD_CITY,
-  CONTACT_SEARCH_FIELD_COUNTRY_CODE,
-  CONTACT_SEARCH_FIELD_EMAIL_ADDRESS,
-  CONTACT_SEARCH_FIELD_PHONE_NUMBER,
-  CONTACT_SEARCH_FIELD_STREET_ADDRESS,
-  CONTACT_SEARCH_FILTER_CANCEL,
-  CONTACT_SEARCH_FILTER_CLEAR,
-  CONTACT_SEARCH_FILTER_SEARCH,
-} from "../../../../../../../constants/languageKeys";
 import CountryCodeSelect from "../../../../../../../shared/atoms/contact/CountryCodeSelect";
 import { countryCodes as croatia } from "../../../../../../../constants/defaultCountryConfiguration";
 import { Country } from "../../../../../../../shared/types";
@@ -22,6 +11,9 @@ import { actions } from "../../../../../../../redux";
 import { numbersOnly } from "../../../../../../../shared/util/commonFunctions";
 import { useDispatch, useSelector } from "../../../../../../../redux/store";
 import AreaCodeSelect from "../../../../../../../shared/atoms/contact/AreaCodeSelect";
+import languageKeys from "../../../../../../../constants/Language";
+
+const { CONTACT_SEARCH } = languageKeys;
 
 interface props {
   fetchData: () => void;
@@ -79,7 +71,7 @@ const SearchFilters: React.FC<props> = ({
   return (
     <Wrapper>
       <ClayForm.Group>
-        <label htmlFor="cityInput">{CONTACT_SEARCH_FIELD_CITY}</label>
+        <label htmlFor="cityInput">{CONTACT_SEARCH.FIELD.CITY}</label>
         <ClayInput
           id="cityInput"
           type="text"
@@ -89,7 +81,7 @@ const SearchFilters: React.FC<props> = ({
       </ClayForm.Group>
       <ClayForm.Group>
         <label htmlFor="streetInput">
-          {CONTACT_SEARCH_FIELD_STREET_ADDRESS}
+          {CONTACT_SEARCH.FIELD.STREET_ADDRESS}
         </label>
         <ClayInput
           id="streetInput"
@@ -101,7 +93,7 @@ const SearchFilters: React.FC<props> = ({
       <InputWrappers>
         <ClayForm.Group>
           <label htmlFor="countryInput">
-            {CONTACT_SEARCH_FIELD_COUNTRY_CODE}
+            {CONTACT_SEARCH.FIELD.COUNTRY_CODE}
           </label>
           <CountryCodeSelect
             id={"countryInput"}
@@ -113,7 +105,7 @@ const SearchFilters: React.FC<props> = ({
         </ClayForm.Group>
         <ClayForm.Group>
           <label htmlFor="areaCodeInput">
-            {CONTACT_SEARCH_FIELD_AREA_CODE}
+            {CONTACT_SEARCH.FIELD.AREA_CODE}
           </label>
           <AreaCodeSelect
             id="areaCodeInput"
@@ -125,7 +117,7 @@ const SearchFilters: React.FC<props> = ({
         </ClayForm.Group>
         <ClayForm.Group>
           <label htmlFor="phoneNumber">
-            {CONTACT_SEARCH_FIELD_PHONE_NUMBER}
+            {CONTACT_SEARCH.FIELD.PHONE_NUMBER}
           </label>
           <ClayInput
             id="phoneNumber"
@@ -139,7 +131,7 @@ const SearchFilters: React.FC<props> = ({
         </ClayForm.Group>
       </InputWrappers>
       <ClayForm.Group>
-        <label htmlFor="emailInput">{CONTACT_SEARCH_FIELD_EMAIL_ADDRESS}</label>
+        <label htmlFor="emailInput">{CONTACT_SEARCH.FIELD.EMAIL_ADDRESS}</label>
         <ClayInput
           id="emailInput"
           type="text"
@@ -150,7 +142,7 @@ const SearchFilters: React.FC<props> = ({
       <ButtonsWrapper>
         <ClayButton.Group className="tablet-only" onClick={onDropdownCancel}>
           <ClayButton displayType="link">
-            {CONTACT_SEARCH_FILTER_CANCEL}
+            {CONTACT_SEARCH.FILTER.CANCEL}
           </ClayButton>
         </ClayButton.Group>
         <ClayButton.Group spaced>
@@ -158,14 +150,14 @@ const SearchFilters: React.FC<props> = ({
             displayType="link"
             onClick={() => dispatch(clearFilterValues())}
           >
-            {CONTACT_SEARCH_FILTER_CLEAR}
+            {CONTACT_SEARCH.FILTER.CLEAR}
           </ClayButton>
           <ClayButton
             displayType="primary"
             disabled={searchDisabled}
             onClick={fetchData}
           >
-            {CONTACT_SEARCH_FILTER_SEARCH}
+            {CONTACT_SEARCH.FILTER.SEARCH}
           </ClayButton>
         </ClayButton.Group>
       </ButtonsWrapper>
