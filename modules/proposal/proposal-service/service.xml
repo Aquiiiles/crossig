@@ -198,6 +198,10 @@
 		<column name="policyHolderExtNumber" type="String" />
 		<column name="insuredObjectExtNumber" type="String" />
 		<column name="status" type="String" />
+
+		<finder name="AgentUserId" return-type="Collection">
+			<finder-column name="agentUserId"></finder-column>
+		</finder>
 	</entity>
 	<entity local-service="true" name="ProposalContact" remote-service="false" uuid="false">
 
