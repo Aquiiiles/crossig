@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
 import hr.crosig.proposal.dto.PolicyOptionsDTO;
+import hr.crosig.proposal.exception.NoSuchPolicyOptionsException;
 import hr.crosig.proposal.model.PolicyOptions;
 
 import java.io.Serializable;
@@ -94,7 +95,8 @@ public interface PolicyOptionsLocalService
 	public PolicyOptionsDTO createPolicyOptions(
 		PolicyOptionsDTO policyOptionsDTO);
 
-	public void deleteAllByProposalId(long proposalId);
+	public void deleteAllByProposalId(long proposalId)
+		throws NoSuchPolicyOptionsException;
 
 	/**
 	 * @throws PortalException
@@ -253,6 +255,9 @@ public interface PolicyOptionsLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getPolicyOptionsesCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public PolicyOptionsDTO getProposalPolicyOptions(long proposalId);
 
 	/**
 	 * Updates the policy options in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

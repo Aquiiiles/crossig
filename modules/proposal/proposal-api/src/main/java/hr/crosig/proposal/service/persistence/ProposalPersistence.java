@@ -42,6 +42,149 @@ public interface ProposalPersistence extends BasePersistence<Proposal> {
 	 */
 
 	/**
+	 * Returns all the proposals where agentUserId = &#63;.
+	 *
+	 * @param agentUserId the agent user ID
+	 * @return the matching proposals
+	 */
+	public java.util.List<Proposal> findByAgentUserId(long agentUserId);
+
+	/**
+	 * Returns a range of all the proposals where agentUserId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProposalModelImpl</code>.
+	 * </p>
+	 *
+	 * @param agentUserId the agent user ID
+	 * @param start the lower bound of the range of proposals
+	 * @param end the upper bound of the range of proposals (not inclusive)
+	 * @return the range of matching proposals
+	 */
+	public java.util.List<Proposal> findByAgentUserId(
+		long agentUserId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the proposals where agentUserId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProposalModelImpl</code>.
+	 * </p>
+	 *
+	 * @param agentUserId the agent user ID
+	 * @param start the lower bound of the range of proposals
+	 * @param end the upper bound of the range of proposals (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching proposals
+	 */
+	public java.util.List<Proposal> findByAgentUserId(
+		long agentUserId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<Proposal>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the proposals where agentUserId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProposalModelImpl</code>.
+	 * </p>
+	 *
+	 * @param agentUserId the agent user ID
+	 * @param start the lower bound of the range of proposals
+	 * @param end the upper bound of the range of proposals (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching proposals
+	 */
+	public java.util.List<Proposal> findByAgentUserId(
+		long agentUserId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<Proposal>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first proposal in the ordered set where agentUserId = &#63;.
+	 *
+	 * @param agentUserId the agent user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching proposal
+	 * @throws NoSuchProposalException if a matching proposal could not be found
+	 */
+	public Proposal findByAgentUserId_First(
+			long agentUserId,
+			com.liferay.portal.kernel.util.OrderByComparator<Proposal>
+				orderByComparator)
+		throws NoSuchProposalException;
+
+	/**
+	 * Returns the first proposal in the ordered set where agentUserId = &#63;.
+	 *
+	 * @param agentUserId the agent user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching proposal, or <code>null</code> if a matching proposal could not be found
+	 */
+	public Proposal fetchByAgentUserId_First(
+		long agentUserId,
+		com.liferay.portal.kernel.util.OrderByComparator<Proposal>
+			orderByComparator);
+
+	/**
+	 * Returns the last proposal in the ordered set where agentUserId = &#63;.
+	 *
+	 * @param agentUserId the agent user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching proposal
+	 * @throws NoSuchProposalException if a matching proposal could not be found
+	 */
+	public Proposal findByAgentUserId_Last(
+			long agentUserId,
+			com.liferay.portal.kernel.util.OrderByComparator<Proposal>
+				orderByComparator)
+		throws NoSuchProposalException;
+
+	/**
+	 * Returns the last proposal in the ordered set where agentUserId = &#63;.
+	 *
+	 * @param agentUserId the agent user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching proposal, or <code>null</code> if a matching proposal could not be found
+	 */
+	public Proposal fetchByAgentUserId_Last(
+		long agentUserId,
+		com.liferay.portal.kernel.util.OrderByComparator<Proposal>
+			orderByComparator);
+
+	/**
+	 * Returns the proposals before and after the current proposal in the ordered set where agentUserId = &#63;.
+	 *
+	 * @param proposalId the primary key of the current proposal
+	 * @param agentUserId the agent user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next proposal
+	 * @throws NoSuchProposalException if a proposal with the primary key could not be found
+	 */
+	public Proposal[] findByAgentUserId_PrevAndNext(
+			long proposalId, long agentUserId,
+			com.liferay.portal.kernel.util.OrderByComparator<Proposal>
+				orderByComparator)
+		throws NoSuchProposalException;
+
+	/**
+	 * Removes all the proposals where agentUserId = &#63; from the database.
+	 *
+	 * @param agentUserId the agent user ID
+	 */
+	public void removeByAgentUserId(long agentUserId);
+
+	/**
+	 * Returns the number of proposals where agentUserId = &#63;.
+	 *
+	 * @param agentUserId the agent user ID
+	 * @return the number of matching proposals
+	 */
+	public int countByAgentUserId(long agentUserId);
+
+	/**
 	 * Caches the proposal in the entity cache if it is enabled.
 	 *
 	 * @param proposal the proposal

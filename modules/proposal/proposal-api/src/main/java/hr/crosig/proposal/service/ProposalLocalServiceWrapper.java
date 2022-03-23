@@ -227,6 +227,13 @@ public class ProposalLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<hr.crosig.proposal.dto.ProposalDTO> getAgentProposals(
+		long agentUserId) {
+
+		return _proposalLocalService.getAgentProposals(agentUserId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 		getIndexableActionableDynamicQuery() {
 
@@ -266,6 +273,11 @@ public class ProposalLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _proposalLocalService.getProposal(proposalId);
+	}
+
+	@Override
+	public hr.crosig.proposal.dto.ProposalDTO getProposalDTO(long proposalId) {
+		return _proposalLocalService.getProposalDTO(proposalId);
 	}
 
 	/**

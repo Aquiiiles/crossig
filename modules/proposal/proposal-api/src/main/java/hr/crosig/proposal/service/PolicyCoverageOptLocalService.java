@@ -259,6 +259,10 @@ public interface PolicyCoverageOptLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getPolicyCoverageOptsCount();
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<PolicyCoverageOptionDTO> getProposalCoverageOptions(
+		long proposalId);
+
 	/**
 	 * Updates the policy coverage opt in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

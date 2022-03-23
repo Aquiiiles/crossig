@@ -307,6 +307,13 @@ public class ProposalContactLocalServiceWrapper
 		return _proposalContactLocalService.getProposalContacts(start, end);
 	}
 
+	@Override
+	public java.util.List<hr.crosig.proposal.dto.ProposalContactDTO>
+		getProposalContacts(long proposalId) {
+
+		return _proposalContactLocalService.getProposalContacts(proposalId);
+	}
+
 	/**
 	 * Returns the number of proposal contacts.
 	 *

@@ -293,6 +293,12 @@ public class PolicyCoverageOptLocalServiceUtil {
 		return getService().getPolicyCoverageOptsCount();
 	}
 
+	public static List<hr.crosig.proposal.dto.PolicyCoverageOptionDTO>
+		getProposalCoverageOptions(long proposalId) {
+
+		return getService().getProposalCoverageOptions(proposalId);
+	}
+
 	/**
 	 * Updates the policy coverage opt in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

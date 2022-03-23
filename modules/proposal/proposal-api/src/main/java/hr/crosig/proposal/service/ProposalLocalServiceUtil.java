@@ -213,6 +213,12 @@ public class ProposalLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static List<hr.crosig.proposal.dto.ProposalDTO> getAgentProposals(
+		long agentUserId) {
+
+		return getService().getAgentProposals(agentUserId);
+	}
+
 	public static
 		com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 			getIndexableActionableDynamicQuery() {
@@ -247,6 +253,12 @@ public class ProposalLocalServiceUtil {
 	 */
 	public static Proposal getProposal(long proposalId) throws PortalException {
 		return getService().getProposal(proposalId);
+	}
+
+	public static hr.crosig.proposal.dto.ProposalDTO getProposalDTO(
+		long proposalId) {
+
+		return getService().getProposalDTO(proposalId);
 	}
 
 	/**

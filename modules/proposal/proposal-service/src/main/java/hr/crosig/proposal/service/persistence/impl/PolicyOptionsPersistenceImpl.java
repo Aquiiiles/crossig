@@ -102,140 +102,91 @@ public class PolicyOptionsPersistenceImpl
 	private FinderPath _finderPathWithPaginationFindAll;
 	private FinderPath _finderPathWithoutPaginationFindAll;
 	private FinderPath _finderPathCountAll;
-	private FinderPath _finderPathWithPaginationFindByProposalId;
-	private FinderPath _finderPathWithoutPaginationFindByProposalId;
+	private FinderPath _finderPathFetchByProposalId;
 	private FinderPath _finderPathCountByProposalId;
 
 	/**
-	 * Returns all the policy optionses where proposalId = &#63;.
+	 * Returns the policy options where proposalId = &#63; or throws a <code>NoSuchPolicyOptionsException</code> if it could not be found.
 	 *
 	 * @param proposalId the proposal ID
-	 * @return the matching policy optionses
+	 * @return the matching policy options
+	 * @throws NoSuchPolicyOptionsException if a matching policy options could not be found
 	 */
 	@Override
-	public List<PolicyOptions> findByProposalId(long proposalId) {
-		return findByProposalId(
-			proposalId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	public PolicyOptions findByProposalId(long proposalId)
+		throws NoSuchPolicyOptionsException {
+
+		PolicyOptions policyOptions = fetchByProposalId(proposalId);
+
+		if (policyOptions == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("proposalId=");
+			sb.append(proposalId);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchPolicyOptionsException(sb.toString());
+		}
+
+		return policyOptions;
 	}
 
 	/**
-	 * Returns a range of all the policy optionses where proposalId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PolicyOptionsModelImpl</code>.
-	 * </p>
+	 * Returns the policy options where proposalId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
 	 * @param proposalId the proposal ID
-	 * @param start the lower bound of the range of policy optionses
-	 * @param end the upper bound of the range of policy optionses (not inclusive)
-	 * @return the range of matching policy optionses
+	 * @return the matching policy options, or <code>null</code> if a matching policy options could not be found
 	 */
 	@Override
-	public List<PolicyOptions> findByProposalId(
-		long proposalId, int start, int end) {
-
-		return findByProposalId(proposalId, start, end, null);
+	public PolicyOptions fetchByProposalId(long proposalId) {
+		return fetchByProposalId(proposalId, true);
 	}
 
 	/**
-	 * Returns an ordered range of all the policy optionses where proposalId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PolicyOptionsModelImpl</code>.
-	 * </p>
+	 * Returns the policy options where proposalId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param proposalId the proposal ID
-	 * @param start the lower bound of the range of policy optionses
-	 * @param end the upper bound of the range of policy optionses (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching policy optionses
-	 */
-	@Override
-	public List<PolicyOptions> findByProposalId(
-		long proposalId, int start, int end,
-		OrderByComparator<PolicyOptions> orderByComparator) {
-
-		return findByProposalId(
-			proposalId, start, end, orderByComparator, true);
-	}
-
-	/**
-	 * Returns an ordered range of all the policy optionses where proposalId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PolicyOptionsModelImpl</code>.
-	 * </p>
-	 *
-	 * @param proposalId the proposal ID
-	 * @param start the lower bound of the range of policy optionses
-	 * @param end the upper bound of the range of policy optionses (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @param useFinderCache whether to use the finder cache
-	 * @return the ordered range of matching policy optionses
+	 * @return the matching policy options, or <code>null</code> if a matching policy options could not be found
 	 */
 	@Override
-	public List<PolicyOptions> findByProposalId(
-		long proposalId, int start, int end,
-		OrderByComparator<PolicyOptions> orderByComparator,
-		boolean useFinderCache) {
+	public PolicyOptions fetchByProposalId(
+		long proposalId, boolean useFinderCache) {
 
-		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
-		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-			(orderByComparator == null)) {
-
-			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByProposalId;
-				finderArgs = new Object[] {proposalId};
-			}
-		}
-		else if (useFinderCache) {
-			finderPath = _finderPathWithPaginationFindByProposalId;
-			finderArgs = new Object[] {
-				proposalId, start, end, orderByComparator
-			};
+		if (useFinderCache) {
+			finderArgs = new Object[] {proposalId};
 		}
 
-		List<PolicyOptions> list = null;
+		Object result = null;
 
 		if (useFinderCache) {
-			list = (List<PolicyOptions>)finderCache.getResult(
-				finderPath, finderArgs, this);
+			result = finderCache.getResult(
+				_finderPathFetchByProposalId, finderArgs, this);
+		}
 
-			if ((list != null) && !list.isEmpty()) {
-				for (PolicyOptions policyOptions : list) {
-					if (proposalId != policyOptions.getProposalId()) {
-						list = null;
+		if (result instanceof PolicyOptions) {
+			PolicyOptions policyOptions = (PolicyOptions)result;
 
-						break;
-					}
-				}
+			if (proposalId != policyOptions.getProposalId()) {
+				result = null;
 			}
 		}
 
-		if (list == null) {
-			StringBundler sb = null;
-
-			if (orderByComparator != null) {
-				sb = new StringBundler(
-					3 + (orderByComparator.getOrderByFields().length * 2));
-			}
-			else {
-				sb = new StringBundler(3);
-			}
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
 
 			sb.append(_SQL_SELECT_POLICYOPTIONS_WHERE);
 
 			sb.append(_FINDER_COLUMN_PROPOSALID_PROPOSALID_2);
-
-			if (orderByComparator != null) {
-				appendOrderByComparator(
-					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
-			}
-			else {
-				sb.append(PolicyOptionsModelImpl.ORDER_BY_JPQL);
-			}
 
 			String sql = sb.toString();
 
@@ -250,13 +201,20 @@ public class PolicyOptionsPersistenceImpl
 
 				queryPos.add(proposalId);
 
-				list = (List<PolicyOptions>)QueryUtil.list(
-					query, getDialect(), start, end);
+				List<PolicyOptions> list = query.list();
 
-				cacheResult(list);
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByProposalId, finderArgs, list);
+					}
+				}
+				else {
+					PolicyOptions policyOptions = list.get(0);
 
-				if (useFinderCache) {
-					finderCache.putResult(finderPath, finderArgs, list);
+					result = policyOptions;
+
+					cacheResult(policyOptions);
 				}
 			}
 			catch (Exception exception) {
@@ -267,285 +225,27 @@ public class PolicyOptionsPersistenceImpl
 			}
 		}
 
-		return list;
-	}
-
-	/**
-	 * Returns the first policy options in the ordered set where proposalId = &#63;.
-	 *
-	 * @param proposalId the proposal ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching policy options
-	 * @throws NoSuchPolicyOptionsException if a matching policy options could not be found
-	 */
-	@Override
-	public PolicyOptions findByProposalId_First(
-			long proposalId, OrderByComparator<PolicyOptions> orderByComparator)
-		throws NoSuchPolicyOptionsException {
-
-		PolicyOptions policyOptions = fetchByProposalId_First(
-			proposalId, orderByComparator);
-
-		if (policyOptions != null) {
-			return policyOptions;
-		}
-
-		StringBundler sb = new StringBundler(4);
-
-		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		sb.append("proposalId=");
-		sb.append(proposalId);
-
-		sb.append("}");
-
-		throw new NoSuchPolicyOptionsException(sb.toString());
-	}
-
-	/**
-	 * Returns the first policy options in the ordered set where proposalId = &#63;.
-	 *
-	 * @param proposalId the proposal ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching policy options, or <code>null</code> if a matching policy options could not be found
-	 */
-	@Override
-	public PolicyOptions fetchByProposalId_First(
-		long proposalId, OrderByComparator<PolicyOptions> orderByComparator) {
-
-		List<PolicyOptions> list = findByProposalId(
-			proposalId, 0, 1, orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Returns the last policy options in the ordered set where proposalId = &#63;.
-	 *
-	 * @param proposalId the proposal ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching policy options
-	 * @throws NoSuchPolicyOptionsException if a matching policy options could not be found
-	 */
-	@Override
-	public PolicyOptions findByProposalId_Last(
-			long proposalId, OrderByComparator<PolicyOptions> orderByComparator)
-		throws NoSuchPolicyOptionsException {
-
-		PolicyOptions policyOptions = fetchByProposalId_Last(
-			proposalId, orderByComparator);
-
-		if (policyOptions != null) {
-			return policyOptions;
-		}
-
-		StringBundler sb = new StringBundler(4);
-
-		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		sb.append("proposalId=");
-		sb.append(proposalId);
-
-		sb.append("}");
-
-		throw new NoSuchPolicyOptionsException(sb.toString());
-	}
-
-	/**
-	 * Returns the last policy options in the ordered set where proposalId = &#63;.
-	 *
-	 * @param proposalId the proposal ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching policy options, or <code>null</code> if a matching policy options could not be found
-	 */
-	@Override
-	public PolicyOptions fetchByProposalId_Last(
-		long proposalId, OrderByComparator<PolicyOptions> orderByComparator) {
-
-		int count = countByProposalId(proposalId);
-
-		if (count == 0) {
+		if (result instanceof List<?>) {
 			return null;
 		}
-
-		List<PolicyOptions> list = findByProposalId(
-			proposalId, count - 1, count, orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
+		else {
+			return (PolicyOptions)result;
 		}
-
-		return null;
 	}
 
 	/**
-	 * Returns the policy optionses before and after the current policy options in the ordered set where proposalId = &#63;.
+	 * Removes the policy options where proposalId = &#63; from the database.
 	 *
-	 * @param policyOptionsId the primary key of the current policy options
 	 * @param proposalId the proposal ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next policy options
-	 * @throws NoSuchPolicyOptionsException if a policy options with the primary key could not be found
+	 * @return the policy options that was removed
 	 */
 	@Override
-	public PolicyOptions[] findByProposalId_PrevAndNext(
-			long policyOptionsId, long proposalId,
-			OrderByComparator<PolicyOptions> orderByComparator)
+	public PolicyOptions removeByProposalId(long proposalId)
 		throws NoSuchPolicyOptionsException {
 
-		PolicyOptions policyOptions = findByPrimaryKey(policyOptionsId);
+		PolicyOptions policyOptions = findByProposalId(proposalId);
 
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			PolicyOptions[] array = new PolicyOptionsImpl[3];
-
-			array[0] = getByProposalId_PrevAndNext(
-				session, policyOptions, proposalId, orderByComparator, true);
-
-			array[1] = policyOptions;
-
-			array[2] = getByProposalId_PrevAndNext(
-				session, policyOptions, proposalId, orderByComparator, false);
-
-			return array;
-		}
-		catch (Exception exception) {
-			throw processException(exception);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	protected PolicyOptions getByProposalId_PrevAndNext(
-		Session session, PolicyOptions policyOptions, long proposalId,
-		OrderByComparator<PolicyOptions> orderByComparator, boolean previous) {
-
-		StringBundler sb = null;
-
-		if (orderByComparator != null) {
-			sb = new StringBundler(
-				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
-					(orderByComparator.getOrderByFields().length * 3));
-		}
-		else {
-			sb = new StringBundler(3);
-		}
-
-		sb.append(_SQL_SELECT_POLICYOPTIONS_WHERE);
-
-		sb.append(_FINDER_COLUMN_PROPOSALID_PROPOSALID_2);
-
-		if (orderByComparator != null) {
-			String[] orderByConditionFields =
-				orderByComparator.getOrderByConditionFields();
-
-			if (orderByConditionFields.length > 0) {
-				sb.append(WHERE_AND);
-			}
-
-			for (int i = 0; i < orderByConditionFields.length; i++) {
-				sb.append(_ORDER_BY_ENTITY_ALIAS);
-				sb.append(orderByConditionFields[i]);
-
-				if ((i + 1) < orderByConditionFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
-					}
-					else {
-						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(WHERE_GREATER_THAN);
-					}
-					else {
-						sb.append(WHERE_LESSER_THAN);
-					}
-				}
-			}
-
-			sb.append(ORDER_BY_CLAUSE);
-
-			String[] orderByFields = orderByComparator.getOrderByFields();
-
-			for (int i = 0; i < orderByFields.length; i++) {
-				sb.append(_ORDER_BY_ENTITY_ALIAS);
-				sb.append(orderByFields[i]);
-
-				if ((i + 1) < orderByFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(ORDER_BY_ASC_HAS_NEXT);
-					}
-					else {
-						sb.append(ORDER_BY_DESC_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(ORDER_BY_ASC);
-					}
-					else {
-						sb.append(ORDER_BY_DESC);
-					}
-				}
-			}
-		}
-		else {
-			sb.append(PolicyOptionsModelImpl.ORDER_BY_JPQL);
-		}
-
-		String sql = sb.toString();
-
-		Query query = session.createQuery(sql);
-
-		query.setFirstResult(0);
-		query.setMaxResults(2);
-
-		QueryPos queryPos = QueryPos.getInstance(query);
-
-		queryPos.add(proposalId);
-
-		if (orderByComparator != null) {
-			for (Object orderByConditionValue :
-					orderByComparator.getOrderByConditionValues(
-						policyOptions)) {
-
-				queryPos.add(orderByConditionValue);
-			}
-		}
-
-		List<PolicyOptions> list = query.list();
-
-		if (list.size() == 2) {
-			return list.get(1);
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * Removes all the policy optionses where proposalId = &#63; from the database.
-	 *
-	 * @param proposalId the proposal ID
-	 */
-	@Override
-	public void removeByProposalId(long proposalId) {
-		for (PolicyOptions policyOptions :
-				findByProposalId(
-					proposalId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
-
-			remove(policyOptions);
-		}
+		return remove(policyOptions);
 	}
 
 	/**
@@ -623,6 +323,10 @@ public class PolicyOptionsPersistenceImpl
 		entityCache.putResult(
 			PolicyOptionsImpl.class, policyOptions.getPrimaryKey(),
 			policyOptions);
+
+		finderCache.putResult(
+			_finderPathFetchByProposalId,
+			new Object[] {policyOptions.getProposalId()}, policyOptions);
 	}
 
 	private int _valueObjectFinderCacheListThreshold;
@@ -695,6 +399,17 @@ public class PolicyOptionsPersistenceImpl
 		for (Serializable primaryKey : primaryKeys) {
 			entityCache.removeResult(PolicyOptionsImpl.class, primaryKey);
 		}
+	}
+
+	protected void cacheUniqueFindersCache(
+		PolicyOptionsModelImpl policyOptionsModelImpl) {
+
+		Object[] args = new Object[] {policyOptionsModelImpl.getProposalId()};
+
+		finderCache.putResult(
+			_finderPathCountByProposalId, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByProposalId, args, policyOptionsModelImpl, false);
 	}
 
 	/**
@@ -869,6 +584,8 @@ public class PolicyOptionsPersistenceImpl
 
 		entityCache.putResult(
 			PolicyOptionsImpl.class, policyOptionsModelImpl, false, true);
+
+		cacheUniqueFindersCache(policyOptionsModelImpl);
 
 		if (isNew) {
 			policyOptions.setNew(false);
@@ -1161,16 +878,8 @@ public class PolicyOptionsPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
 			new String[0], new String[0], false);
 
-		_finderPathWithPaginationFindByProposalId = _createFinderPath(
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByProposalId",
-			new String[] {
-				Long.class.getName(), Integer.class.getName(),
-				Integer.class.getName(), OrderByComparator.class.getName()
-			},
-			new String[] {"proposalId"}, true);
-
-		_finderPathWithoutPaginationFindByProposalId = _createFinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByProposalId",
+		_finderPathFetchByProposalId = _createFinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByProposalId",
 			new String[] {Long.class.getName()}, new String[] {"proposalId"},
 			true);
 

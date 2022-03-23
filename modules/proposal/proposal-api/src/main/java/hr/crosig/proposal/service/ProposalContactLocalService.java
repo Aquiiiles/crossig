@@ -247,6 +247,9 @@ public interface ProposalContactLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<ProposalContact> getProposalContacts(int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ProposalContactDTO> getProposalContacts(long proposalId);
+
 	/**
 	 * Returns the number of proposal contacts.
 	 *

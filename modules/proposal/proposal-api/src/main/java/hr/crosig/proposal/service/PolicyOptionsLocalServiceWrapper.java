@@ -82,7 +82,9 @@ public class PolicyOptionsLocalServiceWrapper
 	}
 
 	@Override
-	public void deleteAllByProposalId(long proposalId) {
+	public void deleteAllByProposalId(long proposalId)
+		throws hr.crosig.proposal.exception.NoSuchPolicyOptionsException {
+
 		_policyOptionsLocalService.deleteAllByProposalId(proposalId);
 	}
 
@@ -307,6 +309,13 @@ public class PolicyOptionsLocalServiceWrapper
 	@Override
 	public int getPolicyOptionsesCount() {
 		return _policyOptionsLocalService.getPolicyOptionsesCount();
+	}
+
+	@Override
+	public hr.crosig.proposal.dto.PolicyOptionsDTO getProposalPolicyOptions(
+		long proposalId) {
+
+		return _policyOptionsLocalService.getProposalPolicyOptions(proposalId);
 	}
 
 	/**

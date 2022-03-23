@@ -85,7 +85,9 @@ public class PolicyOptionsLocalServiceUtil {
 		return getService().createPolicyOptions(policyOptionsDTO);
 	}
 
-	public static void deleteAllByProposalId(long proposalId) {
+	public static void deleteAllByProposalId(long proposalId)
+		throws hr.crosig.proposal.exception.NoSuchPolicyOptionsException {
+
 		getService().deleteAllByProposalId(proposalId);
 	}
 
@@ -279,6 +281,12 @@ public class PolicyOptionsLocalServiceUtil {
 	 */
 	public static int getPolicyOptionsesCount() {
 		return getService().getPolicyOptionsesCount();
+	}
+
+	public static hr.crosig.proposal.dto.PolicyOptionsDTO
+		getProposalPolicyOptions(long proposalId) {
+
+		return getService().getProposalPolicyOptions(proposalId);
 	}
 
 	/**

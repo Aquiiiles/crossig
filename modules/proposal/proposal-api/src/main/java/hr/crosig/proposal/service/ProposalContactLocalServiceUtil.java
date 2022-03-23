@@ -279,6 +279,12 @@ public class ProposalContactLocalServiceUtil {
 		return getService().getProposalContacts(start, end);
 	}
 
+	public static List<hr.crosig.proposal.dto.ProposalContactDTO>
+		getProposalContacts(long proposalId) {
+
+		return getService().getProposalContacts(proposalId);
+	}
+
 	/**
 	 * Returns the number of proposal contacts.
 	 *
