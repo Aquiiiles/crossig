@@ -4,12 +4,14 @@ import ClayTable from "@clayui/table";
 import { HoveringButtonGroup } from "./style";
 import { VESSEL_LOOKUP_TABLE } from "../../../../../../../constants/languageKeys";
 import { VesselRow } from "../../../types/vesselLookupResult";
+import { useHistory } from "react-router-dom";
 
 type propsType = {
   vessel: VesselRow;
 };
 
 const VesselTableRow: React.FC<propsType> = (props: propsType) => {
+  const history = useHistory();
   const [showButtons, setShowButtons] = useState(false);
 
   return (
@@ -29,7 +31,12 @@ const VesselTableRow: React.FC<propsType> = (props: propsType) => {
       <ClayTable.Cell headingTitle>{props.vessel.fleetName}</ClayTable.Cell>
       {showButtons ? (
         <HoveringButtonGroup>
-          <ClayButton displayType="primary">
+          <ClayButton
+            displayType="primary"
+            onClick={() => {
+              history.push("/premium");
+            }}
+          >
             {VESSEL_LOOKUP_TABLE.CHOOSE_AND_CONTINUE}
           </ClayButton>
         </HoveringButtonGroup>

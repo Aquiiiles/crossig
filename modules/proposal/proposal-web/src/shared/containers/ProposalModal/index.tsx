@@ -30,9 +30,10 @@ const ProposalModal: React.FC<PropsType> = (props: PropsType) => {
           size="full-screen"
           spritemap={spritemap}
           status="info"
+          id="proposal-modal"
         >
           <HeaderWrapper onClick={onClose} />
-          <ClayModal.Body>{props.children}</ClayModal.Body>
+          <ClayModal.Body id="proposal-modal-body">{props.children}</ClayModal.Body>
         </StyledModal>
       )}
     </>

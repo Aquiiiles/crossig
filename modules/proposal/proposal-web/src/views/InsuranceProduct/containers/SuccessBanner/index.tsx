@@ -4,7 +4,7 @@ import { useDispatch } from "../../../../redux/store";
 import { actions } from "../../../../redux";
 import { INSURANCE_PRODUCT } from "../../../../constants/languageKeys";
 import { Banner } from "./style";
-import Modal from "../../../../shared/atoms/contact/Modal";
+import Modal from "../../../../shared/atoms/Modal";
 
 interface props {
   contact: {

@@ -7,7 +7,7 @@ interface props {
 
 const SectionTitle: React.FC<props> = ({ title }: props) => {
   return (
-    <Wrapper>
+    <Wrapper className="section-title">
       <h6>{title}</h6>
     </Wrapper>
   );

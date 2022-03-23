@@ -5,6 +5,7 @@ import { VesselRow } from "../../../types/vesselLookupResult";
 import { ButtonGroup, InnerGrid, MainGrid, Wrapper } from "./styles";
 import ClayButton from "@clayui/button";
 import { VESSEL_LOOKUP_TABLE } from "../../../../../../../constants/languageKeys";
+import { useHistory } from "react-router-dom";
 
 type PropsType = {
   vessel: VesselRow;
@@ -12,6 +13,7 @@ type PropsType = {
 };
 
 const VesselRowMobile: React.FC<PropsType> = ({ vessel, headerItems }) => {
+  const history = useHistory();
   const gridLeftKeys: Array<keyof typeof vessel> = [
     "nib",
     "registrationMark",
@@ -53,7 +55,12 @@ const VesselRowMobile: React.FC<PropsType> = ({ vessel, headerItems }) => {
         <ClayButton displayType="secondary" className="ghost">
           {VESSEL_LOOKUP_TABLE.VIEW_DETAILS}
         </ClayButton>
-        <ClayButton displayType="primary">
+        <ClayButton
+          displayType="primary"
+          onClick={() => {
+            history.push("/premium");
+          }}
+        >
           {VESSEL_LOOKUP_TABLE.USE_VESSEL}
         </ClayButton>
       </ButtonGroup>
