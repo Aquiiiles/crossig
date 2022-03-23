@@ -145,7 +145,7 @@ describe("New Contact page", () => {
       screen.getByText(language.CREATE_NEW_CONTACT.FIELD.OIB)
     ).toBeVisible();
     expect(
-      screen.getByText(language.CREATE_NEW_CONTACT.FIELD.FOREIGNER_STATUS)
+      screen.getByLabelText(language.CREATE_NEW_CONTACT.FIELD.FOREIGNER_STATUS)
     ).not.toBeChecked();
   });
 
@@ -162,8 +162,118 @@ describe("New Contact page", () => {
       screen.getByText(language.CREATE_NEW_CONTACT.FIELD.OIB)
     ).toBeVisible();
     expect(
-      screen.getByText(language.CREATE_NEW_CONTACT.FIELD.FOREIGNER_STATUS)
+      screen.getByLabelText(language.CREATE_NEW_CONTACT.FIELD.FOREIGNER_STATUS)
     ).not.toBeChecked();
+  });
+
+  it("Address fields", () => {
+    expect(
+      screen.getByText(language.CREATE_NEW_CONTACT.ADDRESS_TITLE)
+    ).toBeVisible();
+    expect(
+      screen.getByText(language.CREATE_NEW_CONTACT.ID_ADDRESS)
+    ).toBeVisible();
+    expect(
+      screen.getAllByText(language.CREATE_NEW_CONTACT.FIELD.COUNTRY).length
+    ).toBe(1);
+    expect(
+      screen.getAllByText(language.CREATE_NEW_CONTACT.FIELD.CITY).length
+    ).toBe(1);
+    expect(
+      screen.getAllByText(language.CREATE_NEW_CONTACT.FIELD.POSTAL_CODE).length
+    ).toBe(1);
+    expect(
+      screen.getAllByText(language.CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS)
+        .length
+    ).toBe(1);
+    expect(
+      screen.getAllByText(language.CREATE_NEW_CONTACT.FIELD.HOUSE_NUMBER).length
+    ).toBe(1);
+    expect(
+      screen.getByLabelText(language.CREATE_NEW_CONTACT.FIELD.DISPATCH_ADDRESS)
+    ).toBeChecked();
+  });
+
+  it("Address fields for Self Employed", () => {
+    selectSelfType();
+
+    expect(
+      screen.getByText(language.CREATE_NEW_CONTACT.REGISTERED_OFFICE_ADDRESS)
+    ).toBeVisible();
+    expect(
+      screen.getAllByText(language.CREATE_NEW_CONTACT.FIELD.COUNTRY).length
+    ).toBe(1);
+    expect(
+      screen.getAllByText(language.CREATE_NEW_CONTACT.FIELD.CITY).length
+    ).toBe(1);
+    expect(
+      screen.getAllByText(language.CREATE_NEW_CONTACT.FIELD.POSTAL_CODE).length
+    ).toBe(1);
+    expect(
+      screen.getAllByText(language.CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS)
+        .length
+    ).toBe(1);
+    expect(
+      screen.getAllByText(language.CREATE_NEW_CONTACT.FIELD.HOUSE_NUMBER).length
+    ).toBe(1);
+    expect(
+      screen.getByLabelText(language.CREATE_NEW_CONTACT.FIELD.DISPATCH_ADDRESS)
+    ).toBeChecked();
+  });
+
+  it("Address fields for Self Employed", () => {
+    selectLegalType();
+
+    expect(
+      screen.getByText(language.CREATE_NEW_CONTACT.REGISTERED_OFFICE_ADDRESS)
+    ).toBeVisible();
+    expect(
+      screen.getAllByText(language.CREATE_NEW_CONTACT.FIELD.COUNTRY).length
+    ).toBe(1);
+    expect(
+      screen.getAllByText(language.CREATE_NEW_CONTACT.FIELD.CITY).length
+    ).toBe(1);
+    expect(
+      screen.getAllByText(language.CREATE_NEW_CONTACT.FIELD.POSTAL_CODE).length
+    ).toBe(1);
+    expect(
+      screen.getAllByText(language.CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS)
+        .length
+    ).toBe(1);
+    expect(
+      screen.getAllByText(language.CREATE_NEW_CONTACT.FIELD.HOUSE_NUMBER).length
+    ).toBe(1);
+    expect(
+      screen.getByLabelText(language.CREATE_NEW_CONTACT.FIELD.DISPATCH_ADDRESS)
+    ).toBeChecked();
+  });
+
+  it("Address test dispatch address", () => {
+    const dispatchAddress = screen.getByLabelText(
+      language.CREATE_NEW_CONTACT.FIELD.DISPATCH_ADDRESS
+    );
+
+    act(() => {
+      fireEvent.click(dispatchAddress);
+    });
+
+    expect(
+      screen.getAllByText(language.CREATE_NEW_CONTACT.FIELD.COUNTRY).length
+    ).toBe(2);
+    expect(
+      screen.getAllByText(language.CREATE_NEW_CONTACT.FIELD.CITY).length
+    ).toBe(2);
+    expect(
+      screen.getAllByText(language.CREATE_NEW_CONTACT.FIELD.POSTAL_CODE).length
+    ).toBe(2);
+    expect(
+      screen.getAllByText(language.CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS)
+        .length
+    ).toBe(2);
+    expect(
+      screen.getAllByText(language.CREATE_NEW_CONTACT.FIELD.HOUSE_NUMBER).length
+    ).toBe(2);
+    expect(dispatchAddress).not.toBeChecked();
   });
 
   it("Create Contact button", () => {
