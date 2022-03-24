@@ -69,6 +69,101 @@ const addMobile = () => {
   });
 };
 
+const setIndividualFields = () => {
+  act(() => {
+    fireEvent.change(screen.getByLabelText(language.CREATE_NEW_CONTACT.TYPE), {
+      target: { value: 1 },
+    });
+    fireEvent.change(
+      screen.getByLabelText(language.CREATE_NEW_CONTACT.FIELD.FIRST_NAME),
+      {
+        target: { value: "test" },
+      }
+    );
+    fireEvent.change(
+      screen.getByLabelText(language.CREATE_NEW_CONTACT.FIELD.LAST_NAME),
+      {
+        target: { value: "test" },
+      }
+    );
+    fireEvent.change(screen.getByPlaceholderText("DD"), {
+      target: { value: 5 },
+    });
+    fireEvent.change(screen.getByPlaceholderText("MM"), {
+      target: { value: 5 },
+    });
+    fireEvent.change(screen.getByPlaceholderText("YYYY"), {
+      target: { value: 1990 },
+    });
+    fireEvent.change(
+      screen.getByLabelText(language.CREATE_NEW_CONTACT.FIELD.OIB),
+      {
+        target: { value: 123 },
+      }
+    );
+  });
+};
+
+const setSelfOrLegalFields = () => {
+  act(() => {
+    fireEvent.change(
+      screen.getByLabelText(language.CREATE_NEW_CONTACT.FIELD.COMPANY_NAME),
+      {
+        target: { value: "test" },
+      }
+    );
+    fireEvent.change(
+      screen.getByLabelText(
+        language.CREATE_NEW_CONTACT.FIELD.SUBSIDIARY_NUMBER
+      ),
+      {
+        target: { value: 123 },
+      }
+    );
+    fireEvent.change(
+      screen.getByLabelText(language.CREATE_NEW_CONTACT.FIELD.OIB),
+      {
+        target: { value: 123 },
+      }
+    );
+  });
+};
+
+const setAddressFields = () => {
+  act(() => {
+    fireEvent.change(
+      screen.getByLabelText(language.CREATE_NEW_CONTACT.FIELD.COUNTRY),
+      {
+        target: { value: "test" },
+      }
+    );
+    fireEvent.change(
+      screen.getByLabelText(language.CREATE_NEW_CONTACT.FIELD.CITY),
+      {
+        target: { value: "test" },
+      }
+    );
+    fireEvent.change(
+      screen.getByLabelText(language.CREATE_NEW_CONTACT.FIELD.POSTAL_CODE),
+      {
+        target: { value: 123 },
+      }
+    );
+    fireEvent.change(
+      screen.getByLabelText(language.CREATE_NEW_CONTACT.FIELD.STREET_ADDRESS),
+      {
+        target: { value: "test" },
+      }
+    );
+    fireEvent.change(
+      screen.getByLabelText(language.CREATE_NEW_CONTACT.FIELD.HOUSE_NUMBER),
+      {
+        target: { value: 123 },
+      }
+    );
+  });
+};
+
 describe("New Contact page", () => {
   beforeEach(() => {
     act(() => {
@@ -96,7 +191,7 @@ describe("New Contact page", () => {
 
     act(() => {
       fireEvent.change(oibInput, {
-        target: { value: "oib" },
+        target: { value: 123 },
       });
       screen.getByText(language.CONTACT_INFO.CANCEL).click();
     });
@@ -407,5 +502,51 @@ describe("New Contact page", () => {
     expect(
       screen.getAllByText(language.CONTACT_INFO.ADD_MOBILE_PHONE)[0]
     ).toHaveClass("disabled");
+  });
+
+  it("Test Individual type Create Contact functionality", () => {
+    selectIndividualType();
+
+    expect(
+      screen.getByText(language.CONTACT_INFO.CREATE_CONTACT)
+    ).toBeDisabled();
+
+    setIndividualFields();
+    setAddressFields();
+
+    expect(
+      screen.getByText(language.CONTACT_INFO.CREATE_CONTACT)
+    ).not.toBeDisabled();
+  });
+
+  it("Test Self type Create Contact functionality", () => {
+    selectSelfType();
+
+    expect(
+      screen.getByText(language.CONTACT_INFO.CREATE_CONTACT)
+    ).toBeDisabled();
+
+    setSelfOrLegalFields();
+    setAddressFields();
+
+    expect(
+      screen.getByText(language.CONTACT_INFO.CREATE_CONTACT)
+    ).not.toBeDisabled();
+  });
+
+  it("Test Legal type Create Contact functionality", () => {
+    selectLegalType();
+    setSelfOrLegalFields();
+    setAddressFields();
+
+    expect(
+      screen.getByText(language.CREATE_NEW_CONTACT.SUBMIT_BUTTON)
+    ).not.toBeDisabled();
+    expect(
+      screen.getByText(language.CREATE_NEW_CONTACT.CREATE_LEGAL_ENTITY)
+    ).toBeVisible();
+    expect(
+      screen.getByText(language.CREATE_NEW_CONTACT.BACKOFFICE_NOTIFICATION)
+    ).toBeVisible();
   });
 });
