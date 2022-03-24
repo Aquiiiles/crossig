@@ -17,16 +17,22 @@ import useTableRowState from "../../../../../hooks/useTableRowState";
 interface props {
   contact: types.responseType;
   embedded: boolean;
+  rowId: number;
+  handleHover: (rowId: number) => void;
+  hoveringRow: number;
 }
 
-const TableRow: React.FC<props> = ({ contact, embedded }) => {
-  const [
-    { showButtons },
-    { setShowButtons, formatDOB, openUpdateContact, selectContact },
-    types,
-  ] = useTableRowState(
-    embedded ? contactOperations.updateEmbedded : contactOperations.update
-  );
+const TableRow: React.FC<props> = ({
+  contact,
+  embedded,
+  rowId,
+  handleHover,
+  hoveringRow,
+}) => {
+  const [{ formatDOB, openUpdateContact, selectContact }, types] =
+    useTableRowState(
+      embedded ? contactOperations.updateEmbedded : contactOperations.update
+    );
 
   const hoveringButtons = (embedded: boolean) => {
     const secondButton = embedded ? (
@@ -59,21 +65,14 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
     );
   };
 
-  const handleLastCells = (showButtons: boolean) => {
-    let lastCells = contactTypeCell();
-
-    if (showButtons) {
-      lastCells = hoveringButtons(embedded);
-    }
-
-    return lastCells;
-  };
+  const lastCell =
+    hoveringRow === rowId ? hoveringButtons(embedded) : contactTypeCell();
 
   return (
     <ClayTable.Row
       style={{ position: "relative" }}
-      onMouseLeave={() => setShowButtons(false)}
-      onMouseMove={() => setShowButtons(true)}
+      onMouseLeave={() => handleHover(-1)}
+      onMouseEnter={() => handleHover(rowId)}
       onDoubleClick={() => (!embedded ? selectContact(contact) : null)}
     >
       <ClayTable.Cell headingTitle>
@@ -96,7 +95,7 @@ const TableRow: React.FC<props> = ({ contact, embedded }) => {
       <ClayTable.Cell headingTitle>
         {contact[constants.CITY_KEY]}
       </ClayTable.Cell>
-      {handleLastCells(showButtons)}
+      {lastCell}
     </ClayTable.Row>
   );
 };

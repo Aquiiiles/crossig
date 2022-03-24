@@ -8,17 +8,43 @@ import { useHistory } from "react-router-dom";
 
 type propsType = {
   vessel: VesselRow;
+  rowId: number;
+  handleHover: (rowId: number) => void;
+  hoveringRow: number;
 };
 
 const VesselTableRow: React.FC<propsType> = (props: propsType) => {
   const history = useHistory();
-  const [showButtons, setShowButtons] = useState(false);
+
+  const hoveringButtons = () => {
+    return (
+      <HoveringButtonGroup>
+        <ClayButton
+          displayType="primary"
+          onClick={() => {
+            history.push("/premium");
+          }}
+        >
+          {VESSEL_LOOKUP_TABLE.CHOOSE_AND_CONTINUE}
+        </ClayButton>
+      </HoveringButtonGroup>
+    );
+  };
+
+  const policyHolderCell = () => {
+    return (
+      <ClayTable.Cell headingTitle>{props.vessel.policyHolder}</ClayTable.Cell>
+    );
+  };
+
+  const lastCell =
+    props.hoveringRow === props.rowId ? hoveringButtons() : policyHolderCell();
 
   return (
     <ClayTable.Row
       style={{ position: "relative" }}
-      onMouseLeave={() => setShowButtons(false)}
-      onMouseEnter={() => setShowButtons(true)}
+      onMouseLeave={() => props.handleHover(-1)}
+      onMouseEnter={() => props.handleHover(props.rowId)}
       onDoubleClick={() => {
         return;
       }}
@@ -29,22 +55,7 @@ const VesselTableRow: React.FC<propsType> = (props: propsType) => {
       </ClayTable.Cell>
       <ClayTable.Cell headingTitle>{props.vessel.vesselName}</ClayTable.Cell>
       <ClayTable.Cell headingTitle>{props.vessel.fleetName}</ClayTable.Cell>
-      {showButtons ? (
-        <HoveringButtonGroup>
-          <ClayButton
-            displayType="primary"
-            onClick={() => {
-              history.push("/premium");
-            }}
-          >
-            {VESSEL_LOOKUP_TABLE.CHOOSE_AND_CONTINUE}
-          </ClayButton>
-        </HoveringButtonGroup>
-      ) : (
-        <ClayTable.Cell headingTitle>
-          {props.vessel.policyHolder}
-        </ClayTable.Cell>
-      )}
+      {lastCell}
     </ClayTable.Row>
   );
 };

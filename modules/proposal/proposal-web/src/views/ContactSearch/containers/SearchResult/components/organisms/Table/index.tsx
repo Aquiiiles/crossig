@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ClayTable from "@clayui/table";
 import TableRow from "../../atoms/TableRow";
 import spritemap from "@clayui/css/lib/images/icons/icons.svg";
@@ -17,6 +17,8 @@ interface props {
 
 const Table: React.FC<props> = ({ inputData, loading, embedded }: props) => {
   const [{ sortedBy, sortOrder }, { handleSort }] = useSort("searchFilter");
+
+  const [hoveringRow, setHoveringRow] = useState(-1);
 
   const arrowIcon = (
     <ClayIcon
@@ -89,11 +91,14 @@ const Table: React.FC<props> = ({ inputData, loading, embedded }: props) => {
         </ClayTable.Row>
       </ClayTable.Head>
       <ClayTable.Body>
-        {inputData.map((item: types.responseType) => (
+        {inputData.map((item: types.responseType, index: number) => (
           <TableRow
             key={item.idValue}
             contact={item}
             embedded={embedded}
+            rowId={index}
+            handleHover={setHoveringRow}
+            hoveringRow={hoveringRow}
           />
         ))}
       </ClayTable.Body>
