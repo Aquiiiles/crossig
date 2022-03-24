@@ -2,6 +2,7 @@ package hr.crosig.proposal.rest.application;
 
 import com.liferay.portal.kernel.exception.PortalException;
 
+import hr.crosig.common.ws.util.ApplicationUtilities;
 import hr.crosig.proposal.dto.CoveragePlanDTO;
 import hr.crosig.proposal.dto.InsuredRoleDTO;
 import hr.crosig.proposal.dto.ProductDTO;
@@ -78,7 +79,8 @@ public class ProposalApplication extends Application {
 		try {
 			responseBuilder = Response.ok(
 			).entity(
-				_proposalLocalService.getAgentProposals(agentUserId)
+				ApplicationUtilities.createEntityJsonString(
+					_proposalLocalService.getAgentProposals(agentUserId))
 			);
 		}
 		catch (Exception exception) {
@@ -184,7 +186,7 @@ public class ProposalApplication extends Application {
 			else {
 				responseBuilder = Response.ok(
 				).entity(
-					proposalDTO
+					ApplicationUtilities.createEntityJsonString(proposalDTO)
 				);
 			}
 		}

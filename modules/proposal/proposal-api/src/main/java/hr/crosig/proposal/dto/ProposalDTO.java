@@ -1,5 +1,7 @@
 package hr.crosig.proposal.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.List;
 
 /**
@@ -35,6 +37,7 @@ public class ProposalDTO {
 		return _policyHolderExtNumber;
 	}
 
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	public PolicyOptionsDTO getPolicyOptions() {
 		return _policyOptions;
 	}
