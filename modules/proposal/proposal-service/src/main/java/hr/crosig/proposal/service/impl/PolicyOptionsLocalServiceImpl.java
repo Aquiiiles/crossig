@@ -15,12 +15,14 @@
 package hr.crosig.proposal.service.impl;
 
 import com.liferay.portal.aop.AopService;
-import com.liferay.portal.kernel.exception.PortalException;
 
 import hr.crosig.proposal.dto.PolicyOptionsDTO;
 import hr.crosig.proposal.exception.NoSuchPolicyOptionsException;
 import hr.crosig.proposal.model.PolicyOptions;
+import hr.crosig.proposal.model.Proposal;
 import hr.crosig.proposal.service.base.PolicyOptionsLocalServiceBaseImpl;
+
+import java.util.Date;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -35,13 +37,19 @@ public class PolicyOptionsLocalServiceImpl
 	extends PolicyOptionsLocalServiceBaseImpl {
 
 	public PolicyOptionsDTO createPolicyOptions(
-		PolicyOptionsDTO policyOptionsDTO) {
+		PolicyOptionsDTO policyOptionsDTO, Proposal proposal) {
 
 		long policyOptionsId = counterLocalService.increment(
 			PolicyOptions.class.getName());
 
 		PolicyOptions policyOptions = policyOptionsPersistence.create(
 			policyOptionsId);
+
+		policyOptions.setCreateDate(new Date());
+		policyOptions.setUserId(proposal.getUserId());
+		policyOptions.setUserName(proposal.getUserName());
+		policyOptions.setCompanyId(proposal.getCompanyId());
+		policyOptions.setProposalId(proposal.getProposalId());
 
 		policyOptions = _updatePolicyOptions(policyOptionsDTO, policyOptions);
 
@@ -51,7 +59,12 @@ public class PolicyOptionsLocalServiceImpl
 	public void deleteAllByProposalId(long proposalId)
 		throws NoSuchPolicyOptionsException {
 
-		policyOptionsPersistence.removeByProposalId(proposalId);
+		PolicyOptions policyOptions =
+			policyOptionsPersistence.fetchByProposalId(proposalId);
+
+		if (policyOptions != null) {
+			policyOptionsLocalService.deletePolicyOptions(policyOptions);
+		}
 	}
 
 	public PolicyOptionsDTO getProposalPolicyOptions(long proposalId) {
@@ -59,46 +72,30 @@ public class PolicyOptionsLocalServiceImpl
 			policyOptionsPersistence.fetchByProposalId(proposalId));
 	}
 
-	public PolicyOptionsDTO updatePolicyOptions(
-			PolicyOptionsDTO policyOptionsDTO)
-		throws PortalException {
-
-		PolicyOptions policyOptions =
-			policyOptionsLocalService.getPolicyOptions(
-				policyOptionsDTO.getPolicyOptionsId());
-
-		policyOptions = _updatePolicyOptions(policyOptionsDTO, policyOptions);
-
-		return _mapToDTO(policyOptions);
-	}
-
 	private PolicyOptionsDTO _mapToDTO(PolicyOptions policyOptions) {
 		PolicyOptionsDTO policyOptionsDTO = new PolicyOptionsDTO();
 
+		if (policyOptions == null) {
+			return policyOptionsDTO;
+		}
+
 		policyOptionsDTO.setCommunicationMethod(
 			policyOptions.getCommunicationMethod());
-		policyOptionsDTO.setCompanyId(policyOptions.getCompanyId());
 		policyOptionsDTO.setContractEndDate(policyOptions.getContractEndDate());
 		policyOptionsDTO.setContractPeriod(policyOptions.getContractPeriod());
 		policyOptionsDTO.setContractStartDate(
 			policyOptions.getContractStartDate());
-		policyOptionsDTO.setCreateDate(policyOptions.getCreateDate());
 		policyOptionsDTO.setCurrency(policyOptions.getCurrency());
 		policyOptionsDTO.setDurationYear(policyOptions.getDurationYear());
 		policyOptionsDTO.setIssueDate(policyOptions.getIssueDate());
-		policyOptionsDTO.setModifiedDate(policyOptions.getModifiedDate());
 		policyOptionsDTO.setPolicyEndDate(policyOptions.getPolicyEndDate());
 		policyOptionsDTO.setPolicyNumberDays(
 			policyOptions.getPolicyNumberDays());
-		policyOptionsDTO.setPolicyOptionsId(policyOptions.getPolicyOptionsId());
 		policyOptionsDTO.setPolicyStartDate(policyOptions.getPolicyStartDate());
 		policyOptionsDTO.setProductCategory(policyOptions.getProductCategory());
 		policyOptionsDTO.setProductExtNumber(
 			policyOptions.getProductExtNumber());
-		policyOptionsDTO.setProposalId(policyOptions.getProposalId());
 		policyOptionsDTO.setTermsDate(policyOptions.getTermsDate());
-		policyOptionsDTO.setUserId(policyOptions.getUserId());
-		policyOptionsDTO.setUserName(policyOptions.getUserName());
 
 		return policyOptionsDTO;
 	}
@@ -122,8 +119,8 @@ public class PolicyOptionsLocalServiceImpl
 		policyOptions.setProductCategory(policyOptionsDTO.getProductCategory());
 		policyOptions.setProductExtNumber(
 			policyOptionsDTO.getProductExtNumber());
-		policyOptions.setProposalId(policyOptionsDTO.getProposalId());
 		policyOptions.setTermsDate(policyOptionsDTO.getTermsDate());
+		policyOptions.setModifiedDate(new Date());
 
 		return policyOptionsPersistence.update(policyOptions);
 	}

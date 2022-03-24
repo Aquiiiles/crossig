@@ -1,10 +1,5 @@
 package hr.crosig.proposal.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import hr.crosig.proposal.constants.ProposalConstants;
-
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -120,10 +115,8 @@ public class ProposalDTO {
 
 	private long _agentUserId;
 	private long _companyId;
-
 	private String _externalProposalNumber;
 	private String _insuredObjectExtNumber;
-
 	private String _origin;
 	private List<PolicyCoverageOptionDTO> _policyCoverageOptions;
 	private String _policyHolderExtNumber;

@@ -15,10 +15,6 @@ public class PolicyOptionsDTO {
 		return _communicationMethod;
 	}
 
-	public long getCompanyId() {
-		return _companyId;
-	}
-
 	public Date getContractEndDate() {
 		return _contractEndDate;
 	}
@@ -29,10 +25,6 @@ public class PolicyOptionsDTO {
 
 	public Date getContractStartDate() {
 		return _contractStartDate;
-	}
-
-	public Date getCreateDate() {
-		return _createDate;
 	}
 
 	public String getCurrency() {
@@ -47,20 +39,12 @@ public class PolicyOptionsDTO {
 		return _issueDate;
 	}
 
-	public Date getModifiedDate() {
-		return _modifiedDate;
-	}
-
 	public Date getPolicyEndDate() {
 		return _policyEndDate;
 	}
 
 	public int getPolicyNumberDays() {
 		return _policyNumberDays;
-	}
-
-	public long getPolicyOptionsId() {
-		return _policyOptionsId;
 	}
 
 	public Date getPolicyStartDate() {
@@ -75,28 +59,12 @@ public class PolicyOptionsDTO {
 		return _productExtNumber;
 	}
 
-	public long getProposalId() {
-		return _proposalId;
-	}
-
 	public Date getTermsDate() {
 		return _termsDate;
 	}
 
-	public long getUserId() {
-		return _userId;
-	}
-
-	public String getUserName() {
-		return _userName;
-	}
-
 	public void setCommunicationMethod(String communicationMethod) {
 		_communicationMethod = communicationMethod;
-	}
-
-	public void setCompanyId(long companyId) {
-		_companyId = companyId;
 	}
 
 	public void setContractEndDate(Date contractEndDate) {
@@ -111,10 +79,6 @@ public class PolicyOptionsDTO {
 		_contractStartDate = contractStartDate;
 	}
 
-	public void setCreateDate(Date createDate) {
-		_createDate = createDate;
-	}
-
 	public void setCurrency(String currency) {
 		_currency = currency;
 	}
@@ -127,20 +91,12 @@ public class PolicyOptionsDTO {
 		_issueDate = issueDate;
 	}
 
-	public void setModifiedDate(Date modifiedDate) {
-		_modifiedDate = modifiedDate;
-	}
-
 	public void setPolicyEndDate(Date policyEndDate) {
 		_policyEndDate = policyEndDate;
 	}
 
 	public void setPolicyNumberDays(int policyNumberDays) {
 		_policyNumberDays = policyNumberDays;
-	}
-
-	public void setPolicyOptionsId(long policyOptionsId) {
-		_policyOptionsId = policyOptionsId;
 	}
 
 	public void setPolicyStartDate(Date policyStartDate) {
@@ -155,24 +111,11 @@ public class PolicyOptionsDTO {
 		_productExtNumber = productExtNumber;
 	}
 
-	public void setProposalId(long proposalId) {
-		_proposalId = proposalId;
-	}
-
 	public void setTermsDate(Date termsDate) {
 		_termsDate = termsDate;
 	}
 
-	public void setUserId(long userId) {
-		_userId = userId;
-	}
-
-	public void setUserName(String userName) {
-		_userName = userName;
-	}
-
 	private String _communicationMethod;
-	private long _companyId;
 
 	@JsonFormat(
 		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
@@ -186,11 +129,6 @@ public class PolicyOptionsDTO {
 	)
 	private Date _contractStartDate;
 
-	@JsonFormat(
-		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
-	)
-	private Date _createDate;
-
 	private String _currency;
 	private int _durationYear;
 
@@ -202,15 +140,9 @@ public class PolicyOptionsDTO {
 	@JsonFormat(
 		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
 	)
-	private Date _modifiedDate;
-
-	@JsonFormat(
-		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
-	)
 	private Date _policyEndDate;
 
 	private int _policyNumberDays;
-	private long _policyOptionsId;
 
 	@JsonFormat(
 		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
@@ -219,14 +151,10 @@ public class PolicyOptionsDTO {
 
 	private String _productCategory;
 	private String _productExtNumber;
-	private long _proposalId;
 
 	@JsonFormat(
 		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
 	)
 	private Date _termsDate;
-
-	private long _userId;
-	private String _userName;
 
 }

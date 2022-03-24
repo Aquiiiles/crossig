@@ -15,12 +15,13 @@
 package hr.crosig.proposal.service.impl;
 
 import com.liferay.portal.aop.AopService;
-import com.liferay.portal.kernel.exception.PortalException;
 
 import hr.crosig.proposal.dto.ProposalContactDTO;
+import hr.crosig.proposal.model.Proposal;
 import hr.crosig.proposal.model.ProposalContact;
 import hr.crosig.proposal.service.base.ProposalContactLocalServiceBaseImpl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,13 +38,19 @@ public class ProposalContactLocalServiceImpl
 	extends ProposalContactLocalServiceBaseImpl {
 
 	public ProposalContactDTO createProposalContact(
-		ProposalContactDTO proposalContactDTO) {
+		ProposalContactDTO proposalContactDTO, Proposal proposal) {
 
 		long proposalContactId = counterLocalService.increment(
 			ProposalContact.class.getName());
 
 		ProposalContact proposalContact = proposalContactPersistence.create(
 			proposalContactId);
+
+		proposalContact.setCreateDate(new Date());
+		proposalContact.setUserId(proposal.getUserId());
+		proposalContact.setUserName(proposal.getUserName());
+		proposalContact.setCompanyId(proposal.getCompanyId());
+		proposalContact.setProposalId(proposal.getProposalId());
 
 		proposalContact = _updateProposalContact(
 			proposalContactDTO, proposalContact);
@@ -66,34 +73,12 @@ public class ProposalContactLocalServiceImpl
 		);
 	}
 
-	public ProposalContactDTO updateProposalContact(
-			ProposalContactDTO proposalContactDTO)
-		throws PortalException {
-
-		ProposalContact proposalContact =
-			proposalContactLocalService.getProposalContact(
-				proposalContactDTO.getProposalContactId());
-
-		proposalContact = _updateProposalContact(
-			proposalContactDTO, proposalContact);
-
-		return _mapToDTO(proposalContact);
-	}
-
 	private ProposalContactDTO _mapToDTO(ProposalContact proposalContact) {
 		ProposalContactDTO proposalContactDTO = new ProposalContactDTO();
 
-		proposalContactDTO.setCompanyId(proposalContact.getCompanyId());
 		proposalContactDTO.setContactExtNumber(
 			proposalContact.getContactExtNumber());
-		proposalContactDTO.setCreateDate(proposalContact.getCreateDate());
 		proposalContactDTO.setInsuredRoles(proposalContact.getInsuredRoles());
-		proposalContactDTO.setModifiedDate(proposalContact.getModifiedDate());
-		proposalContactDTO.setProposalContactId(
-			proposalContact.getProposalContactId());
-		proposalContactDTO.setProposalId(proposalContact.getProposalId());
-		proposalContactDTO.setUserId(proposalContact.getUserId());
-		proposalContactDTO.setUserName(proposalContact.getUserName());
 
 		return proposalContactDTO;
 	}
@@ -105,7 +90,7 @@ public class ProposalContactLocalServiceImpl
 		proposalContact.setContactExtNumber(
 			proposalContactDTO.getContactExtNumber());
 		proposalContact.setInsuredRoles(proposalContactDTO.getInsuredRoles());
-		proposalContact.setProposalId(proposalContactDTO.getProposalId());
+		proposalContact.setModifiedDate(new Date());
 
 		return proposalContactPersistence.update(proposalContact);
 	}
