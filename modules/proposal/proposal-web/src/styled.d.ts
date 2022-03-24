@@ -18,6 +18,7 @@ declare module "styled-components" {
         neutralGrey: string;
         neutralGreyText: string;
         dot: string;
+        stepComplete: string;
       };
       secondary: {
         1: string;

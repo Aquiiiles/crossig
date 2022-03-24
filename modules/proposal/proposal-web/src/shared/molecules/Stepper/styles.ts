@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
     width: 100%;
     display: flex;
-    padding: 1.1rem;
+    padding: 1.6rem;
     position: relative;
   }
 
