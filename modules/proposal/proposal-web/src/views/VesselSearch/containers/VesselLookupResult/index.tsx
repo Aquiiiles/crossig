@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { VESSEL_LOOKUP } from "../../../../constants/languageKeys";
 import { PageIndex } from "../../../../shared/hooks/usePagination";
 import LookupResult from "../../../../shared/containers/LookupResult";
@@ -28,6 +28,7 @@ type PropsType = {
 
 const VesselLookupResult: React.FC<PropsType> = (props: PropsType) => {
   const [sortData, { handleSort }] = useSort("vesselLookupFilter");
+  const [hoveringRow, setHoveringRow] = useState(-1);
 
   const parsedData = props.data.map((item: ProvidedDataType) => {
     const responseObj: VesselRow = {
@@ -57,7 +58,14 @@ const VesselLookupResult: React.FC<PropsType> = (props: PropsType) => {
         {...sortData}
         onSort={handleSort}
         rowGenerator={(vessel: VesselRow) => {
-          return <VesselTableRow vessel={vessel} />;
+          return (
+            <VesselTableRow
+              vessel={vessel}
+              rowId={parsedData.indexOf(vessel)}
+              handleHover={setHoveringRow}
+              hoveringRow={hoveringRow}
+            />
+          );
         }}
         rowGeneratorMobile={(vessel: VesselRow) => {
           return (
