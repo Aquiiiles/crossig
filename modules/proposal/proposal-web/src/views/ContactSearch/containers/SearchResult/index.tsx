@@ -1,6 +1,6 @@
 import React from "react";
 import Table from "./components/organisms/Table";
-import Pagination from "./components/molecules/Pagination";
+import Pagination from "../../../../shared/molecules/Pagination";
 import { SearchResultsHeader, Wrapper } from "./styles";
 import ClayForm, { ClaySelect, ClaySelectWithOption } from "@clayui/form";
 import ClayDropDown from "@clayui/drop-down";
