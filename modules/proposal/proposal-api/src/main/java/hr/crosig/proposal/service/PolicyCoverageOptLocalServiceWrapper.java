@@ -80,11 +80,11 @@ public class PolicyCoverageOptLocalServiceWrapper
 	@Override
 	public hr.crosig.proposal.dto.PolicyCoverageOptionDTO
 		createPolicyCoverageOpt(
-			hr.crosig.proposal.dto.PolicyCoverageOptionDTO
-				policyCoverageOptDTO) {
+			hr.crosig.proposal.dto.PolicyCoverageOptionDTO policyCoverageOptDTO,
+			hr.crosig.proposal.model.Proposal proposal) {
 
 		return _policyCoverageOptLocalService.createPolicyCoverageOpt(
-			policyCoverageOptDTO);
+			policyCoverageOptDTO, proposal);
 	}
 
 	@Override
@@ -321,6 +321,14 @@ public class PolicyCoverageOptLocalServiceWrapper
 		return _policyCoverageOptLocalService.getPolicyCoverageOptsCount();
 	}
 
+	@Override
+	public java.util.List<hr.crosig.proposal.dto.PolicyCoverageOptionDTO>
+		getProposalCoverageOptions(long proposalId) {
+
+		return _policyCoverageOptLocalService.getProposalCoverageOptions(
+			proposalId);
+	}
+
 	/**
 	 * Updates the policy coverage opt in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -337,17 +345,6 @@ public class PolicyCoverageOptLocalServiceWrapper
 
 		return _policyCoverageOptLocalService.updatePolicyCoverageOpt(
 			policyCoverageOpt);
-	}
-
-	@Override
-	public hr.crosig.proposal.dto.PolicyCoverageOptionDTO
-			updatePolicyCoverageOpt(
-				hr.crosig.proposal.dto.PolicyCoverageOptionDTO
-					policyCoverageOptDTO)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _policyCoverageOptLocalService.updatePolicyCoverageOpt(
-			policyCoverageOptDTO);
 	}
 
 	@Override

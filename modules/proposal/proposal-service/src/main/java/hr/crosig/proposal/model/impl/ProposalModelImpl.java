@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 
@@ -117,11 +118,17 @@ public class ProposalModelImpl
 	public static final String TX_MANAGER = "liferayTransactionManager";
 
 	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
+	 */
+	@Deprecated
+	public static final long AGENTUSERID_COLUMN_BITMASK = 1L;
+
+	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
 	 *		#getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long PROPOSALID_COLUMN_BITMASK = 1L;
+	public static final long PROPOSALID_COLUMN_BITMASK = 2L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
@@ -505,6 +512,16 @@ public class ProposalModelImpl
 
 	@Override
 	public void setAgentUserUuid(String agentUserUuid) {
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
+	public long getOriginalAgentUserId() {
+		return GetterUtil.getLong(
+			this.<Long>getColumnOriginalValue("agentUserId"));
 	}
 
 	@Override

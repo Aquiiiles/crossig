@@ -114,7 +114,7 @@
 		<column name="policyNumberDays" type="int" />
 		<column name="communicationMethod" type="String" />
 
-		<finder name="ProposalId" return-type="Collection">
+		<finder name="ProposalId" return-type="PolicyOptions" unique="true">
 			<finder-column name="proposalId" />
 		</finder>
 	</entity>
@@ -198,6 +198,10 @@
 		<column name="policyHolderExtNumber" type="String" />
 		<column name="insuredObjectExtNumber" type="String" />
 		<column name="status" type="String" />
+
+		<finder name="AgentUserId" return-type="Collection">
+			<finder-column name="agentUserId"></finder-column>
+		</finder>
 	</entity>
 	<entity local-service="true" name="ProposalContact" remote-service="false" uuid="false">
 

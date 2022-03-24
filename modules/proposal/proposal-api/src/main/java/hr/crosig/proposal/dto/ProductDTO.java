@@ -11,67 +11,67 @@ public class ProductDTO implements Serializable {
 		boolean active, String category, String description, long productId,
 		String name, long externalId) {
 
-		this.active = active;
-		this.category = category;
-		this.description = description;
-		this.productId = productId;
-		this.name = name;
-		this.externalId = externalId;
+		_active = active;
+		_category = category;
+		_description = description;
+		_productId = productId;
+		_name = name;
+		_externalId = externalId;
 	}
 
 	public String getCategory() {
-		return category;
+		return _category;
 	}
 
 	public String getDescription() {
-		return description;
+		return _description;
 	}
 
 	public long getExternalId() {
-		return externalId;
+		return _externalId;
 	}
 
 	public String getName() {
-		return name;
+		return _name;
 	}
 
 	public long getProductId() {
-		return productId;
+		return _productId;
 	}
 
 	public boolean isActive() {
-		return active;
+		return _active;
 	}
 
 	public void setActive(boolean active) {
-		this.active = active;
+		_active = active;
 	}
 
 	public void setCategory(String category) {
-		this.category = category;
+		_category = category;
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		_description = description;
 	}
 
 	public void setExternalId(long externalId) {
-		this.externalId = externalId;
+		_externalId = externalId;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		_name = name;
 	}
 
 	public void setProductId(long productId) {
-		this.productId = productId;
+		_productId = productId;
 	}
 
-	private boolean active;
-	private String category;
-	private String description;
-	private long externalId;
-	private String name;
-	private long productId;
+	private boolean _active;
+	private String _category;
+	private String _description;
+	private long _externalId;
+	private String _name;
+	private long _productId;
 
 }

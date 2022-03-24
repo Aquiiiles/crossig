@@ -85,9 +85,10 @@ public class ProposalContactLocalServiceUtil {
 
 	public static hr.crosig.proposal.dto.ProposalContactDTO
 		createProposalContact(
-			hr.crosig.proposal.dto.ProposalContactDTO proposalContactDTO) {
+			hr.crosig.proposal.dto.ProposalContactDTO proposalContactDTO,
+			hr.crosig.proposal.model.Proposal proposal) {
 
-		return getService().createProposalContact(proposalContactDTO);
+		return getService().createProposalContact(proposalContactDTO, proposal);
 	}
 
 	public static void deleteAllByProposalId(long proposalId) {
@@ -279,6 +280,12 @@ public class ProposalContactLocalServiceUtil {
 		return getService().getProposalContacts(start, end);
 	}
 
+	public static List<hr.crosig.proposal.dto.ProposalContactDTO>
+		getProposalContacts(long proposalId) {
+
+		return getService().getProposalContacts(proposalId);
+	}
+
 	/**
 	 * Returns the number of proposal contacts.
 	 *
@@ -302,14 +309,6 @@ public class ProposalContactLocalServiceUtil {
 		ProposalContact proposalContact) {
 
 		return getService().updateProposalContact(proposalContact);
-	}
-
-	public static hr.crosig.proposal.dto.ProposalContactDTO
-			updateProposalContact(
-				hr.crosig.proposal.dto.ProposalContactDTO proposalContactDTO)
-		throws PortalException {
-
-		return getService().updateProposalContact(proposalContactDTO);
 	}
 
 	public static ProposalContactLocalService getService() {

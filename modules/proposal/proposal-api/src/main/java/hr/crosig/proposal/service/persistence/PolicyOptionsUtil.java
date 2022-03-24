@@ -121,162 +121,51 @@ public class PolicyOptionsUtil {
 	}
 
 	/**
-	 * Returns all the policy optionses where proposalId = &#63;.
+	 * Returns the policy options where proposalId = &#63; or throws a <code>NoSuchPolicyOptionsException</code> if it could not be found.
 	 *
 	 * @param proposalId the proposal ID
-	 * @return the matching policy optionses
+	 * @return the matching policy options
+	 * @throws NoSuchPolicyOptionsException if a matching policy options could not be found
 	 */
-	public static List<PolicyOptions> findByProposalId(long proposalId) {
+	public static PolicyOptions findByProposalId(long proposalId)
+		throws hr.crosig.proposal.exception.NoSuchPolicyOptionsException {
+
 		return getPersistence().findByProposalId(proposalId);
 	}
 
 	/**
-	 * Returns a range of all the policy optionses where proposalId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PolicyOptionsModelImpl</code>.
-	 * </p>
+	 * Returns the policy options where proposalId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
 	 * @param proposalId the proposal ID
-	 * @param start the lower bound of the range of policy optionses
-	 * @param end the upper bound of the range of policy optionses (not inclusive)
-	 * @return the range of matching policy optionses
+	 * @return the matching policy options, or <code>null</code> if a matching policy options could not be found
 	 */
-	public static List<PolicyOptions> findByProposalId(
-		long proposalId, int start, int end) {
-
-		return getPersistence().findByProposalId(proposalId, start, end);
+	public static PolicyOptions fetchByProposalId(long proposalId) {
+		return getPersistence().fetchByProposalId(proposalId);
 	}
 
 	/**
-	 * Returns an ordered range of all the policy optionses where proposalId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PolicyOptionsModelImpl</code>.
-	 * </p>
+	 * Returns the policy options where proposalId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param proposalId the proposal ID
-	 * @param start the lower bound of the range of policy optionses
-	 * @param end the upper bound of the range of policy optionses (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching policy optionses
-	 */
-	public static List<PolicyOptions> findByProposalId(
-		long proposalId, int start, int end,
-		OrderByComparator<PolicyOptions> orderByComparator) {
-
-		return getPersistence().findByProposalId(
-			proposalId, start, end, orderByComparator);
-	}
-
-	/**
-	 * Returns an ordered range of all the policy optionses where proposalId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PolicyOptionsModelImpl</code>.
-	 * </p>
-	 *
-	 * @param proposalId the proposal ID
-	 * @param start the lower bound of the range of policy optionses
-	 * @param end the upper bound of the range of policy optionses (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @param useFinderCache whether to use the finder cache
-	 * @return the ordered range of matching policy optionses
+	 * @return the matching policy options, or <code>null</code> if a matching policy options could not be found
 	 */
-	public static List<PolicyOptions> findByProposalId(
-		long proposalId, int start, int end,
-		OrderByComparator<PolicyOptions> orderByComparator,
-		boolean useFinderCache) {
+	public static PolicyOptions fetchByProposalId(
+		long proposalId, boolean useFinderCache) {
 
-		return getPersistence().findByProposalId(
-			proposalId, start, end, orderByComparator, useFinderCache);
+		return getPersistence().fetchByProposalId(proposalId, useFinderCache);
 	}
 
 	/**
-	 * Returns the first policy options in the ordered set where proposalId = &#63;.
+	 * Removes the policy options where proposalId = &#63; from the database.
 	 *
 	 * @param proposalId the proposal ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching policy options
-	 * @throws NoSuchPolicyOptionsException if a matching policy options could not be found
+	 * @return the policy options that was removed
 	 */
-	public static PolicyOptions findByProposalId_First(
-			long proposalId, OrderByComparator<PolicyOptions> orderByComparator)
+	public static PolicyOptions removeByProposalId(long proposalId)
 		throws hr.crosig.proposal.exception.NoSuchPolicyOptionsException {
 
-		return getPersistence().findByProposalId_First(
-			proposalId, orderByComparator);
-	}
-
-	/**
-	 * Returns the first policy options in the ordered set where proposalId = &#63;.
-	 *
-	 * @param proposalId the proposal ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching policy options, or <code>null</code> if a matching policy options could not be found
-	 */
-	public static PolicyOptions fetchByProposalId_First(
-		long proposalId, OrderByComparator<PolicyOptions> orderByComparator) {
-
-		return getPersistence().fetchByProposalId_First(
-			proposalId, orderByComparator);
-	}
-
-	/**
-	 * Returns the last policy options in the ordered set where proposalId = &#63;.
-	 *
-	 * @param proposalId the proposal ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching policy options
-	 * @throws NoSuchPolicyOptionsException if a matching policy options could not be found
-	 */
-	public static PolicyOptions findByProposalId_Last(
-			long proposalId, OrderByComparator<PolicyOptions> orderByComparator)
-		throws hr.crosig.proposal.exception.NoSuchPolicyOptionsException {
-
-		return getPersistence().findByProposalId_Last(
-			proposalId, orderByComparator);
-	}
-
-	/**
-	 * Returns the last policy options in the ordered set where proposalId = &#63;.
-	 *
-	 * @param proposalId the proposal ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching policy options, or <code>null</code> if a matching policy options could not be found
-	 */
-	public static PolicyOptions fetchByProposalId_Last(
-		long proposalId, OrderByComparator<PolicyOptions> orderByComparator) {
-
-		return getPersistence().fetchByProposalId_Last(
-			proposalId, orderByComparator);
-	}
-
-	/**
-	 * Returns the policy optionses before and after the current policy options in the ordered set where proposalId = &#63;.
-	 *
-	 * @param policyOptionsId the primary key of the current policy options
-	 * @param proposalId the proposal ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next policy options
-	 * @throws NoSuchPolicyOptionsException if a policy options with the primary key could not be found
-	 */
-	public static PolicyOptions[] findByProposalId_PrevAndNext(
-			long policyOptionsId, long proposalId,
-			OrderByComparator<PolicyOptions> orderByComparator)
-		throws hr.crosig.proposal.exception.NoSuchPolicyOptionsException {
-
-		return getPersistence().findByProposalId_PrevAndNext(
-			policyOptionsId, proposalId, orderByComparator);
-	}
-
-	/**
-	 * Removes all the policy optionses where proposalId = &#63; from the database.
-	 *
-	 * @param proposalId the proposal ID
-	 */
-	public static void removeByProposalId(long proposalId) {
-		getPersistence().removeByProposalId(proposalId);
+		return getPersistence().removeByProposalId(proposalId);
 	}
 
 	/**

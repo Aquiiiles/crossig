@@ -1,6 +1,8 @@
 package hr.crosig.proposal.rest.application;
 
 import com.liferay.portal.kernel.exception.PortalException;
+
+import hr.crosig.common.ws.util.ApplicationUtilities;
 import hr.crosig.proposal.dto.CoveragePlanDTO;
 import hr.crosig.proposal.dto.InsuredRoleDTO;
 import hr.crosig.proposal.dto.ProductDTO;
@@ -9,9 +11,10 @@ import hr.crosig.proposal.service.CoveragePlanLocalService;
 import hr.crosig.proposal.service.InsuredRoleLocalService;
 import hr.crosig.proposal.service.ProductLocalService;
 import hr.crosig.proposal.service.ProposalLocalService;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -23,9 +26,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
 /**
  * @author victor.catanante
@@ -41,6 +45,53 @@ import java.util.Set;
 	service = Application.class
 )
 public class ProposalApplication extends Application {
+
+	@Path("/")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response createProposal(ProposalDTO proposalDTO) {
+		Response.ResponseBuilder responseBuilder;
+
+		try {
+			responseBuilder = Response.ok(
+			).entity(
+				_proposalLocalService.createProposal(proposalDTO)
+			);
+		}
+		catch (Exception exception) {
+			responseBuilder = Response.serverError(
+			).entity(
+				exception.getMessage()
+			);
+		}
+
+		return responseBuilder.build();
+	}
+
+	@GET
+	@Path("/agent/{agentUserId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAgentProposals(
+		@PathParam("agentUserId") long agentUserId) {
+
+		Response.ResponseBuilder responseBuilder;
+
+		try {
+			responseBuilder = Response.ok(
+			).entity(
+				ApplicationUtilities.createEntityJsonString(
+					_proposalLocalService.getAgentProposals(agentUserId))
+			);
+		}
+		catch (Exception exception) {
+			responseBuilder = Response.serverError(
+			).entity(
+				exception.getMessage()
+			);
+		}
+
+		return responseBuilder.build();
+	}
 
 	@GET
 	@Path("/coverage-plans")
@@ -119,55 +170,30 @@ public class ProposalApplication extends Application {
 		return responseBuilder.build();
 	}
 
-	@POST
-	@Path("/")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response createProposal(ProposalDTO proposalDTO) {
-		Response.ResponseBuilder responseBuilder;
-
-		try {
-			proposalDTO = _proposalLocalService.createProposal(proposalDTO);
-
-			responseBuilder = Response.ok(
-			).entity(
-					proposalDTO
-			);
-		}
-		catch (Exception exception) {
-			responseBuilder = Response.serverError(
-			).entity(
-					exception.getMessage()
-			);
-		}
-
-		return responseBuilder.build();
-	}
-
-	@PUT
+	@GET
 	@Path("/{proposalId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateProposal(@PathParam("proposalId") long proposalId, ProposalDTO proposalDTO) {
+	public Response getProposal(@PathParam("proposalId") long proposalId) {
 		Response.ResponseBuilder responseBuilder;
 
 		try {
-			proposalDTO = _proposalLocalService.updateProposal(proposalId, proposalDTO);
+			ProposalDTO proposalDTO = _proposalLocalService.getProposalDTO(
+				proposalId);
 
-			responseBuilder = Response.ok(
-			).entity(
-					proposalDTO
-			);
-		}
-		catch (PortalException portalException) {
-			responseBuilder = Response.status(
-					Response.Status.BAD_REQUEST
-			).entity(
-					portalException.getMessage()
-			);
+			if (proposalDTO == null) {
+				responseBuilder = Response.status(Response.Status.NOT_FOUND);
+			}
+			else {
+				responseBuilder = Response.ok(
+				).entity(
+					ApplicationUtilities.createEntityJsonString(proposalDTO)
+				);
+			}
 		}
 		catch (Exception exception) {
 			responseBuilder = Response.serverError(
 			).entity(
-					exception.getMessage()
+				exception.getMessage()
 			);
 		}
 
@@ -176,6 +202,40 @@ public class ProposalApplication extends Application {
 
 	public Set<Object> getSingletons() {
 		return Collections.singleton(this);
+	}
+
+	@Path("/{proposalId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@PUT
+	public Response updateProposal(
+		@PathParam("proposalId") long proposalId, ProposalDTO proposalDTO) {
+
+		Response.ResponseBuilder responseBuilder;
+
+		try {
+			proposalDTO = _proposalLocalService.updateProposal(
+				proposalId, proposalDTO);
+
+			responseBuilder = Response.ok(
+			).entity(
+				proposalDTO
+			);
+		}
+		catch (PortalException portalException) {
+			responseBuilder = Response.status(
+				Response.Status.BAD_REQUEST
+			).entity(
+				portalException.getMessage()
+			);
+		}
+		catch (Exception exception) {
+			responseBuilder = Response.serverError(
+			).entity(
+				exception.getMessage()
+			);
+		}
+
+		return responseBuilder.build();
 	}
 
 	@Reference

@@ -77,10 +77,11 @@ public class ProposalContactLocalServiceWrapper
 
 	@Override
 	public hr.crosig.proposal.dto.ProposalContactDTO createProposalContact(
-		hr.crosig.proposal.dto.ProposalContactDTO proposalContactDTO) {
+		hr.crosig.proposal.dto.ProposalContactDTO proposalContactDTO,
+		hr.crosig.proposal.model.Proposal proposal) {
 
 		return _proposalContactLocalService.createProposalContact(
-			proposalContactDTO);
+			proposalContactDTO, proposal);
 	}
 
 	@Override
@@ -307,6 +308,13 @@ public class ProposalContactLocalServiceWrapper
 		return _proposalContactLocalService.getProposalContacts(start, end);
 	}
 
+	@Override
+	public java.util.List<hr.crosig.proposal.dto.ProposalContactDTO>
+		getProposalContacts(long proposalId) {
+
+		return _proposalContactLocalService.getProposalContacts(proposalId);
+	}
+
 	/**
 	 * Returns the number of proposal contacts.
 	 *
@@ -333,15 +341,6 @@ public class ProposalContactLocalServiceWrapper
 
 		return _proposalContactLocalService.updateProposalContact(
 			proposalContact);
-	}
-
-	@Override
-	public hr.crosig.proposal.dto.ProposalContactDTO updateProposalContact(
-			hr.crosig.proposal.dto.ProposalContactDTO proposalContactDTO)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _proposalContactLocalService.updateProposalContact(
-			proposalContactDTO);
 	}
 
 	@Override

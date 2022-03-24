@@ -5,16 +5,16 @@ package hr.crosig.proposal.enums;
  */
 public enum ProductCategory {
 
-	VESSEL("Vessel"), MOTOR("Motor");
+	MOTOR("Motor"), VESSEL("Vessel");
 
 	public String getTitle() {
-		return title;
+		return _title;
 	}
 
 	ProductCategory(String title) {
-		this.title = title;
+		_title = title;
 	}
 
-	private final String title;
+	private final String _title;
 
 }

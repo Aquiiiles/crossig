@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
 import com.liferay.portal.kernel.dao.orm.Query;
+import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.SessionFactory;
@@ -98,6 +99,501 @@ public class ProposalPersistenceImpl
 	private FinderPath _finderPathWithPaginationFindAll;
 	private FinderPath _finderPathWithoutPaginationFindAll;
 	private FinderPath _finderPathCountAll;
+	private FinderPath _finderPathWithPaginationFindByAgentUserId;
+	private FinderPath _finderPathWithoutPaginationFindByAgentUserId;
+	private FinderPath _finderPathCountByAgentUserId;
+
+	/**
+	 * Returns all the proposals where agentUserId = &#63;.
+	 *
+	 * @param agentUserId the agent user ID
+	 * @return the matching proposals
+	 */
+	@Override
+	public List<Proposal> findByAgentUserId(long agentUserId) {
+		return findByAgentUserId(
+			agentUserId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the proposals where agentUserId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProposalModelImpl</code>.
+	 * </p>
+	 *
+	 * @param agentUserId the agent user ID
+	 * @param start the lower bound of the range of proposals
+	 * @param end the upper bound of the range of proposals (not inclusive)
+	 * @return the range of matching proposals
+	 */
+	@Override
+	public List<Proposal> findByAgentUserId(
+		long agentUserId, int start, int end) {
+
+		return findByAgentUserId(agentUserId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the proposals where agentUserId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProposalModelImpl</code>.
+	 * </p>
+	 *
+	 * @param agentUserId the agent user ID
+	 * @param start the lower bound of the range of proposals
+	 * @param end the upper bound of the range of proposals (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching proposals
+	 */
+	@Override
+	public List<Proposal> findByAgentUserId(
+		long agentUserId, int start, int end,
+		OrderByComparator<Proposal> orderByComparator) {
+
+		return findByAgentUserId(
+			agentUserId, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the proposals where agentUserId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProposalModelImpl</code>.
+	 * </p>
+	 *
+	 * @param agentUserId the agent user ID
+	 * @param start the lower bound of the range of proposals
+	 * @param end the upper bound of the range of proposals (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching proposals
+	 */
+	@Override
+	public List<Proposal> findByAgentUserId(
+		long agentUserId, int start, int end,
+		OrderByComparator<Proposal> orderByComparator, boolean useFinderCache) {
+
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByAgentUserId;
+				finderArgs = new Object[] {agentUserId};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByAgentUserId;
+			finderArgs = new Object[] {
+				agentUserId, start, end, orderByComparator
+			};
+		}
+
+		List<Proposal> list = null;
+
+		if (useFinderCache) {
+			list = (List<Proposal>)finderCache.getResult(
+				finderPath, finderArgs, this);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (Proposal proposal : list) {
+					if (agentUserId != proposal.getAgentUserId()) {
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler sb = null;
+
+			if (orderByComparator != null) {
+				sb = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				sb = new StringBundler(3);
+			}
+
+			sb.append(_SQL_SELECT_PROPOSAL_WHERE);
+
+			sb.append(_FINDER_COLUMN_AGENTUSERID_AGENTUSERID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				sb.append(ProposalModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(agentUserId);
+
+				list = (List<Proposal>)QueryUtil.list(
+					query, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first proposal in the ordered set where agentUserId = &#63;.
+	 *
+	 * @param agentUserId the agent user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching proposal
+	 * @throws NoSuchProposalException if a matching proposal could not be found
+	 */
+	@Override
+	public Proposal findByAgentUserId_First(
+			long agentUserId, OrderByComparator<Proposal> orderByComparator)
+		throws NoSuchProposalException {
+
+		Proposal proposal = fetchByAgentUserId_First(
+			agentUserId, orderByComparator);
+
+		if (proposal != null) {
+			return proposal;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("agentUserId=");
+		sb.append(agentUserId);
+
+		sb.append("}");
+
+		throw new NoSuchProposalException(sb.toString());
+	}
+
+	/**
+	 * Returns the first proposal in the ordered set where agentUserId = &#63;.
+	 *
+	 * @param agentUserId the agent user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching proposal, or <code>null</code> if a matching proposal could not be found
+	 */
+	@Override
+	public Proposal fetchByAgentUserId_First(
+		long agentUserId, OrderByComparator<Proposal> orderByComparator) {
+
+		List<Proposal> list = findByAgentUserId(
+			agentUserId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last proposal in the ordered set where agentUserId = &#63;.
+	 *
+	 * @param agentUserId the agent user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching proposal
+	 * @throws NoSuchProposalException if a matching proposal could not be found
+	 */
+	@Override
+	public Proposal findByAgentUserId_Last(
+			long agentUserId, OrderByComparator<Proposal> orderByComparator)
+		throws NoSuchProposalException {
+
+		Proposal proposal = fetchByAgentUserId_Last(
+			agentUserId, orderByComparator);
+
+		if (proposal != null) {
+			return proposal;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("agentUserId=");
+		sb.append(agentUserId);
+
+		sb.append("}");
+
+		throw new NoSuchProposalException(sb.toString());
+	}
+
+	/**
+	 * Returns the last proposal in the ordered set where agentUserId = &#63;.
+	 *
+	 * @param agentUserId the agent user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching proposal, or <code>null</code> if a matching proposal could not be found
+	 */
+	@Override
+	public Proposal fetchByAgentUserId_Last(
+		long agentUserId, OrderByComparator<Proposal> orderByComparator) {
+
+		int count = countByAgentUserId(agentUserId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<Proposal> list = findByAgentUserId(
+			agentUserId, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the proposals before and after the current proposal in the ordered set where agentUserId = &#63;.
+	 *
+	 * @param proposalId the primary key of the current proposal
+	 * @param agentUserId the agent user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next proposal
+	 * @throws NoSuchProposalException if a proposal with the primary key could not be found
+	 */
+	@Override
+	public Proposal[] findByAgentUserId_PrevAndNext(
+			long proposalId, long agentUserId,
+			OrderByComparator<Proposal> orderByComparator)
+		throws NoSuchProposalException {
+
+		Proposal proposal = findByPrimaryKey(proposalId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			Proposal[] array = new ProposalImpl[3];
+
+			array[0] = getByAgentUserId_PrevAndNext(
+				session, proposal, agentUserId, orderByComparator, true);
+
+			array[1] = proposal;
+
+			array[2] = getByAgentUserId_PrevAndNext(
+				session, proposal, agentUserId, orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected Proposal getByAgentUserId_PrevAndNext(
+		Session session, Proposal proposal, long agentUserId,
+		OrderByComparator<Proposal> orderByComparator, boolean previous) {
+
+		StringBundler sb = null;
+
+		if (orderByComparator != null) {
+			sb = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			sb = new StringBundler(3);
+		}
+
+		sb.append(_SQL_SELECT_PROPOSAL_WHERE);
+
+		sb.append(_FINDER_COLUMN_AGENTUSERID_AGENTUSERID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				sb.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			sb.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC);
+					}
+					else {
+						sb.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			sb.append(ProposalModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = sb.toString();
+
+		Query query = session.createQuery(sql);
+
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+
+		QueryPos queryPos = QueryPos.getInstance(query);
+
+		queryPos.add(agentUserId);
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(proposal)) {
+
+				queryPos.add(orderByConditionValue);
+			}
+		}
+
+		List<Proposal> list = query.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the proposals where agentUserId = &#63; from the database.
+	 *
+	 * @param agentUserId the agent user ID
+	 */
+	@Override
+	public void removeByAgentUserId(long agentUserId) {
+		for (Proposal proposal :
+				findByAgentUserId(
+					agentUserId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+
+			remove(proposal);
+		}
+	}
+
+	/**
+	 * Returns the number of proposals where agentUserId = &#63;.
+	 *
+	 * @param agentUserId the agent user ID
+	 * @return the number of matching proposals
+	 */
+	@Override
+	public int countByAgentUserId(long agentUserId) {
+		FinderPath finderPath = _finderPathCountByAgentUserId;
+
+		Object[] finderArgs = new Object[] {agentUserId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_PROPOSAL_WHERE);
+
+			sb.append(_FINDER_COLUMN_AGENTUSERID_AGENTUSERID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(agentUserId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_AGENTUSERID_AGENTUSERID_2 =
+		"proposal.agentUserId = ?";
 
 	public ProposalPersistenceImpl() {
 		setModelClass(Proposal.class);
@@ -353,7 +849,8 @@ public class ProposalPersistenceImpl
 			closeSession(session);
 		}
 
-		entityCache.putResult(ProposalImpl.class, proposal, false, true);
+		entityCache.putResult(
+			ProposalImpl.class, proposalModelImpl, false, true);
 
 		if (isNew) {
 			proposal.setNew(false);
@@ -640,6 +1137,24 @@ public class ProposalPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
 			new String[0], new String[0], false);
 
+		_finderPathWithPaginationFindByAgentUserId = _createFinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByAgentUserId",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			},
+			new String[] {"agentUserId"}, true);
+
+		_finderPathWithoutPaginationFindByAgentUserId = _createFinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByAgentUserId",
+			new String[] {Long.class.getName()}, new String[] {"agentUserId"},
+			true);
+
+		_finderPathCountByAgentUserId = _createFinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByAgentUserId",
+			new String[] {Long.class.getName()}, new String[] {"agentUserId"},
+			false);
+
 		_setProposalUtilPersistence(this);
 	}
 
@@ -710,13 +1225,22 @@ public class ProposalPersistenceImpl
 	private static final String _SQL_SELECT_PROPOSAL =
 		"SELECT proposal FROM Proposal proposal";
 
+	private static final String _SQL_SELECT_PROPOSAL_WHERE =
+		"SELECT proposal FROM Proposal proposal WHERE ";
+
 	private static final String _SQL_COUNT_PROPOSAL =
 		"SELECT COUNT(proposal) FROM Proposal proposal";
+
+	private static final String _SQL_COUNT_PROPOSAL_WHERE =
+		"SELECT COUNT(proposal) FROM Proposal proposal WHERE ";
 
 	private static final String _ORDER_BY_ENTITY_ALIAS = "proposal.";
 
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY =
 		"No Proposal exists with the primary key ";
+
+	private static final String _NO_SUCH_ENTITY_WITH_KEY =
+		"No Proposal exists with the key {";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		ProposalPersistenceImpl.class);

@@ -80,12 +80,15 @@ public class PolicyOptionsLocalServiceUtil {
 	}
 
 	public static hr.crosig.proposal.dto.PolicyOptionsDTO createPolicyOptions(
-		hr.crosig.proposal.dto.PolicyOptionsDTO policyOptionsDTO) {
+		hr.crosig.proposal.dto.PolicyOptionsDTO policyOptionsDTO,
+		hr.crosig.proposal.model.Proposal proposal) {
 
-		return getService().createPolicyOptions(policyOptionsDTO);
+		return getService().createPolicyOptions(policyOptionsDTO, proposal);
 	}
 
-	public static void deleteAllByProposalId(long proposalId) {
+	public static void deleteAllByProposalId(long proposalId)
+		throws hr.crosig.proposal.exception.NoSuchPolicyOptionsException {
+
 		getService().deleteAllByProposalId(proposalId);
 	}
 
@@ -281,6 +284,12 @@ public class PolicyOptionsLocalServiceUtil {
 		return getService().getPolicyOptionsesCount();
 	}
 
+	public static hr.crosig.proposal.dto.PolicyOptionsDTO
+		getProposalPolicyOptions(long proposalId) {
+
+		return getService().getProposalPolicyOptions(proposalId);
+	}
+
 	/**
 	 * Updates the policy options in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -295,13 +304,6 @@ public class PolicyOptionsLocalServiceUtil {
 		PolicyOptions policyOptions) {
 
 		return getService().updatePolicyOptions(policyOptions);
-	}
-
-	public static hr.crosig.proposal.dto.PolicyOptionsDTO updatePolicyOptions(
-			hr.crosig.proposal.dto.PolicyOptionsDTO policyOptionsDTO)
-		throws PortalException {
-
-		return getService().updatePolicyOptions(policyOptionsDTO);
 	}
 
 	public static PolicyOptionsLocalService getService() {

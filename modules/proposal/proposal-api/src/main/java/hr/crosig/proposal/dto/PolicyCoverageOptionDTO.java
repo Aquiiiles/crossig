@@ -1,114 +1,36 @@
 package hr.crosig.proposal.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import hr.crosig.proposal.constants.ProposalConstants;
-
-import java.util.Date;
-
 /**
  * @author Guilherme Kfouri
  */
 public class PolicyCoverageOptionDTO {
 
-	public long getCompanyId() {
-		return companyId;
-	}
-
 	public String getCoverageOptionsName() {
-		return coverageOptionsName;
+		return _coverageOptionsName;
 	}
 
 	public String getCoverageOptionsValue() {
-		return coverageOptionsValue;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public Date getModifiedDate() {
-		return modifiedDate;
-	}
-
-	public long getPolicyCoverageOptionId() {
-		return policyCoverageOptionId;
-	}
-
-	public long getProposalId() {
-		return proposalId;
+		return _coverageOptionsValue;
 	}
 
 	public String getType() {
-		return type;
-	}
-
-	public long getUserId() {
-		return userId;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setCompanyId(long companyId) {
-		this.companyId = companyId;
+		return _type;
 	}
 
 	public void setCoverageOptionsName(String coverageOptionsName) {
-		this.coverageOptionsName = coverageOptionsName;
+		_coverageOptionsName = coverageOptionsName;
 	}
 
 	public void setCoverageOptionsValue(String coverageOptionsValue) {
-		this.coverageOptionsValue = coverageOptionsValue;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-
-	public void setModifiedDate(Date modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
-
-	public void setPolicyCoverageOptionId(long policyCoverageOptionId) {
-		this.policyCoverageOptionId = policyCoverageOptionId;
-	}
-
-	public void setProposalId(long proposalId) {
-		this.proposalId = proposalId;
+		_coverageOptionsValue = coverageOptionsValue;
 	}
 
 	public void setType(String type) {
-		this.type = type;
+		_type = type;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	private long companyId;
-	private String coverageOptionsName;
-	private String coverageOptionsValue;
-
-	@JsonFormat(
-		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
-	)
-	private Date createDate;
-
-	@JsonFormat(
-		pattern = ProposalConstants.DATE_FORMAT, shape = JsonFormat.Shape.STRING
-	)
-	private Date modifiedDate;
-
-	private long policyCoverageOptionId;
-	private long proposalId;
-	private String type;
-	private long userId;
-	private String userName;
+	private String _coverageOptionsName;
+	private String _coverageOptionsValue;
+	private String _type;
 
 }

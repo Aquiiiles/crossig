@@ -200,6 +200,9 @@ public interface ProposalLocalService
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ProposalDTO> getAgentProposals(long agentUserId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
 	/**
@@ -226,6 +229,9 @@ public interface ProposalLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Proposal getProposal(long proposalId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public ProposalDTO getProposalDTO(long proposalId);
 
 	/**
 	 * Returns a range of all the proposals.
