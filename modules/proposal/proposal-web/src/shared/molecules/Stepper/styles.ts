@@ -8,9 +8,8 @@ export const Wrapper = styled.div`
   @media ${({ theme }) => theme.breakpoint.tablet("down")} {
     width: 100%;
     display: flex;
-    padding: 2.1875rem;
+    padding: 1.1rem;
     position: relative;
-    right: 1rem;
   }
 
   .desktop-stepper {
