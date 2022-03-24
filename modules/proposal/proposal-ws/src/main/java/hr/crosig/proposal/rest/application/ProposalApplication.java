@@ -178,10 +178,15 @@ public class ProposalApplication extends Application {
 			ProposalDTO proposalDTO = _proposalLocalService.getProposalDTO(
 				proposalId);
 
-			responseBuilder = Response.ok(
-			).entity(
-				proposalDTO
-			);
+			if (proposalDTO == null) {
+				responseBuilder = Response.status(Response.Status.NOT_FOUND);
+			}
+			else {
+				responseBuilder = Response.ok(
+				).entity(
+					proposalDTO
+				);
+			}
 		}
 		catch (Exception exception) {
 			responseBuilder = Response.serverError(
