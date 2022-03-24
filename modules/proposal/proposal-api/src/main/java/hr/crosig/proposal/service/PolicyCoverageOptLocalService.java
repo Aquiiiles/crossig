@@ -32,6 +32,7 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 
 import hr.crosig.proposal.dto.PolicyCoverageOptionDTO;
 import hr.crosig.proposal.model.PolicyCoverageOpt;
+import hr.crosig.proposal.model.Proposal;
 
 import java.io.Serializable;
 
@@ -94,7 +95,7 @@ public interface PolicyCoverageOptLocalService
 		long policyCoverageOptionId);
 
 	public PolicyCoverageOptionDTO createPolicyCoverageOpt(
-		PolicyCoverageOptionDTO policyCoverageOptDTO);
+		PolicyCoverageOptionDTO policyCoverageOptDTO, Proposal proposal);
 
 	public void deleteAllByProposalId(long proposalId);
 
@@ -276,9 +277,5 @@ public interface PolicyCoverageOptLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public PolicyCoverageOpt updatePolicyCoverageOpt(
 		PolicyCoverageOpt policyCoverageOpt);
-
-	public PolicyCoverageOptionDTO updatePolicyCoverageOpt(
-			PolicyCoverageOptionDTO policyCoverageOptDTO)
-		throws PortalException;
 
 }

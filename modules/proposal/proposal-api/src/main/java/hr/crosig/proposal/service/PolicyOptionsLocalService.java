@@ -33,6 +33,7 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import hr.crosig.proposal.dto.PolicyOptionsDTO;
 import hr.crosig.proposal.exception.NoSuchPolicyOptionsException;
 import hr.crosig.proposal.model.PolicyOptions;
+import hr.crosig.proposal.model.Proposal;
 
 import java.io.Serializable;
 
@@ -93,7 +94,7 @@ public interface PolicyOptionsLocalService
 	public PolicyOptions createPolicyOptions(long policyOptionsId);
 
 	public PolicyOptionsDTO createPolicyOptions(
-		PolicyOptionsDTO policyOptionsDTO);
+		PolicyOptionsDTO policyOptionsDTO, Proposal proposal);
 
 	public void deleteAllByProposalId(long proposalId)
 		throws NoSuchPolicyOptionsException;
@@ -271,9 +272,5 @@ public interface PolicyOptionsLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public PolicyOptions updatePolicyOptions(PolicyOptions policyOptions);
-
-	public PolicyOptionsDTO updatePolicyOptions(
-			PolicyOptionsDTO policyOptionsDTO)
-		throws PortalException;
 
 }

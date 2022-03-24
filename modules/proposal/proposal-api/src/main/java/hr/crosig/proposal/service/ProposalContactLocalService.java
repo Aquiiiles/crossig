@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
 import hr.crosig.proposal.dto.ProposalContactDTO;
+import hr.crosig.proposal.model.Proposal;
 import hr.crosig.proposal.model.ProposalContact;
 
 import java.io.Serializable;
@@ -92,7 +93,7 @@ public interface ProposalContactLocalService
 	public ProposalContact createProposalContact(long proposalContactId);
 
 	public ProposalContactDTO createProposalContact(
-		ProposalContactDTO proposalContactDTO);
+		ProposalContactDTO proposalContactDTO, Proposal proposal);
 
 	public void deleteAllByProposalId(long proposalId);
 
@@ -271,9 +272,5 @@ public interface ProposalContactLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public ProposalContact updateProposalContact(
 		ProposalContact proposalContact);
-
-	public ProposalContactDTO updateProposalContact(
-			ProposalContactDTO proposalContactDTO)
-		throws PortalException;
 
 }

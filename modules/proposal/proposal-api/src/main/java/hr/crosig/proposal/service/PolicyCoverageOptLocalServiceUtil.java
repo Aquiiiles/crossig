@@ -85,10 +85,11 @@ public class PolicyCoverageOptLocalServiceUtil {
 
 	public static hr.crosig.proposal.dto.PolicyCoverageOptionDTO
 		createPolicyCoverageOpt(
-			hr.crosig.proposal.dto.PolicyCoverageOptionDTO
-				policyCoverageOptDTO) {
+			hr.crosig.proposal.dto.PolicyCoverageOptionDTO policyCoverageOptDTO,
+			hr.crosig.proposal.model.Proposal proposal) {
 
-		return getService().createPolicyCoverageOpt(policyCoverageOptDTO);
+		return getService().createPolicyCoverageOpt(
+			policyCoverageOptDTO, proposal);
 	}
 
 	public static void deleteAllByProposalId(long proposalId) {
@@ -313,15 +314,6 @@ public class PolicyCoverageOptLocalServiceUtil {
 		PolicyCoverageOpt policyCoverageOpt) {
 
 		return getService().updatePolicyCoverageOpt(policyCoverageOpt);
-	}
-
-	public static hr.crosig.proposal.dto.PolicyCoverageOptionDTO
-			updatePolicyCoverageOpt(
-				hr.crosig.proposal.dto.PolicyCoverageOptionDTO
-					policyCoverageOptDTO)
-		throws PortalException {
-
-		return getService().updatePolicyCoverageOpt(policyCoverageOptDTO);
 	}
 
 	public static PolicyCoverageOptLocalService getService() {

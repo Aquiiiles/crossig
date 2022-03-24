@@ -80,9 +80,10 @@ public class PolicyOptionsLocalServiceUtil {
 	}
 
 	public static hr.crosig.proposal.dto.PolicyOptionsDTO createPolicyOptions(
-		hr.crosig.proposal.dto.PolicyOptionsDTO policyOptionsDTO) {
+		hr.crosig.proposal.dto.PolicyOptionsDTO policyOptionsDTO,
+		hr.crosig.proposal.model.Proposal proposal) {
 
-		return getService().createPolicyOptions(policyOptionsDTO);
+		return getService().createPolicyOptions(policyOptionsDTO, proposal);
 	}
 
 	public static void deleteAllByProposalId(long proposalId)
@@ -303,13 +304,6 @@ public class PolicyOptionsLocalServiceUtil {
 		PolicyOptions policyOptions) {
 
 		return getService().updatePolicyOptions(policyOptions);
-	}
-
-	public static hr.crosig.proposal.dto.PolicyOptionsDTO updatePolicyOptions(
-			hr.crosig.proposal.dto.PolicyOptionsDTO policyOptionsDTO)
-		throws PortalException {
-
-		return getService().updatePolicyOptions(policyOptionsDTO);
 	}
 
 	public static PolicyOptionsLocalService getService() {
