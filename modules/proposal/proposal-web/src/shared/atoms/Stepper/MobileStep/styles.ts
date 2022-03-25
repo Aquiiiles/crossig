@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {Step} from "../../../types/stepper";
+import {Step} from "../../../types";
 
 type StepState = Step["state"];
 
