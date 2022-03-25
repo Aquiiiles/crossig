@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import NewContact from "../NewContact";
 import ContactSearch from "../ContactSearch";
 import UpdateContact from "../UpdateContact";
@@ -9,6 +9,7 @@ import VesselSearch from "../VesselSearch";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Premium from "../Premium";
 import { ProposalResponse } from "../../shared/types/common";
+import { ROUTES } from "../../constants/routes";
 
 type PropsType = {
   proposalState?: ProposalResponse | null;
@@ -24,28 +25,28 @@ const Proposal: React.FC<PropsType> = (props: PropsType) => {
   return (
     <Router>
       <Switch>
-        <Route path="/coverage_plan">
+        <Route path={ROUTES.COVERAGE_PLAN}>
           <CoveragePlan />
         </Route>
-        <Route path="/product">
+        <Route path={ROUTES.PRODUCT}>
           <InsuranceProduct />
         </Route>
-        <Route path="/roles">
+        <Route path={ROUTES.ROLES}>
           <RolesOnPolicy />
         </Route>
-        <Route path="/new_contact">
+        <Route path={ROUTES.NEW_CONTACT}>
           <NewContact />
         </Route>
-        <Route path="/update_contact">
+        <Route path={ROUTES.UPDATE_CONTACT}>
           <UpdateContact />
         </Route>
-        <Route path="/vessel_search">
+        <Route path={ROUTES.VESSEL_SEARCH}>
           <VesselSearch />
         </Route>
-        <Route path="/premium">
+        <Route path={ROUTES.PREMIUM}>
           <Premium />
         </Route>
-        <Route path="/">{initialView}</Route>
+        <Route path={ROUTES.CONTACT_SEARCH}>{initialView}</Route>
       </Switch>
     </Router>
   );
