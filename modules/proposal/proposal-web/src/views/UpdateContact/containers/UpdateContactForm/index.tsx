@@ -84,7 +84,7 @@ const UpdateContactForm: React.FC<{
   };
 
   const handleUpdateContact = () => {
-    const response = updateContact("PUT", CONTACT_URL, createContactDTO());
+    const response = updateContact("PUT", CONTACT_URL, undefined, createContactDTO());
     resetScroll();
 
     response
