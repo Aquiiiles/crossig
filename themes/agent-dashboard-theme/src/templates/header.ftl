@@ -16,7 +16,7 @@
     <div>
       <button 
         class="btn btn-primary" 
-        onclick='Liferay.fire("displayProposalWidget", { proposalId: 1 });'>
+        onclick='Liferay.fire("displayProposalWidget", { proposalId: null });'>
         ${new_proposal_button}
       </button>
 		</div>

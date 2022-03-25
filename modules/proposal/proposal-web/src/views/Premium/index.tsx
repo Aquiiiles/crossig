@@ -38,12 +38,14 @@ const Premium: React.FC<PropsType> = (props: PropsType) => {
   const [showModal, setShowModal] = useState(false);
   const [isUpdateSuccessful, setUpdateSuccess] = useState(false);
 
-  const createProposalPayload = () => {
+  const createProposalRequest = () => {
     const contactsInPolicy = state.contactsInPolicy.contactsInPolicy;
     const policyHolder = state.contactsInPolicy.policyHolder;
     const insuranceProduct = state.insuranceProduct.insuranceProduct;
+    const proposal = state.proposal;
 
     const payload = {
+      proposalId: proposal.proposalId,
       externalProposalNumber: "",
       agentUserId: Liferay.ThemeDisplay.getUserId(),
       policyHolderExtNumber: policyHolder.id.toString(),
@@ -57,12 +59,21 @@ const Premium: React.FC<PropsType> = (props: PropsType) => {
       }),
     };
 
-    return payload;
+    return [payload, proposal.proposalId];
   };
 
   const createProposal = () => {
-    const payload = createProposalPayload();
-    const response = API.post(PROPOSAL_URL, payload);
+    const [payload, proposalId] = createProposalRequest();
+
+    console.log(proposalId)
+    console.log(payload)
+
+    const url = proposalId ? `${PROPOSAL_URL}/${proposalId}` : PROPOSAL_URL;
+
+    const response = proposalId
+      ? API.put(url, payload)
+      : API.post(url, payload);
+
     resetModalScroll();
 
     response
