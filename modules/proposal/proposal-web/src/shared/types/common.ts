@@ -20,13 +20,13 @@ export type HeaderCell = {
 
 export type FetchDataResultsFunction = () => void;
 
-type PolicyCoverageOption = {
+export type PolicyCoverageOption = {
   coverageOptionsName: string;
   coverageOptionsValue: string;
   type: string;
 };
 
-type PolicyOptions = {
+export type PolicyOptions = {
   communicationMethod: string;
   contractEndDate: Date;
   contractPeriod: string;
@@ -42,7 +42,7 @@ type PolicyOptions = {
   termsDate: Date;
 };
 
-type ProposalContact = {
+export type ProposalContact = {
   contactExtNumber: string;
   insuredRoles: string;
 };

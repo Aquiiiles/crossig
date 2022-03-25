@@ -15,6 +15,12 @@ type PropsType = {
 };
 
 const Proposal: React.FC<PropsType> = (props: PropsType) => {
+  const initialView = props.proposalState ? (
+    <Premium proposalState={props.proposalState} />
+  ) : (
+    <ContactSearch embedded={false} />
+  );
+
   return (
     <Router>
       <Switch>
@@ -39,9 +45,7 @@ const Proposal: React.FC<PropsType> = (props: PropsType) => {
         <Route path="/premium">
           <Premium />
         </Route>
-        <Route path="/">
-          <ContactSearch proposalState={props.proposalState} embedded={false} />
-        </Route>
+        <Route path="/">{initialView}</Route>
       </Switch>
     </Router>
   );

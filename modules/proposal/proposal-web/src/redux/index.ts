@@ -30,3 +30,5 @@ export const actions = Object.freeze({
   searchFilter: searchFilter.actions,
   vesselLookupFilter: vesselLookupFilter.actions,
 });
+
+export type ActionsType = typeof actions;

@@ -20,14 +20,12 @@ import { SEARCH_URL } from "../../api/constants/routes";
 import { useSelector } from "../../redux/store";
 import { FetchContactsFunction } from "./types";
 import { initialState } from "../../redux/searchFilter/searchFilterSlice";
-import { ProposalResponse } from "../../shared/types/common";
 
 interface stateType {
   doSearch: boolean;
 }
 
 type PropsType = {
-  proposalState?: ProposalResponse | null;
   embedded: boolean;
 };
 
@@ -35,7 +33,7 @@ const contactsLimit = 20;
 const contactsTotalResultLimit = 100;
 const { CONTACT_SEARCH } = languageKeys;
 
-const ContactSearch: React.FC<PropsType> = ({ proposalState, embedded }) => {
+const ContactSearch: React.FC<PropsType> = ({ embedded }) => {
   const [showResults, setShowResults] = useState(false);
   const [data, setData] = useState([]);
   const location = useLocation<stateType>();

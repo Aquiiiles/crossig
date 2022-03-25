@@ -8,9 +8,12 @@ import PolicyPeriod from "./containers/PolicyPeriod";
 import BackBtn from "../../shared/atoms/BackBtn";
 import { PROPOSAL_URL } from "../../api/constants/routes";
 import API from "../../api";
-import { useSelector } from "../../redux/store";
+import { useDispatch, useSelector } from "../../redux/store";
 import { contactInPolicy } from "../../redux/contactsInPolicy/types";
 import Modal from "../../shared/atoms/Modal";
+import { ProposalResponse } from "../../shared/types/common";
+import { actions } from "../../redux";
+import { setupUpdateProposal } from "../../shared/util/stateSetup";
 
 const { PREMIUM } = languageKeys;
 
@@ -18,7 +21,19 @@ declare const Liferay: {
   ThemeDisplay: { getUserId: () => number };
 };
 
-const Premium: React.FC = () => {
+type PropsType = {
+  proposalState?: ProposalResponse | null;
+};
+
+const Premium: React.FC<PropsType> = (props: PropsType) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (props.proposalState) {
+      setupUpdateProposal(dispatch, actions, props.proposalState);
+    }
+  }, [props.proposalState]);
+
   const state = useSelector((state) => state);
   const [showModal, setShowModal] = useState(false);
   const [isUpdateSuccessful, setUpdateSuccess] = useState(false);

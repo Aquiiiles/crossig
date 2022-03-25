@@ -33,6 +33,9 @@ const ContactsInPolicy = createSlice({
     addContact(state, action: PayloadAction<contactInPolicy>) {
       state.contactsInPolicy = [...state.contactsInPolicy, action.payload];
     },
+    setContactsInPolicy(state, action: PayloadAction<Array<contactInPolicy>>) {
+      state.contactsInPolicy = action.payload;
+    },
     addContactRole(state, action: PayloadAction<[number, string]>) {
       const index = action.payload[0];
       const newState = [...state.contactsInPolicy];
