@@ -8,9 +8,10 @@ import CoveragePlan from "../CoveragePlan";
 import VesselSearch from "../VesselSearch";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Premium from "../Premium";
+import { ProposalResponse } from "../../shared/types/common";
 
 type PropsType = {
-  proposalState?: any;
+  proposalState?: ProposalResponse | null;
 };
 
 const Proposal: React.FC<PropsType> = (props: PropsType) => {

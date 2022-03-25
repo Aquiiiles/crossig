@@ -20,13 +20,14 @@ import { SEARCH_URL } from "../../api/constants/routes";
 import { useSelector } from "../../redux/store";
 import { FetchContactsFunction } from "./types";
 import { initialState } from "../../redux/searchFilter/searchFilterSlice";
+import { ProposalResponse } from "../../shared/types/common";
 
 interface stateType {
   doSearch: boolean;
 }
 
 type PropsType = {
-  proposalState?: any;
+  proposalState?: ProposalResponse | null;
   embedded: boolean;
 };
 
