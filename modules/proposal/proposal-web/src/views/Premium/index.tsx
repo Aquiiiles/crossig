@@ -64,9 +64,6 @@ const Premium: React.FC<PropsType> = (props: PropsType) => {
   const createProposal = () => {
     const [payload, proposalId] = createProposalRequest();
 
-    console.log(proposalId)
-    console.log(payload)
-
     const url = proposalId ? `${PROPOSAL_URL}/${proposalId}` : PROPOSAL_URL;
 
     const response = proposalId
