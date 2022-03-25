@@ -1,12 +1,7 @@
-import React, { useEffect } from "react";
-import { PROPOSAL_URL } from "../../api/constants/routes";
-import { useFetchData } from "../../api/hooks/useFetchData";
-import { RESOLVED } from "../../api/reducers/constants";
+import React from "react";
 import ProposalModal from "../../shared/containers/ProposalModal";
-
-type PropsType = {
-  children: React.ReactNode;
-};
+import useProposalState from "./hooks/useProposalState";
+import Proposal from "../Proposal";
 
 declare const Liferay: any;
 
@@ -15,23 +10,11 @@ type LiferayProposalEvent = {
 };
 
 // High Order Component
-const LiferayEventProvider: React.FC<PropsType> = (props: PropsType) => {
+const LiferayEventProvider: React.FC = () => {
   const [visible, setVisible] = React.useState(false);
   const [proposalId, setProposalId] = React.useState<number | null>(null);
 
-  const { state, fetchData: API } = useFetchData();
-
-  useEffect(() => {
-    if (proposalId) {
-      API("GET", `${PROPOSAL_URL}/${proposalId}`);
-    }
-  }, [proposalId]);
-
-  useEffect(() => {
-    if (state.status === RESOLVED) {
-      console.log(state.response.data);
-    }
-  }, [state]);
+  const proposalState = useProposalState(proposalId);
 
   Liferay.on("displayProposalWidget", (event: LiferayProposalEvent) => {
     if (event.proposalId) {
@@ -49,7 +32,7 @@ const LiferayEventProvider: React.FC<PropsType> = (props: PropsType) => {
         window.location.assign("/group/agent-portal/dashboard");
       }}
     >
-      {props.children}
+      <Proposal proposalState={proposalState}/>
     </ProposalModal>
   );
 };
