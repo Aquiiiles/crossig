@@ -50,7 +50,6 @@ const Premium: React.FC<PropsType> = (props: PropsType) => {
       agentUserId: Liferay.ThemeDisplay.getUserId(),
       policyHolderExtNumber: policyHolder.id.toString(),
       insuredObjectExtNumber: insuranceProduct.externalId.toString(),
-      status: "",
       proposalContacts: contactsInPolicy.map((contact: contactInPolicy) => {
         return {
           contactExtNumber: contact.id.toString(),
