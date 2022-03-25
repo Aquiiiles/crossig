@@ -195,21 +195,17 @@ const ContactInfo: React.FC = () => {
         basicInfoValues={basicInfoData}
         basicInfoActions={actions.basicInfo}
       />
-      {countries && (
-        <Addresses
-          countries={mapToCountryNames(countries)}
-          operation={contactOperations.create}
-        />
-      )}
-      {countries && (
-        <ContactInfoForm
-          countries={mapToCountryCodes(countries)}
-          operation={contactOperations.create}
-          contactType={basicInfoData.contactType}
-          contactInfoValues={contactInfoData}
-          contactInfoActions={actions.contactInfo}
-        />
-      )}
+      <Addresses
+        countries={mapToCountryNames(countries || [])}
+        operation={contactOperations.create}
+      />
+      <ContactInfoForm
+        countries={mapToCountryCodes(countries || [])}
+        operation={contactOperations.create}
+        contactType={basicInfoData.contactType}
+        contactInfoValues={contactInfoData}
+        contactInfoActions={actions.contactInfo}
+      />
       <ButtonWrapper className={isLegalEntity() ? "standard-wrapper" : ""}>
         <LinkWrapper
           title={CONTACT_INFO.CANCEL}

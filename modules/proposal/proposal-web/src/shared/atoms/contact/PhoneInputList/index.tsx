@@ -110,7 +110,9 @@ const PhoneInputList: React.FC<propsType> = (props: propsType) => {
                 props.phoneTypeSelect &&
                 props.phoneTypeSelect(index)}
               <li key={`phoneInputList${index}`}>
-                <label>{CONTACT_INFO.PHONE_NUMBER}</label>
+                <label htmlFor={`phoneNumber${index}`}>
+                  {CONTACT_INFO.PHONE_NUMBER}
+                </label>
                 <PhoneNumberWrapper>
                   <CountryCodeSelect
                     id={`countryCodeSelect${index}`}
