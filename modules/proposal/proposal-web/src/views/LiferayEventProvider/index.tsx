@@ -1,17 +1,26 @@
 import React from "react";
 import ProposalModal from "../../shared/containers/ProposalModal";
-
-type PropsType = {
-  children: React.ReactNode;
-};
+import useProposalState from "./hooks/useProposalState";
+import Proposal from "../Proposal";
 
 declare const Liferay: any;
 
-// High Order Component
-const LiferayEventProvider: React.FC<PropsType> = (props: PropsType) => {
-  const [visible, setVisible] = React.useState(false);
+type LiferayProposalEvent = {
+  proposalId: number;
+};
 
-  Liferay.on("displayProposalWidget", (_event: Event) => {
+// High Order Component
+const LiferayEventProvider: React.FC = () => {
+  const [visible, setVisible] = React.useState(false);
+  const [proposalId, setProposalId] = React.useState<number | null>(null);
+
+  const proposalState = useProposalState(proposalId);
+
+  Liferay.on("displayProposalWidget", (event: LiferayProposalEvent) => {
+    if (event.proposalId) {
+      setProposalId(event.proposalId);
+    }
+
     setVisible(true);
   });
 
@@ -23,7 +32,7 @@ const LiferayEventProvider: React.FC<PropsType> = (props: PropsType) => {
         window.location.assign("/group/agent-portal/dashboard");
       }}
     >
-      {props.children}
+      <Proposal proposalState={proposalState}/>
     </ProposalModal>
   );
 };

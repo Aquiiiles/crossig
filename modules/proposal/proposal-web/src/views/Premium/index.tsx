@@ -8,9 +8,12 @@ import PolicyPeriod from "./containers/PolicyPeriod";
 import BackBtn from "../../shared/atoms/BackBtn";
 import { PROPOSAL_URL } from "../../api/constants/routes";
 import API from "../../api";
-import { useSelector } from "../../redux/store";
+import { useDispatch, useSelector } from "../../redux/store";
 import { contactInPolicy } from "../../redux/contactsInPolicy/types";
 import Modal from "../../shared/atoms/Modal";
+import { ProposalResponse } from "../../shared/types/common";
+import { actions } from "../../redux";
+import { setupUpdateProposal } from "../../shared/util/stateSetup";
 
 const { PREMIUM } = languageKeys;
 
@@ -18,22 +21,35 @@ declare const Liferay: {
   ThemeDisplay: { getUserId: () => number };
 };
 
-const Premium: React.FC = () => {
+type PropsType = {
+  proposalState?: ProposalResponse | null;
+};
+
+const Premium: React.FC<PropsType> = (props: PropsType) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (props.proposalState) {
+      setupUpdateProposal(dispatch, actions, props.proposalState);
+    }
+  }, [props.proposalState]);
+
   const state = useSelector((state) => state);
   const [showModal, setShowModal] = useState(false);
   const [isUpdateSuccessful, setUpdateSuccess] = useState(false);
 
-  const createProposalPayload = () => {
+  const createProposalRequest = () => {
     const contactsInPolicy = state.contactsInPolicy.contactsInPolicy;
     const policyHolder = state.contactsInPolicy.policyHolder;
     const insuranceProduct = state.insuranceProduct.insuranceProduct;
+    const proposal = state.proposal;
 
     const payload = {
+      proposalId: proposal.proposalId,
       externalProposalNumber: "",
       agentUserId: Liferay.ThemeDisplay.getUserId(),
       policyHolderExtNumber: policyHolder.id.toString(),
       insuredObjectExtNumber: insuranceProduct.externalId.toString(),
-      status: "",
       proposalContacts: contactsInPolicy.map((contact: contactInPolicy) => {
         return {
           contactExtNumber: contact.id.toString(),
@@ -42,12 +58,18 @@ const Premium: React.FC = () => {
       }),
     };
 
-    return payload;
+    return [payload, proposal.proposalId];
   };
 
   const createProposal = () => {
-    const payload = createProposalPayload();
-    const response = API.post(PROPOSAL_URL, payload);
+    const [payload, proposalId] = createProposalRequest();
+
+    const url = proposalId ? `${PROPOSAL_URL}/${proposalId}` : PROPOSAL_URL;
+
+    const response = proposalId
+      ? API.put(url, payload)
+      : API.post(url, payload);
+
     resetModalScroll();
 
     response

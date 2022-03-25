@@ -8,6 +8,7 @@ import * as vesselLookupFilter from "./vesselLookup/vesselLookupSlice";
 import * as contactsInPolicy from "./contactsInPolicy/contactsInPolicySlice";
 import * as coveragePlan from "./coveragePlan/coveragePlanSlice";
 import * as insuranceProduct from "./insuranceProduct/insuranceProductSlice";
+import * as proposal from "./proposal/proposalSlice";
 
 export const reducer = combineReducers({
   addresses: addresses.default,
@@ -18,6 +19,7 @@ export const reducer = combineReducers({
   insuranceProduct: insuranceProduct.default,
   searchFilter: searchFilter.default,
   vesselLookupFilter: vesselLookupFilter.default,
+  proposal: proposal.default,
 });
 
 export const actions = Object.freeze({
@@ -29,4 +31,7 @@ export const actions = Object.freeze({
   insuranceProduct: insuranceProduct.actions,
   searchFilter: searchFilter.actions,
   vesselLookupFilter: vesselLookupFilter.actions,
+  proposal: proposal.actions,
 });
+
+export type ActionsType = typeof actions;

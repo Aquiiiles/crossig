@@ -25,11 +25,15 @@ interface stateType {
   doSearch: boolean;
 }
 
+type PropsType = {
+  embedded: boolean;
+};
+
 const contactsLimit = 20;
 const contactsTotalResultLimit = 100;
 const { CONTACT_SEARCH } = languageKeys;
 
-const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
+const ContactSearch: React.FC<PropsType> = ({ embedded }) => {
   const [showResults, setShowResults] = useState(false);
   const [data, setData] = useState([]);
   const location = useLocation<stateType>();
