@@ -1,6 +1,5 @@
 import { useCallback, useLayoutEffect, useState } from "react";
-
-export type PageIndex = number | string;
+import { PageIndex } from "../../../shared/hooks/types";
 
 export default function usePagination(limit: number) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,13 +15,13 @@ export default function usePagination(limit: number) {
 
   const goToNextPage = () => {
     if (currentPage + 1 <= totalPages()) {
-      setCurrentPage(value => value + 1);
+      setCurrentPage((value) => value + 1);
     }
   };
 
   const goToPrevPage = () => {
     if (currentPage - 1 > 0) {
-      setCurrentPage(value => value - 1);
+      setCurrentPage((value) => value - 1);
     }
   };
 

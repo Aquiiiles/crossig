@@ -12,34 +12,33 @@ import {
   mapToCountryNames,
   mapToCountryCodes,
 } from "../../../../shared/util/countryMappers";
-import {
-  CONTACT_INFO,
-  CREATE_NEW_CONTACT,
-  ROLES_ON_POLICY,
-} from "../../../../constants/languageKeys";
+import languageKeys from "../../../../constants/Language";
 import { contactOperations } from "../../../../constants/contactConstants";
 import { useSelector, useDispatch } from "../../../../redux/store";
 import { valuesToISOString } from "./utils/dateUtils";
 import { emailListToData } from "./utils/emailUtils";
 import { phoneObjectToData } from "./utils/phoneUtils";
-import API from "../../../../api";
 import { CONTACT_URL } from "../../../../api/constants/routes";
 import { COUNTRIES_URL } from "../../../../api/constants/routes";
-import { useFetchData } from "../../../../api/hooks/useFetchData";
+import { useHttpRequest } from "../../../../api/hooks/useHttpRequest";
 import { RESOLVED } from "../../../../api/reducers/constants";
 import ClayForm from "@clayui/form";
 import * as constants from "../../../ContactSearch/constants/searchResult";
 import { contactTypes } from "../../../../constants/contactConstants";
 import { actions } from "../../../../redux";
 import { resetScroll } from "../../../../shared/util/commonFunctions";
+import { ROUTES } from "../../../../constants/routes";
+
+const { ROLES_ON_POLICY, CONTACT_INFO, CREATE_NEW_CONTACT } = languageKeys;
 
 const ContactInfo: React.FC = () => {
   const dispatch = useDispatch();
+  const [, { returnFetchData }] = useHttpRequest();
   const basicInfoData = useSelector((state) => state.basicInfo);
   const addressData = useSelector((state) => state.addresses);
   const contactInfoData = useSelector((state) => state.contactInfo);
   const formRef = useRef<HTMLFormElement>(null);
-  const { state, get } = useFetchData();
+  const [countryResponse, , { get: fetchCountries }] = useHttpRequest();
   const [countries, setCountries] = useState<Array<any> | null>(null);
   const { contactType } = useSelector((state) => state.basicInfo);
   const [showModal, setShowModal] = useState(false);
@@ -52,14 +51,14 @@ const ContactInfo: React.FC = () => {
   const history = useHistory();
 
   useEffect(() => {
-    get(COUNTRIES_URL);
+    fetchCountries(COUNTRIES_URL);
   }, []);
 
   useEffect(() => {
-    if (state.status === RESOLVED) {
-      setCountries(state.response.data);
+    if (countryResponse.status === RESOLVED) {
+      setCountries(countryResponse.response.data);
     }
-  });
+  }, [countryResponse]);
 
   const isLegalEntity = () => {
     return contactType === contactTypes.Legal_Entity;
@@ -76,7 +75,7 @@ const ContactInfo: React.FC = () => {
     }
   };
 
-  const createContact = () => {
+  const createContact = async () => {
     if (!hasFormErrors()) {
       const { dateDay, dateMonth, dateYear } = basicInfoData;
       const { contactType } = basicInfoData;
@@ -141,7 +140,7 @@ const ContactInfo: React.FC = () => {
         telephones: phoneObjectToData(contactInfoData.mobilePhones),
       };
 
-      const response = API.post(CONTACT_URL, payload);
+      const response = returnFetchData("POST", CONTACT_URL, {}, payload);
       resetScroll();
 
       response
@@ -168,7 +167,7 @@ const ContactInfo: React.FC = () => {
 
   useEffect(() => {
     if (isCreateSuccessful) {
-      history.push("/product?success=true");
+      history.push(`${ROUTES.PRODUCT}?success=true`);
     }
   }, [isCreateSuccessful]);
 
@@ -191,7 +190,11 @@ const ContactInfo: React.FC = () => {
 
       <h3>{CREATE_NEW_CONTACT.TITLE}</h3>
       <p style={{ marginBottom: "1.875rem" }}>{CREATE_NEW_CONTACT.SUBTITLE}</p>
-      <BasicInfo operation={contactOperations.create} />
+      <BasicInfo
+        operation={contactOperations.create}
+        basicInfoValues={basicInfoData}
+        basicInfoActions={actions.basicInfo}
+      />
       {countries && (
         <Addresses
           countries={mapToCountryNames(countries)}
@@ -202,6 +205,9 @@ const ContactInfo: React.FC = () => {
         <ContactInfoForm
           countries={mapToCountryCodes(countries)}
           operation={contactOperations.create}
+          contactType={basicInfoData.contactType}
+          contactInfoValues={contactInfoData}
+          contactInfoActions={actions.contactInfo}
         />
       )}
       <ButtonWrapper className={isLegalEntity() ? "standard-wrapper" : ""}>
@@ -211,7 +217,10 @@ const ContactInfo: React.FC = () => {
             [actions.basicInfo, actions.addresses, actions.contactInfo].forEach(
               (action) => dispatch(action["resetFields"]())
             );
-            history.replace({ pathname: "/", state: { doSearch: true } });
+            history.replace({
+              pathname: ROUTES.CONTACT_SEARCH,
+              state: { doSearch: true },
+            });
           }}
           disabled={false}
         />

@@ -1,6 +1,8 @@
 import React from "react";
 import ClayButton from "@clayui/button";
-import { PROPOSAL } from "../../../constants/languageKeys";
+import languageKeys from "../../../constants/Language";
+
+const { PROPOSAL } = languageKeys;
 
 const ContinueBtn: React.FC<{ disabled: boolean; onClick: () => void }> = ({
   disabled,

@@ -2,9 +2,11 @@ import React from "react";
 import RoleItem from "./RoleItem";
 import AddRoleItem from "./AddRoleItem";
 import { Wrapper, Roles } from "./styles";
-import { ROLES_ON_POLICY } from "../../../../constants/languageKeys";
 import { useSelector } from "../../../../redux/store";
+import languageKeys from "../../../../constants/Language";
 import * as constants from "../../../../constants/RolesOnPolicy";
+
+const { ROLES_ON_POLICY } = languageKeys;
 
 interface rolesItens {
   policyHolder: boolean;

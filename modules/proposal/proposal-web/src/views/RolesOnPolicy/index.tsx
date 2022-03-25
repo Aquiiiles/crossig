@@ -6,17 +6,25 @@ import BackBtn from "../../shared/atoms/BackBtn";
 import ContinueBtn from "../../shared/atoms/ContinueBtn";
 import Table from "./containers/Table";
 import ResultsMobile from "./containers/ResultsMobile";
-import { ROLES_ON_POLICY } from "../../constants/languageKeys";
+import languageKeys from "../../constants/Language";
 import { useDispatch, useSelector } from "../../redux/store";
 import { actions } from "../../redux";
 import ContactSearch from "../ContactSearch";
-import { handleEnterKeyEvent, resetModalScroll } from "../../shared/util/commonFunctions";
+import {
+  handleEnterKeyEvent,
+  resetModalScroll,
+} from "../../shared/util/commonFunctions";
+import { ROUTES } from "../../constants/routes";
+
+const { ROLES_ON_POLICY } = languageKeys;
 
 const RolesOnPolicy: React.FC = () => {
   const dispatch = useDispatch();
-  const { policyHolder, contactsInPolicy, showMobileSearch } = useSelector(
-    (state) => state.contactsInPolicy
-  );
+  const {
+    policyHolder: { contactRoles },
+    contactsInPolicy,
+    showMobileSearch,
+  } = useSelector((state) => state.contactsInPolicy);
   const { setRoleOptions } = actions.contactsInPolicy;
   const { clearSearchValues } = actions.searchFilter;
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -26,7 +34,7 @@ const RolesOnPolicy: React.FC = () => {
   const hasInsuredRole =
     contactsInPolicy.filter((contact) =>
       contact.contactRoles.includes(ROLES_ON_POLICY.INSURED)
-    ).length > 0 || policyHolder.contactRoles.includes(ROLES_ON_POLICY.INSURED);
+    ).length > 0 || contactRoles.includes(ROLES_ON_POLICY.INSURED);
 
   useEffect(() => {
     dispatch(setRoleOptions(["Insured", "Payer"]));
@@ -38,7 +46,7 @@ const RolesOnPolicy: React.FC = () => {
   }, []);
 
   const continueToCoveragePlan = () => {
-    history.push("/coverage_plan");
+    history.push(ROUTES.COVERAGE_PLAN);
   };
 
   useEffect(() => {
@@ -67,7 +75,7 @@ const RolesOnPolicy: React.FC = () => {
               <Table hasInsuredRole={hasInsuredRole} />
             </Content>
             <Buttons>
-              <BackBtn pathname="/product" state={{ doSearch: true }} />
+              <BackBtn pathname={ROUTES.PRODUCT} state={{ doSearch: true }} />
               {!hasInsuredRole && (
                 <span className="msg">
                   {ROLES_ON_POLICY.INSURED_ROLE_MISSING}

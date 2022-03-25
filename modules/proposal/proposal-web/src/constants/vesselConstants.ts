@@ -1,4 +1,6 @@
-import { VESSEL, VESSEL_LOOKUP } from "../constants/languageKeys";
+import languageKeys from "./Language";
+
+const { VESSEL, VESSEL_LOOKUP } = languageKeys;
 
 export const vesselTypeOptions: { label: string; value: string }[] = [
   {

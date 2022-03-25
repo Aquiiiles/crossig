@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useFetchData } from "../../../api/hooks/useFetchData";
-import { Product } from "../types/product";
+import { useHttpRequest } from "../../../api/hooks/useHttpRequest";
+import { Product } from "../types";
 import { PRODUCTS_URL } from "../../../api/constants/routes";
 import { IDLE } from "../../../api/reducers/constants";
 import useQueryParams from "../../../shared/hooks/useQueryParams";
@@ -39,7 +39,8 @@ const categorizeProducts = (products: Product[]): Product[][] => {
 };
 
 export default function useProductState() {
-  const { state, fetchData: API } = useFetchData();
+  const [productsResponse, { fetchData: fetchProductsForUser }] =
+    useHttpRequest();
   const [products, setProducts] = useState<Product[][]>([]);
   const query = useQueryParams();
   const { basicInfo, contactInfo } = useSelector((state) => state);
@@ -49,14 +50,14 @@ export default function useProductState() {
   useEffect(() => {
     const userId = Liferay.ThemeDisplay.getUserId();
 
-    API("GET", `${PRODUCTS_URL}/${userId}`);
+    fetchProductsForUser("GET", `${PRODUCTS_URL}/${userId}`);
   }, []);
 
   useEffect(() => {
-    if (state.status !== IDLE) {
-      setProducts(categorizeProducts(state.response.data));
+    if (productsResponse.status !== IDLE) {
+      setProducts(categorizeProducts(productsResponse.response.data));
     }
-  }, [state]);
+  }, [productsResponse]);
 
   return [
     products,

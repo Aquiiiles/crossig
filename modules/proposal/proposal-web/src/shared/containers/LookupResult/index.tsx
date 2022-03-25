@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import Pagination from "../../molecules/Pagination";
 import { SearchResultsHeader, Wrapper } from "./styles";
 import ClayLoadingIndicator from "@clayui/loading-indicator";
-import { TOO_MANY_SEARCH_RESULTS } from "../../../constants/languageKeys";
-import { PageIndex } from "../../../shared/hooks/usePagination";
+import languageKeys from "../../../constants/Language";
+import { PageIndex } from "../../hooks/types";
 import SortButton from "../../atoms/SortButton";
 import ClayDropDown from "@clayui/drop-down";
-import useSort, { SortableActionKeyType } from "../../hooks/useSort";
+import useSort from "../../hooks/useSort";
+import { SortableActionKeyType } from "../../hooks/types";
 import spritemap from "@clayui/css/lib/images/icons/icons.svg";
 import ClayIcon from "@clayui/icon";
-import { HeaderCell } from "../../types/common";
+import { HeaderCell } from "../../types";
+
+const { TOO_MANY_SEARCH_RESULTS } = languageKeys;
 
 type PropsType = {
   data: Array<any>;

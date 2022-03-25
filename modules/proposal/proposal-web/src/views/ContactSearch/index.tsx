@@ -10,19 +10,15 @@ import {
 } from "./styles";
 import Stepper from "../../shared/molecules/Stepper";
 import GoBackHeader from "../../shared/molecules/GoBackHeader";
-import {
-  CONTACT_SEARCH_SUBTITLE,
-  CONTACT_SEARCH_TITLE,
-} from "../../constants/languageKeys";
-import { useFetchData } from "../../api/hooks/useFetchData";
+import languageKeys from "../../constants/Language";
+import { useHttpRequest } from "../../api/hooks/useHttpRequest";
 import SearchResult from "./containers/SearchResult";
 import { PENDING, IDLE } from "../../api/reducers/constants";
 import { Link, useLocation } from "react-router-dom";
-import { CONTACT_SEARCH_CREATE_NEW_CONTACT } from "../../constants/languageKeys";
 import usePagination from "./hooks/usePagination";
 import { SEARCH_URL } from "../../api/constants/routes";
 import { useSelector } from "../../redux/store";
-import { FetchContactsFunction } from "./types/fetchData";
+import { FetchContactsFunction } from "./types";
 import { initialState } from "../../redux/searchFilter/searchFilterSlice";
 
 interface stateType {
@@ -31,13 +27,14 @@ interface stateType {
 
 const contactsLimit = 20;
 const contactsTotalResultLimit = 100;
+const { CONTACT_SEARCH } = languageKeys;
 
 const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
   const [showResults, setShowResults] = useState(false);
   const [data, setData] = useState([]);
   const location = useLocation<stateType>();
-  const { state: searchResultData, fetchData: fetchSearchResultData } =
-    useFetchData();
+  const [searchResultResponse, { fetchData: fetchSearchResultData }] =
+    useHttpRequest();
   const [
     currentPage,
     pages,
@@ -61,8 +58,8 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
     sortOrder,
     sortedBy,
   } = filterState;
-  const idle = searchResultData.status === IDLE;
-  const loading = searchResultData.status === PENDING;
+  const idle = searchResultResponse.status === IDLE;
+  const loading = searchResultResponse.status === PENDING;
 
   useEffect(() => {
     if (filterState !== initialState) {
@@ -82,7 +79,7 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
       assetStreetName: street !== "" ? street : undefined,
       telephoneCountryCode: countryCode !== "" ? countryCode : undefined,
       telephonePrefix: areaCode !== "" ? areaCode : undefined,
-      telphoneNumber: phoneNumber !== "" ? phoneNumber : undefined,
+      telephoneNumber: phoneNumber !== "" ? phoneNumber : undefined,
       email: email !== "" ? email : undefined,
       accountType:
         selectedContactType !== "" ? Number(selectedContactType) : undefined,
@@ -107,12 +104,12 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
   };
 
   useEffect(() => {
-    const result = searchResultData.response.data[0]?.contactInListIVO;
+    const result = searchResultResponse.response.data[0]?.contactInListIVO;
     if (result != null) {
       setData(result);
       handleNewTotal(result.length);
     }
-  }, [searchResultData, handleNewTotal]);
+  }, [searchResultResponse, handleNewTotal]);
 
   useEffect(() => {
     if (!idle) {
@@ -141,10 +138,10 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
       <InnerWrapper embedded={embedded}>
         <Content embedded={embedded}>
           <div className="tablet-padding">
-            <h5>{CONTACT_SEARCH_TITLE}</h5>
+            <h5>{CONTACT_SEARCH.TITLE}</h5>
             {!embedded ? (
               <p className="body-small content-subtitle">
-                {CONTACT_SEARCH_SUBTITLE}
+                {CONTACT_SEARCH.SUBTITLE}
               </p>
             ) : null}
             <SearchField
@@ -185,7 +182,7 @@ const ContactSearch: React.FC<{ embedded: boolean }> = ({ embedded }) => {
         </Content>
         {!idle && !embedded ? (
           <LinkWrapper>
-            <Link to="new_contact">{CONTACT_SEARCH_CREATE_NEW_CONTACT}</Link>
+            <Link to="new_contact">{CONTACT_SEARCH.CREATE_NEW_CONTACT}</Link>
           </LinkWrapper>
         ) : null}
       </InnerWrapper>

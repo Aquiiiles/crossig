@@ -3,12 +3,13 @@ import { useHistory } from "react-router-dom";
 import ClayTable from "@clayui/table";
 import { Row, ViewDetailsBtn, Wrapper } from "./styles";
 import RolesItens from "../../RolesItens";
-import { CONTACT_SEARCH_TABLE_VIEW_DETAILS } from "../../../../../constants/languageKeys";
-
 import * as types from "../../../../../redux/contactsInPolicy/types";
 import * as constants from "../../../../../constants/RolesOnPolicy";
 import { contactOperations } from "../../../../../constants/contactConstants";
+import languageKeys from "../../../../../constants/Language";
+import { ROUTES } from "../../../../../constants/routes";
 
+const { CONTACT_SEARCH } = languageKeys;
 interface props {
   contact: types.contactInPolicy;
   policyHolder: boolean;
@@ -27,7 +28,7 @@ const TableRow: React.FC<props> = ({
 
   const openUpdateContact = (extNumber: number) => {
     history.push({
-      pathname: "/update_contact",
+      pathname: ROUTES.UPDATE_CONTACT,
       state: { extNumber, operation: contactOperations.updateReadOnly },
     });
   };
@@ -54,7 +55,7 @@ const TableRow: React.FC<props> = ({
             onClick={() => openUpdateContact(contact[constants.EXT_NUMBER_KEY])}
             showDetails={showDetails}
           >
-            {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
+            {CONTACT_SEARCH.TABLE.VIEW_DETAILS}
           </ViewDetailsBtn>
         </Wrapper>
       </ClayTable.Cell>

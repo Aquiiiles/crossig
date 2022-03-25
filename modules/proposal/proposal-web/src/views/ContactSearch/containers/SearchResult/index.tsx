@@ -1,21 +1,18 @@
 import React from "react";
 import Table from "./components/organisms/Table";
-import Pagination from "./components/molecules/Pagination";
+import Pagination from "../../../../shared/molecules/Pagination";
 import { SearchResultsHeader, Wrapper } from "./styles";
 import ClayForm, { ClaySelect, ClaySelectWithOption } from "@clayui/form";
 import ClayDropDown from "@clayui/drop-down";
 import ClayLoadingIndicator from "@clayui/loading-indicator";
 import { filterTypeOptions } from "../../../../constants/contactConstants";
-import {
-  CONTACT_SEARCH_RESULT_CONTACTS_FOUND,
-  CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND,
-  CONTACT_SEARCH_RESULT_TOO_MANY_SEARCH_RESULTS,
-  CONTACT_RESULTS_TABLE,
-} from "../../../../constants/languageKeys";
-import { PageIndex } from "../../hooks/usePagination";
+import { PageIndex } from "../../../../shared/hooks/types";
 import useSearchResultState from "../../hooks/useSearchResultState";
 import ResultsHeaderMobile from "./components/molecules/ResultsHeaderMobile";
 import ResultsMobile from "./components/organisms/ResultsMobile";
+import languageKeys from "../../../../constants/Language";
+
+const { CONTACT_SEARCH, CONTACT_RESULTS_TABLE } = languageKeys;
 
 interface props {
   data: Array<any>;
@@ -72,8 +69,8 @@ const SearchResult: React.FC<props> = ({
             <SearchResultsHeader className="desktop-only">
               <h6 className="h9">
                 {foundContacts
-                  ? `${filteredData.length} ${CONTACT_SEARCH_RESULT_CONTACTS_FOUND}`
-                  : `${CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND}`}
+                  ? `${filteredData.length} ${CONTACT_SEARCH.RESULT.CONTACTS_FOUND}`
+                  : `${CONTACT_SEARCH.RESULT.NO_CONTACTS_FOUND}`}
               </h6>
               <ClayForm.Group>
                 <ClayDropDown
@@ -83,7 +80,7 @@ const SearchResult: React.FC<props> = ({
                     <div className="city-dropdown">
                       <ClaySelect
                         style={{ pointerEvents: "none" }}
-                        id="cityFilterField"
+                        id="cityFilterableField"
                         value=""
                       >
                         <ClaySelect.Option
@@ -147,11 +144,7 @@ const SearchResult: React.FC<props> = ({
             {foundContacts ? (
               <>
                 <ResultsMobile data={filteredData} embedded={embedded} />
-                <Table
-                  loading={loading}
-                  inputData={filteredData}
-                  embedded={embedded}
-                />
+                <Table inputData={filteredData} embedded={embedded} />
                 <Pagination
                   paginationData={{
                     total: filteredData.length,
@@ -163,7 +156,7 @@ const SearchResult: React.FC<props> = ({
           </>
         ) : filteredData.length > contactsTotalLimit ? (
           <h6 className="h9">
-            {CONTACT_SEARCH_RESULT_TOO_MANY_SEARCH_RESULTS}
+            {CONTACT_SEARCH.RESULT.TOO_MANY_SEARCH_RESULTS}
           </h6>
         ) : (
           <ClayLoadingIndicator />

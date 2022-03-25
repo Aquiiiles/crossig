@@ -3,16 +3,14 @@ import ClayButton from "@clayui/button";
 import ClayDropDown from "@clayui/drop-down";
 import { ClayCheckbox } from "@clayui/form";
 import { RolesWrapper, Buttons, Background } from "./styles";
-import {
-  CONTACT_SEARCH_TABLE_ADD_TO_POLICY,
-  ROLES_ON_POLICY,
-} from "../../../../../../../constants/languageKeys";
+import languageKeys from "../../../../../../../constants/Language";
 import { useDispatch, useSelector } from "../../../../../../../redux/store";
 import { actions } from "../../../../../../../redux";
 import LinkWrapper from "../../../../../../../shared/atoms/LinkWrapper";
-
-import * as types from "../../../types/searchResult";
+import * as types from "../../../types";
 import * as constants from "../../../../../constants/searchResult";
+
+const { CONTACT_SEARCH, ROLES_ON_POLICY } = languageKeys;
 
 const AddToPolicyBtn: React.FC<{
   contact: types.responseType;
@@ -42,7 +40,7 @@ const AddToPolicyBtn: React.FC<{
       {isMobile ? (
         <>
           <ClayButton displayType="primary" onClick={() => setActive(true)}>
-            {CONTACT_SEARCH_TABLE_ADD_TO_POLICY}
+            {CONTACT_SEARCH.TABLE.ADD_TO_POLICY}
           </ClayButton>
           {active ? (
             <>
@@ -92,7 +90,7 @@ const AddToPolicyBtn: React.FC<{
               displayType="primary"
               onClick={() => setActive(!active)}
             >
-              {CONTACT_SEARCH_TABLE_ADD_TO_POLICY}
+              {CONTACT_SEARCH.TABLE.ADD_TO_POLICY}
             </ClayButton>
           }
           style={{ marginLeft: "0.5rem" }}

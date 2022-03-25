@@ -1,18 +1,16 @@
 import React from "react";
 import { ButtonGroup, InnerGrid, MainGrid, Wrapper } from "./styles";
-import * as types from "../../../types/searchResult";
+import * as types from "../../../types";
 import * as constants from "../../../../../constants/searchResult";
 import useTableRowState from "../../../../../hooks/useTableRowState";
 import ClayButton from "@clayui/button";
-import {
-  CONTACT_SEARCH_TABLE_USE_CONTACT,
-  CONTACT_SEARCH_TABLE_VIEW_DETAILS,
-} from "../../../../../../../constants/languageKeys";
 import { contactOperations } from "../../../../../../../constants/contactConstants";
 import MissingInformationIcon from "../MissingInformationIcon";
 import AddToPolicyBtn from "../../molecules/AddToPolicyBtn";
 import ResultRowMobile from "../../../../../../../shared/atoms/ResultRowMobile";
+import languageKeys from "../../../../../../../constants/Language";
 
+const { CONTACT_SEARCH } = languageKeys;
 interface Props {
   contact: types.responseType;
   embedded: boolean;
@@ -66,7 +64,7 @@ const ResultMobile: React.FC<Props> = ({ contact, embedded }) => {
           className="ghost"
           onClick={() => openUpdateContact(contact[constants.EXT_NUMBER_KEY])}
         >
-          {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
+          {CONTACT_SEARCH.TABLE.VIEW_DETAILS}
         </ClayButton>
         {embedded ? (
           <AddToPolicyBtn contact={contact} isMobile />
@@ -75,7 +73,7 @@ const ResultMobile: React.FC<Props> = ({ contact, embedded }) => {
             displayType="primary"
             onClick={() => selectContact(contact)}
           >
-            {CONTACT_SEARCH_TABLE_USE_CONTACT}
+            {CONTACT_SEARCH.TABLE.USE_CONTACT}
           </ClayButton>
         )}
       </ButtonGroup>

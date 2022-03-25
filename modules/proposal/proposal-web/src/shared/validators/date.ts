@@ -1,5 +1,7 @@
-import { ValidatorFunction } from "../hooks/useFieldValidation";
-import { VALIDATOR_MESSAGE } from "../../constants/languageKeys";
+import { ValidatorFunction } from "../hooks/types";
+import languageKeys from "../../constants/Language";
+
+const { VALIDATOR_MESSAGE } = languageKeys;
 
 type ValidatorFunctionDay = (
   value: Parameters<ValidatorFunction>[0],
@@ -21,13 +23,13 @@ const validateDay: ValidatorFunctionDay = (value, dateMonth, dateYear) => {
   if (number < 1 || number > 31) return VALIDATOR_MESSAGE.INVALID_BIRTH_DAY;
 };
 
-const validateMonth: ValidatorFunction = value => {
+const validateMonth: ValidatorFunction = (value) => {
   const number = Number(value);
   if (value === "") return;
   if (number < 1 || number > 12) return VALIDATOR_MESSAGE.INVALID_BIRTH_MONTH;
 };
 
-const validateYear: ValidatorFunction = value => {
+const validateYear: ValidatorFunction = (value) => {
   const number = Number(value);
   if (value === "") return;
   if (number < 1) return VALIDATOR_MESSAGE.INVALID_BIRTH_YEAR;

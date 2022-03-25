@@ -1,11 +1,13 @@
 import React, { Fragment, MouseEventHandler, useState } from "react";
 import { ClayInput } from "@clayui/form";
-import { CONTACT_INFO } from "../../../../constants/languageKeys";
 import LinkWrapper from "../../LinkWrapper";
+import languageKeys from "../../../../constants/Language";
 import { StyledFormGroup, Error } from "./styles";
 import { MAXIMUM_EMAIL_ADDRESSES } from "../../../../constants/contactConstants";
 import { shouldDisableInput } from "../../../util/commonFunctions";
 import { InnerTitle } from "../../../molecules/contact/ContactInfoForm/styles";
+
+const { CONTACT_INFO } = languageKeys;
 
 interface props {
   emails: Array<string>;

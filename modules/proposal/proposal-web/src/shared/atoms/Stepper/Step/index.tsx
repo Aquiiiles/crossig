@@ -1,6 +1,6 @@
 import React from "react";
 import { ActiveBar, Wrapper, Text, InnerWrapper } from "./style";
-import { Step as StepType } from "../../../types/stepper";
+import { Step as StepType } from "../../../types";
 
 interface props {
   step: StepType;
@@ -25,10 +25,7 @@ const Step: React.FC<props> = ({
           {isSubStep ? (
             <span></span>
           ) : (
-            <Text
-              state={step.state}
-              onClick={() => handleClick(stepIndex)}
-            >
+            <Text state={step.state} onClick={() => handleClick(stepIndex)}>
               {stepIndex}
             </Text>
           )}

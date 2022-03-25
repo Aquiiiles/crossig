@@ -1,4 +1,6 @@
-import { CREATE_NEW_CONTACT } from "./languageKeys";
+import languageKeys from "./Language";
+
+const { CREATE_NEW_CONTACT } = languageKeys;
 
 export const contactTypes = {
   Individual: "1",

@@ -1,7 +1,9 @@
 import React from "react";
 import { LinkWrapper } from "./styles";
 import { Link } from "react-router-dom";
-import { PROPOSAL } from "../../../constants/languageKeys";
+import languageKeys from "../../../constants/Language";
+
+const { PROPOSAL } = languageKeys;
 
 const BackBtn: React.FC<{
   pathname: string;

@@ -5,9 +5,12 @@ import { ButtonGroup, InnerGrid, MainGrid, Wrapper } from "./styles";
 import RolesItens from "../../RolesItens";
 import ResultRowMobile from "../../../../../shared/atoms/ResultRowMobile";
 import * as types from "../../../../../redux/contactsInPolicy/types";
-import { CONTACT_SEARCH_TABLE_VIEW_DETAILS } from "../../../../../constants/languageKeys";
 import * as constants from "../../../../../constants/RolesOnPolicy";
 import { contactOperations } from "../../../../../constants/contactConstants";
+import languageKeys from "../../../../../constants/Language";
+import { ROUTES } from "../../../../../constants/routes";
+
+const { CONTACT_SEARCH } = languageKeys;
 
 interface Props {
   contact: types.contactInPolicy;
@@ -25,7 +28,7 @@ const ResultMobile: React.FC<Props> = ({
   const history = useHistory();
   const openUpdateContact = (extNumber: number) => {
     history.push({
-      pathname: "/update_contact",
+      pathname: ROUTES.UPDATE_CONTACT,
       state: { extNumber, operation: contactOperations.updateReadOnly },
     });
   };
@@ -62,7 +65,7 @@ const ResultMobile: React.FC<Props> = ({
           className="ghost"
           onClick={() => openUpdateContact(contact[constants.EXT_NUMBER_KEY])}
         >
-          {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
+          {CONTACT_SEARCH.TABLE.VIEW_DETAILS}
         </ClayButton>
       </ButtonGroup>
     </Wrapper>

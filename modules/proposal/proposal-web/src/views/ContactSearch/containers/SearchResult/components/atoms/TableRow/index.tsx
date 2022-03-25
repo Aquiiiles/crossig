@@ -1,18 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import ClayButton from "@clayui/button";
 import ClayTable from "@clayui/table";
 import { HoveringButtonGroup } from "./style";
 import MissingInformationIcon from "../MissingInformationIcon";
-import {
-  CONTACT_SEARCH_TABLE_VIEW_DETAILS,
-  CONTACT_SEARCH_TABLE_USE_CONTACT,
-} from "../../../../../../../constants/languageKeys";
 import AddToPolicyBtn from "../../molecules/AddToPolicyBtn";
-
-import * as types from "../../../types/searchResult";
+import languageKeys from "../../../../../../../constants/Language";
+import * as types from "../../../types";
 import * as constants from "../../../../../constants/searchResult";
 import { contactOperations } from "../../../../../../../constants/contactConstants";
 import useTableRowState from "../../../../../hooks/useTableRowState";
+
+const { CONTACT_SEARCH } = languageKeys;
 
 interface props {
   contact: types.responseType;
@@ -39,7 +37,7 @@ const TableRow: React.FC<props> = ({
       <AddToPolicyBtn contact={contact} isMobile={false} />
     ) : (
       <ClayButton displayType="primary" onClick={() => selectContact(contact)}>
-        {CONTACT_SEARCH_TABLE_USE_CONTACT}
+        {CONTACT_SEARCH.TABLE.USE_CONTACT}
       </ClayButton>
     );
 
@@ -50,7 +48,7 @@ const TableRow: React.FC<props> = ({
           className="ghost"
           onClick={() => openUpdateContact(contact[constants.EXT_NUMBER_KEY])}
         >
-          {CONTACT_SEARCH_TABLE_VIEW_DETAILS}
+          {CONTACT_SEARCH.TABLE.VIEW_DETAILS}
         </ClayButton>
         {secondButton}
       </HoveringButtonGroup>

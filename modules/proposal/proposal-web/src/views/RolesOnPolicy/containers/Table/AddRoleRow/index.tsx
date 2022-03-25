@@ -3,7 +3,9 @@ import { Row } from "./styles";
 import ContactSearch from "../../../../ContactSearch";
 import ArrowButton from "../../../../../shared/atoms/ArrowButton";
 import ClayTableCell from "@clayui/table/lib/Cell";
-import { ROLES_ON_POLICY } from "../../../../../constants/languageKeys";
+import languageKeys from "../../../../../constants/Language";
+
+const { ROLES_ON_POLICY } = languageKeys;
 
 const AddRoleRow: React.FC<{
   hasInsuredRole: boolean;

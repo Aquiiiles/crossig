@@ -1,29 +1,28 @@
 import { useEffect, useState } from "react";
-import { useFetchData } from "../../../api/hooks/useFetchData";
-import { CoveragePlanInterface } from "../types/coveragePlan";
+import { useHttpRequest } from "../../../api/hooks/useHttpRequest";
+import { CoveragePlanInterface } from "../types";
 import { COVERAGE_PLANS_URL } from "../../../api/constants/routes";
 import { IDLE } from "../../../api/reducers/constants";
 import { useSelector } from "../../../redux/store";
 
 export default function useCoveragePlan() {
-  const { state, fetchData: API } = useFetchData();
+  const [coveragePlanResponse, { fetchData }] = useHttpRequest();
   const [coveragePlans, setCoveragePlans] = useState<CoveragePlanInterface[]>(
     []
   );
-  const { insuranceProduct } = useSelector((state) => state.insuranceProduct);
+  const {
+    insuranceProduct: { category },
+  } = useSelector((state) => state.insuranceProduct);
 
   useEffect(() => {
-    API(
-      "GET",
-      `${COVERAGE_PLANS_URL}${insuranceProduct.category.toUpperCase()}`
-    );
+    fetchData("GET", `${COVERAGE_PLANS_URL}${category.toUpperCase()}`);
   }, []);
 
   useEffect(() => {
-    if (state.status !== IDLE) {
-      setCoveragePlans(state.response.data);
+    if (coveragePlanResponse.status !== IDLE) {
+      setCoveragePlans(coveragePlanResponse.response.data);
     }
-  }, [state]);
+  }, [coveragePlanResponse]);
 
   return coveragePlans;
 }

@@ -5,17 +5,16 @@ import spritemap from "@clayui/css/lib/images/icons/icons.svg";
 import ClayIcon from "@clayui/icon";
 import { ResultsTable, Span } from "./styles";
 
-import * as types from "../../../types/searchResult";
+import * as types from "../../../types";
 import * as constants from "../../../../../constants/searchResult";
 import useSort from "../../../../../../../shared/hooks/useSort";
 
 interface props {
   inputData: Array<types.responseType>;
-  loading: boolean;
   embedded: boolean;
 }
 
-const Table: React.FC<props> = ({ inputData, loading, embedded }: props) => {
+const Table: React.FC<props> = ({ inputData, embedded }: props) => {
   const [{ sortedBy, sortOrder }, { handleSort }] = useSort("searchFilter");
 
   const [hoveringRow, setHoveringRow] = useState(-1);

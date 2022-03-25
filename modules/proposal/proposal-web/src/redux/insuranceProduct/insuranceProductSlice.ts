@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Product } from "../../views/InsuranceProduct/types/product";
+import { Product } from "../../views/InsuranceProduct/types";
 
 const initialState = {
   insuranceProduct: {

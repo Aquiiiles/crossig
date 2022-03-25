@@ -1,19 +1,20 @@
 import React from "react";
 import "./App.css";
-import NewContact from "./views/NewContact";
-import ContactSearch from "./views/ContactSearch";
-import UpdateContact from "./views/UpdateContact";
-import InsuranceProduct from "./views/InsuranceProduct";
-import RolesOnPolicy from "./views/RolesOnPolicy";
-import CoveragePlan from "./views/CoveragePlan";
-import VesselSearch from "./views/VesselSearch";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import { Provider as StoreProvider } from "react-redux";
 import { ThemeProvider } from "styled-components";
 import LiferayEventProvider from "./views/LiferayEventProvider";
 import defaultTheme from "./constants/theme";
 import store from "./redux/store";
+import { ROUTES } from "./constants/routes";
 import Premium from "./views/Premium";
+import ContactSearch from "./views/ContactSearch";
+import CoveragePlan from "./views/CoveragePlan";
+import InsuranceProduct from "./views/InsuranceProduct";
+import NewContact from "./views/NewContact";
+import RolesOnPolicy from "./views/RolesOnPolicy";
+import UpdateContact from "./views/UpdateContact";
+import VesselSearch from "./views/VesselSearch";
 
 type PropsType = {
   eventProvider?: boolean;
@@ -23,28 +24,28 @@ const Proposal = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/coverage_plan">
-          <CoveragePlan />
-        </Route>
-        <Route path="/product">
+        <Route path={ROUTES.PRODUCT}>
           <InsuranceProduct />
         </Route>
-        <Route path="/roles">
+        <Route path={ROUTES.ROLES}>
           <RolesOnPolicy />
         </Route>
-        <Route path="/new_contact">
-          <NewContact />
+        <Route path={ROUTES.COVERAGE_PLAN}>
+          <CoveragePlan />
         </Route>
-        <Route path="/update_contact">
-          <UpdateContact />
-        </Route>
-        <Route path="/vessel_search">
+        <Route path={ROUTES.VESSEL_SEARCH}>
           <VesselSearch />
         </Route>
-        <Route path="/premium">
+        <Route path={ROUTES.UPDATE_CONTACT}>
+          <UpdateContact />
+        </Route>
+        <Route path={ROUTES.NEW_CONTACT}>
+          <NewContact />
+        </Route>
+        <Route path={ROUTES.PREMIUM}>
           <Premium />
         </Route>
-        <Route path="/">
+        <Route path={ROUTES.CONTACT_SEARCH}>
           <ContactSearch embedded={false} />
         </Route>
       </Switch>

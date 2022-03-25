@@ -1,11 +1,11 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import Step from "../../../shared/atoms/Stepper/Step";
 import DisplayPolicyInfo from "../../../shared/atoms/DisplayPolicyInfo";
 import MobileStep from "../../../shared/atoms/Stepper/MobileStep";
 import useStepper from "./hooks/useStepper";
 import { Wrapper, MobileWrapper } from "./styles";
-import { StepsLookupTableKeys } from "../../../constants/steps";
+import { StepsLookupTableKeys } from "../../../constants/types";
+import { useSelector } from "../../../redux/store";
 
 interface props {
   /** The step index as seen in the website/mockup (not 0 based) */
@@ -18,22 +18,13 @@ interface props {
 }
 
 const Stepper: React.FC<props> = ({ currentStep, subCategory, children }) => {
-  const [steps, subSteps] = useStepper(currentStep, subCategory);
-
-  const history = useHistory();
-
-  const canNavigateToStep = (stepState: string) => {
-    return !["ACTIVE", "INACTIVE"].includes(stepState);
-  };
-
-  const handleStepClick = (targetStepIndex: number) => {
-    const targetStep = steps.at(targetStepIndex - 1);
-
-    if (targetStep && canNavigateToStep(targetStep.state)) {
-      const route = targetStep.route;
-      history.replace({ pathname: route, state: { doSearch: true } });
-    }
-  };
+  const [steps, subSteps, { handleStepClick }] = useStepper(
+    currentStep,
+    subCategory
+  );
+  const {
+    policyHolder: { name },
+  } = useSelector((state) => state.contactsInPolicy);
 
   return (
     <Wrapper>
@@ -62,7 +53,7 @@ const Stepper: React.FC<props> = ({ currentStep, subCategory, children }) => {
         ))}
       </MobileWrapper>
       <div className="desktop-stepper">
-        {currentStep > 1 && <DisplayPolicyInfo />}
+        {currentStep > 1 && <DisplayPolicyInfo policyHolderName={name} />}
         {children}
       </div>
     </Wrapper>

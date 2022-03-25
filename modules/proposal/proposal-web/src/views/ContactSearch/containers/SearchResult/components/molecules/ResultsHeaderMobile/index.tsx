@@ -1,9 +1,4 @@
 import React from "react";
-import {
-  CONTACT_RESULTS_TABLE,
-  CONTACT_SEARCH_RESULT_CONTACTS_FOUND,
-  CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND,
-} from "../../../../../../../constants/languageKeys";
 import { Wrapper, FieldWrapper, Header } from "./styles";
 import ClayDropDown from "@clayui/drop-down";
 import { ClaySelect, ClaySelectWithOption } from "@clayui/form";
@@ -13,7 +8,10 @@ import * as constants from "../../../../../constants/searchResult";
 import useSort from "../../../../../../../shared/hooks/useSort";
 import spritemap from "@clayui/css/lib/images/icons/icons.svg";
 import ClayIcon from "@clayui/icon";
+import languageKeys from "../../../../../../../constants/Language";
 import SortButton from "../../../../../../../shared/atoms/SortButton";
+
+const { CONTACT_SEARCH, CONTACT_RESULTS_TABLE } = languageKeys;
 
 interface Props {
   data: any[];
@@ -53,8 +51,8 @@ const ResultsHeaderMobile: React.FC<Props> = ({ data }) => {
     <Wrapper>
       <h6 className="h9">
         {foundContacts
-          ? `${filteredData.length} ${CONTACT_SEARCH_RESULT_CONTACTS_FOUND}`
-          : `${CONTACT_SEARCH_RESULT_NO_CONTACTS_FOUND}`}
+          ? `${filteredData.length} ${CONTACT_SEARCH.RESULT.CONTACTS_FOUND}`
+          : `${CONTACT_SEARCH.RESULT.NO_CONTACTS_FOUND}`}
       </h6>
       <Header>
         <FieldWrapper>
@@ -65,7 +63,7 @@ const ResultsHeaderMobile: React.FC<Props> = ({ data }) => {
               <div style={{ cursor: "pointer" }}>
                 <ClaySelect
                   style={{ pointerEvents: "none" }}
-                  id="cityFiltablerField"
+                  id="cityFilterableField"
                   value=""
                 >
                   <ClaySelect.Option

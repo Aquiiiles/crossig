@@ -5,11 +5,7 @@ import Addresses from "../../../../shared/molecules/contact/Addresses";
 import ContactInfoForm from "../../../../shared/molecules/contact/ContactInfoForm";
 import Modal from "../../../../shared/atoms/Modal";
 import ClayButton from "@clayui/button";
-import {
-  CONTACT_INFO,
-  UPDATE_CONTACT,
-  ROLES_ON_POLICY,
-} from "../../../../constants/languageKeys";
+import languageKeys from "../../../../constants/Language";
 import {
   mapToCountryNames,
   mapToCountryCodes,
@@ -22,9 +18,8 @@ import {
 } from "../../../../constants/contactConstants";
 import LinkWrapper from "../../../../shared/atoms/LinkWrapper";
 import ContactButton from "../../../../shared/atoms/contact/ContactButton";
-import API from "../../../../api";
 import { CONTACT_URL, COUNTRIES_URL } from "../../../../api/constants/routes";
-import { useFetchData } from "../../../../api/hooks/useFetchData";
+import { useHttpRequest } from "../../../../api/hooks/useHttpRequest";
 import { RESOLVED } from "../../../../api/reducers/constants";
 import { useHistory } from "react-router-dom";
 import {
@@ -37,6 +32,9 @@ import {
 } from "./util";
 import * as constants from "../../../ContactSearch/constants/searchResult";
 import { resetScroll } from "../../../../shared/util/commonFunctions";
+import { ROUTES } from "../../../../constants/routes";
+
+const { ROLES_ON_POLICY, CONTACT_INFO, UPDATE_CONTACT } = languageKeys;
 
 const UpdateContactForm: React.FC<{
   contactResponse: any;
@@ -46,7 +44,8 @@ const UpdateContactForm: React.FC<{
   const history = useHistory();
   const dispatch = useDispatch();
   const data = contactResponse[0];
-  const { state, get } = useFetchData();
+  const [countriesResponse, { fetchData: fetchCountries }] = useHttpRequest();
+  const [, { returnFetchData: updateContact }] = useHttpRequest();
   const [countries, setCountries] = useState<Array<any> | null>(null);
   const [enabledButton, setEnabledButton] = useState(false);
 
@@ -54,24 +53,18 @@ const UpdateContactForm: React.FC<{
   const [isUpdateSuccessful, setUpdateSuccess] = useState(false);
   const [updatedValues, setUpdatedValues] = useState<string[]>([]);
 
-  const {
-    oib,
-    contactType,
-    firstName,
-    lastName,
-    companyName,
-    subsidiaryNumber,
-  } = useSelector((state) => state.basicInfo);
+  const basicInfoValues = useSelector((state) => state.basicInfo);
+  const contactInfoValues = useSelector((state) => state.contactInfo);
 
   useEffect(() => {
-    get(COUNTRIES_URL);
+    fetchCountries("GET", COUNTRIES_URL);
   }, []);
 
   useEffect(() => {
-    if (state.status === RESOLVED) {
-      setCountries(state.response.data);
+    if (countriesResponse.status === RESOLVED) {
+      setCountries(countriesResponse.response.data);
     }
-  });
+  }, [countriesResponse]);
 
   useEffect(() => {
     setBasicInfoFields(data, dispatch, actions.basicInfo);
@@ -87,11 +80,11 @@ const UpdateContactForm: React.FC<{
   };
 
   const isLegalEntity = () => {
-    return contactType === contactTypes.Legal_Entity;
+    return basicInfoValues.contactType === contactTypes.Legal_Entity;
   };
 
   const handleUpdateContact = () => {
-    const response = API.put(CONTACT_URL, createContactDTO());
+    const response = updateContact("PUT", CONTACT_URL, undefined, createContactDTO());
     resetScroll();
 
     response
@@ -123,9 +116,9 @@ const UpdateContactForm: React.FC<{
             <span style={{ marginLeft: 5 }}>
               {" "}
               updated for{" "}
-              {contactType === contactTypes.Individual
-                ? firstName + " " + lastName
-                : companyName}
+              {basicInfoValues.contactType === contactTypes.Individual
+                ? basicInfoValues.firstName + " " + basicInfoValues.lastName
+                : basicInfoValues.companyName}
             </span>
           )}
         </p>
@@ -146,9 +139,10 @@ const UpdateContactForm: React.FC<{
       dispatch(
         actions.contactsInPolicy.addContact({
           [constants.EXT_NUMBER_KEY]: Number(extNumber),
-          [constants.OIB_KEY]: oib,
-          [constants.SUB_KEY]: subsidiaryNumber,
-          [constants.NAME_KEY]: firstName + lastName,
+          [constants.OIB_KEY]: basicInfoValues.oib,
+          [constants.SUB_KEY]: basicInfoValues.subsidiaryNumber,
+          [constants.NAME_KEY]:
+            basicInfoValues.firstName + basicInfoValues.lastName,
           [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
         })
       );
@@ -158,13 +152,14 @@ const UpdateContactForm: React.FC<{
       dispatch(
         actions.contactsInPolicy.setPolicyHolder({
           [constants.EXT_NUMBER_KEY]: Number(extNumber),
-          [constants.OIB_KEY]: oib,
-          [constants.SUB_KEY]: subsidiaryNumber,
-          [constants.NAME_KEY]: firstName + lastName,
+          [constants.OIB_KEY]: basicInfoValues.oib,
+          [constants.SUB_KEY]: basicInfoValues.subsidiaryNumber,
+          [constants.NAME_KEY]:
+            basicInfoValues.firstName + basicInfoValues.lastName,
           [constants.ROLES_KEY]: [ROLES_ON_POLICY.INSURED],
         })
       );
-      history.push("/product");
+      history.push(ROUTES.PRODUCT);
     }
   };
 
@@ -173,8 +168,8 @@ const UpdateContactForm: React.FC<{
   const goBackPath =
     operation === contactOperations.create ||
     operation === contactOperations.update
-      ? "/"
-      : "/roles";
+      ? ROUTES.CONTACT_SEARCH
+      : ROUTES.ROLES;
 
   return (
     <Wrapper id="update-contact-form-main-container">
@@ -205,6 +200,8 @@ const UpdateContactForm: React.FC<{
           setEnabledButton(true);
         }}
         setUpdatedValues={handleUpdatedValues}
+        basicInfoValues={basicInfoValues}
+        basicInfoActions={actions.basicInfo}
       />
       {countries && (
         <Addresses
@@ -226,6 +223,9 @@ const UpdateContactForm: React.FC<{
             setEnabledButton(true);
           }}
           setUpdatedValues={handleUpdatedValues}
+          contactType={basicInfoValues.contactType}
+          contactInfoValues={contactInfoValues}
+          contactInfoActions={actions.contactInfo}
         />
       )}
 

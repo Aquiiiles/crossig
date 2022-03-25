@@ -1,20 +1,9 @@
 import { useCallback, useReducer } from "react";
-
 import { fetchDataReducer } from "../reducers/fetchDataReducer";
 import { useSafeDispatch } from "./useSafeDispatch";
-
 import { IDLE, PENDING, REJECTED, RESOLVED } from "../reducers/constants";
-
-import API from "../";
-import { AxiosRequestConfig } from "axios";
-
-export type FetchDataFunction = (
-  method: NonNullable<AxiosRequestConfig["method"]>,
-  url: string,
-  params?: AxiosRequestConfig["params"],
-  payload?: AxiosRequestConfig["data"],
-  mockedData?: any
-) => Promise<void>;
+import API from "..";
+import { HttpRequesterType } from "../types";
 
 const initialArgs = {
   status: IDLE,
@@ -25,12 +14,12 @@ const initialArgs = {
   statusCode: "",
 };
 
-export const useFetchData = () => {
+export const useHttpRequest = () => {
   const [state, unsafeDispatch] = useReducer(fetchDataReducer, initialArgs);
 
   const dispatch = useSafeDispatch(unsafeDispatch);
 
-  const fetchData: FetchDataFunction = useCallback(
+  const fetchData: HttpRequesterType<void> = useCallback(
     async (method, url, params, payload, mockedData) => {
       if (mockedData) {
         const response = { data: mockedData, status: 200 };
@@ -49,6 +38,24 @@ export const useFetchData = () => {
       }
     },
     [dispatch]
+  );
+
+  const returnFetchData: HttpRequesterType<any> = useCallback(
+    async (method, url, params, payload, mockedData) => {
+      if (mockedData) {
+        const mockPromise = new Promise((resolve) => {
+          resolve({ data: mockedData, status: 200 });
+        });
+
+        const response = await mockPromise;
+
+        return response;
+      }
+
+      const response = await API({ method, url, params, data: payload });
+      return response;
+    },
+    []
   );
 
   const post = useCallback(
@@ -93,5 +100,24 @@ export const useFetchData = () => {
     [dispatch]
   );
 
-  return { state, fetchData, dispatch, post, get, put };
+  // Cannot be called 'delete' because it's a reserved word in JavaScript
+  const deleteHttp = useCallback(
+    (url) => {
+      dispatch({ type: PENDING });
+      API.delete(url)
+        .then((response) => {
+          dispatch({ type: RESOLVED, response });
+        })
+        .catch((error) => {
+          dispatch({ type: REJECTED, error });
+        });
+    },
+    [dispatch]
+  );
+
+  return [
+    state,
+    { fetchData, returnFetchData },
+    { get, post, put, deleteHttp },
+  ] as const;
 };

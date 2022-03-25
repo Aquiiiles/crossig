@@ -1,28 +1,25 @@
 import React from "react";
-import { POLICY_HOLDER } from "../../../constants/languageKeys";
-import { useSelector } from "../../../redux/store";
+import languageKeys from "../../../constants/Language";
 import { LineWrapper } from "./styles";
-  
-const DisplayPolicyInfo = () => {
-  const { policyHolder } = useSelector(
-    (state) => state.contactsInPolicy
-  );
 
-  const hasPolicyHolder = policyHolder.name.length > 0;
+const { POLICY_HOLDER } = languageKeys;
+
+interface PropsType {
+  policyHolderName: string;
+}
+
+const DisplayPolicyInfo: React.FC<PropsType> = ({ policyHolderName }) => {
+  const hasPolicyHolder = policyHolderName.length > 0;
 
   return (
     <>
-      { hasPolicyHolder && 
-          <LineWrapper>
-              <span className="span-small">
-                {POLICY_HOLDER.POLICY_HOLDER}
-              </span>
-              <br/>
-              <span className="span-base">
-                {policyHolder.name}
-              </span>
-          </LineWrapper>
-      }
+      {hasPolicyHolder && (
+        <LineWrapper>
+          <span className="span-small">{POLICY_HOLDER.POLICY_HOLDER}</span>
+          <br />
+          <span className="span-base">{policyHolderName}</span>
+        </LineWrapper>
+      )}
     </>
   );
 };

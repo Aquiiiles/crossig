@@ -1,11 +1,14 @@
 import React from "react";
 import ResultRowMobile from "../../../../../../../shared/atoms/ResultRowMobile";
-import { HeaderCell } from "../../../../../../../shared/types/common";
-import { VesselRow } from "../../../types/vesselLookupResult";
+import { HeaderCell } from "../../../../../../../shared/types";
+import { VesselRow } from "../../../types";
 import { ButtonGroup, InnerGrid, MainGrid, Wrapper } from "./styles";
 import ClayButton from "@clayui/button";
-import { VESSEL_LOOKUP_TABLE } from "../../../../../../../constants/languageKeys";
+import languageKeys from "../../../../../../../constants/Language";
 import { useHistory } from "react-router-dom";
+import { ROUTES } from "../../../../../../../constants/routes";
+
+const { VESSEL_LOOKUP_TABLE } = languageKeys;
 
 type PropsType = {
   vessel: VesselRow;
@@ -58,7 +61,7 @@ const VesselRowMobile: React.FC<PropsType> = ({ vessel, headerItems }) => {
         <ClayButton
           displayType="primary"
           onClick={() => {
-            history.push("/premium");
+            history.push(ROUTES.PREMIUM);
           }}
         >
           {VESSEL_LOOKUP_TABLE.USE_VESSEL}

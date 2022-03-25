@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import { VALIDATOR_MESSAGE } from "../../constants/languageKeys";
+import languageKeys from "../../constants/Language";
+
+const { VALIDATOR_MESSAGE } = languageKeys;
 
 /**
  * Keeps track of when a field was visited by the user (`touched`) and applies a message if it was left not filled in.

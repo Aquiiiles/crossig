@@ -1,14 +1,17 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Wrapper, Content, Products, Footer, InnerWrapper } from "./styles";
 import Stepper from "../../shared/molecules/Stepper";
 import ProductCard from "../../shared/atoms/ProductCard";
 import BackBtn from "../../shared/atoms/BackBtn";
-import { COVERAGE_PLAN } from "../../constants/languageKeys";
+import languageKeys from "../../constants/Language";
 import useCoveragePlanState from "./hooks/useCoveragePlanState";
 import { useDispatch } from "../../redux/store";
 import { actions } from "../../redux/";
 import { resetModalScroll } from "../../shared/util/commonFunctions";
+import { ROUTES } from "../../constants/routes";
+
+const { COVERAGE_PLAN } = languageKeys;
 
 const CoveragePlan: React.FC = () => {
   const history = useHistory();
@@ -47,14 +50,14 @@ const CoveragePlan: React.FC = () => {
                     dispatch(
                       actions.coveragePlan.setCoveragePlan(coveragePlan)
                     );
-                    history.push("/vessel_search");
+                    history.push(ROUTES.VESSEL_SEARCH);
                   }}
                 />
               </>
             ))}
           </Products>
           <Footer>
-            <BackBtn pathname="/roles" state={{}} />
+            <BackBtn pathname={ROUTES.ROLES} state={{}} />
           </Footer>
         </Content>
       </InnerWrapper>

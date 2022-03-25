@@ -1,7 +1,9 @@
-import { ValidatorFunction } from "../hooks/useFieldValidation";
-import { VALIDATOR_MESSAGE } from "../../constants/languageKeys";
+import { ValidatorFunction } from "../hooks/types";
+import languageKeys from "../../constants/Language";
 
-const validateOib: ValidatorFunction = value => {
+const { VALIDATOR_MESSAGE } = languageKeys;
+
+const validateOib: ValidatorFunction = (value) => {
   if (value.length < 11) return;
   if (value.length > 11) return VALIDATOR_MESSAGE.OIB.INVALID_LENGTH;
   if (isNaN(Number(value))) return VALIDATOR_MESSAGE.OIB.INVALID_CHARACTERS;

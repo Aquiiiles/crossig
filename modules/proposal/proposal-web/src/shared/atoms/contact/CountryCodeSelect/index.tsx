@@ -1,6 +1,7 @@
 import React, { ChangeEventHandler } from "react";
 import { ClaySelectWithOption } from "@clayui/form";
 import getUnicodeFlagIcon from "country-flag-icons/unicode";
+import { Country } from "../../../../shared/types";
 
 interface propsType {
   id: string;
@@ -9,12 +10,6 @@ interface propsType {
   entity: any;
   handleChange: ChangeEventHandler;
   disabled?: boolean;
-}
-
-export interface Country {
-  label: string;
-  value: string;
-  flagKey: string;
 }
 
 const CountryCodeSelect: React.FC<propsType> = (props: propsType) => {

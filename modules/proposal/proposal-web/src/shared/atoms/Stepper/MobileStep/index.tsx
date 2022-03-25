@@ -1,6 +1,6 @@
 import React from "react";
 import { Wrapper } from "./styles";
-import { Step as StepType } from "../../../types/stepper";
+import { Step as StepType } from "../../../types";
 
 interface props {
   step: StepType;
