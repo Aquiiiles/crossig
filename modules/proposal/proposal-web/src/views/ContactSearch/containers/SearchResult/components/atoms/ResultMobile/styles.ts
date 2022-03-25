@@ -33,6 +33,7 @@ export const InnerGrid = styled.div`
 
   & > h6 {
     color: ${(props) => props.theme.color.neutral.neutralGreyText};
+    min-height: 2rem;
   }
 
   & > p {
