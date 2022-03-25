@@ -1,31 +1,20 @@
 import styled from "styled-components";
+import {Step} from "../../../types/stepper";
 
-export const Wrapper = styled.div<{ active: boolean }>`
-  span {
-    height: 0.625rem;
-    width: 0.625rem;
-    border-radius: 50%;
-    display: inline-block;
+type StepState = Step["state"];
 
-    &.not-active {
-      background-color: ${({ theme }) => theme.color.neutral.dot};
-    }
+export const Wrapper = styled.div<{ state: StepState }>`
 
-    &.active {
-      background-color: ${({ theme }) => theme.color.primary.links};
-      position: relative;
-      right: 0.75rem;
-      bottom: 0.125rem;
-      margin-right: -0.75rem;
-    }
+  & .step-icon {
+    position: static !important;
+    color: ${({ state, theme }) =>
+    state === "ACTIVE"
+        ? theme.color.primary.links
+        : state === "COMPLETE" ? theme.color.neutral.stepComplete 
+            : theme.color.neutral.dot};
+        
+    font-size: ${({state}) => 
+    state === "COMPLETE" ? '70%' : '80%'};
+  }  
 
-    &.outter {
-      height: 0.875rem;
-      width: 0.875rem;
-      background-color: ${(props) => props.theme.color.neutral.white};
-      border: 1px solid rgba(33, 114, 255, 0.5);
-    }
-  }
-
-  margin-top: ${({ active }) => (active ? "0.25rem" : "0")};
 `;

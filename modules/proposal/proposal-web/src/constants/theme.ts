@@ -18,6 +18,7 @@ const defaultTheme: DefaultTheme = {
       neutralGrey: "#95A0AB",
       neutralGreyText: "#79838C",
       dot: "#898593",
+      stepComplete: "#5A5469",
     },
     secondary: {
       1: "#F49F0A",
