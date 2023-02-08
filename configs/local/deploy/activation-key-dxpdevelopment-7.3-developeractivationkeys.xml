@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<license>
+	<account-name>Liferay, Inc.</account-name>
+	<owner>Rafael Praxedes</owner>
+	<description>Liferay, Inc. Developer Activation Keys</description>
+	<product-name>DXP Development</product-name>
+	<product-version>7.3</product-version>
+	<license-name>Digital Enterprise Development</license-name>
+	<license-type>developer</license-type>
+	<license-version>6</license-version>
+	<start-date>Wednesday, February 1, 2023 7:54:53 PM GMT</start-date>
+	<expiration-date>Friday, January 8, 2123 7:54:53 PM GMT</expiration-date>
+	<max-http-sessions>5</max-http-sessions>
+	<key>4e587a83c66770120e44725c0acff600d186bfe2b877ee68b9ecab00d4bebfc0d259a8af52f67353cb3beed917bcff4cc39547bf2ab07c306e74b083f9fb6ff12d3daa58c1869aa37cd5e83de2a3639c9cea3e15ec12e4ecad479827d7bbc8384c41cc0353b642cdf962a0a791850356788e06cc95985836addd9274578e4e02f0e98f8d</key>
+</license>

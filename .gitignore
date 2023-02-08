@@ -101,3 +101,7 @@ build.liferay
 
 **/.prettierrc
 **/.prettierignore
+
+/oracle/dump/*
+/oracle/oradata/*
+/oracle/oradata/.ORCLCDB.created
