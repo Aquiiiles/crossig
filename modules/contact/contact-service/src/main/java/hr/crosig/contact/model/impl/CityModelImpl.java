@@ -1,15 +1,6 @@
 /**
- * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ * SPDX-FileCopyrightText: (c) 2024 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
 package hr.crosig.contact.model.impl;
@@ -33,7 +24,6 @@ import hr.crosig.contact.model.CityModel;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 
 import java.sql.Blob;
@@ -201,91 +191,78 @@ public class CityModelImpl extends BaseModelImpl<City> implements CityModel {
 	}
 
 	public Map<String, Function<City, Object>> getAttributeGetterFunctions() {
-		return _attributeGetterFunctions;
+		return AttributeGetterFunctionsHolder._attributeGetterFunctions;
 	}
 
 	public Map<String, BiConsumer<City, Object>>
 		getAttributeSetterBiConsumers() {
 
-		return _attributeSetterBiConsumers;
+		return AttributeSetterBiConsumersHolder._attributeSetterBiConsumers;
 	}
 
-	private static Function<InvocationHandler, City>
-		_getProxyProviderFunction() {
+	private static class AttributeGetterFunctionsHolder {
 
-		Class<?> proxyClass = ProxyUtil.getProxyClass(
-			City.class.getClassLoader(), City.class, ModelWrapper.class);
+		private static final Map<String, Function<City, Object>>
+			_attributeGetterFunctions;
 
-		try {
-			Constructor<City> constructor =
-				(Constructor<City>)proxyClass.getConstructor(
-					InvocationHandler.class);
+		static {
+			Map<String, Function<City, Object>> attributeGetterFunctions =
+				new LinkedHashMap<String, Function<City, Object>>();
 
-			return invocationHandler -> {
-				try {
-					return constructor.newInstance(invocationHandler);
-				}
-				catch (ReflectiveOperationException
-							reflectiveOperationException) {
+			attributeGetterFunctions.put("cityId", City::getCityId);
+			attributeGetterFunctions.put("companyId", City::getCompanyId);
+			attributeGetterFunctions.put("userId", City::getUserId);
+			attributeGetterFunctions.put("userName", City::getUserName);
+			attributeGetterFunctions.put("createDate", City::getCreateDate);
+			attributeGetterFunctions.put("modifiedDate", City::getModifiedDate);
+			attributeGetterFunctions.put("externalId", City::getExternalId);
+			attributeGetterFunctions.put("name", City::getName);
+			attributeGetterFunctions.put("zipCode", City::getZipCode);
+			attributeGetterFunctions.put("boxNumber", City::getBoxNumber);
+			attributeGetterFunctions.put("postName", City::getPostName);
 
-					throw new InternalError(reflectiveOperationException);
-				}
-			};
+			_attributeGetterFunctions = Collections.unmodifiableMap(
+				attributeGetterFunctions);
 		}
-		catch (NoSuchMethodException noSuchMethodException) {
-			throw new InternalError(noSuchMethodException);
-		}
+
 	}
 
-	private static final Map<String, Function<City, Object>>
-		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<City, Object>>
-		_attributeSetterBiConsumers;
+	private static class AttributeSetterBiConsumersHolder {
 
-	static {
-		Map<String, Function<City, Object>> attributeGetterFunctions =
-			new LinkedHashMap<String, Function<City, Object>>();
-		Map<String, BiConsumer<City, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<City, ?>>();
+		private static final Map<String, BiConsumer<City, Object>>
+			_attributeSetterBiConsumers;
 
-		attributeGetterFunctions.put("cityId", City::getCityId);
-		attributeSetterBiConsumers.put(
-			"cityId", (BiConsumer<City, Long>)City::setCityId);
-		attributeGetterFunctions.put("companyId", City::getCompanyId);
-		attributeSetterBiConsumers.put(
-			"companyId", (BiConsumer<City, Long>)City::setCompanyId);
-		attributeGetterFunctions.put("userId", City::getUserId);
-		attributeSetterBiConsumers.put(
-			"userId", (BiConsumer<City, Long>)City::setUserId);
-		attributeGetterFunctions.put("userName", City::getUserName);
-		attributeSetterBiConsumers.put(
-			"userName", (BiConsumer<City, String>)City::setUserName);
-		attributeGetterFunctions.put("createDate", City::getCreateDate);
-		attributeSetterBiConsumers.put(
-			"createDate", (BiConsumer<City, Date>)City::setCreateDate);
-		attributeGetterFunctions.put("modifiedDate", City::getModifiedDate);
-		attributeSetterBiConsumers.put(
-			"modifiedDate", (BiConsumer<City, Date>)City::setModifiedDate);
-		attributeGetterFunctions.put("externalId", City::getExternalId);
-		attributeSetterBiConsumers.put(
-			"externalId", (BiConsumer<City, Long>)City::setExternalId);
-		attributeGetterFunctions.put("name", City::getName);
-		attributeSetterBiConsumers.put(
-			"name", (BiConsumer<City, String>)City::setName);
-		attributeGetterFunctions.put("zipCode", City::getZipCode);
-		attributeSetterBiConsumers.put(
-			"zipCode", (BiConsumer<City, String>)City::setZipCode);
-		attributeGetterFunctions.put("boxNumber", City::getBoxNumber);
-		attributeSetterBiConsumers.put(
-			"boxNumber", (BiConsumer<City, String>)City::setBoxNumber);
-		attributeGetterFunctions.put("postName", City::getPostName);
-		attributeSetterBiConsumers.put(
-			"postName", (BiConsumer<City, String>)City::setPostName);
+		static {
+			Map<String, BiConsumer<City, ?>> attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<City, ?>>();
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
-		_attributeSetterBiConsumers = Collections.unmodifiableMap(
-			(Map)attributeSetterBiConsumers);
+			attributeSetterBiConsumers.put(
+				"cityId", (BiConsumer<City, Long>)City::setCityId);
+			attributeSetterBiConsumers.put(
+				"companyId", (BiConsumer<City, Long>)City::setCompanyId);
+			attributeSetterBiConsumers.put(
+				"userId", (BiConsumer<City, Long>)City::setUserId);
+			attributeSetterBiConsumers.put(
+				"userName", (BiConsumer<City, String>)City::setUserName);
+			attributeSetterBiConsumers.put(
+				"createDate", (BiConsumer<City, Date>)City::setCreateDate);
+			attributeSetterBiConsumers.put(
+				"modifiedDate", (BiConsumer<City, Date>)City::setModifiedDate);
+			attributeSetterBiConsumers.put(
+				"externalId", (BiConsumer<City, Long>)City::setExternalId);
+			attributeSetterBiConsumers.put(
+				"name", (BiConsumer<City, String>)City::setName);
+			attributeSetterBiConsumers.put(
+				"zipCode", (BiConsumer<City, String>)City::setZipCode);
+			attributeSetterBiConsumers.put(
+				"boxNumber", (BiConsumer<City, String>)City::setBoxNumber);
+			attributeSetterBiConsumers.put(
+				"postName", (BiConsumer<City, String>)City::setPostName);
+
+			_attributeSetterBiConsumers = Collections.unmodifiableMap(
+				(Map)attributeSetterBiConsumers);
+		}
+
 	}
 
 	@Override
@@ -572,6 +549,26 @@ public class CityModelImpl extends BaseModelImpl<City> implements CityModel {
 	}
 
 	@Override
+	public City cloneWithOriginalValues() {
+		CityImpl cityImpl = new CityImpl();
+
+		cityImpl.setCityId(this.<Long>getColumnOriginalValue("cityId"));
+		cityImpl.setCompanyId(this.<Long>getColumnOriginalValue("companyId"));
+		cityImpl.setUserId(this.<Long>getColumnOriginalValue("userId"));
+		cityImpl.setUserName(this.<String>getColumnOriginalValue("userName"));
+		cityImpl.setCreateDate(this.<Date>getColumnOriginalValue("createDate"));
+		cityImpl.setModifiedDate(
+			this.<Date>getColumnOriginalValue("modifiedDate"));
+		cityImpl.setExternalId(this.<Long>getColumnOriginalValue("externalId"));
+		cityImpl.setName(this.<String>getColumnOriginalValue("name"));
+		cityImpl.setZipCode(this.<String>getColumnOriginalValue("zipCode"));
+		cityImpl.setBoxNumber(this.<String>getColumnOriginalValue("boxNumber"));
+		cityImpl.setPostName(this.<String>getColumnOriginalValue("postName"));
+
+		return cityImpl;
+	}
+
+	@Override
 	public int compareTo(City city) {
 		int value = 0;
 
@@ -759,40 +756,12 @@ public class CityModelImpl extends BaseModelImpl<City> implements CityModel {
 		return sb.toString();
 	}
 
-	@Override
-	public String toXmlString() {
-		Map<String, Function<City, Object>> attributeGetterFunctions =
-			getAttributeGetterFunctions();
-
-		StringBundler sb = new StringBundler(
-			(5 * attributeGetterFunctions.size()) + 4);
-
-		sb.append("<model><model-name>");
-		sb.append(getModelClassName());
-		sb.append("</model-name>");
-
-		for (Map.Entry<String, Function<City, Object>> entry :
-				attributeGetterFunctions.entrySet()) {
-
-			String attributeName = entry.getKey();
-			Function<City, Object> attributeGetterFunction = entry.getValue();
-
-			sb.append("<column><column-name>");
-			sb.append(attributeName);
-			sb.append("</column-name><column-value><![CDATA[");
-			sb.append(attributeGetterFunction.apply((City)this));
-			sb.append("]]></column-value></column>");
-		}
-
-		sb.append("</model>");
-
-		return sb.toString();
-	}
-
 	private static class EscapedModelProxyProviderFunctionHolder {
 
 		private static final Function<InvocationHandler, City>
-			_escapedModelProxyProviderFunction = _getProxyProviderFunction();
+			_escapedModelProxyProviderFunction =
+				ProxyUtil.getProxyProviderFunction(
+					City.class, ModelWrapper.class);
 
 	}
 
@@ -810,8 +779,9 @@ public class CityModelImpl extends BaseModelImpl<City> implements CityModel {
 	private String _postName;
 
 	public <T> T getColumnValue(String columnName) {
-		Function<City, Object> function = _attributeGetterFunctions.get(
-			columnName);
+		Function<City, Object> function =
+			AttributeGetterFunctionsHolder._attributeGetterFunctions.get(
+				columnName);
 
 		if (function == null) {
 			throw new IllegalArgumentException(

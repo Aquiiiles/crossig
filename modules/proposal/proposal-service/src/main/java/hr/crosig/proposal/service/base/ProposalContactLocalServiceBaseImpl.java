@@ -1,19 +1,11 @@
 /**
- * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ * SPDX-FileCopyrightText: (c) 2024 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
 package hr.crosig.proposal.service.base;
 
+import com.liferay.petra.sql.dsl.query.DSLQuery;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
@@ -27,6 +19,8 @@ import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.PersistedModel;
 import com.liferay.portal.kernel.module.framework.service.IdentifiableOSGiService;
 import com.liferay.portal.kernel.search.Indexable;
@@ -40,7 +34,6 @@ import com.liferay.portal.kernel.util.PortalUtil;
 
 import hr.crosig.proposal.model.ProposalContact;
 import hr.crosig.proposal.service.ProposalContactLocalService;
-import hr.crosig.proposal.service.ProposalContactLocalServiceUtil;
 import hr.crosig.proposal.service.persistence.CoveragePlanPersistence;
 import hr.crosig.proposal.service.persistence.InsuredRolePersistence;
 import hr.crosig.proposal.service.persistence.PolicyCoverageOptPersistence;
@@ -51,8 +44,6 @@ import hr.crosig.proposal.service.persistence.ProposalContactPersistence;
 import hr.crosig.proposal.service.persistence.ProposalPersistence;
 
 import java.io.Serializable;
-
-import java.lang.reflect.Field;
 
 import java.util.List;
 
@@ -80,7 +71,7 @@ public abstract class ProposalContactLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>ProposalContactLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>ProposalContactLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>ProposalContactLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>hr.crosig.proposal.service.ProposalContactLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -148,6 +139,18 @@ public abstract class ProposalContactLocalServiceBaseImpl
 		ProposalContact proposalContact) {
 
 		return proposalContactPersistence.remove(proposalContact);
+	}
+
+	@Override
+	public <T> T dslQuery(DSLQuery dslQuery) {
+		return proposalContactPersistence.dslQuery(dslQuery);
+	}
+
+	@Override
+	public int dslQueryCount(DSLQuery dslQuery) {
+		Long count = dslQuery(dslQuery);
+
+		return count.intValue();
 	}
 
 	@Override
@@ -301,6 +304,7 @@ public abstract class ProposalContactLocalServiceBaseImpl
 	/**
 	 * @throws PortalException
 	 */
+	@Override
 	public PersistedModel createPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {
 
@@ -315,10 +319,16 @@ public abstract class ProposalContactLocalServiceBaseImpl
 	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
 		throws PortalException {
 
+		if (_log.isWarnEnabled()) {
+			_log.warn(
+				"Implement ProposalContactLocalServiceImpl#deleteProposalContact(ProposalContact) to avoid orphaned data");
+		}
+
 		return proposalContactLocalService.deleteProposalContact(
 			(ProposalContact)persistedModel);
 	}
 
+	@Override
 	public BasePersistence<ProposalContact> getBasePersistence() {
 		return proposalContactPersistence;
 	}
@@ -379,7 +389,6 @@ public abstract class ProposalContactLocalServiceBaseImpl
 
 	@Deactivate
 	protected void deactivate() {
-		_setLocalServiceUtilService(null);
 	}
 
 	@Override
@@ -393,8 +402,6 @@ public abstract class ProposalContactLocalServiceBaseImpl
 	@Override
 	public void setAopProxy(Object aopProxy) {
 		proposalContactLocalService = (ProposalContactLocalService)aopProxy;
-
-		_setLocalServiceUtilService(proposalContactLocalService);
 	}
 
 	/**
@@ -439,23 +446,6 @@ public abstract class ProposalContactLocalServiceBaseImpl
 		}
 	}
 
-	private void _setLocalServiceUtilService(
-		ProposalContactLocalService proposalContactLocalService) {
-
-		try {
-			Field field =
-				ProposalContactLocalServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, proposalContactLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
-	}
-
 	@Reference
 	protected CoveragePlanPersistence coveragePlanPersistence;
 
@@ -497,5 +487,8 @@ public abstract class ProposalContactLocalServiceBaseImpl
 	@Reference
 	protected com.liferay.portal.kernel.service.UserLocalService
 		userLocalService;
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		ProposalContactLocalServiceBaseImpl.class);
 
 }

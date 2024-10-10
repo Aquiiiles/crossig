@@ -1,15 +1,6 @@
 /**
- * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ * SPDX-FileCopyrightText: (c) 2024 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
 package hr.crosig.proposal.model.impl;
@@ -34,7 +25,6 @@ import hr.crosig.proposal.model.PolicyOptionsModel;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 
 import java.sql.Blob;
@@ -231,159 +221,159 @@ public class PolicyOptionsModelImpl
 	public Map<String, Function<PolicyOptions, Object>>
 		getAttributeGetterFunctions() {
 
-		return _attributeGetterFunctions;
+		return AttributeGetterFunctionsHolder._attributeGetterFunctions;
 	}
 
 	public Map<String, BiConsumer<PolicyOptions, Object>>
 		getAttributeSetterBiConsumers() {
 
-		return _attributeSetterBiConsumers;
+		return AttributeSetterBiConsumersHolder._attributeSetterBiConsumers;
 	}
 
-	private static Function<InvocationHandler, PolicyOptions>
-		_getProxyProviderFunction() {
+	private static class AttributeGetterFunctionsHolder {
 
-		Class<?> proxyClass = ProxyUtil.getProxyClass(
-			PolicyOptions.class.getClassLoader(), PolicyOptions.class,
-			ModelWrapper.class);
+		private static final Map<String, Function<PolicyOptions, Object>>
+			_attributeGetterFunctions;
 
-		try {
-			Constructor<PolicyOptions> constructor =
-				(Constructor<PolicyOptions>)proxyClass.getConstructor(
-					InvocationHandler.class);
+		static {
+			Map<String, Function<PolicyOptions, Object>>
+				attributeGetterFunctions =
+					new LinkedHashMap
+						<String, Function<PolicyOptions, Object>>();
 
-			return invocationHandler -> {
-				try {
-					return constructor.newInstance(invocationHandler);
-				}
-				catch (ReflectiveOperationException
-							reflectiveOperationException) {
+			attributeGetterFunctions.put(
+				"policyOptionsId", PolicyOptions::getPolicyOptionsId);
+			attributeGetterFunctions.put(
+				"companyId", PolicyOptions::getCompanyId);
+			attributeGetterFunctions.put("userId", PolicyOptions::getUserId);
+			attributeGetterFunctions.put(
+				"userName", PolicyOptions::getUserName);
+			attributeGetterFunctions.put(
+				"createDate", PolicyOptions::getCreateDate);
+			attributeGetterFunctions.put(
+				"modifiedDate", PolicyOptions::getModifiedDate);
+			attributeGetterFunctions.put(
+				"proposalId", PolicyOptions::getProposalId);
+			attributeGetterFunctions.put(
+				"currency", PolicyOptions::getCurrency);
+			attributeGetterFunctions.put(
+				"termsDate", PolicyOptions::getTermsDate);
+			attributeGetterFunctions.put(
+				"productCategory", PolicyOptions::getProductCategory);
+			attributeGetterFunctions.put(
+				"productExtNumber", PolicyOptions::getProductExtNumber);
+			attributeGetterFunctions.put(
+				"issueDate", PolicyOptions::getIssueDate);
+			attributeGetterFunctions.put(
+				"contractStartDate", PolicyOptions::getContractStartDate);
+			attributeGetterFunctions.put(
+				"contractEndDate", PolicyOptions::getContractEndDate);
+			attributeGetterFunctions.put(
+				"contractPeriod", PolicyOptions::getContractPeriod);
+			attributeGetterFunctions.put(
+				"durationYear", PolicyOptions::getDurationYear);
+			attributeGetterFunctions.put(
+				"policyStartDate", PolicyOptions::getPolicyStartDate);
+			attributeGetterFunctions.put(
+				"policyEndDate", PolicyOptions::getPolicyEndDate);
+			attributeGetterFunctions.put(
+				"policyNumberDays", PolicyOptions::getPolicyNumberDays);
+			attributeGetterFunctions.put(
+				"communicationMethod", PolicyOptions::getCommunicationMethod);
 
-					throw new InternalError(reflectiveOperationException);
-				}
-			};
+			_attributeGetterFunctions = Collections.unmodifiableMap(
+				attributeGetterFunctions);
 		}
-		catch (NoSuchMethodException noSuchMethodException) {
-			throw new InternalError(noSuchMethodException);
-		}
+
 	}
 
-	private static final Map<String, Function<PolicyOptions, Object>>
-		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<PolicyOptions, Object>>
-		_attributeSetterBiConsumers;
+	private static class AttributeSetterBiConsumersHolder {
 
-	static {
-		Map<String, Function<PolicyOptions, Object>> attributeGetterFunctions =
-			new LinkedHashMap<String, Function<PolicyOptions, Object>>();
-		Map<String, BiConsumer<PolicyOptions, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<PolicyOptions, ?>>();
+		private static final Map<String, BiConsumer<PolicyOptions, Object>>
+			_attributeSetterBiConsumers;
 
-		attributeGetterFunctions.put(
-			"policyOptionsId", PolicyOptions::getPolicyOptionsId);
-		attributeSetterBiConsumers.put(
-			"policyOptionsId",
-			(BiConsumer<PolicyOptions, Long>)PolicyOptions::setPolicyOptionsId);
-		attributeGetterFunctions.put("companyId", PolicyOptions::getCompanyId);
-		attributeSetterBiConsumers.put(
-			"companyId",
-			(BiConsumer<PolicyOptions, Long>)PolicyOptions::setCompanyId);
-		attributeGetterFunctions.put("userId", PolicyOptions::getUserId);
-		attributeSetterBiConsumers.put(
-			"userId",
-			(BiConsumer<PolicyOptions, Long>)PolicyOptions::setUserId);
-		attributeGetterFunctions.put("userName", PolicyOptions::getUserName);
-		attributeSetterBiConsumers.put(
-			"userName",
-			(BiConsumer<PolicyOptions, String>)PolicyOptions::setUserName);
-		attributeGetterFunctions.put(
-			"createDate", PolicyOptions::getCreateDate);
-		attributeSetterBiConsumers.put(
-			"createDate",
-			(BiConsumer<PolicyOptions, Date>)PolicyOptions::setCreateDate);
-		attributeGetterFunctions.put(
-			"modifiedDate", PolicyOptions::getModifiedDate);
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			(BiConsumer<PolicyOptions, Date>)PolicyOptions::setModifiedDate);
-		attributeGetterFunctions.put(
-			"proposalId", PolicyOptions::getProposalId);
-		attributeSetterBiConsumers.put(
-			"proposalId",
-			(BiConsumer<PolicyOptions, Long>)PolicyOptions::setProposalId);
-		attributeGetterFunctions.put("currency", PolicyOptions::getCurrency);
-		attributeSetterBiConsumers.put(
-			"currency",
-			(BiConsumer<PolicyOptions, String>)PolicyOptions::setCurrency);
-		attributeGetterFunctions.put("termsDate", PolicyOptions::getTermsDate);
-		attributeSetterBiConsumers.put(
-			"termsDate",
-			(BiConsumer<PolicyOptions, Date>)PolicyOptions::setTermsDate);
-		attributeGetterFunctions.put(
-			"productCategory", PolicyOptions::getProductCategory);
-		attributeSetterBiConsumers.put(
-			"productCategory",
-			(BiConsumer<PolicyOptions, String>)
-				PolicyOptions::setProductCategory);
-		attributeGetterFunctions.put(
-			"productExtNumber", PolicyOptions::getProductExtNumber);
-		attributeSetterBiConsumers.put(
-			"productExtNumber",
-			(BiConsumer<PolicyOptions, String>)
-				PolicyOptions::setProductExtNumber);
-		attributeGetterFunctions.put("issueDate", PolicyOptions::getIssueDate);
-		attributeSetterBiConsumers.put(
-			"issueDate",
-			(BiConsumer<PolicyOptions, Date>)PolicyOptions::setIssueDate);
-		attributeGetterFunctions.put(
-			"contractStartDate", PolicyOptions::getContractStartDate);
-		attributeSetterBiConsumers.put(
-			"contractStartDate",
-			(BiConsumer<PolicyOptions, Date>)
-				PolicyOptions::setContractStartDate);
-		attributeGetterFunctions.put(
-			"contractEndDate", PolicyOptions::getContractEndDate);
-		attributeSetterBiConsumers.put(
-			"contractEndDate",
-			(BiConsumer<PolicyOptions, Date>)PolicyOptions::setContractEndDate);
-		attributeGetterFunctions.put(
-			"contractPeriod", PolicyOptions::getContractPeriod);
-		attributeSetterBiConsumers.put(
-			"contractPeriod",
-			(BiConsumer<PolicyOptions, String>)
-				PolicyOptions::setContractPeriod);
-		attributeGetterFunctions.put(
-			"durationYear", PolicyOptions::getDurationYear);
-		attributeSetterBiConsumers.put(
-			"durationYear",
-			(BiConsumer<PolicyOptions, Integer>)PolicyOptions::setDurationYear);
-		attributeGetterFunctions.put(
-			"policyStartDate", PolicyOptions::getPolicyStartDate);
-		attributeSetterBiConsumers.put(
-			"policyStartDate",
-			(BiConsumer<PolicyOptions, Date>)PolicyOptions::setPolicyStartDate);
-		attributeGetterFunctions.put(
-			"policyEndDate", PolicyOptions::getPolicyEndDate);
-		attributeSetterBiConsumers.put(
-			"policyEndDate",
-			(BiConsumer<PolicyOptions, Date>)PolicyOptions::setPolicyEndDate);
-		attributeGetterFunctions.put(
-			"policyNumberDays", PolicyOptions::getPolicyNumberDays);
-		attributeSetterBiConsumers.put(
-			"policyNumberDays",
-			(BiConsumer<PolicyOptions, Integer>)
-				PolicyOptions::setPolicyNumberDays);
-		attributeGetterFunctions.put(
-			"communicationMethod", PolicyOptions::getCommunicationMethod);
-		attributeSetterBiConsumers.put(
-			"communicationMethod",
-			(BiConsumer<PolicyOptions, String>)
-				PolicyOptions::setCommunicationMethod);
+		static {
+			Map<String, BiConsumer<PolicyOptions, ?>>
+				attributeSetterBiConsumers =
+					new LinkedHashMap<String, BiConsumer<PolicyOptions, ?>>();
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
-		_attributeSetterBiConsumers = Collections.unmodifiableMap(
-			(Map)attributeSetterBiConsumers);
+			attributeSetterBiConsumers.put(
+				"policyOptionsId",
+				(BiConsumer<PolicyOptions, Long>)
+					PolicyOptions::setPolicyOptionsId);
+			attributeSetterBiConsumers.put(
+				"companyId",
+				(BiConsumer<PolicyOptions, Long>)PolicyOptions::setCompanyId);
+			attributeSetterBiConsumers.put(
+				"userId",
+				(BiConsumer<PolicyOptions, Long>)PolicyOptions::setUserId);
+			attributeSetterBiConsumers.put(
+				"userName",
+				(BiConsumer<PolicyOptions, String>)PolicyOptions::setUserName);
+			attributeSetterBiConsumers.put(
+				"createDate",
+				(BiConsumer<PolicyOptions, Date>)PolicyOptions::setCreateDate);
+			attributeSetterBiConsumers.put(
+				"modifiedDate",
+				(BiConsumer<PolicyOptions, Date>)
+					PolicyOptions::setModifiedDate);
+			attributeSetterBiConsumers.put(
+				"proposalId",
+				(BiConsumer<PolicyOptions, Long>)PolicyOptions::setProposalId);
+			attributeSetterBiConsumers.put(
+				"currency",
+				(BiConsumer<PolicyOptions, String>)PolicyOptions::setCurrency);
+			attributeSetterBiConsumers.put(
+				"termsDate",
+				(BiConsumer<PolicyOptions, Date>)PolicyOptions::setTermsDate);
+			attributeSetterBiConsumers.put(
+				"productCategory",
+				(BiConsumer<PolicyOptions, String>)
+					PolicyOptions::setProductCategory);
+			attributeSetterBiConsumers.put(
+				"productExtNumber",
+				(BiConsumer<PolicyOptions, String>)
+					PolicyOptions::setProductExtNumber);
+			attributeSetterBiConsumers.put(
+				"issueDate",
+				(BiConsumer<PolicyOptions, Date>)PolicyOptions::setIssueDate);
+			attributeSetterBiConsumers.put(
+				"contractStartDate",
+				(BiConsumer<PolicyOptions, Date>)
+					PolicyOptions::setContractStartDate);
+			attributeSetterBiConsumers.put(
+				"contractEndDate",
+				(BiConsumer<PolicyOptions, Date>)
+					PolicyOptions::setContractEndDate);
+			attributeSetterBiConsumers.put(
+				"contractPeriod",
+				(BiConsumer<PolicyOptions, String>)
+					PolicyOptions::setContractPeriod);
+			attributeSetterBiConsumers.put(
+				"durationYear",
+				(BiConsumer<PolicyOptions, Integer>)
+					PolicyOptions::setDurationYear);
+			attributeSetterBiConsumers.put(
+				"policyStartDate",
+				(BiConsumer<PolicyOptions, Date>)
+					PolicyOptions::setPolicyStartDate);
+			attributeSetterBiConsumers.put(
+				"policyEndDate",
+				(BiConsumer<PolicyOptions, Date>)
+					PolicyOptions::setPolicyEndDate);
+			attributeSetterBiConsumers.put(
+				"policyNumberDays",
+				(BiConsumer<PolicyOptions, Integer>)
+					PolicyOptions::setPolicyNumberDays);
+			attributeSetterBiConsumers.put(
+				"communicationMethod",
+				(BiConsumer<PolicyOptions, String>)
+					PolicyOptions::setCommunicationMethod);
+
+			_attributeSetterBiConsumers = Collections.unmodifiableMap(
+				(Map)attributeSetterBiConsumers);
+		}
+
 	}
 
 	@Override
@@ -811,6 +801,54 @@ public class PolicyOptionsModelImpl
 	}
 
 	@Override
+	public PolicyOptions cloneWithOriginalValues() {
+		PolicyOptionsImpl policyOptionsImpl = new PolicyOptionsImpl();
+
+		policyOptionsImpl.setPolicyOptionsId(
+			this.<Long>getColumnOriginalValue("policyOptionsId"));
+		policyOptionsImpl.setCompanyId(
+			this.<Long>getColumnOriginalValue("companyId"));
+		policyOptionsImpl.setUserId(
+			this.<Long>getColumnOriginalValue("userId"));
+		policyOptionsImpl.setUserName(
+			this.<String>getColumnOriginalValue("userName"));
+		policyOptionsImpl.setCreateDate(
+			this.<Date>getColumnOriginalValue("createDate"));
+		policyOptionsImpl.setModifiedDate(
+			this.<Date>getColumnOriginalValue("modifiedDate"));
+		policyOptionsImpl.setProposalId(
+			this.<Long>getColumnOriginalValue("proposalId"));
+		policyOptionsImpl.setCurrency(
+			this.<String>getColumnOriginalValue("currency_"));
+		policyOptionsImpl.setTermsDate(
+			this.<Date>getColumnOriginalValue("termsDate"));
+		policyOptionsImpl.setProductCategory(
+			this.<String>getColumnOriginalValue("productCategory"));
+		policyOptionsImpl.setProductExtNumber(
+			this.<String>getColumnOriginalValue("productExtNumber"));
+		policyOptionsImpl.setIssueDate(
+			this.<Date>getColumnOriginalValue("issueDate"));
+		policyOptionsImpl.setContractStartDate(
+			this.<Date>getColumnOriginalValue("contractStartDate"));
+		policyOptionsImpl.setContractEndDate(
+			this.<Date>getColumnOriginalValue("contractEndDate"));
+		policyOptionsImpl.setContractPeriod(
+			this.<String>getColumnOriginalValue("contractPeriod"));
+		policyOptionsImpl.setDurationYear(
+			this.<Integer>getColumnOriginalValue("durationYear"));
+		policyOptionsImpl.setPolicyStartDate(
+			this.<Date>getColumnOriginalValue("policyStartDate"));
+		policyOptionsImpl.setPolicyEndDate(
+			this.<Date>getColumnOriginalValue("policyEndDate"));
+		policyOptionsImpl.setPolicyNumberDays(
+			this.<Integer>getColumnOriginalValue("policyNumberDays"));
+		policyOptionsImpl.setCommunicationMethod(
+			this.<String>getColumnOriginalValue("communicationMethod"));
+
+		return policyOptionsImpl;
+	}
+
+	@Override
 	public int compareTo(PolicyOptions policyOptions) {
 		long primaryKey = policyOptions.getPrimaryKey();
 
@@ -1072,41 +1110,12 @@ public class PolicyOptionsModelImpl
 		return sb.toString();
 	}
 
-	@Override
-	public String toXmlString() {
-		Map<String, Function<PolicyOptions, Object>> attributeGetterFunctions =
-			getAttributeGetterFunctions();
-
-		StringBundler sb = new StringBundler(
-			(5 * attributeGetterFunctions.size()) + 4);
-
-		sb.append("<model><model-name>");
-		sb.append(getModelClassName());
-		sb.append("</model-name>");
-
-		for (Map.Entry<String, Function<PolicyOptions, Object>> entry :
-				attributeGetterFunctions.entrySet()) {
-
-			String attributeName = entry.getKey();
-			Function<PolicyOptions, Object> attributeGetterFunction =
-				entry.getValue();
-
-			sb.append("<column><column-name>");
-			sb.append(attributeName);
-			sb.append("</column-name><column-value><![CDATA[");
-			sb.append(attributeGetterFunction.apply((PolicyOptions)this));
-			sb.append("]]></column-value></column>");
-		}
-
-		sb.append("</model>");
-
-		return sb.toString();
-	}
-
 	private static class EscapedModelProxyProviderFunctionHolder {
 
 		private static final Function<InvocationHandler, PolicyOptions>
-			_escapedModelProxyProviderFunction = _getProxyProviderFunction();
+			_escapedModelProxyProviderFunction =
+				ProxyUtil.getProxyProviderFunction(
+					PolicyOptions.class, ModelWrapper.class);
 
 	}
 
@@ -1136,7 +1145,8 @@ public class PolicyOptionsModelImpl
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
 
 		Function<PolicyOptions, Object> function =
-			_attributeGetterFunctions.get(columnName);
+			AttributeGetterFunctionsHolder._attributeGetterFunctions.get(
+				columnName);
 
 		if (function == null) {
 			throw new IllegalArgumentException(

@@ -1,15 +1,6 @@
 /**
- * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ * SPDX-FileCopyrightText: (c) 2024 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
 package hr.crosig.proposal.model.impl;
@@ -34,7 +25,6 @@ import hr.crosig.proposal.model.InsuredRoleModel;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 
 import java.sql.Blob;
@@ -207,94 +197,86 @@ public class InsuredRoleModelImpl
 	public Map<String, Function<InsuredRole, Object>>
 		getAttributeGetterFunctions() {
 
-		return _attributeGetterFunctions;
+		return AttributeGetterFunctionsHolder._attributeGetterFunctions;
 	}
 
 	public Map<String, BiConsumer<InsuredRole, Object>>
 		getAttributeSetterBiConsumers() {
 
-		return _attributeSetterBiConsumers;
+		return AttributeSetterBiConsumersHolder._attributeSetterBiConsumers;
 	}
 
-	private static Function<InvocationHandler, InsuredRole>
-		_getProxyProviderFunction() {
+	private static class AttributeGetterFunctionsHolder {
 
-		Class<?> proxyClass = ProxyUtil.getProxyClass(
-			InsuredRole.class.getClassLoader(), InsuredRole.class,
-			ModelWrapper.class);
+		private static final Map<String, Function<InsuredRole, Object>>
+			_attributeGetterFunctions;
 
-		try {
-			Constructor<InsuredRole> constructor =
-				(Constructor<InsuredRole>)proxyClass.getConstructor(
-					InvocationHandler.class);
+		static {
+			Map<String, Function<InsuredRole, Object>>
+				attributeGetterFunctions =
+					new LinkedHashMap<String, Function<InsuredRole, Object>>();
 
-			return invocationHandler -> {
-				try {
-					return constructor.newInstance(invocationHandler);
-				}
-				catch (ReflectiveOperationException
-							reflectiveOperationException) {
+			attributeGetterFunctions.put(
+				"InsuredRoleId", InsuredRole::getInsuredRoleId);
+			attributeGetterFunctions.put(
+				"companyId", InsuredRole::getCompanyId);
+			attributeGetterFunctions.put("userId", InsuredRole::getUserId);
+			attributeGetterFunctions.put("userName", InsuredRole::getUserName);
+			attributeGetterFunctions.put(
+				"createDate", InsuredRole::getCreateDate);
+			attributeGetterFunctions.put(
+				"modifiedDate", InsuredRole::getModifiedDate);
+			attributeGetterFunctions.put("title", InsuredRole::getTitle);
+			attributeGetterFunctions.put("name", InsuredRole::getName);
+			attributeGetterFunctions.put(
+				"externalId", InsuredRole::getExternalId);
 
-					throw new InternalError(reflectiveOperationException);
-				}
-			};
+			_attributeGetterFunctions = Collections.unmodifiableMap(
+				attributeGetterFunctions);
 		}
-		catch (NoSuchMethodException noSuchMethodException) {
-			throw new InternalError(noSuchMethodException);
-		}
+
 	}
 
-	private static final Map<String, Function<InsuredRole, Object>>
-		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<InsuredRole, Object>>
-		_attributeSetterBiConsumers;
+	private static class AttributeSetterBiConsumersHolder {
 
-	static {
-		Map<String, Function<InsuredRole, Object>> attributeGetterFunctions =
-			new LinkedHashMap<String, Function<InsuredRole, Object>>();
-		Map<String, BiConsumer<InsuredRole, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<InsuredRole, ?>>();
+		private static final Map<String, BiConsumer<InsuredRole, Object>>
+			_attributeSetterBiConsumers;
 
-		attributeGetterFunctions.put(
-			"InsuredRoleId", InsuredRole::getInsuredRoleId);
-		attributeSetterBiConsumers.put(
-			"InsuredRoleId",
-			(BiConsumer<InsuredRole, Long>)InsuredRole::setInsuredRoleId);
-		attributeGetterFunctions.put("companyId", InsuredRole::getCompanyId);
-		attributeSetterBiConsumers.put(
-			"companyId",
-			(BiConsumer<InsuredRole, Long>)InsuredRole::setCompanyId);
-		attributeGetterFunctions.put("userId", InsuredRole::getUserId);
-		attributeSetterBiConsumers.put(
-			"userId", (BiConsumer<InsuredRole, Long>)InsuredRole::setUserId);
-		attributeGetterFunctions.put("userName", InsuredRole::getUserName);
-		attributeSetterBiConsumers.put(
-			"userName",
-			(BiConsumer<InsuredRole, String>)InsuredRole::setUserName);
-		attributeGetterFunctions.put("createDate", InsuredRole::getCreateDate);
-		attributeSetterBiConsumers.put(
-			"createDate",
-			(BiConsumer<InsuredRole, Date>)InsuredRole::setCreateDate);
-		attributeGetterFunctions.put(
-			"modifiedDate", InsuredRole::getModifiedDate);
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			(BiConsumer<InsuredRole, Date>)InsuredRole::setModifiedDate);
-		attributeGetterFunctions.put("title", InsuredRole::getTitle);
-		attributeSetterBiConsumers.put(
-			"title", (BiConsumer<InsuredRole, String>)InsuredRole::setTitle);
-		attributeGetterFunctions.put("name", InsuredRole::getName);
-		attributeSetterBiConsumers.put(
-			"name", (BiConsumer<InsuredRole, String>)InsuredRole::setName);
-		attributeGetterFunctions.put("externalId", InsuredRole::getExternalId);
-		attributeSetterBiConsumers.put(
-			"externalId",
-			(BiConsumer<InsuredRole, String>)InsuredRole::setExternalId);
+		static {
+			Map<String, BiConsumer<InsuredRole, ?>> attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<InsuredRole, ?>>();
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
-		_attributeSetterBiConsumers = Collections.unmodifiableMap(
-			(Map)attributeSetterBiConsumers);
+			attributeSetterBiConsumers.put(
+				"InsuredRoleId",
+				(BiConsumer<InsuredRole, Long>)InsuredRole::setInsuredRoleId);
+			attributeSetterBiConsumers.put(
+				"companyId",
+				(BiConsumer<InsuredRole, Long>)InsuredRole::setCompanyId);
+			attributeSetterBiConsumers.put(
+				"userId",
+				(BiConsumer<InsuredRole, Long>)InsuredRole::setUserId);
+			attributeSetterBiConsumers.put(
+				"userName",
+				(BiConsumer<InsuredRole, String>)InsuredRole::setUserName);
+			attributeSetterBiConsumers.put(
+				"createDate",
+				(BiConsumer<InsuredRole, Date>)InsuredRole::setCreateDate);
+			attributeSetterBiConsumers.put(
+				"modifiedDate",
+				(BiConsumer<InsuredRole, Date>)InsuredRole::setModifiedDate);
+			attributeSetterBiConsumers.put(
+				"title",
+				(BiConsumer<InsuredRole, String>)InsuredRole::setTitle);
+			attributeSetterBiConsumers.put(
+				"name", (BiConsumer<InsuredRole, String>)InsuredRole::setName);
+			attributeSetterBiConsumers.put(
+				"externalId",
+				(BiConsumer<InsuredRole, String>)InsuredRole::setExternalId);
+
+			_attributeSetterBiConsumers = Collections.unmodifiableMap(
+				(Map)attributeSetterBiConsumers);
+		}
+
 	}
 
 	@Override
@@ -547,6 +529,29 @@ public class InsuredRoleModelImpl
 	}
 
 	@Override
+	public InsuredRole cloneWithOriginalValues() {
+		InsuredRoleImpl insuredRoleImpl = new InsuredRoleImpl();
+
+		insuredRoleImpl.setInsuredRoleId(
+			this.<Long>getColumnOriginalValue("InsuredRoleId"));
+		insuredRoleImpl.setCompanyId(
+			this.<Long>getColumnOriginalValue("companyId"));
+		insuredRoleImpl.setUserId(this.<Long>getColumnOriginalValue("userId"));
+		insuredRoleImpl.setUserName(
+			this.<String>getColumnOriginalValue("userName"));
+		insuredRoleImpl.setCreateDate(
+			this.<Date>getColumnOriginalValue("createDate"));
+		insuredRoleImpl.setModifiedDate(
+			this.<Date>getColumnOriginalValue("modifiedDate"));
+		insuredRoleImpl.setTitle(this.<String>getColumnOriginalValue("title"));
+		insuredRoleImpl.setName(this.<String>getColumnOriginalValue("name"));
+		insuredRoleImpl.setExternalId(
+			this.<String>getColumnOriginalValue("externalId"));
+
+		return insuredRoleImpl;
+	}
+
+	@Override
 	public int compareTo(InsuredRole insuredRole) {
 		long primaryKey = insuredRole.getPrimaryKey();
 
@@ -728,41 +733,12 @@ public class InsuredRoleModelImpl
 		return sb.toString();
 	}
 
-	@Override
-	public String toXmlString() {
-		Map<String, Function<InsuredRole, Object>> attributeGetterFunctions =
-			getAttributeGetterFunctions();
-
-		StringBundler sb = new StringBundler(
-			(5 * attributeGetterFunctions.size()) + 4);
-
-		sb.append("<model><model-name>");
-		sb.append(getModelClassName());
-		sb.append("</model-name>");
-
-		for (Map.Entry<String, Function<InsuredRole, Object>> entry :
-				attributeGetterFunctions.entrySet()) {
-
-			String attributeName = entry.getKey();
-			Function<InsuredRole, Object> attributeGetterFunction =
-				entry.getValue();
-
-			sb.append("<column><column-name>");
-			sb.append(attributeName);
-			sb.append("</column-name><column-value><![CDATA[");
-			sb.append(attributeGetterFunction.apply((InsuredRole)this));
-			sb.append("]]></column-value></column>");
-		}
-
-		sb.append("</model>");
-
-		return sb.toString();
-	}
-
 	private static class EscapedModelProxyProviderFunctionHolder {
 
 		private static final Function<InvocationHandler, InsuredRole>
-			_escapedModelProxyProviderFunction = _getProxyProviderFunction();
+			_escapedModelProxyProviderFunction =
+				ProxyUtil.getProxyProviderFunction(
+					InsuredRole.class, ModelWrapper.class);
 
 	}
 
@@ -778,8 +754,9 @@ public class InsuredRoleModelImpl
 	private String _externalId;
 
 	public <T> T getColumnValue(String columnName) {
-		Function<InsuredRole, Object> function = _attributeGetterFunctions.get(
-			columnName);
+		Function<InsuredRole, Object> function =
+			AttributeGetterFunctionsHolder._attributeGetterFunctions.get(
+				columnName);
 
 		if (function == null) {
 			throw new IllegalArgumentException(

@@ -1,15 +1,6 @@
 /**
- * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ * SPDX-FileCopyrightText: (c) 2024 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
 package hr.crosig.proposal.model.impl;
@@ -34,7 +25,6 @@ import hr.crosig.proposal.model.PolicyCoverageOptModel;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 
 import java.sql.Blob;
@@ -215,119 +205,111 @@ public class PolicyCoverageOptModelImpl
 	public Map<String, Function<PolicyCoverageOpt, Object>>
 		getAttributeGetterFunctions() {
 
-		return _attributeGetterFunctions;
+		return AttributeGetterFunctionsHolder._attributeGetterFunctions;
 	}
 
 	public Map<String, BiConsumer<PolicyCoverageOpt, Object>>
 		getAttributeSetterBiConsumers() {
 
-		return _attributeSetterBiConsumers;
+		return AttributeSetterBiConsumersHolder._attributeSetterBiConsumers;
 	}
 
-	private static Function<InvocationHandler, PolicyCoverageOpt>
-		_getProxyProviderFunction() {
+	private static class AttributeGetterFunctionsHolder {
 
-		Class<?> proxyClass = ProxyUtil.getProxyClass(
-			PolicyCoverageOpt.class.getClassLoader(), PolicyCoverageOpt.class,
-			ModelWrapper.class);
+		private static final Map<String, Function<PolicyCoverageOpt, Object>>
+			_attributeGetterFunctions;
 
-		try {
-			Constructor<PolicyCoverageOpt> constructor =
-				(Constructor<PolicyCoverageOpt>)proxyClass.getConstructor(
-					InvocationHandler.class);
+		static {
+			Map<String, Function<PolicyCoverageOpt, Object>>
+				attributeGetterFunctions =
+					new LinkedHashMap
+						<String, Function<PolicyCoverageOpt, Object>>();
 
-			return invocationHandler -> {
-				try {
-					return constructor.newInstance(invocationHandler);
-				}
-				catch (ReflectiveOperationException
-							reflectiveOperationException) {
+			attributeGetterFunctions.put(
+				"policyCoverageOptionId",
+				PolicyCoverageOpt::getPolicyCoverageOptionId);
+			attributeGetterFunctions.put(
+				"companyId", PolicyCoverageOpt::getCompanyId);
+			attributeGetterFunctions.put(
+				"userId", PolicyCoverageOpt::getUserId);
+			attributeGetterFunctions.put(
+				"userName", PolicyCoverageOpt::getUserName);
+			attributeGetterFunctions.put(
+				"createDate", PolicyCoverageOpt::getCreateDate);
+			attributeGetterFunctions.put(
+				"modifiedDate", PolicyCoverageOpt::getModifiedDate);
+			attributeGetterFunctions.put(
+				"proposalId", PolicyCoverageOpt::getProposalId);
+			attributeGetterFunctions.put(
+				"coverageOptionsName",
+				PolicyCoverageOpt::getCoverageOptionsName);
+			attributeGetterFunctions.put(
+				"coverageOptionsValue",
+				PolicyCoverageOpt::getCoverageOptionsValue);
+			attributeGetterFunctions.put("type", PolicyCoverageOpt::getType);
 
-					throw new InternalError(reflectiveOperationException);
-				}
-			};
+			_attributeGetterFunctions = Collections.unmodifiableMap(
+				attributeGetterFunctions);
 		}
-		catch (NoSuchMethodException noSuchMethodException) {
-			throw new InternalError(noSuchMethodException);
-		}
+
 	}
 
-	private static final Map<String, Function<PolicyCoverageOpt, Object>>
-		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<PolicyCoverageOpt, Object>>
-		_attributeSetterBiConsumers;
+	private static class AttributeSetterBiConsumersHolder {
 
-	static {
-		Map<String, Function<PolicyCoverageOpt, Object>>
-			attributeGetterFunctions =
-				new LinkedHashMap
-					<String, Function<PolicyCoverageOpt, Object>>();
-		Map<String, BiConsumer<PolicyCoverageOpt, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<PolicyCoverageOpt, ?>>();
+		private static final Map<String, BiConsumer<PolicyCoverageOpt, Object>>
+			_attributeSetterBiConsumers;
 
-		attributeGetterFunctions.put(
-			"policyCoverageOptionId",
-			PolicyCoverageOpt::getPolicyCoverageOptionId);
-		attributeSetterBiConsumers.put(
-			"policyCoverageOptionId",
-			(BiConsumer<PolicyCoverageOpt, Long>)
-				PolicyCoverageOpt::setPolicyCoverageOptionId);
-		attributeGetterFunctions.put(
-			"companyId", PolicyCoverageOpt::getCompanyId);
-		attributeSetterBiConsumers.put(
-			"companyId",
-			(BiConsumer<PolicyCoverageOpt, Long>)
-				PolicyCoverageOpt::setCompanyId);
-		attributeGetterFunctions.put("userId", PolicyCoverageOpt::getUserId);
-		attributeSetterBiConsumers.put(
-			"userId",
-			(BiConsumer<PolicyCoverageOpt, Long>)PolicyCoverageOpt::setUserId);
-		attributeGetterFunctions.put(
-			"userName", PolicyCoverageOpt::getUserName);
-		attributeSetterBiConsumers.put(
-			"userName",
-			(BiConsumer<PolicyCoverageOpt, String>)
-				PolicyCoverageOpt::setUserName);
-		attributeGetterFunctions.put(
-			"createDate", PolicyCoverageOpt::getCreateDate);
-		attributeSetterBiConsumers.put(
-			"createDate",
-			(BiConsumer<PolicyCoverageOpt, Date>)
-				PolicyCoverageOpt::setCreateDate);
-		attributeGetterFunctions.put(
-			"modifiedDate", PolicyCoverageOpt::getModifiedDate);
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			(BiConsumer<PolicyCoverageOpt, Date>)
-				PolicyCoverageOpt::setModifiedDate);
-		attributeGetterFunctions.put(
-			"proposalId", PolicyCoverageOpt::getProposalId);
-		attributeSetterBiConsumers.put(
-			"proposalId",
-			(BiConsumer<PolicyCoverageOpt, Long>)
-				PolicyCoverageOpt::setProposalId);
-		attributeGetterFunctions.put(
-			"coverageOptionsName", PolicyCoverageOpt::getCoverageOptionsName);
-		attributeSetterBiConsumers.put(
-			"coverageOptionsName",
-			(BiConsumer<PolicyCoverageOpt, String>)
-				PolicyCoverageOpt::setCoverageOptionsName);
-		attributeGetterFunctions.put(
-			"coverageOptionsValue", PolicyCoverageOpt::getCoverageOptionsValue);
-		attributeSetterBiConsumers.put(
-			"coverageOptionsValue",
-			(BiConsumer<PolicyCoverageOpt, String>)
-				PolicyCoverageOpt::setCoverageOptionsValue);
-		attributeGetterFunctions.put("type", PolicyCoverageOpt::getType);
-		attributeSetterBiConsumers.put(
-			"type",
-			(BiConsumer<PolicyCoverageOpt, String>)PolicyCoverageOpt::setType);
+		static {
+			Map<String, BiConsumer<PolicyCoverageOpt, ?>>
+				attributeSetterBiConsumers =
+					new LinkedHashMap
+						<String, BiConsumer<PolicyCoverageOpt, ?>>();
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
-		_attributeSetterBiConsumers = Collections.unmodifiableMap(
-			(Map)attributeSetterBiConsumers);
+			attributeSetterBiConsumers.put(
+				"policyCoverageOptionId",
+				(BiConsumer<PolicyCoverageOpt, Long>)
+					PolicyCoverageOpt::setPolicyCoverageOptionId);
+			attributeSetterBiConsumers.put(
+				"companyId",
+				(BiConsumer<PolicyCoverageOpt, Long>)
+					PolicyCoverageOpt::setCompanyId);
+			attributeSetterBiConsumers.put(
+				"userId",
+				(BiConsumer<PolicyCoverageOpt, Long>)
+					PolicyCoverageOpt::setUserId);
+			attributeSetterBiConsumers.put(
+				"userName",
+				(BiConsumer<PolicyCoverageOpt, String>)
+					PolicyCoverageOpt::setUserName);
+			attributeSetterBiConsumers.put(
+				"createDate",
+				(BiConsumer<PolicyCoverageOpt, Date>)
+					PolicyCoverageOpt::setCreateDate);
+			attributeSetterBiConsumers.put(
+				"modifiedDate",
+				(BiConsumer<PolicyCoverageOpt, Date>)
+					PolicyCoverageOpt::setModifiedDate);
+			attributeSetterBiConsumers.put(
+				"proposalId",
+				(BiConsumer<PolicyCoverageOpt, Long>)
+					PolicyCoverageOpt::setProposalId);
+			attributeSetterBiConsumers.put(
+				"coverageOptionsName",
+				(BiConsumer<PolicyCoverageOpt, String>)
+					PolicyCoverageOpt::setCoverageOptionsName);
+			attributeSetterBiConsumers.put(
+				"coverageOptionsValue",
+				(BiConsumer<PolicyCoverageOpt, String>)
+					PolicyCoverageOpt::setCoverageOptionsValue);
+			attributeSetterBiConsumers.put(
+				"type",
+				(BiConsumer<PolicyCoverageOpt, String>)
+					PolicyCoverageOpt::setType);
+
+			_attributeSetterBiConsumers = Collections.unmodifiableMap(
+				(Map)attributeSetterBiConsumers);
+		}
+
 	}
 
 	@Override
@@ -598,6 +580,35 @@ public class PolicyCoverageOptModelImpl
 	}
 
 	@Override
+	public PolicyCoverageOpt cloneWithOriginalValues() {
+		PolicyCoverageOptImpl policyCoverageOptImpl =
+			new PolicyCoverageOptImpl();
+
+		policyCoverageOptImpl.setPolicyCoverageOptionId(
+			this.<Long>getColumnOriginalValue("policyCoverageOptionId"));
+		policyCoverageOptImpl.setCompanyId(
+			this.<Long>getColumnOriginalValue("companyId"));
+		policyCoverageOptImpl.setUserId(
+			this.<Long>getColumnOriginalValue("userId"));
+		policyCoverageOptImpl.setUserName(
+			this.<String>getColumnOriginalValue("userName"));
+		policyCoverageOptImpl.setCreateDate(
+			this.<Date>getColumnOriginalValue("createDate"));
+		policyCoverageOptImpl.setModifiedDate(
+			this.<Date>getColumnOriginalValue("modifiedDate"));
+		policyCoverageOptImpl.setProposalId(
+			this.<Long>getColumnOriginalValue("proposalId"));
+		policyCoverageOptImpl.setCoverageOptionsName(
+			this.<String>getColumnOriginalValue("coverageOptionsName"));
+		policyCoverageOptImpl.setCoverageOptionsValue(
+			this.<String>getColumnOriginalValue("coverageOptionsValue"));
+		policyCoverageOptImpl.setType(
+			this.<String>getColumnOriginalValue("type_"));
+
+		return policyCoverageOptImpl;
+	}
+
+	@Override
 	public int compareTo(PolicyCoverageOpt policyCoverageOpt) {
 		long primaryKey = policyCoverageOpt.getPrimaryKey();
 
@@ -791,41 +802,12 @@ public class PolicyCoverageOptModelImpl
 		return sb.toString();
 	}
 
-	@Override
-	public String toXmlString() {
-		Map<String, Function<PolicyCoverageOpt, Object>>
-			attributeGetterFunctions = getAttributeGetterFunctions();
-
-		StringBundler sb = new StringBundler(
-			(5 * attributeGetterFunctions.size()) + 4);
-
-		sb.append("<model><model-name>");
-		sb.append(getModelClassName());
-		sb.append("</model-name>");
-
-		for (Map.Entry<String, Function<PolicyCoverageOpt, Object>> entry :
-				attributeGetterFunctions.entrySet()) {
-
-			String attributeName = entry.getKey();
-			Function<PolicyCoverageOpt, Object> attributeGetterFunction =
-				entry.getValue();
-
-			sb.append("<column><column-name>");
-			sb.append(attributeName);
-			sb.append("</column-name><column-value><![CDATA[");
-			sb.append(attributeGetterFunction.apply((PolicyCoverageOpt)this));
-			sb.append("]]></column-value></column>");
-		}
-
-		sb.append("</model>");
-
-		return sb.toString();
-	}
-
 	private static class EscapedModelProxyProviderFunctionHolder {
 
 		private static final Function<InvocationHandler, PolicyCoverageOpt>
-			_escapedModelProxyProviderFunction = _getProxyProviderFunction();
+			_escapedModelProxyProviderFunction =
+				ProxyUtil.getProxyProviderFunction(
+					PolicyCoverageOpt.class, ModelWrapper.class);
 
 	}
 
@@ -845,7 +827,8 @@ public class PolicyCoverageOptModelImpl
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
 
 		Function<PolicyCoverageOpt, Object> function =
-			_attributeGetterFunctions.get(columnName);
+			AttributeGetterFunctionsHolder._attributeGetterFunctions.get(
+				columnName);
 
 		if (function == null) {
 			throw new IllegalArgumentException(

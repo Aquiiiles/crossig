@@ -1,20 +1,12 @@
 /**
- * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ * SPDX-FileCopyrightText: (c) 2024 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
 package hr.crosig.proposal.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
 
 /**
  * Provides a wrapper for {@link CoveragePlanLocalService}.
@@ -26,6 +18,10 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
 public class CoveragePlanLocalServiceWrapper
 	implements CoveragePlanLocalService,
 			   ServiceWrapper<CoveragePlanLocalService> {
+
+	public CoveragePlanLocalServiceWrapper() {
+		this(null);
+	}
 
 	public CoveragePlanLocalServiceWrapper(
 		CoveragePlanLocalService coveragePlanLocalService) {
@@ -128,6 +124,18 @@ public class CoveragePlanLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _coveragePlanLocalService.deletePersistedModel(persistedModel);
+	}
+
+	@Override
+	public <T> T dslQuery(com.liferay.petra.sql.dsl.query.DSLQuery dslQuery) {
+		return _coveragePlanLocalService.dslQuery(dslQuery);
+	}
+
+	@Override
+	public int dslQueryCount(
+		com.liferay.petra.sql.dsl.query.DSLQuery dslQuery) {
+
+		return _coveragePlanLocalService.dslQueryCount(dslQuery);
 	}
 
 	@Override
@@ -334,6 +342,11 @@ public class CoveragePlanLocalServiceWrapper
 		hr.crosig.proposal.model.CoveragePlan coveragePlan) {
 
 		return _coveragePlanLocalService.updateCoveragePlan(coveragePlan);
+	}
+
+	@Override
+	public BasePersistence<?> getBasePersistence() {
+		return _coveragePlanLocalService.getBasePersistence();
 	}
 
 	@Override

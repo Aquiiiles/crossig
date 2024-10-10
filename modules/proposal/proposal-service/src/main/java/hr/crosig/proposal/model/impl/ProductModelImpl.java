@@ -1,15 +1,6 @@
 /**
- * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ * SPDX-FileCopyrightText: (c) 2024 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
 package hr.crosig.proposal.model.impl;
@@ -33,7 +24,6 @@ import hr.crosig.proposal.model.ProductModel;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 
 import java.sql.Blob;
@@ -207,93 +197,84 @@ public class ProductModelImpl
 	public Map<String, Function<Product, Object>>
 		getAttributeGetterFunctions() {
 
-		return _attributeGetterFunctions;
+		return AttributeGetterFunctionsHolder._attributeGetterFunctions;
 	}
 
 	public Map<String, BiConsumer<Product, Object>>
 		getAttributeSetterBiConsumers() {
 
-		return _attributeSetterBiConsumers;
+		return AttributeSetterBiConsumersHolder._attributeSetterBiConsumers;
 	}
 
-	private static Function<InvocationHandler, Product>
-		_getProxyProviderFunction() {
+	private static class AttributeGetterFunctionsHolder {
 
-		Class<?> proxyClass = ProxyUtil.getProxyClass(
-			Product.class.getClassLoader(), Product.class, ModelWrapper.class);
+		private static final Map<String, Function<Product, Object>>
+			_attributeGetterFunctions;
 
-		try {
-			Constructor<Product> constructor =
-				(Constructor<Product>)proxyClass.getConstructor(
-					InvocationHandler.class);
+		static {
+			Map<String, Function<Product, Object>> attributeGetterFunctions =
+				new LinkedHashMap<String, Function<Product, Object>>();
 
-			return invocationHandler -> {
-				try {
-					return constructor.newInstance(invocationHandler);
-				}
-				catch (ReflectiveOperationException
-							reflectiveOperationException) {
+			attributeGetterFunctions.put("productId", Product::getProductId);
+			attributeGetterFunctions.put("companyId", Product::getCompanyId);
+			attributeGetterFunctions.put("userId", Product::getUserId);
+			attributeGetterFunctions.put("userName", Product::getUserName);
+			attributeGetterFunctions.put("createDate", Product::getCreateDate);
+			attributeGetterFunctions.put(
+				"modifiedDate", Product::getModifiedDate);
+			attributeGetterFunctions.put("name", Product::getName);
+			attributeGetterFunctions.put("externalId", Product::getExternalId);
+			attributeGetterFunctions.put("active", Product::getActive);
+			attributeGetterFunctions.put(
+				"description", Product::getDescription);
+			attributeGetterFunctions.put("category", Product::getCategory);
 
-					throw new InternalError(reflectiveOperationException);
-				}
-			};
+			_attributeGetterFunctions = Collections.unmodifiableMap(
+				attributeGetterFunctions);
 		}
-		catch (NoSuchMethodException noSuchMethodException) {
-			throw new InternalError(noSuchMethodException);
-		}
+
 	}
 
-	private static final Map<String, Function<Product, Object>>
-		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Product, Object>>
-		_attributeSetterBiConsumers;
+	private static class AttributeSetterBiConsumersHolder {
 
-	static {
-		Map<String, Function<Product, Object>> attributeGetterFunctions =
-			new LinkedHashMap<String, Function<Product, Object>>();
-		Map<String, BiConsumer<Product, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Product, ?>>();
+		private static final Map<String, BiConsumer<Product, Object>>
+			_attributeSetterBiConsumers;
 
-		attributeGetterFunctions.put("productId", Product::getProductId);
-		attributeSetterBiConsumers.put(
-			"productId", (BiConsumer<Product, Long>)Product::setProductId);
-		attributeGetterFunctions.put("companyId", Product::getCompanyId);
-		attributeSetterBiConsumers.put(
-			"companyId", (BiConsumer<Product, Long>)Product::setCompanyId);
-		attributeGetterFunctions.put("userId", Product::getUserId);
-		attributeSetterBiConsumers.put(
-			"userId", (BiConsumer<Product, Long>)Product::setUserId);
-		attributeGetterFunctions.put("userName", Product::getUserName);
-		attributeSetterBiConsumers.put(
-			"userName", (BiConsumer<Product, String>)Product::setUserName);
-		attributeGetterFunctions.put("createDate", Product::getCreateDate);
-		attributeSetterBiConsumers.put(
-			"createDate", (BiConsumer<Product, Date>)Product::setCreateDate);
-		attributeGetterFunctions.put("modifiedDate", Product::getModifiedDate);
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			(BiConsumer<Product, Date>)Product::setModifiedDate);
-		attributeGetterFunctions.put("name", Product::getName);
-		attributeSetterBiConsumers.put(
-			"name", (BiConsumer<Product, String>)Product::setName);
-		attributeGetterFunctions.put("externalId", Product::getExternalId);
-		attributeSetterBiConsumers.put(
-			"externalId", (BiConsumer<Product, Long>)Product::setExternalId);
-		attributeGetterFunctions.put("active", Product::getActive);
-		attributeSetterBiConsumers.put(
-			"active", (BiConsumer<Product, Boolean>)Product::setActive);
-		attributeGetterFunctions.put("description", Product::getDescription);
-		attributeSetterBiConsumers.put(
-			"description",
-			(BiConsumer<Product, String>)Product::setDescription);
-		attributeGetterFunctions.put("category", Product::getCategory);
-		attributeSetterBiConsumers.put(
-			"category", (BiConsumer<Product, String>)Product::setCategory);
+		static {
+			Map<String, BiConsumer<Product, ?>> attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<Product, ?>>();
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
-		_attributeSetterBiConsumers = Collections.unmodifiableMap(
-			(Map)attributeSetterBiConsumers);
+			attributeSetterBiConsumers.put(
+				"productId", (BiConsumer<Product, Long>)Product::setProductId);
+			attributeSetterBiConsumers.put(
+				"companyId", (BiConsumer<Product, Long>)Product::setCompanyId);
+			attributeSetterBiConsumers.put(
+				"userId", (BiConsumer<Product, Long>)Product::setUserId);
+			attributeSetterBiConsumers.put(
+				"userName", (BiConsumer<Product, String>)Product::setUserName);
+			attributeSetterBiConsumers.put(
+				"createDate",
+				(BiConsumer<Product, Date>)Product::setCreateDate);
+			attributeSetterBiConsumers.put(
+				"modifiedDate",
+				(BiConsumer<Product, Date>)Product::setModifiedDate);
+			attributeSetterBiConsumers.put(
+				"name", (BiConsumer<Product, String>)Product::setName);
+			attributeSetterBiConsumers.put(
+				"externalId",
+				(BiConsumer<Product, Long>)Product::setExternalId);
+			attributeSetterBiConsumers.put(
+				"active", (BiConsumer<Product, Boolean>)Product::setActive);
+			attributeSetterBiConsumers.put(
+				"description",
+				(BiConsumer<Product, String>)Product::setDescription);
+			attributeSetterBiConsumers.put(
+				"category", (BiConsumer<Product, String>)Product::setCategory);
+
+			_attributeSetterBiConsumers = Collections.unmodifiableMap(
+				(Map)attributeSetterBiConsumers);
+		}
+
 	}
 
 	@Override
@@ -580,6 +561,33 @@ public class ProductModelImpl
 	}
 
 	@Override
+	public Product cloneWithOriginalValues() {
+		ProductImpl productImpl = new ProductImpl();
+
+		productImpl.setProductId(
+			this.<Long>getColumnOriginalValue("productId"));
+		productImpl.setCompanyId(
+			this.<Long>getColumnOriginalValue("companyId"));
+		productImpl.setUserId(this.<Long>getColumnOriginalValue("userId"));
+		productImpl.setUserName(
+			this.<String>getColumnOriginalValue("userName"));
+		productImpl.setCreateDate(
+			this.<Date>getColumnOriginalValue("createDate"));
+		productImpl.setModifiedDate(
+			this.<Date>getColumnOriginalValue("modifiedDate"));
+		productImpl.setName(this.<String>getColumnOriginalValue("name"));
+		productImpl.setExternalId(
+			this.<Long>getColumnOriginalValue("externalId"));
+		productImpl.setActive(this.<Boolean>getColumnOriginalValue("active_"));
+		productImpl.setDescription(
+			this.<String>getColumnOriginalValue("description"));
+		productImpl.setCategory(
+			this.<String>getColumnOriginalValue("category"));
+
+		return productImpl;
+	}
+
+	@Override
 	public int compareTo(Product product) {
 		int value = 0;
 
@@ -762,41 +770,12 @@ public class ProductModelImpl
 		return sb.toString();
 	}
 
-	@Override
-	public String toXmlString() {
-		Map<String, Function<Product, Object>> attributeGetterFunctions =
-			getAttributeGetterFunctions();
-
-		StringBundler sb = new StringBundler(
-			(5 * attributeGetterFunctions.size()) + 4);
-
-		sb.append("<model><model-name>");
-		sb.append(getModelClassName());
-		sb.append("</model-name>");
-
-		for (Map.Entry<String, Function<Product, Object>> entry :
-				attributeGetterFunctions.entrySet()) {
-
-			String attributeName = entry.getKey();
-			Function<Product, Object> attributeGetterFunction =
-				entry.getValue();
-
-			sb.append("<column><column-name>");
-			sb.append(attributeName);
-			sb.append("</column-name><column-value><![CDATA[");
-			sb.append(attributeGetterFunction.apply((Product)this));
-			sb.append("]]></column-value></column>");
-		}
-
-		sb.append("</model>");
-
-		return sb.toString();
-	}
-
 	private static class EscapedModelProxyProviderFunctionHolder {
 
 		private static final Function<InvocationHandler, Product>
-			_escapedModelProxyProviderFunction = _getProxyProviderFunction();
+			_escapedModelProxyProviderFunction =
+				ProxyUtil.getProxyProviderFunction(
+					Product.class, ModelWrapper.class);
 
 	}
 
@@ -816,8 +795,9 @@ public class ProductModelImpl
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
 
-		Function<Product, Object> function = _attributeGetterFunctions.get(
-			columnName);
+		Function<Product, Object> function =
+			AttributeGetterFunctionsHolder._attributeGetterFunctions.get(
+				columnName);
 
 		if (function == null) {
 			throw new IllegalArgumentException(

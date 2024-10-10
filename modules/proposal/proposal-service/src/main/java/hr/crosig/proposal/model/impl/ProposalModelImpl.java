@@ -1,15 +1,6 @@
 /**
- * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ * SPDX-FileCopyrightText: (c) 2024 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
 package hr.crosig.proposal.model.impl;
@@ -34,7 +25,6 @@ import hr.crosig.proposal.model.ProposalModel;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 
 import java.sql.Blob;
@@ -219,106 +209,102 @@ public class ProposalModelImpl
 	public Map<String, Function<Proposal, Object>>
 		getAttributeGetterFunctions() {
 
-		return _attributeGetterFunctions;
+		return AttributeGetterFunctionsHolder._attributeGetterFunctions;
 	}
 
 	public Map<String, BiConsumer<Proposal, Object>>
 		getAttributeSetterBiConsumers() {
 
-		return _attributeSetterBiConsumers;
+		return AttributeSetterBiConsumersHolder._attributeSetterBiConsumers;
 	}
 
-	private static Function<InvocationHandler, Proposal>
-		_getProxyProviderFunction() {
+	private static class AttributeGetterFunctionsHolder {
 
-		Class<?> proxyClass = ProxyUtil.getProxyClass(
-			Proposal.class.getClassLoader(), Proposal.class,
-			ModelWrapper.class);
+		private static final Map<String, Function<Proposal, Object>>
+			_attributeGetterFunctions;
 
-		try {
-			Constructor<Proposal> constructor =
-				(Constructor<Proposal>)proxyClass.getConstructor(
-					InvocationHandler.class);
+		static {
+			Map<String, Function<Proposal, Object>> attributeGetterFunctions =
+				new LinkedHashMap<String, Function<Proposal, Object>>();
 
-			return invocationHandler -> {
-				try {
-					return constructor.newInstance(invocationHandler);
-				}
-				catch (ReflectiveOperationException
-							reflectiveOperationException) {
+			attributeGetterFunctions.put("proposalId", Proposal::getProposalId);
+			attributeGetterFunctions.put("companyId", Proposal::getCompanyId);
+			attributeGetterFunctions.put("userId", Proposal::getUserId);
+			attributeGetterFunctions.put("userName", Proposal::getUserName);
+			attributeGetterFunctions.put("createDate", Proposal::getCreateDate);
+			attributeGetterFunctions.put(
+				"modifiedDate", Proposal::getModifiedDate);
+			attributeGetterFunctions.put(
+				"externalProposalNumber", Proposal::getExternalProposalNumber);
+			attributeGetterFunctions.put("lastUpdate", Proposal::getLastUpdate);
+			attributeGetterFunctions.put("origin", Proposal::getOrigin);
+			attributeGetterFunctions.put(
+				"agentUserId", Proposal::getAgentUserId);
+			attributeGetterFunctions.put(
+				"policyHolderExtNumber", Proposal::getPolicyHolderExtNumber);
+			attributeGetterFunctions.put(
+				"insuredObjectExtNumber", Proposal::getInsuredObjectExtNumber);
+			attributeGetterFunctions.put("status", Proposal::getStatus);
 
-					throw new InternalError(reflectiveOperationException);
-				}
-			};
+			_attributeGetterFunctions = Collections.unmodifiableMap(
+				attributeGetterFunctions);
 		}
-		catch (NoSuchMethodException noSuchMethodException) {
-			throw new InternalError(noSuchMethodException);
-		}
+
 	}
 
-	private static final Map<String, Function<Proposal, Object>>
-		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Proposal, Object>>
-		_attributeSetterBiConsumers;
+	private static class AttributeSetterBiConsumersHolder {
 
-	static {
-		Map<String, Function<Proposal, Object>> attributeGetterFunctions =
-			new LinkedHashMap<String, Function<Proposal, Object>>();
-		Map<String, BiConsumer<Proposal, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Proposal, ?>>();
+		private static final Map<String, BiConsumer<Proposal, Object>>
+			_attributeSetterBiConsumers;
 
-		attributeGetterFunctions.put("proposalId", Proposal::getProposalId);
-		attributeSetterBiConsumers.put(
-			"proposalId", (BiConsumer<Proposal, Long>)Proposal::setProposalId);
-		attributeGetterFunctions.put("companyId", Proposal::getCompanyId);
-		attributeSetterBiConsumers.put(
-			"companyId", (BiConsumer<Proposal, Long>)Proposal::setCompanyId);
-		attributeGetterFunctions.put("userId", Proposal::getUserId);
-		attributeSetterBiConsumers.put(
-			"userId", (BiConsumer<Proposal, Long>)Proposal::setUserId);
-		attributeGetterFunctions.put("userName", Proposal::getUserName);
-		attributeSetterBiConsumers.put(
-			"userName", (BiConsumer<Proposal, String>)Proposal::setUserName);
-		attributeGetterFunctions.put("createDate", Proposal::getCreateDate);
-		attributeSetterBiConsumers.put(
-			"createDate", (BiConsumer<Proposal, Date>)Proposal::setCreateDate);
-		attributeGetterFunctions.put("modifiedDate", Proposal::getModifiedDate);
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			(BiConsumer<Proposal, Date>)Proposal::setModifiedDate);
-		attributeGetterFunctions.put(
-			"externalProposalNumber", Proposal::getExternalProposalNumber);
-		attributeSetterBiConsumers.put(
-			"externalProposalNumber",
-			(BiConsumer<Proposal, String>)Proposal::setExternalProposalNumber);
-		attributeGetterFunctions.put("lastUpdate", Proposal::getLastUpdate);
-		attributeSetterBiConsumers.put(
-			"lastUpdate", (BiConsumer<Proposal, Date>)Proposal::setLastUpdate);
-		attributeGetterFunctions.put("origin", Proposal::getOrigin);
-		attributeSetterBiConsumers.put(
-			"origin", (BiConsumer<Proposal, String>)Proposal::setOrigin);
-		attributeGetterFunctions.put("agentUserId", Proposal::getAgentUserId);
-		attributeSetterBiConsumers.put(
-			"agentUserId",
-			(BiConsumer<Proposal, Long>)Proposal::setAgentUserId);
-		attributeGetterFunctions.put(
-			"policyHolderExtNumber", Proposal::getPolicyHolderExtNumber);
-		attributeSetterBiConsumers.put(
-			"policyHolderExtNumber",
-			(BiConsumer<Proposal, String>)Proposal::setPolicyHolderExtNumber);
-		attributeGetterFunctions.put(
-			"insuredObjectExtNumber", Proposal::getInsuredObjectExtNumber);
-		attributeSetterBiConsumers.put(
-			"insuredObjectExtNumber",
-			(BiConsumer<Proposal, String>)Proposal::setInsuredObjectExtNumber);
-		attributeGetterFunctions.put("status", Proposal::getStatus);
-		attributeSetterBiConsumers.put(
-			"status", (BiConsumer<Proposal, String>)Proposal::setStatus);
+		static {
+			Map<String, BiConsumer<Proposal, ?>> attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<Proposal, ?>>();
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
-		_attributeSetterBiConsumers = Collections.unmodifiableMap(
-			(Map)attributeSetterBiConsumers);
+			attributeSetterBiConsumers.put(
+				"proposalId",
+				(BiConsumer<Proposal, Long>)Proposal::setProposalId);
+			attributeSetterBiConsumers.put(
+				"companyId",
+				(BiConsumer<Proposal, Long>)Proposal::setCompanyId);
+			attributeSetterBiConsumers.put(
+				"userId", (BiConsumer<Proposal, Long>)Proposal::setUserId);
+			attributeSetterBiConsumers.put(
+				"userName",
+				(BiConsumer<Proposal, String>)Proposal::setUserName);
+			attributeSetterBiConsumers.put(
+				"createDate",
+				(BiConsumer<Proposal, Date>)Proposal::setCreateDate);
+			attributeSetterBiConsumers.put(
+				"modifiedDate",
+				(BiConsumer<Proposal, Date>)Proposal::setModifiedDate);
+			attributeSetterBiConsumers.put(
+				"externalProposalNumber",
+				(BiConsumer<Proposal, String>)
+					Proposal::setExternalProposalNumber);
+			attributeSetterBiConsumers.put(
+				"lastUpdate",
+				(BiConsumer<Proposal, Date>)Proposal::setLastUpdate);
+			attributeSetterBiConsumers.put(
+				"origin", (BiConsumer<Proposal, String>)Proposal::setOrigin);
+			attributeSetterBiConsumers.put(
+				"agentUserId",
+				(BiConsumer<Proposal, Long>)Proposal::setAgentUserId);
+			attributeSetterBiConsumers.put(
+				"policyHolderExtNumber",
+				(BiConsumer<Proposal, String>)
+					Proposal::setPolicyHolderExtNumber);
+			attributeSetterBiConsumers.put(
+				"insuredObjectExtNumber",
+				(BiConsumer<Proposal, String>)
+					Proposal::setInsuredObjectExtNumber);
+			attributeSetterBiConsumers.put(
+				"status", (BiConsumer<Proposal, String>)Proposal::setStatus);
+
+			_attributeSetterBiConsumers = Collections.unmodifiableMap(
+				(Map)attributeSetterBiConsumers);
+		}
+
 	}
 
 	@Override
@@ -657,6 +643,37 @@ public class ProposalModelImpl
 	}
 
 	@Override
+	public Proposal cloneWithOriginalValues() {
+		ProposalImpl proposalImpl = new ProposalImpl();
+
+		proposalImpl.setProposalId(
+			this.<Long>getColumnOriginalValue("proposalId"));
+		proposalImpl.setCompanyId(
+			this.<Long>getColumnOriginalValue("companyId"));
+		proposalImpl.setUserId(this.<Long>getColumnOriginalValue("userId"));
+		proposalImpl.setUserName(
+			this.<String>getColumnOriginalValue("userName"));
+		proposalImpl.setCreateDate(
+			this.<Date>getColumnOriginalValue("createDate"));
+		proposalImpl.setModifiedDate(
+			this.<Date>getColumnOriginalValue("modifiedDate"));
+		proposalImpl.setExternalProposalNumber(
+			this.<String>getColumnOriginalValue("externalProposalNumber"));
+		proposalImpl.setLastUpdate(
+			this.<Date>getColumnOriginalValue("lastUpdate"));
+		proposalImpl.setOrigin(this.<String>getColumnOriginalValue("origin"));
+		proposalImpl.setAgentUserId(
+			this.<Long>getColumnOriginalValue("agentUserId"));
+		proposalImpl.setPolicyHolderExtNumber(
+			this.<String>getColumnOriginalValue("policyHolderExtNumber"));
+		proposalImpl.setInsuredObjectExtNumber(
+			this.<String>getColumnOriginalValue("insuredObjectExtNumber"));
+		proposalImpl.setStatus(this.<String>getColumnOriginalValue("status"));
+
+		return proposalImpl;
+	}
+
+	@Override
 	public int compareTo(Proposal proposal) {
 		long primaryKey = proposal.getPrimaryKey();
 
@@ -872,41 +889,12 @@ public class ProposalModelImpl
 		return sb.toString();
 	}
 
-	@Override
-	public String toXmlString() {
-		Map<String, Function<Proposal, Object>> attributeGetterFunctions =
-			getAttributeGetterFunctions();
-
-		StringBundler sb = new StringBundler(
-			(5 * attributeGetterFunctions.size()) + 4);
-
-		sb.append("<model><model-name>");
-		sb.append(getModelClassName());
-		sb.append("</model-name>");
-
-		for (Map.Entry<String, Function<Proposal, Object>> entry :
-				attributeGetterFunctions.entrySet()) {
-
-			String attributeName = entry.getKey();
-			Function<Proposal, Object> attributeGetterFunction =
-				entry.getValue();
-
-			sb.append("<column><column-name>");
-			sb.append(attributeName);
-			sb.append("</column-name><column-value><![CDATA[");
-			sb.append(attributeGetterFunction.apply((Proposal)this));
-			sb.append("]]></column-value></column>");
-		}
-
-		sb.append("</model>");
-
-		return sb.toString();
-	}
-
 	private static class EscapedModelProxyProviderFunctionHolder {
 
 		private static final Function<InvocationHandler, Proposal>
-			_escapedModelProxyProviderFunction = _getProxyProviderFunction();
+			_escapedModelProxyProviderFunction =
+				ProxyUtil.getProxyProviderFunction(
+					Proposal.class, ModelWrapper.class);
 
 	}
 
@@ -926,8 +914,9 @@ public class ProposalModelImpl
 	private String _status;
 
 	public <T> T getColumnValue(String columnName) {
-		Function<Proposal, Object> function = _attributeGetterFunctions.get(
-			columnName);
+		Function<Proposal, Object> function =
+			AttributeGetterFunctionsHolder._attributeGetterFunctions.get(
+				columnName);
 
 		if (function == null) {
 			throw new IllegalArgumentException(

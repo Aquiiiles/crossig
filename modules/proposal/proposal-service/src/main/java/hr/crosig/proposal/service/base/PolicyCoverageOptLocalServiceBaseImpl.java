@@ -1,19 +1,11 @@
 /**
- * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ * SPDX-FileCopyrightText: (c) 2024 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
 package hr.crosig.proposal.service.base;
 
+import com.liferay.petra.sql.dsl.query.DSLQuery;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
@@ -27,6 +19,8 @@ import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.PersistedModel;
 import com.liferay.portal.kernel.module.framework.service.IdentifiableOSGiService;
 import com.liferay.portal.kernel.search.Indexable;
@@ -40,7 +34,6 @@ import com.liferay.portal.kernel.util.PortalUtil;
 
 import hr.crosig.proposal.model.PolicyCoverageOpt;
 import hr.crosig.proposal.service.PolicyCoverageOptLocalService;
-import hr.crosig.proposal.service.PolicyCoverageOptLocalServiceUtil;
 import hr.crosig.proposal.service.persistence.CoveragePlanPersistence;
 import hr.crosig.proposal.service.persistence.InsuredRolePersistence;
 import hr.crosig.proposal.service.persistence.PolicyCoverageOptPersistence;
@@ -51,8 +44,6 @@ import hr.crosig.proposal.service.persistence.ProposalContactPersistence;
 import hr.crosig.proposal.service.persistence.ProposalPersistence;
 
 import java.io.Serializable;
-
-import java.lang.reflect.Field;
 
 import java.util.List;
 
@@ -80,7 +71,7 @@ public abstract class PolicyCoverageOptLocalServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>PolicyCoverageOptLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>PolicyCoverageOptLocalServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>PolicyCoverageOptLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>hr.crosig.proposal.service.PolicyCoverageOptLocalServiceUtil</code>.
 	 */
 
 	/**
@@ -153,6 +144,18 @@ public abstract class PolicyCoverageOptLocalServiceBaseImpl
 		PolicyCoverageOpt policyCoverageOpt) {
 
 		return policyCoverageOptPersistence.remove(policyCoverageOpt);
+	}
+
+	@Override
+	public <T> T dslQuery(DSLQuery dslQuery) {
+		return policyCoverageOptPersistence.dslQuery(dslQuery);
+	}
+
+	@Override
+	public int dslQueryCount(DSLQuery dslQuery) {
+		Long count = dslQuery(dslQuery);
+
+		return count.intValue();
 	}
 
 	@Override
@@ -314,6 +317,7 @@ public abstract class PolicyCoverageOptLocalServiceBaseImpl
 	/**
 	 * @throws PortalException
 	 */
+	@Override
 	public PersistedModel createPersistedModel(Serializable primaryKeyObj)
 		throws PortalException {
 
@@ -328,10 +332,16 @@ public abstract class PolicyCoverageOptLocalServiceBaseImpl
 	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
 		throws PortalException {
 
+		if (_log.isWarnEnabled()) {
+			_log.warn(
+				"Implement PolicyCoverageOptLocalServiceImpl#deletePolicyCoverageOpt(PolicyCoverageOpt) to avoid orphaned data");
+		}
+
 		return policyCoverageOptLocalService.deletePolicyCoverageOpt(
 			(PolicyCoverageOpt)persistedModel);
 	}
 
+	@Override
 	public BasePersistence<PolicyCoverageOpt> getBasePersistence() {
 		return policyCoverageOptPersistence;
 	}
@@ -392,7 +402,6 @@ public abstract class PolicyCoverageOptLocalServiceBaseImpl
 
 	@Deactivate
 	protected void deactivate() {
-		_setLocalServiceUtilService(null);
 	}
 
 	@Override
@@ -406,8 +415,6 @@ public abstract class PolicyCoverageOptLocalServiceBaseImpl
 	@Override
 	public void setAopProxy(Object aopProxy) {
 		policyCoverageOptLocalService = (PolicyCoverageOptLocalService)aopProxy;
-
-		_setLocalServiceUtilService(policyCoverageOptLocalService);
 	}
 
 	/**
@@ -453,23 +460,6 @@ public abstract class PolicyCoverageOptLocalServiceBaseImpl
 		}
 	}
 
-	private void _setLocalServiceUtilService(
-		PolicyCoverageOptLocalService policyCoverageOptLocalService) {
-
-		try {
-			Field field =
-				PolicyCoverageOptLocalServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, policyCoverageOptLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
-	}
-
 	@Reference
 	protected CoveragePlanPersistence coveragePlanPersistence;
 
@@ -511,5 +501,8 @@ public abstract class PolicyCoverageOptLocalServiceBaseImpl
 	@Reference
 	protected com.liferay.portal.kernel.service.UserLocalService
 		userLocalService;
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		PolicyCoverageOptLocalServiceBaseImpl.class);
 
 }

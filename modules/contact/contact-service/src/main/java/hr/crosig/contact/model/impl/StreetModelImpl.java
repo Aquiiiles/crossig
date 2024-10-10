@@ -1,15 +1,6 @@
 /**
- * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ * SPDX-FileCopyrightText: (c) 2024 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
 package hr.crosig.contact.model.impl;
@@ -34,7 +25,6 @@ import hr.crosig.contact.model.StreetModel;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 
 import java.sql.Blob;
@@ -207,85 +197,74 @@ public class StreetModelImpl
 	}
 
 	public Map<String, Function<Street, Object>> getAttributeGetterFunctions() {
-		return _attributeGetterFunctions;
+		return AttributeGetterFunctionsHolder._attributeGetterFunctions;
 	}
 
 	public Map<String, BiConsumer<Street, Object>>
 		getAttributeSetterBiConsumers() {
 
-		return _attributeSetterBiConsumers;
+		return AttributeSetterBiConsumersHolder._attributeSetterBiConsumers;
 	}
 
-	private static Function<InvocationHandler, Street>
-		_getProxyProviderFunction() {
+	private static class AttributeGetterFunctionsHolder {
 
-		Class<?> proxyClass = ProxyUtil.getProxyClass(
-			Street.class.getClassLoader(), Street.class, ModelWrapper.class);
+		private static final Map<String, Function<Street, Object>>
+			_attributeGetterFunctions;
 
-		try {
-			Constructor<Street> constructor =
-				(Constructor<Street>)proxyClass.getConstructor(
-					InvocationHandler.class);
+		static {
+			Map<String, Function<Street, Object>> attributeGetterFunctions =
+				new LinkedHashMap<String, Function<Street, Object>>();
 
-			return invocationHandler -> {
-				try {
-					return constructor.newInstance(invocationHandler);
-				}
-				catch (ReflectiveOperationException
-							reflectiveOperationException) {
+			attributeGetterFunctions.put("streetId", Street::getStreetId);
+			attributeGetterFunctions.put("companyId", Street::getCompanyId);
+			attributeGetterFunctions.put("userId", Street::getUserId);
+			attributeGetterFunctions.put("userName", Street::getUserName);
+			attributeGetterFunctions.put("createDate", Street::getCreateDate);
+			attributeGetterFunctions.put(
+				"modifiedDate", Street::getModifiedDate);
+			attributeGetterFunctions.put("externalId", Street::getExternalId);
+			attributeGetterFunctions.put("name", Street::getName);
+			attributeGetterFunctions.put("cityId", Street::getCityId);
 
-					throw new InternalError(reflectiveOperationException);
-				}
-			};
+			_attributeGetterFunctions = Collections.unmodifiableMap(
+				attributeGetterFunctions);
 		}
-		catch (NoSuchMethodException noSuchMethodException) {
-			throw new InternalError(noSuchMethodException);
-		}
+
 	}
 
-	private static final Map<String, Function<Street, Object>>
-		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Street, Object>>
-		_attributeSetterBiConsumers;
+	private static class AttributeSetterBiConsumersHolder {
 
-	static {
-		Map<String, Function<Street, Object>> attributeGetterFunctions =
-			new LinkedHashMap<String, Function<Street, Object>>();
-		Map<String, BiConsumer<Street, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Street, ?>>();
+		private static final Map<String, BiConsumer<Street, Object>>
+			_attributeSetterBiConsumers;
 
-		attributeGetterFunctions.put("streetId", Street::getStreetId);
-		attributeSetterBiConsumers.put(
-			"streetId", (BiConsumer<Street, Long>)Street::setStreetId);
-		attributeGetterFunctions.put("companyId", Street::getCompanyId);
-		attributeSetterBiConsumers.put(
-			"companyId", (BiConsumer<Street, Long>)Street::setCompanyId);
-		attributeGetterFunctions.put("userId", Street::getUserId);
-		attributeSetterBiConsumers.put(
-			"userId", (BiConsumer<Street, Long>)Street::setUserId);
-		attributeGetterFunctions.put("userName", Street::getUserName);
-		attributeSetterBiConsumers.put(
-			"userName", (BiConsumer<Street, String>)Street::setUserName);
-		attributeGetterFunctions.put("createDate", Street::getCreateDate);
-		attributeSetterBiConsumers.put(
-			"createDate", (BiConsumer<Street, Date>)Street::setCreateDate);
-		attributeGetterFunctions.put("modifiedDate", Street::getModifiedDate);
-		attributeSetterBiConsumers.put(
-			"modifiedDate", (BiConsumer<Street, Date>)Street::setModifiedDate);
-		attributeGetterFunctions.put("externalId", Street::getExternalId);
-		attributeSetterBiConsumers.put(
-			"externalId", (BiConsumer<Street, Long>)Street::setExternalId);
-		attributeGetterFunctions.put("name", Street::getName);
-		attributeSetterBiConsumers.put(
-			"name", (BiConsumer<Street, String>)Street::setName);
-		attributeGetterFunctions.put("cityId", Street::getCityId);
-		attributeSetterBiConsumers.put(
-			"cityId", (BiConsumer<Street, Long>)Street::setCityId);
+		static {
+			Map<String, BiConsumer<Street, ?>> attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<Street, ?>>();
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
-		_attributeSetterBiConsumers = Collections.unmodifiableMap(
-			(Map)attributeSetterBiConsumers);
+			attributeSetterBiConsumers.put(
+				"streetId", (BiConsumer<Street, Long>)Street::setStreetId);
+			attributeSetterBiConsumers.put(
+				"companyId", (BiConsumer<Street, Long>)Street::setCompanyId);
+			attributeSetterBiConsumers.put(
+				"userId", (BiConsumer<Street, Long>)Street::setUserId);
+			attributeSetterBiConsumers.put(
+				"userName", (BiConsumer<Street, String>)Street::setUserName);
+			attributeSetterBiConsumers.put(
+				"createDate", (BiConsumer<Street, Date>)Street::setCreateDate);
+			attributeSetterBiConsumers.put(
+				"modifiedDate",
+				(BiConsumer<Street, Date>)Street::setModifiedDate);
+			attributeSetterBiConsumers.put(
+				"externalId", (BiConsumer<Street, Long>)Street::setExternalId);
+			attributeSetterBiConsumers.put(
+				"name", (BiConsumer<Street, String>)Street::setName);
+			attributeSetterBiConsumers.put(
+				"cityId", (BiConsumer<Street, Long>)Street::setCityId);
+
+			_attributeSetterBiConsumers = Collections.unmodifiableMap(
+				(Map)attributeSetterBiConsumers);
+		}
+
 	}
 
 	@Override
@@ -536,6 +515,26 @@ public class StreetModelImpl
 	}
 
 	@Override
+	public Street cloneWithOriginalValues() {
+		StreetImpl streetImpl = new StreetImpl();
+
+		streetImpl.setStreetId(this.<Long>getColumnOriginalValue("streetId"));
+		streetImpl.setCompanyId(this.<Long>getColumnOriginalValue("companyId"));
+		streetImpl.setUserId(this.<Long>getColumnOriginalValue("userId"));
+		streetImpl.setUserName(this.<String>getColumnOriginalValue("userName"));
+		streetImpl.setCreateDate(
+			this.<Date>getColumnOriginalValue("createDate"));
+		streetImpl.setModifiedDate(
+			this.<Date>getColumnOriginalValue("modifiedDate"));
+		streetImpl.setExternalId(
+			this.<Long>getColumnOriginalValue("externalId"));
+		streetImpl.setName(this.<String>getColumnOriginalValue("name"));
+		streetImpl.setCityId(this.<Long>getColumnOriginalValue("cityId"));
+
+		return streetImpl;
+	}
+
+	@Override
 	public int compareTo(Street street) {
 		int value = 0;
 
@@ -701,40 +700,12 @@ public class StreetModelImpl
 		return sb.toString();
 	}
 
-	@Override
-	public String toXmlString() {
-		Map<String, Function<Street, Object>> attributeGetterFunctions =
-			getAttributeGetterFunctions();
-
-		StringBundler sb = new StringBundler(
-			(5 * attributeGetterFunctions.size()) + 4);
-
-		sb.append("<model><model-name>");
-		sb.append(getModelClassName());
-		sb.append("</model-name>");
-
-		for (Map.Entry<String, Function<Street, Object>> entry :
-				attributeGetterFunctions.entrySet()) {
-
-			String attributeName = entry.getKey();
-			Function<Street, Object> attributeGetterFunction = entry.getValue();
-
-			sb.append("<column><column-name>");
-			sb.append(attributeName);
-			sb.append("</column-name><column-value><![CDATA[");
-			sb.append(attributeGetterFunction.apply((Street)this));
-			sb.append("]]></column-value></column>");
-		}
-
-		sb.append("</model>");
-
-		return sb.toString();
-	}
-
 	private static class EscapedModelProxyProviderFunctionHolder {
 
 		private static final Function<InvocationHandler, Street>
-			_escapedModelProxyProviderFunction = _getProxyProviderFunction();
+			_escapedModelProxyProviderFunction =
+				ProxyUtil.getProxyProviderFunction(
+					Street.class, ModelWrapper.class);
 
 	}
 
@@ -750,8 +721,9 @@ public class StreetModelImpl
 	private long _cityId;
 
 	public <T> T getColumnValue(String columnName) {
-		Function<Street, Object> function = _attributeGetterFunctions.get(
-			columnName);
+		Function<Street, Object> function =
+			AttributeGetterFunctionsHolder._attributeGetterFunctions.get(
+				columnName);
 
 		if (function == null) {
 			throw new IllegalArgumentException(

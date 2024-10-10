@@ -1,15 +1,6 @@
 /**
- * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ * SPDX-FileCopyrightText: (c) 2024 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
 package hr.crosig.proposal.model.impl;
@@ -34,7 +25,6 @@ import hr.crosig.proposal.model.ProposalContactModel;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 
 import java.sql.Blob;
@@ -214,107 +204,100 @@ public class ProposalContactModelImpl
 	public Map<String, Function<ProposalContact, Object>>
 		getAttributeGetterFunctions() {
 
-		return _attributeGetterFunctions;
+		return AttributeGetterFunctionsHolder._attributeGetterFunctions;
 	}
 
 	public Map<String, BiConsumer<ProposalContact, Object>>
 		getAttributeSetterBiConsumers() {
 
-		return _attributeSetterBiConsumers;
+		return AttributeSetterBiConsumersHolder._attributeSetterBiConsumers;
 	}
 
-	private static Function<InvocationHandler, ProposalContact>
-		_getProxyProviderFunction() {
+	private static class AttributeGetterFunctionsHolder {
 
-		Class<?> proxyClass = ProxyUtil.getProxyClass(
-			ProposalContact.class.getClassLoader(), ProposalContact.class,
-			ModelWrapper.class);
+		private static final Map<String, Function<ProposalContact, Object>>
+			_attributeGetterFunctions;
 
-		try {
-			Constructor<ProposalContact> constructor =
-				(Constructor<ProposalContact>)proxyClass.getConstructor(
-					InvocationHandler.class);
+		static {
+			Map<String, Function<ProposalContact, Object>>
+				attributeGetterFunctions =
+					new LinkedHashMap
+						<String, Function<ProposalContact, Object>>();
 
-			return invocationHandler -> {
-				try {
-					return constructor.newInstance(invocationHandler);
-				}
-				catch (ReflectiveOperationException
-							reflectiveOperationException) {
+			attributeGetterFunctions.put(
+				"proposalContactId", ProposalContact::getProposalContactId);
+			attributeGetterFunctions.put(
+				"companyId", ProposalContact::getCompanyId);
+			attributeGetterFunctions.put("userId", ProposalContact::getUserId);
+			attributeGetterFunctions.put(
+				"userName", ProposalContact::getUserName);
+			attributeGetterFunctions.put(
+				"createDate", ProposalContact::getCreateDate);
+			attributeGetterFunctions.put(
+				"modifiedDate", ProposalContact::getModifiedDate);
+			attributeGetterFunctions.put(
+				"proposalId", ProposalContact::getProposalId);
+			attributeGetterFunctions.put(
+				"contactExtNumber", ProposalContact::getContactExtNumber);
+			attributeGetterFunctions.put(
+				"insuredRoles", ProposalContact::getInsuredRoles);
 
-					throw new InternalError(reflectiveOperationException);
-				}
-			};
+			_attributeGetterFunctions = Collections.unmodifiableMap(
+				attributeGetterFunctions);
 		}
-		catch (NoSuchMethodException noSuchMethodException) {
-			throw new InternalError(noSuchMethodException);
-		}
+
 	}
 
-	private static final Map<String, Function<ProposalContact, Object>>
-		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<ProposalContact, Object>>
-		_attributeSetterBiConsumers;
+	private static class AttributeSetterBiConsumersHolder {
 
-	static {
-		Map<String, Function<ProposalContact, Object>>
-			attributeGetterFunctions =
-				new LinkedHashMap<String, Function<ProposalContact, Object>>();
-		Map<String, BiConsumer<ProposalContact, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<ProposalContact, ?>>();
+		private static final Map<String, BiConsumer<ProposalContact, Object>>
+			_attributeSetterBiConsumers;
 
-		attributeGetterFunctions.put(
-			"proposalContactId", ProposalContact::getProposalContactId);
-		attributeSetterBiConsumers.put(
-			"proposalContactId",
-			(BiConsumer<ProposalContact, Long>)
-				ProposalContact::setProposalContactId);
-		attributeGetterFunctions.put(
-			"companyId", ProposalContact::getCompanyId);
-		attributeSetterBiConsumers.put(
-			"companyId",
-			(BiConsumer<ProposalContact, Long>)ProposalContact::setCompanyId);
-		attributeGetterFunctions.put("userId", ProposalContact::getUserId);
-		attributeSetterBiConsumers.put(
-			"userId",
-			(BiConsumer<ProposalContact, Long>)ProposalContact::setUserId);
-		attributeGetterFunctions.put("userName", ProposalContact::getUserName);
-		attributeSetterBiConsumers.put(
-			"userName",
-			(BiConsumer<ProposalContact, String>)ProposalContact::setUserName);
-		attributeGetterFunctions.put(
-			"createDate", ProposalContact::getCreateDate);
-		attributeSetterBiConsumers.put(
-			"createDate",
-			(BiConsumer<ProposalContact, Date>)ProposalContact::setCreateDate);
-		attributeGetterFunctions.put(
-			"modifiedDate", ProposalContact::getModifiedDate);
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			(BiConsumer<ProposalContact, Date>)
-				ProposalContact::setModifiedDate);
-		attributeGetterFunctions.put(
-			"proposalId", ProposalContact::getProposalId);
-		attributeSetterBiConsumers.put(
-			"proposalId",
-			(BiConsumer<ProposalContact, Long>)ProposalContact::setProposalId);
-		attributeGetterFunctions.put(
-			"contactExtNumber", ProposalContact::getContactExtNumber);
-		attributeSetterBiConsumers.put(
-			"contactExtNumber",
-			(BiConsumer<ProposalContact, String>)
-				ProposalContact::setContactExtNumber);
-		attributeGetterFunctions.put(
-			"insuredRoles", ProposalContact::getInsuredRoles);
-		attributeSetterBiConsumers.put(
-			"insuredRoles",
-			(BiConsumer<ProposalContact, String>)
-				ProposalContact::setInsuredRoles);
+		static {
+			Map<String, BiConsumer<ProposalContact, ?>>
+				attributeSetterBiConsumers =
+					new LinkedHashMap<String, BiConsumer<ProposalContact, ?>>();
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
-		_attributeSetterBiConsumers = Collections.unmodifiableMap(
-			(Map)attributeSetterBiConsumers);
+			attributeSetterBiConsumers.put(
+				"proposalContactId",
+				(BiConsumer<ProposalContact, Long>)
+					ProposalContact::setProposalContactId);
+			attributeSetterBiConsumers.put(
+				"companyId",
+				(BiConsumer<ProposalContact, Long>)
+					ProposalContact::setCompanyId);
+			attributeSetterBiConsumers.put(
+				"userId",
+				(BiConsumer<ProposalContact, Long>)ProposalContact::setUserId);
+			attributeSetterBiConsumers.put(
+				"userName",
+				(BiConsumer<ProposalContact, String>)
+					ProposalContact::setUserName);
+			attributeSetterBiConsumers.put(
+				"createDate",
+				(BiConsumer<ProposalContact, Date>)
+					ProposalContact::setCreateDate);
+			attributeSetterBiConsumers.put(
+				"modifiedDate",
+				(BiConsumer<ProposalContact, Date>)
+					ProposalContact::setModifiedDate);
+			attributeSetterBiConsumers.put(
+				"proposalId",
+				(BiConsumer<ProposalContact, Long>)
+					ProposalContact::setProposalId);
+			attributeSetterBiConsumers.put(
+				"contactExtNumber",
+				(BiConsumer<ProposalContact, String>)
+					ProposalContact::setContactExtNumber);
+			attributeSetterBiConsumers.put(
+				"insuredRoles",
+				(BiConsumer<ProposalContact, String>)
+					ProposalContact::setInsuredRoles);
+
+			_attributeSetterBiConsumers = Collections.unmodifiableMap(
+				(Map)attributeSetterBiConsumers);
+		}
+
 	}
 
 	@Override
@@ -562,6 +545,32 @@ public class ProposalContactModelImpl
 	}
 
 	@Override
+	public ProposalContact cloneWithOriginalValues() {
+		ProposalContactImpl proposalContactImpl = new ProposalContactImpl();
+
+		proposalContactImpl.setProposalContactId(
+			this.<Long>getColumnOriginalValue("proposalContactId"));
+		proposalContactImpl.setCompanyId(
+			this.<Long>getColumnOriginalValue("companyId"));
+		proposalContactImpl.setUserId(
+			this.<Long>getColumnOriginalValue("userId"));
+		proposalContactImpl.setUserName(
+			this.<String>getColumnOriginalValue("userName"));
+		proposalContactImpl.setCreateDate(
+			this.<Date>getColumnOriginalValue("createDate"));
+		proposalContactImpl.setModifiedDate(
+			this.<Date>getColumnOriginalValue("modifiedDate"));
+		proposalContactImpl.setProposalId(
+			this.<Long>getColumnOriginalValue("proposalId"));
+		proposalContactImpl.setContactExtNumber(
+			this.<String>getColumnOriginalValue("contactExtNumber"));
+		proposalContactImpl.setInsuredRoles(
+			this.<String>getColumnOriginalValue("insuredRoles"));
+
+		return proposalContactImpl;
+	}
+
+	@Override
 	public int compareTo(ProposalContact proposalContact) {
 		long primaryKey = proposalContact.getPrimaryKey();
 
@@ -737,41 +746,12 @@ public class ProposalContactModelImpl
 		return sb.toString();
 	}
 
-	@Override
-	public String toXmlString() {
-		Map<String, Function<ProposalContact, Object>>
-			attributeGetterFunctions = getAttributeGetterFunctions();
-
-		StringBundler sb = new StringBundler(
-			(5 * attributeGetterFunctions.size()) + 4);
-
-		sb.append("<model><model-name>");
-		sb.append(getModelClassName());
-		sb.append("</model-name>");
-
-		for (Map.Entry<String, Function<ProposalContact, Object>> entry :
-				attributeGetterFunctions.entrySet()) {
-
-			String attributeName = entry.getKey();
-			Function<ProposalContact, Object> attributeGetterFunction =
-				entry.getValue();
-
-			sb.append("<column><column-name>");
-			sb.append(attributeName);
-			sb.append("</column-name><column-value><![CDATA[");
-			sb.append(attributeGetterFunction.apply((ProposalContact)this));
-			sb.append("]]></column-value></column>");
-		}
-
-		sb.append("</model>");
-
-		return sb.toString();
-	}
-
 	private static class EscapedModelProxyProviderFunctionHolder {
 
 		private static final Function<InvocationHandler, ProposalContact>
-			_escapedModelProxyProviderFunction = _getProxyProviderFunction();
+			_escapedModelProxyProviderFunction =
+				ProxyUtil.getProxyProviderFunction(
+					ProposalContact.class, ModelWrapper.class);
 
 	}
 
@@ -788,7 +768,8 @@ public class ProposalContactModelImpl
 
 	public <T> T getColumnValue(String columnName) {
 		Function<ProposalContact, Object> function =
-			_attributeGetterFunctions.get(columnName);
+			AttributeGetterFunctionsHolder._attributeGetterFunctions.get(
+				columnName);
 
 		if (function == null) {
 			throw new IllegalArgumentException(

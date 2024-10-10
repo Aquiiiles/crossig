@@ -1,15 +1,6 @@
 /**
- * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ * SPDX-FileCopyrightText: (c) 2024 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
 package hr.crosig.proposal.model.impl;
@@ -33,7 +24,6 @@ import hr.crosig.proposal.model.CoveragePlanModel;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 
 import java.sql.Blob;
@@ -219,96 +209,89 @@ public class CoveragePlanModelImpl
 	public Map<String, Function<CoveragePlan, Object>>
 		getAttributeGetterFunctions() {
 
-		return _attributeGetterFunctions;
+		return AttributeGetterFunctionsHolder._attributeGetterFunctions;
 	}
 
 	public Map<String, BiConsumer<CoveragePlan, Object>>
 		getAttributeSetterBiConsumers() {
 
-		return _attributeSetterBiConsumers;
+		return AttributeSetterBiConsumersHolder._attributeSetterBiConsumers;
 	}
 
-	private static Function<InvocationHandler, CoveragePlan>
-		_getProxyProviderFunction() {
+	private static class AttributeGetterFunctionsHolder {
 
-		Class<?> proxyClass = ProxyUtil.getProxyClass(
-			CoveragePlan.class.getClassLoader(), CoveragePlan.class,
-			ModelWrapper.class);
+		private static final Map<String, Function<CoveragePlan, Object>>
+			_attributeGetterFunctions;
 
-		try {
-			Constructor<CoveragePlan> constructor =
-				(Constructor<CoveragePlan>)proxyClass.getConstructor(
-					InvocationHandler.class);
+		static {
+			Map<String, Function<CoveragePlan, Object>>
+				attributeGetterFunctions =
+					new LinkedHashMap<String, Function<CoveragePlan, Object>>();
 
-			return invocationHandler -> {
-				try {
-					return constructor.newInstance(invocationHandler);
-				}
-				catch (ReflectiveOperationException
-							reflectiveOperationException) {
+			attributeGetterFunctions.put(
+				"coveragePlanId", CoveragePlan::getCoveragePlanId);
+			attributeGetterFunctions.put(
+				"companyId", CoveragePlan::getCompanyId);
+			attributeGetterFunctions.put("userId", CoveragePlan::getUserId);
+			attributeGetterFunctions.put("userName", CoveragePlan::getUserName);
+			attributeGetterFunctions.put(
+				"createDate", CoveragePlan::getCreateDate);
+			attributeGetterFunctions.put(
+				"modifiedDate", CoveragePlan::getModifiedDate);
+			attributeGetterFunctions.put("name", CoveragePlan::getName);
+			attributeGetterFunctions.put(
+				"description", CoveragePlan::getDescription);
+			attributeGetterFunctions.put("category", CoveragePlan::getCategory);
 
-					throw new InternalError(reflectiveOperationException);
-				}
-			};
+			_attributeGetterFunctions = Collections.unmodifiableMap(
+				attributeGetterFunctions);
 		}
-		catch (NoSuchMethodException noSuchMethodException) {
-			throw new InternalError(noSuchMethodException);
-		}
+
 	}
 
-	private static final Map<String, Function<CoveragePlan, Object>>
-		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<CoveragePlan, Object>>
-		_attributeSetterBiConsumers;
+	private static class AttributeSetterBiConsumersHolder {
 
-	static {
-		Map<String, Function<CoveragePlan, Object>> attributeGetterFunctions =
-			new LinkedHashMap<String, Function<CoveragePlan, Object>>();
-		Map<String, BiConsumer<CoveragePlan, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<CoveragePlan, ?>>();
+		private static final Map<String, BiConsumer<CoveragePlan, Object>>
+			_attributeSetterBiConsumers;
 
-		attributeGetterFunctions.put(
-			"coveragePlanId", CoveragePlan::getCoveragePlanId);
-		attributeSetterBiConsumers.put(
-			"coveragePlanId",
-			(BiConsumer<CoveragePlan, Long>)CoveragePlan::setCoveragePlanId);
-		attributeGetterFunctions.put("companyId", CoveragePlan::getCompanyId);
-		attributeSetterBiConsumers.put(
-			"companyId",
-			(BiConsumer<CoveragePlan, Long>)CoveragePlan::setCompanyId);
-		attributeGetterFunctions.put("userId", CoveragePlan::getUserId);
-		attributeSetterBiConsumers.put(
-			"userId", (BiConsumer<CoveragePlan, Long>)CoveragePlan::setUserId);
-		attributeGetterFunctions.put("userName", CoveragePlan::getUserName);
-		attributeSetterBiConsumers.put(
-			"userName",
-			(BiConsumer<CoveragePlan, String>)CoveragePlan::setUserName);
-		attributeGetterFunctions.put("createDate", CoveragePlan::getCreateDate);
-		attributeSetterBiConsumers.put(
-			"createDate",
-			(BiConsumer<CoveragePlan, Date>)CoveragePlan::setCreateDate);
-		attributeGetterFunctions.put(
-			"modifiedDate", CoveragePlan::getModifiedDate);
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			(BiConsumer<CoveragePlan, Date>)CoveragePlan::setModifiedDate);
-		attributeGetterFunctions.put("name", CoveragePlan::getName);
-		attributeSetterBiConsumers.put(
-			"name", (BiConsumer<CoveragePlan, String>)CoveragePlan::setName);
-		attributeGetterFunctions.put(
-			"description", CoveragePlan::getDescription);
-		attributeSetterBiConsumers.put(
-			"description",
-			(BiConsumer<CoveragePlan, String>)CoveragePlan::setDescription);
-		attributeGetterFunctions.put("category", CoveragePlan::getCategory);
-		attributeSetterBiConsumers.put(
-			"category",
-			(BiConsumer<CoveragePlan, String>)CoveragePlan::setCategory);
+		static {
+			Map<String, BiConsumer<CoveragePlan, ?>>
+				attributeSetterBiConsumers =
+					new LinkedHashMap<String, BiConsumer<CoveragePlan, ?>>();
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
-		_attributeSetterBiConsumers = Collections.unmodifiableMap(
-			(Map)attributeSetterBiConsumers);
+			attributeSetterBiConsumers.put(
+				"coveragePlanId",
+				(BiConsumer<CoveragePlan, Long>)
+					CoveragePlan::setCoveragePlanId);
+			attributeSetterBiConsumers.put(
+				"companyId",
+				(BiConsumer<CoveragePlan, Long>)CoveragePlan::setCompanyId);
+			attributeSetterBiConsumers.put(
+				"userId",
+				(BiConsumer<CoveragePlan, Long>)CoveragePlan::setUserId);
+			attributeSetterBiConsumers.put(
+				"userName",
+				(BiConsumer<CoveragePlan, String>)CoveragePlan::setUserName);
+			attributeSetterBiConsumers.put(
+				"createDate",
+				(BiConsumer<CoveragePlan, Date>)CoveragePlan::setCreateDate);
+			attributeSetterBiConsumers.put(
+				"modifiedDate",
+				(BiConsumer<CoveragePlan, Date>)CoveragePlan::setModifiedDate);
+			attributeSetterBiConsumers.put(
+				"name",
+				(BiConsumer<CoveragePlan, String>)CoveragePlan::setName);
+			attributeSetterBiConsumers.put(
+				"description",
+				(BiConsumer<CoveragePlan, String>)CoveragePlan::setDescription);
+			attributeSetterBiConsumers.put(
+				"category",
+				(BiConsumer<CoveragePlan, String>)CoveragePlan::setCategory);
+
+			_attributeSetterBiConsumers = Collections.unmodifiableMap(
+				(Map)attributeSetterBiConsumers);
+		}
+
 	}
 
 	@Override
@@ -569,6 +552,30 @@ public class CoveragePlanModelImpl
 	}
 
 	@Override
+	public CoveragePlan cloneWithOriginalValues() {
+		CoveragePlanImpl coveragePlanImpl = new CoveragePlanImpl();
+
+		coveragePlanImpl.setCoveragePlanId(
+			this.<Long>getColumnOriginalValue("coveragePlanId"));
+		coveragePlanImpl.setCompanyId(
+			this.<Long>getColumnOriginalValue("companyId"));
+		coveragePlanImpl.setUserId(this.<Long>getColumnOriginalValue("userId"));
+		coveragePlanImpl.setUserName(
+			this.<String>getColumnOriginalValue("userName"));
+		coveragePlanImpl.setCreateDate(
+			this.<Date>getColumnOriginalValue("createDate"));
+		coveragePlanImpl.setModifiedDate(
+			this.<Date>getColumnOriginalValue("modifiedDate"));
+		coveragePlanImpl.setName(this.<String>getColumnOriginalValue("name"));
+		coveragePlanImpl.setDescription(
+			this.<String>getColumnOriginalValue("description"));
+		coveragePlanImpl.setCategory(
+			this.<String>getColumnOriginalValue("category"));
+
+		return coveragePlanImpl;
+	}
+
+	@Override
 	public int compareTo(CoveragePlan coveragePlan) {
 		long primaryKey = coveragePlan.getPrimaryKey();
 
@@ -750,41 +757,12 @@ public class CoveragePlanModelImpl
 		return sb.toString();
 	}
 
-	@Override
-	public String toXmlString() {
-		Map<String, Function<CoveragePlan, Object>> attributeGetterFunctions =
-			getAttributeGetterFunctions();
-
-		StringBundler sb = new StringBundler(
-			(5 * attributeGetterFunctions.size()) + 4);
-
-		sb.append("<model><model-name>");
-		sb.append(getModelClassName());
-		sb.append("</model-name>");
-
-		for (Map.Entry<String, Function<CoveragePlan, Object>> entry :
-				attributeGetterFunctions.entrySet()) {
-
-			String attributeName = entry.getKey();
-			Function<CoveragePlan, Object> attributeGetterFunction =
-				entry.getValue();
-
-			sb.append("<column><column-name>");
-			sb.append(attributeName);
-			sb.append("</column-name><column-value><![CDATA[");
-			sb.append(attributeGetterFunction.apply((CoveragePlan)this));
-			sb.append("]]></column-value></column>");
-		}
-
-		sb.append("</model>");
-
-		return sb.toString();
-	}
-
 	private static class EscapedModelProxyProviderFunctionHolder {
 
 		private static final Function<InvocationHandler, CoveragePlan>
-			_escapedModelProxyProviderFunction = _getProxyProviderFunction();
+			_escapedModelProxyProviderFunction =
+				ProxyUtil.getProxyProviderFunction(
+					CoveragePlan.class, ModelWrapper.class);
 
 	}
 
@@ -800,8 +778,9 @@ public class CoveragePlanModelImpl
 	private String _category;
 
 	public <T> T getColumnValue(String columnName) {
-		Function<CoveragePlan, Object> function = _attributeGetterFunctions.get(
-			columnName);
+		Function<CoveragePlan, Object> function =
+			AttributeGetterFunctionsHolder._attributeGetterFunctions.get(
+				columnName);
 
 		if (function == null) {
 			throw new IllegalArgumentException(

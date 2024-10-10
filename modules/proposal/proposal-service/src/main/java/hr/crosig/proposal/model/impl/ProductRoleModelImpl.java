@@ -1,15 +1,6 @@
 /**
- * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ * SPDX-FileCopyrightText: (c) 2024 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
 package hr.crosig.proposal.model.impl;
@@ -34,7 +25,6 @@ import hr.crosig.proposal.model.ProductRoleModel;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 
 import java.sql.Blob;
@@ -212,91 +202,83 @@ public class ProductRoleModelImpl
 	public Map<String, Function<ProductRole, Object>>
 		getAttributeGetterFunctions() {
 
-		return _attributeGetterFunctions;
+		return AttributeGetterFunctionsHolder._attributeGetterFunctions;
 	}
 
 	public Map<String, BiConsumer<ProductRole, Object>>
 		getAttributeSetterBiConsumers() {
 
-		return _attributeSetterBiConsumers;
+		return AttributeSetterBiConsumersHolder._attributeSetterBiConsumers;
 	}
 
-	private static Function<InvocationHandler, ProductRole>
-		_getProxyProviderFunction() {
+	private static class AttributeGetterFunctionsHolder {
 
-		Class<?> proxyClass = ProxyUtil.getProxyClass(
-			ProductRole.class.getClassLoader(), ProductRole.class,
-			ModelWrapper.class);
+		private static final Map<String, Function<ProductRole, Object>>
+			_attributeGetterFunctions;
 
-		try {
-			Constructor<ProductRole> constructor =
-				(Constructor<ProductRole>)proxyClass.getConstructor(
-					InvocationHandler.class);
+		static {
+			Map<String, Function<ProductRole, Object>>
+				attributeGetterFunctions =
+					new LinkedHashMap<String, Function<ProductRole, Object>>();
 
-			return invocationHandler -> {
-				try {
-					return constructor.newInstance(invocationHandler);
-				}
-				catch (ReflectiveOperationException
-							reflectiveOperationException) {
+			attributeGetterFunctions.put(
+				"productRoleId", ProductRole::getProductRoleId);
+			attributeGetterFunctions.put(
+				"companyId", ProductRole::getCompanyId);
+			attributeGetterFunctions.put("userId", ProductRole::getUserId);
+			attributeGetterFunctions.put("userName", ProductRole::getUserName);
+			attributeGetterFunctions.put(
+				"createDate", ProductRole::getCreateDate);
+			attributeGetterFunctions.put(
+				"modifiedDate", ProductRole::getModifiedDate);
+			attributeGetterFunctions.put(
+				"productId", ProductRole::getProductId);
+			attributeGetterFunctions.put("roleId", ProductRole::getRoleId);
 
-					throw new InternalError(reflectiveOperationException);
-				}
-			};
+			_attributeGetterFunctions = Collections.unmodifiableMap(
+				attributeGetterFunctions);
 		}
-		catch (NoSuchMethodException noSuchMethodException) {
-			throw new InternalError(noSuchMethodException);
-		}
+
 	}
 
-	private static final Map<String, Function<ProductRole, Object>>
-		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<ProductRole, Object>>
-		_attributeSetterBiConsumers;
+	private static class AttributeSetterBiConsumersHolder {
 
-	static {
-		Map<String, Function<ProductRole, Object>> attributeGetterFunctions =
-			new LinkedHashMap<String, Function<ProductRole, Object>>();
-		Map<String, BiConsumer<ProductRole, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<ProductRole, ?>>();
+		private static final Map<String, BiConsumer<ProductRole, Object>>
+			_attributeSetterBiConsumers;
 
-		attributeGetterFunctions.put(
-			"productRoleId", ProductRole::getProductRoleId);
-		attributeSetterBiConsumers.put(
-			"productRoleId",
-			(BiConsumer<ProductRole, Long>)ProductRole::setProductRoleId);
-		attributeGetterFunctions.put("companyId", ProductRole::getCompanyId);
-		attributeSetterBiConsumers.put(
-			"companyId",
-			(BiConsumer<ProductRole, Long>)ProductRole::setCompanyId);
-		attributeGetterFunctions.put("userId", ProductRole::getUserId);
-		attributeSetterBiConsumers.put(
-			"userId", (BiConsumer<ProductRole, Long>)ProductRole::setUserId);
-		attributeGetterFunctions.put("userName", ProductRole::getUserName);
-		attributeSetterBiConsumers.put(
-			"userName",
-			(BiConsumer<ProductRole, String>)ProductRole::setUserName);
-		attributeGetterFunctions.put("createDate", ProductRole::getCreateDate);
-		attributeSetterBiConsumers.put(
-			"createDate",
-			(BiConsumer<ProductRole, Date>)ProductRole::setCreateDate);
-		attributeGetterFunctions.put(
-			"modifiedDate", ProductRole::getModifiedDate);
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			(BiConsumer<ProductRole, Date>)ProductRole::setModifiedDate);
-		attributeGetterFunctions.put("productId", ProductRole::getProductId);
-		attributeSetterBiConsumers.put(
-			"productId",
-			(BiConsumer<ProductRole, Long>)ProductRole::setProductId);
-		attributeGetterFunctions.put("roleId", ProductRole::getRoleId);
-		attributeSetterBiConsumers.put(
-			"roleId", (BiConsumer<ProductRole, Long>)ProductRole::setRoleId);
+		static {
+			Map<String, BiConsumer<ProductRole, ?>> attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<ProductRole, ?>>();
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
-		_attributeSetterBiConsumers = Collections.unmodifiableMap(
-			(Map)attributeSetterBiConsumers);
+			attributeSetterBiConsumers.put(
+				"productRoleId",
+				(BiConsumer<ProductRole, Long>)ProductRole::setProductRoleId);
+			attributeSetterBiConsumers.put(
+				"companyId",
+				(BiConsumer<ProductRole, Long>)ProductRole::setCompanyId);
+			attributeSetterBiConsumers.put(
+				"userId",
+				(BiConsumer<ProductRole, Long>)ProductRole::setUserId);
+			attributeSetterBiConsumers.put(
+				"userName",
+				(BiConsumer<ProductRole, String>)ProductRole::setUserName);
+			attributeSetterBiConsumers.put(
+				"createDate",
+				(BiConsumer<ProductRole, Date>)ProductRole::setCreateDate);
+			attributeSetterBiConsumers.put(
+				"modifiedDate",
+				(BiConsumer<ProductRole, Date>)ProductRole::setModifiedDate);
+			attributeSetterBiConsumers.put(
+				"productId",
+				(BiConsumer<ProductRole, Long>)ProductRole::setProductId);
+			attributeSetterBiConsumers.put(
+				"roleId",
+				(BiConsumer<ProductRole, Long>)ProductRole::setRoleId);
+
+			_attributeSetterBiConsumers = Collections.unmodifiableMap(
+				(Map)attributeSetterBiConsumers);
+		}
+
 	}
 
 	@Override
@@ -518,6 +500,28 @@ public class ProductRoleModelImpl
 	}
 
 	@Override
+	public ProductRole cloneWithOriginalValues() {
+		ProductRoleImpl productRoleImpl = new ProductRoleImpl();
+
+		productRoleImpl.setProductRoleId(
+			this.<Long>getColumnOriginalValue("productRoleId"));
+		productRoleImpl.setCompanyId(
+			this.<Long>getColumnOriginalValue("companyId"));
+		productRoleImpl.setUserId(this.<Long>getColumnOriginalValue("userId"));
+		productRoleImpl.setUserName(
+			this.<String>getColumnOriginalValue("userName"));
+		productRoleImpl.setCreateDate(
+			this.<Date>getColumnOriginalValue("createDate"));
+		productRoleImpl.setModifiedDate(
+			this.<Date>getColumnOriginalValue("modifiedDate"));
+		productRoleImpl.setProductId(
+			this.<Long>getColumnOriginalValue("productId"));
+		productRoleImpl.setRoleId(this.<Long>getColumnOriginalValue("roleId"));
+
+		return productRoleImpl;
+	}
+
+	@Override
 	public int compareTo(ProductRole productRole) {
 		long primaryKey = productRole.getPrimaryKey();
 
@@ -679,41 +683,12 @@ public class ProductRoleModelImpl
 		return sb.toString();
 	}
 
-	@Override
-	public String toXmlString() {
-		Map<String, Function<ProductRole, Object>> attributeGetterFunctions =
-			getAttributeGetterFunctions();
-
-		StringBundler sb = new StringBundler(
-			(5 * attributeGetterFunctions.size()) + 4);
-
-		sb.append("<model><model-name>");
-		sb.append(getModelClassName());
-		sb.append("</model-name>");
-
-		for (Map.Entry<String, Function<ProductRole, Object>> entry :
-				attributeGetterFunctions.entrySet()) {
-
-			String attributeName = entry.getKey();
-			Function<ProductRole, Object> attributeGetterFunction =
-				entry.getValue();
-
-			sb.append("<column><column-name>");
-			sb.append(attributeName);
-			sb.append("</column-name><column-value><![CDATA[");
-			sb.append(attributeGetterFunction.apply((ProductRole)this));
-			sb.append("]]></column-value></column>");
-		}
-
-		sb.append("</model>");
-
-		return sb.toString();
-	}
-
 	private static class EscapedModelProxyProviderFunctionHolder {
 
 		private static final Function<InvocationHandler, ProductRole>
-			_escapedModelProxyProviderFunction = _getProxyProviderFunction();
+			_escapedModelProxyProviderFunction =
+				ProxyUtil.getProxyProviderFunction(
+					ProductRole.class, ModelWrapper.class);
 
 	}
 
@@ -728,8 +703,9 @@ public class ProductRoleModelImpl
 	private long _roleId;
 
 	public <T> T getColumnValue(String columnName) {
-		Function<ProductRole, Object> function = _attributeGetterFunctions.get(
-			columnName);
+		Function<ProductRole, Object> function =
+			AttributeGetterFunctionsHolder._attributeGetterFunctions.get(
+				columnName);
 
 		if (function == null) {
 			throw new IllegalArgumentException(
