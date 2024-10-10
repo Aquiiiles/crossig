@@ -1,6 +1,6 @@
 dependencies {
-	compile group: "com.liferay.portal", name: "release.dxp.api"
-	compile project(":modules:proposal:proposal-api")
+	implementation group: "com.liferay.portal", name: "release.dxp.api"
+	implementation project(":modules:proposal:proposal-api")
 }
 
 buildService {

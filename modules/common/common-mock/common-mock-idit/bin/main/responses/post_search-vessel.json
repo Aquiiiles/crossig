@@ -1,0 +1,26 @@
+[
+  {
+    "fleetName" :  "Fleet Name One",
+    "nib" :  "558899",
+    "policyHolder" :  "Kevin Scott",
+    "registrationMark" :  "ABC123",
+    "vesselName" :  "Oasis of the Sea",
+    "vesselType" :  "Boats"
+  },
+  {
+    "fleetName" :  "Fleet Name Two",
+    "nib" :  "998855",
+    "policyHolder" :  "Robert Katz",
+    "registrationMark" :  "ABC522",
+    "vesselName" :  "Lady Mary",
+    "vesselType" :  "Boats"
+  },
+  {
+    "fleetName" :  "Fleet Name Three",
+    "nib" :  "112233",
+    "policyHolder" :  "Sean Johnson",
+    "registrationMark" :  "ABC999",
+    "vesselName" :  "Moonlight Empire",
+    "vesselType" :  "Boats"
+  }
+]

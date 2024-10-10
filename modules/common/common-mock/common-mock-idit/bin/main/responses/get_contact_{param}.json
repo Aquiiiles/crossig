@@ -1,0 +1,312 @@
+[
+	{
+		"addresses": [
+			{
+				"addressType": {
+					"desc": "test desc",
+					"extCode": "test street",
+					"id": 22
+				},
+				"apartmentNr": "0000",
+				"blockNr": "blockNr",
+				"buildingName": "buildingName",
+				"cityId": "0",
+				"cityName": "cityName",
+				"country": {
+					"desc": "Croatia",
+					"extCode": "1222",
+					"id": 1
+				},
+				"countyName": "Croatia",
+				"districtName": "district test",
+				"entranceNr": "entraceNr",
+				"houseNr": "1234",
+				"isPreferredDeliveryAddress": true,
+				"pob": "pob",
+				"provinceName": "provinceName",
+				"regionName": "regionName Test",
+				"streetName": "streetName",
+				"zipCode": "123456"
+			}
+		],
+		"channelType": {
+			"desc": "channelTypeDesc",
+			"extCode": "channelTypeExt",
+			"id": 1
+		},
+		"consents": [
+			{
+				"consentType": {
+					"desc": "consentTypeDesc",
+					"extCode": "consentTypeExt",
+					"id": 1
+				},
+				"endDate": "2022-02-03T13:01:08.588Z",
+				"remarks": "remarks",
+				"startDate": "2022-02-03T13:01:08.588Z"
+			}
+		],
+		"dateOfBirth": "2022-02-03T13:01:08.588Z",
+		"emails": [
+			{
+				"email": "email@email.com.br",
+				"emailType": {
+					"desc": "emailTypeDesc",
+					"extCode": "emailTypeExt",
+					"id": 1
+				},
+				"isPreferredDeliveryAddress": true
+			}
+		],
+		"entityType": {
+			"desc": "entityTypeDesc",
+			"extCode": "entityTypeExt",
+			"id": 1
+		},
+		"familyStatus": {
+			"desc": "familyStatusDesc",
+			"extCode": "familyStatusExt",
+			"id": 1
+		},
+		"firstName": "Homer",
+		"foreignCitizen": true,
+		"gender": {
+			"desc": "genderDesc",
+			"extCode": "extCodeGender",
+			"id": 1
+		},
+		"identifiers": [
+			{
+				"country": {
+					"desc": "countryDesc",
+					"extCode": "countryExt",
+					"id": 1
+				},
+				"idType": {
+					"desc": "idTypeDesc",
+					"extCode": "idTypeExt",
+					"id": 1
+				},
+				"idValue": "123",
+				"issueDate": "2022-02-03T13:01:08.588Z",
+				"issuePlace": "issuePlace",
+				"serialNumber": "serialNumber"
+			}
+		],
+		"language": {
+			"desc": "croatian",
+			"extCode": "croatian",
+			"id": 1
+		},
+		"middleName": "middleName",
+		"name": "name",
+		"nationality": {
+			"desc": "nationalityDesc",
+			"extCode": "nationalityExt",
+			"id": 1
+		},
+		"preferredDeliveryType": {
+			"desc": "preferredDeliveryTypeDesc",
+			"extCode": "preferredDeliveryTypeExt",
+			"id": 1
+		},
+		"profession": {
+			"desc": "professionDesc",
+			"extCode": "professionExt",
+			"id": 1
+		},
+		"subscriptions": [
+			{
+				"brandCompanyCode": "brandCompanyCode",
+				"companyName": "companyName",
+				"subscriptionStatus": {
+					"desc": "BrandDesc",
+					"extCode": "extCodeBrand",
+					"id": 1
+				},
+				"subscriptionType": {
+					"desc": "descSub",
+					"extCode": "extCode",
+					"id": 1
+				}
+			}
+		],
+		"telephones": [
+			{
+				"countryDialCode": {
+					"desc": "385",
+					"extCode": "extCodePrefix",
+					"id": 1
+				},
+				"isPreferredDeliveryAddress": true,
+				"telephoneAreaCode": "1",
+				"telephoneExtension": "telephoneExtension",
+				"telephoneNumber": "1234567",
+				"telephonePrefix": "1",
+				"telephoneType": {
+					"desc": "descTelephone",
+					"extCode": "extCodeTelephone",
+					"id": 1
+				}
+			}
+		],
+		"title": {
+			"desc": "titleDesc",
+			"extCode": "titleext",
+			"id": 1
+		}
+	},
+	{
+		"addresses": [
+			{
+				"addressType": {
+					"desc": "",
+					"extCode": "",
+					"id": 0
+				},
+				"apartmentNr": "",
+				"blockNr": "",
+				"buildingName": "",
+				"cityName": "cityName",
+				"country": {
+					"desc": "",
+					"extCode": "",
+					"id": 1
+				},
+				"countyName": "",
+				"districtName": "",
+				"entranceNr": "",
+				"houseNr": "",
+				"isPreferredDeliveryAddress": true,
+				"pob": "",
+				"provinceName": "",
+				"regionName": "",
+				"streetName": "",
+				"zipCode": "123456"
+			}
+		],
+		"channelType": {
+			"desc": "",
+			"extCode": "",
+			"id": 1
+		},
+		"consents": [
+			{
+				"consentType": {
+					"desc": "",
+					"extCode": "",
+					"id": 1
+				},
+				"endDate": "",
+				"remarks": "",
+				"startDate": ""
+			}
+		],
+		"dateOfBirth": "",
+		"emails": [
+			{
+				"email": "email@email.com.br",
+				"emailType": {
+					"desc": "",
+					"extCode": "",
+					"id": 1
+				},
+				"isPreferredDeliveryAddress": true
+			}
+		],
+		"entityType": {
+			"desc": "",
+			"extCode": "",
+			"id": 1
+		},
+		"familyStatus": {
+			"desc": "",
+			"extCode": "",
+			"id": 1
+		},
+		"firstName": "",
+		"gender": {
+			"desc": "genderDesc",
+			"extCode": "extCodeGender",
+			"id": 1
+		},
+		"identifiers": [
+			{
+				"country": {
+					"desc": "",
+					"extCode": "",
+					"id": 1
+				},
+				"idType": {
+					"desc": "",
+					"extCode": "",
+					"id": 1
+				},
+				"idValue": "idValue",
+				"issueDate": "",
+				"issuePlace": "",
+				"serialNumber": ""
+			}
+		],
+		"language": {
+			"desc": "",
+			"extCode": "",
+			"id": 1
+		},
+		"middleName": "",
+		"name": "name",
+		"nationality": {
+			"desc": "",
+			"extCode": "",
+			"id": 1
+		},
+		"preferredDeliveryType": {
+			"desc": "",
+			"extCode": "",
+			"id": 1
+		},
+		"profession": {
+			"desc": "",
+			"extCode": "",
+			"id": 1
+		},
+		"subscriptions": [
+			{
+				"brandCompanyCode": "brandCompanyCode",
+				"subscriptionStatus": {
+					"desc": "",
+					"extCode": "",
+					"id": 1
+				},
+				"subscriptionType": {
+					"desc": "",
+					"extCode": "",
+					"id": 1
+				}
+			}
+		],
+		"telephones": [
+			{
+				"countryDialCode": {
+					"desc": "",
+					"extCode": "",
+					"id": 1
+				},
+				"isPreferredDeliveryAddress": true,
+				"telephoneExtension": "",
+				"telephoneNumber": "9999999999",
+				"telephonePrefix": "",
+				"telephoneType": {
+					"desc": "",
+					"extCode": "",
+					"id": 0
+				}
+			}
+		],
+		"title": {
+			"desc": "",
+			"extCode": "",
+			"id": 1
+		}
+	}
+]

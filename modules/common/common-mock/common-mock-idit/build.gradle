@@ -5,14 +5,14 @@ dependencies {
 	compileOnly project(":modules:common:common-configuration")
 	compileOnly project(":modules:common:common-ws")
 
-	testCompile group: "com.liferay.portal", name: "release.dxp.api"
-	testCompile group: "junit", name: "junit"
-	testCompile group: "org.apache.commons", name: "commons-lang3", version: "3.12.0"
-	testCompile group: "org.assertj", name: "assertj-core", version: "3.19.0"
-	testCompile group: "org.glassfish.jersey.core", name: "jersey-common"
-	testCompile group: "org.mockito", name: "mockito-core", version: "3.8.0"
-	testCompile group: "org.powermock", name: "powermock-api-mockito2", version: "2.0.9"
-	testCompile group: "org.powermock", name: "powermock-module-junit4", version: "2.0.9"
-	testCompile project(":modules:common:common-configuration")
-	testCompile project(":modules:common:common-ws")
+	testImplementation group: "com.liferay.portal", name: "release.dxp.api"
+	testImplementation group: "junit", name: "junit"
+	testImplementation group: "org.apache.commons", name: "commons-lang3", version: "3.12.0"
+	testImplementation group: "org.assertj", name: "assertj-core", version: "3.19.0"
+	testImplementation group: "org.glassfish.jersey.core", name: "jersey-common"
+	testImplementation group: "org.mockito", name: "mockito-core", version: "3.8.0"
+	testImplementation group: "org.powermock", name: "powermock-api-mockito2", version: "2.0.9"
+	testImplementation group: "org.powermock", name: "powermock-module-junit4", version: "2.0.9"
+	testImplementation project(":modules:common:common-configuration")
+	testImplementation project(":modules:common:common-ws")
 }

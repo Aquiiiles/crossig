@@ -1,5 +1,5 @@
 dependencies {
-	compile project(":modules:proposal:proposal-api")
+	implementation project(":modules:proposal:proposal-api")
 
 	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
 }

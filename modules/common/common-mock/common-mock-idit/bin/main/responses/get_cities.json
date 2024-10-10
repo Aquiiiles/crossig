@@ -1,0 +1,100 @@
+[
+	{
+		"boxNumber": "31300",
+		"cityName": "SOKOLOVAC",
+		"id": 1015234,
+		"postName": "BELI MANASTIR",
+		"zipCode": "1014508"
+	},
+	{
+		"boxNumber": "43500",
+		"cityName": "SOKOLOVAC",
+		"id": 1016175,
+		"postName": "DARUVAR",
+		"zipCode": "1015449"
+	},
+	{
+		"boxNumber": "47280",
+		"cityName": "SOLDATIĆI",
+		"id": 1015236,
+		"postName": "OZALJ",
+		"zipCode": "1014510"
+	},
+	{
+		"boxNumber": "21210",
+		"cityName": "SOLIN",
+		"id": 1015237,
+		"postName": "SOLIN",
+		"zipCode": "1014511"
+	},
+	{
+		"boxNumber": "51511",
+		"cityName": "SOLINE",
+		"id": 1015575,
+		"postName": "MALINSKA",
+		"zipCode": "1014849"
+	},
+	{
+		"boxNumber": "47250",
+		"cityName": "SOLINE",
+		"id": 1015238,
+		"postName": "DUGA RESA",
+		"zipCode": "1014512"
+	},
+	{
+		"boxNumber": "23287",
+		"cityName": "SOLINE",
+		"id": 1015209,
+		"postName": "VELI RAT",
+		"zipCode": "1014483"
+	},
+	{
+		"boxNumber": "20207",
+		"cityName": "SOLINE",
+		"id": 1009665,
+		"postName": "MLINI",
+		"zipCode": "1008939"
+	},
+	{
+		"boxNumber": "32257",
+		"cityName": "SOLJANI",
+		"id": 1015189,
+		"postName": "DRENOVCI",
+		"zipCode": "1014463"
+	},
+	{
+		"boxNumber": "44250",
+		"cityName": "ŽUPIĆ",
+		"id": 1009703,
+		"postName": "PETRINJA",
+		"zipCode": "1008977"
+	},
+	{
+		"boxNumber": "53260",
+		"cityName": "ŽUTA LOKVA",
+		"id": 1009704,
+		"postName": "BRINJE",
+		"zipCode": "1008978"
+	},
+	{
+		"boxNumber": "49000",
+		"cityName": "ŽUTNICA",
+		"id": 1015329,
+		"postName": "KRAPINA",
+		"zipCode": "1014603"
+	},
+	{
+		"boxNumber": "52440",
+		"cityName": "ŽUŽIĆI",
+		"id": 1009705,
+		"postName": "POREČ",
+		"zipCode": "1008979"
+	},
+	{
+		"boxNumber": "52000",
+		"cityName": "ŽUŽIĆI",
+		"id": 1016173,
+		"postName": "PAZIN",
+		"zipCode": "1015447"
+	}
+]

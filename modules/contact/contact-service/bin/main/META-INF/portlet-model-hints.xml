@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="hr.crosig.contact.model.City">
+		<field name="cityId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="externalId" type="long" />
+		<field name="name" type="String" />
+		<field name="zipCode" type="String" />
+		<field name="boxNumber" type="String" />
+		<field name="postName" type="String" />
+	</model>
+	<model name="hr.crosig.contact.model.Street">
+		<field name="streetId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="externalId" type="long" />
+		<field name="name" type="String" />
+		<field name="cityId" type="long" />
+	</model>
+</model-hints>
