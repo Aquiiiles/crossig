@@ -28,13 +28,14 @@ public class CacheManagementPanelApp extends BasePanelApp {
 		return CacheManagementPortletKeys.CACHE_MANAGEMENT_PORTLET;
 	}
 
-	@Override
 	@Reference(
-		target = "(javax.portlet.name=" + CacheManagementPortletKeys.CACHE_MANAGEMENT_PORTLET + ")",
-		unbind = "-"
+		target = "(javax.portlet.name=" + CacheManagementPortletKeys.CACHE_MANAGEMENT_PORTLET + ")"
 	)
-	public void setPortlet(Portlet portlet) {
-		super.setPortlet(portlet);
+	private Portlet _portlet;
+
+	@Override
+	public Portlet getPortlet() {
+		return _portlet;
 	}
 
 }

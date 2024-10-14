@@ -59,7 +59,7 @@ public class ServiceRegistratorImpl implements ServiceRegistrator {
 
 		if (modifiedOrRegistered) {
 			ServiceTrackerList
-				<ServiceConnectionProvider, ServiceConnectionProvider> tracker =
+				<ServiceConnectionProvider> tracker =
 					ServiceTrackerListFactory.open(
 						_bundleContext, ServiceConnectionProvider.class);
 

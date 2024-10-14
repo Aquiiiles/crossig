@@ -9,8 +9,12 @@ dependencies {
 	testImplementation group: "junit", name: "junit"
 	testImplementation group: "org.apache.commons", name: "commons-lang3", version: "3.12.0"
 	testImplementation group: "org.assertj", name: "assertj-core", version: "3.19.0"
-	testImplementation group: "org.glassfish.jersey.core", name: "jersey-common"
-	testImplementation group: "org.mockito", name: "mockito-core", version: "3.8.0"
+	testImplementation group: "org.glassfish.jersey.core", name: "jersey-common", version: "2.38"
+	testImplementation("org.mockito:mockito-core") {
+		version{
+			strictly("3.8.0")
+		}
+	}
 	testImplementation group: "org.powermock", name: "powermock-api-mockito2", version: "2.0.9"
 	testImplementation group: "org.powermock", name: "powermock-module-junit4", version: "2.0.9"
 	testImplementation project(":modules:common:common-configuration")
