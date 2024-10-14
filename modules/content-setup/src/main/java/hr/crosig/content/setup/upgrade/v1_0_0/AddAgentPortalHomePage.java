@@ -28,7 +28,7 @@ public class AddAgentPortalHomePage extends BaseUpgradeProcess {
 			initializeCommonIdentifiers();
 
 			Layout layout = addPage(
-				userId, groupId, PRIVATE_PAGE, PARENT_LAYOUT_ID, PAGE_NAME,
+				externalReferenceCode, userId, groupId, PRIVATE_PAGE, PARENT_LAYOUT_ID, PAGE_NAME,
 				PAGE_NAME, DESCRIPTION, LayoutConstants.TYPE_PORTLET, HIDDEN,
 				ContentSetupConstants.HOME_FRIENDLY_URL, new ServiceContext());
 
@@ -78,6 +78,7 @@ public class AddAgentPortalHomePage extends BaseUpgradeProcess {
 	protected Long companyId;
 	protected Long groupId;
 	protected Long userId;
+	protected String externalReferenceCode;
 
 	private Long _getAdminUserId(Long companyId) throws PortalException {
 		return userLocalService.getUser(

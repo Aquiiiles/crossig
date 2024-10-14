@@ -63,7 +63,7 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 	}
 
 	protected Layout addPage(
-			Long userId, Long groupId, Boolean privatePage, Long parentLayoutId,
+			String externalReferenceCode, Long userId, Long groupId, Boolean privatePage, Long parentLayoutId,
 			String pageName, String title, String description, String type,
 			Boolean hidden, String friendlyUrl, ServiceContext serviceContext)
 		throws PortalException {
@@ -77,9 +77,9 @@ public abstract class BaseUpgradeProcess extends UpgradeProcess {
 
 			return layout;
 		}
-
+	
 		return layoutLocalService.addLayout(
-			userId, groupId, privatePage, parentLayoutId, pageName, title,
+			externalReferenceCode, userId, groupId, privatePage, parentLayoutId, pageName, title,
 			description, type, hidden, friendlyUrl, serviceContext);
 	}
 
