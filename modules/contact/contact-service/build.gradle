@@ -1,20 +1,25 @@
 dependencies {
-	implementation group: "com.liferay.portal", name: "release.dxp.api"
-	implementation project(":modules:common:common-ws")
-	implementation project(":modules:common:common-ws-idit-client")
-	implementation project(":modules:contact:contact-api")
-	implementation project(":modules:contact:contact-scheduler")
+    implementation group: "com.liferay.portal", name: "release.dxp.api"
+    implementation project(":modules:common:common-ws")
+    implementation project(":modules:common:common-ws-idit-client")
+    implementation project(":modules:contact:contact-api")
+    implementation project(":modules:contact:contact-scheduler")
 
-	testImplementation group: "junit", name: "junit"
-	testImplementation group: "org.assertj", name: "assertj-core", version: "3.19.0"
-	testImplementation group: "org.mockito", name: "mockito-core", version: "3.8.0"
-	testImplementation group: "org.ow2.asm", name: "asm", version: "7.1"
-	testImplementation group: "org.powermock", name: "powermock-api-mockito2", version: "2.0.9"
-	testImplementation group: "org.powermock", name: "powermock-module-junit4", version: "2.0.9"
+    // Test dependencies
+    testImplementation group: "junit", name: "junit"
+    testImplementation group: "org.assertj", name: "assertj-core", version: "3.19.0"
+    testImplementation group: "org.ow2.asm", name: "asm", version: "7.1"
+    testImplementation("org.mockito:mockito-core") {
+  version{
+    strictly("3.8.0")
+  }
+}
+testImplementation group: "org.powermock", name: "powermock-api-mockito2", version: "2.0.9"
+testImplementation group: "org.powermock", name: "powermock-module-junit4", version: "2.0.9"
 }
 
 buildService {
-	apiDir = "../contact-api/src/main/java"
+    apiDir = "../contact-api/src/main/java"
 }
 
 group = "hr.crosig.contact"

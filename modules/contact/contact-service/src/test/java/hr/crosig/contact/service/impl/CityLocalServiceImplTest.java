@@ -82,7 +82,7 @@ public class CityLocalServiceImplTest {
 
 		_cityLocalServiceImpl.searchCitiesNamesByName("");
 	}
-
+	
 	@Before
 	public void setUp() {
 		_mockStaticUtilClasses();

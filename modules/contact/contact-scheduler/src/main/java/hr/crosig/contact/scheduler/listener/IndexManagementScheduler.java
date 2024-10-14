@@ -6,15 +6,11 @@ import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.messaging.DestinationNames;
+//import com.liferay.portal.kernel.messaging.DestinationNames;
 import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.messaging.MessageListener;
 import com.liferay.portal.kernel.model.CompanyConstants;
-import com.liferay.portal.kernel.scheduler.SchedulerEngineHelper;
-import com.liferay.portal.kernel.scheduler.SchedulerEntry;
-import com.liferay.portal.kernel.scheduler.SchedulerEntryImpl;
-import com.liferay.portal.kernel.scheduler.Trigger;
-import com.liferay.portal.kernel.scheduler.TriggerFactory;
+import com.liferay.portal.kernel.scheduler.*;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -23,12 +19,11 @@ import hr.crosig.contact.scheduler.configuration.IndexManagementConfiguration;
 import hr.crosig.contact.scheduler.constants.SchedulerConstants;
 import hr.crosig.contact.scheduler.executor.IndexManagementBackgroundTask;
 
-import java.util.Date;
+//import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
@@ -36,9 +31,11 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author victor.catanante
  */
-@Component(
-	configurationPid = IndexManagementConfiguration.OCD_ID, immediate = true
-)
+//@Component(
+//	configurationPid = IndexManagementConfiguration.OCD_ID, immediate = true,
+	//service = SchedulerJobConfiguration.class
+// )
+
 public class IndexManagementScheduler implements MessageListener {
 
 	@Override
@@ -69,17 +66,18 @@ public class IndexManagementScheduler implements MessageListener {
 		if (_indexManagementConfiguration._enable()) {
 			String cronExpression =
 				_indexManagementConfiguration._cronExpression();
-			String className = IndexManagementScheduler.class.getName();
 
-			Trigger jobTrigger = _triggerFactory.createTrigger(
-				className, className, new Date(), null, cronExpression);
+			//String className = IndexManagementScheduler.class.getName();
 
-			SchedulerEntry schedulerEntry = new SchedulerEntryImpl(
-				className, jobTrigger);
+			//Trigger jobTrigger = _triggerFactory.createTrigger(
+				//className, className, new Date(), null, cronExpression);
 
-			_schedulerEngineHelper.register(
-				this, schedulerEntry, DestinationNames.SCHEDULER_DISPATCH);
+			//SchedulerEntry schedulerEntry = new SchedulerEntryImpl(
+				//className, (TriggerConfiguration) jobTrigger);
 
+		//	_schedulerEngineHelper.register(
+				//	this, schedulerEntry, DestinationNames.SCHEDULER_DISPATCH);
+			
 			_log.info(
 				String.format(
 					SchedulerConstants.SCHEDULER_ENABLED, cronExpression));
@@ -87,18 +85,18 @@ public class IndexManagementScheduler implements MessageListener {
 	}
 
 	@Deactivate
-	protected void deactivate() {
-		_schedulerEngineHelper.unregister(this);
-		_log.info(SchedulerConstants.SCHEDULER_DISABLED);
-	}
+//	protected void deactivate() {
+	//_schedulerEngineHelper.unregister(this);
+	//	_log.info(SchedulerConstants.SCHEDULER_DISABLED);}
 
-	private Long _getAdminUserId() {
-		final Long companyId = PortalUtil.getDefaultCompanyId();
+	private long _getAdminUserId() {
+		final long companyId = PortalUtil.getDefaultCompanyId();
 
 		try {
-			return _userLocalService.getUser(
-				_userLocalService.getDefaultUserId(companyId)
+			long userId = _userLocalService.getUser(
+					_userLocalService.getGuestUserId(companyId)
 			).getUserId();
+			return userId;
 		}
 		catch (PortalException portalException) {
 			_log.error(
@@ -106,7 +104,7 @@ public class IndexManagementScheduler implements MessageListener {
 				portalException);
 		}
 
-		return null;
+		return 0L;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
