@@ -29,13 +29,14 @@ public class SampleDataGeneratorWebPanelApp extends BasePanelApp {
 			SAMPLE_DATA_GENERATOR_WEB_PORTLET;
 	}
 
-	@Override
 	@Reference(
-		target = "(javax.portlet.name=" + SampleDataGeneratorWebPortletKeys.SAMPLE_DATA_GENERATOR_WEB_PORTLET + ")",
-		unbind = "-"
+		target = "(javax.portlet.name=" + SampleDataGeneratorWebPortletKeys.SAMPLE_DATA_GENERATOR_WEB_PORTLET + ")"
 	)
-	public void setPortlet(Portlet portlet) {
-		super.setPortlet(portlet);
+	private Portlet _portlet;
+
+	@Override
+	public Portlet getPortlet() {
+		return _portlet;
 	}
 
 }

@@ -25,7 +25,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @author marcelo.mazurky
@@ -33,247 +33,212 @@ import java.time.LocalDateTime;
 @Component(immediate = true, service = UserDataGenerator.class)
 public class UserDataGeneratorImpl implements UserDataGenerator {
 
-	/**
-	 * Adds a Regular User to the system
-	 * @return
-	 */
-	@Override
-	public User addRegularUser(
-			String firstName, String lastName, String emailAddress,
-			String password, String userGroupName)
-		throws PortalException, SQLException {
+    private static final Log _log = LogFactoryUtil.getLog(UserDataGeneratorImpl.class);
 
-		// validates the email address
+    @Reference
+    private RoleLocalService _roleLocalService;
 
-		_validateEmailAddress(emailAddress);
+    @Reference
+    private UserGroupLocalService _userGroupLocalService;
 
-		// adds and return the user
+    @Reference
+    private UserGroupRoleLocalService _userGroupRoleLocalService;
 
-		return _addUser(
-			firstName, lastName, emailAddress, password, userGroupName);
-	}
+    @Reference
+    private UserLocalService _userLocalService;
 
-	public void createUsers() {
+    /**
+     * Adds a Regular User to the system
+     * @return
+     */
+    @Override
+    public User addRegularUser(
+            String firstName, String lastName, String emailAddress,
+            String password, String userGroupName)
+            throws PortalException, SQLException {
 
-		// adds sample agent
+        // validates the email address
+        _validateEmailAddress(emailAddress);
 
-		_addUser(
-			UserDataConstants.SAMPLE_AGENT_JOHN_FIRST_NAME,
-			UserDataConstants.DEFAULT_AGENT_LAST_NAME,
-			UserDataConstants.SAMPLE_AGENT_JOHN_EMAIL_ADDRESS,
-			UserDataConstants.DEFAULT_USER_PASSWORD,
-			UserDataConstants.USER_GROUP_AGENT_TYPE);
+        // adds and return the user
+        return _addUser(firstName, lastName, emailAddress, password, userGroupName);
+    }
 
-		// adds sample manager
+    public void createUsers() {
+        // adds sample agent
+        _addUser(
+                UserDataConstants.SAMPLE_AGENT_JOHN_FIRST_NAME,
+                UserDataConstants.DEFAULT_AGENT_LAST_NAME,
+                UserDataConstants.SAMPLE_AGENT_JOHN_EMAIL_ADDRESS,
+                UserDataConstants.DEFAULT_USER_PASSWORD,
+                UserDataConstants.USER_GROUP_AGENT_TYPE);
 
-		_addUser(
-			UserDataConstants.SAMPLE_MANAGER_JACK_FIRST_NAME,
-			UserDataConstants.DEFAULT_MANAGER_LAST_NAME,
-			UserDataConstants.SAMPLE_MANAGER_JACK_EMAIL_ADDRESS,
-			UserDataConstants.DEFAULT_USER_PASSWORD,
-			UserDataConstants.USER_GROUP_MANAGER_TYPE);
+        // adds sample manager
+        _addUser(
+                UserDataConstants.SAMPLE_MANAGER_JACK_FIRST_NAME,
+                UserDataConstants.DEFAULT_MANAGER_LAST_NAME,
+                UserDataConstants.SAMPLE_MANAGER_JACK_EMAIL_ADDRESS,
+                UserDataConstants.DEFAULT_USER_PASSWORD,
+                UserDataConstants.USER_GROUP_MANAGER_TYPE);
 
-		// adds VESSEL_ALL and MOTOR_ALL role to the sample manager
+        // adds VESSEL_ALL and MOTOR_ALL role to the sample manager
+        _addRoleToUser(ContentSetupConstants.VESSEL_ROLE_ALL,
+                UserDataConstants.SAMPLE_MANAGER_JACK_EMAIL_ADDRESS);
 
-		_addRoleToUser(
-			ContentSetupConstants.VESSEL_ROLE_ALL,
-			UserDataConstants.SAMPLE_MANAGER_JACK_EMAIL_ADDRESS);
+        _addRoleToUser(ContentSetupConstants.MOTOR_ROLE_ALL,
+                UserDataConstants.SAMPLE_MANAGER_JACK_EMAIL_ADDRESS);
 
-		_addRoleToUser(
-				ContentSetupConstants.MOTOR_ROLE_ALL,
-				UserDataConstants.SAMPLE_MANAGER_JACK_EMAIL_ADDRESS);
+        // adds another sample agent
+        _addUser(
+                UserDataConstants.SAMPLE_AGENT_SCOTT_FIRST_NAME,
+                UserDataConstants.DEFAULT_AGENT_LAST_NAME,
+                UserDataConstants.SAMPLE_AGENT_SCOTT_EMAIL_ADDRESS,
+                UserDataConstants.DEFAULT_USER_PASSWORD,
+                UserDataConstants.USER_GROUP_AGENT_TYPE);
 
-		// adds another sample agent
+        // adds VESSEL_SELL and MOTOR_ALL role to the sample agent
+        _addRoleToUser(ContentSetupConstants.VESSEL_ROLE_SELL,
+                UserDataConstants.SAMPLE_AGENT_SCOTT_EMAIL_ADDRESS);
 
-		_addUser(
-			UserDataConstants.SAMPLE_AGENT_SCOTT_FIRST_NAME,
-			UserDataConstants.DEFAULT_AGENT_LAST_NAME,
-			UserDataConstants.SAMPLE_AGENT_SCOTT_EMAIL_ADDRESS,
-			UserDataConstants.DEFAULT_USER_PASSWORD,
-			UserDataConstants.USER_GROUP_AGENT_TYPE);
+        _addRoleToUser(ContentSetupConstants.MOTOR_ROLE_ALL,
+                UserDataConstants.SAMPLE_AGENT_SCOTT_EMAIL_ADDRESS);
+    }
 
-		// adds VESSEL_SELL and MOTOR_ALL role to the sample agent
+    /**
+     * Adds a Role to a User
+     * @param roleName
+     * @param userEmailAddress
+     */
+    private void _addRoleToUser(String roleName, String userEmailAddress) {
+        try {
+            // default company id
+            long defaultCompanyId = PortalUtil.getDefaultCompanyId();
 
-		_addRoleToUser(
-			ContentSetupConstants.VESSEL_ROLE_SELL,
-			UserDataConstants.SAMPLE_AGENT_SCOTT_EMAIL_ADDRESS);
+            // gets the role
+            Role role = _roleLocalService.getRole(defaultCompanyId, roleName);
 
-		_addRoleToUser(
-				ContentSetupConstants.MOTOR_ROLE_ALL,
-				UserDataConstants.SAMPLE_AGENT_SCOTT_EMAIL_ADDRESS);
-	}
+            // gets the user
+            User user = _userLocalService.getUserByEmailAddress(
+                    defaultCompanyId, userEmailAddress);
 
-	/**
-	 * Adds a Role to a User
-	 * @param roleName
-	 * @param userEmailAddress
-	 */
-	private void _addRoleToUser(String roleName, String userEmailAddress) {
-		try {
+            // adds the role to the user
+            _userGroupRoleLocalService.addUserGroupRole(user.getUserId(), _getAgentPortalGroupId(), role.getRoleId());
+        } catch (Exception exception) {
+            _log.error(exception);
+        }
+    }
 
-			// default company id
+    /**
+     * Adds the user
+     * @param firstName
+     * @param lastName
+     * @param emailAddress
+     * @param password
+     * @param userGroupName
+     * @return
+     */
+    private User _addUser(
+            String firstName, String lastName, String emailAddress, String password,
+            String userGroupName) {
 
-			long defaultCompanyId = PortalUtil.getDefaultCompanyId();
+        try {
+            // default company id
+            long defaultCompanyId = PortalUtil.getDefaultCompanyId();
 
-			// gets the role
+            // default user id
+            long defaultUserId = _userLocalService.getDefaultUserId(defaultCompanyId);
 
-			Role role = _roleLocalService.getRole(defaultCompanyId, roleName);
+            // Create a new user
+            User user = _userLocalService.createUser(defaultUserId);
+            user.setCompanyId(defaultCompanyId);
+            user.setPassword(password);
+            user.setEmailAddress(emailAddress);
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setStatus(0); // Default to active
 
-			// gets the user
+            // Set the locale directly
+            String languageId = UpgradeProcessUtil.getDefaultLanguageId(defaultCompanyId);
+            user.setLanguageId(languageId);
 
-			User user = _userLocalService.getUserByEmailAddress(
-				defaultCompanyId, userEmailAddress);
+            // Set create date
+            user.setCreateDate(new Date()); // Use current date
 
-			// adds the role to the user
+            // Save the user
+            return _userLocalService.addUser(user);
+        } catch (Exception exception) {
+            _log.error(exception);
+            return null;
+        }
+    }
 
-			_userGroupRoleLocalService.addUserGroupRole(user.getUserId(), _getAgentPortalGroupId(), role.getRoleId());
-		}
-		catch (Exception exception) {
-			_log.error(exception);
-		}
-	}
+    /**
+     * Gets the Agent Portal's Group Id
+     * @return
+     */
+    private long _getAgentPortalGroupId() {
+        // default company id
+        long defaultCompanyId = PortalUtil.getDefaultCompanyId();
 
-	/**
-	 * Adds the user
-	 * @param firstName
-	 * @param lastName
-	 * @param emailAddress
-	 * @param password
-	 * @param userGroupName
-	 * @return
-	 */
-	private User _addUser(
-		String firstName, String lastName, String emailAddress, String password,
-		String userGroupName) {
+        // tries to get the Group
+        Group group = GroupLocalServiceUtil.fetchGroup(
+                defaultCompanyId, ContentSetupConstants.AGENT_PORTAL_SITE_NAME);
 
-		try {
+        if (group != null) {
+            return group.getGroupId();
+        }
 
-			// default company id
+        return 0;
+    }
 
-			long defaultCompanyId = PortalUtil.getDefaultCompanyId();
+    /**
+     * Gets the User Group Id related to its name
+     * @param userGroupName
+     * @return
+     */
+    private long[] _getUserGroupId(String userGroupName)
+            throws PortalException {
 
-			// default user id
+        // if the User Group Name was informed
+        if (Validator.isNotNull(userGroupName)) {
+            // default company id
+            long defaultCompanyId = PortalUtil.getDefaultCompanyId();
 
-			long defaultUserId = _userLocalService.getDefaultUserId(
-				defaultCompanyId);
+            // gets the user group by its name
+            UserGroup userGroup = _userGroupLocalService.fetchUserGroup(
+                    defaultCompanyId, userGroupName);
 
-			// calls the service to add the user
+            if (Validator.isNull(userGroup)) {
+                throw new PortalException("User Group not found");
+            }
 
-			return _userLocalService.addUser(
-				defaultUserId, defaultCompanyId, false, password, password,
-				true, null, emailAddress,
-				LocaleUtil.fromLanguageId(
-					UpgradeProcessUtil.getDefaultLanguageId(defaultCompanyId)),
-				firstName, null, lastName, -1, -1, true,
-				LocalDateTime.now(
-				).getMonthValue() - 1,
-				LocalDateTime.now(
-				).getDayOfMonth(),
-				LocalDateTime.now(
-				).getYear(),
-				null, new long[] {_getAgentPortalGroupId()}, new long[0], new long[0],
-				_getUserGroupId(userGroupName), false,
-				GeneratorUtilities.getDefaultServiceContext(defaultUserId));
-		}
-		catch (Exception exception) {
-			_log.error(exception);
+            if (userGroup != null) {
+                return new long[] {userGroup.getUserGroupId()};
+            }
 
-			return null;
-		}
-	}
+            return new long[0];
+        }
 
-	/**
-	 * Gets the Agent Portal's Group Id
-	 * @return
-	 */
-	private long _getAgentPortalGroupId() {
+        return new long[0];
+    }
 
-		// default company id
+    /**
+     * Validates the e-mail address
+     * @param emailAddress
+     * @throws UserEmailAddressException.MustNotBeDuplicate
+     */
+    private void _validateEmailAddress(String emailAddress)
+            throws PortalException {
 
-		long defaultCompanyId = PortalUtil.getDefaultCompanyId();
+        // gets the User by its Email Address
+        User user = _userLocalService.fetchUserByEmailAddress(
+                PortalUtil.getDefaultCompanyId(), emailAddress);
 
-		// tries to get the Group
-
-		Group group = GroupLocalServiceUtil.fetchGroup(
-			defaultCompanyId, ContentSetupConstants.AGENT_PORTAL_SITE_NAME);
-
-		if (group != null) {
-			return group.getGroupId();
-		}
-
-		return 0;
-	}
-
-	/**
-	 * Gets the User Group Id related to its name
-	 * @param userGroupName
-	 * @return
-	 */
-	private long[] _getUserGroupId(String userGroupName)
-		throws PortalException {
-
-		// if the User Group Name was informed
-
-		if (Validator.isNotNull(userGroupName)) {
-
-			// default company id
-
-			long defaultCompanyId = PortalUtil.getDefaultCompanyId();
-
-			// gets the user group by its name
-
-			UserGroup userGroup = _userGroupLocalService.fetchUserGroup(
-				defaultCompanyId, userGroupName);
-
-			if (Validator.isNull(userGroup)) {
-				throw new PortalException("User Group not found");
-			}
-
-			if (userGroup != null) {
-				return new long[] {userGroup.getUserGroupId()};
-			}
-
-			return new long[0];
-		}
-
-		return new long[0];
-	}
-
-	/**
-	 * Validates the e-mail address
-	 * @param emailAddress
-	 * @throws UserEmailAddressException.MustNotBeDuplicate
-	 */
-	private void _validateEmailAddress(String emailAddress)
-		throws PortalException {
-
-		// gets the User by its Email Address
-
-		User user = _userLocalService.fetchUserByEmailAddress(
-			PortalUtil.getDefaultCompanyId(), emailAddress);
-
-		if (Validator.isNotNull(user)) {
-			throw new UserEmailAddressException.MustNotBeDuplicate(
-				user.getUserId(), emailAddress);
-		}
-		else if (!Validator.isEmailAddress(emailAddress)) {
-			throw new PortalException("Invalid E-mail Address");
-		}
-	}
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		UserDataGeneratorImpl.class);
-
-	@Reference
-	private RoleLocalService _roleLocalService;
-
-	@Reference
-	private UserGroupLocalService _userGroupLocalService;
-
-	@Reference
-	private UserGroupRoleLocalService _userGroupRoleLocalService;
-
-	@Reference
-	private UserLocalService _userLocalService;
-
+        if (Validator.isNotNull(user)) {
+            throw new UserEmailAddressException.MustNotBeDuplicate(
+                    user.getUserId(), emailAddress);
+        } else if (!Validator.isEmailAddress(emailAddress)) {
+            throw new PortalException("Invalid E-mail Address");
+        }
+    }
 }
